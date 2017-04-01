@@ -1,0 +1,6 @@
+{% with member=item %}
+<a href="{{ member.item_url }}" data-ajax-url="{{ member.ajax_item_url }}" data-ajax-title="{{ member }}" class="member">
+  <img src="{{ member.image_url }}" alt="{{ member }}">
+  <h2>{{ member }}</h2>
+</a>
+{% endwith %}

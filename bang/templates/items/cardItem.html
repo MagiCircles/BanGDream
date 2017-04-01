@@ -1,0 +1,46 @@
+{% with card=item %}
+<div class="card-wrapper{% if card.trainable %} trainable{% endif %}">
+  <{% if current == 'card_item_ajax' %}span{% else %}a href="{% if current == 'card_item' %}#card-details-{{ card.id }}{% else %}{{ card.item_url }}{% endif %}"{% if current != 'card_item' %} data-ajax-url="{{ card.ajax_item_url}}" data-ajax-title="{{ card }}"{% endif %}{% endif %} class="card card-{{ card.english_attribute }} card-rarity-{{ card.i_rarity }}{% if card.trainable %} trainable{% endif %}{% if current == 'card_item' %} page-scroll{% endif %}">
+    <figure><div class="card-image normal" style="background-image: url('{{ card.art_url }}');">
+      </div>{% if card.trainable %}<div class="card-image trained" style="background-image: url('{{ card.art_trained_url }}');">
+      </div>{% endif %}</figure>
+    <h2 class="member-name{% if LANGUAGE_CODE == 'ja' %} japanese{% endif %}">{% if LANGUAGE_CODE == 'ja' %}{{ card.cached_member.japanese_name }}{% else %}{{ card.cached_member.name }}{% endif %}</h2>
+    <div class="rarity" style="background-image: url('{{ static_url }}img/rarity/{{ card.i_rarity }}.png');"></div>
+    <div class="attribute" style="background-image: url('{{ static_url }}img/attribute/{{ card.i_attribute }}.png');"></div>
+  </{% if current == 'card_item_ajax' %}span{% else %}a{% endif %}>
+</div>
+{% if current == 'card_item' or current == 'card_item_ajax' %}
+{% load l10n %}
+<div class="card-details" id="card-details-{{ card.id }}">
+  <div class="card-statistics">
+    <div class="btn-group" data-toggle="buttons" data-control-tabs="card-{{ card.id }}">
+      {% for status, localized in card.statuses %}
+      <label class="btn btn-{{ card.english_attribute }}{% if status == 'max' %} active{% endif %}" style="width: {% if card.trainable %}33.333333333%{% else %}50%{% endif %}" data-open-tab="card-{{ card.id }}-{{ status }}">
+	<input type="radio"{% if status == 'max' %} checked{% endif %}> {{ localized }}
+      </label>
+      {% endfor %}
+    </div>
+    <div class="tab-content" data-tabs="card-{{ card.id }}">
+      {% for status, stats in card.stats_percent %}
+      <div class="tab-pane{% if status == 'max' %} active{% endif %}" data-tab="card-{{ card.id }}-{{ status }}">
+	{% for field, localized, value, max, percent in stats %}
+	<div class="row">
+	  <div class="col-xs-4">{{ localized }}</div>
+	  <div class="col-xs-2 text-right">{{ value }}</div>
+	  <div class="col-xs-6">
+	    <div class="progress">
+	      <div class="progress-bar progress-bar-{{ card.english_attribute }} progress-bar-rarity-{{ card.i_rarity }} progress-bar-striped"
+		   role="progressbar"
+		   style="width: {% localize off %}{{ percent }}{% endlocalize %}%;">
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	{% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endwith %}

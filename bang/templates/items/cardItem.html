@@ -6,7 +6,7 @@
       </div>{% endif %}</figure>
     <h2 class="member-name{% if LANGUAGE_CODE == 'ja' %} japanese{% endif %}">{% if LANGUAGE_CODE == 'ja' %}{{ card.cached_member.japanese_name }}{% else %}{{ card.cached_member.name }}{% endif %}</h2>
     <div class="rarity" style="background-image: url('{{ static_url }}img/rarity/{{ card.i_rarity }}.png');"></div>
-    <div class="attribute" style="background-image: url('{{ static_url }}img/attribute/{{ card.i_attribute }}.png');"></div>
+    <div class="attribute" style="background-image: url('{{ static_url }}img/i_attribute/{{ card.i_attribute }}.png');"></div>
   </{% if current == 'card_item_ajax' %}span{% else %}a{% endif %}>
 </div>
 {% if current == 'card_item' or current == 'card_item_ajax' %}

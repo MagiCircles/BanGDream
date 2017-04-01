@@ -131,6 +131,8 @@ LOG_EMAIL = 'emails-log@schoolido.lu'
 PASSWORD_EMAIL = 'password@schoolido.lu'
 AWS_SES_RETURN_PATH = 'contact@bandori.party'
 
+FAVORITE_CHARACTERS = []
+
 try:
     from generated_settings import *
 except ImportError, e:

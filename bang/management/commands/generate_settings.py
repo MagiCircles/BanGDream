@@ -51,16 +51,19 @@ def generate_settings():
                 'overall_max_': None,
                 'overall_trained_max_': None,
         }
-        for stat in stats.keys():
-            max_stats = models.Card.objects.all().extra(select={
-                    'overall_max_': 'performance_max + technique_max + visual_max',
-                    'overall_trained_max_': 'performance_trained_max + technique_trained_max + visual_trained_max',
-            }).order_by('-' + stat)[0]
-            stats[stat] = getattr(max_stats, stat)
-        stats['overall_max'] = stats['overall_max_']
-        del(stats['overall_max_'])
-        stats['overall_trained_max'] = stats['overall_trained_max_']
-        del(stats['overall_trained_max_'])
+        try:
+            for stat in stats.keys():
+                max_stats = models.Card.objects.all().extra(select={
+                        'overall_max_': 'performance_max + technique_max + visual_max',
+                        'overall_trained_max_': 'performance_trained_max + technique_trained_max + visual_trained_max',
+                }).order_by('-' + stat)[0]
+                stats[stat] = getattr(max_stats, stat)
+                stats['overall_max'] = stats['overall_max_']
+                del(stats['overall_max_'])
+                stats['overall_trained_max'] = stats['overall_trained_max_']
+                del(stats['overall_trained_max_'])
+        except IndexError:
+            pass
 
         print 'Get schools'
         schools = models.Member.objects.filter(school__isnull=False).values_list('school', flat=True).distinct()

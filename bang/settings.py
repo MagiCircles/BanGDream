@@ -5,10 +5,10 @@ from web.utils import tourldash
 from bang import models
 
 SITE_NAME = 'Bandori Party'
-SITE_URL = 'http://bang.schoolido.lu/'
+SITE_URL = 'http://bandori.party/'
 SITE_IMAGE = 'bandori_party.png'
 SITE_LOGO = 'bandori_party_logo.png'
-SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bang.schoolido.lu/'
+SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
 
 SITE_LOGO_PER_LANGUAGE = {
     'ja': 'bandori_party_logo_japanese.png',

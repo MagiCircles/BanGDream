@@ -65,7 +65,7 @@ class Member(ItemModel):
     @property
     def astrological_sign_image_url(self): return get_image_url_from_path(u'static/img/i_astrological_sign/{}.png'.format(self.i_astrological_sign))
 
-    hobbies = models.CharField(_('Hobbies'), max_length=100, null=True)
+    hobbies = models.CharField(_('Instrument'), max_length=100, null=True)
     description = models.TextField(_('Description'), null=True)
 
     reverse_related = (

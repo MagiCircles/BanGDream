@@ -1,5 +1,6 @@
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
+from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from web.forms import AutoForm, MagiFiltersForm, MagiFilter
@@ -10,6 +11,12 @@ from bang import models
 # Member
 
 class MemberForm(AutoForm):
+    def __init__(self, *args, **kwargs):
+        super(MemberForm, self).__init__(*args, **kwargs)
+        # Change labels for staff
+        self.fields['square_image'].label = 'Small icon (for the map)'
+        self.fields['square_image'].help_text = mark_safe('Example: <img src="https://i.bandori.party/u/i/m/1Toyama-Kasumi-D7Fpvu.png" height="40">')
+
     class Meta:
         model = models.Member
         fields = '__all__'
@@ -38,6 +45,7 @@ class CardForm(AutoForm):
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
         self.previous_member_id = None if self.is_creating else self.instance.member_id
+        self.fields['skill_details'].label = 'Skill details'
 
     def save(self, commit=False):
         instance = super(CardForm, self).save(commit=False)

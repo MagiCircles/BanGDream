@@ -7,11 +7,32 @@
 @import "/static/bower/bootstrap/less/mixins/panels.less";
 @import "/static/bower/bootstrap/less/mixins/alerts.less";
 
+/******************************************/
+/* Variables */
+/******************************************/
+
 @mainColor: #E40046;
 @secondaryColor: #F2B141;
 @darkColor: #666;
 
+/******************************************/
+/* Tools */
+/******************************************/
+
 @transition: 0.2s ease;
+
+.text-3d-border(@color) {
+    text-shadow:
+    2px 2px 0 @color,
+    -1px -1px 0 @color,
+    1px -1px 0 @color,
+    -1px 1px 0 @color,
+    1px 1px 0 @color;
+}
+
+/******************************************/
+/* Bootstrap / Home basics */
+/******************************************/
 
 html {
     .setup-sidebar(@mainColor);
@@ -141,7 +162,7 @@ h1, h2, h3, h4, h5, h6, .title, .navbar-brand, .btn-lg, .btn-xl {
 &.jumbotron-main { .jumbotron_per_color(@mainColor) }
 
 /******************************************/
-/* Elements */
+/* MagiCollections Elements */
 /******************************************/
 
 .account {
@@ -210,14 +231,9 @@ h1, h2, h3, h4, h5, h6, .title, .navbar-brand, .btn-lg, .btn-xl {
 	    border-color: @color;
 	}
 	.member-name {
-	    -webkit-text-stroke: 1px @color;
 	    color: white;
-	    text-shadow:
-	    2px 2px 0 @color,
-	    -1px -1px 0 @color,
-	    1px -1px 0 @color,
-	    -1px 1px 0 @color,
-	    1px 1px 0 @color;
+            -webkit-text-stroke: 1px @color;
+            .text-3d-border(@color);
 	}
     }
 
@@ -352,6 +368,7 @@ h1, h2, h3, h4, h5, h6, .title, .navbar-brand, .btn-lg, .btn-xl {
     h2 {
 	transform: rotate(-6deg);
 	margin-top: -10px;
+        .text-3d-border(white);
     }
     &:hover, &:focus {
 	opacity: 0.8;

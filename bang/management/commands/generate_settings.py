@@ -58,10 +58,10 @@ def generate_settings():
                         'overall_trained_max_': 'performance_trained_max + technique_trained_max + visual_trained_max',
                 }).order_by('-' + stat)[0]
                 stats[stat] = getattr(max_stats, stat)
-                stats['overall_max'] = stats['overall_max_']
-                del(stats['overall_max_'])
-                stats['overall_trained_max'] = stats['overall_trained_max_']
-                del(stats['overall_trained_max_'])
+            stats['overall_max'] = stats['overall_max_']
+            del(stats['overall_max_'])
+            stats['overall_trained_max'] = stats['overall_trained_max_']
+            del(stats['overall_trained_max_'])
         except IndexError:
             pass
 

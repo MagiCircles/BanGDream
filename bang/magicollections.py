@@ -78,14 +78,16 @@ class MemberCollection(MagiCollection):
         }, images={
             'astrological_sign': '{}img/i_astrological_sign/{}.png'.format(RAW_CONTEXT['static_url'], item.i_astrological_sign),
         }, **kwargs)
-        del(fields['square_image'])
+        if 'square_image' in fields:
+            del(fields['square_image'])
         setSubField(fields, 'birthday', key='value', value=lambda f: dateformat.format(item.birthday, "F d"))
         setSubField(fields, 'band', key='type', value=lambda f: 'image')
         setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
         setSubField(fields, 'description', key='type', value='long_text')
         if get_language() == 'ja':
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))
-            del(fields['romaji_CV'])
+            if 'romaji_CV' in fields:
+                del(fields['romaji_CV'])
         return fields
 
     filter_cuteform = {

@@ -61,7 +61,7 @@ class Member(ItemModel):
     @property
     def astrological_sign(self): return ASTROLOGICAL_SIGN_DICT[self.i_astrological_sign] if self.i_astrological_sign else None
     @property
-    def english_astrological_sign(self): return UNTRANSLATED_ASTROLOGICAL_SIGN_DICT[self.i_astrological_sign] if self.i_astrological_sign else None
+    def english_astrological_sign(self): return ENGLISH_ASTROLOGICAL_SIGN_DICT[self.i_astrological_sign] if self.i_astrological_sign else None
     @property
     def astrological_sign_image_url(self): return get_image_url_from_path(u'static/img/i_astrological_sign/{}.png'.format(self.i_astrological_sign))
 

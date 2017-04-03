@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -39,9 +38,12 @@ INSTALLED_APPS = (
     'corsheaders',
     'bootstrapform',
     'bootstrap_form_horizontal',
-    'rest_framework',
     'storages',
     'web',
+    'api',
+    'rest_framework',
+    'oauth2_provider',
+    'django.contrib.auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,6 +65,26 @@ ROOT_URLCONF = 'bang_project.urls'
 
 WSGI_APPLICATION = 'bang_project.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'web.api_permissions.IsStaffOrSelf',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'web.api_renderers.JSONRenderer',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'PAGINATE_BY': 10,
+    'MAX_PAGINATE_BY': 100,
+    'PAGINATE_BY_PARAM': 'page_size',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+    ),
+}
+
+OAUTH2_PROVIDER = {
+    'ALLOWED_REDIRECT_URI_SCHEMES': ['http', 'https', 'magicircles'],
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -132,6 +154,8 @@ PASSWORD_EMAIL = 'password@schoolido.lu'
 AWS_SES_RETURN_PATH = 'contact@bandori.party'
 
 FAVORITE_CHARACTERS = []
+
+LOGIN_URL = '/login/'
 
 try:
     from generated_settings import *

@@ -5,17 +5,17 @@ from django.utils.translation import ugettext_lazy as _
 # Members
 
 BANDS = [
-    'poppin\' party',
-    'afterglow',
-    'pastel*palettes',
-    'roselia',
-    'hello, happy world!',
+    'Poppin\' Party',
+    'Afterglow',
+    'Pastel*Palettes',
+    'Roselia',
+    'Hello, Happy World!',
 ]
 
 BAND_CHOICES = list(enumerate(BANDS))
 BAND_DICT = dict(BAND_CHOICES)
 
-UNTRANSLATED_ASTROLOGICAL_SIGNS = [
+ENGLISH_ASTROLOGICAL_SIGNS = [
     'Leo',
     'Aries',
     'Libra',
@@ -29,9 +29,9 @@ UNTRANSLATED_ASTROLOGICAL_SIGNS = [
     'Aquarius',
     'Taurus',
 ]
-UNTRANSLATED_ASTROLOGICAL_SIGN_CHOICES = list(enumerate(UNTRANSLATED_ASTROLOGICAL_SIGNS))
-UNTRANSLATED_ASTROLOGICAL_SIGN_DICT = dict(UNTRANSLATED_ASTROLOGICAL_SIGN_CHOICES)
-ASTROLOGICAL_SIGN_REVERSE_DICT = { value: key for (key, value) in list(enumerate(UNTRANSLATED_ASTROLOGICAL_SIGNS)) }
+ENGLISH_ASTROLOGICAL_SIGN_CHOICES = list(enumerate(ENGLISH_ASTROLOGICAL_SIGNS))
+ENGLISH_ASTROLOGICAL_SIGN_DICT = dict(ENGLISH_ASTROLOGICAL_SIGN_CHOICES)
+ASTROLOGICAL_SIGN_REVERSE_DICT = { value: key for (key, value) in list(enumerate(ENGLISH_ASTROLOGICAL_SIGNS)) }
 ASTROLOGICAL_SIGNS = [
     _('Leo'),
     _('Aries'),
@@ -55,8 +55,17 @@ SCHOOL_YEARS = [
     _('Third'),
 ]
 
+ENGLISH_SCHOOL_YEARS = [
+    'First',
+    'Second',
+    'Third',
+]
+
 SCHOOL_YEAR_CHOICES = list(enumerate(SCHOOL_YEARS))
 SCHOOL_YEAR_DICT = dict(SCHOOL_YEAR_CHOICES)
+
+ENGLISH_SCHOOL_YEAR_CHOICES = list(enumerate(ENGLISH_SCHOOL_YEARS))
+ENGLISH_SCHOOL_YEAR_DICT = dict(ENGLISH_SCHOOL_YEAR_CHOICES)
 
 ############################################################
 # Cards
@@ -107,6 +116,12 @@ ENGLISH_ATTRIBUTE_DICT = dict(ENGLISH_ATTRIBUTE_CHOICES)
 SKILL_SCORE_UP = 1
 SKILL_LIFE_RECOVERY = 2
 SKILL_PERFECT_LOCK = 3
+
+ENGLISH_SKILL_TYPES_DICT = {
+    SKILL_SCORE_UP: 'Score Up',
+    SKILL_LIFE_RECOVERY: 'Life Recovery',
+    SKILL_PERFECT_LOCK: 'Perfect Lock',
+}
 
 SKILL_TYPES = {
     SKILL_SCORE_UP: (_('Score Up'), u'スコアＵＰ'),

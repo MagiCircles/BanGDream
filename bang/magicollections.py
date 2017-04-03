@@ -82,6 +82,7 @@ class MemberCollection(MagiCollection):
         setSubField(fields, 'birthday', key='value', value=lambda f: dateformat.format(item.birthday, "F d"))
         setSubField(fields, 'band', key='type', value=lambda f: 'image')
         setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
+        setSubField(fields, 'description', key='type', value='long_text')
         if get_language() == 'ja':
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))
             del(fields['romaji_CV'])

@@ -53,6 +53,13 @@ Get Started
   python manage.py generate_settings
   ```
 
+- Get the static files
+
+  ```shell
+  git clone https://github.com/SchoolIdolTomodachi/StardustRun-Static.git
+  mv StardustRun-Static stardustrun/static
+  ```
+
 - Download front-end dependencies
 
   ```shell

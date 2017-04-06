@@ -67,6 +67,7 @@ class MemberCollection(MagiCollection):
             'japanese_name': 'id',
             'band': 'users',
             'school': 'max-bond',
+            'school_year': 'max-bond',
             'CV': 'profile',
             'romaji_CV': 'profile',
             'birthday': 'event',
@@ -88,12 +89,13 @@ class MemberCollection(MagiCollection):
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))
             if 'romaji_CV' in fields:
                 del(fields['romaji_CV'])
-        fields['source'] = {
-            'verbose_name': _('Source'),
-            'link_text': 'BanGDreaming Tumblr',
-            'type': 'link',
-            'value': 'https://bangdreaming.tumblr.com/chara',
-        }
+        if 'description' in fields:
+            fields['source'] = {
+                'verbose_name': _('Source'),
+                'link_text': 'BanGDreaming Tumblr',
+                'type': 'link',
+                'value': 'https://bangdreaming.tumblr.com/chara',
+            }
         return fields
 
     filter_cuteform = {

@@ -48,7 +48,7 @@ class Member(ItemModel):
     school = models.CharField(_('School'), max_length=100, null=True)
     i_school_year = models.PositiveIntegerField(_('School Year'), choices=SCHOOL_YEAR_CHOICES, null=True)
     @property
-    def school_year(self): return SCHOOL_YEAR_DICT[self.i_school_year] if self.i_school_year else None
+    def school_year(self): return SCHOOL_YEAR_DICT[self.i_school_year] if self.i_school_year is not None else None
 
     romaji_CV = models.CharField(_('CV'), help_text='In romaji.', max_length=100, null=True)
     CV = models.CharField(string_concat(_('CV'), ' (', t['Japanese'], ')'), help_text='In Japanese characters.', max_length=100, null=True)
@@ -59,9 +59,9 @@ class Member(ItemModel):
 
     i_astrological_sign = models.PositiveIntegerField(_('Astrological Sign'), choices=ASTROLOGICAL_SIGN_CHOICES, null=True)
     @property
-    def astrological_sign(self): return ASTROLOGICAL_SIGN_DICT[self.i_astrological_sign] if self.i_astrological_sign else None
+    def astrological_sign(self): return ASTROLOGICAL_SIGN_DICT[self.i_astrological_sign] if self.i_astrological_sign is not None else None
     @property
-    def english_astrological_sign(self): return ENGLISH_ASTROLOGICAL_SIGN_DICT[self.i_astrological_sign] if self.i_astrological_sign else None
+    def english_astrological_sign(self): return ENGLISH_ASTROLOGICAL_SIGN_DICT[self.i_astrological_sign] if self.i_astrological_sign is not None else None
     @property
     def astrological_sign_image_url(self): return get_image_url_from_path(u'static/img/i_astrological_sign/{}.png'.format(self.i_astrological_sign))
 
@@ -247,7 +247,7 @@ class Card(ItemModel):
     _cache_member_last_update = models.DateTimeField(null=True)
     _cache_member_name = models.CharField(max_length=100, null=True)
     _cache_member_japanese_name = models.CharField(max_length=100, null=True)
-    _cache_member_image = models.ImageField(upload_to=uploadItem('member'), null=True, blank=True)
+    _cache_member_image = models.ImageField(upload_to=uploadItem('member'), null=True)
 
     def update_cache_member(self):
         self._cache_member_last_update = timezone.now()

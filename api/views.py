@@ -89,6 +89,12 @@ class MemberViewSet(viewsets.ModelViewSet):
 class CardSerializer(MagiSerializer):
     i_attribute = IField(models.ENGLISH_ATTRIBUTE_DICT)
     i_skill_type = IField(models.ENGLISH_SKILL_TYPES_DICT)
+    image = ImageField(required=True)
+    image_trained = ImageField(required=False)
+    art = ImageField(required=True)
+    art_trained = ImageField(required=False)
+    transparent = ImageField(required=True)
+    transparent_trained = ImageField(required=False)
 
     def validate(self, data):
         if self.context['request'].method == 'POST' and 'member' not in self.context['request'].data:

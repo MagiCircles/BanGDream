@@ -230,10 +230,12 @@ class CardCollection(MagiCollection):
             ('transparent_trained', ('link', string_concat(_('Transparent'), ' (', _('Trained'), ')'), None)),
         ] if item.trainable or '_trained' not in field])
         if get_language() == 'ja':
-            del(final_fields['skill'])
+            if 'skill' in final_fields:
+                del(final_fields['skill'])
             icon, localized, field_info = final_fields['japanese_skill']
             final_fields['japanese_skill'] = (icon, _('Skill'), field_info)
-            del(final_fields['skill_name'])
+            if 'skill_name' in final_fields:
+                del(final_fields['skill_name'])
             icon, localized, field_info = final_fields['japanese_skill_name']
             final_fields['japanese_skill_name'] = (icon, _('Title'), field_info)
         if in_list and only_fields:

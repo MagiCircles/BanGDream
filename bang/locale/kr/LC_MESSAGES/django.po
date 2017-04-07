@@ -22,59 +22,59 @@ msgstr "계정"
 msgid "Leaderboard"
 msgstr "순위표"
 
-#: web/magicollections.py:476
+#: web/magicollections.py:484
 msgid "Create your account to join the community and be in the leaderboard!"
 msgstr "새로운 계정을 만들어 커뮤니티에 참가하고 순위표에 올라가 보세요!"
 
-#: web/default_settings.py:65 web/magicollections.py:517
+#: web/default_settings.py:66 web/magicollections.py:524
 #: web/model_choices.py:107 web/templates/items/donateItem.html:44
 #: web/templates/items/profile.html:26 web/templates/pages/about.html:65
 msgid "Profile"
 msgstr "프로필"
 
-#: web/magicollections.py:518
+#: web/magicollections.py:525
 msgid "Players"
 msgstr ""
 
-#: web/magicollections.py:681 web/model_choices.py:106
+#: web/magicollections.py:688 web/model_choices.py:106
 #: web/templates/items/profile.html:116
 msgid "Activity"
 msgstr "활동"
 
-#: web/default_settings.py:197 web/magicollections.py:682
+#: web/default_settings.py:203 web/magicollections.py:689
 msgid "Activities"
 msgstr "활동"
 
-#: web/magicollections.py:658 web/magicollections.py:725
+#: web/magicollections.py:665 web/magicollections.py:732
 msgid "Share your adventures!"
 msgstr "프로듀서님의 이야기를 함께 나눠요!"
 
-#: web/magicollections.py:806 web/management/commands/cron_notifications.py:30
+#: web/magicollections.py:813 web/management/commands/cron_notifications.py:30
 #: web/templates/emails/notification.html:5
 #: web/templates/emails/notification.html:6
 msgid "Notification"
 msgstr "알림"
 
-#: web/magicollections.py:807 web/magicollections.py:820
+#: web/magicollections.py:814 web/magicollections.py:827
 msgid "Notifications"
 msgstr "알림"
 
-#: web/default_settings.py:53 web/templates/pages/login.html:4
+#: web/default_settings.py:54 web/templates/pages/login.html:4
 #: web/templates/pages/login.html.py:6 web/templates/pages/signup.html:8
 msgid "Login"
 msgstr "로그인"
 
-#: web/default_settings.py:59 web/templates/pages/login.html:8
+#: web/default_settings.py:60 web/templates/pages/login.html:8
 #: web/templates/pages/signup.html:4 web/templates/pages/signup.html.py:6
 msgid "Sign Up"
 msgstr "가입"
 
-#: web/default_settings.py:75 web/templates/items/profile.html:28
-#: web/templates/pages/settings.html:16 web/views.py:108
+#: web/default_settings.py:76 web/templates/items/profile.html:28
+#: web/templates/pages/settings.html:16 web/views.py:119
 msgid "Settings"
 msgstr "설정"
 
-#: web/default_settings.py:83
+#: web/default_settings.py:84
 msgid "Logout"
 msgstr "로그아웃"
 
@@ -82,7 +82,7 @@ msgstr "로그아웃"
 msgid "About"
 msgstr "상세"
 
-#: web/magicollections.py:1009 web/templates/emails/donation_footer.html:3
+#: web/magicollections.py:1016 web/templates/emails/donation_footer.html:3
 #: web/templates/include/about_description.html:7
 #: web/templates/include/homePage.html:12
 msgid "Donate"
@@ -94,29 +94,29 @@ msgid "Map"
 msgstr "지도"
 
 #. Link to the help pages that look like a wiki and help people use the site.
-#: web/default_settings.py:118 web/default_settings.py:124
+#: web/default_settings.py:124 web/default_settings.py:130
 msgid "Help"
 msgstr "도움말"
 
 #. The favorite color of the user. Will be used to personalize their profile.
-#: web/forms.py:305 web/models.py:63
+#: web/forms.py:319 web/models.py:63
 msgid "Color"
 msgstr "좋아하는 색상"
 
 #. This is about the favorite characters the user specified in their preferences.
-#: web/forms.py:343
+#: web/forms.py:357
 msgid "All your favorites must be unique"
 msgstr "좋아하는 아이돌은 중복 설정할 수 없습니다."
 
-#: web/forms.py:400
+#: web/forms.py:414
 msgid "Old Password"
 msgstr "현재 비밀번호"
 
-#: web/forms.py:401
+#: web/forms.py:415
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: web/forms.py:402
+#: web/forms.py:416
 msgid "New Password Again"
 msgstr "새 비밀번호 확인"
 
@@ -195,7 +195,7 @@ msgid "When someone follows you."
 msgstr "누군가 나를 팔로잉 할 때"
 
 #. Personal description you can write on your profile. Similar to twitter's "bio".
-#: bang/models.py:69
+#: bang/models.py:82
 msgid "Description"
 msgstr "설명"
 
@@ -250,11 +250,11 @@ msgid "Write your username only, no URL."
 msgstr "URL이 아니라 사용자 이름/ID만 적어주세요."
 
 #. For links.
-#: web/forms.py:434 web/models.py:194
+#: web/forms.py:448 web/models.py:194
 msgid "How often do you tweet/stream/post about {}?"
 msgstr "얼마나 자주 {} 에 대해 트윗/방송/포스팅 하나요?"
 
-#: web/templates/base.html:119
+#: web/templates/base.html:117
 msgid "Help us translate the site"
 msgstr "여러분의 언어로 사이트 번역을 도와주세요!"
 
@@ -362,36 +362,36 @@ msgstr "계정 이전 등 민감한 사항에 대해 도움을 받고 싶으시�
 msgid "Send Email"
 msgstr "이메일 보내기"
 
-#: web/templates/pages/about.html:107
+#: web/templates/pages/about.html:108
 msgid "You can also contact us with a private message on:"
 msgstr "아니면 아래의 개인 메시지를 통해서 연락할 수도 있습니다."
 
-#: web/templates/pages/about.html:121
+#: web/templates/pages/about.html:122
 msgid "For suggestions or bug reports, we recommend you to:"
 msgstr "기능 제안이나 버그 신고를 위해, 다음을 확인해 보는 것을 권장합니다:"
 
-#: web/templates/pages/about.html:124
+#: web/templates/pages/about.html:125
 msgid "Browse the upcoming features on"
 msgstr ""
 
-#: web/templates/pages/about.html:124
+#: web/templates/pages/about.html:125
 msgid "our Tasks manager"
 msgstr ""
 
 #. 이건 위키쪽 같은데 확인좀요
-#: web/templates/pages/about.html:125
+#: web/templates/pages/about.html:126
 msgid "Create a new issue"
 msgstr "새로운 이슈 만들기"
 
-#: web/templates/pages/about.html:125
+#: web/templates/pages/about.html:126
 msgid "with the details about what you would like us to implement"
 msgstr ""
 
-#: web/templates/pages/about.html:160
+#: web/templates/pages/about.html:161
 msgid "Franchise Credits"
 msgstr ""
 
-#: web/templates/pages/about.html:170
+#: web/templates/pages/about.html:171
 msgid "Icons Credits"
 msgstr ""
 
@@ -408,36 +408,36 @@ msgstr ""
 msgid "Staff"
 msgstr "관리자"
 
-#: web/templates/pages/about.html:135
+#: web/templates/pages/about.html:136
 msgid "Check out our other websites"
 msgstr "우리가 만든 다른 웹사이트도 확인해보세요"
 
-#: web/templates/pages/about.html:179
+#: web/templates/pages/about.html:180
 msgid "Contribute"
 msgstr ""
 
-#: web/templates/pages/about.html:179 web/templates/pages/about.html.py:195
+#: web/templates/pages/about.html:180 web/templates/pages/about.html.py:196
 msgid "Dev"
 msgstr "개발자"
 
-#: web/templates/pages/about.html:181
+#: web/templates/pages/about.html:182
 msgid "Our project is open-source and open for contributions. We are more than happy to accept pull-requests on GitHub!"
 msgstr "이 프로젝트는 오픈소스이며 자유롭게 참가할 수 있습니다. GitHub에서 풀 리퀘스트를 받는다면 정말 행복할 것입니다."
 
-#: web/templates/pages/about.html:183
+#: web/templates/pages/about.html:184
 msgid "The website has been made using"
 msgstr "본 웹사이트는 다음 툴을 사용하여 제작되었습니다:"
 
-#: web/templates/pages/about.html:183
+#: web/templates/pages/about.html:184
 msgid "so in Python 2. We also use"
 msgstr "따라서 Python 2를 사용합니다. 또한 웹사이트 프론트엔드 제작에 다음 툴을 사용합니다:"
 
 #. A single sentence is split to three parts; due to Korean language syntax, this sentence should be merged to previous one.
-#: web/templates/pages/about.html:183
+#: web/templates/pages/about.html:184
 msgid "for the front-end of the website."
 msgstr " "
 
-#: web/templates/pages/about.html:185
+#: web/templates/pages/about.html:186
 msgid "We accept all kind of contributions, from tools to help players, statistics pages, mini-games, or even little CSS changes. Don't be shy! If you need help getting started, just contact us and we will happily take the time to teach you the basics, no matter your level."
 msgstr "저희는 플레이어를 도와주는 도구에서부터 통계 페이지, 미니 게임, 내지는 사소한 CSS 변경까지 모든 종류의 참여를 받고 있습니다. 자신감을 가지세요! 참여를 시작하는데 도움이 필요하다면, 저희에게 연락하세요. 여러분의 수준에 맞추어 기꺼이 기본 지식을 가르쳐 드리겠습니다."
 
@@ -445,7 +445,7 @@ msgstr "저희는 플레이어를 도와주는 도구에서부터 통계 페이�
 msgid "Get Started"
 msgstr "시작하기"
 
-#: web/templates/pages/about.html:197
+#: web/templates/pages/about.html:198
 msgid "If you're a developer and you would like to get the data of the game in a convenient format, we provide a public REST API to get the game data, our users datacards, and more!"
 msgstr "당신이 개발자이며 게임 데이터를 편리한 형식으로 제공받고자 한다면, 공개 REST API를 이용하여 게임 데이터, 사용자 데이터 카드 및 더 많은 데이터를 제공해 드릴 수 있습니다."
 
@@ -496,7 +496,7 @@ msgstr "Gravatar 사용법이 궁금합니다"
 msgid "Change Avatar"
 msgstr "아바타 변경"
 
-#: web/default_settings.py:193 web/magicollections.py:452
+#: web/default_settings.py:199 web/magicollections.py:459
 #: web/templates/pages/settings.html:54
 msgid "Accounts"
 msgstr "계정"
@@ -535,7 +535,7 @@ msgstr "{object} 검색 결과 1개:"
 msgid "{total} {objects} match your search:"
 msgstr "{objects} 검색 결과 {total}개:"
 
-#: web/magicollections.py:290
+#: web/magicollections.py:292
 msgid "Become a contributor to help us fill the database"
 msgstr "공헌자가 되어 데이터베이스 작성을 도와주세요"
 
@@ -550,15 +550,15 @@ msgstr "이 동작은 취소할 수 없습니다."
 msgid "Add"
 msgstr "추가"
 
-#: web/views.py:112 web/views.py:113
+#: web/views.py:123 web/views.py:124
 msgid "Link"
 msgstr "링크"
 
-#: web/forms.py:464
+#: web/forms.py:478
 msgid "Confirm"
 msgstr "확인"
 
-#: web/forms.py:475 web/forms.py:506
+#: web/forms.py:489 web/forms.py:520
 msgid "Tags"
 msgstr "태그"
 
@@ -571,7 +571,7 @@ msgstr "언어"
 msgid "Message"
 msgstr "메시지"
 
-#: bang/models.py:37 bang/models.py:38
+#: bang/models.py:50 bang/models.py:51
 msgid "Image"
 msgstr "이미지"
 
@@ -585,7 +585,7 @@ msgstr "좋아요"
 msgid "Like"
 msgstr "좋아요 하기"
 
-#: web/forms.py:537 web/models.py:388 web/templates/items/reportItem.html:38
+#: web/forms.py:551 web/models.py:388 web/templates/items/reportItem.html:38
 msgid "Images"
 msgstr "이미지"
 
@@ -605,27 +605,27 @@ msgstr ""
 msgid "Reported by:"
 msgstr "제보한 사람:"
 
-#: web/views.py:295 web/views.py:323
+#: web/views.py:306 web/views.py:334
 msgid "This {thing} you reported has been reviewed by a moderator and {verb}. Thank you so much for your help!"
 msgstr ""
 
-#: web/views.py:295 web/views.py:303 web/views.py:306 web/views.py:331
+#: web/views.py:306 web/views.py:314 web/views.py:317 web/views.py:342
 msgid "edited"
 msgstr "수정됨"
 
-#: web/views.py:298 web/views.py:326
+#: web/views.py:309 web/views.py:337
 msgid "Thank you for reporting this {thing}"
 msgstr "{thing}을/를 신고해 주셔서 감사합니다."
 
-#: web/views.py:303 web/views.py:331
+#: web/views.py:314 web/views.py:342
 msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
 msgstr "{thing}이/가 신고되었습니다. 관리자가 검토 후 {verb} 조치를 취할 것입니다."
 
-#: web/views.py:306 web/views.py:334
+#: web/views.py:317 web/views.py:345
 msgid "Your {thing} has been {verb}"
 msgstr "당신의 {thing}은/는 {verb} 처리되었습니다."
 
-#: web/views.py:323 web/views.py:334
+#: web/views.py:334 web/views.py:345
 msgid "deleted"
 msgstr "삭제됨"
 
@@ -635,7 +635,7 @@ msgstr "삭제됨"
 msgid "Hi"
 msgstr ""
 
-#: web/forms.py:318 web/magicollections.py:614 web/models.py:60
+#: web/forms.py:332 web/magicollections.py:621 web/models.py:60
 #: web/models.py:61 web/models.py:62
 msgid "{nth} Favorite Character"
 msgstr "{nth} 좋아하는 아이돌"
@@ -644,11 +644,11 @@ msgstr "{nth} 좋아하는 아이돌"
 msgid "The {game} Database & Community"
 msgstr "The {game} 데이터베이스 & 커뮤니티"
 
-#: web/views.py:84
+#: web/views.py:95
 msgid "{site} is not a representative and is not associated with {game}. Its logos and images are Trademarks of {company}."
 msgstr "{site}은/는 {game}의 대표 사이트나 연관 사이트가 아닙니다. 로고와 이미지는 {company}의 등록 상표입니다."
 
-#: web/views.py:84
+#: web/views.py:95
 msgid "the company that owns {game}"
 msgstr "{game} 을 보유중인 회사"
 
@@ -705,22 +705,20 @@ msgstr ""
 msgid "Starter"
 msgstr "시작 아이돌"
 
-#: cpro/forms.py:42 cpro/forms.py:280
+#: bang/forms.py:21
 msgid "This date cannot be in the future."
 msgstr "현재보다 뒤의 날짜로 설정할 수 없습니다."
 
-#: bang/models.py:23
+#: bang/forms.py:34 bang/models.py:24
 msgid "Level"
 msgstr "레벨"
 
-#: cpro/forms.py:93 cpro/models.py:222
-#: cpro/templates/ajax/account_about.html:71
+#: bang/forms.py:37 bang/models.py:23
 msgid "Start Date"
 msgstr "게임 시작일"
 
 #. Cinderella.pro가입 날짜
-#: cpro/forms.py:92 cpro/models.py:200
-#: cpro/templates/ajax/account_about.html:77
+#: bang/forms.py:36 bang/models.py:22
 msgid "Join Date"
 msgstr "사이트 가입일"
 
@@ -1002,7 +1000,7 @@ msgstr ""
 msgid "You have {} of them in you collection. Delete them before changing this."
 msgstr ""
 
-#: web/default_settings.py:105
+#: web/default_settings.py:111
 msgid "About the game"
 msgstr ""
 
@@ -1032,7 +1030,8 @@ msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
 msgstr "를 위해 총 %(total_donators)명이 기부해 주었습니다. 목표치: %(adjective)"
 
 #: web/templates/include/homePage.html:25
-#: web/templates/include/homePage.html:28
+#: web/templates/include/homePage.html:28 web/templates/pages/prelaunch.html:14
+#: web/templates/pages/prelaunch.html:17
 msgid "About %(site_name)s"
 msgstr "%(site_name)s 에 대하여"
 
@@ -1045,7 +1044,7 @@ msgid "About the creators"
 msgstr ""
 
 #. 소셜 미디어 공유 기본 메시지
-#: web/magicollections.py:662
+#: web/magicollections.py:669
 msgid "Check out {username}'s awesome collection!"
 msgstr "{username}의 멋진 데레스테 컬렉션을 확인해 보세요!"
 
@@ -1167,27 +1166,27 @@ msgstr ""
 msgid "seconds"
 msgstr ""
 
-#: web/forms.py:511
+#: web/forms.py:525
 msgid "Last Update"
 msgstr ""
 
-#: web/forms.py:512
+#: web/forms.py:526
 msgid "Creation"
 msgstr ""
 
-#: web/forms.py:513 web/forms.py:514
+#: web/forms.py:527 web/forms.py:528
 msgid "Most Popular"
 msgstr ""
 
-#: web/forms.py:513
+#: web/forms.py:527
 msgid "All time"
 msgstr "전체 기간"
 
-#: web/forms.py:514
+#: web/forms.py:528
 msgid "This week"
 msgstr "이번 주"
 
-#: bang/forms.py:27 bang/forms.py:85
+#: cpro/forms.py:95 cpro/forms.py:131 cpro/forms.py:167 cpro/forms.py:235
 msgid "Ordering"
 msgstr "정렬"
 
@@ -1196,7 +1195,7 @@ msgstr "정렬"
 msgid "View all"
 msgstr "모두 보기"
 
-#: web/magicollections.py:640
+#: web/magicollections.py:647
 msgid "{age} years old"
 msgstr "{age}세"
 
@@ -1204,7 +1203,7 @@ msgstr "{age}세"
 msgid "Check out my collection of cards!"
 msgstr ""
 
-#: cpro/forms.py:40 cpro/forms.py:278
+#: bang/forms.py:19
 msgid "The game didn't even exist at that time."
 msgstr "이 게임은 그 날짜에는 아직 출시되지도 않았습니다!"
 
@@ -1219,7 +1218,7 @@ msgstr ""
 msgid "Center"
 msgstr "리더 아이돌"
 
-#: bang/forms.py:75 bang/models.py:119
+#: bang/forms.py:108 bang/models.py:133
 msgid "Rarity"
 msgstr "레어도"
 
@@ -1239,8 +1238,8 @@ msgstr "역순"
 msgid "Accept friend requests"
 msgstr "친구요청 허용"
 
-#: bang/forms.py:24 bang/forms.py:25 bang/forms.py:73 bang/forms.py:74
-#: bang/models.py:35 bang/models.py:36
+#: bang/forms.py:68 bang/forms.py:69 bang/forms.py:106 bang/forms.py:107
+#: bang/models.py:48 bang/models.py:49
 msgid "Name"
 msgstr "이름"
 
@@ -1248,7 +1247,7 @@ msgstr "이름"
 msgid "Age"
 msgstr "나이"
 
-#: bang/forms.py:26 bang/models.py:56
+#: bang/forms.py:70 bang/models.py:69
 msgid "Birthday"
 msgstr "생일"
 
@@ -1282,7 +1281,7 @@ msgstr "순위보상 {}단계 포인트"
 msgid "T{} rank"
 msgstr "순위보상 {}단계 등수"
 
-#: bang/settings.py:46
+#: bang/settings.py:49
 msgid "Event"
 msgstr "이벤트"
 
@@ -1300,8 +1299,8 @@ msgstr "한정"
 msgid "Awakened"
 msgstr "특훈 완료"
 
-#: bang/magicollections.py:214 bang/magicollections.py:215 bang/models.py:135
-#: bang/models.py:140
+#: bang/magicollections.py:271 bang/magicollections.py:272 bang/models.py:149
+#: bang/models.py:154
 msgid "Art"
 msgstr "일러스트"
 
@@ -1310,7 +1309,7 @@ msgstr "일러스트"
 msgid "Release Date"
 msgstr "배포일"
 
-#: bang/forms.py:72 bang/magicollections.py:197 bang/models.py:116
+#: bang/forms.py:105 bang/magicollections.py:254 bang/models.py:130
 msgid "ID"
 msgstr "ID"
 
@@ -1326,13 +1325,13 @@ msgstr "보컬"
 msgid "Dance"
 msgstr "댄스"
 
-#: bang/forms.py:81 bang/forms.py:82 bang/models.py:183 bang/models.py:184
-#: bang/models.py:185 bang/models.py:238
+#: bang/forms.py:114 bang/forms.py:115 bang/models.py:197 bang/models.py:198
+#: bang/models.py:199 bang/models.py:252
 msgid "Visual"
 msgstr "비쥬얼"
 
-#: bang/magicollections.py:201 bang/magicollections.py:205
-#: bang/magicollections.py:222 bang/models.py:161 bang/models.py:166
+#: bang/magicollections.py:258 bang/magicollections.py:262
+#: bang/magicollections.py:280 bang/models.py:175 bang/models.py:180
 msgid "Skill"
 msgstr "특기"
 
@@ -1361,7 +1360,7 @@ msgstr "아이돌마스터"
 msgid "Cute"
 msgstr "큐트"
 
-#: bang/model_choices.py:93 bang/settings.py:60
+#: bang/model_choices.py:102 bang/settings.py:63
 msgid "Cool"
 msgstr "쿨"
 
@@ -1610,7 +1609,7 @@ msgstr "혈액형"
 msgid "Writing Hand"
 msgstr "주로 사용하는 손"
 
-#: bang/models.py:60
+#: bang/models.py:73
 msgid "Astrological Sign"
 msgstr "별자리"
 
@@ -1618,11 +1617,11 @@ msgstr "별자리"
 msgid "Hometown"
 msgstr "고향"
 
-#: bang/models.py:68
+#: cpro/models.py:63
 msgid "Hobbies"
 msgstr "취미"
 
-#: bang/magicollections.py:86 bang/models.py:53 bang/models.py:54
+#: bang/magicollections.py:134 bang/models.py:66 bang/models.py:67
 msgid "CV"
 msgstr "성우"
 
@@ -1656,18 +1655,18 @@ msgstr "운영체제"
 msgid "Idol"
 msgstr "아이돌"
 
-#: bang/magicollections.py:199 bang/magicollections.py:200
-#: bang/magicollections.py:225
+#: bang/magicollections.py:256 bang/magicollections.py:257
+#: bang/magicollections.py:284
 msgid "Title"
 msgstr "이름"
 
-#: bang/magicollections.py:216 bang/magicollections.py:217 bang/models.py:145
-#: bang/models.py:150
+#: bang/magicollections.py:273 bang/magicollections.py:274 bang/models.py:159
+#: bang/models.py:164
 msgid "Transparent"
 msgstr "투명"
 
-#: bang/magicollections.py:209 bang/magicollections.py:213 bang/models.py:129
-#: bang/models.py:130
+#: bang/magicollections.py:266 bang/magicollections.py:270 bang/models.py:143
+#: bang/models.py:144
 msgid "Icon"
 msgstr "아이콘"
 
@@ -1677,19 +1676,19 @@ msgstr "아이콘"
 msgid "Puchi"
 msgstr "푸치"
 
-#: bang/models.py:177 bang/models.py:180 bang/models.py:183
+#: bang/models.py:191 bang/models.py:194 bang/models.py:197
 msgid "Minimum"
 msgstr "최소"
 
-#: bang/magicollections.py:183 bang/magicollections.py:190 bang/models.py:178
-#: bang/models.py:179 bang/models.py:181 bang/models.py:182 bang/models.py:184
-#: bang/models.py:185
+#: bang/magicollections.py:240 bang/magicollections.py:247 bang/models.py:192
+#: bang/models.py:193 bang/models.py:195 bang/models.py:196 bang/models.py:198
+#: bang/models.py:199
 msgid "Maximum"
 msgstr "최대"
 
 #. 아이돌 어필치의 총 합
-#: bang/forms.py:83 bang/forms.py:84 bang/magicollections.py:183
-#: bang/magicollections.py:190 bang/models.py:239
+#: bang/forms.py:116 bang/forms.py:117 bang/magicollections.py:240
+#: bang/magicollections.py:247 bang/models.py:253
 msgid "Overall"
 msgstr "총합"
 
@@ -1714,7 +1713,7 @@ msgstr "특기 레벨"
 msgid "Obtained Date"
 msgstr "카드 취득 일자"
 
-#: bang/magicollections.py:125 bang/models.py:72
+#: bang/magicollections.py:182 bang/models.py:85
 msgid "Cards"
 msgstr "카드"
 
@@ -1734,16 +1733,16 @@ msgstr "{nth} 좋아하는 아이돌"
 msgid "Favorite Cards"
 msgstr "좋아하는 카드"
 
-#: bang/settings.py:45
+#: bang/settings.py:48
 msgid "New Cards"
 msgstr "신규카드"
 
-#: bang/settings.py:47
+#: bang/settings.py:50
 msgid "Live"
 msgstr "라이브"
 
 #. 액티비티 분류 태그
-#: bang/settings.py:44
+#: bang/settings.py:47
 msgid "Comedy"
 msgstr "유머"
 
@@ -1751,7 +1750,7 @@ msgstr "유머"
 msgid "Room Decoration"
 msgstr "방 꾸미기"
 
-#: bang/settings.py:48
+#: bang/settings.py:51
 msgid "Introduce yourself"
 msgstr "자기소개"
 
@@ -1759,19 +1758,19 @@ msgstr "자기소개"
 msgid "Idols"
 msgstr "아이돌"
 
-#: bang/settings.py:51
+#: bang/settings.py:54
 msgid "Cosplay"
 msgstr "코스프레"
 
-#: bang/settings.py:50
+#: bang/settings.py:53
 msgid "Anime"
 msgstr "애니"
 
-#: bang/settings.py:54
+#: bang/settings.py:57
 msgid "Community"
 msgstr "커뮤니티"
 
-#: bang/magicollections.py:124
+#: bang/magicollections.py:181
 msgid "Card"
 msgstr "카드"
 
@@ -1846,7 +1845,7 @@ msgstr "이 카드를 좋아하는 카드에서 제외합니다."
 msgid "Add this card to your favorites"
 msgstr "이 카드를 좋아하는 카드에 추가합니다."
 
-#: cpro/models.py:77
+#: bang/models.py:86
 msgid "Fans"
 msgstr "팬"
 
@@ -1882,11 +1881,11 @@ msgstr "%(idol)s 은(는) %(total_results)s 개 이벤트에 참가했습니다.
 msgid "%(total_results)s producers scouted %(own_card)s"
 msgstr "%(total_results)s 명의 프로듀서가 %(own_card)s 카드를 스카웃 하였습니다."
 
-#: web/magicollections.py:852 web/magicollections.py:916
+#: web/magicollections.py:859 web/magicollections.py:923
 msgid "Badge"
 msgstr ""
 
-#: web/default_settings.py:202 web/magicollections.py:853
+#: web/default_settings.py:208 web/magicollections.py:860
 msgid "Badges"
 msgstr ""
 
@@ -1924,7 +1923,7 @@ msgid "Learn more"
 msgstr "더 알아보기"
 
 #. 아이돌 검색 조건 중 하나
-#: bang/forms.py:23
+#: bang/forms.py:67
 msgid "Popularity"
 msgstr "인기도"
 
@@ -1932,17 +1931,18 @@ msgstr "인기도"
 msgid "Favorited by"
 msgstr "좋아함"
 
-#: bang/settings.py:52
+#: bang/settings.py:55
 msgid "Fan made"
 msgstr "2차 창작물"
 
-#: bang/settings.py:53
+#: bang/settings.py:56
 msgid "Merchandise"
-msgstr ""
+msgstr "상품"
 
-#: bang/settings.py:55
+#. Not sure where this phrase will be used - more clarification would be helpful
+#: bang/settings.py:58
 msgid "Unrelated"
-msgstr ""
+msgstr "관련 없음"
 
 #: cpro/templates/include/cards-stats.html:92
 #: cpro/templates/include/cards-stats.html:104
@@ -1958,24 +1958,25 @@ msgstr "공유"
 msgid "Local time"
 msgstr ""
 
-#: web/forms.py:321 web/item_model.py:79 web/magicollections.py:216
+#: web/forms.py:335 web/item_model.py:79 web/magicollections.py:218
 #: web/model_choices.py:106 web/model_choices.py:107 web/models.py:406
 msgid "Open {thing}"
 msgstr ""
 
-#: bang/forms.py:28 bang/forms.py:86
+#. Not sure where this will be used, but I assumed it will be used for filtering cards. If it's in a different context, let me know~
+#: web/forms.py:162 web/forms.py:530
 msgid "Reverse order"
-msgstr ""
+msgstr "역순"
 
-#: web/forms.py:536 web/models.py:386 web/templates/items/reportItem.html:29
+#: web/forms.py:550 web/models.py:386 web/templates/items/reportItem.html:29
 msgid "Reason"
 msgstr ""
 
-#: web/item_model.py:82 web/magicollections.py:265
+#: web/item_model.py:82 web/magicollections.py:267
 msgid "Edit {thing}"
 msgstr ""
 
-#: web/item_model.py:85 web/views.py:113
+#: web/item_model.py:85 web/views.py:124
 msgid "Delete {thing}"
 msgstr ""
 
@@ -1983,11 +1984,11 @@ msgstr ""
 msgid "Report {thing}"
 msgstr ""
 
-#: web/magicollections.py:261 web/views.py:111 web/views.py:112
+#: web/magicollections.py:263 web/views.py:122 web/views.py:123
 msgid "Add {thing}"
 msgstr ""
 
-#: web/magicollections.py:991
+#: web/magicollections.py:998
 msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
 msgstr ""
 
@@ -2046,7 +2047,7 @@ msgstr ""
 #: web/templates/emails/donation_footer.html:3
 #: web/templates/include/donate.html:10
 msgid "If you like the website, please consider donating"
-msgstr ""
+msgstr "이 웹 사이트가 마음에 들면 기부해주시면 감사하겠습니다."
 
 #: web/templates/emails/notification.html:30
 #: web/templates/emails/notification.txt:7
@@ -2089,134 +2090,173 @@ msgstr ""
 msgid "%(total_results)s producers love %(idol)s"
 msgstr ""
 
-#: bang/forms.py:66
+#: bang/forms.py:127
 msgid "Trainable"
-msgstr ""
+msgstr "훈련 가능"
 
-#: bang/forms.py:68 bang/forms.py:73 bang/forms.py:74
-#: bang/magicollections.py:56 bang/magicollections.py:198 bang/models.py:117
+#: bang/forms.py:106 bang/forms.py:107 bang/forms.py:129
+#: bang/magicollections.py:98 bang/magicollections.py:255 bang/models.py:131
 msgid "Member"
-msgstr ""
+msgstr "멤버"
 
-#: bang/forms.py:69 bang/models.py:44
+#: bang/forms.py:130 bang/models.py:57
 msgid "Band"
-msgstr ""
+msgstr "밴드"
 
-#: bang/forms.py:76 bang/models.py:122
+#: bang/forms.py:109 bang/models.py:136
 msgid "Attribute"
-msgstr ""
+msgstr "속성"
 
-#: bang/forms.py:77 bang/forms.py:78 bang/models.py:177 bang/models.py:178
-#: bang/models.py:179 bang/models.py:236
+#: bang/forms.py:110 bang/forms.py:111 bang/models.py:191 bang/models.py:192
+#: bang/models.py:193 bang/models.py:250
 msgid "Performance"
-msgstr ""
+msgstr "퍼포먼스"
 
-#: bang/forms.py:78 bang/forms.py:80 bang/forms.py:82 bang/forms.py:84
-#: bang/magicollections.py:190 bang/magicollections.py:213
-#: bang/magicollections.py:215 bang/magicollections.py:217 bang/models.py:130
-#: bang/models.py:140 bang/models.py:150 bang/models.py:179 bang/models.py:182
-#: bang/models.py:185
+#. Not an exact translation - however, based on what I've seen on the site so far (Icon [trained], Illustration [trained]), I feel like this translation would fit better (means 'after training').
+#: bang/forms.py:111 bang/forms.py:113 bang/forms.py:115 bang/forms.py:117
+#: bang/magicollections.py:247 bang/magicollections.py:270
+#: bang/magicollections.py:272 bang/magicollections.py:274 bang/models.py:144
+#: bang/models.py:154 bang/models.py:164 bang/models.py:193 bang/models.py:196
+#: bang/models.py:199
 msgid "Trained"
-msgstr ""
+msgstr "훈련후"
 
-#: bang/forms.py:79 bang/forms.py:80 bang/models.py:180 bang/models.py:181
-#: bang/models.py:182 bang/models.py:237
+#: bang/forms.py:112 bang/forms.py:113 bang/models.py:194 bang/models.py:195
+#: bang/models.py:196 bang/models.py:251
 msgid "Technique"
-msgstr ""
+msgstr "테크니크"
 
-#: bang/magicollections.py:57 bang/settings.py:49
+#: bang/magicollections.py:99 bang/settings.py:52
 msgid "Members"
-msgstr ""
+msgstr "멤버들"
 
+#. This is only used in the context of school years, as in high school school year. It's ok to write "first year" or even "first school year" instead!
 #: bang/model_choices.py:53
 msgid "First"
-msgstr ""
+msgstr "1 학년"
 
 #: bang/model_choices.py:54
 msgid "Second"
-msgstr ""
+msgstr "2 학년"
 
+#. It's the school years for school idols or characters. I think the forms shows it as "School year: Third"
 #: bang/model_choices.py:55
 msgid "Third"
-msgstr ""
+msgstr "3 학년"
 
-#: bang/model_choices.py:92 bang/settings.py:59
+#. Translated as in (translated)/(pronunciation), as the elements on SIT are set to how the element is pronounced, not the literal translation.
+#: bang/model_choices.py:101 bang/settings.py:62
 msgid "Power"
-msgstr ""
+msgstr "파워"
 
-#: bang/model_choices.py:94 bang/settings.py:61
+#. Translated as in (translated)/(pronunciation), as the elements on SIT are set to how the element is pronounced, not the literal translation.
+#: bang/model_choices.py:103 bang/settings.py:64
 msgid "Pure"
-msgstr ""
+msgstr "퓨어"
 
-#: bang/model_choices.py:95 bang/settings.py:62
+#. Translated as in (translated)/(pronunciation), as the elements on SIT are set to how the element is pronounced, not the literal translation.
+#: bang/model_choices.py:104 bang/settings.py:65
 msgid "Happy"
-msgstr ""
+msgstr "해피"
 
-#: bang/model_choices.py:112
+#. Same situation with the attributes (power, pure, happy) - don't know which would fit better between literal translation and pronunciated version. The part in the bracket is the 'score' part of 'Score Up', use whichever one seems better.
+#: bang/model_choices.py:127
 msgid "Score Up"
-msgstr ""
+msgstr "점수 증가"
 
-#: bang/model_choices.py:113
+#. I personally feel that HP would fit better (despite the statement being 'Life Recovery'), since the translation that I used (second part of brackets) literally means 'lives', as in lives in Mario games, and I'm assuming this is for Bandori/other games with health bars...
+#: bang/model_choices.py:128
 msgid "Life Recovery"
-msgstr ""
+msgstr "HP 회복"
 
-#: bang/model_choices.py:114
+#. Translated as in how it's pronounced. Honestly, I'm not sure how a literal translation could work for this, if someone can provide better, please feel free to replace~
+#: bang/model_choices.py:129
 msgid "Perfect Lock"
-msgstr ""
+msgstr "퍼펙트 서포트"
 
-#: bang/model_choices.py:123
+#. (Qualitative/Numerical), or (used for Score translation/used for Health translation).
+#: bang/model_choices.py:138
 msgid "small"
-msgstr ""
+msgstr "조그만"
 
-#: bang/model_choices.py:124
+#. I'm understanding that this translation is for Bandori, and that it'll only be used for the 'All notes will...' and 'Your life will...' statements. I personally feel that it'll fit better if left blank for a medium sized (or 'regular sized') boost.
+#: bang/model_choices.py:139
 msgid "medium"
-msgstr ""
+msgstr " "
 
-#: bang/model_choices.py:125
+#. (Qualitative/Numerical), or (used for Score translation/used for Health translation).
+#: bang/model_choices.py:140
 msgid "large"
-msgstr ""
+msgstr "상당한"
 
-#: bang/model_choices.py:126
+#. (Qualitative/Numerical), or (used for Score translation/used for Health translation).
+#: bang/model_choices.py:141
 msgid "oversized"
-msgstr ""
+msgstr "매우 상당한"
 
-#: bang/model_choices.py:133
+#: bang/model_choices.py:148
 msgid "All notes will receive a {size} score bonus."
-msgstr ""
+msgstr "모든 노트는 {size} 점수 보너스를 받게됩니다."
 
-#: bang/model_choices.py:134
+#: bang/model_choices.py:149
 msgid "Your life will get a {size} boost."
-msgstr ""
+msgstr "{size} 양의 HP가 회복합니다."
 
-#: bang/model_choices.py:135
+#: bang/model_choices.py:150
 msgid "All the {note_type} notes or better will turn into PERFECT."
-msgstr ""
+msgstr "{note_type}랑 그보다 나은 모든 노트는 PERFECT으로 바뀝니다."
 
-#: bang/models.py:48
+#: bang/models.py:61
 msgid "School"
-msgstr ""
+msgstr "학교"
 
-#: bang/models.py:49
+#: bang/models.py:62
 msgid "School Year"
-msgstr ""
+msgstr "학년"
 
-#: bang/models.py:57
+#: bang/models.py:70
 msgid "Liked food"
-msgstr ""
+msgstr "좋아하는 음식"
 
-#: bang/models.py:58
+#: bang/models.py:71
 msgid "Disliked food"
-msgstr ""
+msgstr "싫어하는 음식"
 
-#: bang/models.py:216 bang/models.py:217 bang/models.py:220
+#: bang/models.py:230 bang/models.py:231 bang/models.py:234
 msgid "Level {level}"
-msgstr ""
+msgstr "레벨"
 
-#: bang/settings.py:17
+#. Thought it would be best if it was translated by pronunciation, not a literal translation.
+#: bang/settings.py:20
 msgid "BanG Dream! Girls Band Party"
+msgstr "뱅 드림! 걸즈 밴드 파티!"
+
+#. If the 'First', 'Second', and 'Third' translations are being used here, replacing the 'First' translation with "제일" could be preferable - but not required.
+#: bang/settings.py:44
+msgid "{nth} Favorite Member"
+msgstr "{nth} 좋은 맴버"
+
+#: web/default_settings.py:23
+msgid "days"
 msgstr ""
 
-#: bang/settings.py:41
-msgid "{nth} Favorite Member"
+#: web/default_settings.py:23
+msgid "hours"
+msgstr ""
+
+#: web/default_settings.py:23
+msgid "minutes"
+msgstr ""
+
+#: bang/forms.py:40
+msgid "Favorite Member"
+msgstr ""
+
+#: bang/magicollections.py:139
+msgid "Source"
+msgstr ""
+
+#: bang/models.py:81
+msgid "Instrument"
 msgstr ""
 

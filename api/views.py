@@ -117,3 +117,33 @@ class CardViewSet(viewsets.ModelViewSet):
     queryset = models.Card.objects.all()
     serializer_class = CardSerializer
     permission_classes = (api_permissions.IsStaffOrReadOnly, )
+
+class MemberIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Member
+        fields = ('id',)
+
+class MemberIDViewSet(viewsets.ModelViewSet):
+    queryset = models.Member.objects.all().values('id')
+    serializer_class = MemberIDSerializer
+    paginate_by = None
+
+    def list(self, request):
+        r = super(MemberIDViewSet, self).list(request)
+        r.data = [member['id'] for member in r.data]
+        return r
+
+class CardIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Card
+        fields = ('id',)
+
+class CardIDViewSet(viewsets.ModelViewSet):
+    queryset = models.Card.objects.all().values('id')
+    serializer_class = CardIDSerializer
+    paginate_by = None
+
+    def list(self, request):
+        r = super(CardIDViewSet, self).list(request)
+        r.data = [card['id'] for card in r.data]
+        return r

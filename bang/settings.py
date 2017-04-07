@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _
 from web.utils import tourldash
@@ -9,6 +10,8 @@ SITE_URL = 'http://bandori.party/'
 SITE_IMAGE = 'bandori_party.png'
 SITE_LOGO = 'bandori_party_logo.png'
 SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
+
+LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
 
 SITE_LOGO_PER_LANGUAGE = {
     'ja': 'bandori_party_logo_japanese.png',

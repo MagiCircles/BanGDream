@@ -524,12 +524,12 @@ msgstr "Modifier cette page de wiki"
 #. Make sure {object} also appears in your sentence. Will be replaced with the corresponding values.
 #: web/views_collections.py:142
 msgid "1 {object} matches your search:"
-msgstr "1 {objet} correspond à ta recherche :"
+msgstr "1 {object} correspond à ta recherche :"
 
 #. Make sure {total} and {object} also appear in your sentence. Will be replaced with the corresponding values.
 #: web/views_collections.py:142
 msgid "{total} {objects} match your search:"
-msgstr "{total} {objets} correspondent à ta recherche :"
+msgstr "{total} {objects} correspondent à ta recherche :"
 
 #: web/magicollections.py:292
 msgid "Become a contributor to help us fill the database"
@@ -603,7 +603,7 @@ msgstr "Signalé par :"
 
 #: web/views.py:306 web/views.py:334
 msgid "This {thing} you reported has been reviewed by a moderator and {verb}. Thank you so much for your help!"
-msgstr "Un modérateur a pris le temps de lire ton rapport et la {chose} a été {résolu}. Merci beaucoup pour ton aide !"
+msgstr "Un modérateur a pris le temps de lire ton rapport et la {thing} a été {verb}. Merci beaucoup pour ton aide !"
 
 #: web/views.py:306 web/views.py:314 web/views.py:317 web/views.py:342
 msgid "edited"
@@ -611,15 +611,15 @@ msgstr "modifié"
 
 #: web/views.py:309 web/views.py:337
 msgid "Thank you for reporting this {thing}"
-msgstr "Merci beaucoup d'avoir signalé ce {chose} !"
+msgstr "Merci beaucoup d'avoir signalé ce {thing} !"
 
 #: web/views.py:314 web/views.py:342
 msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
-msgstr "Ton {chose} a été signalé par un utilisateur et un modérateur, après l'avoir lu, l'a {résolu}."
+msgstr "Ton {thing} a été signalé par un utilisateur et un modérateur, après l'avoir lu, l'a {verb}."
 
 #: web/views.py:317 web/views.py:345
 msgid "Your {thing} has been {verb}"
-msgstr "Ton {chose} a été {résolu}"
+msgstr "Ton {thing} a été {verb}"
 
 #: web/views.py:334 web/views.py:345
 msgid "deleted"
@@ -638,19 +638,19 @@ msgstr "{nth} personnage préféré"
 
 #: web/settings.py:81
 msgid "The {game} Database & Community"
-msgstr "Infos et Communauté sur {jeu}"
+msgstr "Infos et Communauté sur {game}"
 
 #: web/views.py:95
 msgid "{site} is not a representative and is not associated with {game}. Its logos and images are Trademarks of {company}."
-msgstr "{site} n'est pas représentatif et n'est pas associé à {jeu}. Les logos et images sont des marques déposées par {compagnie}."
+msgstr "{site} n'est pas représentatif et n'est pas associé à {game}. Les logos et images sont des marques déposées par {company}."
 
 #: web/views.py:95
 msgid "the company that owns {game}"
-msgstr "l'entreprise qui possède {jeu}"
+msgstr "l'entreprise qui possède {game}"
 
 #: web/views_collections.py:295
 msgid "Make sure the {thing} you're about to add doesn't already exist."
-msgstr "Assure-toi que le {chose} que tu es sur le point d'ajouter n'existe pas déjà."
+msgstr "Assure-toi que le {thing} que tu es sur le point d'ajouter n'existe pas déjà."
 
 #: stardustrun/collections_settings.py:79 stardustrun/forms.py:125
 #: stardustrun/models.py:52 stardustrun/templates/items/pokemonItem.html:65
@@ -1004,7 +1004,7 @@ msgstr "Voir uniquement les activités dans ta langue ?"
 
 #: web/models.py:296
 msgid "Check out {username}'s activity on {site}: {activity}"
-msgstr "Jette un œil à ce que {username} a posté sur {site}: {activité}"
+msgstr "Jette un œil à ce que {username} a posté sur {site}: {activity}"
 
 #: web/settings.py:56
 msgid "Join the community!"

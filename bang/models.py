@@ -19,8 +19,21 @@ class Account(ItemModel):
     collection_name = 'account'
 
     owner = models.ForeignKey(User, related_name='accounts')
-    creation = models.DateTimeField(auto_now_add=True)
+    creation = models.DateTimeField(_('Join Date'), auto_now_add=True)
+    start_date = models.DateField(_('Start Date'), null=True)
     level = models.PositiveIntegerField(_("Level"), null=True)
+
+    @property
+    def item_url(self):
+        return self.owner.item_url
+
+    @property
+    def full_item_url(self):
+        return self.owner.full_item_url
+
+    @property
+    def http_item_url(self):
+        return self.owner.http_item_url
 
     def __unicode__(self):
         return u'#{} Level {}'.format(self.id, self.level)
@@ -70,6 +83,7 @@ class Member(ItemModel):
 
     reverse_related = (
         ('cards', 'cards', _('Cards')),
+        ('fans', 'accounts', _('Fans')),
     )
 
     # Cache totals

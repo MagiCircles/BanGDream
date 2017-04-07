@@ -1,3 +1,4 @@
 {% for item in profile_user.all_accounts %}
 {% include 'items/accountItem.html' %}
+{% include 'include/fields_table.html' with fields=item.fields bottom=True%}
 {% endfor %}

@@ -2,8 +2,8 @@
 from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import dateformat
-from web.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection
-from web.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES
+from web.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
+from web.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection
 from web.default_settings import RAW_CONTEXT
 from bang.django_translated import t
 from bang.utils import rarity_to_stars_images
@@ -13,11 +13,53 @@ from bang import models, forms
 # Default MagiCircles Collections
 
 ############################################################
+# User Collection
+
+class UserCollection(_UserCollection):
+    class ItemView(_UserCollection.ItemView):
+        def extra_context(self, context):
+            super(UserCollection.ItemView, self).extra_context(context)
+            accountCollection = getMagiCollection('account')
+            if accountCollection:
+                context['show_edit_button'] = (
+                    accountCollection.item_view.show_edit_button
+                    and accountCollection.edit_view.has_permissions(context['request'], context)
+                )
+                if accountCollection.edit_view.owner_only:
+                    context['show_edit_button_owner_only'] = True
+                for account in context['item'].all_accounts:
+                    account.fields = accountCollection.to_fields(account)
+
+############################################################
 # Account Collection
 
 class AccountCollection(_AccountCollection):
+    form_class = forms.AccountForm
+
+    filter_cuteform = {
+        'member_id': {
+            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+            'extra_settings': {
+	        'modal': 'true',
+	        'modal-text': 'true',
+            },
+        },
+    }
+
+    def get_queryset(self, queryset, parameters, request):
+        return queryset.select_related('owner', 'owner__preferences')
+
+    def to_fields(self, item, *args, **kwargs):
+        return super(AccountCollection, self).to_fields(item, *args, icons={
+            'creation': 'date',
+            'start_date': 'date',
+            'level': 'max-level',
+        }, **kwargs)
+
     class ListView(_AccountCollection.ListView):
         show_edit_button = False
+        filter_form = forms.FilterAccounts
+        default_ordering = '-level'
 
     class AddView(_AccountCollection.AddView):
         back_to_list_button = False
@@ -76,6 +118,7 @@ class MemberCollection(MagiCollection):
             'hobbies': 'star',
             'description': 'id',
             'cards': 'album',
+            'fans': 'heart',
         }, images={
             'astrological_sign': '{}img/i_astrological_sign/{}.png'.format(RAW_CONTEXT['static_url'], item.i_astrological_sign),
         }, **kwargs)
@@ -120,6 +163,7 @@ class MemberCollection(MagiCollection):
 
     class ListView(MagiCollection.ListView):
         filter_form = forms.MemberFilterForm
+        default_ordering = '-_cache_total_fans'
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -275,6 +319,7 @@ class CardCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         per_line = 2
         filter_form = forms.CardFilterForm
+        default_ordering = '-id'
 
         def get_queryset(self, queryset, parameters, request):
             if request.GET.get('ordering', None) in ['_overall_max', '_overall_trained_max']:

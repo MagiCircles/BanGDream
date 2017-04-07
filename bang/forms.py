@@ -1,11 +1,48 @@
+import datetime
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
-from web.forms import AutoForm, MagiFiltersForm, MagiFilter
+from web.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter
 from bang.django_translated import t
 from bang import models
+
+############################################################
+# Accounts
+
+class AccountForm(MagiForm):
+    def clean_start_date(self):
+        if 'start_date' in self.cleaned_data:
+            if self.cleaned_data['start_date']:
+                if self.cleaned_data['start_date'] < datetime.date(2017, 3, 16):
+                    raise forms.ValidationError(_('The game didn\'t even exist at that time.'))
+                if self.cleaned_data['start_date'] > datetime.date.today():
+                    raise forms.ValidationError(_('This date cannot be in the future.'))
+        return self.cleaned_data['start_date']
+
+    class Meta:
+        model = models.Account
+        fields = ('level', 'start_date')
+        optional_fields = ('level', 'start_date')
+
+class FilterAccounts(MagiFiltersForm):
+    search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location']
+    search_fields_exact = ['owner__email']
+
+    ordering_fields = [
+        ('level', _('Level')),
+        ('owner__username', t['Username']),
+        ('creation', _('Join Date')),
+        ('start_date', _('Start Date')),
+    ]
+
+    member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], required=False, label=_('Favorite Member'))
+    member_id_filter = MagiFilter(selectors=['owner__preferences__favorite_character{}'.format(i) for i in range(1, 4)])
+
+    class Meta:
+        model = models.Account
+        fields = ('search', 'member_id',)
 
 ############################################################
 # Member
@@ -25,14 +62,15 @@ class MemberForm(AutoForm):
 
 class MemberFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name', 'school', 'CV', 'romaji_CV', 'food_likes', 'food_dislikes', 'hobbies', 'description']
-    school = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(s, s) for s in getattr(django_settings, 'SCHOOLS', [])], initial=None)
-    ordering = forms.ChoiceField(choices=[
+
+    ordering_fields = [
         ('_cache_total_fans', _('Popularity')),
         ('name', _('Name')),
         ('japanese_name', string_concat(_('Name'), ' (', t['Japanese'], ')')),
         ('birthday', _('Birthday')),
-    ], initial='_cache_total_fans', required=False, label=_('Ordering'))
-    reverse_order = forms.BooleanField(initial=True, required=False, label=_('Reverse order'))
+    ]
+
+    school = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(s, s) for s in getattr(django_settings, 'SCHOOLS', [])], initial=None)
 
     class Meta:
         model = models.Member
@@ -63,20 +101,7 @@ class CardForm(AutoForm):
 
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'skill_name', 'japanese_skill_name']
-
-    def _trainable_to_queryset(form, queryset, request, value):
-        if value == '2':
-            return queryset.filter(i_rarity__in=models.TRAINABLE_RARITIES)
-        elif value == '3':
-            return queryset.exclude(i_rarity__in=models.TRAINABLE_RARITIES)
-        return queryset
-
-    trainable = forms.NullBooleanField(initial=None, required=False, label=_('Trainable'))
-    trainable_filter = MagiFilter(to_queryset=_trainable_to_queryset)
-    member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
-    member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.BAND_CHOICES, initial=None, label=_('Band'))
-    member_band_filter = MagiFilter(selector='member__i_band')
-    ordering = forms.ChoiceField(choices=[
+    ordering_fields = [
         ('id', _('ID')),
         ('_cache_member_name', string_concat(_('Member'), ' - ', _('Name'))),
         ('_cache_member_japanese_name', string_concat(_('Member'), ' - ', _('Name'), ' (', t['Japanese'], ')')),
@@ -90,8 +115,20 @@ class CardFilterForm(MagiFiltersForm):
         ('visual_trained_max', string_concat(_('Visual'), ' (', _('Trained'), ')')),
         ('_overall_max', _('Overall')),
         ('_overall_trained_max', string_concat(_('Overall'), ' (', _('Trained'), ')')),
-    ], initial='id', required=False, label=_('Ordering'))
-    reverse_order = forms.BooleanField(initial=True, required=False, label=_('Reverse order'))
+    ]
+
+    def _trainable_to_queryset(form, queryset, request, value):
+        if value == '2':
+            return queryset.filter(i_rarity__in=models.TRAINABLE_RARITIES)
+        elif value == '3':
+            return queryset.exclude(i_rarity__in=models.TRAINABLE_RARITIES)
+        return queryset
+
+    trainable = forms.NullBooleanField(initial=None, required=False, label=_('Trainable'))
+    trainable_filter = MagiFilter(to_queryset=_trainable_to_queryset)
+    member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+    member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.BAND_CHOICES, initial=None, label=_('Band'))
+    member_band_filter = MagiFilter(selector='member__i_band')
 
     class Meta:
         model = models.Card

@@ -12,6 +12,11 @@ from bang import models
 # Accounts
 
 class AccountForm(MagiForm):
+    def __init__(self, *args, **kwargs):
+        super(AccountForm, self).__init__(*args, **kwargs)
+        if self.is_creating:
+            del(self.fields['start_date'])
+
     def clean_start_date(self):
         if 'start_date' in self.cleaned_data:
             if self.cleaned_data['start_date']:

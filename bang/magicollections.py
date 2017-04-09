@@ -83,6 +83,7 @@ class DonateCollection(_DonateCollection):
 # Activity Collection
 
 class ActivityCollection(_ActivityCollection):
+    enabled = False
     class ListView(_ActivityCollection.ListView):
         before_template = 'include/index'
 

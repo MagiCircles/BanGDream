@@ -2,6 +2,7 @@
 import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _
+from web.default_settings import DEFAULT_ENABLED_PAGES
 from web.utils import tourldash
 from bang import models
 
@@ -68,3 +69,7 @@ USER_COLORS = [
 GOOGLE_ANALYTICS = 'UA-96550529-1'
 
 STATIC_FILES_VERSION = '1'
+
+ENABLED_PAGES = DEFAULT_ENABLED_PAGES
+ENABLED_PAGES['index']['enabled'] = True
+ENABLED_PAGES['index']['custom'] = True

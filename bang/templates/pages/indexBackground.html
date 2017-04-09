@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<style>
+  body {
+    background: url('{{ static_url }}img/bg_pattern.png');
+  }
+  .home-site-logo {
+    padding-top: 100px;
+  }
+</style>
+<div class="container">
+  {% include 'include/homePage.html' with shortcut_url='' %}
+  <div class="text-center">
+    <div class="btn-group">
+      <a href="{{ user.item_url }}" class="btn btn-main btn-xl"><i class="flaticon-profile"></i> {% trans 'Profile' %}</a>
+      <a href="/cards/" class="btn btn-main btn-xl"><i class="flaticon-deck"></i> {% trans 'Cards' %}</a>
+      <a href="/members/" class="btn btn-main btn-xl"><i class="flaticon-idolized"></i> {% trans 'Members' %}</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

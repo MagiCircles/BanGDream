@@ -38,7 +38,7 @@ ABOUT_PHOTO = 'deby.jpg'
 
 EMPTY_IMAGE = 'stars_with_white.png'
 
-SITE_NAV_LOGO = 'stars.png'
+SITE_NAV_LOGO = 'star.png'
 
 FAVORITE_CHARACTERS = django_settings.FAVORITE_CHARACTERS
 FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))

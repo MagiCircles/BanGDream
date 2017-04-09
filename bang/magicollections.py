@@ -47,6 +47,9 @@ class AccountCollection(_AccountCollection):
         },
     }
 
+    def share_image(self, context, item):
+        return 'screenshots/leaderboard.png'
+
     def get_queryset(self, queryset, parameters, request):
         return queryset.select_related('owner', 'owner__preferences')
 
@@ -120,6 +123,9 @@ class MemberCollection(MagiCollection):
     reportable = False
 
     form_class = forms.MemberForm
+
+    def share_image(self, context, item):
+        return 'screenshots/members.png'
 
     def to_fields(self, item, *args, **kwargs):
         fields = super(MemberCollection, self).to_fields(item, *args, icons={
@@ -232,6 +238,9 @@ class CardCollection(MagiCollection):
             },
         },
     }
+
+    def share_image(self, context, item):
+        return 'screenshots/cards.png'
 
     def to_fields(self, item, only_fields=None, in_list=False):
         # Used in ordering

@@ -2,6 +2,7 @@
 from __future__ import division
 import datetime
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 from django.db.models import Q
 from django.db import models
@@ -21,7 +22,10 @@ class Account(ItemModel):
     owner = models.ForeignKey(User, related_name='accounts')
     creation = models.DateTimeField(_('Join Date'), auto_now_add=True)
     start_date = models.DateField(_('Start Date'), null=True)
-    level = models.PositiveIntegerField(_("Level"), null=True)
+    level = models.PositiveIntegerField(_("Level"), null=True, validators=[
+        MinValueValidator(1),
+        MaxValueValidator(200),
+    ])
 
     @property
     def item_url(self):

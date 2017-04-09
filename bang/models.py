@@ -177,11 +177,11 @@ class Card(ItemModel):
     def skill_type(self): return SKILL_TYPE_DICT[self.i_skill_type]
     @property
     def japanese_skill_type(self): return JAPANESE_SKILL_TYPE_DICT[self.i_skill_type]
-    skill_details = models.CharField(_('Skill'), max_length=200, null=True)
+    skill_details = models.CharField(_('Skill'), max_length=500, null=True)
 
     @property
     def skill(self):
-        return SKILL_TEMPLATES[self.i_skill_type].format(size=SKILL_SIZES[self.i_rarity][0], note_type=SKILL_SIZES[self.i_rarity][2])
+        return self.skill_details or SKILL_TEMPLATES[self.i_skill_type].format(size=SKILL_SIZES[self.i_rarity][0], note_type=SKILL_SIZES[self.i_rarity][2])
 
     @property
     def japanese_skill(self):

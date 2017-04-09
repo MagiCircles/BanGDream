@@ -139,6 +139,9 @@ class Card(ItemModel):
     @property
     def english_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_attribute]
 
+    name = models.CharField(_('Title'), max_length=100, null=True)
+    japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, null=True)
+
     # Images
     image = models.ImageField(_('Icon'), upload_to=uploadItem('c'))
     image_trained = models.ImageField(string_concat(_('Icon'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/a'))
@@ -169,9 +172,8 @@ class Card(ItemModel):
 
     # Skill
 
-    # Labels for skill_names not translated because staff-only, members page shows "Title"
-    skill_name = models.CharField('Skill name', max_length=100, null=True)
-    japanese_skill_name = models.CharField('Skill name (Japanese)', max_length=100, null=True)
+    skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
+    japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
     i_skill_type = models.PositiveIntegerField(_('Skill'), choices=SKILL_TYPE_CHOICES)
     @property
     def skill_type(self): return SKILL_TYPE_DICT[self.i_skill_type]

@@ -97,10 +97,10 @@ class CardForm(AutoForm):
         model = models.Card
         fields = '__all__'
         save_owner_on_creation = True
-        optional_fields = ('image_trained', 'art_trained', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained')
+        optional_fields = ('name', 'japanese_name', 'image_trained', 'art_trained', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained')
 
 class CardFilterForm(MagiFiltersForm):
-    search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'skill_name', 'japanese_skill_name']
+    search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
     ordering_fields = [
         ('id', _('ID')),
         ('_cache_member_name', string_concat(_('Member'), ' - ', _('Name'))),

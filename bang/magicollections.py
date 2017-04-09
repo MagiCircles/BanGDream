@@ -234,6 +234,7 @@ class CardCollection(MagiCollection):
     }
 
     def to_fields(self, item, only_fields=None, in_list=False):
+        # Used in ordering
         if in_list:
             fields = super(CardCollection, self).to_fields(item, icons={
                 '_cache_member_name': 'id',
@@ -268,11 +269,21 @@ class CardCollection(MagiCollection):
                     'icon': 'center',
                 }
             return fields
+        # Used in cards description
         final_fields = OrderedDict([(field, info) for field, info in [
+            # field name: (icon, verbose name, extra field info)
             ('id', ('id', _('ID'), None)),
             ('member', ('idolized', _('Member'), None)),
-            ('skill_name', ('id', _('Title'), None)),
-            ('japanese_skill_name', ('id', string_concat(_('Title'), ' (', t['Japanese'], ')'), None)),
+            ('name', ('id', _('Title'), {
+                'type': 'title_text',
+                'title': item.name,
+                'value': item.japanese_name,
+            } if (item.name or item.japanese_name) and get_language() != 'ja' else {})),
+            ('skill_name', ('skill', _('Skill name'), {
+                'type': 'title_text',
+                'title': item.skill_name,
+                'value': item.japanese_skill_name,
+            } if (item.skill_name or item.japanese_skill_name) and get_language() != 'ja' else {})),
             ('skill', (models.SKILL_ICONS[item.i_skill_type], _('Skill'), {
                 'type': 'title_text',
                 'title': item.skill_type,
@@ -296,37 +307,31 @@ class CardCollection(MagiCollection):
                 del(final_fields['skill'])
             icon, localized, field_info = final_fields['japanese_skill']
             final_fields['japanese_skill'] = (icon, _('Skill'), field_info)
-            if 'skill_name' in final_fields:
-                del(final_fields['skill_name'])
-            icon, localized, field_info = final_fields['japanese_skill_name']
-            final_fields['japanese_skill_name'] = (icon, _('Title'), field_info)
-        if in_list and only_fields:
-            only_fields = list(set(final_fields.keys()).intersection(only_fields))
-            if not only_fields:
-                return []
-        fields = super(CardCollection, self).to_fields(item, to_dict=True, only_fields=only_fields, in_list=in_list)
+        fields = super(CardCollection, self).to_fields(item, to_dict=True, only_fields=final_fields, in_list=in_list)
         new_fields = OrderedDict()
         for field, (icon, verbose_name, field_info) in final_fields.items():
+            field_info = field_info if field_info else {}
+            field_info.update({
+                'verbose_name': verbose_name,
+                'icon': icon,
+            })
             if field in fields:
                 new_fields[field] = fields[field]
-                setSubField(new_fields, field, value=icon)
+                new_fields[field].update(field_info)
             else:
                 if only_fields and field not in only_fields:
                     continue
                 new_fields[field] = {
-                    'verbose_name': verbose_name,
                     'type': 'text',
-                    'icon': icon,
                 }
-                if field_info:
-                    new_fields[field].update(field_info)
+                new_fields[field].update(field_info)
                 if 'value' not in new_fields[field]:
                     try:
                         new_fields[field]['value'] = getattr(item, field)
                     except AttributeError:
-                        new_fields[field]['value'] = 'none'
-
-
+                        pass
+                    if not new_fields[field]['value']:
+                        del(new_fields[field])
         return new_fields
 
     class ItemView(MagiCollection.ItemView):

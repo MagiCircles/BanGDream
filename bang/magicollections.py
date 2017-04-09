@@ -5,6 +5,7 @@ from django.utils.formats import dateformat
 from web.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
 from web.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection
 from web.default_settings import RAW_CONTEXT
+from web.models import Activity
 from bang.django_translated import t
 from bang.utils import rarity_to_stars_images
 from bang import models, forms
@@ -86,6 +87,22 @@ class ActivityCollection(_ActivityCollection):
     enabled = False
     class ListView(_ActivityCollection.ListView):
         before_template = 'include/index'
+
+Activity.collection_name = 'news'
+
+class NewsCollection(_ActivityCollection):
+    plural_name = 'news'
+    reportable = False
+    queryset = Activity.objects.all()
+
+    class ListView(_ActivityCollection.ListView):
+        enabled = False
+
+    class ItemView(_ActivityCollection.ItemView):
+        template = 'activityItem'
+
+    class AddView(_ActivityCollection.AddView):
+        staff_required = True
 
 ############################################################
 ############################################################

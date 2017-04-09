@@ -44,7 +44,7 @@ FAVORITE_CHARACTERS = django_settings.FAVORITE_CHARACTERS
 FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))
 FAVORITE_CHARACTER_NAME = _(u'{nth} Favorite Member')
 
-ACTIVITY_TAGS = [
+_ACTIVITY_TAGS = [
     ('comedy', _('Comedy')),
     ('cards', _('New Cards')),
     ('event', _('Event')),

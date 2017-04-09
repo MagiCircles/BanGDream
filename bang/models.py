@@ -87,7 +87,7 @@ class Member(ItemModel):
     )
 
     # Cache totals
-    _cache_totals_days = 2
+    _cache_totals_days = 1
     _cache_totals_last_update = models.DateTimeField(null=True)
     _cache_total_fans = models.PositiveIntegerField(null=True)
     _cache_total_cards = models.PositiveIntegerField(null=True)

@@ -12,7 +12,8 @@
 </style>
 <div class="container">
   {% include 'include/homePage.html' with shortcut_url='' %}
-  <div class="text-center">
+  {% if user.is_authenticated %}
+  <div class="text-center hidden-xs">
     <div class="btn-group">
       <a href="{{ user.item_url }}" class="btn btn-main btn-xl"><i class="flaticon-profile"></i> {% trans 'Profile' %}</a>
       <a href="/cards/" class="btn btn-main btn-xl"><i class="flaticon-deck"></i> {% trans 'Cards' %}</a>
@@ -20,4 +21,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock %}

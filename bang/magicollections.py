@@ -151,6 +151,7 @@ class MemberCollection(MagiCollection):
         setSubField(fields, 'birthday', key='value', value=lambda f: dateformat.format(item.birthday, "F d"))
         setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
         setSubField(fields, 'band', key='link', value=lambda f: u'/members/?i_band={}'.format(item.i_band))
+        setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))
         setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
         setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
         setSubField(fields, 'description', key='type', value='long_text')

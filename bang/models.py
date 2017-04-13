@@ -304,3 +304,16 @@ class Card(ItemModel):
                 attribute=self.attribute,
             )
         return u''
+
+############################################################
+# Owned Cards
+
+class CollectibleCard(ItemModel):
+    collection_name = 'collectible_card'
+
+    account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='cardscollectors')
+    card = models.ForeignKey(Card, verbose_name=_('Card'), related_name='collectedcards')
+    trained = models.BooleanField(_('Trained'), default=False)
+    max_leveled = models.NullBooleanField(_('Max Leveled'))
+    first_episode = models.NullBooleanField(_('{nth} episode').format(nth=_('1st')))
+    memorial_episode = models.NullBooleanField(_('Memorial episode'))

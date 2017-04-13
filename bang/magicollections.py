@@ -206,6 +206,7 @@ class CardCollection(MagiCollection):
     title = _('Card')
     plural_title = _('Cards')
     icon = 'deck'
+    collectible = models.CollectibleCard
 
     form_class = forms.CardForm
     reportable = False

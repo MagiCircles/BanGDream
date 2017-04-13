@@ -56,8 +56,8 @@ Get Started
 - Get the static files
 
   ```shell
-  git clone https://github.com/SchoolIdolTomodachi/StardustRun-Static.git
-  mv StardustRun-Static stardustrun/static
+  git clone https://github.com/SchoolIdolTomodachi/BanGDream-Static.git
+  mv BanGDream-Static bang/static
   ```
 
 - Download front-end dependencies

@@ -304,3 +304,35 @@ class Card(ItemModel):
                 attribute=self.attribute,
             )
         return u''
+
+############################################################
+# Events
+
+class Event(ItemModel):
+    collection_name = 'event'
+
+    owner = models.ForeignKey(User, related_name='added_events')
+    image = models.ImageField(_('Image'), upload_to=uploadItem('e'))
+    name = models.CharField(_('Name'), max_length=100, unique=True)
+    japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
+    start_date = models.DateTimeField(_('Beginning'), null=True)
+    end_date = models.DateTimeField(_('End'), null=True)
+    rare_stamp = models.ImageField(upload_to=uploadItem('e/stamps'))
+    @property
+    def rare_stamp_url(self): return get_image_url_from_path(self.rare_stamp)
+    @property
+    def http_rare_stamp_url(self): return get_http_image_url_from_path(self.rare_stamp)
+
+    @property
+    def status(self):
+        if not self.end_date or not self.start_date:
+            return None
+        now = timezone.now()
+        if now > self.end_date:
+            return 'ended'
+        elif now > self.start_date:
+            return 'current'
+        return 'future'
+
+    def __unicode__(self):
+        return self.japanese_name if get_language() == 'ja' else self.name

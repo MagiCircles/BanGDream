@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.db import models
 from django.conf import settings as django_settings
 from web.models import User, uploadItem
-from web.item_model import ItemModel, get_image_url_from_path, get_http_image_url_from_path
+from web.item_model import ItemModel, AccountAsOwnerItemModel, get_image_url_from_path, get_http_image_url_from_path
 from web.utils import AttrDict, tourldash
 from bang.model_choices import *
 from bang.django_translated import t
@@ -308,8 +308,8 @@ class Card(ItemModel):
 ############################################################
 # Owned Cards
 
-class CollectibleCard(ItemModel):
-    collection_name = 'collectible_card'
+class CollectibleCard(AccountAsOwnerItemModel):
+    collection_name = 'collectiblecard'
 
     account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='cardscollectors')
     card = models.ForeignKey(Card, verbose_name=_('Card'), related_name='collectedcards')
@@ -317,3 +317,18 @@ class CollectibleCard(ItemModel):
     max_leveled = models.NullBooleanField(_('Max Leveled'))
     first_episode = models.NullBooleanField(_('{nth} episode').format(nth=_('1st')))
     memorial_episode = models.NullBooleanField(_('Memorial episode'))
+
+    @property
+    def image(self):
+        return self.card.image
+
+    @property
+    def image_url(self):
+        return self.card.image_url
+
+    @property
+    def http_image_url(self):
+        return self.card.http_image_url
+
+    def __unicode__(self):
+        return unicode(self.card)

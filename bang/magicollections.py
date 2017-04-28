@@ -206,7 +206,6 @@ class CardCollection(MagiCollection):
     title = _('Card')
     plural_title = _('Cards')
     icon = 'deck'
-    collectible = models.CollectibleCard
 
     form_class = forms.CardForm
     reportable = False
@@ -240,6 +239,18 @@ class CardCollection(MagiCollection):
             },
         },
     }
+
+    collectible = models.CollectibleCard
+
+    def collectible_to_class(self, cls):
+        class _CollectibleCard(cls):
+            filter_cuteform = {
+                'trained': {},
+                'max_leveled': {},
+                'first_episode': {},
+                'memorial_episode': {},
+            }
+        return _CollectibleCard
 
     def share_image(self, context, item):
         return 'screenshots/cards.png'

@@ -398,6 +398,11 @@ class EventCollection(MagiCollection):
                 'type': 'html',
             }))
         fields = OrderedDict(fields)
+        if get_language() == 'ja' and 'name' in fields and 'japanese_name' in fields:
+            setSubField(fields, 'japanese_name', key='verbose_name', value=fields['name']['verbose_name'])
+            del(fields['name'])
+        if item.name == item.japanese_name and 'japanese_name' in fields:
+            del(fields['japanese_name'])
         setSubField(fields, 'start_date', key='type', value='timezone_datetime')
         setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
         setSubField(fields, 'end_date', key='type', value='timezone_datetime')
@@ -407,6 +412,9 @@ class EventCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         item_template = 'default'
         per_line = 2
+        default_ordering = '-start_date'
+        hide_sidebar = True
+        filter_form = forms.EventFilterForm
 
     class ItemView(MagiCollection.ItemView):
         template = 'default'

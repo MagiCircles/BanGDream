@@ -317,7 +317,7 @@ class Event(ItemModel):
     japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
     start_date = models.DateTimeField(_('Beginning'), null=True)
     end_date = models.DateTimeField(_('End'), null=True)
-    rare_stamp = models.ImageField(upload_to=uploadItem('e/stamps'))
+    rare_stamp = models.ImageField(_('Rare Stamp'), upload_to=uploadItem('e/stamps'))
     @property
     def rare_stamp_url(self): return get_image_url_from_path(self.rare_stamp)
     @property

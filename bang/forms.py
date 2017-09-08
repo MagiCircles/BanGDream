@@ -138,3 +138,38 @@ class CardFilterForm(MagiFiltersForm):
     class Meta:
         model = models.Card
         fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'member_band', 'ordering', 'reverse_order')
+
+############################################################
+# Event
+
+class EventForm(AutoForm):
+    start_date = forms.DateField(label=_('Beginning'))
+    end_date = forms.DateField(label=_('End'))
+
+    def save(self, commit=False):
+        instance = super(EventForm, self).save(commit=False)
+        if instance.start_date:
+            instance.start_date = instance.start_date.replace(hour=5, minute=59)
+        if instance.end_date:
+            instance.end_date = instance.end_date.replace(hour=11, minute=59)
+        if commit:
+            instance.save()
+        return instance
+
+    class Meta:
+        model = models.Event
+        fields = '__all__'
+        optional_fields = ('start_date', 'end_date', 'rare_stamp')
+        save_owner_on_creation = True
+
+class EventFilterForm(MagiFiltersForm):
+    search_fields = ['name', 'japanese_name']
+    ordering_fields = [
+        ('start_date', _('Date')),
+        ('name', _('Name')),
+        ('japanese_name', string_concat(_('Name'), ' (', t['Japanese'], ')')),
+    ]
+
+    class Meta:
+        model = models.Event
+        fields = ('search', 'ordering', 'reverse_order')

@@ -2,8 +2,8 @@
 import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _
-from magi.default_settings import DEFAULT_ENABLED_PAGES
-from magi.utils import tourldash
+
+from magi.default_settings import DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING
 from bang import models
 
 SITE_NAME = 'Bandori Party'
@@ -68,8 +68,10 @@ USER_COLORS = [
 
 GOOGLE_ANALYTICS = 'UA-96550529-1'
 
-STATIC_FILES_VERSION = '2'
+STATIC_FILES_VERSION = '5'
 
 ENABLED_PAGES = DEFAULT_ENABLED_PAGES
 ENABLED_PAGES['index']['enabled'] = True
 ENABLED_PAGES['index']['custom'] = True
+
+NAVBAR_ORDERING = ['card_list', 'member_list', 'event_list'] + DEFAULT_NAVBAR_ORDERING

@@ -133,6 +133,7 @@ LANGUAGES = (
     ('pl', _('Polish')),
     ('ja', _('Japanese')),
     ('kr', _('Korean')),
+    ('id', _('Indonesian')),
     ('zh-hans', _('Simplified Chinese')),
     ('pt-br', _('Brazilian Portuguese')),
 )

@@ -2,8 +2,10 @@
 from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import dateformat
-from magi.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
-from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection
+from django.utils.safestring import mark_safe
+
+
+from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822
 from magi.default_settings import RAW_CONTEXT
 from magi.models import Activity
 from bang.django_translated import t
@@ -381,3 +383,57 @@ class CardCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         multipart = True
+
+class EventCollection(MagiCollection):
+    queryset = models.Event.objects.all()
+    title = _('Event')
+    plural_title = _('Events')
+    icon = 'event'
+    form_class = forms.EventForm
+    multipart = True
+
+    def to_fields(self, item, *args, **kwargs):
+        fields = super(EventCollection, self).to_fields(item, *args, icons={
+            'name': 'world',
+            'japanese_name': 'JP',
+            'start_date': 'date',
+            'end_date': 'date',
+            'rare_stamp': 'max-bond',
+        }, to_dict=False, **kwargs)
+        if item.status and item.status != 'ended':
+            fields.insert(0, ('countdown', {
+                'verbose_name': _('Countdown'),
+                'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
+                    date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
+                    sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
+                ),
+                'icon': 'times',
+                'type': 'html',
+            }))
+        fields = OrderedDict(fields)
+        if get_language() == 'ja' and 'name' in fields and 'japanese_name' in fields:
+            setSubField(fields, 'japanese_name', key='verbose_name', value=fields['name']['verbose_name'])
+            del(fields['name'])
+        if item.name == item.japanese_name and 'japanese_name' in fields:
+            del(fields['japanese_name'])
+        setSubField(fields, 'start_date', key='type', value='timezone_datetime')
+        setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
+        setSubField(fields, 'end_date', key='type', value='timezone_datetime')
+        setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
+        return fields
+
+    class ListView(MagiCollection.ListView):
+        item_template = 'default'
+        per_line = 2
+        default_ordering = '-start_date'
+        hide_sidebar = True
+        filter_form = forms.EventFilterForm
+
+    class ItemView(MagiCollection.ItemView):
+        template = 'default'
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True

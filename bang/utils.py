@@ -1,4 +1,4 @@
-from web.default_settings import RAW_CONTEXT
+from magi.default_settings import RAW_CONTEXT
 from bang.model_choices import TRAINABLE_RARITIES
 
 def rarity_to_stars_images(rarity):

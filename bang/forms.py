@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
-from web.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter
+from magi.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter
 from bang.django_translated import t
 from bang import models
 

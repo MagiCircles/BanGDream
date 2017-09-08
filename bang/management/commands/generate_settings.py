@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
-from web.tools import totalDonators
+from magi.tools import totalDonators
 from bang import models
 
 def generate_settings():

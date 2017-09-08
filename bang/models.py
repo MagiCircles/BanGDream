@@ -7,16 +7,16 @@ from django.utils import timezone
 from django.db.models import Q
 from django.db import models
 from django.conf import settings as django_settings
-from web.models import User, uploadItem
-from web.item_model import ItemModel, AccountAsOwnerItemModel, get_image_url_from_path, get_http_image_url_from_path
-from web.utils import AttrDict, tourldash
+from magi.models import User, uploadItem
+from magi.item_model import MagiModel, AccountAsOwnerModel, get_image_url_from_path, get_http_image_url_from_path
+from magi.utils import AttrDict, tourldash
 from bang.model_choices import *
 from bang.django_translated import t
 
 ############################################################
 # Account
 
-class Account(ItemModel):
+class Account(MagiModel):
     collection_name = 'account'
 
     owner = models.ForeignKey(User, related_name='accounts')
@@ -45,7 +45,7 @@ class Account(ItemModel):
 ############################################################
 # Members
 
-class Member(ItemModel):
+class Member(MagiModel):
     collection_name = 'member'
 
     owner = models.ForeignKey(User, related_name='added_members')
@@ -127,7 +127,7 @@ class Member(ItemModel):
 ############################################################
 # Card
 
-class Card(ItemModel):
+class Card(MagiModel):
     collection_name = 'card'
 
     owner = models.ForeignKey(User, related_name='added_cards')
@@ -281,6 +281,8 @@ class Card(ItemModel):
 
     @property
     def cached_member(self):
+        if not self.member_id:
+            return None
         if not self._cache_member_last_update or self._cache_member_last_update < timezone.now() - datetime.timedelta(days=self._cache_member_days):
             self.force_cache_member()
         return AttrDict({
@@ -300,7 +302,11 @@ class Card(ItemModel):
         if self.id:
             return u'{rarity} {member_name} - {attribute}'.format(
                 rarity=self.rarity,
-                member_name=self.cached_member.japanese_name if get_language() == 'ja' else self.cached_member.name,
+                member_name=(
+                    self.cached_member.japanese_name
+                    if get_language() == 'ja'
+                    else self.cached_member.name)
+                if self.cached_member else '',
                 attribute=self.attribute,
             )
         return u''
@@ -308,7 +314,7 @@ class Card(ItemModel):
 ############################################################
 # Owned Cards
 
-class CollectibleCard(AccountAsOwnerItemModel):
+class CollectibleCard(AccountAsOwnerModel):
     collection_name = 'collectiblecard'
 
     account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='cardscollectors')

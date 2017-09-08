@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import web.utils
+import magi.utils
 import django.db.models.deletion
 from django.conf import settings
 
@@ -33,12 +33,12 @@ class Migration(migrations.Migration):
                 ('id', models.PositiveIntegerField(unique=True, serialize=False, verbose_name='ID', primary_key=True, db_index=True)),
                 ('i_rarity', models.PositiveIntegerField(verbose_name='Rarity', choices=[(1, '\u2605'), (2, '\u2605\u2605'), (3, '\u2605\u2605\u2605'), (4, '\u2605\u2605\u2605\u2605')])),
                 ('i_attribute', models.PositiveIntegerField(verbose_name='Attribute', choices=[(1, 'Power'), (2, 'Cool'), (3, 'Pure'), (4, 'Happy')])),
-                ('image', models.ImageField(upload_to=web.utils.uploadItem(b'c'), verbose_name='Icon')),
-                ('image_trained', models.ImageField(upload_to=web.utils.uploadItem(b'c/a'), verbose_name='Icon (Trained)')),
-                ('art', models.ImageField(upload_to=web.utils.uploadItem(b'c/art'), verbose_name='Art')),
-                ('art_trained', models.ImageField(upload_to=web.utils.uploadItem(b'c/art/a'), verbose_name='Art (Trained)')),
-                ('transparent', models.ImageField(upload_to=web.utils.uploadItem(b'c/transparent'), verbose_name='Transparent')),
-                ('transparent_trained', models.ImageField(upload_to=web.utils.uploadItem(b'c/transparent/a'), verbose_name='Transparent (Trained)')),
+                ('image', models.ImageField(upload_to=magi.utils.uploadItem(b'c'), verbose_name='Icon')),
+                ('image_trained', models.ImageField(upload_to=magi.utils.uploadItem(b'c/a'), verbose_name='Icon (Trained)')),
+                ('art', models.ImageField(upload_to=magi.utils.uploadItem(b'c/art'), verbose_name='Art')),
+                ('art_trained', models.ImageField(upload_to=magi.utils.uploadItem(b'c/art/a'), verbose_name='Art (Trained)')),
+                ('transparent', models.ImageField(upload_to=magi.utils.uploadItem(b'c/transparent'), verbose_name='Transparent')),
+                ('transparent_trained', models.ImageField(upload_to=magi.utils.uploadItem(b'c/transparent/a'), verbose_name='Transparent (Trained)')),
                 ('skill_name', models.CharField(max_length=100, null=True, verbose_name=b'Skill name')),
                 ('japanese_skill_name', models.CharField(max_length=100, null=True, verbose_name=b'Skill name (Japanese)')),
                 ('i_skill_type', models.PositiveIntegerField(verbose_name='Skill', choices=[(1, 'Score Up'), (2, 'Life Recovery'), (3, 'Perfect Lock')])),
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
                 ('_cache_member_last_update', models.DateTimeField(null=True)),
                 ('_cache_member_name', models.CharField(max_length=100, null=True)),
                 ('_cache_member_japanese_name', models.CharField(max_length=100, null=True)),
-                ('_cache_member_image', models.ImageField(null=True, upload_to=web.utils.uploadItem(b'member'), blank=True)),
+                ('_cache_member_image', models.ImageField(null=True, upload_to=magi.utils.uploadItem(b'member'), blank=True)),
             ],
             options={
                 'abstract': False,
@@ -68,8 +68,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(unique=True, max_length=100, verbose_name='Name (romaji)')),
                 ('japanese_name', models.CharField(max_length=100, null=True, verbose_name='Name (Japanese)')),
-                ('image', models.ImageField(upload_to=web.utils.uploadItem(b'i'), verbose_name='Image')),
-                ('square_image', models.ImageField(upload_to=web.utils.uploadItem(b'i/m'), verbose_name='Image')),
+                ('image', models.ImageField(upload_to=magi.utils.uploadItem(b'i'), verbose_name='Image')),
+                ('square_image', models.ImageField(upload_to=magi.utils.uploadItem(b'i/m'), verbose_name='Image')),
                 ('i_band', models.PositiveIntegerField(verbose_name='Band', choices=[(0, b"poppin' party"), (1, b'afterglow'), (2, b'pastel*palettes'), (3, b'roselia'), (4, b'hello, happy world!')])),
                 ('school', models.CharField(max_length=100, null=True, verbose_name='School')),
                 ('i_school_year', models.PositiveIntegerField(null=True, verbose_name='School Year', choices=[(0, 'First'), (1, 'Second'), (2, 'Third')])),

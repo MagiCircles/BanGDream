@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import web.utils
+import magi.utils
 
 
 class Migration(migrations.Migration):
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='card',
             name='_cache_member_image',
-            field=models.ImageField(null=True, upload_to=web.utils.uploadItem(b'member')),
+            field=models.ImageField(null=True, upload_to=magi.utils.uploadItem(b'member')),
             preserve_default=True,
         ),
         migrations.AlterField(

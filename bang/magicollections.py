@@ -2,10 +2,10 @@
 from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import dateformat
-from web.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
-from web.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection
-from web.default_settings import RAW_CONTEXT
-from web.models import Activity
+from magi.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
+from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection
+from magi.default_settings import RAW_CONTEXT
+from magi.models import Activity
 from bang.django_translated import t
 from bang.utils import rarity_to_stars_images
 from bang import models, forms

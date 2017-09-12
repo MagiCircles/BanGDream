@@ -3,9 +3,8 @@ from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import dateformat
 from django.utils.safestring import mark_safe
-
-
-from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822
+from magi.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
+from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template
 from magi.default_settings import RAW_CONTEXT
 from magi.models import Activity
 from bang.django_translated import t
@@ -185,10 +184,8 @@ class MemberCollection(MagiCollection):
         'i_astrological_sign': {},
     }
 
-    class ItemView(MagiCollection.ItemView):
-        template = 'default'
-
     class ListView(MagiCollection.ListView):
+        item_template = custom_item_template
         filter_form = forms.MemberFilterForm
         default_ordering = '-_cache_total_fans'
 
@@ -359,11 +356,11 @@ class CardCollection(MagiCollection):
         return new_fields
 
     class ItemView(MagiCollection.ItemView):
-        template = 'default'
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
 
     class ListView(MagiCollection.ListView):
+        item_template = custom_item_template
         per_line = 2
         filter_form = forms.CardFilterForm
         default_ordering = '-id'
@@ -423,14 +420,10 @@ class EventCollection(MagiCollection):
         return fields
 
     class ListView(MagiCollection.ListView):
-        item_template = 'default'
         per_line = 2
         default_ordering = '-start_date'
         hide_sidebar = True
         filter_form = forms.EventFilterForm
-
-    class ItemView(MagiCollection.ItemView):
-        template = 'default'
 
     class AddView(MagiCollection.AddView):
         staff_required = True

@@ -2,8 +2,8 @@
 import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _
-
 from magi.default_settings import DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING
+from magi.utils import tourldash
 from bang import models
 
 SITE_NAME = 'Bandori Party'

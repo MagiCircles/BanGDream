@@ -338,10 +338,11 @@ class CollectibleCard(AccountAsOwnerModel):
 
     def __unicode__(self):
         return unicode(self.card)
-=======
+
+############################################################
 # Events
 
-class Event(ItemModel):
+class Event(MagiModel):
     collection_name = 'event'
 
     owner = models.ForeignKey(User, related_name='added_events')
@@ -369,4 +370,3 @@ class Event(ItemModel):
 
     def __unicode__(self):
         return self.japanese_name if get_language() == 'ja' else self.name
->>>>>>> fdf523c3b515426165e1f43ea88c05e877509388

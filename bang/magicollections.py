@@ -576,6 +576,8 @@ class GachaCollection(MagiCollection):
 
     class AddView(MagiCollection.AddView):
         savem2m = True
+        staff_required = True
 
     class EditView(MagiCollection.EditView):
         savem2m = True
+        staff_required = True

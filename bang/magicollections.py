@@ -571,6 +571,7 @@ class GachaCollection(MagiCollection):
 
     class ListView(MagiCollection.ListView):
         item_template = 'default'
+        default_ordering = '-start_date'
         per_line = 2
 
     class AddView(MagiCollection.AddView):

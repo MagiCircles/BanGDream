@@ -171,14 +171,18 @@ class EventForm(AutoForm):
             instance.start_date = instance.start_date.replace(hour=5, minute=59)
         if instance.end_date:
             instance.end_date = instance.end_date.replace(hour=11, minute=59)
-        if self.previous_main_card_id and self.previous_main_card_id != instance.main_card.id:
-            instance.main_card.update_cache_event()
-            previous_card = models.Card.objects.get(id=self.previous_main_card_id)
-            previous_card.update_cache_event()
-        if self.previous_secondary_card_id and self.previous_secondary_card_id != instance.secondary_card.id:
-            instance.secondary_card.update_cache_event()
-            previous_card = models.Card.objects.get(id=self.previous_secondary_card_id)
-            previous_card.update_cache_event()
+        if self.previous_main_card_id != instance.main_card.id:
+            if instance.main_card:
+                instance.main_card.update_cache_event()
+            if self.previous_main_card_id:
+                previous_card = models.Card.objects.get(id=self.previous_main_card_id)
+                previous_card.update_cache_event()
+        if self.previous_secondary_card_id != instance.secondary_card.id:
+            if instance.secondary_card:
+                instance.secondary_card.update_cache_event()
+            if self.previous_secondary_card_id:
+                previous_card = models.Card.objects.get(id=self.previous_secondary_card_id)
+                previous_card.update_cache_event()
         if commit:
             instance.save()
         return instance

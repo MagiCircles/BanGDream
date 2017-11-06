@@ -391,10 +391,10 @@ class Event(ItemModel):
 
     main_card = models.ForeignKey(Card, related_name='main_card_event', null=True, limit_choices_to={
         'i_rarity': 3,
-    })
+    }, on_delete=models.SET_NULL)
     secondary_card = models.ForeignKey(Card, related_name='secondary_card_event', null=True, limit_choices_to={
         'i_rarity': 2,
-    })
+    }, on_delete=models.SET_NULL)
 
     i_boost_attribute = models.PositiveIntegerField(_('Boost Attribute'), choices=ATTRIBUTE_CHOICES, null=True)
     @property
@@ -437,7 +437,7 @@ class Gacha(ItemModel):
     @property
     def english_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_attribute]
 
-    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gachas')
+    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gachas', null=True, on_delete=models.SET_NULL)
     cards = models.ManyToManyField(Card, verbose_name=('Cards'), related_name='gachas')
 
     @property

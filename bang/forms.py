@@ -225,5 +225,5 @@ class GachaForm(AutoForm):
     class Meta:
         model = models.Gacha
         fields = '__all__'
-        optional_fields = ('cards', )
+        optional_fields = ('cards', 'event')
         save_owner_on_creation = True

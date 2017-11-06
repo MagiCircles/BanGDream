@@ -558,7 +558,7 @@ class GachaCollection(MagiCollection):
         setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
-        setSubField(fields, 'event', key='link_text', value=item.event.japanese_name if get_language() == 'ja' else item.event.name)
+        setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
         return fields
 
     class ItemView(MagiCollection.ItemView):

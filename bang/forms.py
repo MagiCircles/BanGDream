@@ -171,11 +171,11 @@ class EventForm(AutoForm):
             instance.start_date = instance.start_date.replace(hour=5, minute=59)
         if instance.end_date:
             instance.end_date = instance.end_date.replace(hour=11, minute=59)
-        if self.previous_main_card_id != instance.main_card.id:
+        if self.previous_main_card_id and self.previous_main_card_id != instance.main_card.id:
             instance.main_card.update_cache_event()
             previous_card = models.Card.objects.get(id=self.previous_main_card_id)
             previous_card.update_cache_event()
-        if self.previous_secondary_card_id != instance.secondary_card.id:
+        if self.previous_secondary_card_id and self.previous_secondary_card_id != instance.secondary_card.id:
             instance.secondary_card.update_cache_event()
             previous_card = models.Card.objects.get(id=self.previous_secondary_card_id)
             previous_card.update_cache_event()
@@ -186,7 +186,7 @@ class EventForm(AutoForm):
     class Meta:
         model = models.Event
         fields = '__all__'
-        optional_fields = ('start_date', 'end_date', 'rare_stamp', 'stamp_meaning', 'main_card', 'secondary_card', 'i_boost_attribute', 'boost_members')
+        optional_fields = ('start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'main_card', 'secondary_card', 'i_boost_attribute', 'boost_members')
         save_owner_on_creation = True
 
 class EventFilterForm(MagiFiltersForm):

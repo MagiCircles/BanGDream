@@ -424,6 +424,7 @@ class EventCollection(MagiCollection):
             'start_date': 'date',
             'end_date': 'date',
             'rare_stamp': 'max-bond',
+            'stamp_translation': 'max-bond',
         }, images={
             'boost_attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],

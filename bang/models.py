@@ -122,7 +122,7 @@ class Member(ItemModel):
         return self._cache_total_cards
 
     def __unicode__(self):
-        return self.japanese_name if get_language() == 'ja' else self.name
+        return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
 
 ############################################################
 # Card
@@ -176,13 +176,13 @@ class Card(ItemModel):
 
     # Skill
 
-    skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
-    japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
     i_skill_type = models.PositiveIntegerField(_('Skill'), choices=SKILL_TYPE_CHOICES)
     @property
     def skill_type(self): return SKILL_TYPE_DICT[self.i_skill_type]
     @property
     def japanese_skill_type(self): return JAPANESE_SKILL_TYPE_DICT[self.i_skill_type]
+    skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
+    japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
     skill_details = models.CharField(_('Skill'), max_length=500, null=True)
 
     @property
@@ -192,6 +192,23 @@ class Card(ItemModel):
     @property
     def japanese_skill(self):
         return JAPANESE_SKILL_TEMPLATES[self.i_skill_type].format(size=SKILL_SIZES[self.i_rarity][1], note_type=SKILL_SIZES[self.i_rarity][2])
+
+    # Side skill
+
+    i_side_skill_type = models.PositiveIntegerField(_('Side skill'), choices=SKILL_TYPE_CHOICES, null=True)
+    @property
+    def side_skill_type(self): return SKILL_TYPE_DICT[self.i_side_skill_type]
+    @property
+    def japanese_side_skill_type(self): return JAPANESE_SKILL_TYPE_DICT[self.i_side_skill_type]
+    side_skill_details = models.CharField(_('Side skill'), max_length=500, null=True)
+
+    @property
+    def side_skill(self):
+        return self.side_skill_details or SKILL_TEMPLATES[self.i_side_skill_type].format(size=SKILL_SIZES[self.i_rarity][0], note_type=SKILL_SIZES[self.i_rarity][2])
+
+    @property
+    def japanese_side_skill(self):
+        return JAPANESE_SKILL_TEMPLATES[self.i_side_skill_type].format(size=SKILL_SIZES[self.i_rarity][1], note_type=SKILL_SIZES[self.i_rarity][2])
 
     # Statistics
     performance_min = models.PositiveIntegerField(string_concat(_('Performance'), ' (', _('Minimum'), ')'), default=0)
@@ -271,9 +288,10 @@ class Card(ItemModel):
 
     def update_cache_member(self):
         self._cache_member_last_update = timezone.now()
-        self._cache_member_name = self.member.name
-        self._cache_member_japanese_name = self.member.japanese_name
-        self._cache_member_image = self.member.image
+        if self.member_id:
+            self._cache_member_name = self.member.name
+            self._cache_member_japanese_name = self.member.japanese_name
+            self._cache_member_image = self.member.image
 
     def force_cache_member(self):
         self.update_cache_member()
@@ -292,8 +310,54 @@ class Card(ItemModel):
             'image': self._cache_member_image,
             'image_url': get_image_url_from_path(self._cache_member_image),
             'http_image_url': get_http_image_url_from_path(self._cache_member_image),
-            'item_url': u'/member/{}/{}/'.format(self.member_id, tourldash(self._cache_member_name)),
-            'ajax_item_url': u'/ajax/member/{}/'.format(self.member_id),
+            'item_url': u'/member/{}/{}/'.format(self.member_id, tourldash(self._cache_member_name)) if self.member_id else '#',
+            'ajax_item_url': u'/ajax/member/{}/'.format(self.member_id) if self.member_id else '',
+        })
+
+    # Cache event
+
+    _cache_event_days = 20
+    _cache_event_last_update = models.DateTimeField(null=True)
+    _cache_event_id = models.PositiveIntegerField(null=True)
+    _cache_event_name = models.CharField(max_length=100, null=True)
+    _cache_event_japanese_name = models.CharField(max_length=100, null=True)
+    _cache_event_image = models.ImageField(upload_to=uploadItem('e'), null=True)
+
+    def update_cache_event(self):
+        self._cache_event_last_update = timezone.now()
+        try:
+            event = Event.objects.filter(Q(main_card_id=self.id) | Q(secondary_card_id=self.id))[0]
+        except IndexError:
+            event = None
+        if event:
+            self._cache_event_id = event.id
+            self._cache_event_name = event.name
+            self._cache_event_japanese_name = event.japanese_name
+            self._cache_event_image = event.image
+        else:
+            self._cache_event_id = None
+
+    def force_cache_event(self):
+        self.update_cache_event()
+        self.save()
+
+    @property
+    def cached_event(self):
+        if not self._cache_event_last_update or self._cache_event_last_update < timezone.now() - datetime.timedelta(days=self._cache_event_days):
+            self.force_cache_event()
+        if not self._cache_event_id:
+            return None
+        return AttrDict({
+            'pk': self._cache_event_id,
+            'id': self._cache_event_id,
+            'unicode': self._cache_event_name if get_language() != 'ja' else self._cache_event_japanese_name,
+            'name': self._cache_event_name,
+            'japanese_name': self._cache_event_japanese_name,
+            'image': self._cache_event_image,
+            'image_url': get_image_url_from_path(self._cache_event_image),
+            'http_image_url': get_http_image_url_from_path(self._cache_event_image),
+            'item_url': u'/event/{}/{}/'.format(self._cache_event_id, tourldash(self._cache_event_name)),
+            'ajax_item_url': u'/ajax/event/{}/'.format(self._cache_event_id),
         })
 
     def __unicode__(self):
@@ -323,6 +387,23 @@ class Event(ItemModel):
     @property
     def http_rare_stamp_url(self): return get_http_image_url_from_path(self.rare_stamp)
 
+    stamp_translation = models.CharField(_('Stamp Translation'), max_length=200, null=True)
+
+    main_card = models.ForeignKey(Card, related_name='main_card_event', null=True, limit_choices_to={
+        'i_rarity': 3,
+    })
+    secondary_card = models.ForeignKey(Card, related_name='secondary_card_event', null=True, limit_choices_to={
+        'i_rarity': 2,
+    })
+
+    i_boost_attribute = models.PositiveIntegerField(_('Boost Attribute'), choices=ATTRIBUTE_CHOICES, null=True)
+    @property
+    def boost_attribute(self): return ATTRIBUTE_DICT[self.i_boost_attribute] if self.i_boost_attribute else None
+    @property
+    def english_boost_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_boost_attribute] if self.i_boost_attribute else None
+
+    boost_members = models.ManyToManyField(Member, related_name='boost_in_events', verbose_name=_('Boost Members'))
+
     @property
     def status(self):
         if not self.end_date or not self.start_date:
@@ -335,4 +416,35 @@ class Event(ItemModel):
         return 'future'
 
     def __unicode__(self):
-        return self.japanese_name if get_language() == 'ja' else self.name
+        return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
+
+############################################################
+# Gacha
+
+class Gacha(ItemModel):
+    collection_name = 'gacha'
+
+    owner = models.ForeignKey(User, related_name='added_gacha')
+    image = models.ImageField(_('Image'), upload_to=uploadItem('g'))
+    name = models.CharField(_('Name'), max_length=100, unique=True)
+    japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
+    start_date = models.DateTimeField(_('Beginning'), null=True)
+    end_date = models.DateTimeField(_('End'), null=True)
+
+    i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES)
+    @property
+    def attribute(self): return ATTRIBUTE_DICT[self.i_attribute]
+    @property
+    def english_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_attribute]
+
+    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gachas')
+    cards = models.ManyToManyField(Card, verbose_name=('Cards'), related_name='gachas')
+
+    @property
+    def cached_event(self):
+        # No need for a cache because the event is select_related in item view
+        self.event.unicode = unicode(self.event)
+        return self.event
+
+    def __unicode__(self):
+        return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)

@@ -320,6 +320,14 @@ class CardCollection(MagiCollection):
                 'ajax_link': item.cached_event.ajax_item_url,
                 'link_text': item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name,
             }) if item.cached_event else None),
+            ('gacha', ('max-bond', _('Gacha'), {
+                'verbose_name': item.cached_gacha.japanese_name if get_language() == 'ja' else item.cached_gacha.name,
+                'value': item.cached_gacha.image_url,
+                'type': 'image_link',
+                'link': item.cached_gacha.item_url,
+                'ajax_link': item.cached_gacha.ajax_item_url,
+                'link_text': item.cached_gacha.japanese_name if get_language() == 'ja' else item.cached_gacha.name,
+            }) if item.cached_gacha else None),
             ('image', ('id', _('Icon'), {
                 'type': 'image',
                 'value': item.image_url,
@@ -329,6 +337,7 @@ class CardCollection(MagiCollection):
             ('art_trained', ('link', string_concat(_('Art'), ' (', _('Trained'), ')'), None)),
             ('transparent', ('link', _('Transparent'), None)),
             ('transparent_trained', ('link', string_concat(_('Transparent'), ' (', _('Trained'), ')'), None)),
+            ('chibi', ('link', _('Chibi'), None)),
         ] if ((item.trainable or '_trained' not in field)
               and info)])
         if get_language() == 'ja':
@@ -442,6 +451,18 @@ class EventCollection(MagiCollection):
                 'type': 'html',
             }))
         fields = OrderedDict(fields)
+        if len(item.all_gachas):
+            fields['gacha'] = {
+                'icon': 'max-bond',
+                'verbose_name': _('Gacha'),
+                'type': 'images_links',
+                'images': [{
+                    'value': gacha.image_url,
+                    'link': gacha.item_url,
+                    'ajax_link': gacha.ajax_item_url,
+                    'link_text': unicode(gacha),
+                } for gacha in item.all_gachas]
+            }
         if len(item.all_members):
             fields['boost_members'] = {
                 'icon': 'users',
@@ -489,7 +510,7 @@ class EventCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(EventCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'))
+            queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'), Prefetch('gachas', to_attr='all_gachas'))
             return queryset
 
     class AddView(MagiCollection.AddView):
@@ -523,15 +544,26 @@ class GachaCollection(MagiCollection):
         fields = super(GachaCollection, self).to_fields(item, *args, icons={
             'name': 'max-bond',
             'japanese_name': 'max-bond',
-            'start_date': 'event',
+            'start_date': 'date',
             'end_date': 'date',
-            'event': 'date',
+            'event': 'event',
         }, images={
             'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_attribute,
             ),
-        }, **kwargs)
+        }, to_dict=False, **kwargs)
+        if item.status and item.status != 'ended':
+            fields.insert(0, ('countdown', {
+                'verbose_name': _('Countdown'),
+                'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
+                    date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
+                    sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
+                ),
+                'icon': 'times',
+                'type': 'html',
+            }))
+        fields = OrderedDict(fields)
         if len(item.all_cards):
             fields['cards'] = {
                 'icon': 'cards',
@@ -574,10 +606,21 @@ class GachaCollection(MagiCollection):
         default_ordering = '-start_date'
         per_line = 2
 
+    def _after_save(self, request, instance):
+        for card in instance.cards.all():
+            card.update_cache_gacha()
+        return instance
+
     class AddView(MagiCollection.AddView):
         savem2m = True
         staff_required = True
 
+        def after_save(self, request, instance):
+            return self.collection._after_save(request, instance)
+
     class EditView(MagiCollection.EditView):
         savem2m = True
         staff_required = True
+
+        def after_save(self, request, instance):
+            return self.collection._after_save(request, instance)

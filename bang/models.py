@@ -24,7 +24,7 @@ class Account(ItemModel):
     start_date = models.DateField(_('Start Date'), null=True)
     level = models.PositiveIntegerField(_("Level"), null=True, validators=[
         MinValueValidator(1),
-        MaxValueValidator(200),
+        MaxValueValidator(300),
     ])
 
     @property
@@ -173,11 +173,11 @@ class Card(ItemModel):
     def transparent_trained_url(self): return get_image_url_from_path(self.transparent_trained)
     @property
     def http_transparent_trained_url(self): return get_http_image_url_from_path(self.transparent_trained)
-    # chibi = models.ImageField(_('Chibi'), upload_to=uploadItem('c/c'))
-    # @property
-    # def chibi_url(self): return get_image_url_from_path(self.chibi)
-    # @property
-    # def http_chibi_url(self): return get_http_image_url_from_path(self.chibi)
+    chibi = models.ImageField(_('Chibi'), upload_to=uploadItem('c/c'), null=True)
+    @property
+    def chibi_url(self): return get_image_url_from_path(self.chibi)
+    @property
+    def http_chibi_url(self): return get_http_image_url_from_path(self.chibi)
 
     # Skill
 
@@ -365,6 +365,52 @@ class Card(ItemModel):
             'ajax_item_url': u'/ajax/event/{}/'.format(self._cache_event_id),
         })
 
+    # Cache gacha
+
+    _cache_gacha_days = 20
+    _cache_gacha_last_update = models.DateTimeField(null=True)
+    _cache_gacha_id = models.PositiveIntegerField(null=True)
+    _cache_gacha_name = models.CharField(max_length=100, null=True)
+    _cache_gacha_japanese_name = models.CharField(max_length=100, null=True)
+    _cache_gacha_image = models.ImageField(upload_to=uploadItem('e'), null=True)
+
+    def update_cache_gacha(self):
+        self._cache_gacha_last_update = timezone.now()
+        try:
+            gacha = Gacha.objects.filter(cards__id=self.id)[0]
+        except IndexError:
+            gacha = None
+        if gacha:
+            self._cache_gacha_id = gacha.id
+            self._cache_gacha_name = gacha.name
+            self._cache_gacha_japanese_name = gacha.japanese_name
+            self._cache_gacha_image = gacha.image
+        else:
+            self._cache_gacha_id = None
+
+    def force_cache_gacha(self):
+        self.update_cache_gacha()
+        self.save()
+
+    @property
+    def cached_gacha(self):
+        if not self._cache_gacha_last_update or self._cache_gacha_last_update < timezone.now() - datetime.timedelta(days=self._cache_gacha_days):
+            self.force_cache_gacha()
+        if not self._cache_gacha_id:
+            return None
+        return AttrDict({
+            'pk': self._cache_gacha_id,
+            'id': self._cache_gacha_id,
+            'unicode': self._cache_gacha_name if get_language() != 'ja' else self._cache_gacha_japanese_name,
+            'name': self._cache_gacha_name,
+            'japanese_name': self._cache_gacha_japanese_name,
+            'image': self._cache_gacha_image,
+            'image_url': get_image_url_from_path(self._cache_gacha_image),
+            'http_image_url': get_http_image_url_from_path(self._cache_gacha_image),
+            'item_url': u'/gacha/{}/{}/'.format(self._cache_gacha_id, tourldash(self._cache_gacha_name)),
+            'ajax_item_url': u'/ajax/gacha/{}/'.format(self._cache_gacha_id),
+        })
+
     def __unicode__(self):
         if self.id:
             return u'{rarity} {member_name} - {attribute}'.format(
@@ -408,6 +454,12 @@ class Event(ItemModel):
     def english_boost_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_boost_attribute] if self.i_boost_attribute else None
 
     boost_members = models.ManyToManyField(Member, related_name='boost_in_events', verbose_name=_('Boost Members'))
+
+    @property
+    def cached_gacha(self):
+        # No need for a cache because the gacha is select_related in item view
+        self.gacha.unicode = unicode(self.gacha)
+        return self.gacha
 
     @property
     def status(self):
@@ -503,6 +555,17 @@ class Gacha(ItemModel):
         # No need for a cache because the event is select_related in item view
         self.event.unicode = unicode(self.event)
         return self.event
+
+    @property
+    def status(self):
+        if not self.end_date or not self.start_date:
+            return None
+        now = timezone.now()
+        if now > self.end_date:
+            return 'ended'
+        elif now > self.start_date:
+            return 'current'
+        return 'future'
 
     def __unicode__(self):
         return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)

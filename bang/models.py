@@ -336,3 +336,50 @@ class Event(ItemModel):
 
     def __unicode__(self):
         return self.japanese_name if get_language() == 'ja' else self.name
+
+############################################################
+# Song
+
+SONG_DIFFICULTY_VALIDATORS = [
+    MinValueValidator(1),
+    MaxValueValidator(26),
+]
+
+class Song(ItemModel):
+    collection_name = 'song'
+
+    name = models.CharField(_('Title'), max_length=100, unique=True)
+    length = models.PositiveIntegerField(_('Length'), null=True)
+    is_cover = models.BooleanField(_('Cover song'), default=False)
+    bpm = models.PositiveIntegerField(_('BPM'), null=True)
+
+    i_band = models.PositiveIntegerField(_('Band'), choices=BAND_CHOICES)
+    @property
+    def band(self): return BAND_DICT[self.i_band]
+
+    easy_notes = models.PositiveIntegerField(string_concat(_('Easy'), ' - ', _('Notes')), null=True)
+    easy_difficulty = models.PositiveIntegerField(string_concat(_('Easy'), ' - ', _('Difficulty')), validators=SONG_DIFFICULTY_VALIDATORS, null=True)
+    normal_notes = models.PositiveIntegerField(string_concat(_('Normal'), ' - ', _('Notes')), null=True)
+    normal_difficulty = models.PositiveIntegerField(string_concat(_('Normal'), ' - ', _('Difficulty')), validators=SONG_DIFFICULTY_VALIDATORS, null=True)
+    hard_notes = models.PositiveIntegerField(string_concat(_('Hard'), ' - ', _('Notes')), null=True)
+    hard_difficulty = models.PositiveIntegerField(string_concat(_('Hard'), ' - ', _('Difficulty')), validators=SONG_DIFFICULTY_VALIDATORS, null=True)
+    expert_notes = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Notes')), null=True)
+    expert_difficulty = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Difficulty')), validators=SONG_DIFFICULTY_VALIDATORS, null=True)
+
+    i_unlock = models.PositiveIntegerField(_('How to unlock?'), choices=UNLOCK_CHOICES)
+    @property
+    def unlock(self): return UNLOCK_DICT.get(self.i_unlock, None)
+    c_unlock_variables = models.CharField(max_length=100)
+    #@property
+    #def unlock_variables(self):
+
+
+    @property
+    def unlock_sentence(self):
+        sentence = UNLOCK_SENTENCES.get(self.unlock, None)
+        if not sentence:
+            return None
+        return unicode(sentence).format()
+
+    def __unicode__(self):
+        return self.name

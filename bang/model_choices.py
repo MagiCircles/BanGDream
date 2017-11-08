@@ -161,3 +161,33 @@ SKILL_ICONS = {
     SKILL_LIFE_RECOVERY: 'healer',
     SKILL_PERFECT_LOCK: 'perfectlock',
 }
+
+############################################################
+# Songs
+
+UNLOCK = [
+    'gift',
+    'purchase',
+    'complete_story',
+    'complete_tutorial',
+    'other',
+]
+
+UNLOCK_CHOICES = list(enumerate(UNLOCK))
+UNLOCK_DICT = dict(UNLOCK_CHOICES)
+
+UNLOCK_SENTENCES = {
+    'gift': _('Gift ({occasion})'),
+    'purchase': _('Purchase at CiRCLE'),
+    'complete_story': _('Complete {story_type} Story {chapter}'),
+    'complete_tutorial': _('Complete Tutorial'),
+    'other': '{info}',
+}
+
+UNLOCK_VARIABLES = {
+    'gift': ['occasion'],
+    'purchase': [],
+    'complete_story': ['story_type', 'chapter'],
+    'complete_tutorial': [],
+    'other': ['info'],
+}

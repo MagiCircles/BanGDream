@@ -300,7 +300,7 @@ class Card(ItemModel):
         if self.id:
             return u'{rarity} {member_name} - {attribute}'.format(
                 rarity=self.rarity,
-                member_name=self.cached_member.japanese_name if get_language() == 'ja' else self.cached_member.name,
+                member_name=(self.cached_member.japanese_name if get_language() == 'ja' else self.cached_member.name) if self.member_id else '',
                 attribute=self.attribute,
             )
         return u''

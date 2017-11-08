@@ -74,4 +74,4 @@ ENABLED_PAGES = DEFAULT_ENABLED_PAGES
 ENABLED_PAGES['index']['enabled'] = True
 ENABLED_PAGES['index']['custom'] = True
 
-NAVBAR_ORDERING = ['card_list', 'member_list', 'event_list'] + DEFAULT_NAVBAR_ORDERING
+NAVBAR_ORDERING = ['member_list', 'card_list', 'event_list', 'gacha_list'] + DEFAULT_NAVBAR_ORDERING

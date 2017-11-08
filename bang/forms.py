@@ -89,6 +89,7 @@ class CardForm(AutoForm):
         super(CardForm, self).__init__(*args, **kwargs)
         self.previous_member_id = None if self.is_creating else self.instance.member_id
         self.fields['skill_details'].label = 'Skill details'
+        self.fields['side_skill_details'].label = 'Side skill details'
 
     def save(self, commit=False):
         instance = super(CardForm, self).save(commit=False)
@@ -102,7 +103,7 @@ class CardForm(AutoForm):
         model = models.Card
         fields = '__all__'
         save_owner_on_creation = True
-        optional_fields = ('name', 'japanese_name', 'image_trained', 'art_trained', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained')
+        optional_fields = ('name', 'japanese_name', 'image_trained', 'art_trained', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained')
 
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
@@ -146,12 +147,42 @@ class EventForm(AutoForm):
     start_date = forms.DateField(label=_('Beginning'))
     end_date = forms.DateField(label=_('End'))
 
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        self.previous_main_card_id = None if self.is_creating else self.instance.main_card_id
+        self.previous_secondary_card_id = None if self.is_creating else self.instance.secondary_card_id
+
+    def _clean_card_rarity(self, field_name, rarity):
+        if field_name in self.cleaned_data and self.cleaned_data[field_name]:
+            if self.cleaned_data[field_name].i_rarity != rarity:
+                raise forms.ValidationError(u'Rarity must be {}'.format(rarity))
+            return self.cleaned_data[field_name]
+        return None
+
+    def clean_main_card(self):
+        return self._clean_card_rarity('main_card', 3)
+
+    def clean_secondary_card(self):
+        return self._clean_card_rarity('secondary_card', 2)
+
     def save(self, commit=False):
         instance = super(EventForm, self).save(commit=False)
         if instance.start_date:
             instance.start_date = instance.start_date.replace(hour=5, minute=59)
         if instance.end_date:
             instance.end_date = instance.end_date.replace(hour=11, minute=59)
+        if self.previous_main_card_id != (instance.main_card.id if instance.main_card else 0):
+            if instance.main_card:
+                instance.main_card.update_cache_event()
+            if self.previous_main_card_id:
+                previous_card = models.Card.objects.get(id=self.previous_main_card_id)
+                previous_card.update_cache_event()
+        if self.previous_secondary_card_id != (instance.secondary_card.id if instance.secondary_card else 0):
+            if instance.secondary_card:
+                instance.secondary_card.update_cache_event()
+            if self.previous_secondary_card_id:
+                previous_card = models.Card.objects.get(id=self.previous_secondary_card_id)
+                previous_card.update_cache_event()
         if commit:
             instance.save()
         return instance
@@ -159,7 +190,7 @@ class EventForm(AutoForm):
     class Meta:
         model = models.Event
         fields = '__all__'
-        optional_fields = ('start_date', 'end_date', 'rare_stamp')
+        optional_fields = ('start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'main_card', 'secondary_card', 'i_boost_attribute', 'boost_members')
         save_owner_on_creation = True
 
 class EventFilterForm(MagiFiltersForm):
@@ -173,3 +204,26 @@ class EventFilterForm(MagiFiltersForm):
     class Meta:
         model = models.Event
         fields = ('search', 'ordering', 'reverse_order')
+
+############################################################
+# Gacha
+
+class GachaForm(AutoForm):
+    start_date = forms.DateField(label=_('Beginning'))
+    end_date = forms.DateField(label=_('End'))
+
+    def save(self, commit=False):
+        instance = super(GachaForm, self).save(commit=False)
+        if instance.start_date:
+            instance.start_date = instance.start_date.replace(hour=5, minute=59)
+        if instance.end_date:
+            instance.end_date = instance.end_date.replace(hour=11, minute=59)
+        if commit:
+            instance.save()
+        return instance
+
+    class Meta:
+        model = models.Gacha
+        fields = '__all__'
+        optional_fields = ('cards', 'event')
+        save_owner_on_creation = True

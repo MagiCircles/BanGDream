@@ -3,6 +3,7 @@ from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import dateformat
 from django.utils.safestring import mark_safe
+from django.db.models import Prefetch
 from web.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
 from web.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822
 from web.default_settings import RAW_CONTEXT
@@ -231,6 +232,10 @@ class CardCollection(MagiCollection):
             'to_cuteform': lambda k, v: models.SKILL_ICONS[k],
             'transform': CuteFormTransform.Flaticon,
         },
+        'i_side_skill_type': {
+            'to_cuteform': lambda k, v: models.SKILL_ICONS[k],
+            'transform': CuteFormTransform.Flaticon,
+        },
         'member_band': {
             'image_folder': 'band',
             'to_cuteform': 'value',
@@ -303,6 +308,18 @@ class CardCollection(MagiCollection):
                 'type': 'title_text',
                 'title': item.japanese_skill_type,
             })),
+            ('side_skill', (models.SKILL_ICONS[item.i_side_skill_type], _('Side skill'), {
+                'type': 'title_text',
+                'title': item.side_skill_type,
+            }) if item.i_side_skill_type else None),
+            ('event', ('event', _('Event'), {
+                'verbose_name': item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name,
+                'value': item.cached_event.image_url,
+                'type': 'image_link',
+                'link': item.cached_event.item_url,
+                'ajax_link': item.cached_event.ajax_item_url,
+                'link_text': item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name,
+            }) if item.cached_event else None),
             ('image', ('id', _('Icon'), {
                 'type': 'image',
                 'value': item.image_url,
@@ -312,7 +329,8 @@ class CardCollection(MagiCollection):
             ('art_trained', ('link', string_concat(_('Art'), ' (', _('Trained'), ')'), None)),
             ('transparent', ('link', _('Transparent'), None)),
             ('transparent_trained', ('link', string_concat(_('Transparent'), ' (', _('Trained'), ')'), None)),
-        ] if item.trainable or '_trained' not in field])
+        ] if ((item.trainable or '_trained' not in field)
+              and info)])
         if get_language() == 'ja':
             if 'skill' in final_fields:
                 del(final_fields['skill'])
@@ -379,6 +397,26 @@ class EventCollection(MagiCollection):
     form_class = forms.EventForm
     multipart = True
 
+    filter_cuteform = {
+        'main_card': {
+            'to_cuteform': lambda k, v: v.image_url,
+            'extra_settings': {
+	        'modal': 'true',
+	        'modal-text': 'true',
+            },
+        },
+        'secondary_card': {
+            'to_cuteform': lambda k, v: v.image_url,
+            'extra_settings': {
+	        'modal': 'true',
+	        'modal-text': 'true',
+            },
+        },
+        'i_boost_attribute': {
+            'image_folder': 'i_attribute',
+        },
+    }
+
     def to_fields(self, item, *args, **kwargs):
         fields = super(EventCollection, self).to_fields(item, *args, icons={
             'name': 'world',
@@ -386,6 +424,12 @@ class EventCollection(MagiCollection):
             'start_date': 'date',
             'end_date': 'date',
             'rare_stamp': 'max-bond',
+            'stamp_translation': 'max-bond',
+        }, images={
+            'boost_attribute': u'{static_url}img/i_attribute/{value}.png'.format(
+                static_url=RAW_CONTEXT['static_url'],
+                value=item.i_boost_attribute,
+            ),
         }, to_dict=False, **kwargs)
         if item.status and item.status != 'ended':
             fields.insert(0, ('countdown', {
@@ -398,6 +442,30 @@ class EventCollection(MagiCollection):
                 'type': 'html',
             }))
         fields = OrderedDict(fields)
+        if len(item.all_members):
+            fields['boost_members'] = {
+                'icon': 'users',
+                'verbose_name': _('Boost Members'),
+                'type': 'images_links',
+                'images': [{
+                    'value': member.square_image_url,
+                    'link': member.item_url,
+                    'ajax_link': member.ajax_item_url,
+                    'link_text': unicode(member),
+                } for member in item.all_members]
+            }
+        if item.main_card_id or item.secondary_card_id:
+            fields['cards'] = {
+                'icon': 'cards',
+                'verbose_name': _('Cards'),
+                'type': 'images_links',
+                'images': [{
+                    'value': card.image_url,
+                    'link': card.item_url,
+                    'ajax_link': card.ajax_item_url,
+                    'link_text': unicode(card),
+                } for card in [item.main_card, item.secondary_card] if card is not None]
+            }
         if get_language() == 'ja' and 'name' in fields and 'japanese_name' in fields:
             setSubField(fields, 'japanese_name', key='verbose_name', value=fields['name']['verbose_name'])
             del(fields['name'])
@@ -419,8 +487,97 @@ class EventCollection(MagiCollection):
     class ItemView(MagiCollection.ItemView):
         template = 'default'
 
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(EventCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'))
+            return queryset
+
     class AddView(MagiCollection.AddView):
+        staff_required = True
+        savem2m = True
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True
+        savem2m = True
+
+class GachaCollection(MagiCollection):
+    queryset = models.Gacha.objects.all()
+    icon = 'max-bond'
+    title = _('Gacha')
+    plural_title = _('Gacha')
+    form_class = forms.GachaForm
+    multipart = True
+
+    filter_cuteform = {
+        'i_attribute': {},
+        'event': {
+            'to_cuteform': lambda k, v: v.image_url,
+            'extra_settings': {
+	        'modal': 'true',
+	        'modal-text': 'true',
+            },
+        },
+    }
+
+    def to_fields(self, item, *args, **kwargs):
+        fields = super(GachaCollection, self).to_fields(item, *args, icons={
+            'name': 'max-bond',
+            'japanese_name': 'max-bond',
+            'start_date': 'event',
+            'end_date': 'date',
+            'event': 'date',
+        }, images={
+            'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
+                static_url=RAW_CONTEXT['static_url'],
+                value=item.i_attribute,
+            ),
+        }, **kwargs)
+        if len(item.all_cards):
+            fields['cards'] = {
+                'icon': 'cards',
+                'verbose_name': _('Cards'),
+                'type': 'images_links',
+                'images': [{
+                    'value': card.image_url,
+                    'link': card.item_url,
+                    'ajax_link': card.ajax_item_url,
+                    'link_text': unicode(card),
+                } for card in item.all_cards],
+            }
+        if 'japanese_name' in fields:
+            del(fields['japanese_name'])
+        if get_language() == 'ja':
+            setSubField(fields, 'name', key='value', value=item.japanese_name)
+        else:
+            setSubField(fields, 'name', key='type', value='title_text')
+            setSubField(fields, 'name', key='title', value=item.name)
+            setSubField(fields, 'name', key='value', value=item.japanese_name)
+        setSubField(fields, 'start_date', key='type', value='timezone_datetime')
+        setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
+        setSubField(fields, 'end_date', key='type', value='timezone_datetime')
+        setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
+        setSubField(fields, 'event', key='type', value='image_link')
+        setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
+        setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
+        return fields
+
+    class ItemView(MagiCollection.ItemView):
+        template = 'default'
+
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(GachaCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            queryset = queryset.select_related('event').prefetch_related(Prefetch('cards', to_attr='all_cards'))
+            return queryset
+
+    class ListView(MagiCollection.ListView):
+        item_template = 'default'
+        default_ordering = '-start_date'
+        per_line = 2
+
+    class AddView(MagiCollection.AddView):
+        savem2m = True
         staff_required = True
 
     class EditView(MagiCollection.EditView):
+        savem2m = True
         staff_required = True

@@ -173,6 +173,11 @@ class Card(ItemModel):
     def transparent_trained_url(self): return get_image_url_from_path(self.transparent_trained)
     @property
     def http_transparent_trained_url(self): return get_http_image_url_from_path(self.transparent_trained)
+    # chibi = models.ImageField(_('Chibi'), upload_to=uploadItem('c/c'))
+    # @property
+    # def chibi_url(self): return get_image_url_from_path(self.chibi)
+    # @property
+    # def http_chibi_url(self): return get_http_image_url_from_path(self.chibi)
 
     # Skill
 

@@ -52,7 +52,7 @@ ASTROLOGICAL_SIGN_DICT = dict(ASTROLOGICAL_SIGN_CHOICES)
 SCHOOL_YEARS = [
     _('First'),
     _('Second'),
-    _('Third'),
+    _('Junior Third'),
 ]
 
 ENGLISH_SCHOOL_YEARS = [

@@ -138,7 +138,7 @@ class CardFilterForm(MagiFiltersForm):
 
     class Meta:
         model = models.Card
-        fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'member_band', 'ordering', 'reverse_order')
+        fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'i_side_skill_type', 'member_band', 'ordering', 'reverse_order')
 
 ############################################################
 # Event

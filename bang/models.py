@@ -313,8 +313,8 @@ class Event(ItemModel):
 
     owner = models.ForeignKey(User, related_name='added_events')
     image = models.ImageField(_('Image'), upload_to=uploadItem('e'))
-    name = models.CharField(_('Name'), max_length=100, unique=True)
-    japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
+    name = models.CharField(_('Title'), max_length=100, unique=True)
+    japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
     start_date = models.DateTimeField(_('Beginning'), null=True)
     end_date = models.DateTimeField(_('End'), null=True)
     rare_stamp = models.ImageField(_('Rare Stamp'), upload_to=uploadItem('e/stamps'))

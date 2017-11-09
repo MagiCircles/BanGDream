@@ -28,8 +28,8 @@ class AccountForm(MagiForm):
 
     class Meta:
         model = models.Account
-        fields = ('level', 'start_date')
-        optional_fields = ('level', 'start_date')
+        fields = ('level', 'friend_id', 'start_date')
+        optional_fields = ('level', 'friend_id', 'start_date')
 
 class FilterAccounts(MagiFiltersForm):
     search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location']

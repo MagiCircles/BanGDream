@@ -26,6 +26,7 @@ class Account(ItemModel):
         MinValueValidator(1),
         MaxValueValidator(300),
     ])
+    friend_id = models.PositiveIntegerField(_('Friend ID'), null=True)
 
     @property
     def item_url(self):

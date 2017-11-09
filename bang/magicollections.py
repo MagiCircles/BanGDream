@@ -60,6 +60,7 @@ class AccountCollection(_AccountCollection):
             'creation': 'date',
             'start_date': 'date',
             'level': 'max-level',
+            'friend_id': 'id',
         }, **kwargs)
 
     class ListView(_AccountCollection.ListView):

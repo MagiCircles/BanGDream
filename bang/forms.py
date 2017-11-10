@@ -233,7 +233,7 @@ class GachaForm(AutoForm):
         if instance.start_date:
             instance.start_date = instance.start_date.replace(hour=5, minute=59)
         if instance.end_date:
-            instance.end_date = instance.end_date.replace(hour=11, minute=59)
+            instance.end_date = instance.end_date.replace(hour=5, minute=59)
         if commit:
             instance.save()
         return instance

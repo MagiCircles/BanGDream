@@ -13,7 +13,10 @@
             {{ account.report_sentence }}</a>
         </div>
       </div>
-      <div class="col-md-2"><h3 class="text-right">{{ account.level|default_if_none:"??" }}</h3></div>
+      <div class="col-md-2">
+        <h3 class="text-right">{{ account.level|default_if_none:"??" }}</h3>
+        {% if account.friend_id %}<div class="text-right"><small>{{ account.friend_id }}</small></div>{% endif %}
+      </div>
     </div>
   </a>
 </div>

@@ -8,6 +8,7 @@ from web.magicollections import MagiCollection, AccountCollection as _AccountCol
 from web.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822
 from web.default_settings import RAW_CONTEXT
 from web.models import Activity
+from bang import settings
 from bang.django_translated import t
 from bang.utils import rarity_to_stars_images
 from bang import models, forms
@@ -46,6 +47,13 @@ class AccountCollection(_AccountCollection):
 	        'modal': 'true',
 	        'modal-text': 'true',
             },
+        },
+        'i_attribute': {
+            'to_cuteform': lambda k, v: [c[0] for c in settings.USER_COLORS].index(k) + 1,
+            'transform': CuteFormTransform.ImagePath,
+        },
+        'has_friend_id': {
+            'type': CuteFormType.OnlyNone,
         },
     }
 

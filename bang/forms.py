@@ -6,6 +6,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from web.utils import join_data
 from web.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter
+from bang import settings
 from bang.django_translated import t
 from bang import models
 
@@ -46,9 +47,24 @@ class FilterAccounts(MagiFiltersForm):
     member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], required=False, label=_('Favorite Member'))
     member_id_filter = MagiFilter(selectors=['owner__preferences__favorite_character{}'.format(i) for i in range(1, 4)])
 
+    has_friend_id = forms.NullBooleanField(required=False, initial=None, label=_('Friend ID'))
+    # has_friend_id_filter = MagiFilter(selector='friend_id__isnull') This will work with latest magicircles when merging
+    def _filter_friend_id(self, queryset, request, value):
+        if value == '2':
+            value = True
+        elif value == '3':
+            value = False
+        else:
+            value = None
+        return queryset.filter(friend_id__isnull=not value) if value is not None else queryset
+    has_friend_id_filter = MagiFilter(to_queryset=_filter_friend_id)
+
+    i_attribute = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(c[0], c[1]) for c in settings.USER_COLORS], required=False, label=_('Attribute'))
+    i_attribute_filter = MagiFilter(selector='owner__preferences__color')
+
     class Meta:
         model = models.Account
-        fields = ('search', 'member_id',)
+        fields = ('search', 'friend_id', 'i_attribute', 'member_id', 'has_friend_id', )
 
 ############################################################
 # Member
@@ -218,7 +234,7 @@ class GachaForm(AutoForm):
         if instance.start_date:
             instance.start_date = instance.start_date.replace(hour=5, minute=59)
         if instance.end_date:
-            instance.end_date = instance.end_date.replace(hour=11, minute=59)
+            instance.end_date = instance.end_date.replace(hour=5, minute=59)
         if commit:
             instance.save()
         return instance

@@ -676,6 +676,7 @@ class SongCollection(MagiCollection):
                 'length': 'times',
                 'unlock': 'perfectlock',
                 'bpm': 'hp',
+                'release_date': 'date',
             }, images=images)
         for fieldName in (
                 ((['japanese_name', 'romaji_name', 'name']

@@ -262,7 +262,7 @@ class _SongForm(AutoForm):
     class Meta:
         model = models.Song
         fields = '__all__'
-        optional_fields = ('length', 'bpm', 'easy_notes', 'easy_difficulty', 'normal_notes', 'normal_difficulty', 'hard_notes', 'hard_difficulty', 'expert_notes', 'expert_difficulty', 'name', 'romaji_name', 'itunes_id', 'composer', 'lyricist', 'arranger')
+        optional_fields = ('length', 'bpm', 'easy_notes', 'easy_difficulty', 'normal_notes', 'normal_difficulty', 'hard_notes', 'hard_difficulty', 'expert_notes', 'expert_difficulty', 'name', 'romaji_name', 'itunes_id', 'composer', 'lyricist', 'arranger', 'release_date')
         save_owner_on_creation = True
 
 def unlock_to_form(unlock):

@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
+from web.utils import join_data
 from web.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter
 from bang.django_translated import t
 from bang import models
@@ -227,3 +228,81 @@ class GachaForm(AutoForm):
         fields = '__all__'
         optional_fields = ('cards', 'event')
         save_owner_on_creation = True
+
+############################################################
+# Song
+
+class _SongForm(AutoForm):
+
+    def __init__(self, *args, **kwargs):
+        super(_SongForm, self).__init__(*args, **kwargs)
+        if 'i_unlock' in self.fields:
+            del(self.fields['i_unlock'])
+        if 'c_unlock_variables' in self.fields:
+            del(self.fields['c_unlock_variables'])
+        if 'length' in self.fields:
+            self.fields['length'].help_text = 'in seconds'
+
+    class Meta:
+        model = models.Song
+        fields = '__all__'
+        optional_fields = ('length', 'bpm', 'easy_notes', 'easy_difficulty', 'normal_notes', 'normal_difficulty', 'hard_notes', 'hard_difficulty', 'expert_notes', 'expert_difficulty', 'name', 'romaji_name', 'itunes_id', 'composer', 'lyricist', 'arranger')
+        save_owner_on_creation = True
+
+def unlock_to_form(unlock):
+    class _UnlockSongForm(_SongForm):
+        def __init__(self, *args, **kwargs):
+            super(_UnlockSongForm, self).__init__(*args, **kwargs)
+            help_text = mark_safe(u'Will be displayed as <code>{}</code>'.format(
+                unicode(models.UNLOCK_SENTENCES[unlock]).format(**{
+                    variable: 'xxx'
+                    for variable in models.UNLOCK_VARIABLES[unlock]
+                }),
+            )) if unlock != 'other' else None
+            for i, variable in enumerate(models.UNLOCK_VARIABLES[unlock]):
+                self.fields[variable] = forms.CharField(
+                    help_text=help_text,
+                    initial=None if self.is_creating else self.instance.unlock_variables[i],
+                )
+
+        def save(self, commit=False):
+            instance = super(_UnlockSongForm, self).save(commit=False)
+            instance.i_unlock = next(k for k, v in models.UNLOCK_CHOICES if v == unlock)
+            instance.c_unlock_variables = join_data(*[
+                self.cleaned_data[variable]
+                for variable in models.UNLOCK_VARIABLES[unlock]
+            ])
+            if commit:
+                instance.save()
+            return instance
+
+    return _UnlockSongForm
+
+class SongFilterForm(MagiFiltersForm):
+    search_fields = ['japanese_name', 'romaji_name', 'name', 'composer', 'lyricist', 'arranger', 'c_unlock_variables']
+    ordering_fields = [
+        ('release_date', _('Release date')),
+        ('japanese_name', _('Title')),
+        ('romaji_name', string_concat(_('Title'), ' (', _('Romaji'), ')')),
+        ('length', _('Length')),
+        ('bpm', _('BPM')),
+        ('hard_notes', string_concat(_('Hard'), ' - ', _('Notes'))),
+        ('hard_difficulty', string_concat(_('Hard'), ' - ', _('Difficulty'))),
+        ('expert_notes', string_concat(_('Expert'), ' - ', _('Notes'))),
+        ('expert_difficulty', string_concat(_('Expert'), ' - ', _('Difficulty'))),
+    ]
+
+
+    def _is_cover_queryset(form, queryset, request, value):
+        if value == '2':
+            return queryset.filter(is_cover=True)
+        elif value == '3':
+            return queryset.filter(is_cover=False)
+        return queryset
+
+    is_cover = forms.NullBooleanField(initial=None, required=False, label=_('Cover'))
+    is_cover_filter = MagiFilter(to_queryset=_is_cover_queryset)
+
+    class Meta:
+        model = models.Song
+        fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'ordering', 'reverse_order')

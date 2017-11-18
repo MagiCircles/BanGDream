@@ -4,4 +4,5 @@ from web.django_translated import t
 
 t.update({
     'Japanese': _('Japanese'),
+    'English': _('English'),
 })

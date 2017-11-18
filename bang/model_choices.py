@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, string_concat
 
 ############################################################
 # Members
@@ -166,22 +166,22 @@ SKILL_ICONS = {
 # Songs
 
 UNLOCK = [
-    'gift',
-    'purchase',
-    'complete_story',
-    'complete_tutorial',
-    'other',
+    ('gift', _('Gift')),
+    ('purchase', _('Purchase at CiRCLE')),
+    ('complete_story', _('Complete story')),
+    ('complete_tutorial', _('Complete Tutorial')),
+    ('other', _('Other')),
 ]
 
-UNLOCK_CHOICES = list(enumerate(UNLOCK))
-UNLOCK_DICT = dict(UNLOCK_CHOICES)
+UNLOCK_CHOICES = list(enumerate([u[1] for u in UNLOCK]))
+UNLOCK_DICT = { i: u[0] for i, u in enumerate(UNLOCK) }
 
 UNLOCK_SENTENCES = {
-    'gift': _('Gift ({occasion})'),
+    'gift': string_concat(_('Gift'), ' ({occasion})'),
     'purchase': _('Purchase at CiRCLE'),
     'complete_story': _('Complete {story_type} Story {chapter}'),
     'complete_tutorial': _('Complete Tutorial'),
-    'other': '{info}',
+    'other': '{how_to_unlock}',
 }
 
 UNLOCK_VARIABLES = {
@@ -189,5 +189,5 @@ UNLOCK_VARIABLES = {
     'purchase': [],
     'complete_story': ['story_type', 'chapter'],
     'complete_tutorial': [],
-    'other': ['info'],
+    'other': ['how_to_unlock'],
 }

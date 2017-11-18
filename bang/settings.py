@@ -2,7 +2,7 @@
 import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _
-from web.default_settings import DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING
+from web.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING
 from web.utils import tourldash
 from bang import models
 
@@ -74,4 +74,10 @@ ENABLED_PAGES = DEFAULT_ENABLED_PAGES
 ENABLED_PAGES['index']['enabled'] = True
 ENABLED_PAGES['index']['custom'] = True
 
-NAVBAR_ORDERING = ['member_list', 'card_list', 'event_list', 'gacha_list'] + DEFAULT_NAVBAR_ORDERING
+ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
+ENABLED_NAVBAR_LISTS['events'] = {
+    'title': _('Events'),
+    'icon': 'event',
+}
+
+NAVBAR_ORDERING = ['member_list', 'card_list', 'events', 'song_list'] + DEFAULT_NAVBAR_ORDERING

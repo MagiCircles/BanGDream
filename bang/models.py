@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
-import datetime
+import datetime, time
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
@@ -9,7 +9,7 @@ from django.db import models
 from django.conf import settings as django_settings
 from web.models import User, uploadItem
 from web.item_model import ItemModel, get_image_url_from_path, get_http_image_url_from_path
-from web.utils import AttrDict, tourldash
+from web.utils import AttrDict, tourldash, split_data
 from bang.model_choices import *
 from bang.django_translated import t
 
@@ -479,55 +479,85 @@ class Event(ItemModel):
 ############################################################
 # Song
 
-SONG_DIFFICULTY_VALIDATORS = [
-    MinValueValidator(1),
-    MaxValueValidator(26),
-]
-
 class Song(ItemModel):
-    """
-    WIP
-    """
     collection_name = 'song'
 
-    name = models.CharField(_('Title'), max_length=100, unique=True)
-    length = models.PositiveIntegerField(_('Length'), null=True)
-    is_cover = models.BooleanField(_('Cover song'), default=False)
-    bpm = models.PositiveIntegerField(_('BPM'), null=True)
+    DIFFICULTY_VALIDATORS = [
+        MinValueValidator(1),
+        MaxValueValidator(26),
+    ]
+
+    DIFFICULTIES = [
+        ('easy', _('Easy')),
+        ('normal', _('Normal')),
+        ('hard', _('Hard')),
+        ('expert', _('Expert')),
+    ]
+
+    SONGWRITERS_DETAILS = [
+        ('composer', _('Composer')),
+        ('lyricist', _('Lyricist')),
+        ('arranger', _('Arranger')),
+    ]
+
+    owner = models.ForeignKey(User, related_name='added_songs')
+    image = models.ImageField(_('Album cover'), upload_to=uploadItem('s'))
 
     i_band = models.PositiveIntegerField(_('Band'), choices=BAND_CHOICES)
     @property
     def band(self): return BAND_DICT[self.i_band]
 
+    japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
+    romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)
+    name = models.CharField(string_concat(_('Translation'), ' (', t['English'], ')'), max_length=100, null=True)
+
+    itunes_id = models.PositiveIntegerField(_('Preview'), help_text='iTunes ID', null=True)
+    length = models.PositiveIntegerField(_('Length'), null=True)
+
+    @property
+    def length_in_minutes(self):
+        return time.strftime('%M:%S', time.gmtime(self.length))
+
+    is_cover = models.BooleanField(_('Cover song'), default=False)
+    bpm = models.PositiveIntegerField(_('Beats per minute'), null=True)
+    release_date = models.DateField(_('Release date'), null=True)
+
+    composer = models.CharField(_('Composer'), max_length=100, null=True)
+    lyricist = models.CharField(_('Lyricist'), max_length=100, null=True)
+    arranger = models.CharField(_('Arranger'), max_length=100, null=True)
+
     easy_notes = models.PositiveIntegerField(string_concat(_('Easy'), ' - ', _('Notes')), null=True)
-    easy_difficulty = models.PositiveIntegerField(string_concat(_('Easy'), ' - ', _('Difficulty')), validators=SONG_DIFFICULTY_VALIDATORS, null=True)
+    easy_difficulty = models.PositiveIntegerField(string_concat(_('Easy'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
     normal_notes = models.PositiveIntegerField(string_concat(_('Normal'), ' - ', _('Notes')), null=True)
-    normal_difficulty = models.PositiveIntegerField(string_concat(_('Normal'), ' - ', _('Difficulty')), validators=SONG_DIFFICULTY_VALIDATORS, null=True)
+    normal_difficulty = models.PositiveIntegerField(string_concat(_('Normal'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
     hard_notes = models.PositiveIntegerField(string_concat(_('Hard'), ' - ', _('Notes')), null=True)
-    hard_difficulty = models.PositiveIntegerField(string_concat(_('Hard'), ' - ', _('Difficulty')), validators=SONG_DIFFICULTY_VALIDATORS, null=True)
+    hard_difficulty = models.PositiveIntegerField(string_concat(_('Hard'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
     expert_notes = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Notes')), null=True)
-    expert_difficulty = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Difficulty')), validators=SONG_DIFFICULTY_VALIDATORS, null=True)
+    expert_difficulty = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
 
     i_unlock = models.PositiveIntegerField(_('How to unlock?'), choices=UNLOCK_CHOICES)
     @property
     def unlock(self): return UNLOCK_DICT.get(self.i_unlock, None)
-    c_unlock_variables = models.CharField(max_length=100)
-    #@property
-    #def unlock_variables(self):
-
-
+    c_unlock_variables = models.CharField(max_length=100, null=True)
+    @property
+    def unlock_variables(self):
+        return split_data(self.c_unlock_variables)
+    @property
+    def dict_unlock_variables(self):
+        return {
+            v: self.unlock_variables[i]
+            for i, v in enumerate(UNLOCK_VARIABLES[self.unlock])
+        }
     @property
     def unlock_sentence(self):
-        sentence = UNLOCK_SENTENCES.get(self.unlock, None)
-        if not sentence:
-            return None
-        return unicode(sentence).format()
+        return unicode(UNLOCK_SENTENCES[self.unlock]).format(**self.dict_unlock_variables)
+
+    @property # Needed to use with types in magicollections
+    def type(self):
+        return self.unlock
 
     def __unicode__(self):
-        return self.name
-
-    class Meta:
-        abstract = True
+        return self.romaji_name if self.romaji_name and get_language() != 'ja'  else self.japanese_name
 
 ############################################################
 # Gacha

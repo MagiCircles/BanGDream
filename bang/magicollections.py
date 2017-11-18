@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from itertools import chain
 from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import dateformat
@@ -406,6 +407,7 @@ class EventCollection(MagiCollection):
     icon = 'event'
     form_class = forms.EventForm
     multipart = True
+    navbar_link_list = 'events'
 
     filter_cuteform = {
         'main_card': {
@@ -529,6 +531,7 @@ class GachaCollection(MagiCollection):
     plural_title = _('Gacha')
     form_class = forms.GachaForm
     multipart = True
+    navbar_link_list = 'events'
 
     filter_cuteform = {
         'i_attribute': {},
@@ -625,3 +628,133 @@ class GachaCollection(MagiCollection):
 
         def after_save(self, request, instance):
             return self.collection._after_save(request, instance)
+
+############################################################
+# Songs Collection
+
+_song_cuteform = {
+    'i_band': {
+        'image_folder': 'band',
+        'to_cuteform': 'value',
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+}
+
+class SongCollection(MagiCollection):
+    queryset = models.Song.objects.all()
+    multipart = True
+    icon = 'song'
+
+    types = {
+        unlock: {
+            'title': u'Unlock - {}'.format(unlock.replace('_', ' ').title()),
+            'form_class': forms.unlock_to_form(unlock),
+        }
+        for unlock, t in models.UNLOCK
+    }
+
+    filter_cuteform = _song_cuteform
+
+    def to_fields(self, item, to_dict=True, only_fields=None, in_list=False, icons={}, images={}):
+        fields = super(SongCollection, self).to_fields(
+            item, to_dict=True, only_fields=only_fields, icons={
+                'japanese_name': 'song',
+                'name': 'world',
+                'romaji_name': 'song',
+                'itunes_id': 'play',
+                'length': 'times',
+                'unlock': 'perfectlock',
+                'bpm': 'hp',
+            }, images=images)
+        for fieldName in (
+                ((['japanese_name', 'romaji_name', 'name']
+                 if get_language() == 'ja' else ['romaji_name']) if not in_list else [])
+                + ['band', 'c_unlock_variables', 'is_cover']
+                + [f for f, t in models.Song.SONGWRITERS_DETAILS]
+                + ((list(chain.from_iterable(
+                    (u'{}_notes'.format(d), u'{}_difficulty'.format(d))
+                    for d, t in models.Song.DIFFICULTIES))) if not in_list else [])
+        ):
+            if fieldName in fields:
+                del(fields[fieldName])
+        setSubField(fields, 'japanese_name', key='verbose_name', value=_('Song'))
+        setSubField(fields, 'japanese_name', key='type', value='title_text')
+        setSubField(fields, 'japanese_name', key='title', value=item.japanese_name)
+        setSubField(fields, 'japanese_name', key='value', value=
+                    u'({})'.format(_('Cover') if item.is_cover else _('Original')))
+
+        setSubField(fields, 'length', key='value', value=lambda f: item.length_in_minutes)
+        setSubField(fields, 'unlock', key='value', value=item.unlock_sentence)
+
+        if in_list:
+            for difficulty, verbose_name in models.Song.DIFFICULTIES:
+                image = lambda f: u'{static_url}img/songs/{difficulty}.png'.format(
+                    static_url=RAW_CONTEXT['static_url'],
+                    difficulty=difficulty,
+                )
+                setSubField(fields, u'{}_notes'.format(difficulty), key='image',
+                            value=image)
+                setSubField(fields, u'{}_difficulty'.format(difficulty), key='image',
+                            value=image)
+        else: # not in_list
+            note_image = u'{}img/note.png'.format(RAW_CONTEXT['static_url'])
+            for difficulty, verbose_name in models.Song.DIFFICULTIES:
+                notes = getattr(item, u'{}_notes'.format(difficulty), None)
+                difficulty_level = getattr(item, u'{}_difficulty'.format(difficulty), None)
+                if notes or difficulty_level:
+                    fields[difficulty] = {
+                        'verbose_name': verbose_name,
+                        'type': 'html',
+                        'value': mark_safe(u'{big_images}{small_images}<br />{notes}'.format(
+                            difficulty_level=difficulty_level,
+                            big_images=(u'<img src="{}" class="song-big-note">'.format(note_image)
+                                        * (difficulty_level // 5)),
+                            small_images=(u'<img src="{}" class="song-small-note">'.format(note_image)
+                                          * (difficulty_level % 5)),
+                            notes=_(u'{} notes').format(notes),
+                        )),
+                        'image': u'{static_url}img/songs/{difficulty}.png'.format(
+                            static_url=RAW_CONTEXT['static_url'],
+                            difficulty=difficulty,
+                        ),
+                    }
+
+            details = u''
+            for fieldName, verbose_name in models.Song.SONGWRITERS_DETAILS:
+                value = getattr(item, fieldName)
+                if value:
+                    details += u'<b>{}</b>: {}<br />'.format(verbose_name, value)
+            if details:
+                fields['songwriters'] = {
+                    'verbose_name': _('Songwriters'),
+                    'type': 'html',
+                    'value': mark_safe(details),
+                    'icon': 'id',
+                }
+
+        return fields
+
+    class ListView(MagiCollection.ListView):
+        item_template = 'default'
+        per_line = 3
+        filter_form = forms.SongFilterForm
+
+        filter_cuteform = dict(_song_cuteform.items() + [
+            ('is_cover', {
+                'type': CuteFormType.OnlyNone,
+            }),
+        ])
+
+    class ItemView(MagiCollection.ItemView):
+        template = 'default'
+        top_illustration = 'include/songTopIllustration'
+        ajax_callback = 'loadSongItem'
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True

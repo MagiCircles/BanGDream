@@ -283,7 +283,7 @@ def unlock_to_form(unlock):
 
         def save(self, commit=False):
             instance = super(_UnlockSongForm, self).save(commit=False)
-            instance.i_unlock = next(k for k, v in models.UNLOCK_CHOICES if v == unlock)
+            instance.i_unlock = next(k for k, v in models.UNLOCK_DICT.items() if v == unlock)
             instance.c_unlock_variables = join_data(*[
                 self.cleaned_data[variable]
                 for variable in models.UNLOCK_VARIABLES[unlock]

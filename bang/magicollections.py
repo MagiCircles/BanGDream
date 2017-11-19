@@ -740,7 +740,7 @@ class SongCollection(MagiCollection):
                 fields['songwriters'] = {
                     'verbose_name': _('Songwriters'),
                     'type': 'html',
-                    'value': mark_safe(details),
+                    'value': mark_safe(u'<div class="songwriters-details">{}</div>'.format(details)),
                     'icon': 'id',
                 }
 
@@ -750,6 +750,7 @@ class SongCollection(MagiCollection):
         item_template = 'default'
         per_line = 3
         filter_form = forms.SongFilterForm
+        default_ordering = '-release_date'
 
         filter_cuteform = dict(_song_cuteform.items() + [
             ('is_cover', {

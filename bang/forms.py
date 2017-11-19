@@ -308,7 +308,6 @@ class SongFilterForm(MagiFiltersForm):
         ('expert_difficulty', string_concat(_('Expert'), ' - ', _('Difficulty'))),
     ]
 
-
     def _is_cover_queryset(form, queryset, request, value):
         if value == '2':
             return queryset.filter(is_cover=True)

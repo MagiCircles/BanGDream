@@ -484,7 +484,7 @@ class Song(ItemModel):
 
     DIFFICULTY_VALIDATORS = [
         MinValueValidator(1),
-        MaxValueValidator(26),
+        MaxValueValidator(28),
     ]
 
     DIFFICULTIES = [

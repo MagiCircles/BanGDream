@@ -170,6 +170,7 @@ UNLOCK = [
     ('purchase', _('Purchase at CiRCLE')),
     ('complete_story', _('Complete story')),
     ('complete_tutorial', _('Complete Tutorial')),
+    ('initial', _('Initially available')),
     ('other', _('Other')),
 ]
 
@@ -181,6 +182,7 @@ UNLOCK_SENTENCES = {
     'purchase': _('Purchase at CiRCLE'),
     'complete_story': _('Complete {story_type} Story {chapter}'),
     'complete_tutorial': _('Complete Tutorial'),
+    'initial': _('Initially available'),
     'other': '{how_to_unlock}',
 }
 
@@ -189,5 +191,6 @@ UNLOCK_VARIABLES = {
     'purchase': [],
     'complete_story': ['story_type', 'chapter'],
     'complete_tutorial': [],
+    'initial': [],
     'other': ['how_to_unlock'],
 }

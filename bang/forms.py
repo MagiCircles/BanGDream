@@ -1,11 +1,11 @@
-import datetime
+import datetime, os
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
-from web.utils import join_data
-from web.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter
+from web.utils import join_data, shrinkImageFromData, randomString, tourldash
+from web.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter, MultiImageField
 from bang import settings
 from bang.django_translated import t
 from bang import models
@@ -102,25 +102,55 @@ class MemberFilterForm(MagiFiltersForm):
 # Card
 
 class CardForm(AutoForm):
+    chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
+
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
         self.previous_member_id = None if self.is_creating else self.instance.member_id
         self.fields['skill_details'].label = 'Skill details'
         self.fields['side_skill_details'].label = 'Side skill details'
+        # Delete existing chibis
+        if not self.is_creating:
+            self.all_chibis = self.instance.chibis.all()
+            for imageObject in self.all_chibis:
+                self.fields[u'delete_chibi_{}'.format(imageObject.id)] = forms.BooleanField(
+                    label=mark_safe(u'Delete chibi <img src="{}" height="100" />'.format(imageObject.image_url)),
+                    initial=False, required=False,
+                )
 
     def save(self, commit=False):
         instance = super(CardForm, self).save(commit=False)
         if self.previous_member_id != instance.member_id:
             instance.update_cache_member()
-        if commit:
-            instance.save()
+        instance.save()
+        # Delete existing chibis
+        if not self.is_creating:
+            for imageObject in self.all_chibis:
+                field_name = u'delete_chibi_{}'.format(imageObject.id)
+                field = self.fields.get(field_name)
+                if field and self.cleaned_data[field_name]:
+                    instance.chibis.remove(imageObject)
+                    imageObject.delete()
+        # Upload new chibis
+        for image in self.cleaned_data['chibis']:
+            name, extension = os.path.splitext(image.name)
+            imageObject = models.Image.objects.create()
+            image = shrinkImageFromData(image.read(), image.name)
+            image.name = u'{name}-{attribute}-chibi.{extension}'.format(
+                name=tourldash(instance.member.name),
+                attribute=instance.attribute,
+                extension=extension,
+            )
+            imageObject.image.save(image.name, image)
+            instance.chibis.add(imageObject)
+        instance.force_cache_chibis()
         return instance
 
     class Meta:
         model = models.Card
         fields = '__all__'
         save_owner_on_creation = True
-        optional_fields = ('name', 'japanese_name', 'image_trained', 'art_trained', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained', 'chibi')
+        optional_fields = ('name', 'japanese_name', 'image_trained', 'art_trained', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained', 'chibis')
 
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']

@@ -9,9 +9,19 @@ from django.db import models
 from django.conf import settings as django_settings
 from web.models import User, uploadItem
 from web.item_model import ItemModel, get_image_url_from_path, get_http_image_url_from_path
-from web.utils import AttrDict, tourldash, split_data
+from web.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName
 from bang.model_choices import *
 from bang.django_translated import t
+
+############################################################
+# Utility Models
+
+class Image(ItemModel):
+    collection_name = 'images' # Doesn't exist in default_settings.py
+    image = models.ImageField(upload_to=uploadToKeepName('images/'))
+
+    def __unicode__(self):
+        return unicode(self.image)
 
 ############################################################
 # Account
@@ -174,11 +184,6 @@ class Card(ItemModel):
     def transparent_trained_url(self): return get_image_url_from_path(self.transparent_trained)
     @property
     def http_transparent_trained_url(self): return get_http_image_url_from_path(self.transparent_trained)
-    chibi = models.ImageField(_('Chibi'), upload_to=uploadItem('c/c'), null=True)
-    @property
-    def chibi_url(self): return get_image_url_from_path(self.chibi)
-    @property
-    def http_chibi_url(self): return get_http_image_url_from_path(self.chibi)
 
     # Skill
 
@@ -236,6 +241,10 @@ class Card(ItemModel):
     @property
     def overall_trained_max(self):
         return self.performance_trained_max + self.technique_trained_max + self.visual_trained_max
+
+    # Chibi images
+
+    chibis = models.ManyToManyField(Image, related_name="chibi", verbose_name=_('Chibi'))
 
     # Tools
 
@@ -411,6 +420,38 @@ class Card(ItemModel):
             'item_url': u'/gacha/{}/{}/'.format(self._cache_gacha_id, tourldash(self._cache_gacha_name)),
             'ajax_item_url': u'/ajax/gacha/{}/'.format(self._cache_gacha_id),
         })
+
+    # Cache chibis
+
+    _cache_chibis_days = 200
+    _cache_chibis_last_update = models.DateTimeField(null=True)
+    _cache_chibis_ids = models.TextField(null=True)
+    _cache_chibis_paths = models.TextField(null=True)
+
+    def update_cache_chibis(self, chibis=None):
+        self._cache_chibis_last_update = timezone.now()
+        if not chibis:
+            chibis = self.chibis.all()
+        self._cache_chibis_ids = join_data(*[ image.id for image in chibis ])
+        self._cache_chibis_paths = join_data(*[ unicode(image) for image in chibis ])
+
+    def force_cache_chibis(self):
+        self.update_cache_chibis()
+        self.save()
+
+    @property
+    def cached_chibis(self):
+        if not self._cache_chibis_last_update or self._cache_chibis_last_update < timezone.now() - datetime.timedelta(days=self._cache_chibis_days):
+            self.force_cache_chibis()
+        if not self._cache_chibis_ids:
+            return []
+        return [AttrDict({
+            'id': id,
+            'pk': id,
+            'image': path,
+            'image_url': get_image_url_from_path(path),
+            'http_image_url': get_http_image_url_from_path(path),
+        }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]
 
     def __unicode__(self):
         if self.id:

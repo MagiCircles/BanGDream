@@ -180,7 +180,7 @@ UNLOCK_DICT = { i: u[0] for i, u in enumerate(UNLOCK) }
 UNLOCK_SENTENCES = {
     'gift': string_concat(_('Gift'), ' ({occasion})'),
     'purchase': _('Purchase at CiRCLE'),
-    'complete_story': _('Complete {story_type} Story {chapter}'),
+    'complete_story': _('Complete {story_type} story, chapter {chapter}'),
     'complete_tutorial': _('Complete Tutorial'),
     'initial': _('Initially available'),
     'other': '{how_to_unlock}',

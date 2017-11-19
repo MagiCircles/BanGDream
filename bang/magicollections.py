@@ -498,6 +498,18 @@ class EventCollection(MagiCollection):
                     'link_text': unicode(card),
                 } for card in [item.main_card, item.secondary_card] if card is not None]
             }
+        if len(item.all_gifted_songs):
+            fields['songs'] = {
+                'icon': 'song',
+                'verbose_name': _('Gift song'),
+                'type': 'images_links',
+                'images': [{
+                    'value': gifted_song.image_url,
+                    'link': gifted_song.item_url,
+                    'ajax_link': gifted_song.ajax_item_url,
+                    'link_text': unicode(gifted_song),
+                } for gifted_song in item.all_gifted_songs]
+            }
         if get_language() == 'ja' and 'name' in fields and 'japanese_name' in fields:
             setSubField(fields, 'japanese_name', key='verbose_name', value=fields['name']['verbose_name'])
             del(fields['name'])
@@ -521,7 +533,7 @@ class EventCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(EventCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'), Prefetch('gachas', to_attr='all_gachas'))
+            queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'), Prefetch('gachas', to_attr='all_gachas'), Prefetch('gift_songs', to_attr='all_gifted_songs'))
             return queryset
 
     class AddView(MagiCollection.AddView):
@@ -647,6 +659,13 @@ _song_cuteform = {
         'extra_settings': {
             'modal': 'true',
             'modal-text': 'true',
+        },
+    },
+    'event': {
+        'to_cuteform': lambda k, v: v.image_url,
+        'extra_settings': {
+	    'modal': 'true',
+	    'modal-text': 'true',
         },
     },
 }

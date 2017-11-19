@@ -347,6 +347,7 @@ class CardCollection(MagiCollection):
             ('art_trained', ('link', string_concat(_('Art'), ' (', _('Trained'), ')'), None)),
             ('transparent', ('link', _('Transparent'), None)),
             ('transparent_trained', ('link', string_concat(_('Transparent'), ' (', _('Trained'), ')'), None)),
+        ] + ([
             ('chibis', ('link', _('Chibi'), {
                 'icon': 'users',
                 'type': 'images',
@@ -355,7 +356,7 @@ class CardCollection(MagiCollection):
                     'verbose_name': _('Chibi'),
                 } for chibi in item.cached_chibis],
             })),
-        ] if ((item.trainable or '_trained' not in field)
+        ] if item.cached_chibis else []) if ((item.trainable or '_trained' not in field)
               and info)])
         if get_language() == 'ja':
             if 'skill' in final_fields:

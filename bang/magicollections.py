@@ -677,6 +677,7 @@ class SongCollection(MagiCollection):
                 'unlock': 'perfectlock',
                 'bpm': 'hp',
                 'release_date': 'date',
+                'event': 'event',
             }, images=images)
         for fieldName in (
                 ((['japanese_name', 'romaji_name', 'name']
@@ -697,6 +698,10 @@ class SongCollection(MagiCollection):
 
         setSubField(fields, 'length', key='value', value=lambda f: item.length_in_minutes)
         setSubField(fields, 'unlock', key='value', value=item.unlock_sentence)
+
+        setSubField(fields, 'event', key='type', value='image_link')
+        setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
+        setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
 
         if in_list:
             for difficulty, verbose_name in models.Song.DIFFICULTIES:
@@ -762,6 +767,11 @@ class SongCollection(MagiCollection):
         template = 'default'
         top_illustration = 'include/songTopIllustration'
         ajax_callback = 'loadSongItem'
+
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(SongCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            queryset = queryset.select_related('event')
+            return queryset
 
     class AddView(MagiCollection.AddView):
         staff_required = True

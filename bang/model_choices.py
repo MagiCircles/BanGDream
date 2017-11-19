@@ -171,6 +171,7 @@ UNLOCK = [
     ('complete_story', _('Complete story')),
     ('complete_tutorial', _('Complete Tutorial')),
     ('initial', _('Initially available')),
+    ('event', _('Event gift')),
     ('other', _('Other')),
 ]
 
@@ -183,6 +184,7 @@ UNLOCK_SENTENCES = {
     'complete_story': _('Complete {story_type} story, chapter {chapter}'),
     'complete_tutorial': _('Complete Tutorial'),
     'initial': _('Initially available'),
+    'event': _('Event gift'),
     'other': '{how_to_unlock}',
 }
 
@@ -192,5 +194,6 @@ UNLOCK_VARIABLES = {
     'complete_story': ['story_type', 'chapter'],
     'complete_tutorial': [],
     'initial': [],
+    'event': [],
     'other': ['how_to_unlock'],
 }

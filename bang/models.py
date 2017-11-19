@@ -552,6 +552,14 @@ class Song(ItemModel):
     def unlock_sentence(self):
         return unicode(UNLOCK_SENTENCES[self.unlock]).format(**self.dict_unlock_variables)
 
+    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gift_songs', null=True, on_delete=models.SET_NULL)
+
+    @property
+    def cached_event(self):
+        # No need for a cache because the event is select_related in item view
+        self.event.unicode = unicode(self.event)
+        return self.event
+
     @property # Needed to use with types in magicollections
     def type(self):
         return self.unlock

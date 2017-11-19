@@ -280,6 +280,8 @@ def unlock_to_form(unlock):
                     help_text=help_text,
                     initial=None if self.is_creating else self.instance.unlock_variables[i],
                 )
+            if unlock != 'event' and 'event' in self.fields:
+                del(self.fields['event'])
 
         def save(self, commit=False):
             instance = super(_UnlockSongForm, self).save(commit=False)

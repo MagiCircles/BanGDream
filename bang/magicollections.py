@@ -647,7 +647,7 @@ class GachaCollection(MagiCollection):
         savem2m = True
         staff_required = True
 
-        def after_save(self, request, instance):
+        def after_save(self, request, instance, type=None):
             return self.collection._after_save(request, instance)
 
     class EditView(MagiCollection.EditView):

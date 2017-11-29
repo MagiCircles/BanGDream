@@ -37,6 +37,14 @@ def generate_settings():
 	    member.square_image_url,
         ) for member in all_members]
 
+        print 'Get homepage characters'
+        characters = models.Card.objects.filter(i_rarity=2).order_by('-id')[:2]
+        homepage_characters = ','.join(['\'{}\''.format(c.transparent_url) for c in characters])
+        if len(characters) != 2:
+                homepage_characters = None
+        if homepage_characters:
+                homepage_characters = u'HOMEPAGE_CHARACTERS = [{}]'.format(homepage_characters)
+
         # print 'Get the starters'
         # all_starters = models.Card.objects.filter(pk__in=[100001, 200001, 300001]).order_by('pk')
         # starters = [(
@@ -79,6 +87,7 @@ def generate_settings():
 import datetime\n\
 LATEST_NEWS = ' + unicode(latest_news) + u'\n\
 TOTAL_DONATORS = ' + unicode(total_donators) + u'\n\
+' +  homepage_characters + '\n\
 FAVORITE_CHARACTERS = ' + unicode(favorite_characters) + u'\n\
 MAX_STATS = ' + unicode(stats) + u'\n\
 SCHOOLS = ' + unicode(schools) + '\n\

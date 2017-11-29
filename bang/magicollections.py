@@ -398,7 +398,7 @@ class CardCollection(MagiCollection):
 
     class ListView(MagiCollection.ListView):
         per_line = 2
-        page_size = 32
+        page_size = 36
         filter_form = forms.CardFilterForm
         default_ordering = '-id'
         ajax_pagination_callback = 'loadCardInList'

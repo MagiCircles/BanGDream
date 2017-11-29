@@ -89,7 +89,7 @@ class MemberViewSet(viewsets.ModelViewSet):
 class CardSerializer(MagiSerializer):
     i_attribute = IField(models.ENGLISH_ATTRIBUTE_DICT)
     i_skill_type = IField(models.ENGLISH_SKILL_TYPES_DICT)
-    i_side_skill_type = IField(models.ENGLISH_SKILL_TYPES_DICT)
+    i_side_skill_type = IField(models.ENGLISH_SKILL_TYPES_DICT, required=False)
     image = ImageField(required=True)
     image_trained = ImageField(required=False)
     art = ImageField(required=True)

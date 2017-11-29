@@ -34,7 +34,7 @@ class AccountForm(MagiForm):
         optional_fields = ('level', 'friend_id', 'start_date')
 
 class FilterAccounts(MagiFiltersForm):
-    search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location']
+    search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location', 'owner__links__value']
     search_fields_exact = ['owner__email']
 
     ordering_fields = [

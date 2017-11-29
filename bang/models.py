@@ -159,7 +159,7 @@ class Card(ItemModel):
 
     # Images
     image = models.ImageField(_('Icon'), upload_to=uploadItem('c'))
-    image_trained = models.ImageField(string_concat(_('Icon'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/a'))
+    image_trained = models.ImageField(string_concat(_('Icon'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/a'), null=True)
     @property
     def image_trained_url(self): return get_image_url_from_path(self.image_trained)
     @property
@@ -169,7 +169,7 @@ class Card(ItemModel):
     def art_url(self): return get_image_url_from_path(self.art)
     @property
     def http_art_url(self): return get_http_image_url_from_path(self.art)
-    art_trained = models.ImageField(string_concat(_('Art'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/art/a'))
+    art_trained = models.ImageField(string_concat(_('Art'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/art/a'), null=True)
     @property
     def art_trained_url(self): return get_image_url_from_path(self.art_trained)
     @property
@@ -179,7 +179,7 @@ class Card(ItemModel):
     def transparent_url(self): return get_image_url_from_path(self.transparent)
     @property
     def http_transparent_url(self): return get_http_image_url_from_path(self.transparent)
-    transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'))
+    transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
     @property
     def transparent_trained_url(self): return get_image_url_from_path(self.transparent_trained)
     @property

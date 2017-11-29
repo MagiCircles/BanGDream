@@ -16,7 +16,7 @@
 {% elif view == 'transparent' %}
 <a href="{{ card.item_url }}" data-ajax-url="{{ card.ajax_item_url}}" data-ajax-title="{{ card }}" class="panel panel-{{ card.english_attribute }} text-center" style="display: block;">
   <div class="panel-heading">{{ card }}</div>
-  <div class="panel-content"><img src="{{ card.transparent_url }}" width="50%" />{% if card.transparent_trained %}<img src="{{ card.transparent_trained_url }}" width="50%" />{% endif %}</div>
+  <div class="panel-content" style="background-image: url('{{ static_url }}img/bg_pattern.png')"><img src="{{ card.transparent_url }}" width="50%" />{% if card.transparent_trained %}<img src="{{ card.transparent_trained_url }}" width="50%" />{% endif %}</div>
 </a>
 {% else %}
 <div class="card-wrapper{% if card.trainable %} trainable{% endif %}">

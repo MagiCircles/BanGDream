@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import math
 from itertools import chain
 from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
@@ -397,8 +398,10 @@ class CardCollection(MagiCollection):
 
     class ListView(MagiCollection.ListView):
         per_line = 2
+        page_size = 32
         filter_form = forms.CardFilterForm
         default_ordering = '-id'
+        ajax_pagination_callback = 'loadCardInList'
 
         def get_queryset(self, queryset, parameters, request):
             if request.GET.get('ordering', None) in ['_overall_max', '_overall_trained_max']:
@@ -407,6 +410,13 @@ class CardCollection(MagiCollection):
                     '_overall_trained_max': 'performance_trained_max + technique_trained_max + visual_trained_max',
                 })
             return queryset
+
+        def extra_context(self, context):
+            context['view'] = context['request'].GET.get('view', None)
+            if context['view'] == 'icons':
+                context['per_line'] = 6
+                context['col_size'] = int(math.ceil(12 / context['per_line']))
+            return context
 
     class AddView(MagiCollection.AddView):
         staff_required = True

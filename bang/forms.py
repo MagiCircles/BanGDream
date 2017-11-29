@@ -183,9 +183,28 @@ class CardFilterForm(MagiFiltersForm):
     member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.BAND_CHOICES, initial=None, label=_('Band'))
     member_band_filter = MagiFilter(selector='member__i_band')
 
+    def _view_to_queryset(self, queryset, request, value):
+        if value == 'chibis':
+            return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
+        elif value == 'art':
+            return queryset.filter(art__isnull=False)
+        elif value == 'transparent':
+            return queryset.filter(transparent__isnull=False)
+        return queryset
+
+    view = forms.ChoiceField(choices=[
+        ('cards', _('Cards')),
+        ('chibis', _('Chibi')),
+        ('icons', _('Icons')),
+        ('art', _('Art')),
+        ('art_trained', string_concat(_('Art'), ' (', _('Trained'), ')')),
+        ('transparent', _('Transparent')),
+    ], required=False)
+    view_filter = MagiFilter(to_queryset=_view_to_queryset)
+
     class Meta:
         model = models.Card
-        fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'i_side_skill_type', 'member_band', 'ordering', 'reverse_order')
+        fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'i_side_skill_type', 'member_band', 'ordering', 'reverse_order', 'view')
 
 ############################################################
 # Event

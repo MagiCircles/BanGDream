@@ -81,3 +81,5 @@ ENABLED_NAVBAR_LISTS['events'] = {
 }
 
 NAVBAR_ORDERING = ['member_list', 'card_list', 'events', 'song_list'] + DEFAULT_NAVBAR_ORDERING
+
+LATEST_NEWS = django_settings.LATEST_NEWS

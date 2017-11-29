@@ -11,18 +11,23 @@ def generate_settings():
         print 'Get total donators'
         total_donators = totalDonators()
 
-        # print 'Get the latest news'
-        # try:
-        #     current_events = models.Event.objects.filter(end__gte=timezone.now())
-        #     latest_news = [{
-        #             'title': event.name,
-        #             'image': event.image_url,
-        #             'url': event.item_url,
-        #             'hide_title': True,
-        #             'ajax': event.ajax_item_url,
-        #     } for event in current_events]
-        # except ObjectDoesNotExist:
-        #     latest_news = []
+        print 'Get the latest news'
+        latest_news = []
+        current_events = models.Event.objects.filter(end_date__gte=timezone.now())
+        current_gacha = models.Gacha.objects.filter(end_date__gte=timezone.now())
+        latest_news = [{
+                'title': event.name,
+                'image': event.image_url,
+                'url': event.item_url,
+                'hide_title': True,
+                'ajax': event.ajax_item_url,
+        } for event in current_events] + [{
+                'title': gacha.name,
+                'image': gacha.image_url,
+                'url': gacha.item_url,
+                'hide_title': True,
+                'ajax': gacha.ajax_item_url,
+        } for gacha in current_gacha]
 
         print 'Get the characters'
         all_members = models.Member.objects.all().order_by('name')
@@ -69,10 +74,10 @@ def generate_settings():
         schools = models.Member.objects.filter(school__isnull=False).values_list('school', flat=True).distinct()
 
         print 'Save generated settings'
-# LATEST_NEWS = ' + unicode(latest_news) + u'\n\
 # STARTERS = ' + unicode(starters) + u'\n\
         s = u'\
 import datetime\n\
+LATEST_NEWS = ' + unicode(latest_news) + u'\n\
 TOTAL_DONATORS = ' + unicode(total_donators) + u'\n\
 FAVORITE_CHARACTERS = ' + unicode(favorite_characters) + u'\n\
 MAX_STATS = ' + unicode(stats) + u'\n\

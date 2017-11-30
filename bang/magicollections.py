@@ -41,6 +41,7 @@ class UserCollection(_UserCollection):
 
 class AccountCollection(_AccountCollection):
     form_class = forms.AccountForm
+    navbar_link_list = 'community'
 
     filter_cuteform = {
         'member_id': {
@@ -95,6 +96,7 @@ class BadgeCollection(_BadgeCollection):
 
 class DonateCollection(_DonateCollection):
     enabled = True
+    navbar_link_list = 'community'
 
 ############################################################
 # Activity Collection
@@ -131,6 +133,7 @@ class MemberCollection(MagiCollection):
     queryset = models.Member.objects.all()
     title = _('Member')
     plural_title = _('Members')
+    navbar_link_title = _('Characters')
     icon = 'idolized'
 
     reportable = False

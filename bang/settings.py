@@ -81,6 +81,12 @@ ENABLED_PAGES['discord'] = {
     'navbar_link_list': 'community',
 }
 
+ENABLED_PAGES['twitter'] = {
+    'title': 'Twitter',
+    'icon': 'activities',
+    'navbar_link_list': 'community',
+}
+
 ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['events'] = {
     'title': _('Events'),
@@ -89,7 +95,7 @@ ENABLED_NAVBAR_LISTS['events'] = {
 ENABLED_NAVBAR_LISTS['community'] = {
     'title': _('Community'),
     'icon': 'users',
-    'order': ['account_list', 'discord', 'donate_list'],
+    'order': ['account_list', 'discord', 'twitter', 'donate_list'],
 }
 
 NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community'] + DEFAULT_NAVBAR_ORDERING

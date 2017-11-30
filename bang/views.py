@@ -12,3 +12,6 @@ def index(request):
 
 def discord(request):
     return redirect('https://discord.gg/8wrXKX3')
+
+def twitter(request):
+    return redirect('https://twitter.com/bandoriparty')

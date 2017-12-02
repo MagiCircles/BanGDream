@@ -10,6 +10,7 @@ BANDS = [
     'Pastel*Palettes',
     'Roselia',
     'Hello, Happy World!',
+    'Glitter*Green'
 ]
 
 BAND_CHOICES = list(enumerate(BANDS))

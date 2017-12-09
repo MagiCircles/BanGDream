@@ -30,6 +30,7 @@ class AccountForm(MagiForm):
         model = models.Account
         fields = ('level', 'start_date')
         optional_fields = ('level', 'start_date')
+        save_owner_on_creation = True
 
 class FilterAccounts(MagiFiltersForm):
     search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location']

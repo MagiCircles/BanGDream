@@ -10,6 +10,8 @@
     padding-top: 100px;
   }
 </style>
+<img src="{{ right_character }}" class="right_character">
+<img src="{{ left_character }}" class="left_character">
 <div class="container">
   {% include 'include/homePage.html' with shortcut_url='' %}
   {% if user.is_authenticated %}

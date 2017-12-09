@@ -1,10 +1,13 @@
-import datetime
+import datetime, os
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
-from magi.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter
+
+from magi.utils import join_data, shrinkImageFromData, randomString, tourldash
+from magi.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter, MultiImageField
+from bang import settings
 from bang.django_translated import t
 from bang import models
 
@@ -28,12 +31,13 @@ class AccountForm(MagiForm):
 
     class Meta:
         model = models.Account
-        fields = ('level', 'start_date')
-        optional_fields = ('level', 'start_date')
+
+        fields = ('level', 'friend_id', 'start_date')
+        optional_fields = ('level', 'friend_id', 'start_date')
         save_owner_on_creation = True
 
 class FilterAccounts(MagiFiltersForm):
-    search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location']
+    search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location', 'owner__links__value']
     search_fields_exact = ['owner__email']
 
     ordering_fields = [
@@ -46,9 +50,24 @@ class FilterAccounts(MagiFiltersForm):
     member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], required=False, label=_('Favorite Member'))
     member_id_filter = MagiFilter(selectors=['owner__preferences__favorite_character{}'.format(i) for i in range(1, 4)])
 
+    has_friend_id = forms.NullBooleanField(required=False, initial=None, label=_('Friend ID'))
+    # has_friend_id_filter = MagiFilter(selector='friend_id__isnull') This will work with latest magicircles when merging
+    def _filter_friend_id(self, queryset, request, value):
+        if value == '2':
+            value = True
+        elif value == '3':
+            value = False
+        else:
+            value = None
+        return queryset.filter(friend_id__isnull=not value) if value is not None else queryset
+    has_friend_id_filter = MagiFilter(to_queryset=_filter_friend_id)
+
+    i_attribute = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(c[0], c[1]) for c in settings.USER_COLORS], required=False, label=_('Attribute'))
+    i_attribute_filter = MagiFilter(selector='owner__preferences__color')
+
     class Meta:
         model = models.Account
-        fields = ('search', 'member_id',)
+        fields = ('search', 'friend_id', 'i_attribute', 'member_id', 'has_friend_id', )
 
 ############################################################
 # Member
@@ -86,24 +105,55 @@ class MemberFilterForm(MagiFiltersForm):
 # Card
 
 class CardForm(AutoForm):
+    chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
+
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
         self.previous_member_id = None if self.is_creating else self.instance.member_id
         self.fields['skill_details'].label = 'Skill details'
+        self.fields['side_skill_details'].label = 'Side skill details'
+        # Delete existing chibis
+        if not self.is_creating:
+            self.all_chibis = self.instance.chibis.all()
+            for imageObject in self.all_chibis:
+                self.fields[u'delete_chibi_{}'.format(imageObject.id)] = forms.BooleanField(
+                    label=mark_safe(u'Delete chibi <img src="{}" height="100" />'.format(imageObject.image_url)),
+                    initial=False, required=False,
+                )
 
     def save(self, commit=False):
         instance = super(CardForm, self).save(commit=False)
         if self.previous_member_id != instance.member_id:
             instance.update_cache_member()
-        if commit:
-            instance.save()
+        instance.save()
+        # Delete existing chibis
+        if not self.is_creating:
+            for imageObject in self.all_chibis:
+                field_name = u'delete_chibi_{}'.format(imageObject.id)
+                field = self.fields.get(field_name)
+                if field and self.cleaned_data[field_name]:
+                    instance.chibis.remove(imageObject)
+                    imageObject.delete()
+        # Upload new chibis
+        for image in self.cleaned_data['chibis']:
+            name, extension = os.path.splitext(image.name)
+            imageObject = models.Image.objects.create()
+            image = shrinkImageFromData(image.read(), image.name)
+            image.name = u'{name}-{attribute}-chibi.{extension}'.format(
+                name=tourldash(instance.member.name),
+                attribute=instance.attribute,
+                extension=extension,
+            )
+            imageObject.image.save(image.name, image)
+            instance.chibis.add(imageObject)
+        instance.force_cache_chibis()
         return instance
 
     class Meta:
         model = models.Card
         fields = '__all__'
         save_owner_on_creation = True
-        optional_fields = ('name', 'japanese_name', 'image_trained', 'art_trained', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained')
+        optional_fields = ('name', 'japanese_name', 'image_trained', 'art_trained', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained', 'chibis')
 
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
@@ -136,9 +186,28 @@ class CardFilterForm(MagiFiltersForm):
     member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.BAND_CHOICES, initial=None, label=_('Band'))
     member_band_filter = MagiFilter(selector='member__i_band')
 
+    def _view_to_queryset(self, queryset, request, value):
+        if value == 'chibis':
+            return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
+        elif value == 'art':
+            return queryset.filter(art__isnull=False)
+        elif value == 'transparent':
+            return queryset.filter(transparent__isnull=False)
+        return queryset
+
+    view = forms.ChoiceField(choices=[
+        ('cards', _('Cards')),
+        ('chibis', _('Chibi')),
+        ('icons', _('Icons')),
+        ('art', _('Art')),
+        ('art_trained', string_concat(_('Art'), ' (', _('Trained'), ')')),
+        ('transparent', _('Transparent')),
+    ], required=False)
+    view_filter = MagiFilter(to_queryset=_view_to_queryset)
+
     class Meta:
         model = models.Card
-        fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'member_band', 'ordering', 'reverse_order')
+        fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'i_side_skill_type', 'member_band', 'ordering', 'reverse_order', 'view')
 
 ############################################################
 # Event
@@ -147,12 +216,42 @@ class EventForm(AutoForm):
     start_date = forms.DateField(label=_('Beginning'))
     end_date = forms.DateField(label=_('End'))
 
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        self.previous_main_card_id = None if self.is_creating else self.instance.main_card_id
+        self.previous_secondary_card_id = None if self.is_creating else self.instance.secondary_card_id
+
+    def _clean_card_rarity(self, field_name, rarity):
+        if field_name in self.cleaned_data and self.cleaned_data[field_name]:
+            if self.cleaned_data[field_name].i_rarity != rarity:
+                raise forms.ValidationError(u'Rarity must be {}'.format(rarity))
+            return self.cleaned_data[field_name]
+        return None
+
+    def clean_main_card(self):
+        return self._clean_card_rarity('main_card', 3)
+
+    def clean_secondary_card(self):
+        return self._clean_card_rarity('secondary_card', 2)
+
     def save(self, commit=False):
         instance = super(EventForm, self).save(commit=False)
         if instance.start_date:
             instance.start_date = instance.start_date.replace(hour=5, minute=59)
         if instance.end_date:
             instance.end_date = instance.end_date.replace(hour=11, minute=59)
+        if self.previous_main_card_id != (instance.main_card.id if instance.main_card else 0):
+            if instance.main_card:
+                instance.main_card.update_cache_event()
+            if self.previous_main_card_id:
+                previous_card = models.Card.objects.get(id=self.previous_main_card_id)
+                previous_card.update_cache_event()
+        if self.previous_secondary_card_id != (instance.secondary_card.id if instance.secondary_card else 0):
+            if instance.secondary_card:
+                instance.secondary_card.update_cache_event()
+            if self.previous_secondary_card_id:
+                previous_card = models.Card.objects.get(id=self.previous_secondary_card_id)
+                previous_card.update_cache_event()
         if commit:
             instance.save()
         return instance
@@ -160,7 +259,7 @@ class EventForm(AutoForm):
     class Meta:
         model = models.Event
         fields = '__all__'
-        optional_fields = ('start_date', 'end_date', 'rare_stamp')
+        optional_fields = ('start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'main_card', 'secondary_card', 'i_boost_attribute', 'boost_members')
         save_owner_on_creation = True
 
 class EventFilterForm(MagiFiltersForm):
@@ -174,3 +273,105 @@ class EventFilterForm(MagiFiltersForm):
     class Meta:
         model = models.Event
         fields = ('search', 'ordering', 'reverse_order')
+
+############################################################
+# Gacha
+
+class GachaForm(AutoForm):
+    start_date = forms.DateField(label=_('Beginning'))
+    end_date = forms.DateField(label=_('End'))
+
+    def save(self, commit=False):
+        instance = super(GachaForm, self).save(commit=False)
+        if instance.start_date:
+            instance.start_date = instance.start_date.replace(hour=5, minute=59)
+        if instance.end_date:
+            instance.end_date = instance.end_date.replace(hour=5, minute=59)
+        if commit:
+            instance.save()
+        return instance
+
+    class Meta:
+        model = models.Gacha
+        fields = '__all__'
+        optional_fields = ('cards', 'event')
+        save_owner_on_creation = True
+
+############################################################
+# Song
+
+class _SongForm(AutoForm):
+
+    def __init__(self, *args, **kwargs):
+        super(_SongForm, self).__init__(*args, **kwargs)
+        if 'i_unlock' in self.fields:
+            del(self.fields['i_unlock'])
+        if 'c_unlock_variables' in self.fields:
+            del(self.fields['c_unlock_variables'])
+        if 'length' in self.fields:
+            self.fields['length'].help_text = 'in seconds'
+
+    class Meta:
+        model = models.Song
+        fields = '__all__'
+        optional_fields = ('length', 'bpm', 'easy_notes', 'easy_difficulty', 'normal_notes', 'normal_difficulty', 'hard_notes', 'hard_difficulty', 'expert_notes', 'expert_difficulty', 'name', 'romaji_name', 'itunes_id', 'composer', 'lyricist', 'arranger', 'release_date')
+        save_owner_on_creation = True
+
+def unlock_to_form(unlock):
+    class _UnlockSongForm(_SongForm):
+        def __init__(self, *args, **kwargs):
+            super(_UnlockSongForm, self).__init__(*args, **kwargs)
+            help_text = mark_safe(u'Will be displayed as <code>{}</code>'.format(
+                unicode(models.UNLOCK_SENTENCES[unlock]).format(**{
+                    variable: 'xxx'
+                    for variable in models.UNLOCK_VARIABLES[unlock]
+                }),
+            )) if unlock != 'other' else None
+            for i, variable in enumerate(models.UNLOCK_VARIABLES[unlock]):
+                self.fields[variable] = forms.CharField(
+                    help_text=help_text,
+                    initial=None if self.is_creating else self.instance.unlock_variables[i],
+                )
+            if unlock != 'event' and 'event' in self.fields:
+                del(self.fields['event'])
+
+        def save(self, commit=False):
+            instance = super(_UnlockSongForm, self).save(commit=False)
+            instance.i_unlock = next(k for k, v in models.UNLOCK_DICT.items() if v == unlock)
+            instance.c_unlock_variables = join_data(*[
+                self.cleaned_data[variable]
+                for variable in models.UNLOCK_VARIABLES[unlock]
+            ])
+            if commit:
+                instance.save()
+            return instance
+
+    return _UnlockSongForm
+
+class SongFilterForm(MagiFiltersForm):
+    search_fields = ['japanese_name', 'romaji_name', 'name', 'composer', 'lyricist', 'arranger', 'c_unlock_variables']
+    ordering_fields = [
+        ('release_date', _('Release date')),
+        ('japanese_name', _('Title')),
+        ('romaji_name', string_concat(_('Title'), ' (', _('Romaji'), ')')),
+        ('length', _('Length')),
+        ('bpm', _('BPM')),
+        ('hard_notes', string_concat(_('Hard'), ' - ', _('Notes'))),
+        ('hard_difficulty', string_concat(_('Hard'), ' - ', _('Difficulty'))),
+        ('expert_notes', string_concat(_('Expert'), ' - ', _('Notes'))),
+        ('expert_difficulty', string_concat(_('Expert'), ' - ', _('Difficulty'))),
+    ]
+
+    def _is_cover_queryset(form, queryset, request, value):
+        if value == '2':
+            return queryset.filter(is_cover=True)
+        elif value == '3':
+            return queryset.filter(is_cover=False)
+        return queryset
+
+    is_cover = forms.NullBooleanField(initial=None, required=False, label=_('Cover'))
+    is_cover_filter = MagiFilter(to_queryset=_is_cover_queryset)
+
+    class Meta:
+        model = models.Song
+        fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'ordering', 'reverse_order')

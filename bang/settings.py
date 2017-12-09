@@ -2,7 +2,8 @@
 import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _
-from magi.default_settings import DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING
+
+from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING
 from magi.utils import tourldash
 from bang import models
 
@@ -68,10 +69,36 @@ USER_COLORS = [
 
 GOOGLE_ANALYTICS = 'UA-96550529-1'
 
-STATIC_FILES_VERSION = '5'
+STATIC_FILES_VERSION = '10'
 
 ENABLED_PAGES = DEFAULT_ENABLED_PAGES
+
 ENABLED_PAGES['index']['enabled'] = True
 ENABLED_PAGES['index']['custom'] = True
 
-NAVBAR_ORDERING = ['card_list', 'member_list', 'event_list'] + DEFAULT_NAVBAR_ORDERING
+ENABLED_PAGES['discord'] = {
+    'title': 'Discord',
+    'icon': 'comments',
+    'navbar_link_list': 'community',
+}
+
+ENABLED_PAGES['twitter'] = {
+    'title': 'Twitter',
+    'icon': 'activities',
+    'navbar_link_list': 'community',
+}
+
+ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
+ENABLED_NAVBAR_LISTS['events'] = {
+    'title': _('Events'),
+    'icon': 'event',
+}
+ENABLED_NAVBAR_LISTS['community'] = {
+    'title': _('Community'),
+    'icon': 'users',
+    'order': ['account_list', 'discord', 'twitter', 'donate_list'],
+}
+
+NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community'] + DEFAULT_NAVBAR_ORDERING
+
+LATEST_NEWS = django_settings.LATEST_NEWS

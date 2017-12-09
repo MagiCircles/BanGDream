@@ -1,17 +1,28 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
-import datetime
+import datetime, time
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 from django.db.models import Q
 from django.db import models
 from django.conf import settings as django_settings
+
 from magi.models import User, uploadItem
 from magi.item_model import MagiModel, AccountAsOwnerModel, get_image_url_from_path, get_http_image_url_from_path
-from magi.utils import AttrDict, tourldash
+from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName
 from bang.model_choices import *
 from bang.django_translated import t
+
+############################################################
+# Utility Models
+
+class Image(ItemModel):
+    collection_name = 'images' # Doesn't exist in default_settings.py
+    image = models.ImageField(upload_to=uploadToKeepName('images/'))
+
+    def __unicode__(self):
+        return unicode(self.image)
 
 ############################################################
 # Account
@@ -24,8 +35,9 @@ class Account(MagiModel):
     start_date = models.DateField(_('Start Date'), null=True)
     level = models.PositiveIntegerField(_("Level"), null=True, validators=[
         MinValueValidator(1),
-        MaxValueValidator(200),
+        MaxValueValidator(300),
     ])
+    friend_id = models.PositiveIntegerField(_('Friend ID'), null=True)
 
     @property
     def item_url(self):
@@ -122,7 +134,7 @@ class Member(MagiModel):
         return self._cache_total_cards
 
     def __unicode__(self):
-        return self.japanese_name if get_language() == 'ja' else self.name
+        return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
 
 ############################################################
 # Card
@@ -148,7 +160,7 @@ class Card(MagiModel):
 
     # Images
     image = models.ImageField(_('Icon'), upload_to=uploadItem('c'))
-    image_trained = models.ImageField(string_concat(_('Icon'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/a'))
+    image_trained = models.ImageField(string_concat(_('Icon'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/a'), null=True)
     @property
     def image_trained_url(self): return get_image_url_from_path(self.image_trained)
     @property
@@ -158,7 +170,7 @@ class Card(MagiModel):
     def art_url(self): return get_image_url_from_path(self.art)
     @property
     def http_art_url(self): return get_http_image_url_from_path(self.art)
-    art_trained = models.ImageField(string_concat(_('Art'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/art/a'))
+    art_trained = models.ImageField(string_concat(_('Art'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/art/a'), null=True)
     @property
     def art_trained_url(self): return get_image_url_from_path(self.art_trained)
     @property
@@ -168,7 +180,7 @@ class Card(MagiModel):
     def transparent_url(self): return get_image_url_from_path(self.transparent)
     @property
     def http_transparent_url(self): return get_http_image_url_from_path(self.transparent)
-    transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'))
+    transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
     @property
     def transparent_trained_url(self): return get_image_url_from_path(self.transparent_trained)
     @property
@@ -176,13 +188,13 @@ class Card(MagiModel):
 
     # Skill
 
-    skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
-    japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
     i_skill_type = models.PositiveIntegerField(_('Skill'), choices=SKILL_TYPE_CHOICES)
     @property
     def skill_type(self): return SKILL_TYPE_DICT[self.i_skill_type]
     @property
     def japanese_skill_type(self): return JAPANESE_SKILL_TYPE_DICT[self.i_skill_type]
+    skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
+    japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
     skill_details = models.CharField(_('Skill'), max_length=500, null=True)
 
     @property
@@ -192,6 +204,23 @@ class Card(MagiModel):
     @property
     def japanese_skill(self):
         return JAPANESE_SKILL_TEMPLATES[self.i_skill_type].format(size=SKILL_SIZES[self.i_rarity][1], note_type=SKILL_SIZES[self.i_rarity][2])
+
+    # Side skill
+
+    i_side_skill_type = models.PositiveIntegerField(_('Side skill'), choices=SKILL_TYPE_CHOICES, null=True)
+    @property
+    def side_skill_type(self): return SKILL_TYPE_DICT[self.i_side_skill_type]
+    @property
+    def japanese_side_skill_type(self): return JAPANESE_SKILL_TYPE_DICT[self.i_side_skill_type]
+    side_skill_details = models.CharField(_('Side skill'), max_length=500, null=True)
+
+    @property
+    def side_skill(self):
+        return self.side_skill_details or SKILL_TEMPLATES[self.i_side_skill_type].format(size=SKILL_SIZES[self.i_rarity][0], note_type=SKILL_SIZES[self.i_rarity][2])
+
+    @property
+    def japanese_side_skill(self):
+        return JAPANESE_SKILL_TEMPLATES[self.i_side_skill_type].format(size=SKILL_SIZES[self.i_rarity][1], note_type=SKILL_SIZES[self.i_rarity][2])
 
     # Statistics
     performance_min = models.PositiveIntegerField(string_concat(_('Performance'), ' (', _('Minimum'), ')'), default=0)
@@ -213,6 +242,10 @@ class Card(MagiModel):
     @property
     def overall_trained_max(self):
         return self.performance_trained_max + self.technique_trained_max + self.visual_trained_max
+
+    # Chibi images
+
+    chibis = models.ManyToManyField(Image, related_name="chibi", verbose_name=_('Chibi'))
 
     # Tools
 
@@ -271,9 +304,10 @@ class Card(MagiModel):
 
     def update_cache_member(self):
         self._cache_member_last_update = timezone.now()
-        self._cache_member_name = self.member.name
-        self._cache_member_japanese_name = self.member.japanese_name
-        self._cache_member_image = self.member.image
+        if self.member_id:
+            self._cache_member_name = self.member.name
+            self._cache_member_japanese_name = self.member.japanese_name
+            self._cache_member_image = self.member.image
 
     def force_cache_member(self):
         self.update_cache_member()
@@ -294,14 +328,139 @@ class Card(MagiModel):
             'image': self._cache_member_image,
             'image_url': get_image_url_from_path(self._cache_member_image),
             'http_image_url': get_http_image_url_from_path(self._cache_member_image),
-            'item_url': u'/member/{}/{}/'.format(self.member_id, tourldash(self._cache_member_name)),
-            'ajax_item_url': u'/ajax/member/{}/'.format(self.member_id),
+            'item_url': u'/member/{}/{}/'.format(self.member_id, tourldash(self._cache_member_name)) if self.member_id else '#',
+            'ajax_item_url': u'/ajax/member/{}/'.format(self.member_id) if self.member_id else '',
         })
+
+    # Cache event
+
+    _cache_event_days = 20
+    _cache_event_last_update = models.DateTimeField(null=True)
+    _cache_event_id = models.PositiveIntegerField(null=True)
+    _cache_event_name = models.CharField(max_length=100, null=True)
+    _cache_event_japanese_name = models.CharField(max_length=100, null=True)
+    _cache_event_image = models.ImageField(upload_to=uploadItem('e'), null=True)
+
+    def update_cache_event(self):
+        self._cache_event_last_update = timezone.now()
+        try:
+            event = Event.objects.filter(Q(main_card_id=self.id) | Q(secondary_card_id=self.id))[0]
+        except IndexError:
+            event = None
+        if event:
+            self._cache_event_id = event.id
+            self._cache_event_name = event.name
+            self._cache_event_japanese_name = event.japanese_name
+            self._cache_event_image = event.image
+        else:
+            self._cache_event_id = None
+
+    def force_cache_event(self):
+        self.update_cache_event()
+        self.save()
+
+    @property
+    def cached_event(self):
+        if not self._cache_event_last_update or self._cache_event_last_update < timezone.now() - datetime.timedelta(days=self._cache_event_days):
+            self.force_cache_event()
+        if not self._cache_event_id:
+            return None
+        return AttrDict({
+            'pk': self._cache_event_id,
+            'id': self._cache_event_id,
+            'unicode': self._cache_event_name if get_language() != 'ja' else self._cache_event_japanese_name,
+            'name': self._cache_event_name,
+            'japanese_name': self._cache_event_japanese_name,
+            'image': self._cache_event_image,
+            'image_url': get_image_url_from_path(self._cache_event_image),
+            'http_image_url': get_http_image_url_from_path(self._cache_event_image),
+            'item_url': u'/event/{}/{}/'.format(self._cache_event_id, tourldash(self._cache_event_name)),
+            'ajax_item_url': u'/ajax/event/{}/'.format(self._cache_event_id),
+        })
+
+    # Cache gacha
+
+    _cache_gacha_days = 20
+    _cache_gacha_last_update = models.DateTimeField(null=True)
+    _cache_gacha_id = models.PositiveIntegerField(null=True)
+    _cache_gacha_name = models.CharField(max_length=100, null=True)
+    _cache_gacha_japanese_name = models.CharField(max_length=100, null=True)
+    _cache_gacha_image = models.ImageField(upload_to=uploadItem('e'), null=True)
+
+    def update_cache_gacha(self):
+        self._cache_gacha_last_update = timezone.now()
+        try:
+            gacha = Gacha.objects.filter(cards__id=self.id)[0]
+        except IndexError:
+            gacha = None
+        if gacha:
+            self._cache_gacha_id = gacha.id
+            self._cache_gacha_name = gacha.name
+            self._cache_gacha_japanese_name = gacha.japanese_name
+            self._cache_gacha_image = gacha.image
+        else:
+            self._cache_gacha_id = None
+
+    def force_cache_gacha(self):
+        self.update_cache_gacha()
+        self.save()
+
+    @property
+    def cached_gacha(self):
+        if not self._cache_gacha_last_update or self._cache_gacha_last_update < timezone.now() - datetime.timedelta(days=self._cache_gacha_days):
+            self.force_cache_gacha()
+        if not self._cache_gacha_id:
+            return None
+        return AttrDict({
+            'pk': self._cache_gacha_id,
+            'id': self._cache_gacha_id,
+            'unicode': self._cache_gacha_name if get_language() != 'ja' else self._cache_gacha_japanese_name,
+            'name': self._cache_gacha_name,
+            'japanese_name': self._cache_gacha_japanese_name,
+            'image': self._cache_gacha_image,
+            'image_url': get_image_url_from_path(self._cache_gacha_image),
+            'http_image_url': get_http_image_url_from_path(self._cache_gacha_image),
+            'item_url': u'/gacha/{}/{}/'.format(self._cache_gacha_id, tourldash(self._cache_gacha_name)),
+            'ajax_item_url': u'/ajax/gacha/{}/'.format(self._cache_gacha_id),
+        })
+
+    # Cache chibis
+
+    _cache_chibis_days = 200
+    _cache_chibis_last_update = models.DateTimeField(null=True)
+    _cache_chibis_ids = models.TextField(null=True)
+    _cache_chibis_paths = models.TextField(null=True)
+
+    def update_cache_chibis(self, chibis=None):
+        self._cache_chibis_last_update = timezone.now()
+        if not chibis:
+            chibis = self.chibis.all()
+        self._cache_chibis_ids = join_data(*[ image.id for image in chibis ])
+        self._cache_chibis_paths = join_data(*[ unicode(image) for image in chibis ])
+
+    def force_cache_chibis(self):
+        self.update_cache_chibis()
+        self.save()
+
+    @property
+    def cached_chibis(self):
+        if not self._cache_chibis_last_update or self._cache_chibis_last_update < timezone.now() - datetime.timedelta(days=self._cache_chibis_days):
+            self.force_cache_chibis()
+        if not self._cache_chibis_ids:
+            return []
+        return [AttrDict({
+            'id': id,
+            'pk': id,
+            'image': path,
+            'image_url': get_image_url_from_path(path),
+            'http_image_url': get_http_image_url_from_path(path),
+        }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]
 
     def __unicode__(self):
         if self.id:
             return u'{rarity} {member_name} - {attribute}'.format(
                 rarity=self.rarity,
+
                 member_name=(
                     self.cached_member.japanese_name
                     if get_language() == 'ja'
@@ -357,8 +516,8 @@ class Event(MagiModel):
 
     owner = models.ForeignKey(User, related_name='added_events')
     image = models.ImageField(_('Image'), upload_to=uploadItem('e'))
-    name = models.CharField(_('Name'), max_length=100, unique=True)
-    japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
+    name = models.CharField(_('Title'), max_length=100, unique=True)
+    japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
     start_date = models.DateTimeField(_('Beginning'), null=True)
     end_date = models.DateTimeField(_('End'), null=True)
     rare_stamp = models.ImageField(_('Rare Stamp'), upload_to=uploadItem('e/stamps'))
@@ -366,6 +525,29 @@ class Event(MagiModel):
     def rare_stamp_url(self): return get_image_url_from_path(self.rare_stamp)
     @property
     def http_rare_stamp_url(self): return get_http_image_url_from_path(self.rare_stamp)
+
+    stamp_translation = models.CharField(_('Stamp Translation'), max_length=200, null=True)
+
+    main_card = models.ForeignKey(Card, related_name='main_card_event', null=True, limit_choices_to={
+        'i_rarity': 3,
+    }, on_delete=models.SET_NULL)
+    secondary_card = models.ForeignKey(Card, related_name='secondary_card_event', null=True, limit_choices_to={
+        'i_rarity': 2,
+    }, on_delete=models.SET_NULL)
+
+    i_boost_attribute = models.PositiveIntegerField(_('Boost Attribute'), choices=ATTRIBUTE_CHOICES, null=True)
+    @property
+    def boost_attribute(self): return ATTRIBUTE_DICT[self.i_boost_attribute] if self.i_boost_attribute else None
+    @property
+    def english_boost_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_boost_attribute] if self.i_boost_attribute else None
+
+    boost_members = models.ManyToManyField(Member, related_name='boost_in_events', verbose_name=_('Boost Members'))
+
+    @property
+    def cached_gacha(self):
+        # No need for a cache because the gacha is select_related in item view
+        self.gacha.unicode = unicode(self.gacha)
+        return self.gacha
 
     @property
     def status(self):
@@ -379,4 +561,137 @@ class Event(MagiModel):
         return 'future'
 
     def __unicode__(self):
-        return self.japanese_name if get_language() == 'ja' else self.name
+        return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
+
+############################################################
+# Song
+
+class Song(ItemModel):
+    collection_name = 'song'
+
+    DIFFICULTY_VALIDATORS = [
+        MinValueValidator(1),
+        MaxValueValidator(28),
+    ]
+
+    DIFFICULTIES = [
+        ('easy', _('Easy')),
+        ('normal', _('Normal')),
+        ('hard', _('Hard')),
+        ('expert', _('Expert')),
+    ]
+
+    SONGWRITERS_DETAILS = [
+        ('composer', _('Composer')),
+        ('lyricist', _('Lyricist')),
+        ('arranger', _('Arranger')),
+    ]
+
+    owner = models.ForeignKey(User, related_name='added_songs')
+    image = models.ImageField(_('Album cover'), upload_to=uploadItem('s'))
+
+    i_band = models.PositiveIntegerField(_('Band'), choices=BAND_CHOICES)
+    @property
+    def band(self): return BAND_DICT[self.i_band]
+
+    japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
+    romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)
+    name = models.CharField(string_concat(_('Translation'), ' (', t['English'], ')'), max_length=100, null=True)
+
+    itunes_id = models.PositiveIntegerField(_('Preview'), help_text='iTunes ID', null=True)
+    length = models.PositiveIntegerField(_('Length'), null=True)
+
+    @property
+    def length_in_minutes(self):
+        return time.strftime('%M:%S', time.gmtime(self.length))
+
+    is_cover = models.BooleanField(_('Cover song'), default=False)
+    bpm = models.PositiveIntegerField(_('Beats per minute'), null=True)
+    release_date = models.DateField(_('Release date'), null=True)
+
+    composer = models.CharField(_('Composer'), max_length=100, null=True)
+    lyricist = models.CharField(_('Lyricist'), max_length=100, null=True)
+    arranger = models.CharField(_('Arranger'), max_length=100, null=True)
+
+    easy_notes = models.PositiveIntegerField(string_concat(_('Easy'), ' - ', _('Notes')), null=True)
+    easy_difficulty = models.PositiveIntegerField(string_concat(_('Easy'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
+    normal_notes = models.PositiveIntegerField(string_concat(_('Normal'), ' - ', _('Notes')), null=True)
+    normal_difficulty = models.PositiveIntegerField(string_concat(_('Normal'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
+    hard_notes = models.PositiveIntegerField(string_concat(_('Hard'), ' - ', _('Notes')), null=True)
+    hard_difficulty = models.PositiveIntegerField(string_concat(_('Hard'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
+    expert_notes = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Notes')), null=True)
+    expert_difficulty = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
+
+    i_unlock = models.PositiveIntegerField(_('How to unlock?'), choices=UNLOCK_CHOICES)
+    @property
+    def unlock(self): return UNLOCK_DICT.get(self.i_unlock, None)
+    c_unlock_variables = models.CharField(max_length=100, null=True)
+    @property
+    def unlock_variables(self):
+        return split_data(self.c_unlock_variables)
+    @property
+    def dict_unlock_variables(self):
+        return {
+            v: self.unlock_variables[i]
+            for i, v in enumerate(UNLOCK_VARIABLES[self.unlock])
+        }
+    @property
+    def unlock_sentence(self):
+        return unicode(UNLOCK_SENTENCES[self.unlock]).format(**self.dict_unlock_variables)
+
+    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gift_songs', null=True, on_delete=models.SET_NULL)
+
+    @property
+    def cached_event(self):
+        # No need for a cache because the event is select_related in item view
+        self.event.unicode = unicode(self.event)
+        return self.event
+
+    @property # Needed to use with types in magicollections
+    def type(self):
+        return self.unlock
+
+    def __unicode__(self):
+        return self.romaji_name if self.romaji_name and get_language() != 'ja'  else self.japanese_name
+
+############################################################
+# Gacha
+
+class Gacha(ItemModel):
+    collection_name = 'gacha'
+
+    owner = models.ForeignKey(User, related_name='added_gacha')
+    image = models.ImageField(_('Image'), upload_to=uploadItem('g'))
+    name = models.CharField(_('Name'), max_length=100, unique=True)
+    japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
+    start_date = models.DateTimeField(_('Beginning'), null=True)
+    end_date = models.DateTimeField(_('End'), null=True)
+
+    i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES)
+    @property
+    def attribute(self): return ATTRIBUTE_DICT[self.i_attribute]
+    @property
+    def english_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_attribute]
+
+    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gachas', null=True, on_delete=models.SET_NULL)
+    cards = models.ManyToManyField(Card, verbose_name=('Cards'), related_name='gachas')
+
+    @property
+    def cached_event(self):
+        # No need for a cache because the event is select_related in item view
+        self.event.unicode = unicode(self.event)
+        return self.event
+
+    @property
+    def status(self):
+        if not self.end_date or not self.start_date:
+            return None
+        now = timezone.now()
+        if now > self.end_date:
+            return 'ended'
+        elif now > self.start_date:
+            return 'current'
+        return 'future'
+
+    def __unicode__(self):
+        return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)

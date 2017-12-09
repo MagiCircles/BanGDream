@@ -1,4 +1,24 @@
 {% with card=item %}
+{% if view == 'chibis' and card.cached_chibis %}
+<a href="{{ card.item_url }}" data-ajax-url="{{ card.ajax_item_url}}" data-ajax-title="{{ card }}" class="panel panel-{{ card.english_attribute }} text-center" style="display: block;">
+  <div class="panel-heading">{{ card }}</div>
+  <div class="panel-content padding20"><div>{% for chibi in card.cached_chibis %}<img src="{{ chibi.image_url }}" alt="chibi" width="33%" />{% endfor %}</div></div>
+</a>
+{% elif view == 'icons' %}
+<a href="{{ card.item_url }}" data-ajax-url="{{ card.ajax_item_url}}" data-ajax-title="{{ card }}">
+  <img src="{{ card.image_url }}" width="100%" class="card-solo" {% if card.image_trained %}data-trained="{{ card.image_trained_url }}"{% endif %} /><br /><br />
+</a>
+{% elif view == 'art' or view == 'art_trained' %}
+<a href="{{ card.item_url }}" data-ajax-url="{{ card.ajax_item_url}}" data-ajax-title="{{ card }}" class="panel panel-{{ card.english_attribute }} text-center" style="display: block;">
+  <div class="panel-heading">{{ card }}</div>
+  <div class="panel-content"><img src="{% if view == 'art' or not card.art_trained_url %}{{ card.art_url }}{% else %}{{ card.art_trained_url }}{% endif %}" width="100%" class="card-solo" {% if card.art_trained %}data-trained="{% if view == 'art' %}{{ card.art_trained_url }}{% else %}{{ card.art_url }}{% endif %}"{% endif %} /></div>
+</a>
+{% elif view == 'transparent' %}
+<a href="{{ card.item_url }}" data-ajax-url="{{ card.ajax_item_url}}" data-ajax-title="{{ card }}" class="panel panel-{{ card.english_attribute }} text-center" style="display: block;">
+  <div class="panel-heading">{{ card }}</div>
+  <div class="panel-content" style="background-image: url('{{ static_url }}img/bg_pattern.png')"><img src="{{ card.transparent_url }}" width="50%" />{% if card.transparent_trained %}<img src="{{ card.transparent_trained_url }}" width="50%" />{% endif %}</div>
+</a>
+{% else %}
 <div class="card-wrapper{% if card.trainable %} trainable{% endif %}">
   <{% if current == 'card_item_ajax' %}span{% else %}a href="{% if current == 'card_item' %}#card-details-{{ card.id }}{% else %}{{ card.item_url }}{% endif %}"{% if current != 'card_item' %} data-ajax-url="{{ card.ajax_item_url}}" data-ajax-title="{{ card }}"{% endif %}{% endif %} class="card card-{{ card.english_attribute }} card-rarity-{{ card.i_rarity }}{% if card.trainable %} trainable{% endif %}{% if current == 'card_item' %} page-scroll{% endif %}">
     <figure><div class="card-image normal" style="background-image: url('{{ card.art_url }}');">
@@ -9,6 +29,7 @@
     <div class="attribute" style="background-image: url('{{ static_url }}img/i_attribute/{{ card.i_attribute }}.png');"></div>
   </{% if current == 'card_item_ajax' %}span{% else %}a{% endif %}>
 </div>
+{% endif %}
 {% if current == 'card_item' or current == 'card_item_ajax' %}
 {% load l10n %}
 <div class="card-details" id="card-details-{{ card.id }}">

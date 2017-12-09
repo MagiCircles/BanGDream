@@ -1,0 +1,16 @@
+{% with song=item %}
+<div class="row">
+  <div class="col-md-5">
+    <img src="{{ song.image_url }}" alt="{{ song }}" class="img-responsive song-image">
+  </div>
+  <div class="col-md-7">
+    <div class="song-title-section">
+      <img src="{{ static_url }}img/band/{{ song.band }}.png" class="band" alt="{{ song.band }}">
+      <h1>
+        {% if LANGUAGE_CODE == 'ja' or not song.romaji_name  %}{{ song.japanese_name }}
+        {% else %}{{ song.romaji_name }}{% endif %}
+      </h1>
+    </div>
+  </div>
+</div>
+{% endwith %}

@@ -89,12 +89,14 @@ class MemberViewSet(viewsets.ModelViewSet):
 class CardSerializer(MagiSerializer):
     i_attribute = IField(models.ENGLISH_ATTRIBUTE_DICT)
     i_skill_type = IField(models.ENGLISH_SKILL_TYPES_DICT)
+    i_side_skill_type = IField(models.ENGLISH_SKILL_TYPES_DICT, required=False)
     image = ImageField(required=True)
     image_trained = ImageField(required=False)
     art = ImageField(required=True)
     art_trained = ImageField(required=False)
     transparent = ImageField(required=True)
     transparent_trained = ImageField(required=False)
+    chibi = ImageField(required=False)
 
     def validate(self, data):
         if self.context['request'].method == 'POST' and 'member' not in self.context['request'].data:
@@ -111,7 +113,7 @@ class CardSerializer(MagiSerializer):
     class Meta:
         model = models.Card
         save_owner_on_creation = True
-        fields = ('id', 'member', 'i_rarity', 'i_attribute', 'name', 'japanese_name', 'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'i_skill_type', 'skill_details', 'performance_min', 'performance_max', 'performance_trained_max', 'technique_min', 'technique_max', 'technique_trained_max', 'visual_min', 'visual_max', 'visual_trained_max')
+        fields = ('id', 'member', 'i_rarity', 'i_attribute', 'name', 'japanese_name', 'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'i_skill_type', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'performance_min', 'performance_max', 'performance_trained_max', 'technique_min', 'technique_max', 'technique_trained_max', 'visual_min', 'visual_max', 'visual_trained_max', 'chibi')
 
 class CardViewSet(viewsets.ModelViewSet):
     queryset = models.Card.objects.all()

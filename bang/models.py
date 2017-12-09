@@ -40,7 +40,7 @@ class Account(MagiModel):
         return self.owner.http_item_url
 
     def __unicode__(self):
-        return u'#{} Level {}'.format(self.id, self.level)
+        return u'#{} {}'.format(self.id, u'Level {}'.format(self.level) if self.level else '')
 
 ############################################################
 # Members
@@ -336,8 +336,18 @@ class CollectibleCard(AccountAsOwnerModel):
     def http_image_url(self):
         return self.card.http_image_url
 
-    def __unicode__(self):
-        return unicode(self.card)
+    class Meta:
+        abstract = True
+
+class FavoriteCard(MagiModel):
+    collection_name = 'favoritecard'
+
+    owner = models.ForeignKey(User, related_name='favorite_cards')
+    card = models.ForeignKey(Card, verbose_name=_('Card'), related_name='favorited')
+
+    class Meta:
+        unique_together = (('owner', 'card'), )
+        abstract = True
 
 ############################################################
 # Events

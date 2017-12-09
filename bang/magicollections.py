@@ -23,12 +23,6 @@ class UserCollection(_UserCollection):
             super(UserCollection.ItemView, self).extra_context(context)
             accountCollection = getMagiCollection('account')
             if accountCollection:
-                context['show_edit_button'] = (
-                    accountCollection.item_view.show_edit_button
-                    and accountCollection.edit_view.has_permissions(context['request'], context)
-                )
-                if accountCollection.edit_view.owner_only:
-                    context['show_edit_button_owner_only'] = True
                 for account in context['item'].all_accounts:
                     account.fields = accountCollection.to_fields(account)
 
@@ -48,10 +42,15 @@ class AccountCollection(_AccountCollection):
         },
     }
 
+    show_item_buttons = False
+    item_buttons_classes = ['btn', 'btn-link']
+    show_item_buttons_justified = False
+
     def share_image(self, context, item):
         return 'screenshots/leaderboard.png'
 
     def get_queryset(self, queryset, parameters, request):
+        queryset = super(AccountCollection, self).get_queryset(queryset, parameters, request)
         return queryset.select_related('owner', 'owner__preferences')
 
     def to_fields(self, item, *args, **kwargs):
@@ -62,7 +61,6 @@ class AccountCollection(_AccountCollection):
         }, **kwargs)
 
     class ListView(_AccountCollection.ListView):
-        show_edit_button = False
         filter_form = forms.FilterAccounts
         default_ordering = '-level'
 
@@ -70,7 +68,9 @@ class AccountCollection(_AccountCollection):
         back_to_list_button = False
 
         def redirect_after_add(self, request, item, ajax):
-            return '/cards/?get_started'
+            if not ajax:
+                return '/cards/?get_started'
+            return super(AccountCollection.AddView, self).redirect_after_add(request, item, ajax)
 
 ############################################################
 # Badge Collection
@@ -239,17 +239,56 @@ class CardCollection(MagiCollection):
         },
     }
 
-    collectible = models.CollectibleCard
+    WIP_collectible = [
+        models.CollectibleCard,
+        models.FavoriteCard,
+    ]
 
-    def collectible_to_class(self, cls):
-        class _CollectibleCard(cls):
+    def WIP_collectible_to_class(self, model_class):
+        cls = super(CardCollection, self).collectible_to_class(model_class)
+        if model_class.collection_name == 'favoritecard':
+            class _FavoriteCardCollection(cls):
+                @property
+                def title(self):
+                    return _('Favorite {thing}').format(thing=_('Card').lower())
+
+                @property
+                def plural_title(self):
+                    return _('Favorite {things}').format(things=_('Cards').lower())
+
+                class ListView(cls.ListView):
+                    enabled = False
+
+                class ItemView(cls.ItemView):
+                    enabled = False
+
+                class AddView(cls.AddView):
+                    def redirect_after_add(self, request, item, ajax):
+                        if ajax:
+                            return '/ajax/successadd/'
+                        return u'/cards/'
+
+                class EditView(cls.EditView):
+                    def redirect_after_edit(self, request, item, ajax):
+                        if ajax:
+                            return '/ajax/successedit/'
+                        return u'/cards/'
+
+                    def redirect_after_delete(self, request, item, ajax):
+                        if ajax:
+                            return u'/ajax/cards/'
+                        return u'/cards/'
+
+            return _FavoriteCardCollection
+        # CollectedCards
+        class _CollectibleCardCollection(cls):
             filter_cuteform = {
                 'trained': {},
                 'max_leveled': {},
                 'first_episode': {},
                 'memorial_episode': {},
             }
-        return _CollectibleCard
+        return _CollectibleCardCollection
 
     def share_image(self, context, item):
         return 'screenshots/cards.png'
@@ -366,12 +405,19 @@ class CardCollection(MagiCollection):
         default_ordering = '-id'
 
         def get_queryset(self, queryset, parameters, request):
+            queryset = super(CardCollection.ListView, self).get_queryset(queryset, parameters, request)
             if request.GET.get('ordering', None) in ['_overall_max', '_overall_trained_max']:
                 queryset = queryset.extra(select={
                     '_overall_max': 'performance_max + technique_max + visual_max',
                     '_overall_trained_max': 'performance_trained_max + technique_trained_max + visual_trained_max',
                 })
             return queryset
+
+        def buttons_per_item(self, *args, **kwargs):
+            buttons = super(CardCollection.ListView, self).buttons_per_item(*args, **kwargs)
+            if 'favoritecard' in buttons:
+                buttons['favoritecard']['icon'] = 'star'
+            return buttons
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -388,6 +434,7 @@ class EventCollection(MagiCollection):
     icon = 'event'
     form_class = forms.EventForm
     multipart = True
+    reportable = False
 
     def to_fields(self, item, *args, **kwargs):
         fields = super(EventCollection, self).to_fields(item, *args, icons={

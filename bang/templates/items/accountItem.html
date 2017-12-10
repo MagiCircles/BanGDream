@@ -1,4 +1,3 @@
-{% load web_tags %}
 {% with account=item %}
 <br>
 <div class="jumbotron jumbotron-{{ account.owner.preferences.css_color }} account">
@@ -8,9 +7,7 @@
       <div class="col-md-8">
         <h3>{{ account.owner.username }}</h3>
         <div class="text-right fontx0-8">
-          <a href="{{ account.report_url }}" target="_blank">
-            <i class="flaticon-fingers"></i>
-            {{ account.report_sentence }}</a>
+          {% include 'include/below_item.html' with show_item_buttons=True %}
         </div>
       </div>
       <div class="col-md-2">

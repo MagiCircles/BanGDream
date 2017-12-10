@@ -4,8 +4,9 @@ from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
-from web.utils import join_data, shrinkImageFromData, randomString, tourldash
-from web.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter, MultiImageField
+
+from magi.utils import join_data, shrinkImageFromData, randomString, tourldash
+from magi.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter, MultiImageField
 from bang import settings
 from bang.django_translated import t
 from bang import models
@@ -30,8 +31,10 @@ class AccountForm(MagiForm):
 
     class Meta:
         model = models.Account
+
         fields = ('level', 'friend_id', 'start_date')
         optional_fields = ('level', 'friend_id', 'start_date')
+        save_owner_on_creation = True
 
 class FilterAccounts(MagiFiltersForm):
     search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location', 'owner__links__value']

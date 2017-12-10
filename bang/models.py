@@ -7,17 +7,17 @@ from django.utils import timezone
 from django.db.models import Q
 from django.db import models
 from django.conf import settings as django_settings
-from web.models import User, uploadItem
-from web.item_model import ItemModel, get_image_url_from_path, get_http_image_url_from_path
-from web.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName
+
+from magi.models import User, uploadItem
+from magi.item_model import BaseMagiModel, MagiModel, AccountAsOwnerModel, get_image_url_from_path, get_http_image_url_from_path
+from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName
 from bang.model_choices import *
 from bang.django_translated import t
 
 ############################################################
 # Utility Models
 
-class Image(ItemModel):
-    collection_name = 'images' # Doesn't exist in default_settings.py
+class Image(BaseMagiModel):
     image = models.ImageField(upload_to=uploadToKeepName('images/'))
 
     def __unicode__(self):
@@ -26,7 +26,7 @@ class Image(ItemModel):
 ############################################################
 # Account
 
-class Account(ItemModel):
+class Account(MagiModel):
     collection_name = 'account'
 
     owner = models.ForeignKey(User, related_name='accounts')
@@ -51,12 +51,12 @@ class Account(ItemModel):
         return self.owner.http_item_url
 
     def __unicode__(self):
-        return u'#{} Level {}'.format(self.id, self.level)
+        return u'#{} {}'.format(self.id, u'Level {}'.format(self.level) if self.level else '')
 
 ############################################################
 # Members
 
-class Member(ItemModel):
+class Member(MagiModel):
     collection_name = 'member'
 
     owner = models.ForeignKey(User, related_name='added_members')
@@ -138,7 +138,7 @@ class Member(ItemModel):
 ############################################################
 # Card
 
-class Card(ItemModel):
+class Card(MagiModel):
     collection_name = 'card'
 
     owner = models.ForeignKey(User, related_name='added_cards')
@@ -314,6 +314,8 @@ class Card(ItemModel):
 
     @property
     def cached_member(self):
+        if not self.member_id:
+            return None
         if not self._cache_member_last_update or self._cache_member_last_update < timezone.now() - datetime.timedelta(days=self._cache_member_days):
             self.force_cache_member()
         return AttrDict({
@@ -457,15 +459,58 @@ class Card(ItemModel):
         if self.id:
             return u'{rarity} {member_name} - {attribute}'.format(
                 rarity=self.rarity,
-                member_name=(self.cached_member.japanese_name if get_language() == 'ja' else self.cached_member.name) if self.member_id else '',
+
+                member_name=(
+                    self.cached_member.japanese_name
+                    if get_language() == 'ja'
+                    else self.cached_member.name)
+                if self.cached_member else '',
                 attribute=self.attribute,
             )
         return u''
 
 ############################################################
+# Owned Cards
+
+class CollectibleCard(AccountAsOwnerModel):
+    collection_name = 'collectiblecard'
+
+    account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='cardscollectors')
+    card = models.ForeignKey(Card, verbose_name=_('Card'), related_name='collectedcards')
+    trained = models.BooleanField(_('Trained'), default=False)
+    max_leveled = models.NullBooleanField(_('Max Leveled'))
+    first_episode = models.NullBooleanField(_('{nth} episode').format(nth=_('1st')))
+    memorial_episode = models.NullBooleanField(_('Memorial episode'))
+
+    @property
+    def image(self):
+        return self.card.image
+
+    @property
+    def image_url(self):
+        return self.card.image_url
+
+    @property
+    def http_image_url(self):
+        return self.card.http_image_url
+
+    class Meta:
+        abstract = True
+
+class FavoriteCard(MagiModel):
+    collection_name = 'favoritecard'
+
+    owner = models.ForeignKey(User, related_name='favorite_cards')
+    card = models.ForeignKey(Card, verbose_name=_('Card'), related_name='favorited')
+
+    class Meta:
+        unique_together = (('owner', 'card'), )
+        abstract = True
+
+############################################################
 # Events
 
-class Event(ItemModel):
+class Event(MagiModel):
     collection_name = 'event'
 
     owner = models.ForeignKey(User, related_name='added_events')
@@ -520,7 +565,7 @@ class Event(ItemModel):
 ############################################################
 # Song
 
-class Song(ItemModel):
+class Song(MagiModel):
     collection_name = 'song'
 
     DIFFICULTY_VALIDATORS = [
@@ -611,7 +656,7 @@ class Song(ItemModel):
 ############################################################
 # Gacha
 
-class Gacha(ItemModel):
+class Gacha(MagiModel):
     collection_name = 'gacha'
 
     owner = models.ForeignKey(User, related_name='added_gacha')

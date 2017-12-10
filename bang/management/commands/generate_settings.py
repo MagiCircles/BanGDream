@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
-from web.tools import totalDonators
+from magi.tools import totalDonators
 from bang import models
 
 def generate_settings():
@@ -41,7 +41,7 @@ def generate_settings():
         characters = models.Card.objects.filter(i_rarity=2).order_by('-id')[:2]
         homepage_characters = ','.join(['\'{}\''.format(c.transparent_url) for c in characters])
         if len(characters) != 2:
-                homepage_characters = None
+                homepage_characters = ''
         if homepage_characters:
                 homepage_characters = u'HOMEPAGE_CHARACTERS = [{}]'.format(homepage_characters)
 

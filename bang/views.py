@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.conf import settings as django_settings
-from web.utils import getGlobalContext
-from web.views import indexExtraContext
+from magi.utils import getGlobalContext
+from magi.views import indexExtraContext
 
 def index(request):
     context = getGlobalContext(request)

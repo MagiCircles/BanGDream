@@ -2,9 +2,12 @@
 import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _
-from web.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING
-from web.utils import tourldash
+
+from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING
+from magi.utils import tourldash
 from bang import models
+
+STATIC_FILES_VERSION = '11'
 
 SITE_NAME = 'Bandori Party'
 SITE_URL = 'http://bandori.party/'
@@ -67,8 +70,6 @@ USER_COLORS = [
 ]
 
 GOOGLE_ANALYTICS = 'UA-96550529-1'
-
-STATIC_FILES_VERSION = '10'
 
 ENABLED_PAGES = DEFAULT_ENABLED_PAGES
 

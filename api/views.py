@@ -1,7 +1,7 @@
 from rest_framework import viewsets, serializers
-from web.item_model import get_http_image_url_from_path
-from web import api_permissions
-from web.utils import shrinkImageFromData
+from magi.item_model import get_http_image_url_from_path
+from magi import api_permissions
+from magi.utils import shrinkImageFromData
 from bang import models
 
 ############################################################

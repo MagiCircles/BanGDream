@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import django.core.validators
-import web.utils
+import magi.utils
 from django.conf import settings
 
 
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='Song',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('image', models.ImageField(upload_to=web.utils.uploadItem(b's'), verbose_name='Album cover')),
+                ('image', models.ImageField(upload_to=magi.utils.uploadItem(b's'), verbose_name='Album cover')),
                 ('i_band', models.PositiveIntegerField(verbose_name='Band', choices=[(0, b"Poppin' Party"), (1, b'Afterglow'), (2, b'Pastel*Palettes'), (3, b'Roselia'), (4, b'Hello, Happy World!')])),
                 ('japanese_name', models.CharField(unique=True, max_length=100, verbose_name='Title')),
                 ('romaji_name', models.CharField(max_length=100, null=True, verbose_name='Title (Romaji)')),

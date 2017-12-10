@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'bootstrapform',
     'bootstrap_form_horizontal',
     'storages',
-    'web',
+    'magi',
     'api',
     'rest_framework',
     'oauth2_provider',
@@ -57,8 +57,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'web.middleware.languageFromPreferences.LanguageFromPreferenceMiddleWare',
-    'web.middleware.httpredirect.HttpRedirectMiddleware',
+    'magi.middleware.languageFromPreferences.LanguageFromPreferenceMiddleWare',
+    'magi.middleware.httpredirect.HttpRedirectMiddleware',
 )
 
 ROOT_URLCONF = 'bang_project.urls'
@@ -68,10 +68,10 @@ WSGI_APPLICATION = 'bang_project.wsgi.application'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-        'web.api_permissions.IsStaffOrSelf',
+        'magi.api_permissions.IsStaffOrSelf',
     ),
     'DEFAULT_RENDERER_CLASSES': (
-        'web.api_renderers.JSONRenderer',
+        'magi.api_renderers.JSONRenderer',
     ),
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
     'PAGINATE_BY': 10,
@@ -117,7 +117,7 @@ STATIC_URL = '/static/'
 
 SITE = 'bang'
 
-AUTHENTICATION_BACKENDS = ('web.backends.AuthenticationBackend',)
+AUTHENTICATION_BACKENDS = ('magi.backends.AuthenticationBackend',)
 
 DEBUG_PORT = 8000
 
@@ -141,7 +141,7 @@ LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 LOCALE_PATHS = [
-  os.path.join(BASE_DIR, 'web/locale'),
+  os.path.join(BASE_DIR, 'magi/locale'),
 ]
 
 STATIC_UPLOADED_FILES_PREFIX = None
@@ -155,6 +155,11 @@ PASSWORD_EMAIL = 'password@schoolido.lu'
 AWS_SES_RETURN_PATH = 'contact@bandori.party'
 
 FAVORITE_CHARACTERS = []
+
+MAX_WIDTH = 1200
+MAX_HEIGHT = 1200
+MIN_WIDTH = 300
+MIN_HEIGHT = 300
 
 LOGIN_URL = '/login/'
 

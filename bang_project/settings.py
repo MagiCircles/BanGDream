@@ -141,7 +141,7 @@ LANGUAGES = (
 LANGUAGE_CODE = 'en'
 
 LOCALE_PATHS = [
-  os.path.join(BASE_DIR, 'web/locale'),
+  os.path.join(BASE_DIR, 'magi/locale'),
 ]
 
 STATIC_UPLOADED_FILES_PREFIX = None

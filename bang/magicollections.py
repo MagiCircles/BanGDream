@@ -703,7 +703,6 @@ class GachaCollection(MagiCollection):
             return queryset
 
     class ListView(MagiCollection.ListView):
-        item_template = 'default'
         default_ordering = '-start_date'
         per_line = 2
 
@@ -848,7 +847,6 @@ class SongCollection(MagiCollection):
         return fields
 
     class ListView(MagiCollection.ListView):
-        item_template = 'default'
         per_line = 3
         filter_form = forms.SongFilterForm
         default_ordering = '-release_date'

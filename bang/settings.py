@@ -7,6 +7,8 @@ from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_
 from magi.utils import tourldash
 from bang import models
 
+STATIC_FILES_VERSION = '11'
+
 SITE_NAME = 'Bandori Party'
 SITE_URL = 'http://bandori.party/'
 SITE_IMAGE = 'bandori_party.png'
@@ -68,8 +70,6 @@ USER_COLORS = [
 ]
 
 GOOGLE_ANALYTICS = 'UA-96550529-1'
-
-STATIC_FILES_VERSION = '10'
 
 ENABLED_PAGES = DEFAULT_ENABLED_PAGES
 

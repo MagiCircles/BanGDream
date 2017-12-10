@@ -41,7 +41,7 @@ def generate_settings():
         characters = models.Card.objects.filter(i_rarity=2).order_by('-id')[:2]
         homepage_characters = ','.join(['\'{}\''.format(c.transparent_url) for c in characters])
         if len(characters) != 2:
-                homepage_characters = None
+                homepage_characters = ''
         if homepage_characters:
                 homepage_characters = u'HOMEPAGE_CHARACTERS = [{}]'.format(homepage_characters)
 

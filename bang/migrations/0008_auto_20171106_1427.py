@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import web.utils
+import magi.utils
 from django.conf import settings
 
 
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Gacha',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('image', models.ImageField(upload_to=web.utils.uploadItem(b'g'), verbose_name='Image')),
+                ('image', models.ImageField(upload_to=magi.utils.uploadItem(b'g'), verbose_name='Image')),
                 ('name', models.CharField(unique=True, max_length=100, verbose_name='Name')),
                 ('japanese_name', models.CharField(unique=True, max_length=100, verbose_name='Name (Japanese)')),
                 ('start_date', models.DateTimeField(null=True, verbose_name='Beginning')),
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='card',
             name='_cache_event_image',
-            field=models.ImageField(null=True, upload_to=web.utils.uploadItem(b'e')),
+            field=models.ImageField(null=True, upload_to=magi.utils.uploadItem(b'e')),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -108,7 +108,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='event',
             name='rare_stamp',
-            field=models.ImageField(upload_to=web.utils.uploadItem(b'e/stamps'), verbose_name='Rare Stamp'),
+            field=models.ImageField(upload_to=magi.utils.uploadItem(b'e/stamps'), verbose_name='Rare Stamp'),
             preserve_default=True,
         ),
     ]

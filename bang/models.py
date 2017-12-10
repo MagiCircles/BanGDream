@@ -9,7 +9,7 @@ from django.db import models
 from django.conf import settings as django_settings
 
 from magi.models import User, uploadItem
-from magi.item_model import MagiModel, AccountAsOwnerModel, get_image_url_from_path, get_http_image_url_from_path
+from magi.item_model import BaseMagiModel, MagiModel, AccountAsOwnerModel, get_image_url_from_path, get_http_image_url_from_path
 from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName
 from bang.model_choices import *
 from bang.django_translated import t
@@ -17,8 +17,7 @@ from bang.django_translated import t
 ############################################################
 # Utility Models
 
-class Image(ItemModel):
-    collection_name = 'images' # Doesn't exist in default_settings.py
+class Image(BaseMagiModel):
     image = models.ImageField(upload_to=uploadToKeepName('images/'))
 
     def __unicode__(self):
@@ -566,7 +565,7 @@ class Event(MagiModel):
 ############################################################
 # Song
 
-class Song(ItemModel):
+class Song(MagiModel):
     collection_name = 'song'
 
     DIFFICULTY_VALIDATORS = [
@@ -657,7 +656,7 @@ class Song(ItemModel):
 ############################################################
 # Gacha
 
-class Gacha(ItemModel):
+class Gacha(MagiModel):
     collection_name = 'gacha'
 
     owner = models.ForeignKey(User, related_name='added_gacha')

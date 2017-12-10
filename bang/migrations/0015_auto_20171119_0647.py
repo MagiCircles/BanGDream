@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import web.utils
+import magi.utils
 
 
 class Migration(migrations.Migration):
@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='Image',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('image', models.ImageField(upload_to=web.utils.uploadToKeepName(b'images/'))),
+                ('image', models.ImageField(upload_to=magi.utils.uploadToKeepName(b'images/'))),
             ],
             options={
                 'abstract': False,

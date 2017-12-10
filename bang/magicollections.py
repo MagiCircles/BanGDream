@@ -629,6 +629,7 @@ class GachaCollection(MagiCollection):
     form_class = forms.GachaForm
     multipart = True
     navbar_link_list = 'events'
+    reportable = False
 
     filter_cuteform = {
         'i_attribute': {},
@@ -750,6 +751,7 @@ class SongCollection(MagiCollection):
     queryset = models.Song.objects.all()
     multipart = True
     icon = 'song'
+    reportable = False
 
     types = {
         unlock: {

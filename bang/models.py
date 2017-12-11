@@ -457,15 +457,18 @@ class Card(MagiModel):
 
     def __unicode__(self):
         if self.id:
-            return u'{rarity} {member_name} - {attribute}'.format(
+            return u'{rarity} {member_name} - {attribute}{name}'.format(
                 rarity=self.rarity,
-
                 member_name=(
                     self.cached_member.japanese_name
                     if get_language() == 'ja'
                     else self.cached_member.name)
                 if self.cached_member else '',
                 attribute=self.attribute,
+                name=(u' - {}'.format(
+                    self.japanese_name
+                    if (get_language() == 'ja' and self.japanese_name) or not self.name
+                    else self.name) if self.name or self.japanese_name else ''),
             )
         return u''
 

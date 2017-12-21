@@ -39,7 +39,7 @@ def generate_settings():
 
         print 'Get homepage characters'
         characters = models.Card.objects.filter(i_rarity=2).order_by('-id')[:2]
-        homepage_characters = ','.join(['\'{}\''.format(c.transparent_url) for c in characters])
+        homepage_characters = u','.join([u'\'{}\''.format(c.transparent_url) for c in characters])
         if len(characters) != 2:
                 homepage_characters = ''
         if homepage_characters:
@@ -84,10 +84,11 @@ def generate_settings():
         print 'Save generated settings'
 # STARTERS = ' + unicode(starters) + u'\n\
         s = u'\
+# -*- coding: utf-8 -*-\n\
 import datetime\n\
 LATEST_NEWS = ' + unicode(latest_news) + u'\n\
 TOTAL_DONATORS = ' + unicode(total_donators) + u'\n\
-' +  homepage_characters + '\n\
+' +  unicode(homepage_characters) + u'\n\
 FAVORITE_CHARACTERS = ' + unicode(favorite_characters) + u'\n\
 MAX_STATS = ' + unicode(stats) + u'\n\
 SCHOOLS = ' + unicode(schools) + '\n\
@@ -95,7 +96,7 @@ GENERATED_DATE = datetime.datetime.fromtimestamp(' + unicode(time.time()) + u')\
 '
         print s
         with open(django_settings.BASE_DIR + '/' + django_settings.SITE + '_project/generated_settings.py', 'w') as f:
-            print >> f, s
+                f.write(s.encode('utf8'))
         f.close()
 
 class Command(BaseCommand):

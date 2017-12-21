@@ -7,9 +7,9 @@ from django.utils import timezone
 from django.db.models import Q
 from django.db import models
 from django.conf import settings as django_settings
-
 from magi.models import User, uploadItem
-from magi.item_model import BaseMagiModel, MagiModel, AccountAsOwnerModel, get_image_url_from_path, get_http_image_url_from_path
+from magi.abstract_models import AccountAsOwnerModel, BaseAccount
+from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path
 from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName
 from bang.model_choices import *
 from bang.django_translated import t
@@ -26,32 +26,8 @@ class Image(BaseMagiModel):
 ############################################################
 # Account
 
-class Account(MagiModel):
-    collection_name = 'account'
-
-    owner = models.ForeignKey(User, related_name='accounts')
-    creation = models.DateTimeField(_('Join Date'), auto_now_add=True)
-    start_date = models.DateField(_('Start Date'), null=True)
-    level = models.PositiveIntegerField(_("Level"), null=True, validators=[
-        MinValueValidator(1),
-        MaxValueValidator(300),
-    ])
+class Account(BaseAccount):
     friend_id = models.PositiveIntegerField(_('Friend ID'), null=True)
-
-    @property
-    def item_url(self):
-        return self.owner.item_url
-
-    @property
-    def full_item_url(self):
-        return self.owner.full_item_url
-
-    @property
-    def http_item_url(self):
-        return self.owner.http_item_url
-
-    def __unicode__(self):
-        return u'#{} {}'.format(self.id, u'Level {}'.format(self.level) if self.level else '')
 
 ############################################################
 # Members

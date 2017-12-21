@@ -1,11 +1,11 @@
 import datetime, os
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
-
-from magi.utils import join_data, shrinkImageFromData, randomString, tourldash
+from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator
 from magi.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter, MultiImageField
 from bang import settings
 from bang.django_translated import t
@@ -15,19 +15,19 @@ from bang import models
 # Accounts
 
 class AccountForm(MagiForm):
+    level = forms.IntegerField(required=False, label=_('Level'), validators=[
+        MinValueValidator(1),
+        MaxValueValidator(300),
+    ])
+    start_date = forms.DateField(required=False, label=_('Start Date'), validators=[
+        PastOnlyValidator,
+        MinValueValidator(datetime.date(2017, 3, 16)),
+    ])
+
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
         if self.is_creating:
             del(self.fields['start_date'])
-
-    def clean_start_date(self):
-        if 'start_date' in self.cleaned_data:
-            if self.cleaned_data['start_date']:
-                if self.cleaned_data['start_date'] < datetime.date(2017, 3, 16):
-                    raise forms.ValidationError(_('The game didn\'t even exist at that time.'))
-                if self.cleaned_data['start_date'] > datetime.date.today():
-                    raise forms.ValidationError(_('This date cannot be in the future.'))
-        return self.cleaned_data['start_date']
 
     class Meta:
         model = models.Account

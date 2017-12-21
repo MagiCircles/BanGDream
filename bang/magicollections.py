@@ -54,16 +54,8 @@ class AccountCollection(_AccountCollection):
         },
     }
 
-    show_item_buttons = False
-    item_buttons_classes = ['btn', 'btn-link']
-    show_item_buttons_justified = False
-
     def share_image(self, context, item):
         return 'screenshots/leaderboard.png'
-
-    def get_queryset(self, queryset, parameters, request):
-        queryset = super(AccountCollection, self).get_queryset(queryset, parameters, request)
-        return queryset.select_related('owner', 'owner__preferences')
 
     def to_fields(self, item, *args, **kwargs):
         return super(AccountCollection, self).to_fields(item, *args, icons={

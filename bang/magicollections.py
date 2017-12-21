@@ -95,18 +95,22 @@ class DonateCollection(_DonateCollection):
 
 class ActivityCollection(_ActivityCollection):
     enabled = False
-    class ListView(_ActivityCollection.ListView):
-        before_template = 'include/index'
 
 Activity.collection_name = 'news'
 
 class NewsCollection(_ActivityCollection):
     plural_name = 'news'
+    title = _('Staff News')
+    plural_title = _('Staff News')
     reportable = False
     queryset = Activity.objects.all()
+    navbar_link = True
+    navbar_link_list = 'more'
 
     class ListView(_ActivityCollection.ListView):
-        enabled = False
+        show_title = True
+        item_template = 'activityItem'
+        shortcut_urls = []
 
     class ItemView(_ActivityCollection.ItemView):
         template = 'activityItem'

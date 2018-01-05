@@ -28,6 +28,8 @@ class AccountForm(_AccountForm):
         super(AccountForm, self).__init__(*args, **kwargs)
         if self.is_creating:
             del(self.fields['start_date'])
+        if 'center' in self.fields:
+            self.fields['center'].queryset = self.fields['center'].queryset.select_related('card')
 
 class FilterAccounts(MagiFiltersForm):
     search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location', 'owner__links__value']

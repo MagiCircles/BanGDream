@@ -61,6 +61,14 @@ class AccountCollection(_AccountCollection):
         },
     }
 
+    def get_profile_account_tabs(self, request, context, *args, **kwargs):
+        tabs = super(AccountCollection, self).get_profile_account_tabs(request, context, *args, **kwargs)
+        if not request.user.is_authenticated() or not request.user.is_staff:
+            for collection_name, collection in context['collectible_collections']['account'].items():
+                if collection_name in tabs and collection.add_view.staff_required:
+                    tabs[collection_name]['callback'] = 'loadComingSoon'
+        return tabs
+
     def share_image(self, context, item):
         return 'screenshots/leaderboard.png'
 
@@ -283,6 +291,7 @@ class CardCollection(MagiCollection):
                 class AddView(cls.AddView):
                     unique_per_owner = True
                     quick_add_to_collection = True
+                    staff_required = True
 
             return _FavoriteCardCollection
 
@@ -312,6 +321,9 @@ class CardCollection(MagiCollection):
                 }, **kwargs)
                 setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
                 return fields
+
+            class AddView(cls.AddView):
+                staff_required = True
 
         return _CollectibleCardCollection
 
@@ -547,6 +559,10 @@ class EventCollection(MagiCollection):
 
                 class ListView(cls.ListView):
                     per_line = 3
+
+                class AddView(cls.AddView):
+                    staff_required = True
+
             return _EventParticipationCollection
         return cls
 
@@ -834,6 +850,9 @@ class SongCollection(MagiCollection):
                     }, **kwargs)
                     setSubField(fields, 'difficulty', key='value', value=item.t_difficulty)
                     return fields
+
+                class AddView(cls.AddView):
+                    staff_required = True
 
             return _PlayedSongCollection
         return cls

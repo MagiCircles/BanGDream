@@ -3,7 +3,7 @@ import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _
 
-from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING
+from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING, DEFAULT_JAVASCRIPT_TRANSLATED_TERMS
 from magi.utils import tourldash
 from bang import models
 
@@ -99,8 +99,12 @@ ENABLED_NAVBAR_LISTS['community'] = {
     'order': ['account_list', 'discord', 'twitter', 'donate_list'],
 }
 
-ACCOUNT_TAB_ORDERING = ['collectiblecard', 'eventparticipation', 'playedsong']
+ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playedsong']
 
 NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community'] + DEFAULT_NAVBAR_ORDERING
 
 LATEST_NEWS = django_settings.LATEST_NEWS
+
+JAVASCRIPT_TRANSLATED_TERMS = DEFAULT_JAVASCRIPT_TRANSLATED_TERMS + [
+    u'Coming soon',
+]

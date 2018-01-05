@@ -52,18 +52,17 @@ class AccountCollection(_AccountCollection):
         'has_friend_id': {
             'type': CuteFormType.OnlyNone,
         },
+        'center': {
+            'to_cuteform': lambda k, v: v.image_url,
+            'extra_settings': {
+	        'modal': 'true',
+	        'modal-text': 'true',
+            },
+        },
     }
 
     def share_image(self, context, item):
         return 'screenshots/leaderboard.png'
-
-    def to_fields(self, item, *args, **kwargs):
-        return super(AccountCollection, self).to_fields(item, *args, icons={
-            'creation': 'date',
-            'start_date': 'date',
-            'level': 'max-level',
-            'friend_id': 'id',
-        }, **kwargs)
 
     class ListView(_AccountCollection.ListView):
         filter_form = forms.FilterAccounts
@@ -254,12 +253,12 @@ class CardCollection(MagiCollection):
         },
     }
 
-    WIP_collectible = [
+    collectible = [
         models.CollectibleCard,
         models.FavoriteCard,
     ]
 
-    def WIP_collectible_to_class(self, model_class):
+    def collectible_to_class(self, model_class):
         cls = super(CardCollection, self).collectible_to_class(model_class)
         if model_class.collection_name == 'favoritecard':
             class _FavoriteCardCollection(cls):
@@ -272,37 +271,48 @@ class CardCollection(MagiCollection):
                     return _('Favorite {things}').format(things=_('Cards').lower())
 
                 class ListView(cls.ListView):
-                    enabled = False
+                    item_template = 'cardItem'
+                    per_line = 2
+                    page_size = 2
+                    default_ordering = '-id'
+                    ajax_pagination_callback = 'loadCardInList'
 
-                class ItemView(cls.ItemView):
-                    enabled = False
+                    def extra_context(self, context):
+                        context['items'] = [item.card for item in context['items']]
 
                 class AddView(cls.AddView):
-                    def redirect_after_add(self, request, item, ajax):
-                        if ajax:
-                            return '/ajax/successadd/'
-                        return u'/cards/'
-
-                class EditView(cls.EditView):
-                    def redirect_after_edit(self, request, item, ajax):
-                        if ajax:
-                            return '/ajax/successedit/'
-                        return u'/cards/'
-
-                    def redirect_after_delete(self, request, item, ajax):
-                        if ajax:
-                            return u'/ajax/cards/'
-                        return u'/cards/'
+                    unique_per_owner = True
+                    quick_add_to_collection = True
 
             return _FavoriteCardCollection
+
         # CollectedCards
         class _CollectibleCardCollection(cls):
+            title = _('Card')
+            plural_title = _('Cards')
+
             filter_cuteform = {
-                'trained': {},
-                'max_leveled': {},
-                'first_episode': {},
-                'memorial_episode': {},
+                'max_leveled': {
+                    'type': CuteFormType.YesNo,
+                },
+                'first_episode': {
+                    'type': CuteFormType.YesNo,
+                },
+                'memorial_episode': {
+                    'type': CuteFormType.YesNo,
+                },
             }
+
+            def to_fields(self, item, *args, **kwargs):
+                fields = super(_CollectibleCardCollection, self).to_fields(item, *args, icons={
+                    'trained': 'idolized',
+                    'max_leveled': 'max-level',
+                    'first_episode': 'play',
+                    'memorial_episode': 'play',
+                }, **kwargs)
+                setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
+                return fields
+
         return _CollectibleCardCollection
 
     def share_image(self, context, item):
@@ -471,6 +481,8 @@ class CardCollection(MagiCollection):
             if context['view'] == 'icons':
                 context['per_line'] = 6
                 context['col_size'] = int(math.ceil(12 / context['per_line']))
+                for item in context['items']:
+                    item.show_item_buttons_as_icons = True
             return context
 
     class AddView(MagiCollection.AddView):
@@ -510,6 +522,34 @@ class EventCollection(MagiCollection):
             'image_folder': 'i_attribute',
         },
     }
+
+    collectible = models.EventParticipation
+
+    def collectible_to_class(self, model_class):
+        cls = super(EventCollection, self).collectible_to_class(model_class)
+        if model_class.collection_name == 'eventparticipation':
+
+            class _EventParticipationCollection(cls):
+                title = _('Participated event')
+                plural_title = _('Participated events')
+
+                class form_class(cls.form_class):
+                    class Meta(cls.form_class.Meta):
+                        optional_fields = ('score', 'ranking', 'song_score', 'song_ranking')
+
+                def to_fields(self, item, *args, **kwargs):
+                    return super(_EventParticipationCollection, self).to_fields(item, *args, icons={
+                        'score': 'scoreup',
+                        'ranking': 'trophy',
+                        'song_score': 'song',
+                        'song_ranking': 'trophy'
+                    }, **kwargs)
+
+                class ListView(cls.ListView):
+                    per_line = 3
+            return _EventParticipationCollection
+        return cls
+
 
     def to_fields(self, item, *args, **kwargs):
         fields = super(EventCollection, self).to_fields(item, *args, icons={
@@ -600,6 +640,9 @@ class EventCollection(MagiCollection):
         default_ordering = '-start_date'
         hide_sidebar = True
         filter_form = forms.EventFilterForm
+        show_collect_button = {
+            'eventparticipation': False,
+        }
 
     class ItemView(MagiCollection.ItemView):
         template = 'default'
@@ -759,6 +802,42 @@ class SongCollection(MagiCollection):
 
     filter_cuteform = _song_cuteform
 
+    collectible = models.PlayedSong
+
+    def collectible_to_class(self, model_class):
+        cls = super(SongCollection, self).collectible_to_class(model_class)
+        if model_class.collection_name == 'playedsong':
+            class _PlayedSongCollection(cls):
+                title = _('Played song')
+                plural_title = _('Played songs')
+
+                filter_cuteform = dict(_song_cuteform.items() + [
+                    ('full_combo', {
+                        'type': CuteFormType.YesNo,
+                    }),
+                    ('i_difficulty', {
+                        'to_cuteform': lambda k, v: models.PlayedSong.DIFFICULTY_CHOICES[k][0],
+                        'image_folder': 'songs',
+                        'transform': CuteFormTransform.ImagePath,
+                    }),
+                ])
+
+                def to_fields(self, item, *args, **kwargs):
+                    fields = super(_PlayedSongCollection, self).to_fields(item, *args, icons={
+                        'score': 'scoreup',
+                        'full_combo': 'combo',
+                    }, images={
+                        'difficulty':  u'{static_url}img/songs/{difficulty}.png'.format(
+                            static_url=RAW_CONTEXT['static_url'],
+                            difficulty=item.difficulty,
+                        ),
+                    }, **kwargs)
+                    setSubField(fields, 'difficulty', key='value', value=item.t_difficulty)
+                    return fields
+
+            return _PlayedSongCollection
+        return cls
+
     def to_fields(self, item, to_dict=True, only_fields=None, in_list=False, icons={}, images={}):
         fields = super(SongCollection, self).to_fields(
             item, to_dict=True, only_fields=only_fields, icons={
@@ -848,6 +927,9 @@ class SongCollection(MagiCollection):
         per_line = 3
         filter_form = forms.SongFilterForm
         default_ordering = '-release_date'
+        show_collect_button = {
+             'playedsong': False,
+        }
 
         filter_cuteform = dict(_song_cuteform.items() + [
             ('is_cover', {

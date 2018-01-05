@@ -99,6 +99,8 @@ ENABLED_NAVBAR_LISTS['community'] = {
     'order': ['account_list', 'discord', 'twitter', 'donate_list'],
 }
 
+ACCOUNT_TAB_ORDERING = ['collectiblecard', 'eventparticipation', 'playedsong']
+
 NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community'] + DEFAULT_NAVBAR_ORDERING
 
 LATEST_NEWS = django_settings.LATEST_NEWS

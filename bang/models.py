@@ -9,7 +9,7 @@ from django.db import models
 from django.conf import settings as django_settings
 from magi.models import User, uploadItem
 from magi.abstract_models import AccountAsOwnerModel, BaseAccount
-from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path
+from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path, i_choices
 from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName
 from bang.model_choices import *
 from bang.django_translated import t
@@ -28,6 +28,7 @@ class Image(BaseMagiModel):
 
 class Account(BaseAccount):
     friend_id = models.PositiveIntegerField(_('Friend ID'), null=True)
+    center = models.ForeignKey('CollectibleCard', verbose_name=_('Center'), related_name='center_of_account', null=True, on_delete=models.SET_NULL)
 
 ############################################################
 # Members
@@ -449,7 +450,7 @@ class Card(MagiModel):
         return u''
 
 ############################################################
-# Owned Cards
+# Collectible Cards
 
 class CollectibleCard(AccountAsOwnerModel):
     collection_name = 'collectiblecard'
@@ -463,18 +464,36 @@ class CollectibleCard(AccountAsOwnerModel):
 
     @property
     def image(self):
-        return self.card.image
+        return self.card.image_trained if self.trained else self.card.image
 
     @property
     def image_url(self):
-        return self.card.image_url
+        return self.card.image_trained_url if self.trained else self.card.image_url
 
     @property
     def http_image_url(self):
-        return self.card.http_image_url
+        return self.card.http_image_trained_url if self.trained else self.card.http_image_url
 
-    class Meta:
-        abstract = True
+    @property
+    def art(self):
+        return self.card.art_trained if self.trained else self.card.art
+
+    @property
+    def art_url(self):
+        return self.card.art_trained_url if self.trained else self.card.art_url
+
+    @property
+    def http_art_url(self):
+        return self.card.http_art_trained_url if self.trained else self.card.http_art_url
+
+    @property
+    def color(self):
+        return self.card.attribute
+
+    def __unicode__(self):
+        if self.id:
+            return unicode(self.card)
+        return super(CollectibleCard, self).__unicode__()
 
 class FavoriteCard(MagiModel):
     collection_name = 'favoritecard'
@@ -484,7 +503,6 @@ class FavoriteCard(MagiModel):
 
     class Meta:
         unique_together = (('owner', 'card'), )
-        abstract = True
 
 ############################################################
 # Events
@@ -540,6 +558,38 @@ class Event(MagiModel):
 
     def __unicode__(self):
         return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
+
+############################################################
+# Collectible Event
+
+class EventParticipation(AccountAsOwnerModel):
+    collection_name = 'eventparticipation'
+
+    account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='events')
+    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='participations')
+
+    score = models.PositiveIntegerField(_('Score'), null=True)
+    ranking = models.PositiveIntegerField(_('Ranking'), null=True)
+
+    song_score = models.PositiveIntegerField(_('Song score'), null=True)
+    song_ranking = models.PositiveIntegerField(_('Song ranking'), null=True)
+
+    @property
+    def image(self):
+        return self.event.image
+
+    @property
+    def image_url(self):
+        return self.event.image_url
+
+    @property
+    def http_image_url(self):
+        return self.event.http_image_url
+
+    def __unicode__(self):
+        if self.id:
+            return unicode(self.event)
+        return super(Eventparticipation, self).__unicode__()
 
 ############################################################
 # Song
@@ -631,6 +681,43 @@ class Song(MagiModel):
 
     def __unicode__(self):
         return self.romaji_name if self.romaji_name and get_language() != 'ja'  else self.japanese_name
+
+############################################################
+# Collectible Song
+
+class PlayedSong(AccountAsOwnerModel):
+    collection_name = 'playedsong'
+
+    account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='playedsong')
+    song = models.ForeignKey(Song, verbose_name=_('Song'), related_name='playedby')
+
+    DIFFICULTY_CHOICES = (
+        ('easy', _('Easy')),
+        ('normal', _('Normal')),
+        ('hard', _('Hard')),
+        ('expert', _('Expert')),
+    )
+
+    i_difficulty = models.PositiveIntegerField(_('Difficulty'), choices=i_choices(DIFFICULTY_CHOICES), default=0)
+    score = models.PositiveIntegerField(_('Score'), null=True)
+    full_combo = models.NullBooleanField(_('Full combo'))
+
+    @property
+    def image(self):
+        return self.song.image
+
+    @property
+    def image_url(self):
+        return self.song.image_url
+
+    @property
+    def http_image_url(self):
+        return self.song.http_image_url
+
+    def __unicode__(self):
+        if self.id:
+            return unicode(self.song)
+        return super(PlayedSong, self).__unicode__()
 
 ############################################################
 # Gacha

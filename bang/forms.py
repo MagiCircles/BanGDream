@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator
-from magi.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter, MultiImageField
+from magi.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter, MultiImageField, AccountForm as _AccountForm
 from bang import settings
 from bang.django_translated import t
 from bang import models
@@ -14,7 +14,7 @@ from bang import models
 ############################################################
 # Accounts
 
-class AccountForm(MagiForm):
+class AccountForm(_AccountForm):
     level = forms.IntegerField(required=False, label=_('Level'), validators=[
         MinValueValidator(1),
         MaxValueValidator(300),
@@ -28,13 +28,6 @@ class AccountForm(MagiForm):
         super(AccountForm, self).__init__(*args, **kwargs)
         if self.is_creating:
             del(self.fields['start_date'])
-
-    class Meta:
-        model = models.Account
-
-        fields = ('level', 'friend_id', 'start_date')
-        optional_fields = ('level', 'friend_id', 'start_date')
-        save_owner_on_creation = True
 
 class FilterAccounts(MagiFiltersForm):
     search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location', 'owner__links__value']

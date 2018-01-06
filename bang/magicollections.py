@@ -25,10 +25,8 @@ class UserCollection(_UserCollection):
     class ItemView(_UserCollection.ItemView):
         def extra_context(self, context):
             super(UserCollection.ItemView, self).extra_context(context)
-            accountCollection = getMagiCollection('account')
-            if accountCollection:
-                for account in context['item'].all_accounts:
-                    account.fields = accountCollection.to_fields(account)
+            if not context['request'].user.is_authenticated() or not context['request'].user.is_staff:
+                context['afterjs'] = context['afterjs'].replace('loadCollectionForOwner(\'/ajax/favoritecards/\', loadCardInList)', 'loadProfileComingSoon')
 
 ############################################################
 # Account Collection
@@ -66,7 +64,7 @@ class AccountCollection(_AccountCollection):
         if not request.user.is_authenticated() or not request.user.is_staff:
             for collection_name, collection in context['collectible_collections']['account'].items():
                 if collection_name in tabs and collection.add_view.staff_required:
-                    tabs[collection_name]['callback'] = 'loadComingSoon'
+                    tabs[collection_name]['callback'] = 'loadAccountComingSoon'
         return tabs
 
     def share_image(self, context, item):

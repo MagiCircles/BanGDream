@@ -643,9 +643,7 @@ class EventCollection(MagiCollection):
             del(fields['name'])
         if item.name == item.japanese_name and 'japanese_name' in fields:
             del(fields['japanese_name'])
-        setSubField(fields, 'start_date', key='type', value='timezone_datetime')
         setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
-        setSubField(fields, 'end_date', key='type', value='timezone_datetime')
         setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
         return fields
 
@@ -739,9 +737,7 @@ class GachaCollection(MagiCollection):
             setSubField(fields, 'name', key='type', value='title_text')
             setSubField(fields, 'name', key='title', value=item.name)
             setSubField(fields, 'name', key='value', value=item.japanese_name)
-        setSubField(fields, 'start_date', key='type', value='timezone_datetime')
         setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
-        setSubField(fields, 'end_date', key='type', value='timezone_datetime')
         setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)

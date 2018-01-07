@@ -309,6 +309,15 @@ class CardCollection(MagiCollection):
                 },
             }
 
+            class form_class(cls.form_class):
+                def save(self, commit=True):
+                    instance = super(_CollectibleCardCollection.form_class, self).save(commit=False)
+                    if instance.card.i_rarity not in models.TRAINABLE_RARITIES:
+                        instance.trained = False
+                    if commit:
+                        instance.save()
+                    return instance
+
             def to_fields(self, item, *args, **kwargs):
                 fields = super(_CollectibleCardCollection, self).to_fields(item, *args, icons={
                     'trained': 'idolized',

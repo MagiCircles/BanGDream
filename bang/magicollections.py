@@ -279,7 +279,6 @@ class CardCollection(MagiCollection):
                 class ListView(cls.ListView):
                     item_template = 'cardItem'
                     per_line = 2
-                    page_size = 2
                     default_ordering = '-id'
                     ajax_pagination_callback = 'loadCardInList'
 

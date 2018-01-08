@@ -165,6 +165,7 @@ class MemberCollection(MagiCollection):
         }, **kwargs)
         if 'square_image' in fields:
             del(fields['square_image'])
+        setSubField(fields, 'birthday', key='type', value='text')
         setSubField(fields, 'birthday', key='value', value=lambda f: dateformat.format(item.birthday, "F d"))
         setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
         setSubField(fields, 'band', key='link', value=lambda f: u'/members/?i_band={}'.format(item.i_band))

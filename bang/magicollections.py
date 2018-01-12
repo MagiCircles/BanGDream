@@ -468,6 +468,18 @@ class CardCollection(MagiCollection):
                         del(new_fields[field])
         return new_fields
 
+    def buttons_per_item(self, view, *args, **kwargs):
+        buttons = super(CardCollection, self).buttons_per_item(view, *args, **kwargs)
+        if 'favoritecard' in buttons:
+            if view.view == 'list_view':
+                buttons['favoritecard']['icon'] = 'star'
+            buttons['favoritecard']['classes'].remove('staff-only')
+        if 'collectiblecard' in buttons:
+            buttons['collectiblecard']['classes'].remove('staff-only')
+        if view.view == 'list_view' and 'edit' in buttons:
+            del(buttons['edit'])
+        return buttons
+
     class ItemView(MagiCollection.ItemView):
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
@@ -488,12 +500,6 @@ class CardCollection(MagiCollection):
                     '_overall_trained_max': 'performance_trained_max + technique_trained_max + visual_trained_max',
                 })
             return queryset
-
-        def buttons_per_item(self, *args, **kwargs):
-            buttons = super(CardCollection.ListView, self).buttons_per_item(*args, **kwargs)
-            if 'favoritecard' in buttons:
-                buttons['favoritecard']['icon'] = 'star'
-            return buttons
 
         def extra_context(self, context):
             context['view'] = context['request'].GET.get('view', None)
@@ -672,6 +678,12 @@ class EventCollection(MagiCollection):
             queryset = super(EventCollection.ItemView, self).get_queryset(queryset, parameters, request)
             queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'), Prefetch('gachas', to_attr='all_gachas'), Prefetch('gift_songs', to_attr='all_gifted_songs'))
             return queryset
+
+        def buttons_per_item(self, *args, **kwargs):
+            buttons = super(EventCollection.ItemView, self).buttons_per_item(*args, **kwargs)
+            if 'eventparticipation' in buttons:
+                buttons['eventparticipation']['classes'].remove('staff-only')
+            return buttons
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -968,6 +980,12 @@ class SongCollection(MagiCollection):
             queryset = super(SongCollection.ItemView, self).get_queryset(queryset, parameters, request)
             queryset = queryset.select_related('event')
             return queryset
+
+        def buttons_per_item(self, *args, **kwargs):
+            buttons = super(SongCollection.ItemView, self).buttons_per_item(*args, **kwargs)
+            if 'playedsong' in buttons:
+                buttons['playedsong']['classes'].remove('staff-only')
+            return buttons
 
     class AddView(MagiCollection.AddView):
         staff_required = True

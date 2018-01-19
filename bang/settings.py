@@ -7,7 +7,7 @@ from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_
 from magi.utils import tourldash
 from bang import models
 
-STATIC_FILES_VERSION = '13'
+STATIC_FILES_VERSION = '14'
 
 SITE_NAME = 'Bandori Party'
 SITE_URL = 'http://bandori.party/'

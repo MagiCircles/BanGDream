@@ -24,7 +24,7 @@
     <figure><div class="card-image normal" style="background-image: url('{{ card.art_url }}');">
       </div>{% if card.trainable %}<div class="card-image trained" style="background-image: url('{{ card.art_trained_url }}');">
       </div>{% endif %}</figure>
-    <h2 class="member-name{% if LANGUAGE_CODE == 'ja' %} japanese{% endif %}">{% if LANGUAGE_CODE == 'ja' %}{{ card.cached_member.japanese_name }}{% else %}{{ card.cached_member.name }}{% endif %}</h2>
+    <h2 class="member-name{% if LANGUAGE_CODE == 'ja' %} japanese{% endif %}">{% if LANGUAGE_CODE == 'ja' %}{{ card.cached_member.japanese_name }}{% elif card.cached_member.name %}{{ card.cached_member.name }}{% endif %}</h2>
     <div class="rarity" style="background-image: url('{{ static_url }}img/rarity/{{ card.i_rarity }}.png');"></div>
     <div class="attribute" style="background-image: url('{{ static_url }}img/i_attribute/{{ card.i_attribute }}.png');"></div>
   </{% if current == 'card_item_ajax' %}span{% else %}a{% endif %}>

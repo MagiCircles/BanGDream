@@ -2,12 +2,13 @@
 import math
 from itertools import chain
 from collections import OrderedDict
+from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import dateformat
 from django.utils.safestring import mark_safe
 from django.db.models import Prefetch
 from magi.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
-from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template
+from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL
 from magi.default_settings import RAW_CONTEXT
 from magi.models import Activity
 from bang import settings
@@ -35,6 +36,9 @@ class AccountCollection(_AccountCollection):
     form_class = forms.AccountForm
     navbar_link_list = 'community'
 
+    _attributes_images = [_c[0] for _c in settings.USER_COLORS]
+    _version_images = [_c['image'] for _c in models.Account.VERSIONS.values()]
+    _play_with_icons = [_c['icon'] for _c in models.Account.PLAY_WITH.values()]
     filter_cuteform = {
         'member_id': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
@@ -44,7 +48,7 @@ class AccountCollection(_AccountCollection):
             },
         },
         'i_attribute': {
-            'to_cuteform': lambda k, v: [c[0] for c in settings.USER_COLORS].index(k) + 1,
+            'to_cuteform': lambda k, v: AccountCollection._attributes_images.index(k) + 1,
             'transform': CuteFormTransform.ImagePath,
         },
         'has_friend_id': {
@@ -57,7 +61,36 @@ class AccountCollection(_AccountCollection):
 	        'modal-text': 'true',
             },
         },
+        'i_version': {
+            'to_cuteform': lambda k, v: AccountCollection._version_images[k],
+            'image_folder': 'language',
+            'transform': CuteFormTransform.ImagePath,
+        },
+        'i_play_with': {
+            'to_cuteform': lambda k, v: AccountCollection._play_with_icons[k],
+            'transform': CuteFormTransform.FlaticonWithText,
+        },
+        'i_os': {
+            'to_cuteform': lambda k, v: models.Account.OS_CHOICES[k],
+            'transform': CuteFormTransform.FlaticonWithText,
+        },
     }
+
+    def to_fields(self, item, *args, **kwargs):
+        fields = super(AccountCollection, self).to_fields(item, *args, icons={
+            'play_with': item.play_with_icon,
+            'os': item.os_icon,
+            'device': item.os_icon or 'id',
+        }, images={
+            'version': item.version_image_url,
+            'stargems_bought': staticImageURL(u'stargems_bought.png'),
+        }, **kwargs)
+        setSubField(fields, 'stargems_bought', key='verbose_name', value=_('Total {item} bought').format(item=_('Star gems').lower()))
+        setSubField(fields, 'stargems_bought', key='type', value='text_annotation')
+        spent_yen = int(item.stargems_bought * django_settings.PRICE_PER_STARGEM) if item.stargems_bought else 0
+        spent_dollars = int(spent_yen * django_settings.YEN_TO_USD)
+        setSubField(fields, 'stargems_bought', key='annotation', value=_(u'~{}円 spent (~${})').format(spent_yen, spent_dollars))
+        return fields
 
     def get_profile_account_tabs(self, request, context, *args, **kwargs):
         tabs = super(AccountCollection, self).get_profile_account_tabs(request, context, *args, **kwargs)
@@ -76,6 +109,7 @@ class AccountCollection(_AccountCollection):
 
     class AddView(_AccountCollection.AddView):
         back_to_list_button = False
+        simpler_form = forms.AddAccountForm
 
         def redirect_after_add(self, request, item, ajax):
             if not ajax:

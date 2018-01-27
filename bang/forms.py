@@ -30,6 +30,28 @@ class AccountForm(_AccountForm):
             del(self.fields['start_date'])
         if 'center' in self.fields:
             self.fields['center'].queryset = self.fields['center'].queryset.select_related('card')
+        if 'stargems_bought' in self.fields:
+            self.fields['stargems_bought'].label = _('Total {item} bought').format(item=_('Star gems').lower())
+
+    def save(self, commit=False):
+        instance = super(AccountForm, self).save(commit=False)
+        if instance.stargems_bought == 0:
+            instance.stargems_bought = None
+        if commit:
+            instance.save()
+        return instance
+
+    class Meta(_AccountForm.Meta):
+        optional_fields = _AccountForm.Meta.optional_fields + ('i_play_with', 'i_os', 'device', 'stargems_bought')
+
+class AddAccountForm(AccountForm):
+    def __init__(self, *args, **kwargs):
+        super(AddAccountForm, self).__init__(*args, **kwargs)
+        if not self.data.get('screenshot') and 'screenshot' in self.fields and int(self.data.get('level', 0) or 0) < 200:
+            self.fields['screenshot'].widget = forms.HiddenInput()
+
+    class Meta(AccountForm.Meta):
+        fields = ('nickname', 'i_version', 'level', 'friend_id', 'screenshot')
 
 class FilterAccounts(MagiFiltersForm):
     search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location', 'owner__links__value']

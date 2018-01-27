@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 import datetime, time
+from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
@@ -9,8 +10,8 @@ from django.db import models
 from django.conf import settings as django_settings
 from magi.models import User, uploadItem
 from magi.abstract_models import AccountAsOwnerModel, BaseAccount
-from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path, i_choices
-from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName
+from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path, i_choices, getInfoFromChoices
+from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName, staticImageURL
 from bang.model_choices import *
 from bang.django_translated import t
 
@@ -29,6 +30,67 @@ class Image(BaseMagiModel):
 class Account(BaseAccount):
     friend_id = models.PositiveIntegerField(_('Friend ID'), null=True)
     center = models.ForeignKey('CollectibleCard', verbose_name=_('Center'), related_name='center_of_account', null=True, on_delete=models.SET_NULL)
+
+    VERSIONS = OrderedDict([
+        ('JP', {
+            'translation': _('Japanese'),
+            'image': 'ja',
+        }),
+        ('EN', {
+            'translation': _('English'),
+            'image': 'us',
+        }),
+        ('TW', {
+            'translation': _('Taiwanese'),
+            'image': 'tw',
+        }),
+        ('KR', {
+            'translation': _('Korean'),
+            'image': 'kr',
+        }),
+    ])
+    VERSION_CHOICES = [(_name, _info['translation']) for _name, _info in VERSIONS.items()]
+    i_version = models.PositiveIntegerField(_('Version'), choices=i_choices(VERSION_CHOICES))
+    version_image = property(getInfoFromChoices('version', VERSIONS, 'image'))
+    version_image_url = property(lambda _a: staticImageURL(_a.version_image, folder=u'language', extension='png'))
+
+    PLAY_WITH = OrderedDict([
+        ('Thumbs', {
+            'translation': _('Thumbs'),
+            'icon': 'thumbs'
+        }),
+        ('Fingers', {
+            'translation': _('All fingers'),
+            'icon': 'fingers'
+        }),
+        ('Index', {
+            'translation': _('Index fingers'),
+            'icon': 'index'
+        }),
+        ('Hand', {
+            'translation': _('One hand'),
+            'icon': 'fingers'
+        }),
+        ('Other', {
+            'translation': _('Other'),
+            'icon': 'sausage'
+        }),
+    ])
+    PLAY_WITH_CHOICES = [(_name, _info['translation']) for _name, _info in PLAY_WITH.items()]
+    i_play_with = models.PositiveIntegerField(_('Play with'), choices=i_choices(PLAY_WITH_CHOICES), null=True)
+    play_with_icon = property(getInfoFromChoices('play_with', PLAY_WITH, 'icon'))
+
+    OS_CHOICES = (
+        'Android',
+        'iOs',
+    )
+    i_os = models.PositiveIntegerField(_('Operating System'), choices=i_choices(OS_CHOICES), null=True)
+    os_icon = property(lambda _a: _a.os)
+
+    device = models.CharField(_('Device'), help_text=_('The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ...'), max_length=150, null=True)
+    stargems_bought = models.PositiveIntegerField(null=True)
+
+    screenshot = models.ImageField(_('Screenshot'), help_text=_('In-game profile screenshot'), upload_to=uploadItem('account_screenshot'), null=True)
 
 ############################################################
 # Members

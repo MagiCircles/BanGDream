@@ -463,7 +463,7 @@ class Card(MagiModel):
 
     # Cache event
 
-    _cache_event_days = 20
+    _cache_event_days = 1
     _cache_event_last_update = models.DateTimeField(null=True)
     _cache_event_id = models.PositiveIntegerField(null=True)
     _cache_event_name = models.CharField(max_length=100, null=True)
@@ -509,7 +509,7 @@ class Card(MagiModel):
 
     # Cache gacha
 
-    _cache_gacha_days = 20
+    _cache_gacha_days = 1
     _cache_gacha_last_update = models.DateTimeField(null=True)
     _cache_gacha_id = models.PositiveIntegerField(null=True)
     _cache_gacha_name = models.CharField(max_length=100, null=True)

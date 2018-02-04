@@ -145,6 +145,8 @@ class CardForm(AutoForm):
                     imageObject.delete()
         # Upload new chibis
         for image in self.cleaned_data['chibis']:
+            if isinstance(image, int):
+                continue
             name, extension = os.path.splitext(image.name)
             imageObject = models.Image.objects.create()
             image = shrinkImageFromData(image.read(), image.name)

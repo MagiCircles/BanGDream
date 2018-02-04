@@ -152,7 +152,7 @@ class CardForm(AutoForm):
             image = shrinkImageFromData(image.read(), image.name)
             image.name = u'{name}-{attribute}-chibi.{extension}'.format(
                 name=tourldash(instance.member.name),
-                attribute=instance.attribute,
+                attribute=instance.english_attribute,
                 extension=extension,
             )
             imageObject.image.save(image.name, image)

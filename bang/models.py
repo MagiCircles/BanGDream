@@ -588,13 +588,13 @@ class Card(MagiModel):
     def __unicode__(self):
         if self.id:
             return u'{rarity} {member_name} - {attribute}{name}'.format(
-                rarity=self.rarity,
+                rarity=self.t_rarity,
                 member_name=(
                     self.cached_member.japanese_name
                     if get_language() == 'ja'
                     else self.cached_member.name)
                 if self.cached_member else '',
-                attribute=self.attribute,
+                attribute=self.t_attribute,
                 name=(u' - {}'.format(
                     self.japanese_name
                     if (get_language() == 'ja' and self.japanese_name) or not self.name
@@ -641,7 +641,7 @@ class CollectibleCard(AccountAsOwnerModel):
 
     @property
     def color(self):
-        return self.card.attribute
+        return self.card.english_attribute
 
     def __unicode__(self):
         if self.id:

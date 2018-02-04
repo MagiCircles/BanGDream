@@ -69,16 +69,7 @@ class FilterAccounts(MagiFiltersForm):
     member_id_filter = MagiFilter(selectors=['owner__preferences__favorite_character{}'.format(i) for i in range(1, 4)])
 
     has_friend_id = forms.NullBooleanField(required=False, initial=None, label=_('Friend ID'))
-    # has_friend_id_filter = MagiFilter(selector='friend_id__isnull') This will work with latest magicircles when merging
-    def _filter_friend_id(self, queryset, request, value):
-        if value == '2':
-            value = True
-        elif value == '3':
-            value = False
-        else:
-            value = None
-        return queryset.filter(friend_id__isnull=not value) if value is not None else queryset
-    has_friend_id_filter = MagiFilter(to_queryset=_filter_friend_id)
+    has_friend_id_filter = MagiFilter(selector='friend_id__isnull')
 
     i_attribute = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(c[0], c[1]) for c in settings.USER_COLORS], required=False, label=_('Attribute'))
     i_attribute_filter = MagiFilter(selector='owner__preferences__color')

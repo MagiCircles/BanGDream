@@ -364,6 +364,9 @@ class CardCollection(MagiCollection):
                 setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
                 return fields
 
+            class ListView(cls.ListView):
+                col_break = 'xs'
+
             class AddView(cls.AddView):
                 staff_required = True
 

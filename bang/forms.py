@@ -277,8 +277,8 @@ class EventFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name']
     ordering_fields = [
         ('start_date', _('Date')),
-        ('name', _('Name')),
-        ('japanese_name', string_concat(_('Name'), ' (', t['Japanese'], ')')),
+        ('name', _('Title')),
+        ('japanese_name', string_concat(_('Title'), ' (', t['Japanese'], ')')),
     ]
 
     class Meta:

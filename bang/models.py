@@ -32,19 +32,19 @@ class Account(BaseAccount):
 
     VERSIONS = OrderedDict([
         ('JP', {
-            'translation': _('Japanese'),
+            'translation': _('Japanese version'),
             'image': 'ja',
         }),
         ('EN', {
-            'translation': _('English'),
+            'translation': _('English version'),
             'image': 'us',
         }),
         ('TW', {
-            'translation': _('Taiwanese'),
+            'translation': _('Taiwanese version'),
             'image': 'tw',
         }),
         ('KR', {
-            'translation': _('Korean'),
+            'translation': _('Korean version'),
             'image': 'kr',
         }),
     ])

@@ -797,8 +797,6 @@ class GachaCollection(MagiCollection):
                 value=item.i_attribute,
             ),
         }, **kwargs)
-        if 'japanese_name' in fields:
-            del(fields['japanese_name'])
         if get_language() == 'ja':
             setSubField(fields, 'name', key='value', value=item.japanese_name)
         else:
@@ -833,6 +831,8 @@ class GachaCollection(MagiCollection):
                     'type': 'html',
                 }))
             fields = OrderedDict(fields)
+            if 'japanese_name' in fields:
+                del(fields['japanese_name'])
             if len(item.all_cards):
                 fields['cards'] = {
                     'icon': 'cards',

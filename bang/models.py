@@ -12,7 +12,6 @@ from magi.models import User, uploadItem
 from magi.abstract_models import AccountAsOwnerModel, BaseAccount
 from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path, i_choices, getInfoFromChoices
 from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName, staticImageURL
-from bang.model_choices import *
 from bang.django_translated import t
 
 ############################################################
@@ -103,19 +102,24 @@ class Member(MagiModel):
     japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
     image = models.ImageField(_('Image'), upload_to=uploadItem('i'))
     square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
-    @property
-    def square_image_url(self): return get_image_url_from_path(self.square_image)
-    @property
-    def http_square_image_url(self): return get_http_image_url_from_path(self.square_image)
 
-    i_band = models.PositiveIntegerField(_('Band'), choices=BAND_CHOICES)
-    @property
-    def band(self): return BAND_DICT[self.i_band]
+    BAND_CHOICES = (
+        'Poppin\' Party',
+        'Afterglow',
+        'Pastel*Palettes',
+        'Roselia',
+        'Hello, Happy World!',
+        'Glitter*Green'
+    )
+    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
 
     school = models.CharField(_('School'), max_length=100, null=True)
-    i_school_year = models.PositiveIntegerField(_('School Year'), choices=SCHOOL_YEAR_CHOICES, null=True)
-    @property
-    def school_year(self): return SCHOOL_YEAR_DICT[self.i_school_year] if self.i_school_year is not None else None
+    SCHOOL_YEAR_CHOICES = (
+        ('First', _('First')),
+        ('Second', _('Second')),
+        ('Third', _('Junior Third')),
+    )
+    i_school_year = models.PositiveIntegerField(_('School Year'), choices=i_choices(SCHOOL_YEAR_CHOICES), null=True)
 
     romaji_CV = models.CharField(_('CV'), help_text='In romaji.', max_length=100, null=True)
     CV = models.CharField(string_concat(_('CV'), ' (', t['Japanese'], ')'), help_text='In Japanese characters.', max_length=100, null=True)
@@ -124,13 +128,23 @@ class Member(MagiModel):
     food_likes = models.CharField(_('Liked food'), max_length=100, null=True)
     food_dislikes = models.CharField(_('Disliked food'), max_length=100, null=True)
 
-    i_astrological_sign = models.PositiveIntegerField(_('Astrological Sign'), choices=ASTROLOGICAL_SIGN_CHOICES, null=True)
+    ASTROLOGICAL_SIGN_CHOICES = (
+        ('Leo', _('Leo')),
+        ('Aries', _('Aries')),
+        ('Libra', _('Libra')),
+        ('Virgo', _('Virgo')),
+        ('Scorpio', _('Scorpio')),
+        ('Capricorn', _('Capricorn')),
+        ('Pisces', _('Pisces')),
+        ('Gemini', _('Gemini')),
+        ('Cancer', _('Cancer')),
+        ('Sagittarius', _('Sagittarius')),
+        ('Aquarius', _('Aquarius')),
+        ('Taurus', _('Taurus')),
+    )
+    i_astrological_sign = models.PositiveIntegerField(_('Astrological Sign'), choices=i_choices(ASTROLOGICAL_SIGN_CHOICES), null=True)
     @property
-    def astrological_sign(self): return ASTROLOGICAL_SIGN_DICT[self.i_astrological_sign] if self.i_astrological_sign is not None else None
-    @property
-    def english_astrological_sign(self): return ENGLISH_ASTROLOGICAL_SIGN_DICT[self.i_astrological_sign] if self.i_astrological_sign is not None else None
-    @property
-    def astrological_sign_image_url(self): return get_image_url_from_path(u'static/img/i_astrological_sign/{}.png'.format(self.i_astrological_sign))
+    def astrological_sign_image_url(self): return staticImageURL(self.i_astrological_sign, folder='i_astrological_sign', extension='png')
 
     hobbies = models.CharField(_('Instrument'), max_length=100, null=True)
     description = models.TextField(_('Description'), null=True)
@@ -184,81 +198,149 @@ class Card(MagiModel):
     id = models.PositiveIntegerField(_('ID'), unique=True, primary_key=True, db_index=True)
     member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='cards', null=True, on_delete=models.SET_NULL)
 
+    RARITY_CHOICES = (
+        (1, u'★'),
+        (2, u'★★'),
+        (3, u'★★★'),
+        (4, u'★★★★'),
+    )
+    RARITY_WITHOUT_I_CHOICES = True
     i_rarity = models.PositiveIntegerField(_('Rarity'), choices=RARITY_CHOICES)
-    @property
-    def rarity(self): return RARITY_DICT[self.i_rarity]
+
+    ATTRIBUTES = OrderedDict([
+        (1, {
+            'translation': _('Power'),
+            'english': u'Power',
+        }),
+        (2, {
+            'translation': _('Cool'),
+            'english': u'Cool',
+        }),
+        (3, {
+            'translation': _('Pure'),
+            'english': u'Pure',
+        }),
+        (4, {
+            'translation': _('Happy'),
+            'english': u'Happy',
+        }),
+    ])
+    ATTRIBUTE_CHOICES = [(_name, _info['translation']) for _name, _info in ATTRIBUTES.items()]
+    ATTRIBUTE_WITHOUT_I_CHOICES = True
     i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES)
-    @property
-    def attribute(self): return ATTRIBUTE_DICT[self.i_attribute]
-    @property
-    def english_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_attribute]
+    english_attribute = property(getInfoFromChoices('attribute', ATTRIBUTES, 'english'))
 
     name = models.CharField(_('Title'), max_length=100, null=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, null=True)
 
-    # Images
-    image = models.ImageField(_('Icon'), upload_to=uploadItem('c'))
-    image_trained = models.ImageField(string_concat(_('Icon'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/a'), null=True)
-    @property
-    def image_trained_url(self): return get_image_url_from_path(self.image_trained)
-    @property
-    def http_image_trained_url(self): return get_http_image_url_from_path(self.image_trained)
-    art = models.ImageField(_('Art'), upload_to=uploadItem('c/art'))
-    @property
-    def art_url(self): return get_image_url_from_path(self.art)
-    @property
-    def http_art_url(self): return get_http_image_url_from_path(self.art)
-    art_trained = models.ImageField(string_concat(_('Art'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/art/a'), null=True)
-    @property
-    def art_trained_url(self): return get_image_url_from_path(self.art_trained)
-    @property
-    def http_art_trained_url(self): return get_http_image_url_from_path(self.art_trained)
-    transparent = models.ImageField(_('Transparent'), upload_to=uploadItem('c/transparent'))
-    @property
-    def transparent_url(self): return get_image_url_from_path(self.transparent)
-    @property
-    def http_transparent_url(self): return get_http_image_url_from_path(self.transparent)
-    transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
-    @property
-    def transparent_trained_url(self): return get_image_url_from_path(self.transparent_trained)
-    @property
-    def http_transparent_trained_url(self): return get_http_image_url_from_path(self.transparent_trained)
+    VERSIONS_CHOICES = Account.VERSION_CHOICES
+    c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
 
     # Skill
 
-    i_skill_type = models.PositiveIntegerField(_('Skill'), choices=SKILL_TYPE_CHOICES)
-    @property
-    def skill_type(self): return SKILL_TYPE_DICT[self.i_skill_type]
-    @property
-    def japanese_skill_type(self): return JAPANESE_SKILL_TYPE_DICT[self.i_skill_type]
     skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
     japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
+
+    SKILL_TYPES = OrderedDict([
+        (1, {
+            'translation': _(u'Score up'),
+            'english': 'Score up',
+            'japanese_translation': u'スコアＵＰ',
+            'template':  _(u'All notes will receive a {size} score bonus.'),
+            'japanese_template': u'スコアが{size}UPする',
+            'icon': 'scoreup',
+        }),
+        (2, {
+            'translation': _(u'Life recovery'),
+            'english': 'Life recovery',
+            'japanese_translation': u'ライフ回復',
+            'template': _(u'Your life will get a {size} boost.'),
+            'japanese_template': u'ライフが{size}回復する',
+            'icon': 'healer',
+        }),
+        (3, {
+            'translation': _(u'Perfect lock'),
+            'english': 'Perfect lock',
+            'japanese_translation': u'判定強化',
+            'template': _(u'All the {note_type} notes or better will turn into PERFECT.'),
+            'japanese_template': u'5秒間{note_type}以上がすべてPERFECTになる',
+            'icon': 'perfectlock',
+        }),
+    ])
+    SKILL_TYPE_WITHOUT_I_CHOICES = True
+    SKILL_TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in SKILL_TYPES.items()]
+    i_skill_type = models.PositiveIntegerField(_('Skill'), choices=SKILL_TYPE_CHOICES, null=True)
+    japanese_skill_type = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'japanese_translation'))
+    skill_template = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'template'))
+    japanese_skill_template = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'japanese_template'))
+    skill_icon = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'icon'))
+
     skill_details = models.CharField(_('Skill'), max_length=500, null=True)
+
+    SKILL_SIZES = OrderedDict([
+        (1, {
+            'translation': _(u'small'),
+            'japanese': u'小',
+            'note_type': u'',
+        }),
+        (2, {
+            'translation': _(u'medium'),
+            'japanese': u'中',
+            'note_type': u'GREAT',
+        }),
+        (3, {
+            'translation': _(u'large'),
+            'japanese': u'大',
+            'note_type': u'GOOD',
+        }),
+        (4, {
+            'translation': _(u'oversized'),
+            'japanese': u'特大',
+            'note_type': u'BAD',
+        }),
+    ])
+    skill_size = property(getInfoFromChoices('rarity', SKILL_SIZES, 'translation'))
+    japanese_skill_size = property(getInfoFromChoices('rarity', SKILL_SIZES, 'japanese'))
+    skill_note_type = property(getInfoFromChoices('rarity', SKILL_SIZES, 'note_type'))
 
     @property
     def skill(self):
-        return self.skill_details or SKILL_TEMPLATES[self.i_skill_type].format(size=SKILL_SIZES[self.i_rarity][0], note_type=SKILL_SIZES[self.i_rarity][2])
+        if not self.i_skill_type: return None
+        return self.skill_details or self.skill_template.format(size=self.skill_size, note_type=self.skill_note_type)
 
     @property
     def japanese_skill(self):
-        return JAPANESE_SKILL_TEMPLATES[self.i_skill_type].format(size=SKILL_SIZES[self.i_rarity][1], note_type=SKILL_SIZES[self.i_rarity][2])
+        if not self.i_skill_type: return None
+        return self.japanese_skill_template.format(size=self.japanese_skill_size, note_type=self.skill_note_type)
 
     # Side skill
 
-    i_side_skill_type = models.PositiveIntegerField(_('Side skill'), choices=SKILL_TYPE_CHOICES, null=True)
-    @property
-    def side_skill_type(self): return SKILL_TYPE_DICT[self.i_side_skill_type]
-    @property
-    def japanese_side_skill_type(self): return JAPANESE_SKILL_TYPE_DICT[self.i_side_skill_type]
+    SIDE_SKILL_TYPE_CHOICES = SKILL_TYPE_CHOICES
+    SIDE_SKILL_TYPE_WITHOUT_I_CHOICES = True
+    i_side_skill_type = models.PositiveIntegerField(_('Side skill'), choices=SIDE_SKILL_TYPE_CHOICES, null=True)
+    japanese_side_skill_type = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'japanese_translation'))
+    side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'template'))
+    japanese_side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'japanese_template'))
+    side_skill_icon = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'icon'))
+
     side_skill_details = models.CharField(_('Side skill'), max_length=500, null=True)
 
     @property
     def side_skill(self):
-        return self.side_skill_details or SKILL_TEMPLATES[self.i_side_skill_type].format(size=SKILL_SIZES[self.i_rarity][0], note_type=SKILL_SIZES[self.i_rarity][2])
+        if not self.i_side_skill_type: return None
+        return self.side_skill_details or self.side_skill_template.format(size=self.skill_size, note_type=self.skill_note_type)
 
     @property
     def japanese_side_skill(self):
-        return JAPANESE_SKILL_TEMPLATES[self.i_side_skill_type].format(size=SKILL_SIZES[self.i_rarity][1], note_type=SKILL_SIZES[self.i_rarity][2])
+        return self.japanese_side_skill_template.format(size=self.japanese_skill_size, note_type=self.skill_note_type)
+
+    # Images
+    image = models.ImageField(_('Icon'), upload_to=uploadItem('c'), null=True)
+    image_trained = models.ImageField(string_concat(_('Icon'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/a'), null=True)
+    art = models.ImageField(_('Art'), upload_to=uploadItem('c/art'), null=True)
+    art_trained = models.ImageField(string_concat(_('Art'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/art/a'), null=True)
+    transparent = models.ImageField(_('Transparent'), upload_to=uploadItem('c/transparent'), null=True)
+    transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
 
     # Statistics
     performance_min = models.PositiveIntegerField(string_concat(_('Performance'), ' (', _('Minimum'), ')'), default=0)
@@ -287,17 +369,26 @@ class Card(MagiModel):
 
     # Tools
 
+    TRAINABLE_RARITIES = [3, 4]
+
     @property
     def trainable(self):
-        return self.i_rarity in TRAINABLE_RARITIES
+        return self.i_rarity in self.TRAINABLE_RARITIES
+
+    MAX_LEVELS = {
+        1: 20,
+        2: 30,
+        3: (40, 50),
+        4: (50, 60),
+    }
 
     @property
     def max_level(self):
-        return MAX_LEVELS[self.i_rarity][0] if self.trainable else MAX_LEVELS[self.i_rarity]
+        return self.MAX_LEVELS[self.i_rarity][0] if self.trainable else self.MAX_LEVELS[self.i_rarity]
 
     @property
     def max_level_trained(self):
-        return MAX_LEVELS[self.i_rarity][1] if self.trainable else MAX_LEVELS[self.i_rarity]
+        return self.MAX_LEVELS[self.i_rarity][1] if self.trainable else self.MAX_LEVELS[self.i_rarity]
 
     # All Stats
 
@@ -579,10 +670,6 @@ class Event(MagiModel):
     start_date = models.DateTimeField(_('Beginning'), null=True)
     end_date = models.DateTimeField(_('End'), null=True)
     rare_stamp = models.ImageField(_('Rare Stamp'), upload_to=uploadItem('e/stamps'))
-    @property
-    def rare_stamp_url(self): return get_image_url_from_path(self.rare_stamp)
-    @property
-    def http_rare_stamp_url(self): return get_http_image_url_from_path(self.rare_stamp)
 
     stamp_translation = models.CharField(_('Stamp Translation'), max_length=200, null=True)
 
@@ -593,11 +680,10 @@ class Event(MagiModel):
         'i_rarity': 2,
     }, on_delete=models.SET_NULL)
 
-    i_boost_attribute = models.PositiveIntegerField(_('Boost Attribute'), choices=ATTRIBUTE_CHOICES, null=True)
-    @property
-    def boost_attribute(self): return ATTRIBUTE_DICT[self.i_boost_attribute] if self.i_boost_attribute else None
-    @property
-    def english_boost_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_boost_attribute] if self.i_boost_attribute else None
+    BOOST_ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES
+    BOOST_ATTRIBUTE_WITHOUT_I_CHOICES = True
+    i_boost_attribute = models.PositiveIntegerField(_('Boost Attribute'), choices=BOOST_ATTRIBUTE_CHOICES, null=True)
+    english_boost_attribute = property(getInfoFromChoices('boost_attribute', Card.ATTRIBUTES, 'english'))
 
     boost_members = models.ManyToManyField(Member, related_name='boost_in_events', verbose_name=_('Boost Members'))
 
@@ -680,9 +766,9 @@ class Song(MagiModel):
     owner = models.ForeignKey(User, related_name='added_songs')
     image = models.ImageField(_('Album cover'), upload_to=uploadItem('s'))
 
-    i_band = models.PositiveIntegerField(_('Band'), choices=BAND_CHOICES)
-    @property
-    def band(self): return BAND_DICT[self.i_band]
+
+    BAND_CHOICES = Member.BAND_CHOICES
+    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
 
     japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
     romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)
@@ -712,22 +798,53 @@ class Song(MagiModel):
     expert_notes = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Notes')), null=True)
     expert_difficulty = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
 
-    i_unlock = models.PositiveIntegerField(_('How to unlock?'), choices=UNLOCK_CHOICES)
-    @property
-    def unlock(self): return UNLOCK_DICT.get(self.i_unlock, None)
+    UNLOCK = OrderedDict([
+        ('gift', {
+            'translation': _('Gift'),
+            'template': string_concat(_('Gift'), ' ({occasion})'),
+            'variables': ['occasion'],
+        }),
+        ('purchase', {
+            'translation': _('Purchase at CiRCLE'),
+            'template': _('Purchase at CiRCLE'),
+            'variables': [],
+        }),
+        ('complete_story', {
+            'translation': _('Complete story'),
+            'template': _('Complete {story_type} story, chapter {chapter}'),
+            'variables': ['story_type', 'chapter'],
+        }),
+        ('complete_tutorial', {
+            'translation': _('Complete Tutorial'),
+            'template': _('Complete Tutorial'),
+            'variables': [],
+        }),
+        ('initial', {
+            'translation': _('Initially available'),
+            'template': _('Initially available'),
+            'variables': [],
+        }),
+        ('event', {
+            'translation': _('Event gift'),
+            'template': _('Event gift'),
+            'variables': [],
+        }),
+        ('other', {
+            'translation': _('Other'),
+            'template': '{how_to_unlock}',
+            'variables': ['how_to_unlock'],
+        }),
+    ])
+
+    UNLOCK_CHOICES = [(_name, _info['translation']) for _name, _info in UNLOCK.items()]
+    i_unlock = models.PositiveIntegerField(_('How to unlock?'), choices=i_choices(UNLOCK_CHOICES))
+
     c_unlock_variables = models.CharField(max_length=100, null=True)
-    @property
-    def unlock_variables(self):
-        return split_data(self.c_unlock_variables)
-    @property
-    def dict_unlock_variables(self):
-        return {
-            v: self.unlock_variables[i]
-            for i, v in enumerate(UNLOCK_VARIABLES[self.unlock])
-        }
+    unlock_variables_keys = property(getInfoFromChoices('unlock', UNLOCK, 'variables'))
+    unlock_template = property(getInfoFromChoices('unlock', UNLOCK, 'template'))
     @property
     def unlock_sentence(self):
-        return unicode(UNLOCK_SENTENCES[self.unlock]).format(**self.dict_unlock_variables)
+        return unicode(self.unlock_template).format(**dict(zip(self.unlock_variables_keys, self.unlock_variables)))
 
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gift_songs', null=True, on_delete=models.SET_NULL)
 
@@ -794,11 +911,10 @@ class Gacha(MagiModel):
     start_date = models.DateTimeField(_('Beginning'), null=True)
     end_date = models.DateTimeField(_('End'), null=True)
 
+    ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES
+    ATTRIBUTE_WITHOUT_I_CHOICES = True
     i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES)
-    @property
-    def attribute(self): return ATTRIBUTE_DICT[self.i_attribute]
-    @property
-    def english_attribute(self): return ENGLISH_ATTRIBUTE_DICT[self.i_attribute]
+    english_attribute = property(getInfoFromChoices('attribute', Card.ATTRIBUTES, 'english'))
 
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gachas', null=True, on_delete=models.SET_NULL)
     cards = models.ManyToManyField(Card, verbose_name=('Cards'), related_name='gachas')

@@ -12,8 +12,20 @@ class ImageField(serializers.ImageField):
         return get_http_image_url_from_path(value)
 
 class IField(serializers.IntegerField):
-    def __init__(self, choices, *args, **kwargs):
+    def __init__(self, model, field_name, *args, **kwargs):
         super(IField, self).__init__(*args, **kwargs)
+        self._model = model
+        self._field_name = field_name
+
+    def to_representation(self, value):
+        return self._model.get_reverse_i(self._field_name, value)
+
+    def to_internal_value(self, data):
+        return self._model.get_i(self._field_name, data)
+
+class IFieldManualChoices(serializers.IntegerField):
+    def __init__(self, choices, *args, **kwargs):
+        super(IFieldManualChoices, self).__init__(*args, **kwargs)
         self.choices = choices
         self.reverse_choices = { v: k for k, v in choices.items() }
 
@@ -69,9 +81,9 @@ class MagiSerializer(serializers.ModelSerializer):
 class MemberSerializer(MagiSerializer):
     image = ImageField()
     square_image = ImageField()
-    i_band = IField(models.BAND_DICT)
-    i_school_year = IField(models.ENGLISH_SCHOOL_YEAR_DICT, required=False)
-    i_astrological_sign = IField(models.ENGLISH_ASTROLOGICAL_SIGN_DICT, required=False)
+    i_band = IField(models.Member, 'band')
+    i_school_year = IField(models.Member, 'school_year', required=False)
+    i_astrological_sign = IField(models.Member, 'astrological_sign', required=False)
 
     class Meta:
         model = models.Member
@@ -87,14 +99,14 @@ class MemberViewSet(viewsets.ModelViewSet):
 # Card
 
 class CardSerializer(MagiSerializer):
-    i_attribute = IField(models.ENGLISH_ATTRIBUTE_DICT)
-    i_skill_type = IField(models.ENGLISH_SKILL_TYPES_DICT)
-    i_side_skill_type = IField(models.ENGLISH_SKILL_TYPES_DICT, required=False)
-    image = ImageField(required=True)
+    i_attribute = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.ATTRIBUTES.items() })
+    i_skill_type = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.SKILL_TYPES.items() }, required=False)
+    i_side_skill_type = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.SKILL_TYPES.items() }, required=False)
+    image = ImageField(required=False)
     image_trained = ImageField(required=False)
-    art = ImageField(required=True)
+    art = ImageField(required=False)
     art_trained = ImageField(required=False)
-    transparent = ImageField(required=True)
+    transparent = ImageField(required=False)
     transparent_trained = ImageField(required=False)
     chibi = ImageField(required=False)
 

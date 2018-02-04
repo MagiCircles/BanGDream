@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.safestring import mark_safe
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
+from magi.item_model import i_choices
 from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator
 from magi.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter, MultiImageField, AccountForm as _AccountForm
 from bang import settings
@@ -170,7 +171,7 @@ class CardForm(AutoForm):
         model = models.Card
         fields = '__all__'
         save_owner_on_creation = True
-        optional_fields = ('name', 'japanese_name', 'image_trained', 'art_trained', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained', 'chibis')
+        optional_fields = ('name', 'japanese_name', 'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'i_skill_type', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained', 'chibis')
 
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
@@ -192,15 +193,15 @@ class CardFilterForm(MagiFiltersForm):
 
     def _trainable_to_queryset(form, queryset, request, value):
         if value == '2':
-            return queryset.filter(i_rarity__in=models.TRAINABLE_RARITIES)
+            return queryset.filter(i_rarity__in=models.Card.TRAINABLE_RARITIES)
         elif value == '3':
-            return queryset.exclude(i_rarity__in=models.TRAINABLE_RARITIES)
+            return queryset.exclude(i_rarity__in=models.Card.TRAINABLE_RARITIES)
         return queryset
 
     trainable = forms.NullBooleanField(initial=None, required=False, label=_('Trainable'))
     trainable_filter = MagiFilter(to_queryset=_trainable_to_queryset)
     member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
-    member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.BAND_CHOICES, initial=None, label=_('Band'))
+    member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
     member_band_filter = MagiFilter(selector='member__i_band')
 
     def _view_to_queryset(self, queryset, request, value):
@@ -339,12 +340,12 @@ def unlock_to_form(unlock):
         def __init__(self, *args, **kwargs):
             super(_UnlockSongForm, self).__init__(*args, **kwargs)
             help_text = mark_safe(u'Will be displayed as <code>{}</code>'.format(
-                unicode(models.UNLOCK_SENTENCES[unlock]).format(**{
+                unicode(models.Song.UNLOCK[unlock]['template']).format(**{
                     variable: 'xxx'
-                    for variable in models.UNLOCK_VARIABLES[unlock]
+                    for variable in models.Song.UNLOCK[unlock]['variables']
                 }),
             )) if unlock != 'other' else None
-            for i, variable in enumerate(models.UNLOCK_VARIABLES[unlock]):
+            for i, variable in enumerate(models.Song.UNLOCK[unlock]['variables']):
                 self.fields[variable] = forms.CharField(
                     help_text=help_text,
                     initial=None if self.is_creating else self.instance.unlock_variables[i],
@@ -354,10 +355,10 @@ def unlock_to_form(unlock):
 
         def save(self, commit=False):
             instance = super(_UnlockSongForm, self).save(commit=False)
-            instance.i_unlock = next(k for k, v in models.UNLOCK_DICT.items() if v == unlock)
+            instance.i_unlock = models.Song.get_i('unlock', unlock)
             instance.c_unlock_variables = join_data(*[
                 self.cleaned_data[variable]
-                for variable in models.UNLOCK_VARIABLES[unlock]
+                for variable in models.Song.UNLOCK[unlock]['variables']
             ])
             if commit:
                 instance.save()

@@ -76,8 +76,8 @@ class AccountCollection(_AccountCollection):
         },
     }
 
-    def to_fields(self, item, *args, **kwargs):
-        fields = super(AccountCollection, self).to_fields(item, *args, icons={
+    def to_fields(self, view, item, *args, **kwargs):
+        fields = super(AccountCollection, self).to_fields(view, item, *args, icons={
             'play_with': item.play_with_icon,
             'os': item.os_icon,
             'device': item.os_icon or 'id',
@@ -178,8 +178,8 @@ class MemberCollection(MagiCollection):
     def share_image(self, context, item):
         return 'screenshots/members.png'
 
-    def to_fields(self, item, *args, **kwargs):
-        fields = super(MemberCollection, self).to_fields(item, *args, icons={
+    def to_fields(self, view, item, *args, **kwargs):
+        fields = super(MemberCollection, self).to_fields(view, item, *args, icons={
             'name': 'id',
             'japanese_name': 'id',
             'band': 'users',
@@ -260,6 +260,7 @@ class CardCollection(MagiCollection):
     form_class = forms.CardForm
     reportable = False
 
+    _skill_icons = { _i: _c['icon'] for _i, _c in models.Card.SKILL_TYPES.items() }
     filter_cuteform = {
         'member_id': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
@@ -277,11 +278,11 @@ class CardCollection(MagiCollection):
             'type': CuteFormType.OnlyNone,
         },
         'i_skill_type': {
-            'to_cuteform': lambda k, v: models.SKILL_ICONS[k],
+            'to_cuteform': lambda k, v: CardCollection._skill_icons[k],
             'transform': CuteFormTransform.Flaticon,
         },
         'i_side_skill_type': {
-            'to_cuteform': lambda k, v: models.SKILL_ICONS[k],
+            'to_cuteform': lambda k, v: CardCollection._skill_icons[k],
             'transform': CuteFormTransform.Flaticon,
         },
         'member_band': {
@@ -347,14 +348,14 @@ class CardCollection(MagiCollection):
             class form_class(cls.form_class):
                 def save(self, commit=True):
                     instance = super(_CollectibleCardCollection.form_class, self).save(commit=False)
-                    if instance.card.i_rarity not in models.TRAINABLE_RARITIES:
+                    if instance.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
                         instance.trained = False
                     if commit:
                         instance.save()
                     return instance
 
-            def to_fields(self, item, *args, **kwargs):
-                fields = super(_CollectibleCardCollection, self).to_fields(item, *args, icons={
+            def to_fields(self, view, item, *args, **kwargs):
+                fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons={
                     'trained': 'idolized',
                     'max_leveled': 'max-level',
                     'first_episode': 'play',
@@ -371,136 +372,27 @@ class CardCollection(MagiCollection):
     def share_image(self, context, item):
         return 'screenshots/cards.png'
 
-    def to_fields(self, item, only_fields=None, in_list=False):
-        # Used in ordering
-        if in_list:
-            fields = super(CardCollection, self).to_fields(item, icons={
-                '_cache_member_name': 'id',
-                '_cache_member_japanese_name': 'id',
-                'rarity': 'star',
-                'performance_max': 'skill',
-                'performance_trained_max': 'skill',
-                'technique_max': 'skill',
-                'technique_trained_max': 'skill',
-                'visual_max': 'skill',
-                'visual_trained_max': 'skill',
-            }, images={
-                'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
-                    static_url=RAW_CONTEXT['static_url'],
-                    value=item.i_attribute,
-                ),
-            }, only_fields=only_fields, in_list=in_list)
-            setSubField(fields, 'rarity', key='type', value='html')
-            setSubField(fields, 'rarity', key='value', value=lambda f: rarity_to_stars_images(item.i_rarity))
-            if '_overall_max' in only_fields:
-                fields['overall_max'] = {
-                    'verbose_name': string_concat(_('Overall'), ' (', _('Maximum'), ')'),
-                    'value': item._overall_max,
-                    'type': 'text',
-                    'icon': 'center',
-                }
-            if '_overall_trained_max' in only_fields:
-                fields['overall_trained_max'] = {
-                    'verbose_name': string_concat(_('Overall'), ' (', _('Trained'), ', ', _('Maximum'), ')'),
-                    'value': item._overall_trained_max,
-                    'type': 'text',
-                    'icon': 'center',
-                }
-            return fields
-        # Used in cards description
-        final_fields = OrderedDict([(field, info) for field, info in [
-            # field name: (icon, verbose name, extra field info)
-            ('id', ('id', _('ID'), None)),
-            ('member', ('idolized', _('Member'), None)),
-            ('name', ('id', _('Title'), {
-                'type': 'title_text',
-                'title': item.name,
-                'value': item.japanese_name,
-            } if (item.name or item.japanese_name) and get_language() != 'ja' else {})),
-            ('skill_name', ('skill', _('Skill name'), {
-                'type': 'title_text',
-                'title': item.skill_name,
-                'value': item.japanese_skill_name,
-            } if (item.skill_name or item.japanese_skill_name) and get_language() != 'ja' else {})),
-            ('skill', (models.SKILL_ICONS[item.i_skill_type], _('Skill'), {
-                'type': 'title_text',
-                'title': item.skill_type,
-            })),
-            ('japanese_skill', (models.SKILL_ICONS[item.i_skill_type], string_concat(_('Skill'), ' (', t['Japanese'], ')'), {
-                'type': 'title_text',
-                'title': item.japanese_skill_type,
-            })),
-            ('side_skill', (models.SKILL_ICONS[item.i_side_skill_type], _('Side skill'), {
-                'type': 'title_text',
-                'title': item.side_skill_type,
-            }) if item.i_side_skill_type else None),
-            ('event', ('event', _('Event'), {
-                'verbose_name': item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name,
-                'value': item.cached_event.image_url,
-                'type': 'image_link',
-                'link': item.cached_event.item_url,
-                'ajax_link': item.cached_event.ajax_item_url,
-                'link_text': item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name,
-            }) if item.cached_event else None),
-            ('gacha', ('max-bond', _('Gacha'), {
-                'verbose_name': item.cached_gacha.japanese_name if get_language() == 'ja' else item.cached_gacha.name,
-                'value': item.cached_gacha.image_url,
-                'type': 'image_link',
-                'link': item.cached_gacha.item_url,
-                'ajax_link': item.cached_gacha.ajax_item_url,
-                'link_text': item.cached_gacha.japanese_name if get_language() == 'ja' else item.cached_gacha.name,
-            }) if item.cached_gacha else None),
-            ('image', ('id', _('Icon'), {
-                'type': 'image',
-                'value': item.image_url,
-            })),
-            ('image_trained', ('id', string_concat(_('Icon'), ' (', _('Trained'), ')'), None)),
-            ('art', ('link', _('Art'), None)),
-            ('art_trained', ('link', string_concat(_('Art'), ' (', _('Trained'), ')'), None)),
-            ('transparent', ('link', _('Transparent'), None)),
-            ('transparent_trained', ('link', string_concat(_('Transparent'), ' (', _('Trained'), ')'), None)),
-        ] + ([
-            ('chibis', ('link', _('Chibi'), {
-                'icon': 'users',
-                'type': 'images',
-                'images': [{
-                    'value': chibi.image_url,
-                    'verbose_name': _('Chibi'),
-                } for chibi in item.cached_chibis],
-            })),
-        ] if item.cached_chibis else []) if ((item.trainable or '_trained' not in field)
-              and info)])
-        if get_language() == 'ja':
-            if 'skill' in final_fields:
-                del(final_fields['skill'])
-            icon, localized, field_info = final_fields['japanese_skill']
-            final_fields['japanese_skill'] = (icon, _('Skill'), field_info)
-        fields = super(CardCollection, self).to_fields(item, to_dict=True, only_fields=final_fields, in_list=in_list)
-        new_fields = OrderedDict()
-        for field, (icon, verbose_name, field_info) in final_fields.items():
-            field_info = field_info if field_info else {}
-            field_info.update({
-                'verbose_name': verbose_name,
-                'icon': icon,
-            })
-            if field in fields:
-                new_fields[field] = fields[field]
-                new_fields[field].update(field_info)
-            else:
-                if only_fields and field not in only_fields:
-                    continue
-                new_fields[field] = {
-                    'type': 'text',
-                }
-                new_fields[field].update(field_info)
-                if 'value' not in new_fields[field]:
-                    try:
-                        new_fields[field]['value'] = getattr(item, field)
-                    except AttributeError:
-                        pass
-                    if not new_fields[field]['value']:
-                        del(new_fields[field])
-        return new_fields
+    def to_fields(self, view, item, *args, **kwargs):
+        fields = super(CardCollection, self).to_fields(view, item, *args, icons={
+            'rarity': 'star',
+            'performance_max': 'skill',
+            'performance_trained_max': 'skill',
+            'technique_max': 'skill',
+            'technique_trained_max': 'skill',
+            'visual_max': 'skill',
+            'visual_trained_max': 'skill',
+            'member': 'idolized',
+            'name': 'id',
+            'versions': 'world',
+        }, images={
+            'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
+                static_url=RAW_CONTEXT['static_url'],
+                value=item.i_attribute,
+            ),
+        }, **kwargs)
+        setSubField(fields, 'rarity', key='type', value='html')
+        setSubField(fields, 'rarity', key='value', value=lambda f: rarity_to_stars_images(item.i_rarity))
+        return fields
 
     def buttons_per_item(self, view, *args, **kwargs):
         buttons = super(CardCollection, self).buttons_per_item(view, *args, **kwargs)
@@ -517,6 +409,127 @@ class CardCollection(MagiCollection):
     class ItemView(MagiCollection.ItemView):
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
+
+        def to_fields(self, item, only_fields=None, *args, **kwargs):
+            fields = super(CardCollection.ItemView, self).to_fields(
+                item, *args, to_dict=False, only_fields=only_fields, **kwargs)
+            new_fields = []
+            # Add id field
+            new_fields = [('id', {
+                'verbose_name': _(u'ID'),
+                'type': 'text',
+                'value': item.id,
+                'icon': 'id',
+            })]
+            # Add title field
+            title = item.japanese_name if item.japanese_name else (item.name if item.name and get_language() != 'ja' else None)
+            value = item.name if item.name and get_language() != 'ja' and title != item.name else None
+            if title or value:
+                new_fields.append(('card_name', {
+                    'verbose_name': _('Title'),
+                    'type': 'title_text' if title and value else 'text',
+                    'title': title,
+                    'value': value or title,
+                    'icon': 'id',
+                }))
+            for field in fields:
+                field_name = field[0]
+                if (not field_name.endswith('_max')
+                    and not field_name.endswith('_min')
+                    and field_name not in [
+                        'name', 'japanese_name', 'skill_name', 'skill_details', 'side_skill_details',
+                        'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
+                ] and (get_language() != 'ja' or field_name not in [
+                    'versions', 'skill_type'
+                ])):
+                       new_fields.append(field)
+                if field_name == 'skill_type': # insert japanese skill after skill
+                    new_fields.append(('japanese_skill', {
+                        'verbose_name': string_concat(_('Skill'), ' (', t['Japanese'], ')') if get_language() != 'ja' else _('Skill'),
+                        'icon': item.skill_icon,
+                        'type': 'title_text',
+                        'title': item.japanese_skill_type,
+                        'value': item.japanese_skill,
+                    }))
+                if field_name == 'side_skill_type': # insert japanese side skill after side skill
+                    new_fields.append(('japanese_side_skill', {
+                        'verbose_name': string_concat(_('Side skill'), ' (', t['Japanese'], ')') if get_language() != 'ja' else _('Side skill'),
+                        'icon': item.side_skill_icon,
+                        'type': 'title_text',
+                        'title': item.japanese_side_skill_type,
+                        'value': item.japanese_side_skill,
+                    }))
+            # Add gacha and events
+            if item.cached_event:
+                new_fields.append(('event', {
+                    'verbose_name': u'{}: {}'.format(
+                        _('Event'),
+                        item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name),
+                    'icon': 'event',
+                    'value': item.cached_event.image_url,
+                    'type': 'image_link',
+                    'link': item.cached_event.item_url,
+                    'ajax_link': item.cached_event.ajax_item_url,
+                    'link_text': item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name,
+                }))
+            if item.cached_gacha:
+                new_fields.append(('gacha', {
+                    'icon': 'max-bond',
+                    'verbose_name': u'{}: {}'.format(
+                        _('Gacha'),
+                        item.cached_gacha.japanese_name if get_language() == 'ja' else item.cached_gacha.name),
+                    'value': item.cached_gacha.image_url,
+                    'type': 'image_link',
+                    'link': item.cached_gacha.item_url,
+                    'ajax_link': item.cached_gacha.ajax_item_url,
+                    'link_text': item.cached_gacha.japanese_name if get_language() == 'ja' else item.cached_gacha.name,
+                }))
+            # Add images fields
+            for image, verbose_name in [('image', _('Icon')), ('art', _('Art')), ('transparent', _('Transparent'))]:
+                if getattr(item, image):
+                    new_fields.append((u'{}s'.format(image), {
+                        'verbose_name': verbose_name,
+                        'type': 'images',
+                        'images': [{
+                            'value': image_url,
+                            'verbose_name': verbose_name,
+                        } for image_url in [
+                            getattr(item, u'{}_url'.format(image)),
+                            getattr(item, u'{}_trained_url'.format(image)),
+                        ] if image_url],
+                        'icon': 'pictures',
+                    }))
+            # Add chibis
+            if item.cached_chibis:
+                new_fields.append(('chibis', {
+                    'icon': 'pictures',
+                    'type': 'images',
+                    'verbose_name': _('Chibi'),
+                    'images': [{
+                        'value': chibi.image_url,
+                        'verbose_name': _('Chibi'),
+                    } for chibi in item.cached_chibis],
+                }))
+            fields = OrderedDict(new_fields)
+            # Modify existing fields
+            # skill name
+            setSubField(fields, 'japanese_skill_name', key='verbose_name', value=_('Skill name'))
+            setSubField(fields, 'japanese_skill_name', key='icon', value='skill')
+            if item.skill_name:
+                setSubField(fields, 'japanese_skill_name', key='type', value='title_text')
+                setSubField(fields, 'japanese_skill_name', key='title', value=item.japanese_skill_name)
+                setSubField(fields, 'japanese_skill_name', key='value', value=item.skill_name)
+            # skill details
+            setSubField(fields, 'skill_type', key='type', value='title_text')
+            setSubField(fields, 'skill_type', key='title', value=item.t_skill_type)
+            setSubField(fields, 'skill_type', key='value', value=item.skill)
+            setSubField(fields, 'skill_type', key='icon', value=lambda k: item.skill_icon)
+            # side skill details
+            setSubField(fields, 'side_skill_type', key='type', value='title_text')
+            setSubField(fields, 'side_skill_type', key='title', value=item.t_side_skill_type)
+            setSubField(fields, 'side_skill_type', key='value', value=item.side_skill)
+            setSubField(fields, 'side_skill_type', key='icon', value=lambda k: item.side_skill_icon)
+            return fields
 
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
@@ -543,6 +556,24 @@ class CardCollection(MagiCollection):
                 for item in context['items']:
                     item.show_item_buttons_as_icons = True
             return context
+
+        def to_fields(self, item, only_fields=None, *args, **kwargs):
+            fields = super(CardCollection.ListView, self).to_fields(item, *args, only_fields=only_fields, **kwargs)
+            if '_overall_max' in only_fields:
+                fields['overall_max'] = {
+                    'verbose_name': string_concat(_('Overall'), ' (', _('Maximum'), ')'),
+                    'value': item._overall_max,
+                    'type': 'text',
+                    'icon': 'skill',
+                }
+            if '_overall_trained_max' in only_fields:
+                fields['overall_trained_max'] = {
+                    'verbose_name': string_concat(_('Overall'), ' (', _('Trained'), ', ', _('Maximum'), ')'),
+                    'value': item._overall_trained_max,
+                    'type': 'text',
+                    'icon': 'skill',
+                }
+            return fields
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -596,8 +627,8 @@ class EventCollection(MagiCollection):
                     class Meta(cls.form_class.Meta):
                         optional_fields = ('score', 'ranking', 'song_score', 'song_ranking')
 
-                def to_fields(self, item, *args, **kwargs):
-                    return super(_EventParticipationCollection, self).to_fields(item, *args, icons={
+                def to_fields(self, view, item, *args, **kwargs):
+                    return super(_EventParticipationCollection, self).to_fields(view, item, *args, icons={
                         'score': 'scoreup',
                         'ranking': 'trophy',
                         'song_score': 'song',
@@ -614,8 +645,8 @@ class EventCollection(MagiCollection):
         return cls
 
 
-    def to_fields(self, item, *args, **kwargs):
-        fields = super(EventCollection, self).to_fields(item, *args, icons={
+    def to_fields(self, view, item, *args, **kwargs):
+        fields = super(EventCollection, self).to_fields(view, item, *args, icons={
             'name': 'world',
             'japanese_name': 'JP',
             'start_date': 'date',
@@ -627,66 +658,7 @@ class EventCollection(MagiCollection):
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_boost_attribute,
             ),
-        }, to_dict=False, **kwargs)
-        if item.status and item.status != 'ended':
-            fields.insert(0, ('countdown', {
-                'verbose_name': _('Countdown'),
-                'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
-                    date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
-                    sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
-                ),
-                'icon': 'times',
-                'type': 'html',
-            }))
-        fields = OrderedDict(fields)
-        if len(item.all_gachas):
-            fields['gacha'] = {
-                'icon': 'max-bond',
-                'verbose_name': _('Gacha'),
-                'type': 'images_links',
-                'images': [{
-                    'value': gacha.image_url,
-                    'link': gacha.item_url,
-                    'ajax_link': gacha.ajax_item_url,
-                    'link_text': unicode(gacha),
-                } for gacha in item.all_gachas]
-            }
-        if len(item.all_members):
-            fields['boost_members'] = {
-                'icon': 'users',
-                'verbose_name': _('Boost Members'),
-                'type': 'images_links',
-                'images': [{
-                    'value': member.square_image_url,
-                    'link': member.item_url,
-                    'ajax_link': member.ajax_item_url,
-                    'link_text': unicode(member),
-                } for member in item.all_members]
-            }
-        if item.main_card_id or item.secondary_card_id:
-            fields['cards'] = {
-                'icon': 'cards',
-                'verbose_name': _('Cards'),
-                'type': 'images_links',
-                'images': [{
-                    'value': card.image_url,
-                    'link': card.item_url,
-                    'ajax_link': card.ajax_item_url,
-                    'link_text': unicode(card),
-                } for card in [item.main_card, item.secondary_card] if card is not None]
-            }
-        if len(item.all_gifted_songs):
-            fields['songs'] = {
-                'icon': 'song',
-                'verbose_name': _('Gift song'),
-                'type': 'images_links',
-                'images': [{
-                    'value': gifted_song.image_url,
-                    'link': gifted_song.item_url,
-                    'ajax_link': gifted_song.ajax_item_url,
-                    'link_text': unicode(gifted_song),
-                } for gifted_song in item.all_gifted_songs]
-            }
+        }, **kwargs)
         if get_language() == 'ja' and 'name' in fields and 'japanese_name' in fields:
             setSubField(fields, 'japanese_name', key='verbose_name', value=fields['name']['verbose_name'])
             del(fields['name'])
@@ -719,6 +691,70 @@ class EventCollection(MagiCollection):
                 buttons['eventparticipation']['classes'].remove('staff-only')
             return buttons
 
+        def to_fields(self, item, *args, **kwargs):
+            fields = super(EventCollection.ItemView, self).to_fields(item, *args, to_dict=False, **kwargs)
+            if item.status and item.status != 'ended':
+                fields.insert(0, ('countdown', {
+                    'verbose_name': _('Countdown'),
+                    'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
+                        date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
+                        sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
+                    ),
+                    'icon': 'times',
+                    'type': 'html',
+                }))
+            fields = OrderedDict(fields)
+            if len(item.all_gachas):
+                fields['gacha'] = {
+                    'icon': 'max-bond',
+                    'verbose_name': _('Gacha'),
+                    'type': 'images_links',
+                    'images': [{
+                        'value': gacha.image_url,
+                        'link': gacha.item_url,
+                        'ajax_link': gacha.ajax_item_url,
+                        'link_text': unicode(gacha),
+                    } for gacha in item.all_gachas]
+                }
+            if len(item.all_members):
+                fields['boost_members'] = {
+                    'icon': 'users',
+                    'verbose_name': _('Boost Members'),
+                    'type': 'images_links',
+                    'images': [{
+                        'value': member.square_image_url,
+                        'link': member.item_url,
+                        'ajax_link': member.ajax_item_url,
+                        'link_text': unicode(member),
+                    } for member in item.all_members]
+                }
+            if item.main_card_id or item.secondary_card_id:
+                fields['cards'] = {
+                    'icon': 'cards',
+                    'verbose_name': _('Cards'),
+                    'type': 'images_links',
+                    'images': [{
+                        'value': card.image_url,
+                        'link': card.item_url,
+                        'ajax_link': card.ajax_item_url,
+                        'link_text': unicode(card),
+                    } for card in [item.main_card, item.secondary_card] if card is not None]
+                }
+            if len(item.all_gifted_songs):
+                fields['songs'] = {
+                    'icon': 'song',
+                    'verbose_name': _('Gift song'),
+                    'type': 'images_links',
+                    'images': [{
+                        'value': gifted_song.image_url,
+                        'link': gifted_song.item_url,
+                        'ajax_link': gifted_song.ajax_item_url,
+                        'link_text': unicode(gifted_song),
+                    } for gifted_song in item.all_gifted_songs]
+                }
+            return fields
+
+
     class AddView(MagiCollection.AddView):
         staff_required = True
         savem2m = True
@@ -748,8 +784,8 @@ class GachaCollection(MagiCollection):
         },
     }
 
-    def to_fields(self, item, *args, **kwargs):
-        fields = super(GachaCollection, self).to_fields(item, *args, icons={
+    def to_fields(self, view, item, in_list=False, *args, **kwargs):
+        fields = super(GachaCollection, self).to_fields(view, item, *args, icons={
             'name': 'max-bond',
             'japanese_name': 'max-bond',
             'start_date': 'date',
@@ -760,30 +796,7 @@ class GachaCollection(MagiCollection):
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_attribute,
             ),
-        }, to_dict=False, **kwargs)
-        if item.status and item.status != 'ended':
-            fields.insert(0, ('countdown', {
-                'verbose_name': _('Countdown'),
-                'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
-                    date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
-                    sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
-                ),
-                'icon': 'times',
-                'type': 'html',
-            }))
-        fields = OrderedDict(fields)
-        if len(item.all_cards):
-            fields['cards'] = {
-                'icon': 'cards',
-                'verbose_name': _('Cards'),
-                'type': 'images_links',
-                'images': [{
-                    'value': card.image_url,
-                    'link': card.item_url,
-                    'ajax_link': card.ajax_item_url,
-                    'link_text': unicode(card),
-                } for card in item.all_cards],
-            }
+        }, **kwargs)
         if 'japanese_name' in fields:
             del(fields['japanese_name'])
         if get_language() == 'ja':
@@ -806,6 +819,33 @@ class GachaCollection(MagiCollection):
             queryset = super(GachaCollection.ItemView, self).get_queryset(queryset, parameters, request)
             queryset = queryset.select_related('event').prefetch_related(Prefetch('cards', to_attr='all_cards'))
             return queryset
+
+        def to_fields(self, item, in_list=False, *args, **kwargs):
+            fields = super(GachaCollection.ItemView, self).to_fields(item, *args, to_dict=False, **kwargs)
+            if item.status and item.status != 'ended':
+                fields.insert(0, ('countdown', {
+                    'verbose_name': _('Countdown'),
+                    'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
+                        date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
+                        sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
+                    ),
+                    'icon': 'times',
+                    'type': 'html',
+                }))
+            fields = OrderedDict(fields)
+            if len(item.all_cards):
+                fields['cards'] = {
+                    'icon': 'cards',
+                    'verbose_name': _('Cards'),
+                    'type': 'images_links',
+                    'images': [{
+                        'value': card.image_url,
+                        'link': card.item_url,
+                        'ajax_link': card.ajax_item_url,
+                        'link_text': unicode(card),
+                    } for card in item.all_cards],
+                }
+            return fields
 
     class ListView(MagiCollection.ListView):
         default_ordering = '-start_date'
@@ -858,11 +898,11 @@ class SongCollection(MagiCollection):
     reportable = False
 
     types = {
-        unlock: {
-            'title': u'Unlock - {}'.format(unlock.replace('_', ' ').title()),
-            'form_class': forms.unlock_to_form(unlock),
+        _unlock: {
+            'title': u'Unlock - {}'.format(_info['translation']),
+            'form_class': forms.unlock_to_form(_unlock),
         }
-        for unlock, t in models.UNLOCK
+        for _unlock, _info in models.Song.UNLOCK.items()
     }
 
     filter_cuteform = _song_cuteform
@@ -887,8 +927,8 @@ class SongCollection(MagiCollection):
                     }),
                 ])
 
-                def to_fields(self, item, *args, **kwargs):
-                    fields = super(_PlayedSongCollection, self).to_fields(item, *args, icons={
+                def to_fields(self, view, item, *args, **kwargs):
+                    fields = super(_PlayedSongCollection, self).to_fields(view, item, *args, icons={
                         'score': 'scoreup',
                         'full_combo': 'combo',
                     }, images={
@@ -906,9 +946,9 @@ class SongCollection(MagiCollection):
             return _PlayedSongCollection
         return cls
 
-    def to_fields(self, item, to_dict=True, only_fields=None, in_list=False, icons={}, images={}):
+    def to_fields(self, view, item, *args, **kwargs):
         fields = super(SongCollection, self).to_fields(
-            item, to_dict=True, only_fields=only_fields, icons={
+            view, item, *args, icons={
                 'japanese_name': 'song',
                 'name': 'world',
                 'romaji_name': 'song',
@@ -918,15 +958,15 @@ class SongCollection(MagiCollection):
                 'bpm': 'hp',
                 'release_date': 'date',
                 'event': 'event',
-            }, images=images)
+            }, **kwargs)
         for fieldName in (
                 ((['japanese_name', 'romaji_name', 'name']
-                 if get_language() == 'ja' else ['romaji_name']) if not in_list else [])
-                + ['band', 'c_unlock_variables', 'is_cover']
+                 if get_language() == 'ja' else ['romaji_name']) if view.view == 'item_view' else [])
+                + ['band', 'unlock_variables', 'is_cover']
                 + [f for f, t in models.Song.SONGWRITERS_DETAILS]
                 + ((list(chain.from_iterable(
                     (u'{}_notes'.format(d), u'{}_difficulty'.format(d))
-                    for d, t in models.Song.DIFFICULTIES))) if not in_list else [])
+                    for d, t in models.Song.DIFFICULTIES))) if view.view == 'item_view' else [])
         ):
             if fieldName in fields:
                 del(fields[fieldName])
@@ -942,8 +982,24 @@ class SongCollection(MagiCollection):
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
         setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
+        return fields
 
-        if in_list:
+    class ListView(MagiCollection.ListView):
+        per_line = 3
+        filter_form = forms.SongFilterForm
+        default_ordering = '-release_date'
+        show_collect_button = {
+             'playedsong': False,
+        }
+
+        filter_cuteform = dict(_song_cuteform.items() + [
+            ('is_cover', {
+                'type': CuteFormType.OnlyNone,
+            }),
+        ])
+
+        def to_fields(self, item, *args, **kwargs):
+            fields = super(SongCollection.ListView, self).to_fields(item, *args, **kwargs)
             for difficulty, verbose_name in models.Song.DIFFICULTIES:
                 image = lambda f: u'{static_url}img/songs/{difficulty}.png'.format(
                     static_url=RAW_CONTEXT['static_url'],
@@ -953,7 +1009,26 @@ class SongCollection(MagiCollection):
                             value=image)
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='image',
                             value=image)
-        else: # not in_list
+            return fields
+
+    class ItemView(MagiCollection.ItemView):
+        template = 'default'
+        top_illustration = 'include/songTopIllustration'
+        ajax_callback = 'loadSongItem'
+
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(SongCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            queryset = queryset.select_related('event')
+            return queryset
+
+        def buttons_per_item(self, *args, **kwargs):
+            buttons = super(SongCollection.ItemView, self).buttons_per_item(*args, **kwargs)
+            if 'playedsong' in buttons:
+                buttons['playedsong']['classes'].remove('staff-only')
+            return buttons
+
+        def to_fields(self, item, *args, **kwargs):
+            fields = super(SongCollection.ItemView, self).to_fields(item, *args, **kwargs)
             note_image = u'{}img/note.png'.format(RAW_CONTEXT['static_url'])
             for difficulty, verbose_name in models.Song.DIFFICULTIES:
                 notes = getattr(item, u'{}_notes'.format(difficulty), None)
@@ -988,38 +1063,8 @@ class SongCollection(MagiCollection):
                     'value': mark_safe(u'<div class="songwriters-details">{}</div>'.format(details)),
                     'icon': 'id',
                 }
+            return fields
 
-        return fields
-
-    class ListView(MagiCollection.ListView):
-        per_line = 3
-        filter_form = forms.SongFilterForm
-        default_ordering = '-release_date'
-        show_collect_button = {
-             'playedsong': False,
-        }
-
-        filter_cuteform = dict(_song_cuteform.items() + [
-            ('is_cover', {
-                'type': CuteFormType.OnlyNone,
-            }),
-        ])
-
-    class ItemView(MagiCollection.ItemView):
-        template = 'default'
-        top_illustration = 'include/songTopIllustration'
-        ajax_callback = 'loadSongItem'
-
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(SongCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('event')
-            return queryset
-
-        def buttons_per_item(self, *args, **kwargs):
-            buttons = super(SongCollection.ItemView, self).buttons_per_item(*args, **kwargs)
-            if 'playedsong' in buttons:
-                buttons['playedsong']['classes'].remove('staff-only')
-            return buttons
 
     class AddView(MagiCollection.AddView):
         staff_required = True

@@ -387,6 +387,7 @@ class CardCollection(MagiCollection):
             'member': 'idolized',
             'name': 'id',
             'versions': 'world',
+            'is_promo': 'promo',
         }, images={
             'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
@@ -626,6 +627,11 @@ class EventCollection(MagiCollection):
                 title = _('Participated event')
                 plural_title = _('Participated events')
 
+                filter_cuteform = {
+                    'is_trial_master_completed': { 'type': CuteFormType.YesNo, },
+                    'is_trial_master_ex_completed': { 'type': CuteFormType.YesNo, },
+                }
+
                 class form_class(cls.form_class):
                     class Meta(cls.form_class.Meta):
                         optional_fields = ('score', 'ranking', 'song_score', 'song_ranking')
@@ -652,15 +658,21 @@ class EventCollection(MagiCollection):
         fields = super(EventCollection, self).to_fields(view, item, *args, icons={
             'name': 'world',
             'japanese_name': 'JP',
-            'start_date': 'date',
-            'end_date': 'date',
+            'start_date': 'date', 'end_date': 'date',
+            'english_start_date': 'date', 'english_end_date': 'date',
+            'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
+            'korean_start_date': 'date', 'korean_end_date': 'date',
             'rare_stamp': 'max-bond',
             'stamp_translation': 'max-bond',
+            'type': 'event',
+            'english_image': 'world',
         }, images={
             'boost_attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_boost_attribute,
             ),
+            'taiwanese_image': staticImageURL('language/tw.png'),
+            'korean_image': staticImageURL('language/kr.png'),
         }, **kwargs)
         if get_language() == 'ja' and 'name' in fields and 'japanese_name' in fields:
             setSubField(fields, 'japanese_name', key='verbose_name', value=fields['name']['verbose_name'])
@@ -669,12 +681,21 @@ class EventCollection(MagiCollection):
             del(fields['japanese_name'])
         setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
         setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
+
+        setSubField(fields, 'english_start_date', key='timezones', value=['UTC', 'Local time'])
+        setSubField(fields, 'english_end_date', key='timezones', value=['UTC', 'Local time'])
+
+        setSubField(fields, 'taiwanese_start_date', key='timezones', value=['Asia/Taipei', 'Local time'])
+        setSubField(fields, 'taiwanese_end_date', key='timezones', value=['Asia/Taipei', 'Local time'])
+
+        setSubField(fields, 'korean_start_date', key='timezones', value=['Asia/Seoul', 'Local time'])
+        setSubField(fields, 'korean_end_date', key='timezones', value=['Asia/Seoul', 'Local time'])
+
         return fields
 
     class ListView(MagiCollection.ListView):
         per_line = 2
         default_ordering = '-start_date'
-        hide_sidebar = True
         filter_form = forms.EventFilterForm
         show_collect_button = {
             'eventparticipation': False,
@@ -755,6 +776,8 @@ class EventCollection(MagiCollection):
                         'link_text': unicode(gifted_song),
                     } for gifted_song in item.all_gifted_songs]
                 }
+            if 'versions' in fields:
+                del(fields['versions'])
             return fields
 
 
@@ -785,6 +808,9 @@ class GachaCollection(MagiCollection):
 	        'modal-text': 'true',
             },
         },
+        'is_limited': {
+            'type': CuteFormType.OnlyNone,
+        }
     }
 
     def to_fields(self, view, item, in_list=False, *args, **kwargs):
@@ -793,12 +819,20 @@ class GachaCollection(MagiCollection):
             'japanese_name': 'max-bond',
             'start_date': 'date',
             'end_date': 'date',
+            'english_start_date': 'date', 'english_end_date': 'date',
+            'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
+            'korean_start_date': 'date', 'korean_end_date': 'date',
             'event': 'event',
+            'limited': 'toggler',
+            'versions': 'world',
+            'english_image': 'world',
         }, images={
             'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_attribute,
             ),
+            'taiwanese_image': staticImageURL('language/tw.png'),
+            'korean_image': staticImageURL('language/kr.png'),
         }, **kwargs)
         if get_language() == 'ja':
             setSubField(fields, 'name', key='value', value=item.japanese_name)
@@ -806,8 +840,19 @@ class GachaCollection(MagiCollection):
             setSubField(fields, 'name', key='type', value='title_text')
             setSubField(fields, 'name', key='title', value=item.name)
             setSubField(fields, 'name', key='value', value=item.japanese_name)
+
         setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
         setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
+
+        setSubField(fields, 'english_start_date', key='timezones', value=['UTC', 'Local time'])
+        setSubField(fields, 'english_end_date', key='timezones', value=['UTC', 'Local time'])
+
+        setSubField(fields, 'taiwanese_start_date', key='timezones', value=['Asia/Taipei', 'Local time'])
+        setSubField(fields, 'taiwanese_end_date', key='timezones', value=['Asia/Taipei', 'Local time'])
+
+        setSubField(fields, 'korean_start_date', key='timezones', value=['Asia/Seoul', 'Local time'])
+        setSubField(fields, 'korean_end_date', key='timezones', value=['Asia/Seoul', 'Local time'])
+
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
         setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
@@ -848,11 +893,17 @@ class GachaCollection(MagiCollection):
                         'link_text': unicode(card),
                     } for card in item.all_cards],
                 }
+            setSubField(fields, 'limited', key='verbose_name', value=_('Gacha type'))
+            setSubField(fields, 'limited', key='type', value='text')
+            setSubField(fields, 'limited', key='value', value=_('Limited') if item.limited else _('Permanent'))
+            if 'versions' in fields:
+                del(fields['versions'])
             return fields
 
     class ListView(MagiCollection.ListView):
         default_ordering = '-start_date'
         per_line = 2
+        filter_form = forms.GachaFilterForm
 
     def _after_save(self, request, instance):
         for card in instance.cards.all():
@@ -930,6 +981,10 @@ class SongCollection(MagiCollection):
                     }),
                 ])
 
+                class form_class(cls.form_class):
+                    class Meta(cls.form_class.Meta):
+                        optional_fields = ('score', 'screenshot')
+
                 def to_fields(self, view, item, *args, **kwargs):
                     fields = super(_PlayedSongCollection, self).to_fields(view, item, *args, icons={
                         'score': 'scoreup',
@@ -961,6 +1016,7 @@ class SongCollection(MagiCollection):
                 'bpm': 'hp',
                 'release_date': 'date',
                 'event': 'event',
+                'versions': 'world',
             }, **kwargs)
         for fieldName in (
                 ((['japanese_name', 'romaji_name', 'name']

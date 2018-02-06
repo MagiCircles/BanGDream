@@ -218,7 +218,7 @@ class CardFilterForm(MagiFiltersForm):
 
     class Meta:
         model = models.Card
-        fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'i_side_skill_type', 'member_band', 'ordering', 'reverse_order', 'view')
+        fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'i_side_skill_type', 'member_band', 'c_versions', 'ordering', 'reverse_order', 'view')
 
 ############################################################
 # Event
@@ -227,10 +227,21 @@ class EventForm(AutoForm):
     start_date = forms.DateField(label=_('Beginning'))
     end_date = forms.DateField(label=_('End'))
 
+    english_start_date = forms.DateField(label=string_concat(_('English version'), ' - ', _('Beginning')), required=False)
+    english_end_date = forms.DateField(label=string_concat(_('English version'), ' - ', _('End')), required=False)
+
+    taiwanese_start_date = forms.DateField(label=string_concat(_('Taiwanese version'), ' - ', _('Beginning')), required=False)
+    taiwanese_end_date = forms.DateField(label=string_concat(_('Taiwanese version'), ' - ', _('End')), required=False)
+
+    korean_start_date = forms.DateField(label=string_concat(_('Korean version'), ' - ', _('Beginning')), required=False)
+    korean_end_date = forms.DateField(label=string_concat(_('Korean version'), ' - ', _('End')), required=False)
+
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
         self.previous_main_card_id = None if self.is_creating else self.instance.main_card_id
         self.previous_secondary_card_id = None if self.is_creating else self.instance.secondary_card_id
+        if 'c_versions' in self.fields:
+            del(self.fields['c_versions'])
 
     def _clean_card_rarity(self, field_name, rarity):
         if field_name in self.cleaned_data and self.cleaned_data[field_name]:
@@ -263,6 +274,12 @@ class EventForm(AutoForm):
             if self.previous_secondary_card_id:
                 previous_card = models.Card.objects.get(id=self.previous_secondary_card_id)
                 previous_card.force_cache_event()
+        instance.save_c('versions', ['JP'] + [
+            value for field, value in (
+                ('english', 'EN'),
+                ('taiwanese', 'TW'),
+                ('korean', 'KR'),
+            ) if unicode(getattr(instance, u'{}_image'.format(field)))])
         if commit:
             instance.save()
         return instance
@@ -270,20 +287,23 @@ class EventForm(AutoForm):
     class Meta:
         model = models.Event
         fields = '__all__'
-        optional_fields = ('start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'main_card', 'secondary_card', 'i_boost_attribute', 'boost_members')
+        optional_fields = ('start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'main_card', 'secondary_card', 'i_boost_attribute', 'boost_members', 'english_image', 'taiwanese_image', 'korean_image', 'english_start_date', 'english_end_date', 'taiwanese_start_date', 'taiwanese_end_date', 'korean_start_date', 'korean_end_date')
         save_owner_on_creation = True
 
 class EventFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name']
     ordering_fields = [
-        ('start_date', _('Date')),
+        ('start_date', string_concat(_('Date'), ' (', _('Japanese version'), ')')),
+        ('english_start_date', string_concat(_('Date'), ' (', _('English version'), ')')),
+        ('taiwanese_start_date', string_concat(_('Date'), ' (', _('Taiwanese version'), ')')),
+        ('korean_start_date', string_concat(_('Date'), ' (', _('Korean version'), ')')),
         ('name', _('Title')),
         ('japanese_name', string_concat(_('Title'), ' (', t['Japanese'], ')')),
     ]
 
     class Meta:
         model = models.Event
-        fields = ('search', 'ordering', 'reverse_order')
+        fields = ('search', 'i_type', 'c_versions', 'ordering', 'reverse_order')
 
 ############################################################
 # Gacha
@@ -292,12 +312,32 @@ class GachaForm(AutoForm):
     start_date = forms.DateField(label=_('Beginning'))
     end_date = forms.DateField(label=_('End'))
 
+    english_start_date = forms.DateField(label=string_concat(_('English version'), ' - ', _('Beginning')), required=False)
+    english_end_date = forms.DateField(label=string_concat(_('English version'), ' - ', _('End')), required=False)
+
+    taiwanese_start_date = forms.DateField(label=string_concat(_('Taiwanese version'), ' - ', _('Beginning')), required=False)
+    taiwanese_end_date = forms.DateField(label=string_concat(_('Taiwanese version'), ' - ', _('End')), required=False)
+
+    korean_start_date = forms.DateField(label=string_concat(_('Korean version'), ' - ', _('Beginning')), required=False)
+    korean_end_date = forms.DateField(label=string_concat(_('Korean version'), ' - ', _('End')), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(GachaForm, self).__init__(*args, **kwargs)
+        if 'c_versions' in self.fields:
+            del(self.fields['c_versions'])
+
     def save(self, commit=False):
         instance = super(GachaForm, self).save(commit=False)
         if instance.start_date:
             instance.start_date = instance.start_date.replace(hour=5, minute=59)
         if instance.end_date:
             instance.end_date = instance.end_date.replace(hour=5, minute=59)
+        instance.save_c('versions', ['JP'] + [
+            value for field, value in (
+                ('english', 'EN'),
+                ('taiwanese', 'TW'),
+                ('korean', 'KR'),
+            ) if unicode(getattr(instance, u'{}_image'.format(field)))])
         if commit:
             instance.save()
         return instance
@@ -305,8 +345,26 @@ class GachaForm(AutoForm):
     class Meta:
         model = models.Gacha
         fields = '__all__'
-        optional_fields = ('cards', 'event')
+        optional_fields = ('cards', 'event', 'i_attribute', 'english_image', 'taiwanese_image', 'korean_image', 'english_start_date', 'english_end_date', 'taiwanese_start_date', 'taiwanese_end_date', 'korean_start_date', 'korean_end_date')
         save_owner_on_creation = True
+
+class GachaFilterForm(MagiFiltersForm):
+    search_fields = ['name', 'japanese_name']
+    ordering_fields = [
+        ('start_date', string_concat(_('Date'), ' (', _('Japanese version'), ')')),
+        ('english_start_date', string_concat(_('Date'), ' (', _('English version'), ')')),
+        ('taiwanese_start_date', string_concat(_('Date'), ' (', _('Taiwanese version'), ')')),
+        ('korean_start_date', string_concat(_('Date'), ' (', _('Korean version'), ')')),
+        ('name', _('Title')),
+        ('japanese_name', string_concat(_('Title'), ' (', t['Japanese'], ')')),
+    ]
+
+    is_limited = forms.NullBooleanField(initial=None, required=False, label=_('Limited'))
+    is_limited_filter = MagiFilter(selector='limited')
+
+    class Meta:
+        model = models.Gacha
+        fields = ('search', 'is_limited', 'c_versions', 'ordering', 'reverse_order')
 
 ############################################################
 # Song
@@ -373,16 +431,9 @@ class SongFilterForm(MagiFiltersForm):
         ('expert_difficulty', string_concat(_('Expert'), ' - ', _('Difficulty'))),
     ]
 
-    def _is_cover_queryset(form, queryset, request, value):
-        if value == '2':
-            return queryset.filter(is_cover=True)
-        elif value == '3':
-            return queryset.filter(is_cover=False)
-        return queryset
-
     is_cover = forms.NullBooleanField(initial=None, required=False, label=_('Cover'))
-    is_cover_filter = MagiFilter(to_queryset=_is_cover_queryset)
+    is_cover_filter = MagiFilter(selector='is_cover')
 
     class Meta:
         model = models.Song
-        fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'ordering', 'reverse_order')
+        fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'c_versions', 'ordering', 'reverse_order')

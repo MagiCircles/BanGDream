@@ -236,6 +236,8 @@ class Card(MagiModel):
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
 
+    is_promo = models.BooleanField(_('Promo card'), default=False)
+
     # Skill
 
     skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
@@ -664,11 +666,38 @@ class Event(MagiModel):
     collection_name = 'event'
 
     owner = models.ForeignKey(User, related_name='added_events')
+
     image = models.ImageField(_('Image'), upload_to=uploadItem('e'))
+
     name = models.CharField(_('Title'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
-    start_date = models.DateTimeField(_('Beginning'), null=True)
-    end_date = models.DateTimeField(_('End'), null=True)
+
+    TYPE_CHOICES = (
+        ('normal', _('Normal')),
+        ('challenge_live', _('Challenge Live')),
+        ('band_battle', _('Band Battle')),
+        ('live_trial', _('Live Trial')),
+    )
+    i_type = models.PositiveIntegerField(_('Event type'), choices=i_choices(TYPE_CHOICES), default=0)
+
+    start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
+    end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)
+
+    VERSIONS_CHOICES = Account.VERSION_CHOICES
+    c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
+
+    english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('e/e'), null=True)
+    english_start_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('Beginning')), null=True)
+    english_end_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('End')), null=True)
+
+    taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
+    taiwanese_start_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('Beginning')), null=True)
+    taiwanese_end_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('End')), null=True)
+
+    korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
+    korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
+    korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
+
     rare_stamp = models.ImageField(_('Rare Stamp'), upload_to=uploadItem('e/stamps'))
 
     stamp_translation = models.CharField(_('Stamp Translation'), max_length=200, null=True)
@@ -722,6 +751,9 @@ class EventParticipation(AccountAsOwnerModel):
     song_score = models.PositiveIntegerField(_('Song score'), null=True)
     song_ranking = models.PositiveIntegerField(_('Song ranking'), null=True)
 
+    is_trial_master_completed = models.NullBooleanField(_('Trial master completed'))
+    is_trial_master_ex_completed = models.NullBooleanField(_('Trial master EX completed'))
+
     @property
     def image(self):
         return self.event.image
@@ -766,13 +798,15 @@ class Song(MagiModel):
     owner = models.ForeignKey(User, related_name='added_songs')
     image = models.ImageField(_('Album cover'), upload_to=uploadItem('s'))
 
-
     BAND_CHOICES = Member.BAND_CHOICES
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
 
     japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
     romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)
     name = models.CharField(string_concat(_('Translation'), ' (', t['English'], ')'), max_length=100, null=True)
+
+    VERSIONS_CHOICES = Account.VERSION_CHOICES
+    c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
 
     itunes_id = models.PositiveIntegerField(_('Preview'), help_text='iTunes ID', null=True)
     length = models.PositiveIntegerField(_('Length'), null=True)
@@ -881,6 +915,8 @@ class PlayedSong(AccountAsOwnerModel):
     score = models.PositiveIntegerField(_('Score'), null=True)
     full_combo = models.NullBooleanField(_('Full combo'))
 
+    screenshot = models.ImageField(_('Screenshot'), upload_to=uploadItem('song_screenshot'), null=True)
+
     @property
     def image(self):
         return self.song.image
@@ -905,19 +941,39 @@ class Gacha(MagiModel):
     collection_name = 'gacha'
 
     owner = models.ForeignKey(User, related_name='added_gacha')
+
     image = models.ImageField(_('Image'), upload_to=uploadItem('g'))
+
     name = models.CharField(_('Name'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
+
+    limited = models.BooleanField(_('Limited'), default=False)
+
     start_date = models.DateTimeField(_('Beginning'), null=True)
     end_date = models.DateTimeField(_('End'), null=True)
 
+    english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('e/e'), null=True)
+    english_start_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('Beginning')), null=True)
+    english_end_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('End')), null=True)
+
+    taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('e/t'), null=True)
+    taiwanese_start_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('Beginning')), null=True)
+    taiwanese_end_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('End')), null=True)
+
+    korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('e/t'), null=True)
+    korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
+    korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
+
     ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES
     ATTRIBUTE_WITHOUT_I_CHOICES = True
-    i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES)
+    i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES, null=True)
     english_attribute = property(getInfoFromChoices('attribute', Card.ATTRIBUTES, 'english'))
 
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gachas', null=True, on_delete=models.SET_NULL)
     cards = models.ManyToManyField(Card, verbose_name=('Cards'), related_name='gachas')
+
+    VERSIONS_CHOICES = Account.VERSION_CHOICES
+    c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
 
     @property
     def cached_event(self):

@@ -282,12 +282,13 @@ class EventForm(AutoForm):
             if self.previous_secondary_card_id:
                 previous_card = models.Card.objects.get(id=self.previous_secondary_card_id)
                 previous_card.force_cache_event()
-        instance.save_c('versions', ['JP'] + [
-            value for field, value in (
-                ('english', 'EN'),
-                ('taiwanese', 'TW'),
-                ('korean', 'KR'),
-            ) if unicode(getattr(instance, u'{}_image'.format(field)))])
+        instance.save_c('versions', [
+            value for prefix, value in (
+                ('', 'JP'),
+                ('english_', 'EN'),
+                ('taiwanese_', 'TW'),
+                ('korean_', 'KR'),
+            ) if getattr(instance, u'{}start_date'.format(prefix))])
         if commit:
             instance.save()
         return instance
@@ -348,12 +349,13 @@ class GachaForm(AutoForm):
             instance.korean_start_date = instance.korean_start_date.replace(hour=6, minute=00)
         if instance.korean_end_date:
             instance.korean_end_date = instance.korean_end_date.replace(hour=6, minute=00)
-        instance.save_c('versions', ['JP'] + [
-            value for field, value in (
-                ('english', 'EN'),
-                ('taiwanese', 'TW'),
-                ('korean', 'KR'),
-            ) if unicode(getattr(instance, u'{}_image'.format(field)))])
+        instance.save_c('versions', [
+            value for prefix, value in (
+                ('', 'JP'),
+                ('english_', 'EN'),
+                ('taiwanese_', 'TW'),
+                ('korean_', 'KR'),
+            ) if getattr(instance, u'{}start_date'.format(prefix))])
         if commit:
             instance.save()
         return instance

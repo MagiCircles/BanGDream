@@ -71,12 +71,12 @@ class FilterAccounts(MagiFiltersForm):
     has_friend_id = forms.NullBooleanField(required=False, initial=None, label=_('Friend ID'))
     has_friend_id_filter = MagiFilter(selector='friend_id__isnull')
 
-    i_attribute = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(c[0], c[1]) for c in settings.USER_COLORS], required=False, label=_('Attribute'))
-    i_attribute_filter = MagiFilter(selector='owner__preferences__color')
+    i_color = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(c[0], c[1]) for c in settings.USER_COLORS], required=False, label=_('Color'))
+    i_color_filter = MagiFilter(selector='owner__preferences__color')
 
     class Meta:
         model = models.Account
-        fields = ('search', 'friend_id', 'i_attribute', 'member_id', 'has_friend_id', )
+        fields = ('search', 'friend_id', 'i_color', 'member_id', 'has_friend_id', )
 
 ############################################################
 # Member

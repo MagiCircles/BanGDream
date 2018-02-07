@@ -36,7 +36,7 @@ class AccountCollection(_AccountCollection):
     form_class = forms.AccountForm
     navbar_link_list = 'community'
 
-    _attributes_images = [_c[0] for _c in settings.USER_COLORS]
+    _colors_images = [_c[0] for _c in settings.USER_COLORS]
     _version_images = [_c['image'] for _c in models.Account.VERSIONS.values()]
     _play_with_icons = [_c['icon'] for _c in models.Account.PLAY_WITH.values()]
     filter_cuteform = {
@@ -47,8 +47,9 @@ class AccountCollection(_AccountCollection):
 	        'modal-text': 'true',
             },
         },
-        'i_attribute': {
-            'to_cuteform': lambda k, v: AccountCollection._attributes_images.index(k) + 1,
+        'i_color': {
+            'to_cuteform': lambda k, v: AccountCollection._colors_images.index(k) + 1,
+            'image_folder': 'i_attribute',
             'transform': CuteFormTransform.ImagePath,
         },
         'has_friend_id': {

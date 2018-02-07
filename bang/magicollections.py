@@ -641,7 +641,9 @@ class EventCollection(MagiCollection):
                         'score': 'scoreup',
                         'ranking': 'trophy',
                         'song_score': 'song',
-                        'song_ranking': 'trophy'
+                        'song_ranking': 'trophy',
+                        'is_trial_master_completed': 'achievement',
+                        'is_trial_master_ex_completed': 'achievement',
                     }, **kwargs)
 
                 class ListView(cls.ListView):

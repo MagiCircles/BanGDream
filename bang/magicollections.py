@@ -969,6 +969,7 @@ class SongCollection(MagiCollection):
             class _PlayedSongCollection(cls):
                 title = _('Played song')
                 plural_title = _('Played songs')
+                multipart = True
 
                 filter_cuteform = dict(_song_cuteform.items() + [
                     ('full_combo', {
@@ -989,6 +990,7 @@ class SongCollection(MagiCollection):
                     fields = super(_PlayedSongCollection, self).to_fields(view, item, *args, icons={
                         'score': 'scoreup',
                         'full_combo': 'combo',
+                        'screenshot': 'pictures',
                     }, images={
                         'difficulty':  u'{static_url}img/songs/{difficulty}.png'.format(
                             static_url=RAW_CONTEXT['static_url'],

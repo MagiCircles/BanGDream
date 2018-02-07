@@ -8,7 +8,7 @@ from django.utils.formats import dateformat
 from django.utils.safestring import mark_safe
 from django.db.models import Prefetch
 from magi.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
-from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL
+from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn
 from magi.default_settings import RAW_CONTEXT
 from magi.models import Activity
 from bang import settings
@@ -324,7 +324,7 @@ class CardCollection(MagiCollection):
 
                 class AddView(cls.AddView):
                     unique_per_owner = True
-                    quick_add_to_collection = True
+                    quick_add_to_collection = justReturn(True)
                     staff_required = True
 
             return _FavoriteCardCollection
@@ -370,6 +370,10 @@ class CardCollection(MagiCollection):
 
             class AddView(cls.AddView):
                 staff_required = True
+                unique_per_owner = True
+
+                def quick_add_to_collection(self, request, parent_item):
+                    return request.GET.get('view') == 'icons'
 
         return _CollectibleCardCollection
 

@@ -262,6 +262,14 @@ class EventForm(AutoForm):
             instance.start_date = instance.start_date.replace(hour=5, minute=59)
         if instance.end_date:
             instance.end_date = instance.end_date.replace(hour=11, minute=59)
+        if instance.taiwanese_start_date:
+            instance.taiwanese_start_date = instance.taiwanese_start_date.replace(hour=6, minute=59)
+        if instance.taiwanese_end_date:
+            instance.taiwanese_end_date = instance.taiwanese_end_date.replace(hour=13, minute=59)
+        if instance.korean_start_date:
+            instance.korean_start_date = instance.korean_start_date.replace(hour=5, minute=59)
+        if instance.korean_end_date:
+            instance.korean_end_date = instance.korean_end_date.replace(hour=12, minute=59)
         if self.previous_main_card_id != (instance.main_card.id if instance.main_card else 0):
             if instance.main_card:
                 instance.main_card.force_cache_event()
@@ -332,6 +340,14 @@ class GachaForm(AutoForm):
             instance.start_date = instance.start_date.replace(hour=5, minute=59)
         if instance.end_date:
             instance.end_date = instance.end_date.replace(hour=5, minute=59)
+        if instance.taiwanese_start_date:
+            instance.taiwanese_start_date = instance.taiwanese_start_date.replace(hour=6, minute=59)
+        if instance.taiwanese_end_date:
+            instance.taiwanese_end_date = instance.taiwanese_end_date.replace(hour=6, minute=59)
+        if instance.korean_start_date:
+            instance.korean_start_date = instance.korean_start_date.replace(hour=5, minute=59)
+        if instance.korean_end_date:
+            instance.korean_end_date = instance.korean_end_date.replace(hour=5, minute=59)
         instance.save_c('versions', ['JP'] + [
             value for field, value in (
                 ('english', 'EN'),

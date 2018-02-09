@@ -18,7 +18,9 @@ SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django
 LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
 
 SITE_LOGO_PER_LANGUAGE = {
-    'ja': 'bandori_party_logo_japanese.png',
+    'ja': 'bandori_japanese.png',
+    'tw': 'bandori_taiwanese.png',
+    'kr': 'bandori_korean.png',
 }
 
 GAME_NAME = _('BanG Dream! Girls Band Party')

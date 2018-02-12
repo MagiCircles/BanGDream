@@ -35,6 +35,18 @@ class IFieldManualChoices(serializers.IntegerField):
     def to_internal_value(self, data):
         return self.reverse_choices[data]
 
+class CField(serializers.ListField):
+    child = serializers.CharField()
+
+    def __init__(self, model, field_name, translated=True, *args, **kwargs):
+        super(CField, self).__init__(*args, **kwargs)
+        self._model = model
+        self._field_name = field_name
+        self._translated = translated
+
+    def to_representation(self, value):
+        return self._model.get_csv_values(self._field_name, value, translated=self._translated)
+
 ############################################################
 # Serializer
 
@@ -95,6 +107,21 @@ class MemberViewSet(viewsets.ModelViewSet):
     serializer_class = MemberSerializer
     permission_classes = (api_permissions.IsStaffOrReadOnly, )
 
+class MemberIDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Member
+        fields = ('id',)
+
+class MemberIDViewSet(viewsets.ModelViewSet):
+    queryset = models.Member.objects.all().values('id')
+    serializer_class = MemberIDSerializer
+    paginate_by = None
+
+    def list(self, request):
+        r = super(MemberIDViewSet, self).list(request)
+        r.data = [member['id'] for member in r.data]
+        return r
+
 ############################################################
 # Card
 
@@ -132,21 +159,6 @@ class CardViewSet(viewsets.ModelViewSet):
     serializer_class = CardSerializer
     permission_classes = (api_permissions.IsStaffOrReadOnly, )
 
-class MemberIDSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Member
-        fields = ('id',)
-
-class MemberIDViewSet(viewsets.ModelViewSet):
-    queryset = models.Member.objects.all().values('id')
-    serializer_class = MemberIDSerializer
-    paginate_by = None
-
-    def list(self, request):
-        r = super(MemberIDViewSet, self).list(request)
-        r.data = [member['id'] for member in r.data]
-        return r
-
 class CardIDSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Card
@@ -161,3 +173,35 @@ class CardIDViewSet(viewsets.ModelViewSet):
         r = super(CardIDViewSet, self).list(request)
         r.data = [card['id'] for card in r.data]
         return r
+
+############################################################
+# Event
+
+
+class EventSerializer(MagiSerializer):
+    image = ImageField(required=True)
+    i_type = IField(models.Event, 'type')
+    c_versions = CField(models.Event, 'versions', translated=False)
+    english_image = ImageField(required=False)
+    taiwanese_image = ImageField(required=False)
+    korean_image = ImageField(required=False)
+    rare_stamp = ImageField(required=False)
+    i_boost_attribute = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.ATTRIBUTES.items() }, required=False)
+
+    class Meta:
+        model = models.Event
+        save_owner_on_creation = True
+        fields = (
+            'image', 'name', 'japanese_name', 'i_type', 'start_date', 'end_date', 'c_versions',
+            'english_image', 'english_start_date', 'english_end_date',
+            'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date',
+            'korean_image', 'korean_start_date', 'korean_end_date',
+            'rare_stamp', 'stamp_translation',
+            'main_card', 'secondary_card',
+            'i_boost_attribute', 'boost_members',
+        )
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = models.Event.objects.all().prefetch_related('boost_members')
+    serializer_class = EventSerializer
+    permission_classes = (api_permissions.IsStaffOrReadOnly, )

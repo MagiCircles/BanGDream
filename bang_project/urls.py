@@ -6,10 +6,10 @@ import api.views as api_views
 router = routers.DefaultRouter()
 
 router.register(r'members', api_views.MemberViewSet)
-router.register(r'cards', api_views.CardViewSet)
-
-router.register(r'cardids', api_views.CardIDViewSet)
 router.register(r'memberids', api_views.MemberIDViewSet)
+router.register(r'cards', api_views.CardViewSet)
+router.register(r'cardids', api_views.CardIDViewSet)
+router.register(r'events', api_views.EventViewSet)
 
 urlpatterns = patterns('',
     url(r'^', include('magi.urls')),

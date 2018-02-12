@@ -372,7 +372,7 @@ class CardCollection(MagiCollection):
                 staff_required = True
                 unique_per_owner = True
 
-                def quick_add_to_collection(self, request, parent_item):
+                def quick_add_to_collection(self, request):
                     return request.GET.get('view') == 'icons'
 
         return _CollectibleCardCollection

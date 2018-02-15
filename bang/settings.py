@@ -34,7 +34,7 @@ GITHUB_REPOSITORY = ('SchoolIdolTomodachi', 'BanGDream')
 
 CONTACT_EMAIL = 'contact@bandori.party'
 CONTACT_REDDIT = 'AmbiBambiii'
-CONTACT_FACEBOOK = 'TheViolentAliceSyndrome'
+CONTACT_FACEBOOK = 'BandoriParty'
 FEEDBACK_FORM = 'https://docs.google.com/forms/d/1lfd3x4TX6R1IYrZqhwPN_GqghCQpBLwNkkwro7uBAxI/viewform'
 
 TWITTER_HANDLE = 'BandoriParty'

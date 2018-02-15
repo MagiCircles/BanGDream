@@ -7,7 +7,7 @@ from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_
 from magi.utils import tourldash
 from bang import models
 
-STATIC_FILES_VERSION = '15'
+STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
 
 SITE_NAME = 'Bandori Party'
 SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'

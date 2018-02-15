@@ -78,6 +78,8 @@ ENABLED_PAGES = DEFAULT_ENABLED_PAGES
 
 ENABLED_PAGES['wiki'][0]['enabled'] = True
 ENABLED_PAGES['wiki'][1]['enabled'] = True
+ENABLED_PAGES['wiki'][0]['divider_before'] = True
+ENABLED_PAGES['wiki'][1]['divider_before'] = True
 ENABLED_PAGES['wiki'][0]['navbar_link_list'] = 'girlsbandparty'
 
 ENABLED_PAGES['index']['enabled'] = True
@@ -99,15 +101,17 @@ ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),
     'image': 'BangDream',
+    'order': ['member_list', 'song_list'],
 }
 ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
     'title': _('Girls Band Party'),
     'image': 'GirlsBandParty',
+    'order': ['card_list', 'event_list', 'gacha_list', 'wiki'],
 }
 ENABLED_NAVBAR_LISTS['community'] = {
     'title': _('Community'),
     'icon': 'users',
-    'order': ['account_list', 'discord', 'twitter', 'donate_list'],
+    'order': ['account_list', 'donate_list', 'discord', 'twitter'],
 }
 
 ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playedsong']

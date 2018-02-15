@@ -986,7 +986,7 @@ class SongCollection(MagiCollection):
     multipart = True
     icon = 'song'
     reportable = False
-    navbar_link_list = 'girlsbandparty'
+    navbar_link_list = 'bangdream'
 
     types = {
         _unlock: {

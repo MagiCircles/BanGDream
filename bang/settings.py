@@ -100,7 +100,7 @@ ENABLED_PAGES['twitter'] = {
 ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),
-    'image': 'BangDream',
+    'image': 'BanGDream',
     'order': ['member_list', 'song_list'],
 }
 ENABLED_NAVBAR_LISTS['girlsbandparty'] = {

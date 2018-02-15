@@ -616,6 +616,10 @@ class CollectibleCard(AccountAsOwnerModel):
     max_leveled = models.NullBooleanField(_('Max Leveled'))
     first_episode = models.NullBooleanField(_('{nth} episode').format(nth=_('1st')))
     memorial_episode = models.NullBooleanField(_('Memorial episode'))
+    skill_level = models.PositiveIntegerField(_('Skill level'), null=True, blank=True, validators=[
+        MinValueValidator(1),
+        MaxValueValidator(5),
+    ])
 
     @property
     def image(self):
@@ -679,6 +683,14 @@ class Event(MagiModel):
         ('live_trial', _('Live Trial')),
     )
     i_type = models.PositiveIntegerField(_('Event type'), choices=i_choices(TYPE_CHOICES), default=0)
+
+    SONG_RANKING_TYPES = [
+        'challenge_live',
+        'band_battle',
+    ]
+    TRIAL_MASTER_TYPES = [
+        'live_trial',
+    ]
 
     start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
     end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)

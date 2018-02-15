@@ -347,6 +347,12 @@ class CardCollection(MagiCollection):
             }
 
             class form_class(cls.form_class):
+                def __init__(self, *args, **kwargs):
+                    super(_CollectibleCardCollection.form_class, self).__init__(*args, **kwargs)
+                    rarity = int(self.collectible_variables['i_rarity'])
+                    if rarity and rarity not in models.Card.TRAINABLE_RARITIES and 'trained' in self.fields:
+                        del(self.fields['trained'])
+
                 def save(self, commit=True):
                     instance = super(_CollectibleCardCollection.form_class, self).save(commit=False)
                     if instance.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
@@ -361,6 +367,7 @@ class CardCollection(MagiCollection):
                     'max_leveled': 'max-level',
                     'first_episode': 'play',
                     'memorial_episode': 'play',
+                    'skill_level': 'skill',
                 }, **kwargs)
                 setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
                 return fields
@@ -372,8 +379,12 @@ class CardCollection(MagiCollection):
                 staff_required = True
                 unique_per_owner = True
 
-                def quick_add_to_collection(self, request, parent_item):
+                def quick_add_to_collection(self, request):
                     return request.GET.get('view') == 'icons'
+
+                add_to_collection_variables = cls.AddView.add_to_collection_variables + [
+                    'i_rarity',
+                ]
 
         return _CollectibleCardCollection
 
@@ -638,6 +649,18 @@ class EventCollection(MagiCollection):
                 }
 
                 class form_class(cls.form_class):
+                    def __init__(self, *args, **kwargs):
+                        super(_EventParticipationCollection.form_class, self).__init__(*args, **kwargs)
+                        i_type = int(self.collectible_variables['i_type'])
+                        if models.Event.get_reverse_i('type', i_type) not in models.Event.SONG_RANKING_TYPES:
+                            for field in ['song_score', 'song_ranking']:
+                                if field in self.fields:
+                                    del(self.fields[field])
+                        if models.Event.get_reverse_i('type', i_type) not in models.Event.TRIAL_MASTER_TYPES:
+                            for field in ['is_trial_master_completed', 'is_trial_master_ex_completed']:
+                                if field in self.fields:
+                                    del(self.fields[field])
+
                     class Meta(cls.form_class.Meta):
                         optional_fields = ('score', 'ranking', 'song_score', 'song_ranking')
 
@@ -651,11 +674,15 @@ class EventCollection(MagiCollection):
                         'is_trial_master_ex_completed': 'achievement',
                     }, **kwargs)
 
-                class ListView(cls.ListView):
-                    per_line = 3
-
                 class AddView(cls.AddView):
                     staff_required = True
+                    unique_per_owner = True
+                    add_to_collection_variables = cls.AddView.add_to_collection_variables + [
+                        'i_type',
+                    ]
+
+                class ListView(cls.ListView):
+                    per_line = 3
 
             return _EventParticipationCollection
         return cls

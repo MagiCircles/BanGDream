@@ -171,6 +171,7 @@ class MemberCollection(MagiCollection):
     plural_title = _('Members')
     navbar_link_title = _('Characters')
     icon = 'idolized'
+    navbar_link_list = 'bangdream'
 
     reportable = False
 
@@ -257,6 +258,7 @@ class CardCollection(MagiCollection):
     title = _('Card')
     plural_title = _('Cards')
     icon = 'deck'
+    navbar_link_list = 'girlsbandparty'
 
     form_class = forms.CardForm
     reportable = False
@@ -611,7 +613,7 @@ class EventCollection(MagiCollection):
     form_class = forms.EventForm
     multipart = True
     reportable = False
-    navbar_link_list = 'events'
+    navbar_link_list = 'girlsbandparty'
 
     filter_cuteform = {
         'main_card': {
@@ -830,7 +832,7 @@ class GachaCollection(MagiCollection):
     plural_title = _('Gacha')
     form_class = forms.GachaForm
     multipart = True
-    navbar_link_list = 'events'
+    navbar_link_list = 'girlsbandparty'
     reportable = False
 
     filter_cuteform = {
@@ -984,6 +986,7 @@ class SongCollection(MagiCollection):
     multipart = True
     icon = 'song'
     reportable = False
+    navbar_link_list = 'girlsbandparty'
 
     types = {
         _unlock: {

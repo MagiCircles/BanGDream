@@ -129,6 +129,7 @@ class BadgeCollection(_BadgeCollection):
 class DonateCollection(_DonateCollection):
     enabled = True
     navbar_link_list = 'community'
+    navbar_link_list_divider_after = True
 
 ############################################################
 # Activity Collection

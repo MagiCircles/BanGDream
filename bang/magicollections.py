@@ -628,10 +628,16 @@ class CardCollection(MagiCollection):
             fields = super(CardCollection.ListView, self).table_fields(
                 item, *args, exclude_fields=1, extra_fields=extra_fields, order=order, **kwargs)
             for field_name in ['image', 'image_trained']:
-                setSubField(fields, field_name, key='type', value='image_link')
-                setSubField(fields, field_name, key='link', value=item.item_url)
-                setSubField(fields, field_name, key='ajax_link', value=item.ajax_item_url)
-                setSubField(fields, field_name, key='link_text', value=unicode(item))
+                if item.trainable or 'trained' not in field_name:
+                    setSubField(fields, field_name, key='type', value='image_link')
+                    setSubField(fields, field_name, key='link', value=item.item_url)
+                    setSubField(fields, field_name, key='ajax_link', value=item.ajax_item_url)
+                    setSubField(fields, field_name, key='link_text', value=unicode(item))
+            # Hide trained fields for cards that are not trainable
+            if not item.trainable:
+                for field_name in ['image_trained', 'performance_trained_max', 'technique_trained_max', 'visual_trained_max', 'overall_trained_max']:
+                    setSubField(fields, field_name, key='type', value='text')
+                    setSubField(fields, field_name, key='value', value='')
             return fields
 
         def table_fields_headers_sections(self, view):

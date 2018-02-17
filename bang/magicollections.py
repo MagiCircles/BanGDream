@@ -433,58 +433,45 @@ class CardCollection(MagiCollection):
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
 
-        def to_fields(self, item, only_fields=None, *args, **kwargs):
-            fields = super(CardCollection.ItemView, self).to_fields(
-                item, *args, to_dict=False, only_fields=only_fields, **kwargs)
-            new_fields = []
+        def to_fields(self, item, extra_fields=[], exclude_fields=[], order=[], *args, **kwargs):
             # Add id field
-            new_fields = [('id', {
+            extra_fields.append(('id', {
                 'verbose_name': _(u'ID'),
                 'type': 'text',
                 'value': item.id,
                 'icon': 'id',
-            })]
+            }))
             # Add title field
             title = item.japanese_name if item.japanese_name else (item.name if item.name and get_language() != 'ja' else None)
             value = item.name if item.name and get_language() != 'ja' and title != item.name else None
             if title or value:
-                new_fields.append(('card_name', {
+                extra_fields.append(('card_name', {
                     'verbose_name': _('Title'),
                     'type': 'title_text' if title and value else 'text',
                     'title': title,
                     'value': value or title,
                     'icon': 'id',
                 }))
-            for field in fields:
-                field_name = field[0]
-                if (not field_name.endswith('_max')
-                    and not field_name.endswith('_min')
-                    and field_name not in [
-                        'name', 'japanese_name', 'skill_name', 'skill_details', 'side_skill_details',
-                        'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
-                ] and (get_language() != 'ja' or field_name not in [
-                    'versions', 'skill_type'
-                ])):
-                       new_fields.append(field)
-                if field_name == 'skill_type': # insert japanese skill after skill
-                    new_fields.append(('japanese_skill', {
-                        'verbose_name': string_concat(_('Skill'), ' (', t['Japanese'], ')') if get_language() != 'ja' else _('Skill'),
-                        'icon': item.skill_icon,
-                        'type': 'title_text',
-                        'title': item.japanese_skill_type,
-                        'value': item.japanese_skill,
-                    }))
-                if field_name == 'side_skill_type': # insert japanese side skill after side skill
-                    new_fields.append(('japanese_side_skill', {
-                        'verbose_name': string_concat(_('Side skill'), ' (', t['Japanese'], ')') if get_language() != 'ja' else _('Side skill'),
-                        'icon': item.side_skill_icon,
-                        'type': 'title_text',
-                        'title': item.japanese_side_skill_type,
-                        'value': item.japanese_side_skill,
-                    }))
+            # Add skill details
+            if item.i_skill_type:
+                extra_fields.append(('japanese_skill', {
+                    'verbose_name': string_concat(_('Skill'), ' (', t['Japanese'], ')') if get_language() != 'ja' else _('Skill'),
+                    'icon': item.skill_icon,
+                    'type': 'title_text',
+                    'title': item.japanese_skill_type,
+                    'value': item.japanese_skill,
+                }))
+            if item.i_side_skill_type:
+                extra_fields.append(('japanese_side_skill', {
+                    'verbose_name': string_concat(_('Side skill'), ' (', t['Japanese'], ')') if get_language() != 'ja' else _('Side skill'),
+                    'icon': item.side_skill_icon,
+                    'type': 'title_text',
+                    'title': item.japanese_side_skill_type,
+                    'value': item.japanese_side_skill,
+                }))
             # Add gacha and events
             if item.cached_event:
-                new_fields.append(('event', {
+                extra_fields.append(('event', {
                     'verbose_name': u'{}: {}'.format(
                         _('Event'),
                         item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name),
@@ -496,7 +483,7 @@ class CardCollection(MagiCollection):
                     'link_text': item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name,
                 }))
             if item.cached_gacha:
-                new_fields.append(('gacha', {
+                extra_fields.append(('gacha', {
                     'icon': 'max-bond',
                     'verbose_name': u'{}: {}'.format(
                         _('Gacha'),
@@ -510,7 +497,7 @@ class CardCollection(MagiCollection):
             # Add images fields
             for image, verbose_name in [('image', _('Icon')), ('art', _('Art')), ('transparent', _('Transparent'))]:
                 if getattr(item, image):
-                    new_fields.append((u'{}s'.format(image), {
+                    extra_fields.append((u'{}s'.format(image), {
                         'verbose_name': verbose_name,
                         'type': 'images',
                         'images': [{
@@ -524,7 +511,7 @@ class CardCollection(MagiCollection):
                     }))
             # Add chibis
             if item.cached_chibis:
-                new_fields.append(('chibis', {
+                extra_fields.append(('chibis', {
                     'icon': 'pictures',
                     'type': 'images',
                     'verbose_name': _('Chibi'),
@@ -533,7 +520,23 @@ class CardCollection(MagiCollection):
                         'verbose_name': _('Chibi'),
                     } for chibi in item.cached_chibis],
                 }))
-            fields = OrderedDict(new_fields)
+
+            # Exclude fields
+            if exclude_fields == 1:
+                exclude_fields = []
+            else:
+                exclude_fields += [
+                    'name', 'japanese_name', 'skill_name', 'skill_details', 'side_skill_details',
+                    'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
+                    'performance_min', 'performance_max', 'performance_trained_max',
+                    'technique_min', 'technique_max', 'technique_trained_max',
+                    'visual_min', 'visual_max', 'visual_trained_max',
+                ] + (['versions', 'skill_type'] if get_language() == 'ja' else [])
+            # Order
+            if not order:
+                order = ['id', 'card_name', 'member', 'rarity', 'attribute', 'versions', 'is_promo', 'japanese_skill_name', 'skill_type', 'japanese_skill', 'side_skill_type', 'japanese_side_skill', 'gacha', 'images', 'arts', 'transparents']
+
+            fields = super(CardCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             # Modify existing fields
             # skill name
             setSubField(fields, 'japanese_skill_name', key='verbose_name', value=_('Skill name'))
@@ -580,8 +583,8 @@ class CardCollection(MagiCollection):
                     item.show_item_buttons_as_icons = True
             return context
 
-        def to_fields(self, item, only_fields=None, *args, **kwargs):
-            fields = super(CardCollection.ListView, self).to_fields(item, *args, only_fields=only_fields, **kwargs)
+        def ordering_fields(self, item, only_fields=None, *args, **kwargs):
+            fields = super(CardCollection.ListView, self).ordering_fields(item, *args, only_fields=only_fields, **kwargs)
             if '_overall_max' in only_fields:
                 fields['overall_max'] = {
                     'verbose_name': string_concat(_('Overall'), ' (', _('Maximum'), ')'),
@@ -752,21 +755,23 @@ class EventCollection(MagiCollection):
                 buttons['eventparticipation']['classes'].remove('staff-only')
             return buttons
 
-        def to_fields(self, item, *args, **kwargs):
-            fields = super(EventCollection.ItemView, self).to_fields(item, *args, to_dict=False, **kwargs)
+        def to_fields(self, item, order=[], extra_fields=[], exclude_fields=[], *args, **kwargs):
+            order = ['countdown', 'name', 'japanese_name', 'type', 'start_date', 'end_date', 'rare_stamp',
+                     'stamp_translation', 'boost_attribute', 'gacha', 'boost_members', 'cards'] + order
             if item.status and item.status != 'ended':
-                fields.insert(0, ('countdown', {
-                    'verbose_name': _('Countdown'),
-                    'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
-                        date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
-                        sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
-                    ),
-                    'icon': 'times',
-                    'type': 'html',
-                }))
-            fields = OrderedDict(fields)
+                extra_fields += [
+                    ('countdown', {
+                        'verbose_name': _('Countdown'),
+                        'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
+                            date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
+                            sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
+                        ),
+                        'icon': 'times',
+                        'type': 'html',
+                    }),
+                ]
             if len(item.all_gachas):
-                fields['gacha'] = {
+                extra_fields.append(('gacha', {
                     'icon': 'max-bond',
                     'verbose_name': _('Gacha'),
                     'type': 'images_links',
@@ -776,9 +781,9 @@ class EventCollection(MagiCollection):
                         'ajax_link': gacha.ajax_item_url,
                         'link_text': unicode(gacha),
                     } for gacha in item.all_gachas]
-                }
+                }))
             if len(item.all_members):
-                fields['boost_members'] = {
+                extra_fields.append(('boost_members', {
                     'icon': 'users',
                     'verbose_name': _('Boost Members'),
                     'type': 'images_links',
@@ -788,9 +793,9 @@ class EventCollection(MagiCollection):
                         'ajax_link': member.ajax_item_url,
                         'link_text': unicode(member),
                     } for member in item.all_members]
-                }
+                }))
             if item.main_card_id or item.secondary_card_id:
-                fields['cards'] = {
+                extra_fields.append(('cards', {
                     'icon': 'cards',
                     'verbose_name': _('Cards'),
                     'type': 'images_links',
@@ -800,9 +805,9 @@ class EventCollection(MagiCollection):
                         'ajax_link': card.ajax_item_url,
                         'link_text': unicode(card),
                     } for card in [item.main_card, item.secondary_card] if card is not None]
-                }
+                }))
             if len(item.all_gifted_songs):
-                fields['songs'] = {
+                extra_fields.append(('songs', {
                     'icon': 'song',
                     'verbose_name': _('Gift song'),
                     'type': 'images_links',
@@ -812,11 +817,10 @@ class EventCollection(MagiCollection):
                         'ajax_link': gifted_song.ajax_item_url,
                         'link_text': unicode(gifted_song),
                     } for gifted_song in item.all_gifted_songs]
-                }
-            if 'versions' in fields:
-                del(fields['versions'])
-            return fields
-
+                }))
+            exclude_fields.append('c_versions')
+            return super(EventCollection.ItemView, self).to_fields(
+                item, *args, order=order, extra_fields=extra_fields, exclude_fields=exclude_fields, **kwargs)
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -903,10 +907,16 @@ class GachaCollection(MagiCollection):
             queryset = queryset.select_related('event').prefetch_related(Prefetch('cards', to_attr='all_cards'))
             return queryset
 
-        def to_fields(self, item, in_list=False, *args, **kwargs):
-            fields = super(GachaCollection.ItemView, self).to_fields(item, *args, to_dict=False, **kwargs)
+        def to_fields(self, item, extra_fields=[], exclude_fields=[], order=[], *args, **kwargs):
+            order = [
+                'countdown', 'name', 'attribute', 'limited', 'cards', 'start_date', 'end_date',
+                'english_image', 'english_start_date', 'english_end_date',
+                'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date',
+                'korean_image', 'korean_start_date', 'korean_end_date',
+                'event',
+            ] + order
             if item.status and item.status != 'ended':
-                fields.insert(0, ('countdown', {
+                extra_fields.append(('countdown', {
                     'verbose_name': _('Countdown'),
                     'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
                         date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
@@ -915,11 +925,9 @@ class GachaCollection(MagiCollection):
                     'icon': 'times',
                     'type': 'html',
                 }))
-            fields = OrderedDict(fields)
-            if 'japanese_name' in fields:
-                del(fields['japanese_name'])
+            exclude_fields += ['japanese_name', 'c_versions']
             if len(item.all_cards):
-                fields['cards'] = {
+                extra_fields.append(('cards', {
                     'icon': 'cards',
                     'verbose_name': _('Cards'),
                     'type': 'images_links',
@@ -929,12 +937,11 @@ class GachaCollection(MagiCollection):
                         'ajax_link': card.ajax_item_url,
                         'link_text': unicode(card),
                     } for card in item.all_cards],
-                }
+                }))
+            fields = super(GachaCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             setSubField(fields, 'limited', key='verbose_name', value=_('Gacha type'))
             setSubField(fields, 'limited', key='type', value='text')
             setSubField(fields, 'limited', key='value', value=_('Limited') if item.limited else _('Permanent'))
-            if 'versions' in fields:
-                del(fields['versions'])
             return fields
 
     class ListView(MagiCollection.ListView):

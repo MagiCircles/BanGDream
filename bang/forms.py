@@ -206,14 +206,6 @@ class CardFilterForm(MagiFiltersForm):
             return queryset.filter(transparent__isnull=False)
         return queryset
 
-    view = forms.ChoiceField(choices=[
-        ('cards', _('Cards')),
-        ('chibis', _('Chibi')),
-        ('icons', _('Icons')),
-        ('art', _('Art')),
-        ('art_trained', string_concat(_('Art'), ' (', _('Trained'), ')')),
-        ('transparent', _('Transparent')),
-    ], required=False)
     view_filter = MagiFilter(to_queryset=_view_to_queryset)
 
     class Meta:

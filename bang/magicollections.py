@@ -564,7 +564,25 @@ class CardCollection(MagiCollection):
         filter_form = forms.CardFilterForm
         default_ordering = '-id'
         ajax_pagination_callback = 'loadCardInList'
-
+        alt_views = MagiCollection.ListView.alt_views + [
+            ('chibis', { 'verbose_name': _('Chibi') }),
+            ('icons', { 'verbose_name': _('Icons') }),
+            ('art', { 'verbose_name': _('Art') }),
+            ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
+            ('transparent', { 'verbose_name': _('Transparent') }),
+            ('statistics', {
+                'verbose_name': _('Statistics'),
+                'template': 'default_item_table_view',
+                'display_style': 'table',
+                'display_style_table_fields': [
+                    'image', 'image_trained',
+                    'performance_min', 'performance_max', 'performance_trained_max',
+                    'technique_min', 'technique_max', 'technique_trained_max',
+                    'visual_min', 'visual_max', 'visual_trained_max',
+                    'overall_min', 'overall_max', 'overall_trained_max',
+                ],
+            }),
+        ]
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CardCollection.ListView, self).get_queryset(queryset, parameters, request)
             if request.GET.get('ordering', None) in ['_overall_max', '_overall_trained_max']:
@@ -600,6 +618,39 @@ class CardCollection(MagiCollection):
                     'icon': 'skill',
                 }
             return fields
+
+        def table_fields(self, item, order=[], extra_fields=[], exclude_fields=[], *args, **kwargs):
+            order += ['image', 'image_trained']
+            extra_fields += [
+                (u'overall_{}'.format(suffix), { 'value': getattr(item, u'overall_{}'.format(suffix)) })
+                for suffix in ['min', 'max', 'trained_max']
+            ]
+            fields = super(CardCollection.ListView, self).table_fields(
+                item, *args, exclude_fields=1, extra_fields=extra_fields, order=order, **kwargs)
+            for field_name in ['image', 'image_trained']:
+                setSubField(fields, field_name, key='type', value='image_link')
+                setSubField(fields, field_name, key='link', value=item.item_url)
+                setSubField(fields, field_name, key='ajax_link', value=item.ajax_item_url)
+                setSubField(fields, field_name, key='link_text', value=unicode(item))
+            return fields
+
+        def table_fields_headers_sections(self, view):
+            return [
+                ('', '', 2),
+                ('performance', _('Performance'), 3),
+                ('technique', _('Technique'), 3),
+                ('visual', _('Visual'), 3),
+                ('overall', _('Overall'), 3),
+            ]
+
+        def table_fields_headers(self, fields, view=None):
+            return [('image', ''), ('image_trained', '')] + [
+                (u'{}_{}'.format(name, suffix), verbose_name)
+                for name in ['performance', 'technique', 'visual', 'overall']
+                for suffix, verbose_name in [
+                        ('min', _('Min')), ('max', _('Max')),
+                        ('trained_max', string_concat(_('Trained'), ', ', _('Max'))),
+                ]]
 
     class AddView(MagiCollection.AddView):
         staff_required = True

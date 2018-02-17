@@ -110,6 +110,17 @@ class AccountCollection(_AccountCollection):
         filter_form = forms.FilterAccounts
         default_ordering = '-level'
 
+        def buttons_per_item(self, request, context, item):
+            buttons = super(AccountCollection.ListView, self).buttons_per_item(request, context, item)
+            buttons['version'] = {
+                'show': True, 'has_permissions': True, 'image': u'language/{}'.format(item.version_image),
+                'title': item.t_version, 'url': u'{}?i_version={}'.format(
+                    self.collection.get_list_url(),
+                    item.i_version,
+                ), 'classes': [],
+            }
+            return buttons
+
     class AddView(_AccountCollection.AddView):
         back_to_list_button = False
         simpler_form = forms.AddAccountForm
@@ -278,6 +289,9 @@ class CardCollection(MagiCollection):
         'i_rarity': {
             'type': CuteFormType.HTML,
             'to_cuteform': lambda k, v: rarity_to_stars_images(k),
+        },
+        'is_promo': {
+            'type': CuteFormType.OnlyNone,
         },
         'i_attribute': {},
         'trainable': {
@@ -567,7 +581,7 @@ class CardCollection(MagiCollection):
         per_line = 2
         page_size = 36
         filter_form = forms.CardFilterForm
-        default_ordering = '-id'
+        default_ordering = '-release_date'
         ajax_pagination_callback = 'loadCardInList'
         alt_views = MagiCollection.ListView.alt_views + [
             ('chibis', { 'verbose_name': _('Chibi') }),

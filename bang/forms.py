@@ -76,7 +76,7 @@ class FilterAccounts(MagiFiltersForm):
 
     class Meta:
         model = models.Account
-        fields = ('search', 'friend_id', 'i_color', 'member_id', 'has_friend_id', )
+        fields = ('search', 'friend_id', 'i_version', 'i_color', 'member_id', 'has_friend_id')
 
 ############################################################
 # Member
@@ -115,6 +115,7 @@ class MemberFilterForm(MagiFiltersForm):
 
 class CardForm(AutoForm):
     chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
+    is_promo = forms.NullBooleanField(initial=None, label=_('Promo'))
 
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
@@ -169,6 +170,7 @@ class CardForm(AutoForm):
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
     ordering_fields = [
+        ('release_date', _('Release date')),
         ('id', _('ID')),
         ('_cache_member_name', string_concat(_('Member'), ' - ', _('Name'))),
         ('_cache_member_japanese_name', string_concat(_('Member'), ' - ', _('Name'), ' (', t['Japanese'], ')')),
@@ -193,9 +195,14 @@ class CardFilterForm(MagiFiltersForm):
 
     trainable = forms.NullBooleanField(initial=None, required=False, label=_('Trainable'))
     trainable_filter = MagiFilter(to_queryset=_trainable_to_queryset)
+
     member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+
     member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
     member_band_filter = MagiFilter(selector='member__i_band')
+
+    is_promo = forms.NullBooleanField(initial=None, required=False, label=_('Promo'))
+    is_promo_filter = MagiFilter(selector='promo')
 
     def _view_to_queryset(self, queryset, request, value):
         if value == 'chibis':
@@ -210,7 +217,7 @@ class CardFilterForm(MagiFiltersForm):
 
     class Meta:
         model = models.Card
-        fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'i_skill_type', 'i_side_skill_type', 'member_band', 'c_versions', 'ordering', 'reverse_order', 'view')
+        fields = ('view', 'search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'is_promo', 'i_skill_type', 'i_side_skill_type', 'member_band', 'c_versions', 'ordering', 'reverse_order')
 
 ############################################################
 # Event

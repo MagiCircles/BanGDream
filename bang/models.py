@@ -196,7 +196,7 @@ class Card(MagiModel):
 
     owner = models.ForeignKey(User, related_name='added_cards')
     id = models.PositiveIntegerField(_('ID'), unique=True, primary_key=True, db_index=True)
-    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='cards', null=True, on_delete=models.SET_NULL)
+    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='cards', null=True, on_delete=models.SET_NULL, db_index=True)
 
     RARITY_CHOICES = (
         (1, u'★'),
@@ -205,7 +205,7 @@ class Card(MagiModel):
         (4, u'★★★★'),
     )
     RARITY_WITHOUT_I_CHOICES = True
-    i_rarity = models.PositiveIntegerField(_('Rarity'), choices=RARITY_CHOICES)
+    i_rarity = models.PositiveIntegerField(_('Rarity'), choices=RARITY_CHOICES, db_index=True)
 
     ATTRIBUTES = OrderedDict([
         (1, {
@@ -227,7 +227,7 @@ class Card(MagiModel):
     ])
     ATTRIBUTE_CHOICES = [(_name, _info['translation']) for _name, _info in ATTRIBUTES.items()]
     ATTRIBUTE_WITHOUT_I_CHOICES = True
-    i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES)
+    i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES, db_index=True)
     english_attribute = property(getInfoFromChoices('attribute', ATTRIBUTES, 'english'))
 
     name = models.CharField(_('Title'), max_length=100, null=True)
@@ -236,6 +236,7 @@ class Card(MagiModel):
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
 
+    release_date = models.DateField(_('Release date'), null=True, db_index=True)
     is_promo = models.BooleanField(_('Promo card'), default=False)
 
     # Skill
@@ -271,7 +272,7 @@ class Card(MagiModel):
     ])
     SKILL_TYPE_WITHOUT_I_CHOICES = True
     SKILL_TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in SKILL_TYPES.items()]
-    i_skill_type = models.PositiveIntegerField(_('Skill'), choices=SKILL_TYPE_CHOICES, null=True)
+    i_skill_type = models.PositiveIntegerField(_('Skill'), choices=SKILL_TYPE_CHOICES, null=True, db_index=True)
     japanese_skill_type = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'japanese_translation'))
     skill_template = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'template'))
     japanese_skill_template = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'japanese_template'))
@@ -319,7 +320,7 @@ class Card(MagiModel):
 
     SIDE_SKILL_TYPE_CHOICES = SKILL_TYPE_CHOICES
     SIDE_SKILL_TYPE_WITHOUT_I_CHOICES = True
-    i_side_skill_type = models.PositiveIntegerField(_('Side skill'), choices=SIDE_SKILL_TYPE_CHOICES, null=True)
+    i_side_skill_type = models.PositiveIntegerField(_('Side skill'), choices=SIDE_SKILL_TYPE_CHOICES, null=True, db_index=True)
     japanese_side_skill_type = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'japanese_translation'))
     side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'template'))
     japanese_side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'japanese_template'))

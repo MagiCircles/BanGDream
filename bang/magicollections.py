@@ -433,7 +433,10 @@ class CardCollection(MagiCollection):
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
 
-        def to_fields(self, item, extra_fields=[], exclude_fields=[], order=[], *args, **kwargs):
+        def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
+            if extra_fields is None: extra_fields = []
+            if exclude_fields is None: exclude_fields = []
+            if order is None: order = []
             # Add id field
             extra_fields.append(('id', {
                 'verbose_name': _(u'ID'),
@@ -619,7 +622,10 @@ class CardCollection(MagiCollection):
                 }
             return fields
 
-        def table_fields(self, item, order=[], extra_fields=[], exclude_fields=[], *args, **kwargs):
+        def table_fields(self, item, order=None, extra_fields=None, exclude_fields=None, *args, **kwargs):
+            if extra_fields is None: extra_fields = []
+            if exclude_fields is None: exclude_fields = []
+            if order is None: order = []
             order += ['image', 'image_trained']
             extra_fields += [
                 (u'overall_{}'.format(suffix), { 'value': getattr(item, u'overall_{}'.format(suffix)) })
@@ -812,7 +818,10 @@ class EventCollection(MagiCollection):
                 buttons['eventparticipation']['classes'].remove('staff-only')
             return buttons
 
-        def to_fields(self, item, order=[], extra_fields=[], exclude_fields=[], *args, **kwargs):
+        def to_fields(self, item, order=None, extra_fields=None, exclude_fields=None, *args, **kwargs):
+            if extra_fields is None: extra_fields = []
+            if exclude_fields is None: exclude_fields = []
+            if order is None: order = []
             order = ['countdown', 'name', 'japanese_name', 'type', 'start_date', 'end_date', 'rare_stamp',
                      'stamp_translation', 'boost_attribute', 'gacha', 'boost_members', 'cards'] + order
             if item.status and item.status != 'ended':
@@ -964,7 +973,10 @@ class GachaCollection(MagiCollection):
             queryset = queryset.select_related('event').prefetch_related(Prefetch('cards', to_attr='all_cards'))
             return queryset
 
-        def to_fields(self, item, extra_fields=[], exclude_fields=[], order=[], *args, **kwargs):
+        def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
+            if extra_fields is None: extra_fields = []
+            if exclude_fields is None: exclude_fields = []
+            if order is None: order = []
             order = [
                 'countdown', 'name', 'attribute', 'limited', 'cards', 'start_date', 'end_date',
                 'english_image', 'english_start_date', 'english_end_date',

@@ -77,7 +77,9 @@ class AccountCollection(_AccountCollection):
         },
     }
 
-    def to_fields(self, view, item, *args, **kwargs):
+    def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
+        if exclude_fields is None: exclude_fields = []
+        exclude_fields.append('owner')
         fields = super(AccountCollection, self).to_fields(view, item, *args, icons={
             'play_with': item.play_with_icon,
             'os': item.os_icon,
@@ -85,7 +87,7 @@ class AccountCollection(_AccountCollection):
         }, images={
             'version': item.version_image_url,
             'stargems_bought': staticImageURL(u'stargems_bought.png'),
-        }, **kwargs)
+        }, exclude_fields=exclude_fields, **kwargs)
         setSubField(fields, 'stargems_bought', key='verbose_name', value=_('Total {item} bought').format(item=_('Star gems').lower()))
         setSubField(fields, 'stargems_bought', key='type', value='text_annotation')
         spent_yen = int(item.stargems_bought * django_settings.PRICE_PER_STARGEM) if item.stargems_bought else 0

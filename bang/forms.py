@@ -202,7 +202,6 @@ class CardFilterForm(MagiFiltersForm):
     member_band_filter = MagiFilter(selector='member__i_band')
 
     is_promo = forms.NullBooleanField(initial=None, required=False, label=_('Promo'))
-    is_promo_filter = MagiFilter(selector='promo')
 
     def _view_to_queryset(self, queryset, request, value):
         if value == 'chibis':

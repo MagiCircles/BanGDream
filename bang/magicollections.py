@@ -423,6 +423,7 @@ class CardCollection(MagiCollection):
             'name': 'id',
             'versions': 'world',
             'is_promo': 'promo',
+            'release_date': 'date',
         }, images={
             'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
@@ -553,7 +554,11 @@ class CardCollection(MagiCollection):
                 ] + (['versions', 'skill_type'] if get_language() == 'ja' else [])
             # Order
             if not order:
-                order = ['id', 'card_name', 'member', 'rarity', 'attribute', 'versions', 'is_promo', 'japanese_skill_name', 'skill_type', 'japanese_skill', 'side_skill_type', 'japanese_side_skill', 'gacha', 'images', 'arts', 'transparents']
+                order = [
+                    'id', 'card_name', 'member', 'rarity', 'attribute', 'versions', 'is_promo', 'release_date',
+                    'japanese_skill_name', 'skill_type', 'japanese_skill', 'side_skill_type',
+                    'japanese_side_skill', 'gacha', 'images', 'arts', 'transparents',
+                ]
 
             fields = super(CardCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             # Modify existing fields

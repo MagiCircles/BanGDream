@@ -838,8 +838,14 @@ class EventCollection(MagiCollection):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
-            order = ['countdown', 'name', 'japanese_name', 'type', 'start_date', 'end_date', 'rare_stamp',
-                     'stamp_translation', 'boost_attribute', 'gacha', 'boost_members', 'cards'] + order
+            order = [
+                'countdown', 'name', 'japanese_name', 'type', 'rare_stamp',
+                'stamp_translation', 'boost_attribute', 'gacha', 'boost_members', 'cards',
+                'start_date', 'end_date',
+                'english_image', 'english_start_date', 'english_end_date',
+                'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date',
+                'korean_image', 'korean_start_date', 'korean_end_date',
+            ] + order
             if item.status and item.status != 'ended':
                 extra_fields += [
                     ('countdown', {

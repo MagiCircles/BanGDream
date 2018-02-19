@@ -589,11 +589,7 @@ class CardCollection(MagiCollection):
         default_ordering = '-release_date'
         ajax_pagination_callback = 'loadCardInList'
         alt_views = MagiCollection.ListView.alt_views + [
-            ('chibis', { 'verbose_name': _('Chibi') }),
-            ('icons', { 'verbose_name': _('Icons') }),
-            ('art', { 'verbose_name': _('Art') }),
-            ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
-            ('transparent', { 'verbose_name': _('Transparent') }),
+            ('icons', { 'verbose_name': string_concat(_('Icons'), ' (', _('Quick add'), ')') }),
             ('statistics', {
                 'verbose_name': _('Statistics'),
                 'template': 'default_item_table_view',
@@ -606,6 +602,10 @@ class CardCollection(MagiCollection):
                     'overall_min', 'overall_max', 'overall_trained_max',
                 ],
             }),
+            ('chibis', { 'verbose_name': _('Chibi') }),
+            ('art', { 'verbose_name': _('Art') }),
+            ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
+            ('transparent', { 'verbose_name': _('Transparent') }),
         ]
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CardCollection.ListView, self).get_queryset(queryset, parameters, request)

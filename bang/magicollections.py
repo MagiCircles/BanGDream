@@ -439,8 +439,9 @@ class CardCollection(MagiCollection):
         if 'favoritecard' in buttons:
             if view.view == 'list_view':
                 buttons['favoritecard']['icon'] = 'star'
-            buttons['favoritecard']['classes'].remove('staff-only')
-        if 'collectiblecard' in buttons:
+            if 'staff-only' in buttons['favoritecard']['classes']:
+                buttons['favoritecard']['classes'].remove('staff-only')
+        if 'collectiblecard' in buttons and 'staff-only' in buttons['collectiblecard']['classes']:
             buttons['collectiblecard']['classes'].remove('staff-only')
         if view.view == 'list_view' and 'edit' in buttons:
             del(buttons['edit'])
@@ -835,7 +836,7 @@ class EventCollection(MagiCollection):
 
         def buttons_per_item(self, *args, **kwargs):
             buttons = super(EventCollection.ItemView, self).buttons_per_item(*args, **kwargs)
-            if 'eventparticipation' in buttons:
+            if 'eventparticipation' in buttons and 'staff-only' in buttons['eventparticipation']['classes']:
                 buttons['eventparticipation']['classes'].remove('staff-only')
             return buttons
 
@@ -1225,7 +1226,7 @@ class SongCollection(MagiCollection):
 
         def buttons_per_item(self, *args, **kwargs):
             buttons = super(SongCollection.ItemView, self).buttons_per_item(*args, **kwargs)
-            if 'playedsong' in buttons:
+            if 'playedsong' in buttons and 'staff-only' in buttons['playedsong']['classes']:
                 buttons['playedsong']['classes'].remove('staff-only')
             return buttons
 

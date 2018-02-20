@@ -234,7 +234,7 @@ class Card(MagiModel):
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, null=True)
 
     VERSIONS_CHOICES = Account.VERSION_CHOICES
-    c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
+    c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
     release_date = models.DateField(_('Release date'), null=True, db_index=True)
     is_promo = models.BooleanField(_('Promo card'), default=False)
@@ -697,7 +697,7 @@ class Event(MagiModel):
     end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)
 
     VERSIONS_CHOICES = Account.VERSION_CHOICES
-    c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
+    c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
     english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('e/e'), null=True)
     english_start_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('Beginning')), null=True)
@@ -819,7 +819,7 @@ class Song(MagiModel):
     name = models.CharField(string_concat(_('Translation'), ' (', t['English'], ')'), max_length=100, null=True)
 
     VERSIONS_CHOICES = Account.VERSION_CHOICES
-    c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
+    c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
     itunes_id = models.PositiveIntegerField(_('Preview'), help_text='iTunes ID', null=True)
     length = models.PositiveIntegerField(_('Length'), null=True)
@@ -925,6 +925,8 @@ class PlayedSong(AccountAsOwnerModel):
     )
 
     i_difficulty = models.PositiveIntegerField(_('Difficulty'), choices=i_choices(DIFFICULTY_CHOICES), default=0)
+    difficulty_image_url = property(lambda _ps: staticImageURL(_ps.difficulty, folder=u'songs', extension='png'))
+
     score = models.PositiveIntegerField(_('Score'), null=True)
     full_combo = models.NullBooleanField(_('Full combo'))
 
@@ -986,7 +988,7 @@ class Gacha(MagiModel):
     cards = models.ManyToManyField(Card, verbose_name=('Cards'), related_name='gachas')
 
     VERSIONS_CHOICES = Account.VERSION_CHOICES
-    c_versions = models.TextField(_('Available in versions'), blank=True, null=True, default='"JP"')
+    c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
     @property
     def cached_event(self):

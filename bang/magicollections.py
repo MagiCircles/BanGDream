@@ -1133,13 +1133,39 @@ class SongCollection(MagiCollection):
                         'full_combo': 'combo',
                         'screenshot': 'pictures',
                     }, images={
-                        'difficulty':  u'{static_url}img/songs/{difficulty}.png'.format(
-                            static_url=RAW_CONTEXT['static_url'],
-                            difficulty=item.difficulty,
-                        ),
+                        'difficulty': item.difficulty_image_url,
                     }, **kwargs)
                     setSubField(fields, 'difficulty', key='value', value=item.t_difficulty)
                     return fields
+
+                class ListView(cls.ListView):
+                    default_ordering = 'song__release_date,-i_difficulty'
+                    item_template = 'default_item_table_view'
+                    display_style = 'table'
+                    display_style_table_fields = ['image', 'difficulty', 'score', 'full_combo', 'screenshot']
+                    show_item_buttons = True
+                    show_item_buttons_as_icons = True
+
+                    def table_fields(self, item, *args, **kwargs):
+                        fields = super(_PlayedSongCollection.ListView, self).table_fields(item, *args, **kwargs)
+                        setSubField(fields, 'image', key='verbose_name', value=_('Song'))
+                        setSubField(fields, 'image', key='type', value='image_link')
+                        setSubField(fields, 'image', key='link', value=item.song.item_url)
+                        setSubField(fields, 'image', key='ajax_link', value=item.song.ajax_item_url)
+                        setSubField(fields, 'difficulty', key='type', value='image')
+                        setSubField(fields, 'difficulty', key='value', value=lambda k: item.difficulty_image_url)
+                        setSubField(fields, 'screenshot', key='type', value='html')
+                        setSubField(fields, 'screenshot', key='value', value=u'<a href="{url}" target="_blank"><div class="screenshot_preview" style="background-image: url(\'{url}\')"></div></a>'.format(url=item.screenshot_url))
+                        return fields
+
+                    def table_fields_headers(self, fields, view=None):
+                        if view is None:
+                            return MagiCollection.ListView.table_fields_headers(self, fields, view=view)
+                        return []
+
+                    def extra_context(self, context):
+                        if context['view'] == 'quick_edit':
+                            context['include_below_item'] = False
 
                 class AddView(cls.AddView):
                     staff_required = True

@@ -925,6 +925,8 @@ class PlayedSong(AccountAsOwnerModel):
     )
 
     i_difficulty = models.PositiveIntegerField(_('Difficulty'), choices=i_choices(DIFFICULTY_CHOICES), default=0)
+    difficulty_image_url = property(lambda _ps: staticImageURL(_ps.difficulty, folder=u'songs', extension='png'))
+
     score = models.PositiveIntegerField(_('Score'), null=True)
     full_combo = models.NullBooleanField(_('Full combo'))
 

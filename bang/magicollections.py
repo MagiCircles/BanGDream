@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import math
+import math, simplejson
 from itertools import chain
 from collections import OrderedDict
 from django.conf import settings as django_settings
@@ -301,10 +301,6 @@ class CardCollection(MagiCollection):
             'to_cuteform': lambda k, v: CardCollection._skill_icons[k],
             'transform': CuteFormTransform.Flaticon,
         },
-        'i_side_skill_type': {
-            'to_cuteform': lambda k, v: CardCollection._skill_icons[k],
-            'transform': CuteFormTransform.Flaticon,
-        },
         'member_band': {
             'image_folder': 'band',
             'to_cuteform': 'value',
@@ -473,22 +469,16 @@ class CardCollection(MagiCollection):
                     'value': value or title,
                     'icon': 'id',
                 }))
+
             # Add skill details
             if item.i_skill_type:
                 extra_fields.append(('japanese_skill', {
                     'verbose_name': string_concat(_('Skill'), ' (', t['Japanese'], ')') if get_language() != 'ja' else _('Skill'),
                     'icon': item.skill_icon,
                     'type': 'title_text',
-                    'title': item.japanese_skill_type,
-                    'value': item.japanese_skill,
-                }))
-            if item.i_side_skill_type:
-                extra_fields.append(('japanese_side_skill', {
-                    'verbose_name': string_concat(_('Side skill'), ' (', t['Japanese'], ')') if get_language() != 'ja' else _('Side skill'),
-                    'icon': item.side_skill_icon,
-                    'type': 'title_text',
-                    'title': item.japanese_side_skill_type,
-                    'value': item.japanese_side_skill,
+                    'title': mark_safe(u'{} <span class="text-muted">({})</span>'.format(item.japanese_skill_type, item.japanese_side_skill_type)
+                                       if item.i_side_skill_type else item.japanese_skill_type),
+                    'value': item.japanese_full_skill,
                 }))
             # Add gacha and events
             if item.cached_event:
@@ -547,18 +537,20 @@ class CardCollection(MagiCollection):
                 exclude_fields = []
             else:
                 exclude_fields += [
-                    'name', 'japanese_name', 'skill_name', 'skill_details', 'side_skill_details',
+                    'name', 'japanese_name', 'skill_name', 'i_side_skill_type',
                     'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
                     'performance_min', 'performance_max', 'performance_trained_max',
                     'technique_min', 'technique_max', 'technique_trained_max',
                     'visual_min', 'visual_max', 'visual_trained_max',
+                    'i_skill_note_type', 'skill_stamina', 'skill_duration',
+                    'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
                 ] + (['versions', 'skill_type'] if get_language() == 'ja' else [])
             # Order
             if not order:
                 order = [
                     'id', 'card_name', 'member', 'rarity', 'attribute', 'versions', 'is_promo', 'release_date',
-                    'japanese_skill_name', 'skill_type', 'japanese_skill', 'side_skill_type',
-                    'japanese_side_skill', 'gacha', 'images', 'arts', 'transparents',
+                    'japanese_skill_name', 'skill_type', 'japanese_skill',
+                    'gacha', 'images', 'arts', 'transparents',
                 ]
 
             fields = super(CardCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
@@ -572,14 +564,11 @@ class CardCollection(MagiCollection):
                 setSubField(fields, 'japanese_skill_name', key='value', value=item.skill_name)
             # skill details
             setSubField(fields, 'skill_type', key='type', value='title_text')
-            setSubField(fields, 'skill_type', key='title', value=item.t_skill_type)
-            setSubField(fields, 'skill_type', key='value', value=item.skill)
+            setSubField(fields, 'skill_type', key='title',
+                        value=lambda k: mark_safe(u'{} <span class="text-muted">({})</span>'.format(item.t_skill_type, item.t_side_skill_type)
+                        if item.i_side_skill_type else item.t_skill_type))
+            setSubField(fields, 'skill_type', key='value', value=item.full_skill)
             setSubField(fields, 'skill_type', key='icon', value=lambda k: item.skill_icon)
-            # side skill details
-            setSubField(fields, 'side_skill_type', key='type', value='title_text')
-            setSubField(fields, 'side_skill_type', key='title', value=item.t_side_skill_type)
-            setSubField(fields, 'side_skill_type', key='value', value=item.side_skill)
-            setSubField(fields, 'side_skill_type', key='icon', value=lambda k: item.side_skill_icon)
             return fields
 
     class ListView(MagiCollection.ListView):
@@ -685,14 +674,30 @@ class CardCollection(MagiCollection):
                         ('min', _('Min')), ('max', _('Max')),
                         ('trained_max', string_concat(_('Trained'), ', ', _('Max'))),
                 ]]
+    def _extra_context_for_form(self, context):
+        if 'js_variables' not in context:
+            context['js_variables'] = {}
+        context['js_variables']['all_variables'] = mark_safe(simplejson.dumps(models.Card.ALL_VARIABLES))
+        context['js_variables']['variables_per_skill_type'] = mark_safe(simplejson.dumps(models.Card.VARIABLES_PER_SKILL_TYPES))
+        context['js_variables']['special_cases_variables'] = mark_safe(simplejson.dumps(models.Card.SPECIAL_CASES_VARIABLES))
+        context['js_variables']['template_per_skill_type'] = mark_safe(simplejson.dumps(models.Card.TEMPLATE_PER_SKILL_TYPES))
+        context['js_variables']['special_cases_template'] = mark_safe(simplejson.dumps(models.Card.SPECIAL_CASES_TEMPLATE))
 
     class AddView(MagiCollection.AddView):
         staff_required = True
         multipart = True
+        ajax_callback = 'loadCardForm'
+
+        def extra_context(self, context):
+            self.collection._extra_context_for_form(context)
 
     class EditView(MagiCollection.EditView):
         staff_required = True
         multipart = True
+        ajax_callback = 'loadCardForm'
+
+        def extra_context(self, context):
+            self.collection._extra_context_for_form(context)
 
 class EventCollection(MagiCollection):
     queryset = models.Event.objects.all()

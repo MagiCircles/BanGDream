@@ -3,6 +3,7 @@ from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.safestring import mark_safe
+from django.db.models import Q
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from magi.item_model import i_choices
@@ -120,8 +121,6 @@ class CardForm(AutoForm):
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
         self.previous_member_id = None if self.is_creating else self.instance.member_id
-        self.fields['skill_details'].label = 'Skill details'
-        self.fields['side_skill_details'].label = 'Side skill details'
         # Delete existing chibis
         if not self.is_creating:
             self.all_chibis = self.instance.chibis.all()
@@ -165,7 +164,7 @@ class CardForm(AutoForm):
         model = models.Card
         fields = '__all__'
         save_owner_on_creation = True
-        optional_fields = ('name', 'japanese_name', 'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'i_skill_type', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained', 'chibis')
+        optional_fields = ('name', 'japanese_name', 'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'i_skill_type', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained', 'chibis', 'i_skill_note_type', 'skill_stamina', 'skill_duration', 'skill_percentage', 'skill_alt_percentage', 'i_skill_special')
 
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
@@ -196,6 +195,12 @@ class CardFilterForm(MagiFiltersForm):
     trainable = forms.NullBooleanField(initial=None, required=False, label=_('Trainable'))
     trainable_filter = MagiFilter(to_queryset=_trainable_to_queryset)
 
+    def skill_filter_to_queryset(self, queryset, request, value):
+        if not value: return queryset
+        if value == '1': return queryset.filter(i_skill_type=value) # Score up
+        return queryset.filter(Q(i_skill_type=value) | Q(i_side_skill_type=value))
+    i_skill_type_filter = MagiFilter(to_queryset=skill_filter_to_queryset)
+
     member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
 
     member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
@@ -216,7 +221,7 @@ class CardFilterForm(MagiFiltersForm):
 
     class Meta:
         model = models.Card
-        fields = ('view', 'search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'is_promo', 'i_skill_type', 'i_side_skill_type', 'member_band', 'c_versions', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'is_promo', 'i_skill_type', 'member_band', 'c_versions', 'ordering', 'reverse_order')
 
 ############################################################
 # Event

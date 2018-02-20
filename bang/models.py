@@ -239,82 +239,122 @@ class Card(MagiModel):
     release_date = models.DateField(_('Release date'), null=True, db_index=True)
     is_promo = models.BooleanField(_('Promo card'), default=False)
 
-    # Skill
-
-    skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
-    japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
+    # Skill info
 
     SKILL_TYPES = OrderedDict([
         (1, {
             'translation': _(u'Score up'),
             'english': 'Score up',
             'japanese_translation': u'スコアＵＰ',
-            'template':  _(u'All notes will receive a {size} score bonus.'),
-            'japanese_template': u'スコアが{size}UPする',
             'icon': 'scoreup',
+
+            # Main skill
+            'variables': ['duration', 'percentage'],
+            'template': _(u'For the next {duration} seconds, score of all notes boosted by +{percentage}%'),
+            'special_templates': {
+                'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by by +{percentage}%'),
+                'based_on_stamina': _(u'For the next {duration} seconds, if life is above {stamina}, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%'),
+            },
+            'special_variables': {
+                'perfect_only': ['duration', 'percentage'],
+                'based_on_stamina': ['duration', 'stamina', 'percentage', 'alt_percentage'],
+            },
+            'japanese_template': u'{duration}スコアが{percentage}％UPする',
+            'special_japanese_templates': {
+                'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
+                'based_on_stamina': u'{duration}秒間スコアが{percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{alt_percentage}%UPする',
+            },
+
+            # Side skill
+            'side_variables': ['duration', 'percentage'],
+            'side_template': _(u'and boosts score of all notes by {percentage}% for the next {duration} seconds'),
+            'side_japanese_template': u'、{duration}秒間スコアが {percentage}%UPする',
         }),
         (2, {
             'translation': _(u'Life recovery'),
             'english': 'Life recovery',
             'japanese_translation': u'ライフ回復',
-            'template': _(u'Your life will get a {size} boost.'),
-            'japanese_template': u'ライフが{size}回復する',
             'icon': 'healer',
+
+            # Main skill
+            'variables': ['stamina'],
+            'template': _(u'Restores life by {stamina}'),
+            'japanese_template': u'ライフが{stamina}回復し',
+
+            # Side skill
+            'side_variables': ['stamina'],
+            'side_template': _(u'and restores life by {stamina}'),
+            'side_japanese_template': u'、ライフが {stamina} 回復し',
         }),
         (3, {
             'translation': _(u'Perfect lock'),
             'english': 'Perfect lock',
             'japanese_translation': u'判定強化',
-            'template': _(u'All the {note_type} notes or better will turn into PERFECT.'),
-            'japanese_template': u'5秒間{note_type}以上がすべてPERFECTになる',
             'icon': 'perfectlock',
+
+            # Main skill
+            'variables': ['note_type'],
+            'template': _(u'All {note_type} notes turn into PERFECT notes'),
+            'japanese_template': u'{note_type} 以上がすべてPERFECTになり',
+
+            # Side skill
+            'side_variables': ['duration', 'note_type'],
+            'side_template': _(u'and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds'),
+            'side_japanese_template': u'{duration}秒間{note_type}以上がすべてPERFECTになる',
         }),
     ])
+
+    SKILL_SPECIAL_CHOICES = (
+        ('perfect_only', 'Boost score limited to perfect notes'),
+        ('based_on_stamina', 'Boost score based on stamina'),
+    )
+
+    ALL_VARIABLES = { item: True for sublist in [ _info['variables'] + _info['side_variables'] + [ii for sl in [_i for _i in _info.get('special_variables', {}).values()] for ii in sl] for _info in SKILL_TYPES.values() ] for item in sublist }.keys()
+    VARIABLES_PER_SKILL_TYPES = {
+        'skill': { _skill_type: _info['variables'] for _skill_type, _info in SKILL_TYPES.items() },
+        'side_skill': { _skill_type: _info['side_variables'] for _skill_type, _info in SKILL_TYPES.items() },
+    }
+    SPECIAL_CASES_VARIABLES = { _skill_type: { _i: _v for _i, _v in enumerate(_info['special_variables'].values()) } for _skill_type, _info in SKILL_TYPES.items() if 'special_variables' in _info }
+
+    TEMPLATE_PER_SKILL_TYPES = {
+        'skill': { _skill_type: unicode(_info['template']) for _skill_type, _info in SKILL_TYPES.items() },
+        'side_skill': { _skill_type: unicode(_info['side_template']) for _skill_type, _info in SKILL_TYPES.items() },
+    }
+    SPECIAL_CASES_TEMPLATE = { _skill_type: { _i: unicode(_v) for _i, _v in enumerate(_info['special_templates'].values()) } for _skill_type, _info in SKILL_TYPES.items() if 'special_templates' in _info }
+
+    # Main skill
+
+    skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
+    japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
+
     SKILL_TYPE_WITHOUT_I_CHOICES = True
     SKILL_TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in SKILL_TYPES.items()]
     i_skill_type = models.PositiveIntegerField(_('Skill'), choices=SKILL_TYPE_CHOICES, null=True, db_index=True)
     japanese_skill_type = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'japanese_translation'))
-    skill_template = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'template'))
-    japanese_skill_template = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'japanese_template'))
     skill_icon = property(getInfoFromChoices('skill_type', SKILL_TYPES, 'icon'))
+    @property
+    def skill_template(self):
+        return self.SKILL_TYPES[self.skill_type].get('special_templates', {}).get(self.skill_special, self.SKILL_TYPES[self.skill_type]['template'])
+    @property
+    def japanese_skill_template(self):
+        return self.SKILL_TYPES[self.skill_type].get('special_japanese_templates', {}).get(self.skill_special, self.SKILL_TYPES[self.skill_type]['japanese_template'])
 
-    skill_details = models.CharField(_('Skill'), max_length=500, null=True)
-
-    SKILL_SIZES = OrderedDict([
-        (1, {
-            'translation': _(u'small'),
-            'japanese': u'小',
-            'note_type': u'',
-        }),
-        (2, {
-            'translation': _(u'medium'),
-            'japanese': u'中',
-            'note_type': u'GREAT',
-        }),
-        (3, {
-            'translation': _(u'large'),
-            'japanese': u'大',
-            'note_type': u'GOOD',
-        }),
-        (4, {
-            'translation': _(u'oversized'),
-            'japanese': u'特大',
-            'note_type': u'BAD',
-        }),
-    ])
-    skill_size = property(getInfoFromChoices('rarity', SKILL_SIZES, 'translation'))
-    japanese_skill_size = property(getInfoFromChoices('rarity', SKILL_SIZES, 'japanese'))
-    skill_note_type = property(getInfoFromChoices('rarity', SKILL_SIZES, 'note_type'))
+    @property
+    def skill_variables(self):
+        return {
+            key: getattr(self, u'skill_{}'.format(key))
+            for key in self.SPECIAL_CASES_VARIABLES.get(self.skill_type, {}).get(self.skill_special, self.VARIABLES_PER_SKILL_TYPES['skill'].get(self.skill_type, []))
+        }
 
     @property
     def skill(self):
-        if not self.i_skill_type: return None
-        return self.skill_details or self.skill_template.format(size=self.skill_size, note_type=self.skill_note_type)
+        if self.i_skill_type is None: return None
+        return self.skill_template.format(**self.skill_variables)
 
     @property
     def japanese_skill(self):
-        if not self.i_skill_type: return None
-        return self.japanese_skill_template.format(size=self.japanese_skill_size, note_type=self.skill_note_type)
+        if self.i_skill_type is None: return None
+        return self.japanese_skill_template.format(**self.skill_variables)
 
     # Side skill
 
@@ -322,20 +362,61 @@ class Card(MagiModel):
     SIDE_SKILL_TYPE_WITHOUT_I_CHOICES = True
     i_side_skill_type = models.PositiveIntegerField(_('Side skill'), choices=SIDE_SKILL_TYPE_CHOICES, null=True, db_index=True)
     japanese_side_skill_type = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'japanese_translation'))
-    side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'template'))
-    japanese_side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'japanese_template'))
+    side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'side_template'))
+    japanese_side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'side_japanese_template'))
     side_skill_icon = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'icon'))
 
-    side_skill_details = models.CharField(_('Side skill'), max_length=500, null=True)
+    @property
+    def side_skill_variables(self):
+        return {
+            key: getattr(self, u'skill_{}'.format(key))
+            for key in self.SKILL_TYPES[self.side_skill_type]['side_variables']
+        }
 
     @property
     def side_skill(self):
-        if not self.i_side_skill_type: return None
-        return self.side_skill_details or self.side_skill_template.format(size=self.skill_size, note_type=self.skill_note_type)
+        if self.i_side_skill_type is None: return None
+        return self.side_skill_template.format(**self.side_skill_variables)
 
     @property
     def japanese_side_skill(self):
-        return self.japanese_side_skill_template.format(size=self.japanese_skill_size, note_type=self.skill_note_type)
+        if self.i_side_skill_type is None: return None
+        return self.japanese_side_skill_template.format(**self.side_skill_variables)
+
+    # Full skill
+
+    @property
+    def full_skill(self):
+        if not self.i_skill_type: return None
+        return u'{} {}'.format(
+            self.skill,
+            self.side_skill if self.i_side_skill_type else u'',
+        )
+
+    @property
+    def japanese_full_skill(self):
+        if not self.i_skill_type: return None
+        return u'{} {}'.format(
+            self.japanese_skill,
+            self.japanese_side_skill if self.i_side_skill_type else u'',
+        )
+
+    # Skill variables
+
+    i_skill_special = models.PositiveIntegerField('Skill details - Special case', choices=i_choices(SKILL_SPECIAL_CHOICES), null=True)
+
+    SKILL_NOTE_TYPE_CHOICES = (
+        'MISS',
+        'BAD',
+        'GOOD',
+        'GREAT',
+        'PERFECT',
+    )
+    i_skill_note_type = models.PositiveIntegerField('{note_type}', choices=i_choices(SKILL_NOTE_TYPE_CHOICES), null=True)
+    skill_stamina = models.PositiveIntegerField('{stamina}', null=True)
+    skill_duration = models.PositiveIntegerField('{duration}', null=True, help_text='in seconds')
+    skill_percentage = models.FloatField('{percentage}', null=True, help_text='0-100')
+    skill_alt_percentage = models.FloatField('{alt_percentage}', null=True, help_text='0-100')
 
     # Images
     image = models.ImageField(_('Icon'), upload_to=uploadItem('c'), null=True)

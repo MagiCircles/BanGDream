@@ -1,4 +1,4 @@
-from rest_framework import viewsets, serializers
+from rest_framework import viewsets, serializers, permissions
 from magi.item_model import get_http_image_url_from_path
 from magi import api_permissions
 from magi.utils import shrinkImageFromData
@@ -135,7 +135,6 @@ class CardSerializer(MagiSerializer):
     art_trained = ImageField(required=False)
     transparent = ImageField(required=False)
     transparent_trained = ImageField(required=False)
-    chibi = ImageField(required=False)
 
     def validate(self, data):
         if self.context['request'].method == 'POST' and 'member' not in self.context['request'].data:
@@ -152,12 +151,37 @@ class CardSerializer(MagiSerializer):
     class Meta:
         model = models.Card
         save_owner_on_creation = True
-        fields = ('id', 'member', 'i_rarity', 'i_attribute', 'name', 'japanese_name', 'release_date', 'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'i_skill_type', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'performance_min', 'performance_max', 'performance_trained_max', 'technique_min', 'technique_max', 'technique_trained_max', 'visual_min', 'visual_max', 'visual_trained_max', 'chibi')
+        fields = (
+            'id', 'member', 'i_rarity', 'i_attribute', 'name', 'japanese_name', 'release_date',
+            'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
+            'skill_name', 'japanese_skill_name', 'i_skill_type', 'i_side_skill_type',
+            # Not editable
+            'skill_template', 'skill_variables', 'side_skill_template', 'side_skill_variables', 'full_skill',
+            # / Not editable
+            'performance_min', 'performance_max', 'performance_trained_max',
+            'technique_min', 'technique_max', 'technique_trained_max',
+            'visual_min', 'visual_max', 'visual_trained_max',
+        )
+
+class CardSerializerForEditing(CardSerializer):
+    i_skill_special = IField(models.Card, 'skill_special')
+    i_skill_note_type = IField(models.Card, 'skill_note_type')
+
+    class Meta(CardSerializer.Meta):
+        fields = CardSerializer.Meta.fields + (
+            'i_skill_special',
+            'i_skill_note_type', 'skill_stamina', 'skill_duration', 'skill_percentage', 'skill_alt_percentage',
+        )
 
 class CardViewSet(viewsets.ModelViewSet):
     queryset = models.Card.objects.all()
     serializer_class = CardSerializer
     permission_classes = (api_permissions.IsStaffOrReadOnly, )
+
+    def get_serializer_class(self):
+        if self.request.method not in permissions.SAFE_METHODS:
+            return CardSerializerForEditing
+        return CardSerializer
 
 class CardIDSerializer(serializers.ModelSerializer):
     class Meta:

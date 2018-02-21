@@ -343,7 +343,7 @@ class Card(MagiModel):
     def skill_variables(self):
         return {
             key: getattr(self, u'skill_{}'.format(key))
-            for key in self.SPECIAL_CASES_VARIABLES.get(self.skill_type, {}).get(self.skill_special, self.VARIABLES_PER_SKILL_TYPES['skill'].get(self.skill_type, []))
+            for key in self.SPECIAL_CASES_VARIABLES.get(self.skill_type, {}).get(self.i_skill_special, self.VARIABLES_PER_SKILL_TYPES['skill'].get(self.skill_type, []))
         }
 
     @property

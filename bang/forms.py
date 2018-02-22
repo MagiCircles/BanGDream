@@ -7,8 +7,9 @@ from django.db.models import Q
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from magi.item_model import i_choices
-from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator
-from magi.forms import MagiForm, AutoForm, MagiFiltersForm, MagiFilter, MultiImageField, AccountForm as _AccountForm
+from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession
+from magi.forms import MagiForm, AutoForm, HiddenModelChoiceField, MagiFiltersForm, MagiFilter, MultiImageField, AccountForm as _AccountForm
+from magi.middleware.httpredirect import HttpRedirectException
 from bang import settings
 from bang.django_translated import t
 from bang import models
@@ -458,3 +459,36 @@ class SongFilterForm(MagiFiltersForm):
     class Meta:
         model = models.Song
         fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'c_versions', 'ordering', 'reverse_order')
+
+############################################################
+# Single page form
+
+class TeamBuilderForm(MagiFiltersForm):
+    account = forms.ModelChoiceField(queryset=models.Account.objects.all(), empty_label=None)
+
+    i_band = forms.ChoiceField(choices=i_choices(models.Member.BAND_CHOICES), label=_('Band'))
+    i_band_filter = MagiFilter(noop=True)
+
+    i_attribute = forms.ChoiceField(choices=models.Card.ATTRIBUTE_CHOICES, label=_('Attribute'))
+    i_attribute_filter = MagiFilter(noop=True)
+
+    i_skill_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.Card.SKILL_TYPE_CHOICES, label=_('Skill'), required=False)
+    i_skill_type_filter = MagiFilter(noop=True)
+
+    def __init__(self, *args, **kwargs):
+        super(TeamBuilderForm, self).__init__(*args, **kwargs)
+        # If the user doesn't have an account, redirect to create account
+        if len(getAccountIdsFromSession(self.request)) == 0:
+            raise HttpRedirectException('/accounts/add/?next=/teambuilder/')
+        # If the user has one account, hide the account selector
+        elif len(getAccountIdsFromSession(self.request)) == 1:
+            self.fields['account'] = HiddenModelChoiceField(queryset=self.fields['account'].queryset)
+            self.fields['account'].initial = getAccountIdsFromSession(self.request)[0]
+        # Otherwise, keep the selector but limit to the accounts owned by the authenticated user
+        else:
+            self.fields['account'].queryset = models.Account.objects.filter(owner=self.request.user)
+
+    class Meta:
+        model = models.CollectibleCard
+        fields = ('account', 'i_band', 'i_attribute', 'i_skill_type')
+        all_optional = False

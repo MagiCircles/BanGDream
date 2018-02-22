@@ -97,6 +97,13 @@ ENABLED_PAGES['twitter'] = {
     'navbar_link_list': 'community',
 }
 
+ENABLED_PAGES['teambuilder'] = {
+    'title': _('Team builder'),
+    'icon': 'settings',
+    'navbar_link': False,
+    #'navbar_link_list': 'girlsbandparty',
+}
+
 ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),
@@ -106,7 +113,7 @@ ENABLED_NAVBAR_LISTS['bangdream'] = {
 ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
     'title': _('Girls Band Party'),
     'image': 'GirlsBandParty',
-    'order': ['card_list', 'event_list', 'gacha_list', 'wiki'],
+    'order': ['card_list', 'event_list', 'gacha_list', 'wiki', 'teambuilder'],
 }
 ENABLED_NAVBAR_LISTS['community'] = {
     'title': _('Community'),

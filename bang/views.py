@@ -30,8 +30,8 @@ def teambuilder(request):
         form = TeamBuilderForm(request.GET, request=request)
         if form.is_valid():
             extra_select = {
-                'is_correct_band': u'i_band == {}'.format(form.cleaned_data['i_band']),
-                'is_correct_attribute': u'i_attribute == {}'.format(form.cleaned_data['i_attribute']),
+                'is_correct_band': u'i_band = {}'.format(form.cleaned_data['i_band']),
+                'is_correct_attribute': u'i_attribute = {}'.format(form.cleaned_data['i_attribute']),
                 'overall_stats': u'CASE trained WHEN 1 THEN performance_trained_max + technique_trained_max + visual_trained_max ELSE performance_max + technique_max + visual_max END',
             }
             order_by = [
@@ -39,7 +39,7 @@ def teambuilder(request):
                 '-is_correct_attribute',
             ]
             if form.cleaned_data['i_skill_type']:
-                extra_select['is_correct_skill'] = u'i_skill_type == {}'.format(form.cleaned_data['i_skill_type'])
+                extra_select['is_correct_skill'] = u'i_skill_type = {}'.format(form.cleaned_data['i_skill_type'])
                 order_by.append('is_correct_skill')
             order_by += ['-overall_stats']
             queryset = form.Meta.model.objects.extra(select=extra_select).order_by(*order_by).select_related('card', 'card__member')

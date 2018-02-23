@@ -164,8 +164,8 @@ class CardSerializer(MagiSerializer):
         )
 
 class CardSerializerForEditing(CardSerializer):
-    i_skill_special = IField(models.Card, 'skill_special')
-    i_skill_note_type = IField(models.Card, 'skill_note_type')
+    i_skill_special = IField(models.Card, 'skill_special', required=False)
+    i_skill_note_type = IField(models.Card, 'skill_note_type', required=False)
 
     class Meta(CardSerializer.Meta):
         fields = CardSerializer.Meta.fields + (

@@ -230,13 +230,13 @@ class CardFilterForm(MagiFiltersForm):
 def to_CollectibleCardForm(cls):
     class _CollectibleCardForm(cls.form_class):
         def __init__(self, *args, **kwargs):
-            super(_CollectibleCardCollection.form_class, self).__init__(*args, **kwargs)
+            super(_CollectibleCardForm, self).__init__(*args, **kwargs)
             rarity = int(self.collectible_variables['i_rarity'])
             if rarity and rarity not in models.Card.TRAINABLE_RARITIES and 'trained' in self.fields:
                 del(self.fields['trained'])
 
         def save(self, commit=True):
-            instance = super(_CollectibleCardCollection.form_class, self).save(commit=False)
+            instance = super(_CollectibleCardForm, self).save(commit=False)
             if instance.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
                 instance.trained = False
             if commit:

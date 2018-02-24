@@ -571,6 +571,9 @@ class CardCollection(MagiCollection):
                         if item.i_side_skill_type else item.t_skill_type))
             setSubField(fields, 'skill_type', key='value', value=item.full_skill)
             setSubField(fields, 'skill_type', key='icon', value=lambda k: item.skill_icon)
+            # hide is promo
+            if not item.is_promo and 'is_promo' in fields:
+                del(fields['is_promo'])
             return fields
 
     class ListView(MagiCollection.ListView):

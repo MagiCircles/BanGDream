@@ -234,6 +234,8 @@ def to_CollectibleCardForm(cls):
             rarity = int(self.collectible_variables['i_rarity'])
             if rarity and rarity not in models.Card.TRAINABLE_RARITIES and 'trained' in self.fields:
                 del(self.fields['trained'])
+                if 'prefer_untrained' in self.fields:
+                    del(self.fields['prefer_untrained'])
 
         def save(self, commit=True):
             instance = super(_CollectibleCardForm, self).save(commit=False)

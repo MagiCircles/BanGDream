@@ -695,6 +695,7 @@ class CollectibleCard(AccountAsOwnerModel):
     account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='cardscollectors')
     card = models.ForeignKey(Card, verbose_name=_('Card'), related_name='collectedcards')
     trained = models.BooleanField(_('Trained'), default=False)
+    prefer_untrained = models.BooleanField(_('Prefer untrained card image'), default=False)
     max_leveled = models.NullBooleanField(_('Max Leveled'))
     first_episode = models.NullBooleanField(_('{nth} episode').format(nth=_('1st')))
     memorial_episode = models.NullBooleanField(_('Memorial episode'))
@@ -705,27 +706,27 @@ class CollectibleCard(AccountAsOwnerModel):
 
     @property
     def image(self):
-        return self.card.image_trained if self.trained else self.card.image
+        return self.card.image_trained if self.trained and not self.prefer_untrained else self.card.image
 
     @property
     def image_url(self):
-        return self.card.image_trained_url if self.trained else self.card.image_url
+        return self.card.image_trained_url if self.trained and not self.prefer_untrained else self.card.image_url
 
     @property
     def http_image_url(self):
-        return self.card.http_image_trained_url if self.trained else self.card.http_image_url
+        return self.card.http_image_trained_url if self.trained and not self.prefer_untrained else self.card.http_image_url
 
     @property
     def art(self):
-        return self.card.art_trained if self.trained else self.card.art
+        return self.card.art_trained if self.trained and not self.prefer_untrained else self.card.art
 
     @property
     def art_url(self):
-        return self.card.art_trained_url if self.trained else self.card.art_url
+        return self.card.art_trained_url if self.trained and not self.prefer_untrained else self.card.art_url
 
     @property
     def http_art_url(self):
-        return self.card.http_art_trained_url if self.trained else self.card.http_art_url
+        return self.card.http_art_trained_url if self.trained and not self.prefer_untrained else self.card.http_art_url
 
     @property
     def color(self):

@@ -318,25 +318,30 @@ def to_CollectibleCardCollection(cls):
             },
         })
 
-        def to_fields(self, view, item, *args, **kwargs):
+        def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
+            if exclude_fields is None: exclude_fields = []
+            exclude_fields.append('prefer_untrained')
+            if item.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
+                exclude_fields.append('trained')
             fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons={
                 'trained': 'idolized',
                 'max_leveled': 'max-level',
                 'first_episode': 'play',
                 'memorial_episode': 'play',
                 'skill_level': 'skill',
-            }, **kwargs)
+            }, exclude_fields=exclude_fields, **kwargs)
             setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
             return fields
 
         class ListView(cls.ListView):
             col_break = 'xs'
-            default_ordering = '-card__i_rarity,-id'
+            default_ordering = '-card__i_rarity,-trained,-id'
             filter_form = forms.to_CollectibleCardFilterForm(cls)
 
         class AddView(cls.AddView):
             staff_required = True
             unique_per_owner = True
+            ajax_callback = 'loadCollecticleCardForm'
 
             def quick_add_to_collection(self, request):
                 return request.GET.get('view') == 'icons'
@@ -344,6 +349,9 @@ def to_CollectibleCardCollection(cls):
             add_to_collection_variables = cls.AddView.add_to_collection_variables + [
                 'i_rarity',
             ]
+
+        class EditView(cls.EditView):
+            ajax_callback = 'loadCollecticleCardForm'
 
     return _CollectibleCardCollection
 

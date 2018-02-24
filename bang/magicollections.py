@@ -615,6 +615,9 @@ class CardCollection(MagiCollection):
                 context['col_size'] = int(math.ceil(12 / context['per_line']))
                 for item in context['items']:
                     item.show_item_buttons_as_icons = True
+            if context['view'] == 'statistics':
+                context['full_width'] = True
+                context['include_below_item'] = False
             return context
 
         def ordering_fields(self, item, only_fields=None, *args, **kwargs):

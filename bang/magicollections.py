@@ -6,10 +6,13 @@ from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import dateformat
 from django.utils.safestring import mark_safe
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
+from django.db.models.fields import BLANK_CHOICE_DASH
 from magi.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection
 from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn
 from magi.default_settings import RAW_CONTEXT
+from magi.item_model import i_choices
+from magi.forms import MagiFilter
 from magi.models import Activity
 from bang import settings
 from bang.django_translated import t
@@ -265,6 +268,86 @@ class MemberCollection(MagiCollection):
         multipart = True
 
 ############################################################
+# Favorite Card Collection
+
+def to_FavoriteCardCollection(cls):
+    class _FavoriteCardCollection(cls):
+        @property
+        def title(self):
+            return _('Favorite {thing}').format(thing=_('Card').lower())
+
+        @property
+        def plural_title(self):
+            return _('Favorite {things}').format(things=_('Cards').lower())
+
+        class ListView(cls.ListView):
+            item_template = 'cardItem'
+            per_line = 2
+            default_ordering = '-id'
+            ajax_pagination_callback = 'loadCardInList'
+
+            def extra_context(self, context):
+                context['items'] = [item.card for item in context['items']]
+
+        class AddView(cls.AddView):
+            unique_per_owner = True
+            quick_add_to_collection = justReturn(True)
+            staff_required = True
+
+    return _FavoriteCardCollection
+
+############################################################
+# Collectible Card Collection
+
+def to_CollectibleCardCollection(cls):
+    class _CollectibleCardCollection(cls):
+        title = _('Card')
+        plural_title = _('Cards')
+        form_class = forms.to_CollectibleCardForm(cls)
+
+        filter_cuteform = CardCollection.filter_cuteform.copy()
+        _f = filter_cuteform.update({
+            'max_leveled': {
+                'type': CuteFormType.YesNo,
+            },
+            'first_episode': {
+                'type': CuteFormType.YesNo,
+            },
+            'memorial_episode': {
+                'type': CuteFormType.YesNo,
+            },
+        })
+
+        def to_fields(self, view, item, *args, **kwargs):
+            fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons={
+                'trained': 'idolized',
+                'max_leveled': 'max-level',
+                'first_episode': 'play',
+                'memorial_episode': 'play',
+                'skill_level': 'skill',
+            }, **kwargs)
+            setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
+            return fields
+
+        class ListView(cls.ListView):
+            col_break = 'xs'
+            default_ordering = '-card__i_rarity,-id'
+            filter_form = forms.to_CollectibleCardFilterForm(cls)
+
+        class AddView(cls.AddView):
+            staff_required = True
+            unique_per_owner = True
+
+            def quick_add_to_collection(self, request):
+                return request.GET.get('view') == 'icons'
+
+            add_to_collection_variables = cls.AddView.add_to_collection_variables + [
+                'i_rarity',
+            ]
+
+    return _CollectibleCardCollection
+
+############################################################
 # Card Collection
 
 class CardCollection(MagiCollection):
@@ -319,89 +402,8 @@ class CardCollection(MagiCollection):
     def collectible_to_class(self, model_class):
         cls = super(CardCollection, self).collectible_to_class(model_class)
         if model_class.collection_name == 'favoritecard':
-            class _FavoriteCardCollection(cls):
-                @property
-                def title(self):
-                    return _('Favorite {thing}').format(thing=_('Card').lower())
-
-                @property
-                def plural_title(self):
-                    return _('Favorite {things}').format(things=_('Cards').lower())
-
-                class ListView(cls.ListView):
-                    item_template = 'cardItem'
-                    per_line = 2
-                    default_ordering = '-id'
-                    ajax_pagination_callback = 'loadCardInList'
-
-                    def extra_context(self, context):
-                        context['items'] = [item.card for item in context['items']]
-
-                class AddView(cls.AddView):
-                    unique_per_owner = True
-                    quick_add_to_collection = justReturn(True)
-                    staff_required = True
-
-            return _FavoriteCardCollection
-
-        # CollectedCards
-        class _CollectibleCardCollection(cls):
-            title = _('Card')
-            plural_title = _('Cards')
-
-            filter_cuteform = {
-                'max_leveled': {
-                    'type': CuteFormType.YesNo,
-                },
-                'first_episode': {
-                    'type': CuteFormType.YesNo,
-                },
-                'memorial_episode': {
-                    'type': CuteFormType.YesNo,
-                },
-            }
-
-            class form_class(cls.form_class):
-                def __init__(self, *args, **kwargs):
-                    super(_CollectibleCardCollection.form_class, self).__init__(*args, **kwargs)
-                    rarity = int(self.collectible_variables['i_rarity'])
-                    if rarity and rarity not in models.Card.TRAINABLE_RARITIES and 'trained' in self.fields:
-                        del(self.fields['trained'])
-
-                def save(self, commit=True):
-                    instance = super(_CollectibleCardCollection.form_class, self).save(commit=False)
-                    if instance.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
-                        instance.trained = False
-                    if commit:
-                        instance.save()
-                    return instance
-
-            def to_fields(self, view, item, *args, **kwargs):
-                fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons={
-                    'trained': 'idolized',
-                    'max_leveled': 'max-level',
-                    'first_episode': 'play',
-                    'memorial_episode': 'play',
-                    'skill_level': 'skill',
-                }, **kwargs)
-                setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
-                return fields
-
-            class ListView(cls.ListView):
-                col_break = 'xs'
-
-            class AddView(cls.AddView):
-                staff_required = True
-                unique_per_owner = True
-
-                def quick_add_to_collection(self, request):
-                    return request.GET.get('view') == 'icons'
-
-                add_to_collection_variables = cls.AddView.add_to_collection_variables + [
-                    'i_rarity',
-                ]
-
-        return _CollectibleCardCollection
+            return to_FavoriteCardCollection(cls)
+        return to_CollectibleCardCollection(cls)
 
     def share_image(self, context, item):
         return 'screenshots/cards.png'
@@ -1157,6 +1159,7 @@ class SongCollection(MagiCollection):
                         setSubField(fields, 'image', key='verbose_name', value=_('Song'))
                         setSubField(fields, 'image', key='type', value='image_link')
                         setSubField(fields, 'image', key='link', value=item.song.item_url)
+                        setSubField(fields, 'image', key='link_text', value=unicode(item.song))
                         setSubField(fields, 'image', key='ajax_link', value=item.song.ajax_item_url)
                         setSubField(fields, 'difficulty', key='type', value='image')
                         setSubField(fields, 'difficulty', key='value', value=lambda k: item.difficulty_image_url)

@@ -225,6 +225,56 @@ class CardFilterForm(MagiFiltersForm):
         fields = ('view', 'search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'is_promo', 'i_skill_type', 'member_band', 'c_versions', 'ordering', 'reverse_order')
 
 ############################################################
+# CollectibleCard
+
+def to_CollectibleCardForm(cls):
+    class _CollectibleCardForm(cls.form_class):
+        def __init__(self, *args, **kwargs):
+            super(_CollectibleCardCollection.form_class, self).__init__(*args, **kwargs)
+            rarity = int(self.collectible_variables['i_rarity'])
+            if rarity and rarity not in models.Card.TRAINABLE_RARITIES and 'trained' in self.fields:
+                del(self.fields['trained'])
+
+        def save(self, commit=True):
+            instance = super(_CollectibleCardCollection.form_class, self).save(commit=False)
+            if instance.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
+                instance.trained = False
+            if commit:
+                instance.save()
+            return instance
+    return _CollectibleCardForm
+
+def to_CollectibleCardFilterForm(cls):
+    class _CollectibleCardFilterForm(cls.ListView.filter_form):
+        search_fields = [u'card__{}'.format(_o) for _o in CardFilterForm.search_fields]
+        ordering_fields = [(u'card__{}'.format(_o), _t) for _o, _t in CardFilterForm.ordering_fields]
+        def skill_filter_to_queryset(self, queryset, request, value):
+            if not value: return queryset
+            if value == '1': return queryset.filter(card__i_skill_type=value) # Score up
+            return queryset.filter(Q(card__i_skill_type=value) | Q(card__i_side_skill_type=value))
+
+        member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+        member_id_filter = MagiFilter(selector='card__member_id')
+
+        member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
+        member_band_filter = MagiFilter(selector='card__member__i_band')
+
+        i_rarity = forms.ChoiceField(choices=BLANK_CHOICE_DASH + list(models.Card.RARITY_CHOICES), label=_('Rarity'))
+        i_rarity_filter = MagiFilter(selector='card__i_rarity')
+
+        i_attribute = forms.ChoiceField(choices=BLANK_CHOICE_DASH + list(models.Card.ATTRIBUTE_CHOICES), label=_('Attribute'))
+        i_attribute_filter = MagiFilter(selector='card__i_attribute')
+
+        i_skill_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH
+                                               + models.Card.SKILL_TYPE_CHOICES, label=_('Skill'))
+        i_skill_type_filter = MagiFilter(to_queryset=skill_filter_to_queryset)
+
+        class Meta(cls.ListView.filter_form.Meta):
+            pass
+            fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'i_skill_type', 'member_band', 'ordering', 'reverse_order', 'view')
+    return _CollectibleCardFilterForm
+
+############################################################
 # Event
 
 class EventForm(AutoForm):

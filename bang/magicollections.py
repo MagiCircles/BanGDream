@@ -45,6 +45,7 @@ class AccountCollection(_AccountCollection):
     filter_cuteform = {
         'member_id': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+            'title': _('Member'),
             'extra_settings': {
 	        'modal': 'true',
 	        'modal-text': 'true',
@@ -60,6 +61,7 @@ class AccountCollection(_AccountCollection):
         },
         'center': {
             'to_cuteform': lambda k, v: v.image_url,
+            'title': _('Center'),
             'extra_settings': {
 	        'modal': 'true',
 	        'modal-text': 'true',
@@ -243,6 +245,7 @@ class MemberCollection(MagiCollection):
         'i_band': {
             'image_folder': 'band',
             'to_cuteform': 'value',
+            'title': _('Band'),
             'extra_settings': {
                 'modal': 'true',
                 'modal-text': 'true',
@@ -372,6 +375,7 @@ class CardCollection(MagiCollection):
     filter_cuteform = {
         'member_id': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+            'title': _('Member'),
             'extra_settings': {
 	        'modal': 'true',
 	        'modal-text': 'true',
@@ -395,6 +399,7 @@ class CardCollection(MagiCollection):
         'member_band': {
             'image_folder': 'band',
             'to_cuteform': 'value',
+            'title': _('Band'),
             'extra_settings': {
                 'modal': 'true',
                 'modal-text': 'true',
@@ -728,6 +733,7 @@ class EventCollection(MagiCollection):
     filter_cuteform = {
         'main_card': {
             'to_cuteform': lambda k, v: v.image_url,
+            'title': _('Card'),
             'extra_settings': {
 	        'modal': 'true',
 	        'modal-text': 'true',
@@ -735,6 +741,7 @@ class EventCollection(MagiCollection):
         },
         'secondary_card': {
             'to_cuteform': lambda k, v: v.image_url,
+            'title': _('Card'),
             'extra_settings': {
 	        'modal': 'true',
 	        'modal-text': 'true',
@@ -959,6 +966,7 @@ class GachaCollection(MagiCollection):
         'i_attribute': {},
         'event': {
             'to_cuteform': lambda k, v: v.image_url,
+            'title': _('Event'),
             'extra_settings': {
 	        'modal': 'true',
 	        'modal-text': 'true',
@@ -1093,6 +1101,7 @@ _song_cuteform = {
     'i_band': {
         'image_folder': 'band',
         'to_cuteform': 'value',
+        'title': _('Band'),
         'extra_settings': {
             'modal': 'true',
             'modal-text': 'true',
@@ -1100,6 +1109,7 @@ _song_cuteform = {
     },
     'event': {
         'to_cuteform': lambda k, v: v.image_url,
+        'title': _('Event'),
         'extra_settings': {
 	    'modal': 'true',
 	    'modal-text': 'true',

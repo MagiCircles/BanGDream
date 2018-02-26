@@ -793,7 +793,7 @@ class Event(MagiModel):
     korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
     korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
 
-    rare_stamp = models.ImageField(_('Rare Stamp'), upload_to=uploadItem('e/stamps'))
+    rare_stamp = models.ImageField(_('Rare Stamp'), upload_to=uploadItem('e/stamps'), null=True)
 
     stamp_translation = models.CharField(_('Stamp Translation'), max_length=200, null=True)
 

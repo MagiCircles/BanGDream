@@ -29,8 +29,6 @@ class AccountForm(_AccountForm):
 
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
-        if self.is_creating:
-            del(self.fields['start_date'])
         if 'center' in self.fields:
             self.fields['center'].queryset = self.fields['center'].queryset.select_related('card')
         if 'stargems_bought' in self.fields:
@@ -44,14 +42,13 @@ class AccountForm(_AccountForm):
             instance.save()
         return instance
 
-    class Meta(_AccountForm.Meta):
-        optional_fields = _AccountForm.Meta.optional_fields + ('i_play_with', 'i_os', 'device', 'stargems_bought')
-
 class AddAccountForm(AccountForm):
     def __init__(self, *args, **kwargs):
         super(AddAccountForm, self).__init__(*args, **kwargs)
         if not self.data.get('screenshot') and 'screenshot' in self.fields and int(self.data.get('level', 0) or 0) < 200:
             self.fields['screenshot'].widget = forms.HiddenInput()
+        if 'start_date' in self.fields:
+            del(self.fields['start_date'])
 
     class Meta(AccountForm.Meta):
         fields = ('nickname', 'i_version', 'level', 'friend_id', 'screenshot')
@@ -76,7 +73,7 @@ class FilterAccounts(MagiFiltersForm):
     i_color = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(c[0], c[1]) for c in settings.USER_COLORS], required=False, label=_('Color'))
     i_color_filter = MagiFilter(selector='owner__preferences__color')
 
-    class Meta:
+    class Meta(MagiFiltersForm.Meta):
         model = models.Account
         fields = ('search', 'friend_id', 'i_version', 'i_color', 'member_id', 'has_friend_id')
 
@@ -90,11 +87,10 @@ class MemberForm(AutoForm):
         self.fields['square_image'].label = 'Small icon (for the map)'
         self.fields['square_image'].help_text = mark_safe('Example: <img src="https://i.bandori.party/u/i/m/1Toyama-Kasumi-D7Fpvu.png" height="40">')
 
-    class Meta:
+    class Meta(AutoForm.Meta):
         model = models.Member
         fields = '__all__'
         save_owner_on_creation = True
-        optional_fields = ('band', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description')
 
 class MemberFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name', 'school', 'CV', 'romaji_CV', 'food_likes', 'food_dislikes', 'hobbies', 'description']
@@ -108,7 +104,7 @@ class MemberFilterForm(MagiFiltersForm):
 
     school = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(s, s) for s in getattr(django_settings, 'SCHOOLS', [])], initial=None)
 
-    class Meta:
+    class Meta(MagiFiltersForm.Meta):
         model = models.Member
         fields = ('search', 'i_band', 'school', 'i_school_year', 'i_astrological_sign')
 
@@ -161,11 +157,10 @@ class CardForm(AutoForm):
         instance.force_cache_chibis()
         return instance
 
-    class Meta:
+    class Meta(AutoForm.Meta):
         model = models.Card
         fields = '__all__'
         save_owner_on_creation = True
-        optional_fields = ('name', 'japanese_name', 'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained', 'skill_name', 'japanese_skill_name', 'i_skill_type', 'skill_details', 'i_side_skill_type', 'side_skill_details', 'school', 'i_school_year', 'CV', 'romaji_CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description', 'performance_trained', 'technique_trained', 'visual_trained', 'chibis', 'i_skill_note_type', 'skill_stamina', 'skill_duration', 'skill_percentage', 'skill_alt_percentage', 'i_skill_special')
 
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
@@ -220,7 +215,7 @@ class CardFilterForm(MagiFiltersForm):
 
     view_filter = MagiFilter(to_queryset=_view_to_queryset)
 
-    class Meta:
+    class Meta(MagiFiltersForm.Meta):
         model = models.Card
         fields = ('view', 'search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'is_promo', 'i_skill_type', 'member_band', 'c_versions', 'ordering', 'reverse_order')
 
@@ -349,10 +344,9 @@ class EventForm(AutoForm):
             instance.save()
         return instance
 
-    class Meta:
+    class Meta(AutoForm.Meta):
         model = models.Event
         fields = '__all__'
-        optional_fields = ('start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'main_card', 'secondary_card', 'i_boost_attribute', 'boost_members', 'english_image', 'taiwanese_image', 'korean_image', 'english_start_date', 'english_end_date', 'taiwanese_start_date', 'taiwanese_end_date', 'korean_start_date', 'korean_end_date')
         save_owner_on_creation = True
 
 class EventFilterForm(MagiFiltersForm):
@@ -366,7 +360,7 @@ class EventFilterForm(MagiFiltersForm):
         ('japanese_name', string_concat(_('Title'), ' (', t['Japanese'], ')')),
     ]
 
-    class Meta:
+    class Meta(MagiFiltersForm.Meta):
         model = models.Event
         fields = ('search', 'i_type', 'c_versions', 'ordering', 'reverse_order')
 
@@ -416,10 +410,9 @@ class GachaForm(AutoForm):
             instance.save()
         return instance
 
-    class Meta:
+    class Meta(AutoForm.Meta):
         model = models.Gacha
         fields = '__all__'
-        optional_fields = ('cards', 'event', 'i_attribute', 'english_image', 'taiwanese_image', 'korean_image', 'english_start_date', 'english_end_date', 'taiwanese_start_date', 'taiwanese_end_date', 'korean_start_date', 'korean_end_date')
         save_owner_on_creation = True
 
 class GachaFilterForm(MagiFiltersForm):
@@ -436,7 +429,7 @@ class GachaFilterForm(MagiFiltersForm):
     is_limited = forms.NullBooleanField(initial=None, required=False, label=_('Limited'))
     is_limited_filter = MagiFilter(selector='limited')
 
-    class Meta:
+    class Meta(MagiFiltersForm.Meta):
         model = models.Gacha
         fields = ('search', 'is_limited', 'c_versions', 'ordering', 'reverse_order')
 
@@ -454,10 +447,9 @@ class _SongForm(AutoForm):
         if 'length' in self.fields:
             self.fields['length'].help_text = 'in seconds'
 
-    class Meta:
+    class Meta(AutoForm.Meta):
         model = models.Song
         fields = '__all__'
-        optional_fields = ('length', 'bpm', 'easy_notes', 'easy_difficulty', 'normal_notes', 'normal_difficulty', 'hard_notes', 'hard_difficulty', 'expert_notes', 'expert_difficulty', 'name', 'romaji_name', 'itunes_id', 'composer', 'lyricist', 'arranger', 'release_date')
         save_owner_on_creation = True
 
 def unlock_to_form(unlock):
@@ -508,7 +500,7 @@ class SongFilterForm(MagiFiltersForm):
     is_cover = forms.NullBooleanField(initial=None, required=False, label=_('Cover'))
     is_cover_filter = MagiFilter(selector='is_cover')
 
-    class Meta:
+    class Meta(MagiFiltersForm.Meta):
         model = models.Song
         fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'c_versions', 'ordering', 'reverse_order')
 
@@ -540,7 +532,7 @@ class TeamBuilderForm(MagiFiltersForm):
         else:
             self.fields['account'].queryset = models.Account.objects.filter(owner=self.request.user)
 
-    class Meta:
+    class Meta(MagiFiltersForm.Meta):
         model = models.CollectibleCard
         fields = ('account', 'i_band', 'i_attribute', 'i_skill_type')
         all_optional = False

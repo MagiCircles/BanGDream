@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
-from magi.tools import totalDonators
+from magi.tools import totalDonators, getStaffConfigurations
 from bang import models
 
 def generate_settings():
@@ -11,11 +11,13 @@ def generate_settings():
         print 'Get total donators'
         total_donators = totalDonators()
 
+        print 'Get staff configurations'
+        staff_configurations, latest_news = getStaffConfigurations()
+
         print 'Get the latest news'
-        latest_news = []
         current_events = models.Event.objects.filter(end_date__gte=timezone.now())
         current_gacha = models.Gacha.objects.filter(end_date__gte=timezone.now())
-        latest_news = [{
+        latest_news += [{
                 'title': event.name,
                 'image': event.image_url,
                 'url': event.item_url,
@@ -89,6 +91,7 @@ import datetime\n\
 LATEST_NEWS = ' + unicode(latest_news) + u'\n\
 TOTAL_DONATORS = ' + unicode(total_donators) + u'\n\
 ' +  unicode(homepage_characters) + u'\n\
+STAFF_CONFIGURATIONS = ' + unicode(staff_configurations) + u'\n\
 FAVORITE_CHARACTERS = ' + unicode(favorite_characters) + u'\n\
 MAX_STATS = ' + unicode(stats) + u'\n\
 SCHOOLS = ' + unicode(schools) + '\n\

@@ -125,7 +125,9 @@ ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playe
 
 NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community'] + DEFAULT_NAVBAR_ORDERING
 
+TOTAL_DONATORS = django_settings.TOTAL_DONATORS
 LATEST_NEWS = django_settings.LATEST_NEWS
+STAFF_CONFIGURATIONS = django_settings.STAFF_CONFIGURATIONS
 
 JAVASCRIPT_TRANSLATED_TERMS = DEFAULT_JAVASCRIPT_TRANSLATED_TERMS + [
     u'Coming soon',

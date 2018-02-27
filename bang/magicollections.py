@@ -758,6 +758,7 @@ def to_EventParticipationCollection(cls):
 
         class ListView(cls.ListView):
             per_line = 3
+            default_ordering = 'event__start_date'
 
     return _EventParticipationCollection
 
@@ -1127,7 +1128,7 @@ def to_PlayedSongCollection(cls):
             return fields
 
         class ListView(cls.ListView):
-            default_ordering = 'song__release_date,-i_difficulty'
+            default_ordering = 'song__expert_difficulty,song_id,-i_difficulty'
             item_template = 'default_item_table_view'
             display_style = 'table'
             display_style_table_fields = ['image', 'difficulty', 'score', 'full_combo', 'screenshot']

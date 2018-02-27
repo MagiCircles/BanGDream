@@ -365,6 +365,28 @@ class EventFilterForm(MagiFiltersForm):
         fields = ('search', 'i_type', 'c_versions', 'ordering', 'reverse_order')
 
 ############################################################
+# Event participations form
+
+def to_EventParticipationForm(cls):
+    class _EventParticipationForm(cls.form_class):
+        def __init__(self, *args, **kwargs):
+            super(_EventParticipationForm, self).__init__(*args, **kwargs)
+            i_type = int(self.collectible_variables['i_type'])
+            if models.Event.get_reverse_i('type', i_type) not in models.Event.SONG_RANKING_TYPES:
+                for field in ['song_score', 'song_ranking']:
+                    if field in self.fields:
+                        del(self.fields[field])
+            if models.Event.get_reverse_i('type', i_type) not in models.Event.TRIAL_MASTER_TYPES:
+                for field in ['is_trial_master_completed', 'is_trial_master_ex_completed']:
+                    if field in self.fields:
+                        del(self.fields[field])
+
+        class Meta(cls.form_class.Meta):
+            optional_fields = ('score', 'ranking', 'song_score', 'song_ranking')
+
+    return _EventParticipationForm
+
+############################################################
 # Gacha
 
 class GachaForm(AutoForm):
@@ -432,6 +454,15 @@ class GachaFilterForm(MagiFiltersForm):
     class Meta(MagiFiltersForm.Meta):
         model = models.Gacha
         fields = ('search', 'is_limited', 'c_versions', 'ordering', 'reverse_order')
+
+############################################################
+# Played song
+
+def to_PlayedSongForm(cls):
+    class _PlayedSongForm(cls.form_class):
+        class Meta(cls.form_class.Meta):
+            optional_fields = ('score', 'screenshot')
+    return _PlayedSongForm
 
 ############################################################
 # Song

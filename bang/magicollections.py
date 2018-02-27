@@ -12,7 +12,6 @@ from magi.magicollections import MagiCollection, AccountCollection as _AccountCo
 from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
-from magi.forms import MagiFilter
 from magi.models import Activity
 from bang import settings
 from bang.django_translated import t
@@ -726,6 +725,45 @@ class CardCollection(MagiCollection):
         def extra_context(self, context):
             self.collection._extra_context_for_form(context)
 
+############################################################
+# Event Participation Collection
+
+def to_EventParticipationCollection(cls):
+    class _EventParticipationCollection(cls):
+        title = _('Participated event')
+        plural_title = _('Participated events')
+        form_class = forms.to_EventParticipationForm(cls)
+
+        filter_cuteform = {
+            'is_trial_master_completed': { 'type': CuteFormType.YesNo, },
+            'is_trial_master_ex_completed': { 'type': CuteFormType.YesNo, },
+        }
+
+        def to_fields(self, view, item, *args, **kwargs):
+            return super(_EventParticipationCollection, self).to_fields(view, item, *args, icons={
+                'score': 'scoreup',
+                'ranking': 'trophy',
+                'song_score': 'song',
+                'song_ranking': 'trophy',
+                'is_trial_master_completed': 'achievement',
+                'is_trial_master_ex_completed': 'achievement',
+            }, **kwargs)
+
+        class AddView(cls.AddView):
+            staff_required = True
+            unique_per_owner = True
+            add_to_collection_variables = cls.AddView.add_to_collection_variables + [
+                'i_type',
+            ]
+
+        class ListView(cls.ListView):
+            per_line = 3
+
+    return _EventParticipationCollection
+
+############################################################
+# Event Collection
+
 class EventCollection(MagiCollection):
     queryset = models.Event.objects.all()
     title = _('Event')
@@ -763,55 +801,8 @@ class EventCollection(MagiCollection):
     def collectible_to_class(self, model_class):
         cls = super(EventCollection, self).collectible_to_class(model_class)
         if model_class.collection_name == 'eventparticipation':
-
-            class _EventParticipationCollection(cls):
-                title = _('Participated event')
-                plural_title = _('Participated events')
-
-                filter_cuteform = {
-                    'is_trial_master_completed': { 'type': CuteFormType.YesNo, },
-                    'is_trial_master_ex_completed': { 'type': CuteFormType.YesNo, },
-                }
-
-                class form_class(cls.form_class):
-                    def __init__(self, *args, **kwargs):
-                        super(_EventParticipationCollection.form_class, self).__init__(*args, **kwargs)
-                        i_type = int(self.collectible_variables['i_type'])
-                        if models.Event.get_reverse_i('type', i_type) not in models.Event.SONG_RANKING_TYPES:
-                            for field in ['song_score', 'song_ranking']:
-                                if field in self.fields:
-                                    del(self.fields[field])
-                        if models.Event.get_reverse_i('type', i_type) not in models.Event.TRIAL_MASTER_TYPES:
-                            for field in ['is_trial_master_completed', 'is_trial_master_ex_completed']:
-                                if field in self.fields:
-                                    del(self.fields[field])
-
-                    class Meta(cls.form_class.Meta):
-                        optional_fields = ('score', 'ranking', 'song_score', 'song_ranking')
-
-                def to_fields(self, view, item, *args, **kwargs):
-                    return super(_EventParticipationCollection, self).to_fields(view, item, *args, icons={
-                        'score': 'scoreup',
-                        'ranking': 'trophy',
-                        'song_score': 'song',
-                        'song_ranking': 'trophy',
-                        'is_trial_master_completed': 'achievement',
-                        'is_trial_master_ex_completed': 'achievement',
-                    }, **kwargs)
-
-                class AddView(cls.AddView):
-                    staff_required = True
-                    unique_per_owner = True
-                    add_to_collection_variables = cls.AddView.add_to_collection_variables + [
-                        'i_type',
-                    ]
-
-                class ListView(cls.ListView):
-                    per_line = 3
-
-            return _EventParticipationCollection
+            return to_EventParticipationCollection(cls)
         return cls
-
 
     def to_fields(self, view, item, *args, **kwargs):
         fields = super(EventCollection, self).to_fields(view, item, *args, icons={
@@ -958,6 +949,9 @@ class EventCollection(MagiCollection):
         staff_required = True
         savem2m = True
 
+############################################################
+# Gacha Collection
+
 class GachaCollection(MagiCollection):
     queryset = models.Gacha.objects.all()
     icon = 'max-bond'
@@ -1101,6 +1095,73 @@ class GachaCollection(MagiCollection):
             return self.collection._after_save(request, instance)
 
 ############################################################
+# Played songs Collection
+
+def to_PlayedSongCollection(cls):
+    class _PlayedSongCollection(cls):
+        title = _('Played song')
+        plural_title = _('Played songs')
+        multipart = True
+        form_class = forms.to_PlayedSongForm(cls)
+
+        filter_cuteform = dict(_song_cuteform.items() + [
+            ('full_combo', {
+                'type': CuteFormType.YesNo,
+            }),
+            ('i_difficulty', {
+                'to_cuteform': lambda k, v: models.PlayedSong.DIFFICULTY_CHOICES[k][0],
+                'image_folder': 'songs',
+                'transform': CuteFormTransform.ImagePath,
+            }),
+        ])
+
+        def to_fields(self, view, item, *args, **kwargs):
+            fields = super(_PlayedSongCollection, self).to_fields(view, item, *args, icons={
+                'score': 'scoreup',
+                'full_combo': 'combo',
+                'screenshot': 'pictures',
+            }, images={
+                'difficulty': item.difficulty_image_url,
+            }, **kwargs)
+            setSubField(fields, 'difficulty', key='value', value=item.t_difficulty)
+            return fields
+
+        class ListView(cls.ListView):
+            default_ordering = 'song__release_date,-i_difficulty'
+            item_template = 'default_item_table_view'
+            display_style = 'table'
+            display_style_table_fields = ['image', 'difficulty', 'score', 'full_combo', 'screenshot']
+            show_item_buttons = True
+            show_item_buttons_as_icons = True
+
+            def table_fields(self, item, *args, **kwargs):
+                fields = super(_PlayedSongCollection.ListView, self).table_fields(item, *args, **kwargs)
+                setSubField(fields, 'image', key='verbose_name', value=_('Song'))
+                setSubField(fields, 'image', key='type', value='image_link')
+                setSubField(fields, 'image', key='link', value=item.song.item_url)
+                setSubField(fields, 'image', key='link_text', value=unicode(item.song))
+                setSubField(fields, 'image', key='ajax_link', value=item.song.ajax_item_url)
+                setSubField(fields, 'difficulty', key='type', value='image')
+                setSubField(fields, 'difficulty', key='value', value=lambda k: item.difficulty_image_url)
+                setSubField(fields, 'screenshot', key='type', value='html')
+                setSubField(fields, 'screenshot', key='value', value=u'<a href="{url}" target="_blank"><div class="screenshot_preview" style="background-image: url(\'{url}\')"></div></a>'.format(url=item.screenshot_url))
+                return fields
+
+            def table_fields_headers(self, fields, view=None):
+                if view is None:
+                    return MagiCollection.ListView.table_fields_headers(self, fields, view=view)
+                return []
+
+            def extra_context(self, context):
+                if context['view'] == 'quick_edit':
+                    context['include_below_item'] = False
+
+        class AddView(cls.AddView):
+            staff_required = True
+
+    return _PlayedSongCollection
+
+############################################################
 # Songs Collection
 
 _song_cuteform = {
@@ -1145,71 +1206,7 @@ class SongCollection(MagiCollection):
     def collectible_to_class(self, model_class):
         cls = super(SongCollection, self).collectible_to_class(model_class)
         if model_class.collection_name == 'playedsong':
-            class _PlayedSongCollection(cls):
-                title = _('Played song')
-                plural_title = _('Played songs')
-                multipart = True
-
-                filter_cuteform = dict(_song_cuteform.items() + [
-                    ('full_combo', {
-                        'type': CuteFormType.YesNo,
-                    }),
-                    ('i_difficulty', {
-                        'to_cuteform': lambda k, v: models.PlayedSong.DIFFICULTY_CHOICES[k][0],
-                        'image_folder': 'songs',
-                        'transform': CuteFormTransform.ImagePath,
-                    }),
-                ])
-
-                class form_class(cls.form_class):
-                    class Meta(cls.form_class.Meta):
-                        optional_fields = ('score', 'screenshot')
-
-                def to_fields(self, view, item, *args, **kwargs):
-                    fields = super(_PlayedSongCollection, self).to_fields(view, item, *args, icons={
-                        'score': 'scoreup',
-                        'full_combo': 'combo',
-                        'screenshot': 'pictures',
-                    }, images={
-                        'difficulty': item.difficulty_image_url,
-                    }, **kwargs)
-                    setSubField(fields, 'difficulty', key='value', value=item.t_difficulty)
-                    return fields
-
-                class ListView(cls.ListView):
-                    default_ordering = 'song__release_date,-i_difficulty'
-                    item_template = 'default_item_table_view'
-                    display_style = 'table'
-                    display_style_table_fields = ['image', 'difficulty', 'score', 'full_combo', 'screenshot']
-                    show_item_buttons = True
-                    show_item_buttons_as_icons = True
-
-                    def table_fields(self, item, *args, **kwargs):
-                        fields = super(_PlayedSongCollection.ListView, self).table_fields(item, *args, **kwargs)
-                        setSubField(fields, 'image', key='verbose_name', value=_('Song'))
-                        setSubField(fields, 'image', key='type', value='image_link')
-                        setSubField(fields, 'image', key='link', value=item.song.item_url)
-                        setSubField(fields, 'image', key='link_text', value=unicode(item.song))
-                        setSubField(fields, 'image', key='ajax_link', value=item.song.ajax_item_url)
-                        setSubField(fields, 'difficulty', key='type', value='image')
-                        setSubField(fields, 'difficulty', key='value', value=lambda k: item.difficulty_image_url)
-                        setSubField(fields, 'screenshot', key='type', value='html')
-                        setSubField(fields, 'screenshot', key='value', value=u'<a href="{url}" target="_blank"><div class="screenshot_preview" style="background-image: url(\'{url}\')"></div></a>'.format(url=item.screenshot_url))
-                        return fields
-
-                    def table_fields_headers(self, fields, view=None):
-                        if view is None:
-                            return MagiCollection.ListView.table_fields_headers(self, fields, view=view)
-                        return []
-
-                    def extra_context(self, context):
-                        if context['view'] == 'quick_edit':
-                            context['include_below_item'] = False
-
-                class AddView(cls.AddView):
-                    staff_required = True
-
-            return _PlayedSongCollection
+            return to_PlayedSongCollection(cls)
         return cls
 
     def to_fields(self, view, item, *args, **kwargs):

@@ -758,7 +758,7 @@ def to_EventParticipationCollection(cls):
 
         class ListView(cls.ListView):
             per_line = 3
-            default_ordering = 'event__start_date'
+            default_ordering = '-event__start_date'
 
     return _EventParticipationCollection
 

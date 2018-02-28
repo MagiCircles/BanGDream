@@ -220,7 +220,7 @@ class CardFilterForm(MagiFiltersForm):
     view_filter = MagiFilter(to_queryset=_view_to_queryset)
 
     version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
-    version_filter = MagiFilter(selector='c_versions__contains')
+    version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
@@ -368,9 +368,12 @@ class EventFilterForm(MagiFiltersForm):
         ('japanese_name', string_concat(_('Title'), ' (', t['Japanese'], ')')),
     ]
 
+    version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
+    version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
+
     class Meta(MagiFiltersForm.Meta):
         model = models.Event
-        fields = ('search', 'i_type', 'c_versions', 'ordering', 'reverse_order')
+        fields = ('search', 'i_type', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # Event participations form
@@ -460,9 +463,12 @@ class GachaFilterForm(MagiFiltersForm):
     is_limited = forms.NullBooleanField(initial=None, required=False, label=_('Limited'))
     is_limited_filter = MagiFilter(selector='limited')
 
+    version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
+    version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
+
     class Meta(MagiFiltersForm.Meta):
         model = models.Gacha
-        fields = ('search', 'is_limited', 'c_versions', 'ordering', 'reverse_order')
+        fields = ('search', 'is_limited', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # Played song
@@ -540,9 +546,12 @@ class SongFilterForm(MagiFiltersForm):
     is_cover = forms.NullBooleanField(initial=None, required=False, label=_('Cover'))
     is_cover_filter = MagiFilter(selector='is_cover')
 
+    version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
+    version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
+
     class Meta(MagiFiltersForm.Meta):
         model = models.Song
-        fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'c_versions', 'ordering', 'reverse_order')
+        fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # Single page form

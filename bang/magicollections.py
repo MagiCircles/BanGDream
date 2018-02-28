@@ -810,6 +810,11 @@ class EventCollection(MagiCollection):
         'i_boost_attribute': {
             'image_folder': 'i_attribute',
         },
+        'version': {
+            'to_cuteform': lambda k, v: CardCollection._version_images[k],
+            'image_folder': 'language',
+            'transform': CuteFormTransform.ImagePath,
+        },
     }
 
     collectible = models.EventParticipation
@@ -990,7 +995,12 @@ class GachaCollection(MagiCollection):
         },
         'is_limited': {
             'type': CuteFormType.OnlyNone,
-        }
+        },
+        'version': {
+            'to_cuteform': lambda k, v: CardCollection._version_images[k],
+            'image_folder': 'language',
+            'transform': CuteFormTransform.ImagePath,
+        },
     }
 
     def to_fields(self, view, item, in_list=False, *args, **kwargs):
@@ -1197,6 +1207,11 @@ _song_cuteform = {
 	    'modal': 'true',
 	    'modal-text': 'true',
         },
+    },
+    'version': {
+        'to_cuteform': lambda k, v: CardCollection._version_images[k],
+        'image_folder': 'language',
+        'transform': CuteFormTransform.ImagePath,
     },
 }
 

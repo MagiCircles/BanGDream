@@ -181,16 +181,6 @@ class CardFilterForm(MagiFiltersForm):
         ('_overall_trained_max', string_concat(_('Overall'), ' (', _('Trained'), ')')),
     ]
 
-    def _trainable_to_queryset(form, queryset, request, value):
-        if value == '2':
-            return queryset.filter(i_rarity__in=models.Card.TRAINABLE_RARITIES)
-        elif value == '3':
-            return queryset.exclude(i_rarity__in=models.Card.TRAINABLE_RARITIES)
-        return queryset
-
-    trainable = forms.NullBooleanField(initial=None, required=False, label=_('Trainable'))
-    trainable_filter = MagiFilter(to_queryset=_trainable_to_queryset)
-
     def skill_filter_to_queryset(self, queryset, request, value):
         if not value: return queryset
         if value == '1': return queryset.filter(i_skill_type=value) # Score up
@@ -202,7 +192,21 @@ class CardFilterForm(MagiFiltersForm):
     member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
     member_band_filter = MagiFilter(selector='member__i_band')
 
-    is_promo = forms.NullBooleanField(initial=None, required=False, label=_('Promo'))
+    def _origin_to_queryset(self, queryset, request, value):
+        if value == 'is_promo':
+            return queryset.filter(is_promo=True)
+        elif value == 'is_gacha':
+            return queryset.filter(_cache_gacha_id__isnull=False)
+        elif value == 'is_event':
+            return queryset.filter(_cache_event_id__isnull=False)
+        return queryset
+
+    origin = forms.ChoiceField(label=_(u'Origin'), choices=BLANK_CHOICE_DASH + [
+        ('is_event', _(u'Event')),
+        ('is_gacha', _(u'Gacha')),
+        ('is_promo', _(u'Promo')),
+    ])
+    origin_filter = MagiFilter(to_queryset=_origin_to_queryset)
 
     def _view_to_queryset(self, queryset, request, value):
         if value == 'chibis':
@@ -215,9 +219,12 @@ class CardFilterForm(MagiFiltersForm):
 
     view_filter = MagiFilter(to_queryset=_view_to_queryset)
 
+    version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
+    version_filter = MagiFilter(selector='c_versions__contains')
+
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
-        fields = ('view', 'search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'trainable', 'is_promo', 'i_skill_type', 'member_band', 'c_versions', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'origin', 'i_skill_type', 'member_band', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # CollectibleCard

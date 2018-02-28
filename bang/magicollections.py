@@ -377,6 +377,12 @@ class CardCollection(MagiCollection):
     reportable = False
 
     _skill_icons = { _i: _c['icon'] for _i, _c in models.Card.SKILL_TYPES.items() }
+    _version_images = { _vn: _v['image'] for _vn, _v in models.Account.VERSIONS.items() }
+    _origin_to_cuteform = {
+        'is_promo': 'promo',
+        'is_gacha': 'max-bond',
+        'is_event': 'event',
+    }
     filter_cuteform = {
         'member_id': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
@@ -409,6 +415,15 @@ class CardCollection(MagiCollection):
                 'modal': 'true',
                 'modal-text': 'true',
             },
+        },
+        'version': {
+            'to_cuteform': lambda k, v: CardCollection._version_images[k],
+            'image_folder': 'language',
+            'transform': CuteFormTransform.ImagePath,
+        },
+        'origin': {
+            'transform': CuteFormTransform.Flaticon,
+            'to_cuteform': lambda k, v: CardCollection._origin_to_cuteform[k],
         },
     }
 

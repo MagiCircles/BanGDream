@@ -347,6 +347,7 @@ class EventForm(AutoForm):
     class Meta(AutoForm.Meta):
         model = models.Event
         fields = '__all__'
+        optional_fields = ('boost_members',)
         save_owner_on_creation = True
 
 class EventFilterForm(MagiFiltersForm):
@@ -435,6 +436,7 @@ class GachaForm(AutoForm):
     class Meta(AutoForm.Meta):
         model = models.Gacha
         fields = '__all__'
+        optional_fields = ('cards',)
         save_owner_on_creation = True
 
 class GachaFilterForm(MagiFiltersForm):

@@ -252,7 +252,7 @@ class Card(MagiModel):
             'variables': ['duration', 'percentage'],
             'template': _(u'For the next {duration} seconds, score of all notes boosted by +{percentage}%'),
             'special_templates': {
-                'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by by +{percentage}%'),
+                'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
                 'based_on_stamina': _(u'For the next {duration} seconds, if life is above {stamina}, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%'),
             },
             'special_variables': {
@@ -793,9 +793,9 @@ class Event(MagiModel):
     korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
     korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
 
-    rare_stamp = models.ImageField(_('Rare Stamp'), upload_to=uploadItem('e/stamps'), null=True)
+    rare_stamp = models.ImageField(_('Rare stamp'), upload_to=uploadItem('e/stamps'), null=True)
 
-    stamp_translation = models.CharField(_('Stamp Translation'), max_length=200, null=True)
+    stamp_translation = models.CharField(_('Stamp translation'), max_length=200, null=True)
 
     main_card = models.ForeignKey(Card, related_name='main_card_event', null=True, limit_choices_to={
         'i_rarity': 3,
@@ -806,10 +806,10 @@ class Event(MagiModel):
 
     BOOST_ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES
     BOOST_ATTRIBUTE_WITHOUT_I_CHOICES = True
-    i_boost_attribute = models.PositiveIntegerField(_('Boost Attribute'), choices=BOOST_ATTRIBUTE_CHOICES, null=True)
+    i_boost_attribute = models.PositiveIntegerField(_('Boost attribute'), choices=BOOST_ATTRIBUTE_CHOICES, null=True)
     english_boost_attribute = property(getInfoFromChoices('boost_attribute', Card.ATTRIBUTES, 'english'))
 
-    boost_members = models.ManyToManyField(Member, related_name='boost_in_events', verbose_name=_('Boost Members'))
+    boost_members = models.ManyToManyField(Member, related_name='boost_in_events', verbose_name=_('Boost members'))
 
     @property
     def cached_gacha(self):

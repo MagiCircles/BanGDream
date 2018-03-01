@@ -149,8 +149,8 @@ Activity.collection_name = 'news'
 
 class NewsCollection(_ActivityCollection):
     plural_name = 'news'
-    title = _('Staff News')
-    plural_title = _('Staff News')
+    title = 'Staff news'
+    plural_title = 'Staff news'
     reportable = False
     queryset = Activity.objects.all()
     navbar_link = True

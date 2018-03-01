@@ -22,16 +22,6 @@ from bang import models, forms
 # Default MagiCircles Collections
 
 ############################################################
-# User Collection
-
-class UserCollection(_UserCollection):
-    class ItemView(_UserCollection.ItemView):
-        def extra_context(self, context):
-            super(UserCollection.ItemView, self).extra_context(context)
-            if not context['request'].user.is_authenticated() or not context['request'].user.is_staff:
-                context['afterjs'] = context['afterjs'].replace('loadCollectionForOwner(\'/ajax/favoritecards/\', loadCardInList)', 'loadProfileComingSoon')
-
-############################################################
 # Account Collection
 
 class AccountCollection(_AccountCollection):
@@ -99,14 +89,6 @@ class AccountCollection(_AccountCollection):
         setSubField(fields, 'stargems_bought', key='annotation', value=_(u'~{}円 spent (~${})').format(spent_yen, spent_dollars))
         return fields
 
-    def get_profile_account_tabs(self, request, context, *args, **kwargs):
-        tabs = super(AccountCollection, self).get_profile_account_tabs(request, context, *args, **kwargs)
-        if not request.user.is_authenticated() or not request.user.is_staff:
-            for collection_name, collection in context['collectible_collections']['account'].items():
-                if collection_name in tabs and collection.add_view.staff_required:
-                    tabs[collection_name]['callback'] = 'loadAccountComingSoon'
-        return tabs
-
     def share_image(self, context, item):
         return 'screenshots/leaderboard.png'
 
@@ -131,7 +113,10 @@ class AccountCollection(_AccountCollection):
 
         def redirect_after_add(self, request, item, ajax):
             if not ajax:
-                return '/cards/?get_started'
+                return '/cards/?get_started&add_to_collectiblecard={account_id}&view=icons&version={account_version}&ordering=i_rarity&reverse_order=on'.format(
+                    account_id=item.id,
+                    account_version=item.version,
+                )
             return super(AccountCollection.AddView, self).redirect_after_add(request, item, ajax)
 
 ############################################################
@@ -300,7 +285,6 @@ def to_FavoriteCardCollection(cls):
         class AddView(cls.AddView):
             unique_per_owner = True
             quick_add_to_collection = justReturn(True)
-            staff_required = True
 
     return _FavoriteCardCollection
 
@@ -347,7 +331,6 @@ def to_CollectibleCardCollection(cls):
             filter_form = forms.to_CollectibleCardFilterForm(cls)
 
         class AddView(cls.AddView):
-            staff_required = True
             unique_per_owner = True
             ajax_callback = 'loadCollecticleCardForm'
 
@@ -470,10 +453,6 @@ class CardCollection(MagiCollection):
         if 'favoritecard' in buttons:
             if view.view == 'list_view':
                 buttons['favoritecard']['icon'] = 'star'
-            if 'staff-only' in buttons['favoritecard']['classes']:
-                buttons['favoritecard']['classes'].remove('staff-only')
-        if 'collectiblecard' in buttons and 'staff-only' in buttons['collectiblecard']['classes']:
-            buttons['collectiblecard']['classes'].remove('staff-only')
         if view.view == 'list_view' and 'edit' in buttons:
             del(buttons['edit'])
         return buttons
@@ -656,8 +635,10 @@ class CardCollection(MagiCollection):
                 context['include_below_item'] = False
             return context
 
-        def ordering_fields(self, item, only_fields=None, *args, **kwargs):
-            fields = super(CardCollection.ListView, self).ordering_fields(item, *args, only_fields=only_fields, **kwargs)
+        def ordering_fields(self, item, only_fields=None, exclude_fields=None, *args, **kwargs):
+            if exclude_fields is None: exclude_fields = []
+            exclude_fields += ['i_rarity']
+            fields = super(CardCollection.ListView, self).ordering_fields(item, *args, only_fields=only_fields, exclude_fields=exclude_fields, **kwargs)
             if '_overall_max' in only_fields:
                 fields['overall_max'] = {
                     'verbose_name': string_concat(_('Overall'), ' (', _('Maximum'), ')'),
@@ -765,7 +746,6 @@ def to_EventParticipationCollection(cls):
             }, **kwargs)
 
         class AddView(cls.AddView):
-            staff_required = True
             unique_per_owner = True
             add_to_collection_variables = cls.AddView.add_to_collection_variables + [
                 'i_type',
@@ -879,12 +859,6 @@ class EventCollection(MagiCollection):
             queryset = super(EventCollection.ItemView, self).get_queryset(queryset, parameters, request)
             queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'), Prefetch('gachas', to_attr='all_gachas'), Prefetch('gift_songs', to_attr='all_gifted_songs'))
             return queryset
-
-        def buttons_per_item(self, *args, **kwargs):
-            buttons = super(EventCollection.ItemView, self).buttons_per_item(*args, **kwargs)
-            if 'eventparticipation' in buttons and 'staff-only' in buttons['eventparticipation']['classes']:
-                buttons['eventparticipation']['classes'].remove('staff-only')
-            return buttons
 
         def to_fields(self, item, order=None, extra_fields=None, exclude_fields=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
@@ -1182,9 +1156,6 @@ def to_PlayedSongCollection(cls):
                 if context['view'] == 'quick_edit':
                     context['include_below_item'] = False
 
-        class AddView(cls.AddView):
-            staff_required = True
-
     return _PlayedSongCollection
 
 ############################################################
@@ -1316,12 +1287,6 @@ class SongCollection(MagiCollection):
             queryset = queryset.select_related('event')
             return queryset
 
-        def buttons_per_item(self, *args, **kwargs):
-            buttons = super(SongCollection.ItemView, self).buttons_per_item(*args, **kwargs)
-            if 'playedsong' in buttons and 'staff-only' in buttons['playedsong']['classes']:
-                buttons['playedsong']['classes'].remove('staff-only')
-            return buttons
-
         def to_fields(self, item, *args, **kwargs):
             fields = super(SongCollection.ItemView, self).to_fields(item, *args, **kwargs)
             note_image = u'{}img/note.png'.format(RAW_CONTEXT['static_url'])
@@ -1359,7 +1324,6 @@ class SongCollection(MagiCollection):
                     'icon': 'id',
                 }
             return fields
-
 
     class AddView(MagiCollection.AddView):
         staff_required = True

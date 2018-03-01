@@ -40,6 +40,9 @@ FEEDBACK_FORM = 'https://docs.google.com/forms/d/1lfd3x4TX6R1IYrZqhwPN_GqghCQpBL
 TWITTER_HANDLE = 'BandoriParty'
 HASHTAGS = [u'バンドリ', u'ガルパ']
 
+FIRST_COLLECTION = 'collectiblecard'
+GET_STARTED_VIDEO = 'TqL9nSNouhw'
+
 ABOUT_PHOTO = 'deby.jpg'
 
 EMPTY_IMAGE = 'stars_with_white.png'
@@ -121,7 +124,7 @@ ENABLED_NAVBAR_LISTS['community'] = {
     'order': ['account_list', 'donate_list', 'discord', 'twitter'],
 }
 
-ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playedsong']
+ACCOUNT_TAB_ORDERING = ['collectiblecard', 'eventparticipation', 'playedsong', 'about']
 
 NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community'] + DEFAULT_NAVBAR_ORDERING
 

@@ -102,7 +102,7 @@ class MemberFilterForm(MagiFiltersForm):
         ('birthday', _('Birthday')),
     ]
 
-    school = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(s, s) for s in getattr(django_settings, 'SCHOOLS', [])], initial=None)
+    school = forms.ChoiceField(label=_('School'), choices=BLANK_CHOICE_DASH + [(s, s) for s in getattr(django_settings, 'SCHOOLS', [])], initial=None)
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Member
@@ -233,6 +233,8 @@ def to_CollectibleCardForm(cls):
     class _CollectibleCardForm(cls.form_class):
         def __init__(self, *args, **kwargs):
             super(_CollectibleCardForm, self).__init__(*args, **kwargs)
+            if 'first_episode' in self.fields:
+                self.fields['first_episode'].label = _('{nth} episode').format(nth=_('1st'))
             rarity = int(self.collectible_variables['i_rarity'])
             if rarity and rarity not in models.Card.TRAINABLE_RARITIES and 'trained' in self.fields:
                 del(self.fields['trained'])

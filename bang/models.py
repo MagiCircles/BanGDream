@@ -360,7 +360,7 @@ class Card(MagiModel):
 
     SIDE_SKILL_TYPE_CHOICES = SKILL_TYPE_CHOICES
     SIDE_SKILL_TYPE_WITHOUT_I_CHOICES = True
-    i_side_skill_type = models.PositiveIntegerField(_('Side skill'), choices=SIDE_SKILL_TYPE_CHOICES, null=True, db_index=True)
+    i_side_skill_type = models.PositiveIntegerField('Side skill', choices=SIDE_SKILL_TYPE_CHOICES, null=True, db_index=True)
     japanese_side_skill_type = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'japanese_translation'))
     side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'side_template'))
     japanese_side_skill_template = property(getInfoFromChoices('side_skill_type', SKILL_TYPES, 'side_japanese_template'))
@@ -891,7 +891,7 @@ class Song(MagiModel):
     ]
 
     owner = models.ForeignKey(User, related_name='added_songs')
-    image = models.ImageField(_('Album cover'), upload_to=uploadItem('s'))
+    image = models.ImageField('Album cover', upload_to=uploadItem('s'))
 
     BAND_CHOICES = Member.BAND_CHOICES
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))

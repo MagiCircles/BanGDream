@@ -323,6 +323,7 @@ def to_CollectibleCardCollection(cls):
                 'skill_level': 'skill',
             }, exclude_fields=exclude_fields, **kwargs)
             setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
+            setSubField(fields, 'first_episode', key='verbose_name', value=_('{nth} episode').format(nth=_('1st')))
             return fields
 
         class ListView(cls.ListView):
@@ -1149,7 +1150,9 @@ def to_PlayedSongCollection(cls):
 
             def table_fields_headers(self, fields, view=None):
                 if view is None:
-                    return MagiCollection.ListView.table_fields_headers(self, fields, view=view)
+                    headers = MagiCollection.ListView.table_fields_headers(self, fields, view=view)
+                    headers[0] = ('image', _('Image'))
+                    return headers
                 return []
 
             def extra_context(self, context):
@@ -1188,6 +1191,8 @@ _song_cuteform = {
 
 class SongCollection(MagiCollection):
     queryset = models.Song.objects.all()
+    title = _('Song')
+    plural_title = _('Songs')
     multipart = True
     icon = 'song'
     reportable = False

@@ -40,7 +40,7 @@ def generate_settings():
         ) for member in all_members]
 
         print 'Get homepage characters'
-        characters = models.Card.objects.filter(i_rarity=2).order_by('-id')[:2]
+        characters = models.Card.objects.filter(i_rarity=2).order_by('-release_date')[:2]
         homepage_characters = u','.join([u'\'{}\''.format(c.transparent_url) for c in characters])
         if len(characters) != 2:
                 homepage_characters = ''

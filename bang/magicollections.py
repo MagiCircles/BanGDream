@@ -22,6 +22,18 @@ from bang import models, forms
 # Default MagiCircles Collections
 
 ############################################################
+# User Collection
+
+class UserCollection(_UserCollection):
+    class ItemView(_UserCollection.ItemView):
+        def extra_context(self, context):
+            super(UserCollection.ItemView, self).extra_context(context)
+            if context['item'].id == context['request'].user.id:
+                context['hashtags'] = context['hashtags'] + ['MyBandoriParty_Giveaway']
+            if get_language() == 'en':
+                context['share_sentence'] = u'Hey, look! I\'m on ✭Bandori Party✭! Follow me ♥︎'
+
+############################################################
 # Account Collection
 
 class AccountCollection(_AccountCollection):

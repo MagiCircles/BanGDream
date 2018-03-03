@@ -29,7 +29,7 @@ class UserCollection(_UserCollection):
         def extra_context(self, context):
             super(UserCollection.ItemView, self).extra_context(context)
             if context['item'].id == context['request'].user.id:
-                context['hashtags'] = context['hashtags'] + ['MyBandoriParty_Giveaway']
+                context['hashtags'] = context['hashtags'] + ['MyBanpaCollection']
             if get_language() == 'en':
                 context['share_sentence'] = u'Hey, look! I\'m on ✭Bandori Party✭! Follow me ♥︎'
 

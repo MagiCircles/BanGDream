@@ -348,8 +348,8 @@ msgstr "Hesap yok."
 #: magi/templates/items/profile.html:98
 msgid "%(length)s account:"
 msgid_plural "%(length)s accounts:"
-msgstr[0] "%(length) hesabı:"
-msgstr[1] "%(length) hesapları:"
+msgstr[0] "%(length)s hesabı:"
+msgstr[1] "%(length)s hesapları:"
 
 #: magi/templates/pages/about.html:29 magi/templates/pages/about.html.py:87
 msgid "Contact us"
@@ -577,7 +577,7 @@ msgstr "düzenlendi"
 
 #: magi/views.py:347 magi/views.py:375
 msgid "Thank you for reporting this {thing}"
-msgstr "{Bu şey}'i rapor ettiğiniz için teşekkür ederiz"
+msgstr "{thing}'i rapor ettiğiniz için teşekkür ederiz"
 
 #: magi/views.py:352 magi/views.py:380
 msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
@@ -615,7 +615,7 @@ msgstr "{oyun}'un yapımcısı şirket"
 
 #: magi/views_collections.py:343
 msgid "Make sure the {thing} you're about to add doesn't already exist."
-msgstr "Eklemek üzere olduğunuz {şey}in zaten eklenmiş olmadığından emin olun."
+msgstr "Eklemek üzere olduğunuz {thing}in zaten eklenmiş olmadığından emin olun."
 
 #: stardustrun/collections_settings.py:79 stardustrun/forms.py:125
 #: stardustrun/models.py:52 stardustrun/templates/items/pokemonItem.html:65
@@ -947,7 +947,7 @@ msgstr "Kalıcı link"
 #: stardustrun/templates/items/pokemonFullItem.html:98
 #: stardustrun/templates/items/pokemonItem.html:31
 msgid "Click to add %(pokemon)s to your collection"
-msgstr "%(pokemon)ları koleksiyonunuza eklemek için tıklayın"
+msgstr "%(pokemon)s ları koleksiyonunuza eklemek için tıklayın"
 
 #: stardustrun/templates/pages/ajax_pokedex.html:5
 msgid "Change to icons"
@@ -988,14 +988,14 @@ msgstr "Oyuncaların etkinliklerini görmek için onları takip edin!"
 
 #: magi/templates/include/homePage.html:11
 msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
-msgstr "(adjective)in bağışçıları tarafından %(total_donators) "
+msgstr "%(adjective)s in bağışçıları tarafından %(total_donators)s"
 
 #: magi/templates/include/homePage.html:25
 #: magi/templates/include/homePage.html:28
 #: magi/templates/pages/prelaunch.html:14
 #: magi/templates/pages/prelaunch.html:17
 msgid "About %(site_name)s"
-msgstr "%(site_name) hakkında"
+msgstr "%(site_name)s hakkında"
 
 #: sukutomo/models.py:114
 msgid "All"
@@ -1160,7 +1160,7 @@ msgstr "Hepsini görüntüle"
 
 #: magi/magicollections.py:1516
 msgid "{age} years old"
-msgstr "{yaş} yaşında"
+msgstr "{age} yaşında"
 
 #: cpro/collections_settings.py:108 cpro/magicollections.py:226
 msgid "Check out my collection of cards!"
@@ -1771,7 +1771,7 @@ msgstr "İleri"
 
 #: cpro/templates/include/cards-collection.html:25
 msgid "Click to add %(card)s to your collection"
-msgstr "Kolesiyonunuza %(card)lar eklemek için tıklayın"
+msgstr "Kolesiyonunuza %(card)s eklemek için tıklayın"
 
 #: cpro/templates/include/cards-stats.html:78
 msgid "Leader Skill"
@@ -1839,11 +1839,11 @@ msgstr "Yapımcı Seviyesi"
 
 #: cpro/templates/include/beforeEvents.html:6
 msgid "%(idol)s performed in %(total_results)s events"
-msgstr "%(idol)ler %(total_results) etkinlikte sahne aldı"
+msgstr "%(idol)s %(total_results)s etkinlikte sahne aldı"
 
 #: cpro/templates/include/beforeLeaderboard.html:29
 msgid "%(total_results)s producers scouted %(own_card)s"
-msgstr "%(total_results) yapımcılar %(own_card) keşfetti"
+msgstr "%(total_results)s yapımcılar %(own_card)s keşfetti"
 
 #: magi/magicollections.py:1804 magi/magicollections.py:1904
 msgid "Badge"
@@ -1868,7 +1868,7 @@ msgstr "Altın"
 #: magi/templates/include/homePage.html:17
 #: magi/templates/include/homePage.html:19
 msgid "%(percent)s%% funded"
-msgstr "%(percent)%% finanse edildi"
+msgstr "%(percent)s%% finanse edildi"
 
 #: magi/templates/items/badgeInfo.html:12
 msgid "Granted by"
@@ -1910,8 +1910,8 @@ msgstr "Alakasız"
 #: cpro/templates/include/cards-stats.html:104
 msgid "%(total)s producer"
 msgid_plural "%(total)s producers"
-msgstr[0] "%(toplam) yapımcı"
-msgstr[1] "%(toplam) yapımcılar"
+msgstr[0] "%(total)s yapımcı"
+msgstr[1] "%(total)s yapımcılar"
 
 #: cpro/templates/include/cards-stats.html:119
 #: cpro/templates/items/eventInfo.html:144
@@ -1927,7 +1927,7 @@ msgstr "Yerel saat"
 #: magi/magicollections.py:557 magi/models.py:467 magi/models.py:474
 #: magi/models.py:561
 msgid "Open {thing}"
-msgstr "{birşey} Aç"
+msgstr "{thing} Aç"
 
 #: magi/forms.py:323
 msgid "Reverse order"
@@ -1940,19 +1940,19 @@ msgstr "Neden"
 #: magi/item_model.py:315 magi/magicollections.py:697
 #: magi/magicollections.py:789
 msgid "Edit {thing}"
-msgstr "{birşey} Düzenle"
+msgstr "{thing} Düzenle"
 
 #: magi/item_model.py:318 magi/magicollections.py:707 magi/views.py:153
 msgid "Delete {thing}"
-msgstr "{birşey} Sil"
+msgstr "{thing} Sil"
 
 #: magi/item_model.py:321
 msgid "Report {thing}"
-msgstr "{birşey} Rapor et"
+msgstr "{thing} Rapor et"
 
 #: magi/magicollections.py:785 magi/views.py:151 magi/views.py:152
 msgid "Add {thing}"
-msgstr "{birşey} Ekle "
+msgstr "{thing} Ekle"
 
 #: magi/magicollections.py:1972
 msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
@@ -2023,7 +2023,7 @@ msgstr "Mail bildirimlerini kapatmak için buraya tıklayın."
 #: magi/templates/emails/report.html:21
 #: magi/templates/items/activityItem.html:13
 msgid "Translate from %(from_language)s to %(to_language)s"
-msgstr "%(from_language) %(to_language) çevir"
+msgstr "%(from_language)s %(to_language)s çevir"
 
 #: magi/templates/items/profile.html:23
 msgid "follows you"

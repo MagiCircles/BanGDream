@@ -21,6 +21,7 @@ SITE_LOGO_PER_LANGUAGE = {
     'ja': 'bandori_japanese.png',
     'tw': 'bandori_taiwanese.png',
     'kr': 'bandori_korean.png',
+    'ru': 'bandori_russian.png',
 }
 
 GAME_NAME = string_concat(_('BanG Dream!'), ' ', _('Girls Band Party'))

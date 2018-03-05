@@ -136,6 +136,7 @@ LANGUAGES = (
     ('id', _('Indonesian')),
     ('zh-hans', _('Simplified Chinese')),
     ('pt-br', _('Brazilian Portuguese')),
+    ('tr', _('Turkish')),
 )
 
 LANGUAGE_CODE = 'en'

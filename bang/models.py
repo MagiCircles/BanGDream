@@ -545,97 +545,51 @@ class Card(MagiModel):
             'ajax_item_url': u'/ajax/member/{}/'.format(self.member_id) if self.member_id else '',
         })
 
-    # Cache event
+    # Cache events
 
-    _cache_event_days = 1
-    _cache_event_last_update = models.DateTimeField(null=True)
-    _cache_event_id = models.PositiveIntegerField(null=True)
-    _cache_event_name = models.CharField(max_length=100, null=True)
-    _cache_event_japanese_name = models.CharField(max_length=100, null=True)
-    _cache_event_image = models.ImageField(upload_to=uploadItem('e'), null=True)
+    _cached_events_collection_name = 'event'
+    _cache_events_days = 20
+    _cache_events_last_update = models.DateTimeField(null=True)
+    _cache_j_events = models.TextField(null=True)
 
-    def update_cache_event(self):
-        self._cache_event_last_update = timezone.now()
-        try:
-            event = Event.objects.filter(Q(main_card_id=self.id) | Q(secondary_card_id=self.id))[0]
-        except IndexError:
-            event = None
-        if event:
-            self._cache_event_id = event.id
-            self._cache_event_name = event.name
-            self._cache_event_japanese_name = event.japanese_name
-            self._cache_event_image = event.image
-        else:
-            self._cache_event_id = None
+    @classmethod
+    def cached_events_pre(self, d):
+        d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
+        return d
 
-    def force_cache_event(self):
-        self.update_cache_event()
-        self.save()
+    def to_cache_events(self):
+        events = []
+        for event in Event.objects.filter(Q(main_card_id=self.id) | Q(secondary_card_id=self.id)):
+            events.append({
+                'id': event.id,
+                'name': event.name,
+                'japanese_name': event.japanese_name,
+                'image': unicode(event.image),
+            })
+        return events if events else None
 
-    @property
-    def cached_event(self):
-        if not self._cache_event_last_update or self._cache_event_last_update < timezone.now() - datetime.timedelta(days=self._cache_event_days):
-            self.force_cache_event()
-        if not self._cache_event_id:
-            return None
-        return AttrDict({
-            'pk': self._cache_event_id,
-            'id': self._cache_event_id,
-            'unicode': self._cache_event_name if get_language() != 'ja' else self._cache_event_japanese_name,
-            'name': self._cache_event_name,
-            'japanese_name': self._cache_event_japanese_name,
-            'image': self._cache_event_image,
-            'image_url': get_image_url_from_path(self._cache_event_image),
-            'http_image_url': get_http_image_url_from_path(self._cache_event_image),
-            'item_url': u'/event/{}/{}/'.format(self._cache_event_id, tourldash(self._cache_event_name)),
-            'ajax_item_url': u'/ajax/event/{}/'.format(self._cache_event_id),
-        })
+    # Cache gachas
 
-    # Cache gacha
+    _cached_gachas_collection_name = 'gacha'
+    _cache_gachas_days = 20
+    _cache_gachas_last_update = models.DateTimeField(null=True)
+    _cache_j_gachas = models.TextField(null=True)
 
-    _cache_gacha_days = 1
-    _cache_gacha_last_update = models.DateTimeField(null=True)
-    _cache_gacha_id = models.PositiveIntegerField(null=True)
-    _cache_gacha_name = models.CharField(max_length=100, null=True)
-    _cache_gacha_japanese_name = models.CharField(max_length=100, null=True)
-    _cache_gacha_image = models.ImageField(upload_to=uploadItem('e'), null=True)
+    @classmethod
+    def cached_gachas_pre(self, d):
+        d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
+        return d
 
-    def update_cache_gacha(self):
-        self._cache_gacha_last_update = timezone.now()
-        try:
-            gacha = Gacha.objects.filter(cards__id=self.id)[0]
-        except IndexError:
-            gacha = None
-        if gacha:
-            self._cache_gacha_id = gacha.id
-            self._cache_gacha_name = gacha.name
-            self._cache_gacha_japanese_name = gacha.japanese_name
-            self._cache_gacha_image = gacha.image
-        else:
-            self._cache_gacha_id = None
-
-    def force_cache_gacha(self):
-        self.update_cache_gacha()
-        self.save()
-
-    @property
-    def cached_gacha(self):
-        if not self._cache_gacha_last_update or self._cache_gacha_last_update < timezone.now() - datetime.timedelta(days=self._cache_gacha_days):
-            self.force_cache_gacha()
-        if not self._cache_gacha_id:
-            return None
-        return AttrDict({
-            'pk': self._cache_gacha_id,
-            'id': self._cache_gacha_id,
-            'unicode': self._cache_gacha_name if get_language() != 'ja' else self._cache_gacha_japanese_name,
-            'name': self._cache_gacha_name,
-            'japanese_name': self._cache_gacha_japanese_name,
-            'image': self._cache_gacha_image,
-            'image_url': get_image_url_from_path(self._cache_gacha_image),
-            'http_image_url': get_http_image_url_from_path(self._cache_gacha_image),
-            'item_url': u'/gacha/{}/{}/'.format(self._cache_gacha_id, tourldash(self._cache_gacha_name)),
-            'ajax_item_url': u'/ajax/gacha/{}/'.format(self._cache_gacha_id),
-        })
+    def to_cache_gachas(self):
+        gachas = []
+        for gacha in Gacha.objects.filter(cards__id=self.id):
+            gachas.append({
+                'id': gacha.id,
+                'name': gacha.name,
+                'japanese_name': gacha.japanese_name,
+                'image': unicode(gacha.image),
+            })
+        return gachas if gachas else None
 
     # Cache chibis
 

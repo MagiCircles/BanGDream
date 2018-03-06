@@ -520,17 +520,17 @@ class CardCollection(MagiCollection):
                     'ajax_link': item.cached_event.ajax_item_url,
                     'link_text': item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name,
                 }))
-            if item.cached_gacha:
-                extra_fields.append(('gacha', {
+            for cached_gacha in (item.cached_gachas or []):
+                extra_fields.append((u'gacha-{}'.format(cached_gacha.id), {
                     'icon': 'max-bond',
                     'verbose_name': u'{}: {}'.format(
                         _('Gacha'),
-                        item.cached_gacha.japanese_name if get_language() == 'ja' else item.cached_gacha.name),
-                    'value': item.cached_gacha.image_url,
+                        cached_gacha.unicode),
+                    'value': cached_gacha.image_url,
                     'type': 'image_link',
-                    'link': item.cached_gacha.item_url,
-                    'ajax_link': item.cached_gacha.ajax_item_url,
-                    'link_text': item.cached_gacha.japanese_name if get_language() == 'ja' else item.cached_gacha.name,
+                    'link': cached_gacha.item_url,
+                    'ajax_link': cached_gacha.ajax_item_url,
+                    'link_text': cached_gacha.japanese_name if get_language() == 'ja' else cached_gacha.name,
                 }))
             # Add images fields
             for image, verbose_name in [('image', _('Icon')), ('art', _('Art')), ('transparent', _('Transparent'))]:
@@ -1090,7 +1090,7 @@ class GachaCollection(MagiCollection):
 
     def _after_save(self, request, instance):
         for card in instance.cards.all():
-            card.update_cache_gacha()
+            card.force_update_cache('gachas')
         return instance
 
     class AddView(MagiCollection.AddView):

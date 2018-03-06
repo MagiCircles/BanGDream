@@ -332,16 +332,16 @@ class EventForm(AutoForm):
             instance.korean_end_date = instance.korean_end_date.replace(hour=13, minute=00)
         if self.previous_main_card_id != (instance.main_card.id if instance.main_card else 0):
             if instance.main_card:
-                instance.main_card.force_cache_event()
+                instance.main_card.force_update_cache('events')
             if self.previous_main_card_id:
                 previous_card = models.Card.objects.get(id=self.previous_main_card_id)
-                previous_card.force_cache_event()
+                previous_card.force_update_cache('events')
         if self.previous_secondary_card_id != (instance.secondary_card.id if instance.secondary_card else 0):
             if instance.secondary_card:
-                instance.secondary_card.force_cache_event()
+                instance.secondary_card.force_update_cache('events')
             if self.previous_secondary_card_id:
                 previous_card = models.Card.objects.get(id=self.previous_secondary_card_id)
-                previous_card.force_cache_event()
+                previous_card.force_update_cache('events')
         instance.save_c('versions', [
             value for prefix, value in (
                 ('', 'JP'),

@@ -196,9 +196,9 @@ class CardFilterForm(MagiFiltersForm):
         if value == 'is_promo':
             return queryset.filter(is_promo=True)
         elif value == 'is_gacha':
-            return queryset.filter(_cache_gacha_id__isnull=False)
+            return queryset.filter(_cache_j_gachas__isnull=False)
         elif value == 'is_event':
-            return queryset.filter(_cache_event_id__isnull=False)
+            return queryset.filter(_cache_j_events__isnull=False)
         return queryset
 
     origin = forms.ChoiceField(label=_(u'Origin'), choices=BLANK_CHOICE_DASH + [

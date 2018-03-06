@@ -37,11 +37,11 @@ class Account(BaseAccount):
         }),
         ('EN', {
             'translation': _('English version'),
-            'image': 'us',
+            'image': 'world',
         }),
         ('TW', {
             'translation': _('Taiwanese version'),
-            'image': 'tw',
+            'image': 'zh-hant',
         }),
         ('KR', {
             'translation': _('Korean version'),

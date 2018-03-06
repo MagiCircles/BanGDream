@@ -613,7 +613,7 @@ msgstr "{site}은/는 {game}의 대표 사이트나 연관 사이트가 아닙�
 
 #: magi/views.py:124
 msgid "the company that owns {game}"
-msgstr "을 보유중인 회사"
+msgstr "을 보유중인 회사{game}"
 
 #: magi/views_collections.py:343
 msgid "Make sure the {thing} you're about to add doesn't already exist."
@@ -992,7 +992,7 @@ msgstr "다른 사용자를 팔로우하여 그들의 활동을 확인하세요!
 #. 임시번역입니다. 원래 그래프로 나오는 부분인데 현재 사이트에서 안 보이네요.
 #: magi/templates/include/homePage.html:11
 msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
-msgstr "를 위해 총 %(total_donators)명이 기부해 주었습니다. 목표치: %(adjective)"
+msgstr "를 위해 총 %(total_donators)s 명이 기부해 주었습니다. 목표치: %(adjective)s"
 
 #: magi/templates/include/homePage.html:25
 #: magi/templates/include/homePage.html:28
@@ -2168,7 +2168,7 @@ msgstr "싫어하는 음식"
 
 #: bang/models.py:482 bang/models.py:483 bang/models.py:486
 msgid "Level {level}"
-msgstr "레벨"
+msgstr "레벨 {level}"
 
 #. Thought it would be best if it was translated by pronunciation, not a literal translation.
 #: magi/raw.py:40

@@ -508,17 +508,17 @@ class CardCollection(MagiCollection):
                     'value': item.japanese_full_skill,
                 }))
             # Add gacha and events
-            if item.cached_event:
-                extra_fields.append(('event', {
+            for cached_event in (item.cached_events or []):
+                extra_fields.append((u'event-{}'.format(cached_event), {
                     'verbose_name': u'{}: {}'.format(
                         _('Event'),
-                        item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name),
+                        cached_event.japanese_name if get_language() == 'ja' else cached_event.name),
                     'icon': 'event',
-                    'value': item.cached_event.image_url,
+                    'value': cached_event.image_url,
                     'type': 'image_link',
-                    'link': item.cached_event.item_url,
-                    'ajax_link': item.cached_event.ajax_item_url,
-                    'link_text': item.cached_event.japanese_name if get_language() == 'ja' else item.cached_event.name,
+                    'link': cached_event.item_url,
+                    'ajax_link': cached_event.ajax_item_url,
+                    'link_text': cached_event.japanese_name if get_language() == 'ja' else cached_event.name,
                 }))
             for cached_gacha in (item.cached_gachas or []):
                 extra_fields.append((u'gacha-{}'.format(cached_gacha.id), {

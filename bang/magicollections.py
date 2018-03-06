@@ -641,6 +641,7 @@ class CardCollection(MagiCollection):
             if context['view'] == 'icons':
                 context['per_line'] = 6
                 context['col_size'] = int(math.ceil(12 / context['per_line']))
+                context['col_break'] = 'xs'
                 for item in context['items']:
                     item.show_item_buttons_as_icons = True
             if context['view'] == 'statistics':

@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _, string_concat
 from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING, DEFAULT_JAVASCRIPT_TRANSLATED_TERMS
 from magi.utils import tourldash
 from bang import models
+from bang.utils import bangGlobalContext
 
 STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
 
@@ -30,6 +31,8 @@ GAME_URL = 'https://bang-dream.bushimo.jp/'
 DISQUS_SHORTNAME = 'bangdream'
 ACCOUNT_MODEL = models.Account
 COLOR = '#E40046'
+
+GET_GLOBAL_CONTEXT = bangGlobalContext
 
 GITHUB_REPOSITORY = ('SchoolIdolTomodachi', 'BanGDream')
 

@@ -201,7 +201,9 @@ class MemberCollection(MagiCollection):
     def share_image(self, context, item):
         return 'screenshots/members.png'
 
-    def to_fields(self, view, item, *args, **kwargs):
+    def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
+        if exclude_fields is None: exclude_fields = []
+        exclude_fields.append('d_names')
         fields = super(MemberCollection, self).to_fields(view, item, *args, icons={
             'name': 'id',
             'japanese_name': 'id',
@@ -219,7 +221,7 @@ class MemberCollection(MagiCollection):
             'fans': 'heart',
         }, images={
             'astrological_sign': '{}img/i_astrological_sign/{}.png'.format(RAW_CONTEXT['static_url'], item.i_astrological_sign),
-        }, **kwargs)
+        }, exclude_fields=exclude_fields, **kwargs)
         if 'square_image' in fields:
             del(fields['square_image'])
         setSubField(fields, 'birthday', key='type', value='text')

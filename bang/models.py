@@ -98,8 +98,18 @@ class Member(MagiModel):
     collection_name = 'member'
 
     owner = models.ForeignKey(User, related_name='added_members')
-    name = models.CharField(string_concat(_('Name'), ' (romaji)'), max_length=100, unique=True)
+    name = models.CharField(string_concat(_('Name'), ' (', _('Romaji'), ')'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
+
+    NAMES_CHOICES = django_settings.LANGUAGES
+    d_names = models.TextField(null=True)
+
+    @property
+    def translated_name(self):
+        if get_language() == 'ja':
+            self.japanese_name
+        return self.names.get(get_language(), self.name)
+
     image = models.ImageField(_('Image'), upload_to=uploadItem('i'))
     square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
 

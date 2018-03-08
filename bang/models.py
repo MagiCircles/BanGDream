@@ -17,6 +17,8 @@ from bang.django_translated import t
 ############################################################
 # Utility Models
 
+LANGUAGES_NEED_OWN_NAME = [ l for l in django_settings.LANGUAGES if l[0] in ['ru', 'zh-hans', 'zh-hant', 'kr'] ]
+
 class Image(BaseMagiModel):
     image = models.ImageField(upload_to=uploadToKeepName('images/'))
 
@@ -101,8 +103,8 @@ class Member(MagiModel):
     name = models.CharField(string_concat(_('Name'), ' (', _('Romaji'), ')'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
 
-    NAMES_CHOICES = django_settings.LANGUAGES
-    d_names = models.TextField(null=True)
+    NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
+    d_names = models.TextField(_('Name'), null=True)
 
     @property
     def translated_name(self):

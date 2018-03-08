@@ -340,7 +340,7 @@ def to_CollectibleCardCollection(cls):
 
         class ListView(cls.ListView):
             col_break = 'xs'
-            default_ordering = '-card__i_rarity,-trained,-id'
+            default_ordering = '-card__i_rarity,-trained,-card__release_date'
             filter_form = forms.to_CollectibleCardFilterForm(cls)
 
         class AddView(cls.AddView):

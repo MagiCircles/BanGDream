@@ -87,6 +87,15 @@ class MemberForm(AutoForm):
         self.fields['square_image'].label = 'Small icon (for the map)'
         self.fields['square_image'].help_text = mark_safe('Example: <img src="https://i.bandori.party/u/i/m/1Toyama-Kasumi-D7Fpvu.png" height="40">')
 
+    def save(self, commit=False):
+        instance = super(MemberForm, self).save(commit=False)
+        # Invalidate cards cache
+        if not self.is_creating:
+            models.Card.objects.filter(member_id=instance.id).update(_cache_member_last_update=None)
+        if commit:
+            instance.save()
+        return instance
+
     class Meta(AutoForm.Meta):
         model = models.Member
         fields = '__all__'
@@ -113,7 +122,6 @@ class MemberFilterForm(MagiFiltersForm):
 
 class CardForm(AutoForm):
     chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
-    is_promo = forms.NullBooleanField(initial=None, label=_('Promo'))
 
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
@@ -130,7 +138,7 @@ class CardForm(AutoForm):
     def save(self, commit=False):
         instance = super(CardForm, self).save(commit=False)
         if self.previous_member_id != instance.member_id:
-            instance.update_cache_member()
+            instance.update_cache('member')
         instance.save()
         # Delete existing chibis
         if not self.is_creating:
@@ -163,12 +171,12 @@ class CardForm(AutoForm):
         save_owner_on_creation = True
 
 class CardFilterForm(MagiFiltersForm):
-    search_fields = ['_cache_member_name', '_cache_member_japanese_name', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
+    search_fields = ['_cache_j_member', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
     ordering_fields = [
         ('release_date', _('Release date')),
         ('id', _('ID')),
-        ('_cache_member_name', string_concat(_('Member'), ' - ', _('Name'))),
-        ('_cache_member_japanese_name', string_concat(_('Member'), ' - ', _('Name'), ' (', t['Japanese'], ')')),
+        ('member__name', string_concat(_('Member'), ' - ', _('Name'))),
+        ('member__japanese_name', string_concat(_('Member'), ' - ', _('Name'), ' (', t['Japanese'], ')')),
         ('i_rarity', _('Rarity')),
         ('i_attribute', _('Attribute')),
         ('performance_max', _('Performance')),

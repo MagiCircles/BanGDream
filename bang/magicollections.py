@@ -364,6 +364,48 @@ def to_CollectibleCardCollection(cls):
 ############################################################
 # Card Collection
 
+CARD_CUTEFORM = {
+    'member_id': {
+        'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+        'title': _('Member'),
+        'extra_settings': {
+	    'modal': 'true',
+	    'modal-text': 'true',
+        },
+    },
+    'i_rarity': {
+        'type': CuteFormType.HTML,
+        'to_cuteform': lambda k, v: rarity_to_stars_images(k),
+    },
+    'i_attribute': {},
+    'trainable': {
+        'type': CuteFormType.OnlyNone,
+    },
+    'i_skill_type': {
+        'to_cuteform': lambda k, v: CardCollection._skill_icons[k],
+        'transform': CuteFormTransform.Flaticon,
+    },
+    'member_band': {
+        'image_folder': 'band',
+        'to_cuteform': 'value',
+        'title': _('Band'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+    'version': {
+        'to_cuteform': lambda k, v: CardCollection._version_images[k],
+        'image_folder': 'language',
+        'transform': CuteFormTransform.ImagePath,
+    },
+    'origin': {
+        'transform': CuteFormTransform.Flaticon,
+        'to_cuteform': lambda k, v: CardCollection._origin_to_cuteform[k],
+    },
+}
+
+
 class CardCollection(MagiCollection):
     queryset = models.Card.objects.all()
     title = _('Card')
@@ -381,50 +423,7 @@ class CardCollection(MagiCollection):
         'is_gacha': 'max-bond',
         'is_event': 'event',
     }
-    filter_cuteform = {
-        'member_id': {
-            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
-            'title': _('Member'),
-            'extra_settings': {
-	        'modal': 'true',
-	        'modal-text': 'true',
-            },
-        },
-        'i_rarity': {
-            'type': CuteFormType.HTML,
-            'to_cuteform': lambda k, v: rarity_to_stars_images(k),
-        },
-        'is_promo': {
-            'type': CuteFormType.OnlyNone,
-        },
-        'i_attribute': {},
-        'trainable': {
-            'type': CuteFormType.OnlyNone,
-        },
-        'i_skill_type': {
-            'to_cuteform': lambda k, v: CardCollection._skill_icons[k],
-            'transform': CuteFormTransform.Flaticon,
-        },
-        'member_band': {
-            'image_folder': 'band',
-            'to_cuteform': 'value',
-            'title': _('Band'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
-        },
-        'version': {
-            'to_cuteform': lambda k, v: CardCollection._version_images[k],
-            'image_folder': 'language',
-            'transform': CuteFormTransform.ImagePath,
-        },
-        'origin': {
-            'transform': CuteFormTransform.Flaticon,
-            'to_cuteform': lambda k, v: CardCollection._origin_to_cuteform[k],
-        },
-    }
-
+    filter_cuteform = CARD_CUTEFORM
     collectible = [
         models.CollectibleCard,
         models.FavoriteCard,
@@ -629,6 +628,7 @@ class CardCollection(MagiCollection):
             ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
             ('transparent', { 'verbose_name': _('Transparent') }),
         ]
+
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CardCollection.ListView, self).get_queryset(queryset, parameters, request)
             if request.GET.get('ordering', None) in ['_overall_max', '_overall_trained_max']:

@@ -18,6 +18,8 @@ from bang.django_translated import t
 # Utility Models
 
 LANGUAGES_NEED_OWN_NAME = [ l for l in django_settings.LANGUAGES if l[0] in ['ru', 'zh-hans', 'zh-hant', 'kr'] ]
+LANGUAGES_DIFFERENT_CHARSET = [ l for l in django_settings.LANGUAGES if l[0] in ['ja', 'ru', 'zh-hans', 'zh-hant', 'kr'] ]
+ALL_ALT_LANGUAGES = [ l for l in django_settings.LANGUAGES if l != 'en' ]
 
 class Image(BaseMagiModel):
     image = models.ImageField(upload_to=uploadToKeepName('images/'))
@@ -107,7 +109,7 @@ class Member(MagiModel):
     d_names = models.TextField(_('Name'), null=True)
 
     @property
-    def translated_name(self):
+    def t_name(self):
         if get_language() == 'ja':
             self.japanese_name
         return self.names.get(get_language(), self.name)
@@ -133,12 +135,19 @@ class Member(MagiModel):
     )
     i_school_year = models.PositiveIntegerField(_('School Year'), choices=i_choices(SCHOOL_YEAR_CHOICES), null=True)
 
+    # TODO: separate page of voice acctresses
     romaji_CV = models.CharField(_('CV'), help_text='In romaji.', max_length=100, null=True)
     CV = models.CharField(string_concat(_('CV'), ' (', t['Japanese'], ')'), help_text='In Japanese characters.', max_length=100, null=True)
 
     birthday = models.DateField(_('Birthday'), null=True, help_text='The year is not used, so write whatever')
-    food_likes = models.CharField(_('Liked food'), max_length=100, null=True)
-    food_dislikes = models.CharField(_('Disliked food'), max_length=100, null=True)
+
+    food_like = models.CharField(_('Liked food'), max_length=100, null=True)
+    FOOD_LIKES_CHOICES = ALL_ALT_LANGUAGES
+    d_food_likes = models.TextField(_('Liked food'), null=True)
+
+    food_dislike = models.CharField(_('Disliked food'), max_length=100, null=True)
+    FOOD_DISLIKES_CHOICES = ALL_ALT_LANGUAGES
+    d_food_dislikes = models.TextField(_('Disliked food'), null=True)
 
     ASTROLOGICAL_SIGN_CHOICES = (
         ('Leo', _('Leo')),
@@ -158,7 +167,10 @@ class Member(MagiModel):
     @property
     def astrological_sign_image_url(self): return staticImageURL(self.i_astrological_sign, folder='i_astrological_sign', extension='png')
 
-    hobbies = models.CharField(_('Instrument'), max_length=100, null=True)
+    instrument = models.CharField(_('Instrument'), max_length=100, null=True)
+    INSTRUMENTS_CHOICES = ALL_ALT_LANGUAGES
+    d_instruments = models.TextField(_('Instrument'), null=True)
+
     description = models.TextField(_('Description'), null=True)
 
     reverse_related = (
@@ -198,7 +210,7 @@ class Member(MagiModel):
         return self._cache_total_cards
 
     def __unicode__(self):
-        return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
+        return unicode(self.t_name)
 
 ############################################################
 # Card
@@ -523,39 +535,22 @@ class Card(MagiModel):
 
     _cache_member_days = 20
     _cache_member_last_update = models.DateTimeField(null=True)
-    _cache_member_name = models.CharField(max_length=100, null=True)
-    _cache_member_japanese_name = models.CharField(max_length=100, null=True)
-    _cache_member_image = models.ImageField(upload_to=uploadItem('member'), null=True)
+    _cache_j_member = models.TextField(null=True)
 
-    def update_cache_member(self):
-        self._cache_member_last_update = timezone.now()
-        if self.member_id:
-            self._cache_member_name = self.member.name
-            self._cache_member_japanese_name = self.member.japanese_name
-            self._cache_member_image = self.member.image
+    @classmethod
+    def cached_member_pre(self, d):
+        d['name'] = d['names']['en']
+        d['t_name'] = d['unicode'] = d['names'].get(get_language(), d['name'])
 
-    def force_cache_member(self):
-        self.update_cache_member()
-        self.save()
-
-    @property
-    def cached_member(self):
-        if not self.member_id:
-            return None
-        if not self._cache_member_last_update or self._cache_member_last_update < timezone.now() - datetime.timedelta(days=self._cache_member_days):
-            self.force_cache_member()
-        return AttrDict({
-            'pk': self.member_id,
+    def to_cache_member(self):
+        names = self.member.names or {}
+        names['en'] = self.member.name
+        names['ja'] = self.member.japanese_name
+        return {
             'id': self.member_id,
-            'unicode': self._cache_member_name if get_language() != 'ja' else self._cache_member_japanese_name,
-            'name': self._cache_member_name,
-            'japanese_name': self._cache_member_japanese_name,
-            'image': self._cache_member_image,
-            'image_url': get_image_url_from_path(self._cache_member_image),
-            'http_image_url': get_http_image_url_from_path(self._cache_member_image),
-            'item_url': u'/member/{}/{}/'.format(self.member_id, tourldash(self._cache_member_name)) if self.member_id else '#',
-            'ajax_item_url': u'/ajax/member/{}/'.format(self.member_id) if self.member_id else '',
-        })
+            'names': names,
+            'image': unicode(self.member.image),
+        }
 
     # Cache events
 
@@ -639,11 +634,7 @@ class Card(MagiModel):
         if self.id:
             return u'{rarity} {member_name} - {attribute}{name}'.format(
                 rarity=self.t_rarity,
-                member_name=(
-                    self.cached_member.japanese_name
-                    if get_language() == 'ja'
-                    else self.cached_member.name)
-                if self.cached_member else '',
+                member_name=self.cached_member.t_name if self.cached_member else '',
                 attribute=self.t_attribute,
                 name=(u' - {}'.format(
                     self.japanese_name

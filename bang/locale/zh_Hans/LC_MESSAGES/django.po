@@ -23,7 +23,7 @@ msgstr "排行榜"
 
 #: magi/magicollections.py:1209
 msgid "Create your account to join the community and be in the leaderboard!"
-msgstr "注册帐号来参加社区和排行榜吧！"
+msgstr "注册帐号来加入社区和排行榜吧！"
 
 #: bang/templates/pages/indexBackground.html:20
 msgid "Profile"
@@ -357,11 +357,11 @@ msgstr "联络我们"
 
 #: magi/templates/pages/about.html:152
 msgid "Franchise Credits"
-msgstr "感谢游戏品牌"
+msgstr ""
 
 #: magi/templates/pages/about.html:162
 msgid "Icons Credits"
-msgstr "感谢名单图像"
+msgstr ""
 
 #: magi/templates/pages/about.html:49
 msgid "Staff members"
@@ -598,7 +598,7 @@ msgstr "你好"
 
 #: sukutomo/settings.py:49
 msgid "{nth} Favorite Character"
-msgstr "{nth} 最喜欢的人物"
+msgstr "{nth} 喜欢的人物"
 
 #: magi/settings.py:91
 msgid "The {game} Database & Community"
@@ -883,7 +883,7 @@ msgstr ""
 
 #: stardustrun/settings.py:38
 msgid "{nth} Favorite Pokémon"
-msgstr "第{nth}喜欢的宝可梦"
+msgstr "{nth}喜欢的宝可梦"
 
 #: stardustrun/collections_settings.py:13 stardustrun/settings.py:92
 #: stardustrun/settings.py:93 stardustrun/settings.py:161
@@ -1059,7 +1059,7 @@ msgstr "进化后"
 
 #: stardustrun/models.py:200 stardustrun/models.py:282
 msgid "Stardust"
-msgstr ""
+msgstr "星尘"
 
 #: stardustrun/models.py:201 stardustrun/models.py:283
 msgid "Lucky Eggs"
@@ -1183,7 +1183,7 @@ msgstr "稀有度"
 
 #: cpro/forms.py:133
 msgid "Favorite Idol"
-msgstr "最喜欢的偶像"
+msgstr "喜欢的偶像"
 
 #: cpro/forms.py:138 cpro/models.py:217
 msgid "Producer Rank"
@@ -1191,7 +1191,7 @@ msgstr "制作人等级"
 
 #: cpro/forms.py:140 cpro/forms.py:177 cpro/forms.py:216 cpro/forms.py:285
 msgid "Reverse Order"
-msgstr "反方向排序"
+msgstr "倒序"
 
 #: sukutomo/models.py:38
 msgid "Accept friend requests"
@@ -1269,7 +1269,7 @@ msgstr "觉醒"
 #: bang/magicollections.py:523 bang/magicollections.py:613
 #: bang/magicollections.py:614 bang/models.py:424 bang/models.py:425
 msgid "Art"
-msgstr "有背景图"
+msgstr "立绘"
 
 #: cpro/forms.py:270 cpro/models.py:366
 #: cpro/templates/include/cards-stats.html:44
@@ -1278,13 +1278,13 @@ msgstr "登场日期"
 
 #: bang/forms.py:169 bang/magicollections.py:470 bang/models.py:198
 msgid "ID"
-msgstr "ID"
+msgstr "卡牌ID"
 
 #: cpro/forms.py:276 cpro/forms.py:277 cpro/model_choices.py:43
 #: cpro/model_choices.py:247 cpro/model_choices.py:252 cpro/models.py:437
 #: cpro/models.py:438 cpro/models.py:439 cpro/models.py:440 cpro/models.py:494
 msgid "Vocal"
-msgstr "声音"
+msgstr "主唱"
 
 #: cpro/forms.py:278 cpro/forms.py:279 cpro/model_choices.py:44
 #: cpro/model_choices.py:249 cpro/model_choices.py:252 cpro/models.py:441
@@ -1300,7 +1300,7 @@ msgstr "外貌"
 #: bang/forms.py:273 bang/forms.py:568 bang/magicollections.py:490
 #: bang/models.py:332
 msgid "Skill"
-msgstr "特技"
+msgstr "技能"
 
 #: cpro/model_choices.py:9
 msgid "Skilled Producer"
@@ -1332,7 +1332,7 @@ msgstr "Cool"
 
 #: cpro/model_choices.py:27
 msgid "Passion"
-msgstr "Passion"
+msgstr "热情"
 
 #. does this refer to right/left hand?
 #: cpro/model_choices.py:54
@@ -1345,7 +1345,7 @@ msgstr "左撇子"
 
 #: cpro/model_choices.py:54
 msgid "Both"
-msgstr "双撇子"
+msgstr "左右开弓"
 
 #: sukutomo/models.py:143
 msgid "Leo"
@@ -1413,27 +1413,27 @@ msgstr "摸鱼活动"
 
 #: cpro/model_choices.py:117
 msgid "Rare"
-msgstr "稀有"
+msgstr "R"
 
 #: cpro/model_choices.py:118
 msgid "Super Rare"
-msgstr "超稀有"
+msgstr "SR"
 
 #: cpro/model_choices.py:119
 msgid "Super Super Rare"
-msgstr "超超稀有"
+msgstr "SSR"
 
 #: cpro/model_choices.py:155
 msgid "Lesser Perfect Lock"
-msgstr "Lesser Perfect Lock"
+msgstr "普通的判定增强"
 
 #: cpro/model_choices.py:156
 msgid "Greater Perfect Lock"
-msgstr "Greater Perfect Lock"
+msgstr "强力的判定增强"
 
 #: cpro/model_choices.py:157
 msgid "Extreme Perfect Lock"
-msgstr "Extreme Perfect Lock"
+msgstr "顶级的判定增强"
 
 #: cpro/model_choices.py:158
 msgid "Combo Lock"
@@ -1465,31 +1465,31 @@ msgstr "分数增值"
 
 #: cpro/model_choices.py:190
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Great notes into Perfect notes in the next {skill_duration} seconds."
-msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, {skill_duration} 秒内全部Great判定成Perfect。"
+msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, 把{skill_duration} 秒内全部Great判定成Perfect。"
 
 #: cpro/model_choices.py:191
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
-msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, {skill_duration} 秒内全部Nice与Great判定成Perfect。"
+msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, 把{skill_duration} 秒内全部Nice与Great判定成Perfect。"
 
 #: cpro/model_choices.py:192
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Bad, Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
-msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, {skill_duration} 秒内全部Bad，Nice，与Great判定成Perfect。"
+msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, 把{skill_duration} 秒内全部Bad，Nice，与Great判定成Perfect。"
 
 #: cpro/model_choices.py:193
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Nice notes will not break the combo in the next {skill_duration} seconds."
-msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, {skill_duration} 秒内Nice不会使连击中断。"
+msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率,把 {skill_duration} 秒内Nice不会使连击中断。"
 
 #: cpro/model_choices.py:194
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will restore {skill_value} life in the next {skill_duration} seconds."
-msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, {skill_duration} 秒内Perfect使生命值回复 {skill_value} 点。"
+msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, 在{skill_duration} 秒内的Perfect生命值回复 达到{skill_value} 点。"
 
 #: cpro/model_choices.py:195
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will not lose health in the next {skill_duration} seconds."
-msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, {skill_duration} 秒内不会失去生命值。"
+msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, 在{skill_duration} 秒内不会失去生命值。"
 
 #: cpro/model_choices.py:196
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus in the next {skill_duration} seconds."
-msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, {skill_duration} 秒内获得额外 {skill_value}% 的连击增值。"
+msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, 在{skill_duration} 秒内获得额外 {skill_value}% 的连击增值。"
 
 #: cpro/model_choices.py:197
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
@@ -1501,11 +1501,11 @@ msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, {skill_duration} �
 
 #: cpro/model_choices.py:199
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Great and Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
-msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, {skill_duration} 秒内Great与Perfect获得额外 {skill_value}% 的分数增值。"
+msgstr "每 {trigger_value} 秒有 {trigger_chance}% 几率, 在{skill_duration} 秒内Great与Perfect获得额外 {skill_value}% 的分数增值。"
 
 #: cpro/model_choices.py:223
 msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}%."
-msgstr "提升所有 {idol_type} 属性 {leader_skill_type} 值 {leader_skill_percent}% 。"
+msgstr "提升所有 {idol_type} 属性的成员 {leader_skill_type} 值 {leader_skill_percent}% 。"
 
 #: cpro/model_choices.py:232 cpro/model_choices.py:250 cpro/models.py:433
 #: cpro/models.py:434 cpro/models.py:435 cpro/models.py:436 cpro/models.py:493
@@ -1531,7 +1531,7 @@ msgstr "能量值"
 
 #: cpro/model_choices.py:269
 msgid "Ability"
-msgstr "特技"
+msgstr "能力"
 
 #: cpro/model_choices.py:270
 msgid "Brilliance"
@@ -1543,7 +1543,7 @@ msgstr "发亮"
 
 #: cpro/model_choices.py:286 cpro/model_choices.py:296
 msgid "Tricolor"
-msgstr "三彩"
+msgstr "三色"
 
 #: sukutomo/models.py:52
 msgid "Thumbs"
@@ -1612,7 +1612,7 @@ msgstr "用"
 
 #: sukutomo/models.py:80
 msgid "Operating System"
-msgstr "运行系统"
+msgstr "操作系统"
 
 #: sukutomo/magicollections.py:31
 msgid "Idol"
@@ -1628,7 +1628,7 @@ msgstr "标题"
 #: bang/magicollections.py:523 bang/magicollections.py:615 bang/models.py:426
 #: bang/models.py:427
 msgid "Transparent"
-msgstr "透明"
+msgstr "无背景立绘"
 
 #: bang/magicollections.py:523 bang/models.py:422 bang/models.py:423
 msgid "Icon"
@@ -1693,7 +1693,7 @@ msgstr "歌曲"
 
 #: cpro/settings.py:38
 msgid "{nth} Favorite Idol"
-msgstr "{nth}最喜欢的偶像"
+msgstr "{nth}喜欢的偶像"
 
 #: cpro/settings.py:59
 msgid "Favorite Cards"
@@ -1705,11 +1705,11 @@ msgstr "新卡"
 
 #: bang/settings.py:60
 msgid "Live"
-msgstr "Live"
+msgstr "演唱会"
 
 #: bang/settings.py:57
 msgid "Comedy"
-msgstr "娱乐"
+msgstr "喜剧"
 
 #: cpro/settings.py:71
 msgid "Room Decoration"
@@ -1831,7 +1831,7 @@ msgstr "加载中"
 
 #: cpro/model_choices.py:102
 msgid "LIVE Parade"
-msgstr "LIVE Parade"
+msgstr "巡回演出"
 
 #: cpro/models.py:195
 msgid "Producer Level"
@@ -1843,7 +1843,7 @@ msgstr "%(idol)s 参加了 %(total_results)s 活动"
 
 #: cpro/templates/include/beforeLeaderboard.html:29
 msgid "%(total_results)s producers scouted %(own_card)s"
-msgstr "%(total_results)s producer拥有 %(own_card)s"
+msgstr "%(total_results)s 制作人拥有 %(own_card)s"
 
 #: magi/magicollections.py:1804 magi/magicollections.py:1904
 msgid "Badge"
@@ -2040,7 +2040,7 @@ msgstr "那时候游戏还不在呢"
 
 #: bang/magicollections.py:878 bang/magicollections.py:1046
 msgid "Countdown"
-msgstr "倒数"
+msgstr "倒计时"
 
 #: bang/magicollections.py:881 bang/magicollections.py:1049
 msgid "{time} left"
@@ -2082,7 +2082,7 @@ msgstr "觉醒后"
 #: bang/forms.py:176 bang/forms.py:177 bang/magicollections.py:686
 #: bang/models.py:433 bang/models.py:434 bang/models.py:435 bang/models.py:503
 msgid "Technique"
-msgstr "技艺点数"
+msgstr "技能点数"
 
 #: bang/magicollections.py:180 bang/settings.py:62
 msgid "Members"
@@ -2098,7 +2098,7 @@ msgstr "二年级"
 
 #: bang/models.py:212 bang/settings.py:72
 msgid "Power"
-msgstr "Power"
+msgstr "Power属性"
 
 #: sukutomo/models.py:112
 msgid "Pure"
@@ -2106,7 +2106,7 @@ msgstr "Pure属性"
 
 #: bang/models.py:224 bang/settings.py:75
 msgid "Happy"
-msgstr "Happy"
+msgstr "Happy属性"
 
 #: bang/models.py:246
 #, fuzzy
@@ -2114,14 +2114,12 @@ msgid "Score up"
 msgstr "得分增加"
 
 #: bang/models.py:274
-#, fuzzy
 msgid "Life recovery"
 msgstr "体力回复"
 
 #: bang/models.py:290
-#, fuzzy
 msgid "Perfect lock"
-msgstr "增强判定"
+msgstr "判定增强"
 
 #: bang/models.py:116
 msgid "School"
@@ -2145,11 +2143,11 @@ msgstr "Lv {level}"
 
 #: magi/raw.py:40
 msgid "BanG Dream! Girls Band Party"
-msgstr "BanG Dream! Girls Band Party"
+msgstr "BanG Dream! 少女乐团派对"
 
 #: bang/settings.py:54
 msgid "{nth} Favorite Member"
-msgstr "第{nth}喜欢的社员"
+msgstr "{nth}喜欢的成员"
 
 #: cpro/templates/items/eventInfo.html:14
 msgid "days"
@@ -2177,7 +2175,7 @@ msgstr "乐器"
 
 #: magi/magicollections.py:332
 msgid "Collected {thing}"
-msgstr ""
+msgstr "收集的{thing}"
 
 #: bang/magicollections.py:573 bang/models.py:327 bang/models.py:328
 msgid "Skill name"
@@ -2185,89 +2183,89 @@ msgstr "技能名称"
 
 #: bang/models.py:700
 msgid "{nth} episode"
-msgstr ""
+msgstr "第{nth}章"
 
 #: bang/models.py:701
 msgid "Memorial episode"
-msgstr ""
+msgstr "回忆章节"
 
 #: magi/abstract_models.py:141
 msgid "Join date"
-msgstr ""
+msgstr "参加日期"
 
 #: magi/abstract_models.py:142
 msgid "Give a nickname to your account to easily differentiate it from your other accounts when you're managing them."
-msgstr ""
+msgstr "给你的账户起一个昵称，以便你在编辑它们时能轻易区分"
 
 #: magi/abstract_models.py:143
 msgid "Start date"
-msgstr ""
+msgstr "开始日期"
 
 #: magi/abstract_models.py:146 magi/models.py:66
 msgid "Default tab"
-msgstr ""
+msgstr "默认标签"
 
 #: magi/views.py:120
 msgid "Email"
-msgstr ""
+msgstr "电子邮件"
 
 #: magi/forms.py:183 magi/forms.py:192
 msgid "You've added a lot of {things}, lately. Try to wait a little bit before adding more."
-msgstr ""
+msgstr "你已经添加了许多{things}, 请稍后继续添加"
 
 #: magi/forms.py:199
 msgid "You already have {total} {things}. You can only add up to {max} {things}."
-msgstr ""
+msgstr "你已经有了 {total} {things}，你一共只能添加 {max} {things}"
 
 #: magi/forms.py:325
 msgid "View"
-msgstr ""
+msgstr "外观"
 
 #: magi/forms.py:534
 msgid "Please provide an updated screenshot of your in-game profile to prove your level."
-msgstr ""
+msgstr "请上传一张游戏截图用来佐证你的游戏等级"
 
 #: magi/forms.py:834 magi/forms.py:836 magi/forms.py:876 magi/forms.py:878
 msgid "You may use Markdown formatting."
-msgstr ""
+msgstr "你可以用Markdown编辑"
 
 #. Example: Adding to your account db0
 #. Adding to your card Kotori
 #: magi/magicollections.py:249
 msgid "Adding to your {thing} {name}"
-msgstr ""
+msgstr "添加到你的{thing} {name}"
 
 #: magi/magicollections.py:340
 msgid "Add to your {thing}"
-msgstr ""
+msgstr "添加到你的{thing}"
 
 #: magi/magicollections.py:354
 msgid "Quick edit"
-msgstr ""
+msgstr "快速编辑"
 
 #: magi/magicollections.py:1234
 msgid "Leaderboard position"
-msgstr ""
+msgstr "排行榜位置"
 
 #: magi/templates/pages/about.html:93
 msgid "Need help?"
-msgstr ""
+msgstr "需要帮助？"
 
 #: magi/templates/pages/about.html:94
 msgid "Find answers to your questions"
-msgstr ""
+msgstr "寻找你问题的答案"
 
 #: magi/templates/pages/about.html:98
 msgid "Share a suggestion or a bug"
-msgstr ""
+msgstr "反馈建议或漏洞"
 
 #: magi/templates/pages/about.html:100
 msgid "Fill our feedback form:"
-msgstr ""
+msgstr "填写我们的反馈表"
 
 #: magi/templates/pages/about.html:101
 msgid "Feedback form"
-msgstr ""
+msgstr "反馈表"
 
 #: magi/templates/pages/about.html:103
 msgid "Create a ticket in our bug tracker:"
@@ -2275,35 +2273,35 @@ msgstr ""
 
 #: magi/templates/pages/about.html:104
 msgid "Bug tracker"
-msgstr ""
+msgstr "错误跟踪器"
 
 #: magi/templates/pages/about.html:108
 msgid "Alternatively..."
-msgstr ""
+msgstr "或者..."
 
 #: magi/templates/pages/about.html:109
 msgid "The staff team is available on:"
-msgstr ""
+msgstr "你可以在以下地方找到工作人员："
 
 #: magi/utils.py:189
 msgid "Select {}"
-msgstr ""
+msgstr "选中{}"
 
 #: magi/utils.py:423
 msgid "This date has to be in the future."
-msgstr ""
+msgstr "日期必须提前"
 
 #: magi/views.py:489
 msgid "Successfully added!"
-msgstr ""
+msgstr "成功添加！"
 
 #: magi/views.py:494
 msgid "Successfully deleted!"
-msgstr ""
+msgstr "成功删除！"
 
 #: magi/views_collections.py:199
 msgid "{things} list"
-msgstr ""
+msgstr "{thing}列表"
 
 #: cpro/model_choices.py:165
 msgid "All Round"
@@ -2311,11 +2309,11 @@ msgstr ""
 
 #: cpro/model_choices.py:166
 msgid "Concentration"
-msgstr ""
+msgstr "专注"
 
 #: cpro/model_choices.py:167
 msgid "Skill Boost"
-msgstr ""
+msgstr "技能增益"
 
 #: cpro/model_choices.py:168
 msgid "Cute/Cool/Passion Focus"
@@ -2323,128 +2321,128 @@ msgstr ""
 
 #: cpro/model_choices.py:200
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus and Perfect notes will restore {skill_value2} life in the next {skill_duration} seconds."
-msgstr ""
+msgstr "每{trigger_value} 秒，有{trigger_chance}%几率获得一次额外的连击加分，且完美判定可在接下来{skill_duration} 秒内恢复 {skill_value2} 点生命值"
 
 #: cpro/model_choices.py:201
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus but the timing window for Perfect notes is reduced in the next {skill_duration} seconds."
-msgstr ""
+msgstr "每 {trigger_value} 秒有{trigger_chance}%几率可使完美判定带来额外{skill_value}%加分，但在接下来{skill_duration} 秒内，完美判定的窗口会被缩减"
 
 #: cpro/model_choices.py:202
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% change that currently active skills will be boosted for {skill_duration} seconds"
-msgstr ""
+msgstr "每{trigger_value} 秒有{trigger_chance}%几率使发动中的技能受到{skill_duration}秒的增益"
 
 #: cpro/model_choices.py:203
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus, but only if you have only {type} idols in your team for {skill_duration} seconds"
-msgstr ""
+msgstr "每 {trigger_value} 秒有 {trigger_chance}%几率使完美判定带来{skill_value}%加分，且当 {type} 成员在队伍中时，可在{skill_duration} 秒内收获{skill_value2}%连击加分"
 
 #: cpro/templates/include/beforeLeaderboard.html:21
 msgid "%(total_results)s producers love %(favorite_character_idol)s"
-msgstr ""
+msgstr "%(total_results)s位制作人喜欢%(favorite_character_idol)s"
 
 #: cpro/templates/items/eventInfo.html:14
 msgid "seconds left"
-msgstr ""
+msgstr "剩余秒数"
 
 #: cpro/templates/items/eventInfo.html:30
 msgid "translated in English"
-msgstr ""
+msgstr "翻译成英语"
 
 #: bang/forms.py:35 bang/magicollections.py:85
 msgid "Total {item} bought"
-msgstr ""
+msgstr "共买了 {item} "
 
 #: bang/forms.py:35 bang/magicollections.py:85
 msgid "Star gems"
-msgstr ""
+msgstr "星星"
 
 #: sukutomo/models.py:36
 msgid "Friend ID"
-msgstr ""
+msgstr "好友ID"
 
 #: bang/forms.py:116 bang/forms.py:207
 msgid "Promo"
-msgstr ""
+msgstr "活动"
 
 #: bang/forms.py:168 bang/forms.py:535 bang/models.py:239 bang/models.py:915
 msgid "Release date"
-msgstr ""
+msgstr "登场日期"
 
 #: bang/forms.py:204
 msgid "Origin"
-msgstr ""
+msgstr "卡片来源"
 
 #: bang/forms.py:206 bang/magicollections.py:514 bang/magicollections.py:890
 #: bang/magicollections.py:953 bang/magicollections.py:954
 msgid "Gacha"
-msgstr ""
+msgstr "扭蛋"
 
 #: bang/forms.py:222 bang/forms.py:371 bang/forms.py:466 bang/forms.py:549
 #: bang/models.py:237 bang/models.py:782 bang/models.py:904 bang/models.py:1073
 msgid "Server availability"
-msgstr ""
+msgstr "服务器选择"
 
 #: bang/forms.py:288 bang/forms.py:289 bang/forms.py:364 bang/forms.py:407
 #: bang/forms.py:408 bang/forms.py:456 bang/models.py:39 bang/models.py:784
 #: bang/models.py:785 bang/models.py:786 bang/models.py:1052
 #: bang/models.py:1053 bang/models.py:1054
 msgid "English version"
-msgstr ""
+msgstr "英文服务器"
 
 #: bang/forms.py:291 bang/forms.py:292 bang/forms.py:365 bang/forms.py:410
 #: bang/forms.py:411 bang/forms.py:457 bang/models.py:43 bang/models.py:788
 #: bang/models.py:789 bang/models.py:790 bang/models.py:1056
 #: bang/models.py:1057 bang/models.py:1058
 msgid "Taiwanese version"
-msgstr ""
+msgstr "台服"
 
 #: bang/forms.py:294 bang/forms.py:295 bang/forms.py:366 bang/forms.py:413
 #: bang/forms.py:414 bang/forms.py:458 bang/models.py:47 bang/models.py:792
 #: bang/models.py:793 bang/models.py:794 bang/models.py:1060
 #: bang/models.py:1061 bang/models.py:1062
 msgid "Korean version"
-msgstr ""
+msgstr "韩服"
 
 #: bang/forms.py:363 bang/forms.py:364 bang/forms.py:365 bang/forms.py:366
 #: bang/forms.py:455 bang/forms.py:456 bang/forms.py:457 bang/forms.py:458
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: bang/forms.py:363 bang/forms.py:455 bang/models.py:35 bang/models.py:778
 #: bang/models.py:779
 msgid "Japanese version"
-msgstr ""
+msgstr "日服"
 
 #: bang/forms.py:537 bang/models.py:900
 msgid "Romaji"
-msgstr ""
+msgstr "罗马字"
 
 #: bang/forms.py:538 bang/models.py:907
 msgid "Length"
-msgstr ""
+msgstr "长度"
 
 #: bang/forms.py:539
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: bang/forms.py:540 bang/forms.py:541 bang/models.py:883 bang/models.py:925
 #: bang/models.py:926 bang/models.py:1005
 msgid "Hard"
-msgstr ""
+msgstr "困难"
 
 #: bang/forms.py:540 bang/forms.py:542 bang/models.py:921 bang/models.py:923
 #: bang/models.py:925 bang/models.py:927
 msgid "Notes"
-msgstr ""
+msgstr "音符"
 
 #: bang/forms.py:541 bang/forms.py:543 bang/models.py:922 bang/models.py:924
 #: bang/models.py:926 bang/models.py:928 bang/models.py:1009
 msgid "Difficulty"
-msgstr ""
+msgstr "难度"
 
 #: bang/forms.py:542 bang/forms.py:543 bang/models.py:884 bang/models.py:927
 #: bang/models.py:928 bang/models.py:1006
 msgid "Expert"
-msgstr ""
+msgstr "专家"
 
 #: bang/forms.py:546 bang/magicollections.py:1243
 msgid "Cover"
@@ -2452,185 +2450,185 @@ msgstr ""
 
 #: bang/magicollections.py:89
 msgid "~{}円 spent (~${})"
-msgstr ""
+msgstr "消费了~{}円  (~${})"
 
 #: bang/magicollections.py:181 bang/templates/pages/indexBackground.html:22
 msgid "Characters"
-msgstr ""
+msgstr "角色"
 
 #: bang/magicollections.py:270
 msgid "Favorite {thing}"
-msgstr ""
+msgstr "喜爱的{thing}"
 
 #: bang/magicollections.py:274
 msgid "Favorite {things}"
-msgstr ""
+msgstr "喜爱的{thing}"
 
 #: bang/magicollections.py:542 bang/magicollections.py:545
 #: bang/magicollections.py:612 bang/models.py:452
 msgid "Chibi"
-msgstr ""
+msgstr "Q版形象"
 
 #: bang/magicollections.py:599
 msgid "Icons"
-msgstr ""
+msgstr "图标"
 
 #: bang/magicollections.py:599
 msgid "Quick add"
-msgstr ""
+msgstr "快速添加"
 
 #: bang/magicollections.py:601
 msgid "Statistics"
-msgstr ""
+msgstr "数值"
 
 #: bang/magicollections.py:696
 msgid "Min"
-msgstr ""
+msgstr "初始数值"
 
 #: bang/magicollections.py:696 bang/magicollections.py:697
 msgid "Max"
-msgstr ""
+msgstr "最大值"
 
 #: bang/magicollections.py:729
 msgid "Participated event"
-msgstr ""
+msgstr "参加的活动"
 
 #: bang/magicollections.py:730
 msgid "Participated events"
-msgstr ""
+msgstr "参加的活动"
 
 #: bang/magicollections.py:902
 msgid "Boost Members"
-msgstr ""
+msgstr "受增益的成员"
 
 #: bang/magicollections.py:926
 msgid "Gift song"
-msgstr ""
+msgstr "礼物歌曲"
 
 #: bang/magicollections.py:1068
 msgid "Gacha type"
-msgstr ""
+msgstr "扭蛋类型"
 
 #: bang/magicollections.py:1070
 msgid "Permanent"
-msgstr ""
+msgstr "永久的"
 
 #: bang/magicollections.py:1102
 msgid "Played song"
-msgstr ""
+msgstr "游玩过的歌曲"
 
 #: bang/magicollections.py:1103
 msgid "Played songs"
-msgstr ""
+msgstr "游玩过的歌曲"
 
 #: bang/magicollections.py:1139 bang/magicollections.py:1239
 #: bang/models.py:1000
 msgid "Song"
-msgstr ""
+msgstr "歌曲"
 
 #: bang/magicollections.py:1243
 msgid "Original"
-msgstr ""
+msgstr "原创的"
 
 #: bang/magicollections.py:1306
 msgid "{} notes"
-msgstr ""
+msgstr "{} 音符"
 
 #: bang/magicollections.py:1321
 msgid "Songwriters"
-msgstr ""
+msgstr "歌曲作者"
 
 #: sukutomo/models.py:33
 msgid "Version"
-msgstr ""
+msgstr "服务器"
 
 #: sukutomo/models.py:39
 msgid "The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ..."
-msgstr ""
+msgstr "你的设备型号。比如：Nexus 5, iPhone 4, iPad 2"
 
 #: bang/models.py:92 bang/models.py:1015
 msgid "Screenshot"
-msgstr ""
+msgstr "截图"
 
 #: bang/models.py:92
 msgid "In-game profile screenshot"
-msgstr ""
+msgstr "游戏内个人资料截图"
 
 #: bang/models.py:120
 msgid "Junior Third"
-msgstr ""
+msgstr "中学三年级"
 
 #: bang/models.py:240
 msgid "Promo card"
-msgstr ""
+msgstr "活动卡片"
 
 #: bang/models.py:253
 msgid "For the next {duration} seconds, score of all notes boosted by +{percentage}%"
-msgstr ""
+msgstr "在接下来 {duration}秒内，所有判定分数增加+{percentage}%"
 
 #: bang/models.py:256
 msgid "For the next {duration} seconds, if life is above {stamina}, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%"
-msgstr ""
+msgstr "在接下来{duration}秒内，若生命值高于 {stamina},则分数增加+{percentage}%；否则增加+{alt_percentage}%"
 
 #: bang/models.py:270
 msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
-msgstr ""
+msgstr "在接下来{duration} 秒内使所有判定加分{percentage}%"
 
 #: bang/models.py:281
 msgid "Restores life by {stamina}"
-msgstr ""
+msgstr "通过{stamina}恢复生命值"
 
 #: bang/models.py:286
 msgid "and restores life by {stamina}"
-msgstr ""
+msgstr "通过{stamina}恢复生命值"
 
 #: bang/models.py:297
 msgid "All {note_type} notes turn into PERFECT notes"
-msgstr ""
+msgstr "所有{note_type} 音符变成完美判定"
 
 #: bang/models.py:302
 msgid "and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds"
-msgstr ""
+msgstr "在接下来 {duration} 秒内把所有{note_type} 音符变成完美判定"
 
 #: bang/models.py:698
 msgid "Prefer untrained card image"
-msgstr ""
+msgstr "选择初始卡面立绘"
 
 #: bang/models.py:702
 msgid "Skill level"
-msgstr ""
+msgstr "技能等级"
 
 #: bang/models.py:764
 msgid "Challenge Live"
-msgstr ""
+msgstr "高分挑战"
 
 #: bang/models.py:765
 msgid "Band Battle"
-msgstr ""
+msgstr "玩家PK"
 
 #: bang/models.py:766
 msgid "Live Trial"
-msgstr ""
+msgstr "模拟演出"
 
 #: bang/models.py:768
 msgid "Event type"
-msgstr ""
+msgstr "活动类型"
 
 #: bang/models.py:843 bang/models.py:1012
 msgid "Score"
-msgstr ""
+msgstr "分数"
 
 #: bang/models.py:844
 msgid "Ranking"
-msgstr ""
+msgstr "排行"
 
 #: bang/models.py:846
 msgid "Song score"
-msgstr ""
+msgstr "歌曲得分"
 
 #: bang/models.py:847
 msgid "Song ranking"
-msgstr ""
+msgstr "歌曲排行"
 
 #: bang/models.py:849
 msgid "Trial master completed"
@@ -2642,79 +2640,79 @@ msgstr ""
 
 #: bang/models.py:881 bang/models.py:921 bang/models.py:922 bang/models.py:1003
 msgid "Easy"
-msgstr ""
+msgstr "简单的"
 
 #: bang/models.py:888 bang/models.py:917
 msgid "Composer"
-msgstr ""
+msgstr "作曲"
 
 #: bang/models.py:889 bang/models.py:918
 msgid "Lyricist"
-msgstr ""
+msgstr "作词"
 
 #: bang/models.py:890 bang/models.py:919
 msgid "Arranger"
-msgstr ""
+msgstr "编曲"
 
 #: bang/models.py:901
 msgid "Translation"
-msgstr ""
+msgstr "翻译"
 
 #: bang/models.py:906
 msgid "Preview"
-msgstr ""
+msgstr "上一个"
 
 #: bang/models.py:913
 msgid "Cover song"
-msgstr ""
+msgstr "翻唱"
 
 #: bang/models.py:914
 msgid "Beats per minute"
-msgstr ""
+msgstr "每分钟节拍数"
 
 #: bang/models.py:932 bang/models.py:933
 msgid "Gift"
-msgstr ""
+msgstr "礼物"
 
 #: bang/models.py:937 bang/models.py:938
 msgid "Purchase at CiRCLE"
-msgstr ""
+msgstr "在CiRCLE购物"
 
 #: bang/models.py:942
 msgid "Complete story"
-msgstr ""
+msgstr "完成剧情"
 
 #: bang/models.py:943
 msgid "Complete {story_type} story, chapter {chapter}"
-msgstr ""
+msgstr "完成{story_type} 剧情， {chapter}章"
 
 #: bang/models.py:947 bang/models.py:948
 msgid "Complete Tutorial"
-msgstr ""
+msgstr "完成新手教学"
 
 #: bang/models.py:952 bang/models.py:953
 msgid "Initially available"
-msgstr ""
+msgstr "最初可用"
 
 #: bang/models.py:957 bang/models.py:958
 msgid "Event gift"
-msgstr ""
+msgstr "活动礼物"
 
 #: bang/models.py:969
 msgid "How to unlock?"
-msgstr ""
+msgstr "如何解锁？"
 
 #: bang/models.py:1013
 msgid "Full combo"
-msgstr ""
+msgstr "Full Combo"
 
 #: bang/settings.py:26 bang/settings.py:112
 msgid "BanG Dream!"
-msgstr ""
+msgstr "BanG Dream!"
 
 #: bang/settings.py:26 bang/settings.py:117
 msgid "Girls Band Party"
-msgstr ""
+msgstr "少女乐团派对"
 
 #: bang/settings.py:104 bang/views.py:25 bang/views.py:26
 msgid "Team builder"
@@ -2722,7 +2720,7 @@ msgstr ""
 
 #: sukutomo/models.py:27
 msgid "Worldwide"
-msgstr ""
+msgstr "世界范围"
 
 #: sukutomo/models.py:36
 msgid "You can find your friend id by going to the \"Friends\" section from the home, then \"ID Search\". Players will be able to send you friend requests or messages using this number."
@@ -2730,11 +2728,11 @@ msgstr ""
 
 #: sukutomo/models.py:37
 msgid "Should your friend ID be visible to other players?"
-msgstr ""
+msgstr "你要对其他玩家隐藏好友ID吗？"
 
 #: sukutomo/models.py:40
 msgid "Love gems"
-msgstr ""
+msgstr "爱心"
 
 #: sukutomo/models.py:40 sukutomo/models.py:41 sukutomo/models.py:42
 #: sukutomo/models.py:43 sukutomo/models.py:44
@@ -2748,11 +2746,11 @@ msgstr ""
 
 #: sukutomo/models.py:41
 msgid "Friend Points"
-msgstr ""
+msgstr "友情点"
 
 #: sukutomo/models.py:45
 msgid "Total love gems bought"
-msgstr ""
+msgstr "总共购入的爱心"
 
 #: sukutomo/models.py:45
 msgid "You can calculate that number in \"Other\" then \"Purchase History\"."
@@ -2760,11 +2758,11 @@ msgstr ""
 
 #: sukutomo/models.py:46
 msgid "Should your items be visible to other players?"
-msgstr ""
+msgstr "你要对其他玩家隐藏持有物品吗？"
 
 #: sukutomo/models.py:84
 msgid "Transfer Code"
-msgstr ""
+msgstr "引继码"
 
 #: sukutomo/models.py:84
 msgid "It's important to always have an active transfer code, since it will allow you to retrieve your account in case you loose your device. We can store it for you here: only you will be able to see it. To generate it, go to the settings and use the first button below the one to change your name in the first tab."
@@ -2788,19 +2786,19 @@ msgstr ""
 
 #: sukutomo/models.py:157
 msgid "Astrological sign"
-msgstr ""
+msgstr "星座"
 
 #: sukutomo/models.py:168
 msgid "Blood"
-msgstr ""
+msgstr "血型"
 
 #: sukutomo/models.py:177
 msgid "Favorite food"
-msgstr ""
+msgstr "喜欢的食物"
 
 #: sukutomo/models.py:178
 msgid "Least favorite food"
-msgstr ""
+msgstr "较喜欢的食物"
 
 #: sukutomo/settings.py:21
 msgid "Idol Supporter"
@@ -2844,5 +2842,5 @@ msgstr ""
 
 #: bang/models.py:812
 msgid "Boost members"
-msgstr ""
+msgstr "受增益成员"
 

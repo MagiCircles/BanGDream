@@ -883,7 +883,7 @@ msgstr "精靈寶可夢Go為一款免費的、基於地點所進行的擴增實�
 
 #: stardustrun/settings.py:38
 msgid "{nth} Favorite Pokémon"
-msgstr "第{nth}位最喜歡的寶可夢"
+msgstr "{nth}位最喜歡的寶可夢"
 
 #: stardustrun/collections_settings.py:13 stardustrun/settings.py:92
 #: stardustrun/settings.py:93 stardustrun/settings.py:161
@@ -1575,7 +1575,7 @@ msgstr "慣用手"
 
 #: bang/models.py:145
 msgid "Astrological Sign"
-msgstr ""
+msgstr "星座"
 
 #: cpro/models.py:75 cpro/models.py:76 cpro/templates/items/idolInfo.html:143
 msgid "Hometown"
@@ -1693,7 +1693,7 @@ msgstr "歌曲"
 
 #: cpro/settings.py:38
 msgid "{nth} Favorite Idol"
-msgstr "第{nth}喜歡的偶像"
+msgstr "{nth}喜歡的偶像"
 
 #: cpro/settings.py:59
 msgid "Favorite Cards"
@@ -2149,7 +2149,7 @@ msgstr "BanG Dream！少女樂團派對"
 
 #: bang/settings.py:54
 msgid "{nth} Favorite Member"
-msgstr "第{nth}個最愛會員"
+msgstr "{nth}個最愛會員"
 
 #: cpro/templates/items/eventInfo.html:14
 msgid "days"
@@ -2186,7 +2186,7 @@ msgstr "技能名稱"
 
 #: bang/models.py:700
 msgid "{nth} episode"
-msgstr "第{nth}集"
+msgstr "{nth}集"
 
 #: bang/models.py:701
 msgid "Memorial episode"
@@ -2377,7 +2377,7 @@ msgstr ""
 #: bang/forms.py:206 bang/magicollections.py:514 bang/magicollections.py:890
 #: bang/magicollections.py:953 bang/magicollections.py:954
 msgid "Gacha"
-msgstr ""
+msgstr "扭蛋"
 
 #: bang/forms.py:222 bang/forms.py:371 bang/forms.py:466 bang/forms.py:549
 #: bang/models.py:237 bang/models.py:782 bang/models.py:904 bang/models.py:1073
@@ -2389,21 +2389,21 @@ msgstr ""
 #: bang/models.py:785 bang/models.py:786 bang/models.py:1052
 #: bang/models.py:1053 bang/models.py:1054
 msgid "English version"
-msgstr "英文版"
+msgstr "美服"
 
 #: bang/forms.py:291 bang/forms.py:292 bang/forms.py:365 bang/forms.py:410
 #: bang/forms.py:411 bang/forms.py:457 bang/models.py:43 bang/models.py:788
 #: bang/models.py:789 bang/models.py:790 bang/models.py:1056
 #: bang/models.py:1057 bang/models.py:1058
 msgid "Taiwanese version"
-msgstr "繁體中文版"
+msgstr "台服"
 
 #: bang/forms.py:294 bang/forms.py:295 bang/forms.py:366 bang/forms.py:413
 #: bang/forms.py:414 bang/forms.py:458 bang/models.py:47 bang/models.py:792
 #: bang/models.py:793 bang/models.py:794 bang/models.py:1060
 #: bang/models.py:1061 bang/models.py:1062
 msgid "Korean version"
-msgstr "韓文版"
+msgstr "韓服"
 
 #: bang/forms.py:363 bang/forms.py:364 bang/forms.py:365 bang/forms.py:366
 #: bang/forms.py:455 bang/forms.py:456 bang/forms.py:457 bang/forms.py:458
@@ -2413,7 +2413,7 @@ msgstr "時間"
 #: bang/forms.py:363 bang/forms.py:455 bang/models.py:35 bang/models.py:778
 #: bang/models.py:779
 msgid "Japanese version"
-msgstr "日文版"
+msgstr "日服"
 
 #: bang/forms.py:537 bang/models.py:900
 msgid "Romaji"
@@ -2421,7 +2421,7 @@ msgstr "羅馬字"
 
 #: bang/forms.py:538 bang/models.py:907
 msgid "Length"
-msgstr ""
+msgstr "歌曲长度"
 
 #: bang/forms.py:539
 msgid "BPM"
@@ -2430,7 +2430,7 @@ msgstr "速度"
 #: bang/forms.py:540 bang/forms.py:541 bang/models.py:883 bang/models.py:925
 #: bang/models.py:926 bang/models.py:1005
 msgid "Hard"
-msgstr ""
+msgstr "困難"
 
 #: bang/forms.py:540 bang/forms.py:542 bang/models.py:921 bang/models.py:923
 #: bang/models.py:925 bang/models.py:927
@@ -2445,7 +2445,7 @@ msgstr "難度"
 #: bang/forms.py:542 bang/forms.py:543 bang/models.py:884 bang/models.py:927
 #: bang/models.py:928 bang/models.py:1006
 msgid "Expert"
-msgstr ""
+msgstr "專家"
 
 #: bang/forms.py:546 bang/magicollections.py:1243
 msgid "Cover"
@@ -2482,15 +2482,15 @@ msgstr ""
 
 #: bang/magicollections.py:601
 msgid "Statistics"
-msgstr ""
+msgstr "數據"
 
 #: bang/magicollections.py:696
 msgid "Min"
-msgstr ""
+msgstr "最低"
 
 #: bang/magicollections.py:696 bang/magicollections.py:697
 msgid "Max"
-msgstr ""
+msgstr "最高"
 
 #: bang/magicollections.py:729
 msgid "Participated event"
@@ -2514,7 +2514,7 @@ msgstr ""
 
 #: bang/magicollections.py:1070
 msgid "Permanent"
-msgstr ""
+msgstr "永久"
 
 #: bang/magicollections.py:1102
 msgid "Played song"
@@ -2527,7 +2527,7 @@ msgstr ""
 #: bang/magicollections.py:1139 bang/magicollections.py:1239
 #: bang/models.py:1000
 msgid "Song"
-msgstr ""
+msgstr "歌曲"
 
 #: bang/magicollections.py:1243
 msgid "Original"
@@ -2543,7 +2543,7 @@ msgstr ""
 
 #: sukutomo/models.py:33
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 #: sukutomo/models.py:39
 msgid "The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ..."
@@ -2551,7 +2551,7 @@ msgstr ""
 
 #: bang/models.py:92 bang/models.py:1015
 msgid "Screenshot"
-msgstr ""
+msgstr "載圖"
 
 #: bang/models.py:92
 msgid "In-game profile screenshot"
@@ -2643,19 +2643,19 @@ msgstr ""
 
 #: bang/models.py:881 bang/models.py:921 bang/models.py:922 bang/models.py:1003
 msgid "Easy"
-msgstr ""
+msgstr "容易"
 
 #: bang/models.py:888 bang/models.py:917
 msgid "Composer"
-msgstr ""
+msgstr "作曲"
 
 #: bang/models.py:889 bang/models.py:918
 msgid "Lyricist"
-msgstr ""
+msgstr "作詞"
 
 #: bang/models.py:890 bang/models.py:919
 msgid "Arranger"
-msgstr ""
+msgstr "篇曲"
 
 #: bang/models.py:901
 msgid "Translation"
@@ -2691,7 +2691,7 @@ msgstr ""
 
 #: bang/models.py:947 bang/models.py:948
 msgid "Complete Tutorial"
-msgstr ""
+msgstr "完成新手教程"
 
 #: bang/models.py:952 bang/models.py:953
 msgid "Initially available"
@@ -2723,7 +2723,7 @@ msgstr ""
 
 #: sukutomo/models.py:27
 msgid "Worldwide"
-msgstr ""
+msgstr "全國"
 
 #: sukutomo/models.py:36
 msgid "You can find your friend id by going to the \"Friends\" section from the home, then \"ID Search\". Players will be able to send you friend requests or messages using this number."
@@ -2749,7 +2749,7 @@ msgstr ""
 
 #: sukutomo/models.py:41
 msgid "Friend Points"
-msgstr ""
+msgstr "友情分數"
 
 #: sukutomo/models.py:45
 msgid "Total love gems bought"
@@ -2765,7 +2765,7 @@ msgstr ""
 
 #: sukutomo/models.py:84
 msgid "Transfer Code"
-msgstr ""
+msgstr "引序號"
 
 #: sukutomo/models.py:84
 msgid "It's important to always have an active transfer code, since it will allow you to retrieve your account in case you loose your device. We can store it for you here: only you will be able to see it. To generate it, go to the settings and use the first button below the one to change your name in the first tab."
@@ -2781,7 +2781,7 @@ msgstr ""
 
 #: sukutomo/models.py:124
 msgid "Unit"
-msgstr ""
+msgstr "小隊"
 
 #: sukutomo/models.py:137
 msgid "Subunit"
@@ -2789,19 +2789,19 @@ msgstr ""
 
 #: sukutomo/models.py:157
 msgid "Astrological sign"
-msgstr ""
+msgstr "星座"
 
 #: sukutomo/models.py:168
 msgid "Blood"
-msgstr ""
+msgstr "血型"
 
 #: sukutomo/models.py:177
 msgid "Favorite food"
-msgstr ""
+msgstr "最喜歡的食物"
 
 #: sukutomo/models.py:178
 msgid "Least favorite food"
-msgstr ""
+msgstr "最不喜歡的食物"
 
 #: sukutomo/settings.py:21
 msgid "Idol Supporter"

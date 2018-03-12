@@ -193,6 +193,7 @@ class MemberCollection(MagiCollection):
     navbar_link_title = _('Characters')
     icon = 'idolized'
     navbar_link_list = 'bangdream'
+    translated_fields = ('name', 'food_like', 'food_dislike', 'instrument', )
 
     reportable = False
 
@@ -215,7 +216,7 @@ class MemberCollection(MagiCollection):
             'birthday': 'event',
             'food_likes': 'heart',
             'food_dislikes': 'heart-empty',
-            'hobbies': 'star',
+            'instrument': 'star',
             'description': 'id',
             'cards': 'album',
             'fans': 'heart',
@@ -415,6 +416,7 @@ class CardCollection(MagiCollection):
 
     form_class = forms.CardForm
     reportable = False
+    translated_fields = ('name', 'skill_name', )
 
     _skill_icons = { _i: _c['icon'] for _i, _c in models.Card.SKILL_TYPES.items() }
     _version_images = { _vn: _v['image'] for _vn, _v in models.Account.VERSIONS.items() }
@@ -784,6 +786,7 @@ class EventCollection(MagiCollection):
     form_class = forms.EventForm
     multipart = True
     reportable = False
+    translated_fields = ('name', 'stamp_translation', )
     navbar_link_list = 'girlsbandparty'
 
     filter_cuteform = {
@@ -972,6 +975,7 @@ class GachaCollection(MagiCollection):
     multipart = True
     navbar_link_list = 'girlsbandparty'
     reportable = False
+    translated_fields = ('name', )
 
     filter_cuteform = {
         'i_attribute': {},
@@ -1211,6 +1215,7 @@ class SongCollection(MagiCollection):
     multipart = True
     icon = 'song'
     reportable = False
+    translated_fields = ('name', )
     navbar_link_list = 'bangdream'
 
     types = {

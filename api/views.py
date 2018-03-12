@@ -99,7 +99,7 @@ class MemberSerializer(MagiSerializer):
 
     class Meta:
         model = models.Member
-        fields = ('id', 'name', 'japanese_name', 'image', 'square_image', 'i_band', 'school', 'i_school_year', 'romaji_CV', 'CV', 'birthday', 'food_likes', 'food_dislikes', 'i_astrological_sign', 'hobbies', 'description')
+        fields = ('id', 'name', 'japanese_name', 'image', 'square_image', 'i_band', 'school', 'i_school_year', 'romaji_CV', 'CV', 'birthday', 'food_like', 'food_dislike', 'i_astrological_sign', 'instrument', 'description')
         save_owner_on_creation = True
 
 class MemberViewSet(viewsets.ModelViewSet):

@@ -20,6 +20,7 @@ from bang.django_translated import t
 LANGUAGES_NEED_OWN_NAME = [ l for l in django_settings.LANGUAGES if l[0] in ['ru', 'zh-hans', 'zh-hant', 'kr'] ]
 LANGUAGES_DIFFERENT_CHARSET = [ l for l in django_settings.LANGUAGES if l[0] in ['ja', 'ru', 'zh-hans', 'zh-hant', 'kr'] ]
 ALL_ALT_LANGUAGES = [ l for l in django_settings.LANGUAGES if l != 'en' ]
+ALT_LANGUAGES_EXCEPT_JP = [ l for l in django_settings.LANGUAGES if l not in ['en', 'ja'] ]
 
 class Image(BaseMagiModel):
     image = models.ImageField(upload_to=uploadToKeepName('images/'))
@@ -111,7 +112,7 @@ class Member(MagiModel):
     @property
     def t_name(self):
         if get_language() == 'ja':
-            self.japanese_name
+            return self.japanese_name
         return self.names.get(get_language(), self.name)
 
     image = models.ImageField(_('Image'), upload_to=uploadItem('i'))
@@ -255,7 +256,15 @@ class Card(MagiModel):
     english_attribute = property(getInfoFromChoices('attribute', ATTRIBUTES, 'english'))
 
     name = models.CharField(_('Title'), max_length=100, null=True)
+    NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
+    d_names = models.TextField(_('Title'), null=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, null=True)
+
+    @property
+    def t_name(self):
+        if get_language() == 'ja':
+            return self.japanese_name
+        return self.names.get(get_language(), self.name)
 
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
@@ -350,6 +359,14 @@ class Card(MagiModel):
 
     skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
     japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
+    SKILL_NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
+    d_skill_names = models.TextField(_('Skill name'), null=True)
+
+    @property
+    def t_skill_name(self):
+        if get_language() == 'ja':
+            return self.japanese_skill_name
+        return self.skill_names.get(get_language(), self.skill_name)
 
     SKILL_TYPE_WITHOUT_I_CHOICES = True
     SKILL_TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in SKILL_TYPES.items()]
@@ -715,6 +732,14 @@ class Event(MagiModel):
 
     name = models.CharField(_('Title'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
+    NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
+    d_names = models.TextField(_('Title'), null=True)
+
+    @property
+    def t_name(self):
+        if get_language() == 'ja':
+            return self.japanese_name
+        return self.names.get(get_language(), self.name)
 
     TYPE_CHOICES = (
         ('normal', _('Normal')),
@@ -753,6 +778,14 @@ class Event(MagiModel):
     rare_stamp = models.ImageField(_('Rare stamp'), upload_to=uploadItem('e/stamps'), null=True)
 
     stamp_translation = models.CharField(_('Stamp translation'), max_length=200, null=True)
+    STAMP_TRANSLATIONS_CHOICES = ALT_LANGUAGES_EXCEPT_JP
+    d_stamp_translations = models.TextField(_('Stamp translation'), null=True)
+
+    @property
+    def t_stamp_translation(self):
+        if get_language() == 'ja':
+            return None
+        return self.stamp_translations.get(get_language(), self.stamp_translation)
 
     main_card = models.ForeignKey(Card, related_name='main_card_event', null=True, limit_choices_to={
         'i_rarity': 3,
@@ -856,6 +889,14 @@ class Song(MagiModel):
     japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
     romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)
     name = models.CharField(string_concat(_('Translation'), ' (', t['English'], ')'), max_length=100, null=True)
+    NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
+    d_names = models.TextField(_('Title'), null=True)
+
+    @property
+    def t_name(self):
+        if get_language() == 'ja':
+            return self.japanese_name
+        return self.names.get(get_language(), self.name)
 
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
@@ -998,8 +1039,16 @@ class Gacha(MagiModel):
 
     image = models.ImageField(_('Image'), upload_to=uploadItem('g'))
 
-    name = models.CharField(_('Name'), max_length=100, unique=True)
-    japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
+    name = models.CharField(_('Title'), max_length=100, unique=True)
+    japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
+    NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
+    d_names = models.TextField(_('Title'), null=True)
+
+    @property
+    def t_name(self):
+        if get_language() == 'ja':
+            return self.japanese_name
+        return self.names.get(get_language(), self.name)
 
     limited = models.BooleanField(_('Limited'), default=False)
 

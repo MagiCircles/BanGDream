@@ -18,9 +18,13 @@ from bang.django_translated import t
 # Utility Models
 
 LANGUAGES_NEED_OWN_NAME = [ l for l in django_settings.LANGUAGES if l[0] in ['ru', 'zh-hans', 'zh-hant', 'kr'] ]
+LANGUAGES_NEED_OWN_NAME_KEYS = [ l[0] for l in django_settings.LANGUAGES if l[0] in ['ru', 'zh-hans', 'zh-hant', 'kr'] ]
 LANGUAGES_DIFFERENT_CHARSET = [ l for l in django_settings.LANGUAGES if l[0] in ['ja', 'ru', 'zh-hans', 'zh-hant', 'kr'] ]
-ALL_ALT_LANGUAGES = [ l for l in django_settings.LANGUAGES if l != 'en' ]
-ALT_LANGUAGES_EXCEPT_JP = [ l for l in django_settings.LANGUAGES if l not in ['en', 'ja'] ]
+LANGUAGES_DIFFERENT_CHARSET_KEYS = [ l[0] for l in django_settings.LANGUAGES if l[0] in ['ja', 'ru', 'zh-hans', 'zh-hant', 'kr'] ]
+ALL_ALT_LANGUAGES = [ l for l in django_settings.LANGUAGES if l[0] != 'en' ]
+ALL_ALT_LANGUAGES_KEYS = [ l[0] for l in django_settings.LANGUAGES if l[0] != 'en' ]
+ALT_LANGUAGES_EXCEPT_JP = [ l for l in django_settings.LANGUAGES if l[0] not in ['en', 'ja'] ]
+ALT_LANGUAGES_EXCEPT_JP_KEYS = [ l[0] for l in django_settings.LANGUAGES if l[0] not in ['en', 'ja'] ]
 
 class Image(BaseMagiModel):
     image = models.ImageField(upload_to=uploadToKeepName('images/'))
@@ -888,8 +892,8 @@ class Song(MagiModel):
 
     japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
     romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)
-    name = models.CharField(string_concat(_('Translation'), ' (', t['English'], ')'), max_length=100, null=True)
-    NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
+    name = models.CharField(string_concat(_('Title'), ' (', _('Translation'), ')'), max_length=100, null=True)
+    NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_names = models.TextField(_('Title'), null=True)
 
     @property
@@ -1041,7 +1045,7 @@ class Gacha(MagiModel):
 
     name = models.CharField(_('Title'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
-    NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
+    NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_names = models.TextField(_('Title'), null=True)
 
     @property

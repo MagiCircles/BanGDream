@@ -214,8 +214,8 @@ class MemberCollection(MagiCollection):
             'CV': 'profile',
             'romaji_CV': 'profile',
             'birthday': 'event',
-            'food_likes': 'heart',
-            'food_dislikes': 'heart-empty',
+            'food_like': 'heart',
+            'food_dislike': 'heart-empty',
             'instrument': 'star',
             'description': 'id',
             'cards': 'album',
@@ -491,6 +491,8 @@ class CardCollection(MagiCollection):
             # Add title field
             title = item.japanese_name if item.japanese_name else (item.name if item.name and get_language() != 'ja' else None)
             value = item.name if item.name and get_language() != 'ja' and title != item.name else None
+            if get_language() in models.ALT_LANGUAGES_EXCEPT_JP_KEYS and unicode(item.name) != unicode(item.t_name):
+                value = mark_safe(u'{}<br><span class="text-muted">{}</span>'.format(item.name, item.t_name))
             if title or value:
                 extra_fields.append(('card_name', {
                     'verbose_name': _('Title'),
@@ -591,7 +593,10 @@ class CardCollection(MagiCollection):
             if item.skill_name:
                 setSubField(fields, 'japanese_skill_name', key='type', value='title_text')
                 setSubField(fields, 'japanese_skill_name', key='title', value=item.japanese_skill_name)
-                setSubField(fields, 'japanese_skill_name', key='value', value=item.skill_name)
+                if get_language() in models.ALT_LANGUAGES_EXCEPT_JP_KEYS and unicode(item.skill_name) != unicode(item.t_skill_name):
+                    setSubField(fields, 'japanese_skill_name', key='value', value=mark_safe(u'{}<br><span class="text-muted">{}</span>'.format(item.skill_name, item.t_skill_name)))
+                else:
+                    setSubField(fields, 'japanese_skill_name', key='value', value=item.t_skill_name)
             # skill details
             setSubField(fields, 'skill_type', key='type', value='title_text')
             setSubField(fields, 'skill_type', key='title',
@@ -861,6 +866,9 @@ class EventCollection(MagiCollection):
         setSubField(fields, 'korean_start_date', key='timezones', value=['Asia/Seoul', 'Local time'])
         setSubField(fields, 'korean_end_date', key='timezones', value=['Asia/Seoul', 'Local time'])
 
+        if get_language() in models.ALT_LANGUAGES_EXCEPT_JP_KEYS and unicode(item.name) != unicode(item.t_name):
+            setSubField(fields, 'name', key='value', value=mark_safe(u'{}<br><span class="text-muted">{}</span>'.format(item.name, item.t_name)))
+
         return fields
 
     class ListView(MagiCollection.ListView):
@@ -1040,6 +1048,10 @@ class GachaCollection(MagiCollection):
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
         setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
+
+        if get_language() in models.ALT_LANGUAGES_EXCEPT_JP_KEYS and unicode(item.name) != unicode(item.t_name):
+            setSubField(fields, 'name', key='value', value=mark_safe(u'{}<br><span class="text-muted">{}</span>'.format(item.japanese_name, item.t_name)))
+
         return fields
 
     class ItemView(MagiCollection.ItemView):

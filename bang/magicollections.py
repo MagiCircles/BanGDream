@@ -469,8 +469,6 @@ class CardCollection(MagiCollection):
         if 'favoritecard' in buttons:
             if view.view == 'list_view':
                 buttons['favoritecard']['icon'] = 'star'
-        if view.view == 'list_view' and 'edit' in buttons:
-            del(buttons['edit'])
         return buttons
 
     class ItemView(MagiCollection.ItemView):

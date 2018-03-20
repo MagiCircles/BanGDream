@@ -744,6 +744,10 @@ class CardCollection(MagiCollection):
         def extra_context(self, context):
             self.collection._extra_context_for_form(context)
 
+        def to_translate_form_class(self):
+            super(CardCollection.EditView, self).to_translate_form_class()
+            self._translate_form_class = forms.to_translate_card_form_class(self._translate_form_class)
+
 ############################################################
 # Event Participation Collection
 
@@ -971,6 +975,10 @@ class EventCollection(MagiCollection):
         staff_required = True
         savem2m = True
 
+        def to_translate_form_class(self):
+            super(EventCollection.EditView, self).to_translate_form_class()
+            self._translate_form_class = forms.to_translate_event_form_class(self._translate_form_class)
+
 ############################################################
 # Gacha Collection
 
@@ -1125,6 +1133,10 @@ class GachaCollection(MagiCollection):
 
         def after_save(self, request, instance):
             return self.collection._after_save(request, instance)
+
+        def to_translate_form_class(self):
+            super(GachaCollection.EditView, self).to_translate_form_class()
+            self._translate_form_class = forms.to_translate_gacha_form_class(self._translate_form_class)
 
 ############################################################
 # Played songs Collection
@@ -1367,3 +1379,7 @@ class SongCollection(MagiCollection):
 
     class EditView(MagiCollection.EditView):
         staff_required = True
+
+        def to_translate_form_class(self):
+            super(SongCollection.EditView, self).to_translate_form_class()
+            self._translate_form_class = forms.to_translate_song_form_class(self._translate_form_class)

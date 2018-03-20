@@ -542,7 +542,7 @@ class Card(MagiModel):
                     localized,
                     getattr(self, field + '_' + status),
                     django_settings.MAX_STATS[field + '_max'],
-                    (getattr(self, field + '_' + status) / django_settings.MAX_STATS[field + '_max']) * 100,
+                    (getattr(self, field + '_' + status) / django_settings.MAX_STATS[field + '_' + (status if status != 'min' else 'max')]) * 100,
                 ) for (field, localized) in [
                     ('performance', _('Performance')),
                     ('technique', _('Technique')),

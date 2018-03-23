@@ -560,10 +560,16 @@ class Card(MagiModel):
 
     @classmethod
     def cached_member_pre(self, d):
-        d['name'] = d['names']['en']
+        d['name'] = d['names'].get('en', None)
         d['t_name'] = d['unicode'] = d['names'].get(get_language(), d['name'])
 
     def to_cache_member(self):
+        if not self.member:
+            return {
+                'id': None,
+                'names': {},
+                'image': None,
+            }
         names = self.member.names or {}
         names['en'] = self.member.name
         names['ja'] = self.member.japanese_name

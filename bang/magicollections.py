@@ -293,13 +293,18 @@ def to_FavoriteCardCollection(cls):
             per_line = 2
             default_ordering = '-id'
             ajax_pagination_callback = 'loadCardInList'
-
-            def extra_context(self, context):
-                context['items'] = [item.card for item in context['items']]
+            show_item_buttons = True
 
         class AddView(cls.AddView):
             unique_per_owner = True
             quick_add_to_collection = justReturn(True)
+
+        class EditView(cls.EditView):
+            def extra_context(self, context):
+                edit_form = context.get('forms', {}).get('edit_favoritecard', None)
+                if edit_form is not None:
+                    edit_form.beforeform = mark_safe(u'<div class="hidden">')
+                    edit_form.belowform = mark_safe(u'</div>')
 
     return _FavoriteCardCollection
 

@@ -651,6 +651,10 @@ class Card(MagiModel):
             'http_image_url': get_http_image_url_from_path(path),
         }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]
 
+    @property # To allow favorite card to use the same template
+    def card(self):
+        return self
+
     def __unicode__(self):
         if self.id:
             return u'{rarity} {member_name} - {attribute}{name}'.format(

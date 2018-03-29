@@ -2047,7 +2047,7 @@ msgstr "{time} restante"
 
 #: bang/magicollections.py:881 bang/magicollections.py:1049
 msgid "Starts in {time}"
-msgstr "Começa em {tempo}"
+msgstr "Começa em {time}"
 
 #: bang/forms.py:170 bang/forms.py:171 bang/forms.py:190 bang/forms.py:260
 #: bang/magicollections.py:37 bang/magicollections.py:179
@@ -2214,7 +2214,7 @@ msgstr "Email"
 
 #: magi/forms.py:183 magi/forms.py:192
 msgid "You've added a lot of {things}, lately. Try to wait a little bit before adding more."
-msgstr "Você adicionou muitas {thing}, recentemente. Tente esperar um pouco antes de adicionar mais."
+msgstr "Você adicionou muitas {things}, recentemente. Tente esperar um pouco antes de adicionar mais."
 
 #: magi/forms.py:199
 msgid "You already have {total} {things}. You can only add up to {max} {things}."
@@ -2332,7 +2332,7 @@ msgstr "A cada {trigger_value} segundos, há {trigger_chance}% de chance de que 
 
 #: cpro/model_choices.py:202
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% change that currently active skills will be boosted for {skill_duration} seconds"
-msgstr "A cada {trigger_value} segundos, há {percentage_value}% de chance de que as habilidades ativas atualmente sejam aumentadas por {skill_duration} segundos"
+msgstr "A cada {trigger_value} segundos, há {trigger_chance}% de chance de que as habilidades ativas atualmente sejam aumentadas por {skill_duration} segundos"
 
 #: cpro/model_choices.py:203
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus, but only if you have only {type} idols in your team for {skill_duration} seconds"
@@ -2465,7 +2465,7 @@ msgstr "{thing} favorita"
 
 #: bang/magicollections.py:274
 msgid "Favorite {things}"
-msgstr "{thing} favoritas"
+msgstr "{things} favoritas"
 
 #: bang/magicollections.py:542 bang/magicollections.py:545
 #: bang/magicollections.py:612 bang/models.py:452
@@ -2571,7 +2571,7 @@ msgstr "Pelos próximos {duration} segundos, a pontuação de todas as notas é 
 
 #: bang/models.py:256
 msgid "For the next {duration} seconds, if life is above {stamina}, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%"
-msgstr "Pelos próximos {duration} segundos, se a vida está acima da energia, a pontuação é aumentada em +{percentage}%, senão, a pontuação é aumentada em +{alt_percentage}%"
+msgstr "Pelos próximos {duration} segundos, se a vida está acima de {stamina}, a pontuação é aumentada em +{percentage}%, senão, a pontuação é aumentada em +{alt_percentage}%"
 
 #: bang/models.py:270
 msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"

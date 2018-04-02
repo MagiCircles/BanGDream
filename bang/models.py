@@ -43,18 +43,26 @@ class Account(BaseAccount):
         ('JP', {
             'translation': _('Japanese version'),
             'image': 'ja',
+            'prefix': '',
+            'code': 'ja',
         }),
         ('EN', {
             'translation': _('English version'),
             'image': 'world',
+            'prefix': 'english_',
+            'code': 'en',
         }),
         ('TW', {
             'translation': _('Taiwanese version'),
             'image': 'zh-hant',
+            'prefix': 'taiwanese_',
+            'code': 'zh-hant',
         }),
         ('KR', {
             'translation': _('Korean version'),
             'image': 'kr',
+            'prefix': 'korean_',
+            'code': 'kr',
         }),
     ])
     VERSION_CHOICES = [(_name, _info['translation']) for _name, _info in VERSIONS.items()]

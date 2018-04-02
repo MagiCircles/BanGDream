@@ -23,10 +23,13 @@ def generate_settings():
         old_lang = get_language()
         for event in (list(models.Event.objects.filter(**filters))
                       + list(models.Gacha.objects.filter(**filters))):
+            image = getattr(event, u'{}image_url'.format(version['prefix']))
+            if not image:
+                continue
             translation_activate(version['code'])
             latest_news.append({
                 'title': unicode(event.t_name),
-                'image': getattr(event, u'{}image_url'.format(version['prefix'])),
+                'image': image,
                 'url': event.item_url,
                 'hide_title': True,
                 'ajax': event.ajax_item_url,

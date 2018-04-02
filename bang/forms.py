@@ -179,7 +179,7 @@ def to_translate_card_form_class(cls):
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_j_member', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
     ordering_fields = [
-        ('release_date', _('Release date')),
+        ('release_date,id', _('Release date')),
         ('id', _('ID')),
         ('member__name', string_concat(_('Member'), ' - ', _('Name'))),
         ('member__japanese_name', string_concat(_('Member'), ' - ', _('Name'), ' (', t['Japanese'], ')')),

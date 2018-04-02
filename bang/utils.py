@@ -32,13 +32,6 @@ FONTS_PER_LANGUAGE = {
         'title': 'Exo 2',
         'title_weight': 800,
     },
-    'es': { 'teko_title': True },
-    'it': { 'teko_title': True },
-    'fr': { 'teko_title': True },
-    'de': { 'teko_title': True },
-    'pl': { 'teko_title': True },
-    'pt-br': { 'teko_title': True },
-    'tr': { 'teko_title': True },
 }
 
 TITLE_CSS_CLASSES = 'h1, h2, h3, h4, h5, h6, .title, .navbar-brand, .btn-lg, .btn-xl'
@@ -59,9 +52,6 @@ def bangGlobalContext(request):
                 title_weight=(u' font-weight: {weight};'.format(weight=f['title_weight'])
                               if 'title_weight' in f else ''),
             )
-        if 'teko_title' in f:
-            context['extracss'] = context.get('extracss', '') + u'\n        @import url(//fonts.googleapis.com/css?family=Teko:700);\n\
-        {css_classes} {{ font-family: \'Teko\', sans-serif; font-weight: bold; font-style: italic; }}'.format(css_classes=TITLE_CSS_CLASSES)
     return context
 
 def rarity_to_stars_images(rarity):

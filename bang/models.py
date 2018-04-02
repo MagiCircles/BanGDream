@@ -141,6 +141,9 @@ class Member(MagiModel):
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
 
     school = models.CharField(_('School'), max_length=100, null=True)
+    SCHOOLS_CHOICES = ALL_ALT_LANGUAGES
+    d_schools = models.TextField(_('School'), null=True)
+
     SCHOOL_YEAR_CHOICES = (
         ('First', _('First')),
         ('Second', _('Second')),
@@ -185,6 +188,8 @@ class Member(MagiModel):
     d_instruments = models.TextField(_('Instrument'), null=True)
 
     description = models.TextField(_('Description'), null=True)
+    DESCRIPTIONS_CHOICES = ALL_ALT_LANGUAGES
+    d_descriptions = models.TextField(_('Description'), null=True)
 
     reverse_related = (
         ('cards', 'cards', _('Cards')),
@@ -779,24 +784,6 @@ class Event(MagiModel):
         'live_trial',
     ]
 
-    start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
-    end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)
-
-    VERSIONS_CHOICES = Account.VERSION_CHOICES
-    c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
-
-    english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('e/e'), null=True)
-    english_start_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('Beginning')), null=True)
-    english_end_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('End')), null=True)
-
-    taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
-    taiwanese_start_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('Beginning')), null=True)
-    taiwanese_end_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('End')), null=True)
-
-    korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
-    korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
-    korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
-
     rare_stamp = models.ImageField(_('Rare stamp'), upload_to=uploadItem('e/stamps'), null=True)
 
     stamp_translation = models.CharField(_('Stamp translation'), max_length=200, null=True)
@@ -808,6 +795,27 @@ class Event(MagiModel):
         if get_language() == 'ja':
             return None
         return self.stamp_translations.get(get_language(), self.stamp_translation)
+
+    start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
+    end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)
+
+    VERSIONS_CHOICES = Account.VERSION_CHOICES
+    c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
+
+    english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('e/e'), null=True)
+    english_start_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('Beginning')), null=True)
+    english_end_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('End')), null=True)
+    english_rare_stamp = models.ImageField(string_concat(_('English version'), ' - ', _('Rare stamp')), upload_to=uploadItem('e/stamps/en'), null=True)
+
+    taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
+    taiwanese_start_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('Beginning')), null=True)
+    taiwanese_end_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('End')), null=True)
+    taiwanese_rare_stamp = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Rare stamp')), upload_to=uploadItem('e/stamps/tw'), null=True)
+
+    korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
+    korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
+    korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
+    korean_rare_stamp = models.ImageField(string_concat(_('Korean version'), ' - ', _('Rare stamp')), upload_to=uploadItem('e/stamps/kr'), null=True)
 
     main_card = models.ForeignKey(Card, related_name='main_card_event', null=True, limit_choices_to={
         'i_rarity': 3,

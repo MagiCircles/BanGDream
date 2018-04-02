@@ -193,7 +193,7 @@ class MemberCollection(MagiCollection):
     navbar_link_title = _('Characters')
     icon = 'idolized'
     navbar_link_list = 'bangdream'
-    translated_fields = ('name', 'food_like', 'food_dislike', 'instrument', )
+    translated_fields = ('name', 'food_like', 'food_dislike', 'instrument', 'school', 'description', )
 
     reportable = False
 
@@ -209,8 +209,8 @@ class MemberCollection(MagiCollection):
             'name': 'id',
             'japanese_name': 'id',
             'band': 'users',
-            'school': 'max-bond',
-            'school_year': 'max-bond',
+            'school': 'id',
+            'school_year': 'id',
             'CV': 'profile',
             'romaji_CV': 'profile',
             'birthday': 'event',
@@ -427,7 +427,7 @@ class CardCollection(MagiCollection):
     _version_images = { _vn: _v['image'] for _vn, _v in models.Account.VERSIONS.items() }
     _origin_to_cuteform = {
         'is_promo': 'promo',
-        'is_gacha': 'max-bond',
+        'is_gacha': 'star',
         'is_event': 'event',
     }
     filter_cuteform = CARD_CUTEFORM
@@ -530,7 +530,7 @@ class CardCollection(MagiCollection):
                 }))
             for cached_gacha in (item.cached_gachas or []):
                 extra_fields.append((u'gacha-{}'.format(cached_gacha.id), {
-                    'icon': 'max-bond',
+                    'image': staticImageURL('gacha.png'),
                     'verbose_name': u'{}: {}'.format(
                         _('Gacha'),
                         cached_gacha.unicode),
@@ -844,8 +844,6 @@ class EventCollection(MagiCollection):
             'english_start_date': 'date', 'english_end_date': 'date',
             'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
             'korean_start_date': 'date', 'korean_end_date': 'date',
-            'rare_stamp': 'max-bond',
-            'stamp_translation': 'max-bond',
             'type': 'event',
             'english_image': 'world',
         }, images={
@@ -853,8 +851,13 @@ class EventCollection(MagiCollection):
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_boost_attribute,
             ),
-            'taiwanese_image': staticImageURL('language/tw.png'),
+            'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
+            'rare_stamp': staticImageURL('stamp.png'),
+            'stamp_translation': staticImageURL('stamp.png'),
+            'english_rare_stamp': staticImageURL('stamp.png'),
+            'taiwanese_rare_stamp': staticImageURL('stamp.png'),
+            'korean_rare_stamp': staticImageURL('stamp.png'),
         }, **kwargs)
         if get_language() == 'ja' and 'name' in fields and 'japanese_name' in fields:
             setSubField(fields, 'japanese_name', key='verbose_name', value=fields['name']['verbose_name'])
@@ -902,9 +905,9 @@ class EventCollection(MagiCollection):
                 'countdown', 'name', 'japanese_name', 'type', 'rare_stamp',
                 'stamp_translation', 'boost_attribute', 'gacha', 'boost_members', 'cards',
                 'start_date', 'end_date',
-                'english_image', 'english_start_date', 'english_end_date',
-                'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date',
-                'korean_image', 'korean_start_date', 'korean_end_date',
+                'english_image', 'english_start_date', 'english_end_date', 'english_rare_stamp',
+                'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date', 'taiwanese_rare_stamp',
+                'korean_image', 'korean_start_date', 'korean_end_date', 'korean_rare_stamp',
             ] + order
             if item.status and item.status != 'ended':
                 extra_fields += [
@@ -920,7 +923,7 @@ class EventCollection(MagiCollection):
                 ]
             if len(item.all_gachas):
                 extra_fields.append(('gacha', {
-                    'icon': 'max-bond',
+                    'image': staticImageURL('gacha.png'),
                     'verbose_name': _('Gacha'),
                     'type': 'images_links',
                     'images': [{
@@ -987,7 +990,7 @@ class EventCollection(MagiCollection):
 
 class GachaCollection(MagiCollection):
     queryset = models.Gacha.objects.all()
-    icon = 'max-bond'
+    icon = 'star'
     title = _('Gacha')
     plural_title = _('Gacha')
     form_class = forms.GachaForm
@@ -1018,8 +1021,6 @@ class GachaCollection(MagiCollection):
 
     def to_fields(self, view, item, in_list=False, *args, **kwargs):
         fields = super(GachaCollection, self).to_fields(view, item, *args, icons={
-            'name': 'max-bond',
-            'japanese_name': 'max-bond',
             'start_date': 'date',
             'end_date': 'date',
             'english_start_date': 'date', 'english_end_date': 'date',
@@ -1030,11 +1031,13 @@ class GachaCollection(MagiCollection):
             'versions': 'world',
             'english_image': 'world',
         }, images={
+            'name': staticImageURL('gacha.png'),
+            'japanese_name': staticImageURL('gacha.png'),
             'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_attribute,
             ),
-            'taiwanese_image': staticImageURL('language/tw.png'),
+            'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
         }, **kwargs)
         if get_language() == 'ja':

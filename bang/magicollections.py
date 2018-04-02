@@ -617,7 +617,7 @@ class CardCollection(MagiCollection):
         per_line = 2
         page_size = 36
         filter_form = forms.CardFilterForm
-        default_ordering = '-is_michelle,-release_date'
+        default_ordering = '-release_date,-id'
         ajax_pagination_callback = 'loadCardInList'
         alt_views = MagiCollection.ListView.alt_views + [
             ('icons', { 'verbose_name': string_concat(_('Icons'), ' (', _('Quick add'), ')') }),
@@ -641,9 +641,6 @@ class CardCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CardCollection.ListView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.extra(select={
-                'is_michelle': 'member_id = 20',
-            })
             if request.GET.get('ordering', None) in ['_overall_max', '_overall_trained_max']:
                 queryset = queryset.extra(select={
                     '_overall_max': 'performance_max + technique_max + visual_max',

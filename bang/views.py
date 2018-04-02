@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render, redirect
 from django.conf import settings as django_settings
@@ -12,8 +11,6 @@ def index(request):
     indexExtraContext(context)
     context['left_character'] = django_settings.HOMEPAGE_CHARACTERS[0]
     context['right_character'] = django_settings.HOMEPAGE_CHARACTERS[1]
-    context['left_character'] = 'https://i.bandori.party/u/c/transparent/a/912Michelle-Cool-堅実プレーヤー-nnjF4X.png'
-    context['right_character'] = 'https://i.bandori.party/u/c/transparent/a/894Michelle-Happy-Sweatdrops-Are-Fleeting-Too-qnJAeW.png'
     return render(request, 'pages/indexBackground.html', context)
 
 def discord(request):

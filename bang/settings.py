@@ -10,11 +10,10 @@ from bang.utils import bangGlobalContext
 
 STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
 
-SITE_NAME = 'Michelle Party'
+SITE_NAME = 'Bandori Party'
 SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'
 SITE_IMAGE = 'bandori_party.png'
 SITE_LOGO = 'bandori_party_logo.png'
-SITE_LOGO = 'https://i.imgur.com/IjYzkPM.png'
 SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
 
 LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
@@ -52,7 +51,7 @@ ABOUT_PHOTO = 'deby.jpg'
 
 EMPTY_IMAGE = 'stars_with_white.png'
 
-SITE_NAV_LOGO = 'michelle.png'
+SITE_NAV_LOGO = 'star.png'
 
 FAVORITE_CHARACTERS = django_settings.FAVORITE_CHARACTERS
 FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))

@@ -8,7 +8,7 @@
       <img src="{{ static_url }}img/band/{{ song.band }}.png" class="band" alt="{{ song.band }}">
       <h1>
         {% if LANGUAGE_CODE == 'ja' or not song.romaji_name  %}{{ song.japanese_name }}
-        {% else %}{{ song.romaji_name }}{% endif %}
+        {% else %}<span class="romaji">{{ song.romaji_name }}</span>{% endif %}
       </h1>
     </div>
   </div>

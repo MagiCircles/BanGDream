@@ -32,13 +32,6 @@ FONTS_PER_LANGUAGE = {
         'title': 'Exo 2',
         'title_weight': 800,
     },
-    'es': { 'teko_title': True },
-    'it': { 'teko_title': True },
-    'fr': { 'teko_title': True },
-    'de': { 'teko_title': True },
-    'pl': { 'teko_title': True },
-    'pt-br': { 'teko_title': True },
-    'tr': { 'teko_title': True },
 }
 
 TITLE_CSS_CLASSES = 'h1, h2, h3, h4, h5, h6, .title, .navbar-brand, .btn-lg, .btn-xl'

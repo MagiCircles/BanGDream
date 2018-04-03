@@ -26,6 +26,23 @@ ALL_ALT_LANGUAGES_KEYS = [ l[0] for l in django_settings.LANGUAGES if l[0] != 'e
 ALT_LANGUAGES_EXCEPT_JP = [ l for l in django_settings.LANGUAGES if l[0] not in ['en', 'ja'] ]
 ALT_LANGUAGES_EXCEPT_JP_KEYS = [ l[0] for l in django_settings.LANGUAGES if l[0] not in ['en', 'ja'] ]
 
+LANGUAGES_TO_VERSIONS = {
+    'en': 'EN',
+    'es': 'EN',
+    'zh-hans': 'TW',
+    'ru': 'EN',
+    'it': 'EN',
+    'fr': 'EN',
+    'de': 'EN',
+    'pl': 'EN',
+    'ja': 'JP',
+    'kr': 'KR',
+    'id': 'EN',
+    'zh-hant': 'TW',
+    'pt-br': 'EN',
+    'tr': 'EN',
+}
+
 class Image(BaseMagiModel):
     image = models.ImageField(upload_to=uploadToKeepName('images/'))
 
@@ -757,6 +774,13 @@ class Event(MagiModel):
 
     image = models.ImageField(_('Image'), upload_to=uploadItem('e'))
 
+    @property
+    def to_top_image_list(self):
+        image = None
+        if get_language() in LANGUAGES_TO_VERSIONS:
+            image = getattr(self, u'{}image_url'.format(Account.VERSIONS[LANGUAGES_TO_VERSIONS[get_language()]]['prefix']))
+        return image or self.image_url
+
     name = models.CharField(_('Title'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
     NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
@@ -1068,6 +1092,13 @@ class Gacha(MagiModel):
     owner = models.ForeignKey(User, related_name='added_gacha')
 
     image = models.ImageField(_('Image'), upload_to=uploadItem('g'))
+
+    @property
+    def to_top_image_list(self):
+        image = None
+        if get_language() in LANGUAGES_TO_VERSIONS:
+            image = getattr(self, u'{}image_url'.format(Account.VERSIONS[LANGUAGES_TO_VERSIONS[get_language()]]['prefix']))
+        return image or self.image_url
 
     name = models.CharField(_('Title'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)

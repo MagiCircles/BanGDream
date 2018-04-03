@@ -186,7 +186,7 @@ class NewsCollection(_ActivityCollection):
 ############################################################
 # Member Collection
 
-MEMBER_ICONS = {
+MEMBERS_ICONS = {
     'name': 'id',
     'japanese_name': 'id',
     'band': 'users',

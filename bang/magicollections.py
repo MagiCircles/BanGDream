@@ -1132,16 +1132,23 @@ class GachaCollection(MagiCollection):
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
             order = GACHA_ITEM_FIELDS_ORDER + order
-            if item.status and item.status != 'ended':
-                extra_fields.append(('countdown', {
-                    'verbose_name': _('Countdown'),
-                    'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
-                        date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
-                        sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
-                    ),
-                    'icon': 'times',
-                    'type': 'html',
-                }))
+            for version in models.Account.VERSIONS.values():
+                status = getattr(item, u'{}status'.format(version['prefix']))
+                if status and status != 'ended':
+                    start_date = getattr(item, u'{}start_date'.format(version['prefix']))
+                    end_date = getattr(item, u'{}end_date'.format(version['prefix']))
+                    extra_fields += [
+                        (u'{}countdown'.format(version['prefix']), {
+                            'verbose_name': _('Countdown'),
+                            'verbose_name_subtitle': version['translation'],
+                            'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
+                                date=torfc2822(end_date if status == 'current' else start_date),
+                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),
+                            ),
+                            'icon': 'times',
+                            'type': 'html',
+                        }),
+                    ]
             exclude_fields += ['japanese_name', 'c_versions']
             if len(item.all_cards):
                 extra_fields.append(('cards', {

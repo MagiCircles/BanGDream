@@ -12,7 +12,7 @@ from magi.magicollections import MagiCollection, AccountCollection as _AccountCo
 from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
-from magi.models import Activity
+from magi.models import Activity, Notification
 from bang import settings
 from bang.django_translated import t
 from bang.utils import rarity_to_stars_images
@@ -153,6 +153,8 @@ class DonateCollection(_DonateCollection):
 
 ############################################################
 # Activity Collection
+
+Notification.MESSAGES[0][1]['url'] = u'/news/{}/{}/'
 
 class ActivityCollection(_ActivityCollection):
     enabled = False

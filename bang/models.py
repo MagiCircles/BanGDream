@@ -903,17 +903,22 @@ class EventParticipation(AccountAsOwnerModel):
     is_trial_master_completed = models.NullBooleanField(_('Trial master completed'))
     is_trial_master_ex_completed = models.NullBooleanField(_('Trial master EX completed'))
 
+    def to_cache_account(self):
+        d = super(EventParticipation, self).to_cache_account()
+        d['i_version'] = self.account.i_version
+        return d
+
     @property
     def image(self):
-        return self.event.image
+        return getattr(self.event, u'{}image'.format(Account.VERSIONS[self.cached_account.version]['prefix'])) or self.event.image
 
     @property
     def image_url(self):
-        return self.event.image_url
+        return getattr(self.event, u'{}image_url'.format(Account.VERSIONS[self.cached_account.version]['prefix'])) or self.event.image_url
 
     @property
     def http_image_url(self):
-        return self.event.http_image_url
+        return getattr(self.event, u'http_{}image_url'.format(Account.VERSIONS[self.cached_account.version]['prefix'])) or self.event.http_image_url
 
     def __unicode__(self):
         if self.id:

@@ -30,7 +30,7 @@ class AccountForm(_AccountForm):
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
         if 'center' in self.fields:
-            self.fields['center'].queryset = self.fields['center'].queryset.select_related('card')
+            self.fields['center'].queryset = self.fields['center'].queryset.select_related('card').order_by('-card__release_date', '-card__id')
         if 'stargems_bought' in self.fields:
             self.fields['stargems_bought'].label = _('Total {item} bought').format(item=_('Star gems').lower())
 

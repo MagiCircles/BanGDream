@@ -845,12 +845,12 @@ class EventCollection(MagiCollection):
             'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
             'korean_start_date': 'date', 'korean_end_date': 'date',
             'type': 'event',
-            'english_image': 'world',
         }, images={
             'boost_attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_boost_attribute,
             ),
+            'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
             'rare_stamp': staticImageURL('stamp.png'),
@@ -1029,7 +1029,6 @@ class GachaCollection(MagiCollection):
             'event': 'event',
             'limited': 'toggler',
             'versions': 'world',
-            'english_image': 'world',
         }, images={
             'name': staticImageURL('gacha.png'),
             'japanese_name': staticImageURL('gacha.png'),
@@ -1037,6 +1036,7 @@ class GachaCollection(MagiCollection):
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_attribute,
             ),
+            'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
         }, **kwargs)

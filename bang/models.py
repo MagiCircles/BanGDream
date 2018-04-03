@@ -125,6 +125,10 @@ class Account(BaseAccount):
 
     screenshot = models.ImageField(_('Screenshot'), help_text=_('In-game profile screenshot'), upload_to=uploadItem('account_screenshot'), null=True)
 
+    def update_cache_leaderboards(self):
+        self._cache_leaderboards_last_update = timezone.now()
+        self._cache_leaderboard = type(self).objects.filter(level__gt=self.level, i_version=self.i_version).values('level').distinct().count() + 1
+
 ############################################################
 # Members
 

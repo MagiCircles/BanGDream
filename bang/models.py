@@ -861,16 +861,22 @@ class Event(MagiModel):
         self.gacha.unicode = unicode(self.gacha)
         return self.gacha
 
-    @property
-    def status(self):
-        if not self.end_date or not self.start_date:
+    def get_status(self, version='JP'):
+        start_date = getattr(self, u'{}start_date'.format(Account.VERSIONS[version]['prefix']))
+        end_date = getattr(self, u'{}end_date'.format(Account.VERSIONS[version]['prefix']))
+        if not end_date or not start_date:
             return None
         now = timezone.now()
-        if now > self.end_date:
+        if now > end_date:
             return 'ended'
-        elif now > self.start_date:
+        elif now > start_date:
             return 'current'
         return 'future'
+
+    status = property(lambda _s: _s.get_status())
+    english_status = property(lambda _s: _s.get_status(version='EN'))
+    taiwanese_status = property(lambda _s: _s.get_status(version='TW'))
+    korean_status = property(lambda _s: _s.get_status(version='KR'))
 
     def __unicode__(self):
         return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
@@ -1145,16 +1151,22 @@ class Gacha(MagiModel):
         self.event.unicode = unicode(self.event)
         return self.event
 
-    @property
-    def status(self):
-        if not self.end_date or not self.start_date:
+    def get_status(self, version='JP'):
+        start_date = getattr(self, u'{}start_date'.format(Account.VERSIONS[version]['prefix']))
+        end_date = getattr(self, u'{}end_date'.format(Account.VERSIONS[version]['prefix']))
+        if not end_date or not start_date:
             return None
         now = timezone.now()
-        if now > self.end_date:
+        if now > end_date:
             return 'ended'
-        elif now > self.start_date:
+        elif now > start_date:
             return 'current'
         return 'future'
+
+    status = property(lambda _s: _s.get_status())
+    english_status = property(lambda _s: _s.get_status(version='EN'))
+    taiwanese_status = property(lambda _s: _s.get_status(version='TW'))
+    korean_status = property(lambda _s: _s.get_status(version='KR'))
 
     def __unicode__(self):
         return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)

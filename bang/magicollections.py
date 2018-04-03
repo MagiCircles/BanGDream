@@ -48,8 +48,8 @@ class AccountCollection(_AccountCollection):
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
             'title': _('Member'),
             'extra_settings': {
-	        'modal': 'true',
-	        'modal-text': 'true',
+                'modal': 'true',
+                'modal-text': 'true',
             },
         },
         'i_color': {
@@ -64,8 +64,8 @@ class AccountCollection(_AccountCollection):
             'to_cuteform': lambda k, v: v.image_url,
             'title': _('Center'),
             'extra_settings': {
-	        'modal': 'true',
-	        'modal-text': 'true',
+                'modal': 'true',
+                'modal-text': 'true',
             },
         },
         'i_version': {
@@ -186,6 +186,23 @@ class NewsCollection(_ActivityCollection):
 ############################################################
 # Member Collection
 
+MEMBER_ICONS = {
+    'name': 'id',
+    'japanese_name': 'id',
+    'band': 'users',
+    'school': 'id',
+    'school_year': 'id',
+    'CV': 'profile',
+    'romaji_CV': 'profile',
+    'birthday': 'event',
+    'food_like': 'heart',
+    'food_dislike': 'heart-empty',
+    'instrument': 'star',
+    'description': 'id',
+    'cards': 'album',
+    'fans': 'heart',
+}
+
 class MemberCollection(MagiCollection):
     queryset = models.Member.objects.all()
     title = _('Member')
@@ -205,22 +222,7 @@ class MemberCollection(MagiCollection):
     def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
         exclude_fields.append('d_names')
-        fields = super(MemberCollection, self).to_fields(view, item, *args, icons={
-            'name': 'id',
-            'japanese_name': 'id',
-            'band': 'users',
-            'school': 'id',
-            'school_year': 'id',
-            'CV': 'profile',
-            'romaji_CV': 'profile',
-            'birthday': 'event',
-            'food_like': 'heart',
-            'food_dislike': 'heart-empty',
-            'instrument': 'star',
-            'description': 'id',
-            'cards': 'album',
-            'fans': 'heart',
-        }, images={
+        fields = super(MemberCollection, self).to_fields(view, item, *args, icons=MEMBERS_ICONS, images={
             'astrological_sign': '{}img/i_astrological_sign/{}.png'.format(RAW_CONTEXT['static_url'], item.i_astrological_sign),
         }, exclude_fields=exclude_fields, **kwargs)
         if 'square_image' in fields:
@@ -311,6 +313,14 @@ def to_FavoriteCardCollection(cls):
 ############################################################
 # Collectible Card Collection
 
+COLLECTIBLE_CARDS_ICONS = {
+    'trained': 'idolized',
+    'max_leveled': 'max-level',
+    'first_episode': 'play',
+    'memorial_episode': 'play',
+    'skill_level': 'skill',
+}
+
 def to_CollectibleCardCollection(cls):
     class _CollectibleCardCollection(cls):
         title = _('Card')
@@ -335,13 +345,7 @@ def to_CollectibleCardCollection(cls):
             exclude_fields.append('prefer_untrained')
             if item.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
                 exclude_fields.append('trained')
-            fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons={
-                'trained': 'idolized',
-                'max_leveled': 'max-level',
-                'first_episode': 'play',
-                'memorial_episode': 'play',
-                'skill_level': 'skill',
-            }, exclude_fields=exclude_fields, **kwargs)
+            fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons=COLLECTIBLE_CARDS_ICONS, exclude_fields=exclude_fields, **kwargs)
             setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
             setSubField(fields, 'first_episode', key='verbose_name', value=_('{nth} episode').format(nth=_('1st')))
             return fields
@@ -375,8 +379,8 @@ CARD_CUTEFORM = {
         'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
         'title': _('Member'),
         'extra_settings': {
-	    'modal': 'true',
-	    'modal-text': 'true',
+            'modal': 'true',
+            'modal-text': 'true',
         },
     },
     'i_rarity': {
@@ -411,6 +415,36 @@ CARD_CUTEFORM = {
     },
 }
 
+CARDS_ICONS = {
+    'rarity': 'star',
+    'performance_max': 'skill',
+    'performance_trained_max': 'skill',
+    'technique_max': 'skill',
+    'technique_trained_max': 'skill',
+    'visual_max': 'skill',
+    'visual_trained_max': 'skill',
+    'member': 'idolized',
+    'name': 'id',
+    'versions': 'world',
+    'is_promo': 'promo',
+    'release_date': 'date',
+}
+
+CARDS_ORDER = [
+    'id', 'card_name', 'member', 'rarity', 'attribute', 'versions', 'is_promo', 'release_date',
+    'japanese_skill_name', 'skill_type', 'japanese_skill',
+    'gacha', 'images', 'arts', 'transparents',
+]
+
+CARDS_EXCLUDE = [
+    'name', 'japanese_name', 'skill_name', 'i_side_skill_type',
+    'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
+    'performance_min', 'performance_max', 'performance_trained_max',
+    'technique_min', 'technique_max', 'technique_trained_max',
+    'visual_min', 'visual_max', 'visual_trained_max',
+    'i_skill_note_type', 'skill_stamina', 'skill_duration',
+    'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
+]
 
 class CardCollection(MagiCollection):
     queryset = models.Card.objects.all()
@@ -446,20 +480,7 @@ class CardCollection(MagiCollection):
         return 'screenshots/cards.png'
 
     def to_fields(self, view, item, *args, **kwargs):
-        fields = super(CardCollection, self).to_fields(view, item, *args, icons={
-            'rarity': 'star',
-            'performance_max': 'skill',
-            'performance_trained_max': 'skill',
-            'technique_max': 'skill',
-            'technique_trained_max': 'skill',
-            'visual_max': 'skill',
-            'visual_trained_max': 'skill',
-            'member': 'idolized',
-            'name': 'id',
-            'versions': 'world',
-            'is_promo': 'promo',
-            'release_date': 'date',
-        }, images={
+        fields = super(CardCollection, self).to_fields(view, item, *args, icons=CARDS_ICONS, images={
             'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_attribute,
@@ -508,7 +529,8 @@ class CardCollection(MagiCollection):
             # Add skill details
             if item.i_skill_type:
                 extra_fields.append(('japanese_skill', {
-                    'verbose_name': string_concat(_('Skill'), ' (', t['Japanese'], ')') if get_language() != 'ja' else _('Skill'),
+                    'verbose_name': _('Skill'),
+                    'verbose_name_subtitle': t['Japanese'] if get_language() != 'ja' else None,
                     'icon': item.skill_icon,
                     'type': 'title_text',
                     'title': mark_safe(u'{} <span class="text-muted">({})</span>'.format(item.japanese_skill_type, item.japanese_side_skill_type)
@@ -571,22 +593,9 @@ class CardCollection(MagiCollection):
             if exclude_fields == 1:
                 exclude_fields = []
             else:
-                exclude_fields += [
-                    'name', 'japanese_name', 'skill_name', 'i_side_skill_type',
-                    'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
-                    'performance_min', 'performance_max', 'performance_trained_max',
-                    'technique_min', 'technique_max', 'technique_trained_max',
-                    'visual_min', 'visual_max', 'visual_trained_max',
-                    'i_skill_note_type', 'skill_stamina', 'skill_duration',
-                    'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
-                ] + (['versions', 'skill_type'] if get_language() == 'ja' else [])
+                exclude_fields += CARDS_EXCLUDE + (['versions', 'skill_type'] if get_language() == 'ja' else [])
             # Order
-            if not order:
-                order = [
-                    'id', 'card_name', 'member', 'rarity', 'attribute', 'versions', 'is_promo', 'release_date',
-                    'japanese_skill_name', 'skill_type', 'japanese_skill',
-                    'gacha', 'images', 'arts', 'transparents',
-                ]
+            order = CARDS_ORDER + order
 
             fields = super(CardCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             # Modify existing fields
@@ -754,6 +763,15 @@ class CardCollection(MagiCollection):
 ############################################################
 # Event Participation Collection
 
+EVENT_PARTICIPATIONS_ICONS = {
+    'score': 'scoreup',
+    'ranking': 'trophy',
+    'song_score': 'song',
+    'song_ranking': 'trophy',
+    'is_trial_master_completed': 'achievement',
+    'is_trial_master_ex_completed': 'achievement',
+}
+
 def to_EventParticipationCollection(cls):
     class _EventParticipationCollection(cls):
         title = _('Participated event')
@@ -766,14 +784,7 @@ def to_EventParticipationCollection(cls):
         }
 
         def to_fields(self, view, item, *args, **kwargs):
-            return super(_EventParticipationCollection, self).to_fields(view, item, *args, icons={
-                'score': 'scoreup',
-                'ranking': 'trophy',
-                'song_score': 'song',
-                'song_ranking': 'trophy',
-                'is_trial_master_completed': 'achievement',
-                'is_trial_master_ex_completed': 'achievement',
-            }, **kwargs)
+            return super(_EventParticipationCollection, self).to_fields(view, item, *args, icons=EVENT_PARTICIPATIONS_ICONS, **kwargs)
 
         class AddView(cls.AddView):
             unique_per_owner = True
@@ -789,6 +800,26 @@ def to_EventParticipationCollection(cls):
 
 ############################################################
 # Event Collection
+
+EVENT_ITEM_FIELDS_ORDER = [
+    u'{}countdown'.format(_v['prefix']) for _v in models.Account.VERSIONS.values()
+] + [
+    'name', 'japanese_name', 'type',
+    'boost_attribute', 'gacha', 'boost_members', 'cards',
+] + [
+    u'{}{}'.format(_v['prefix'], _f) for _v in models.Account.VERSIONS.values()
+    for _f in ['image', 'start_date', 'end_date', 'rare_stamp', 'stamp_translation']
+]
+
+EVENT_ICONS = {
+    'name': 'world',
+    'japanese_name': 'JP',
+    'start_date': 'date', 'end_date': 'date',
+    'english_start_date': 'date', 'english_end_date': 'date',
+    'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
+    'korean_start_date': 'date', 'korean_end_date': 'date',
+    'type': 'event',
+}
 
 class EventCollection(MagiCollection):
     queryset = models.Event.objects.all()
@@ -806,16 +837,16 @@ class EventCollection(MagiCollection):
             'to_cuteform': lambda k, v: v.image_url,
             'title': _('Card'),
             'extra_settings': {
-	        'modal': 'true',
-	        'modal-text': 'true',
+                'modal': 'true',
+                'modal-text': 'true',
             },
         },
         'secondary_card': {
             'to_cuteform': lambda k, v: v.image_url,
             'title': _('Card'),
             'extra_settings': {
-	        'modal': 'true',
-	        'modal-text': 'true',
+                'modal': 'true',
+                'modal-text': 'true',
             },
         },
         'i_boost_attribute': {
@@ -837,15 +868,7 @@ class EventCollection(MagiCollection):
         return cls
 
     def to_fields(self, view, item, *args, **kwargs):
-        fields = super(EventCollection, self).to_fields(view, item, *args, icons={
-            'name': 'world',
-            'japanese_name': 'JP',
-            'start_date': 'date', 'end_date': 'date',
-            'english_start_date': 'date', 'english_end_date': 'date',
-            'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
-            'korean_start_date': 'date', 'korean_end_date': 'date',
-            'type': 'event',
-        }, images={
+        fields = super(EventCollection, self).to_fields(view, item, *args, icons=EVENT_ICONS, images={
             'boost_attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_boost_attribute,
@@ -901,26 +924,24 @@ class EventCollection(MagiCollection):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
-            order = [
-                'countdown', 'name', 'japanese_name', 'type',
-                'boost_attribute', 'gacha', 'boost_members', 'cards',
-                'start_date', 'end_date', 'rare_stamp', 'stamp_translation',
-                'english_image', 'english_start_date', 'english_end_date', 'english_rare_stamp',
-                'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date', 'taiwanese_rare_stamp',
-                'korean_image', 'korean_start_date', 'korean_end_date', 'korean_rare_stamp',
-            ] + order
-            if item.status and item.status != 'ended':
-                extra_fields += [
-                    ('countdown', {
-                        'verbose_name': _('Countdown'),
-                        'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
-                            date=torfc2822(item.end_date if item.status == 'current' else item.start_date),
-                            sentence=_('{time} left') if item.status == 'current' else _('Starts in {time}'),
-                        ),
-                        'icon': 'times',
-                        'type': 'html',
-                    }),
-                ]
+            order = EVENT_ITEM_FIELDS_ORDER + order
+            for version in models.Account.VERSIONS.values():
+                status = getattr(item, u'{}status'.format(version['prefix']))
+                if status and status != 'ended':
+                    start_date = getattr(item, u'{}start_date'.format(version['prefix']))
+                    end_date = getattr(item, u'{}end_date'.format(version['prefix']))
+                    extra_fields += [
+                        (u'{}countdown'.format(version['prefix']), {
+                            'verbose_name': _('Countdown'),
+                            'verbose_name_subtitle': version['translation'],
+                            'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
+                                date=torfc2822(end_date if status == 'current' else start_date),
+                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),
+                            ),
+                            'icon': 'times',
+                            'type': 'html',
+                        }),
+                    ]
             if len(item.all_gachas):
                 extra_fields.append(('gacha', {
                     'image': staticImageURL('gacha.png'),
@@ -969,9 +990,28 @@ class EventCollection(MagiCollection):
                         'link_text': unicode(gifted_song),
                     } for gifted_song in item.all_gifted_songs]
                 }))
+            for version in models.Account.VERSIONS.values():
+                if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
+                    extra_fields.append(('{}image'.format(version['prefix']), {
+                        'image': staticImageURL(version['image'], folder='language', extension='png'),
+                        'verbose_name': version['translation'],
+                        'type': 'html',
+                        'value': u'<hr>',
+                    }))
             exclude_fields.append('c_versions')
-            return super(EventCollection.ItemView, self).to_fields(
+            fields = super(EventCollection.ItemView, self).to_fields(
                 item, *args, order=order, extra_fields=extra_fields, exclude_fields=exclude_fields, **kwargs)
+
+            setSubField(fields, 'japanese_name', key='verbose_name', value=_('Title'))
+            setSubField(fields, 'japanese_name', key='verbose_name_subtitle', value=t['Japanese'])
+
+            for version in models.Account.VERSIONS.values():
+                setSubField(fields, u'{}image'.format(version['prefix']), key='verbose_name', value=version['translation'])
+                setSubField(fields, u'{}start_date'.format(version['prefix']), key='verbose_name', value=_('Beginning'))
+                setSubField(fields, u'{}end_date'.format(version['prefix']), key='verbose_name', value=_('End'))
+                setSubField(fields, u'{}rare_stamp'.format(version['prefix']), key='verbose_name', value=_('Rare stamp'))
+
+            return fields
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -987,6 +1027,26 @@ class EventCollection(MagiCollection):
 
 ############################################################
 # Gacha Collection
+
+GACHA_ICONS = {
+    'start_date': 'date',
+    'end_date': 'date',
+    'english_start_date': 'date', 'english_end_date': 'date',
+    'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
+    'korean_start_date': 'date', 'korean_end_date': 'date',
+    'event': 'event',
+    'limited': 'toggler',
+    'versions': 'world',
+}
+
+GACHA_ITEM_FIELDS_ORDER = [
+    u'{}countdown'.format(_v['prefix']) for _v in models.Account.VERSIONS.values()
+] + [
+    'name', 'attribute', 'limited', 'cards',
+] + [
+    u'{}{}'.format(_v['prefix'], _f) for _v in models.Account.VERSIONS.values()
+    for _f in ['image', 'start_date', 'end_date']
+]
 
 class GachaCollection(MagiCollection):
     queryset = models.Gacha.objects.all()
@@ -1005,8 +1065,8 @@ class GachaCollection(MagiCollection):
             'to_cuteform': lambda k, v: v.image_url,
             'title': _('Event'),
             'extra_settings': {
-	        'modal': 'true',
-	        'modal-text': 'true',
+                'modal': 'true',
+                'modal-text': 'true',
             },
         },
         'is_limited': {
@@ -1020,16 +1080,7 @@ class GachaCollection(MagiCollection):
     }
 
     def to_fields(self, view, item, in_list=False, *args, **kwargs):
-        fields = super(GachaCollection, self).to_fields(view, item, *args, icons={
-            'start_date': 'date',
-            'end_date': 'date',
-            'english_start_date': 'date', 'english_end_date': 'date',
-            'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
-            'korean_start_date': 'date', 'korean_end_date': 'date',
-            'event': 'event',
-            'limited': 'toggler',
-            'versions': 'world',
-        }, images={
+        fields = super(GachaCollection, self).to_fields(view, item, *args, icons=GACHA_ICONS, images={
             'name': staticImageURL('gacha.png'),
             'japanese_name': staticImageURL('gacha.png'),
             'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
@@ -1080,13 +1131,7 @@ class GachaCollection(MagiCollection):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
-            order = [
-                'countdown', 'name', 'attribute', 'limited', 'cards', 'start_date', 'end_date',
-                'english_image', 'english_start_date', 'english_end_date',
-                'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date',
-                'korean_image', 'korean_start_date', 'korean_end_date',
-                'event',
-            ] + order
+            order = GACHA_ITEM_FIELDS_ORDER + order
             if item.status and item.status != 'ended':
                 extra_fields.append(('countdown', {
                     'verbose_name': _('Countdown'),
@@ -1110,10 +1155,23 @@ class GachaCollection(MagiCollection):
                         'link_text': unicode(card),
                     } for card in item.all_cards],
                 }))
+            for version in models.Account.VERSIONS.values():
+                if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
+                    extra_fields.append(('{}image'.format(version['prefix']), {
+                        'image': staticImageURL(version['image'], folder='language', extension='png'),
+                        'verbose_name': version['translation'],
+                        'type': 'html',
+                        'value': u'<hr>',
+                    }))
             fields = super(GachaCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             setSubField(fields, 'limited', key='verbose_name', value=_('Gacha type'))
             setSubField(fields, 'limited', key='type', value='text')
             setSubField(fields, 'limited', key='value', value=_('Limited') if item.limited else _('Permanent'))
+
+            for version in models.Account.VERSIONS.values():
+                setSubField(fields, u'{}image'.format(version['prefix']), key='verbose_name', value=version['translation'])
+                setSubField(fields, u'{}start_date'.format(version['prefix']), key='verbose_name', value=_('Beginning'))
+                setSubField(fields, u'{}end_date'.format(version['prefix']), key='verbose_name', value=_('End'))
             return fields
 
     class ListView(MagiCollection.ListView):
@@ -1147,6 +1205,12 @@ class GachaCollection(MagiCollection):
 ############################################################
 # Played songs Collection
 
+PLAYED_SONGS_ICONS = {
+    'score': 'scoreup',
+    'full_combo': 'combo',
+    'screenshot': 'pictures',
+}
+
 def to_PlayedSongCollection(cls):
     class _PlayedSongCollection(cls):
         title = _('Played song')
@@ -1166,11 +1230,7 @@ def to_PlayedSongCollection(cls):
         ])
 
         def to_fields(self, view, item, *args, **kwargs):
-            fields = super(_PlayedSongCollection, self).to_fields(view, item, *args, icons={
-                'score': 'scoreup',
-                'full_combo': 'combo',
-                'screenshot': 'pictures',
-            }, images={
+            fields = super(_PlayedSongCollection, self).to_fields(view, item, *args, icons=PLAYED_SONGS_ICONS, images={
                 'difficulty': item.difficulty_image_url,
             }, **kwargs)
             setSubField(fields, 'difficulty', key='value', value=item.t_difficulty)
@@ -1227,8 +1287,8 @@ _song_cuteform = {
         'to_cuteform': lambda k, v: v.image_url,
         'title': _('Event'),
         'extra_settings': {
-	    'modal': 'true',
-	    'modal-text': 'true',
+            'modal': 'true',
+            'modal-text': 'true',
         },
     },
     'version': {
@@ -1236,6 +1296,19 @@ _song_cuteform = {
         'image_folder': 'language',
         'transform': CuteFormTransform.ImagePath,
     },
+}
+
+SONG_ICONS = {
+    'japanese_name': 'song',
+    'name': 'world',
+    'romaji_name': 'song',
+    'itunes_id': 'play',
+    'length': 'times',
+    'unlock': 'perfectlock',
+    'bpm': 'hp',
+    'release_date': 'date',
+    'event': 'event',
+    'versions': 'world',
 }
 
 class SongCollection(MagiCollection):
@@ -1268,18 +1341,7 @@ class SongCollection(MagiCollection):
 
     def to_fields(self, view, item, *args, **kwargs):
         fields = super(SongCollection, self).to_fields(
-            view, item, *args, icons={
-                'japanese_name': 'song',
-                'name': 'world',
-                'romaji_name': 'song',
-                'itunes_id': 'play',
-                'length': 'times',
-                'unlock': 'perfectlock',
-                'bpm': 'hp',
-                'release_date': 'date',
-                'event': 'event',
-                'versions': 'world',
-            }, **kwargs)
+            view, item, *args, icons=SONG_ICONS, **kwargs)
         for fieldName in (
                 ((['japanese_name', 'romaji_name', 'name']
                  if get_language() == 'ja' else ['romaji_name']) if view.view == 'item_view' else [])
@@ -1291,6 +1353,7 @@ class SongCollection(MagiCollection):
         ):
             if fieldName in fields:
                 del(fields[fieldName])
+
         setSubField(fields, 'japanese_name', key='verbose_name', value=_('Song'))
         setSubField(fields, 'japanese_name', key='type', value='title_text')
         setSubField(fields, 'japanese_name', key='title', value=item.japanese_name)
@@ -1310,7 +1373,7 @@ class SongCollection(MagiCollection):
         filter_form = forms.SongFilterForm
         default_ordering = '-release_date'
         show_collect_button = {
-             'playedsong': False,
+            'playedsong': False,
         }
 
         filter_cuteform = dict(_song_cuteform.items() + [

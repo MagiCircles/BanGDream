@@ -902,9 +902,9 @@ class EventCollection(MagiCollection):
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
             order = [
-                'countdown', 'name', 'japanese_name', 'type', 'rare_stamp',
-                'stamp_translation', 'boost_attribute', 'gacha', 'boost_members', 'cards',
-                'start_date', 'end_date',
+                'countdown', 'name', 'japanese_name', 'type',
+                'boost_attribute', 'gacha', 'boost_members', 'cards',
+                'start_date', 'end_date', 'rare_stamp', 'stamp_translation',
                 'english_image', 'english_start_date', 'english_end_date', 'english_rare_stamp',
                 'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date', 'taiwanese_rare_stamp',
                 'korean_image', 'korean_start_date', 'korean_end_date', 'korean_rare_stamp',

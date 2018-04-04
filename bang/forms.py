@@ -336,6 +336,10 @@ class EventForm(AutoForm):
             instance.start_date = instance.start_date.replace(hour=6, minute=00)
         if instance.end_date:
             instance.end_date = instance.end_date.replace(hour=11, minute=59)
+        if instance.english_start_date:
+            instance.english_start_date = instance.english_start_date.replace(hour=1, minute=00)
+        if instance.english_end_date:
+            instance.english_end_date = instance.english_end_date.replace(hour=6, minute=59)
         if instance.taiwanese_start_date:
             instance.taiwanese_start_date = instance.taiwanese_start_date.replace(hour=7, minute=00)
         if instance.taiwanese_end_date:
@@ -446,6 +450,10 @@ class GachaForm(AutoForm):
             instance.start_date = instance.start_date.replace(hour=6, minute=00)
         if instance.end_date:
             instance.end_date = instance.end_date.replace(hour=5, minute=59)
+        if instance.english_start_date:
+            instance.english_start_date = instance.english_start_date.replace(hour=1, minute=00)
+        if instance.english_end_date:
+            instance.english_end_date = instance.english_end_date.replace(hour=0, minute=59)
         if instance.taiwanese_start_date:
             instance.taiwanese_start_date = instance.taiwanese_start_date.replace(hour=7, minute=00)
         if instance.taiwanese_end_date:

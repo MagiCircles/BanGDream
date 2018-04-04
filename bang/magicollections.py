@@ -940,7 +940,6 @@ class EventCollection(MagiCollection):
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
-                            'verbose_name_subtitle': version['translation'],
                             'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
                                 date=torfc2822(end_date if status == 'current' else start_date),
                                 sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),
@@ -1165,7 +1164,6 @@ class GachaCollection(MagiCollection):
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
-                            'verbose_name_subtitle': version['translation'],
                             'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
                                 date=torfc2822(end_date if status == 'current' else start_date),
                                 sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),

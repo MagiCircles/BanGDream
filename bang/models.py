@@ -83,6 +83,7 @@ class Account(BaseAccount):
         }),
     ])
     VERSION_CHOICES = [(_name, _info['translation']) for _name, _info in VERSIONS.items()]
+    VERSIONS_PREFIXES = OrderedDict([(_k, _v['prefix']) for _k, _v in VERSIONS.items()])
     i_version = models.PositiveIntegerField(_('Version'), choices=i_choices(VERSION_CHOICES))
     version_image = property(getInfoFromChoices('version', VERSIONS, 'image'))
     version_image_url = property(lambda _a: staticImageURL(_a.version_image, folder=u'language', extension='png'))
@@ -771,19 +772,25 @@ class FavoriteCard(MagiModel):
 ############################################################
 # Events
 
+def _event_gacha_top_image(item):
+    image = None
+    # Check for current event and return banner of current if any
+    for prefix in Account.VERSIONS_PREFIXES.values():
+        if getattr(item, u'{}status'.format(prefix)) != 'ended':
+            image = getattr(item, u'{}image_url'.format(prefix))
+            break
+    # Otherwise, return banner that makes more sense for the language the users uses
+    if not image and get_language() in LANGUAGES_TO_VERSIONS:
+        image = getattr(item, u'{}image_url'.format(Account.VERSIONS_PREFIXES[LANGUAGES_TO_VERSIONS[get_language()]]))
+    return image or item.image_url
+
 class Event(MagiModel):
     collection_name = 'event'
 
     owner = models.ForeignKey(User, related_name='added_events')
 
     image = models.ImageField(_('Image'), upload_to=uploadItem('e'))
-
-    @property
-    def to_top_image_list(self):
-        image = None
-        if get_language() in LANGUAGES_TO_VERSIONS:
-            image = getattr(self, u'{}image_url'.format(Account.VERSIONS[LANGUAGES_TO_VERSIONS[get_language()]]['prefix']))
-        return image or self.image_url
+    top_image = property(_event_gacha_top_image)
 
     name = models.CharField(_('Title'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
@@ -827,6 +834,8 @@ class Event(MagiModel):
     start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
     end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)
 
+    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rare_stamp', 'stamp_translation']
+
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
@@ -866,8 +875,8 @@ class Event(MagiModel):
         return self.gacha
 
     def get_status(self, version='JP'):
-        start_date = getattr(self, u'{}start_date'.format(Account.VERSIONS[version]['prefix']))
-        end_date = getattr(self, u'{}end_date'.format(Account.VERSIONS[version]['prefix']))
+        start_date = getattr(self, u'{}start_date'.format(Account.VERSIONS_PREFIXES[version]))
+        end_date = getattr(self, u'{}end_date'.format(Account.VERSIONS_PREFIXES[version]))
         if not end_date or not start_date:
             return None
         now = timezone.now()
@@ -910,15 +919,15 @@ class EventParticipation(AccountAsOwnerModel):
 
     @property
     def image(self):
-        return getattr(self.event, u'{}image'.format(Account.VERSIONS[self.cached_account.version]['prefix'])) or self.event.image
+        return getattr(self.event, u'{}image'.format(Account.VERSIONS_PREFIXES[self.cached_account.version])) or self.event.image
 
     @property
     def image_url(self):
-        return getattr(self.event, u'{}image_url'.format(Account.VERSIONS[self.cached_account.version]['prefix'])) or self.event.image_url
+        return getattr(self.event, u'{}image_url'.format(Account.VERSIONS_PREFIXES[self.cached_account.version])) or self.event.image_url
 
     @property
     def http_image_url(self):
-        return getattr(self.event, u'http_{}image_url'.format(Account.VERSIONS[self.cached_account.version]['prefix'])) or self.event.http_image_url
+        return getattr(self.event, u'http_{}image_url'.format(Account.VERSIONS_PREFIXES[self.cached_account.version])) or self.event.http_image_url
 
     def __unicode__(self):
         if self.id:
@@ -1107,13 +1116,7 @@ class Gacha(MagiModel):
     owner = models.ForeignKey(User, related_name='added_gacha')
 
     image = models.ImageField(_('Image'), upload_to=uploadItem('g'))
-
-    @property
-    def to_top_image_list(self):
-        image = None
-        if get_language() in LANGUAGES_TO_VERSIONS:
-            image = getattr(self, u'{}image_url'.format(Account.VERSIONS[LANGUAGES_TO_VERSIONS[get_language()]]['prefix']))
-        return image or self.image_url
+    top_image = property(_event_gacha_top_image)
 
     name = models.CharField(_('Title'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
@@ -1151,6 +1154,8 @@ class Gacha(MagiModel):
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gachas', null=True, on_delete=models.SET_NULL)
     cards = models.ManyToManyField(Card, verbose_name=('Cards'), related_name='gachas')
 
+    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date']
+
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
@@ -1161,8 +1166,8 @@ class Gacha(MagiModel):
         return self.event
 
     def get_status(self, version='JP'):
-        start_date = getattr(self, u'{}start_date'.format(Account.VERSIONS[version]['prefix']))
-        end_date = getattr(self, u'{}end_date'.format(Account.VERSIONS[version]['prefix']))
+        start_date = getattr(self, u'{}start_date'.format(Account.VERSIONS_PREFIXES[version]))
+        end_date = getattr(self, u'{}end_date'.format(Account.VERSIONS_PREFIXES[version]))
         if not end_date or not start_date:
             return None
         now = timezone.now()

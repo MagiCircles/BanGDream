@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 from django.db.models import Prefetch, Q
 from django.db.models.fields import BLANK_CHOICE_DASH
 from magi.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection, StaffConfigurationCollection as _StaffConfigurationCollection
-from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn
+from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn, jsv
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
 from magi.models import Activity, Notification
@@ -736,11 +736,11 @@ class CardCollection(MagiCollection):
     def _extra_context_for_form(self, context):
         if 'js_variables' not in context:
             context['js_variables'] = {}
-        context['js_variables']['all_variables'] = mark_safe(simplejson.dumps(models.Card.ALL_VARIABLES))
-        context['js_variables']['variables_per_skill_type'] = mark_safe(simplejson.dumps(models.Card.VARIABLES_PER_SKILL_TYPES))
-        context['js_variables']['special_cases_variables'] = mark_safe(simplejson.dumps(models.Card.SPECIAL_CASES_VARIABLES))
-        context['js_variables']['template_per_skill_type'] = mark_safe(simplejson.dumps(models.Card.TEMPLATE_PER_SKILL_TYPES))
-        context['js_variables']['special_cases_template'] = mark_safe(simplejson.dumps(models.Card.SPECIAL_CASES_TEMPLATE))
+        context['js_variables']['all_variables'] = jsv(models.Card.ALL_VARIABLES)
+        context['js_variables']['variables_per_skill_type'] = jsv(models.Card.VARIABLES_PER_SKILL_TYPES)
+        context['js_variables']['special_cases_variables'] = jsv(models.Card.SPECIAL_CASES_VARIABLES)
+        context['js_variables']['template_per_skill_type'] = jsv(models.Card.TEMPLATE_PER_SKILL_TYPES)
+        context['js_variables']['special_cases_template'] = jsv(models.Card.SPECIAL_CASES_TEMPLATE)
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -804,23 +804,21 @@ def to_EventParticipationCollection(cls):
 # Event Collection
 
 EVENT_ITEM_FIELDS_ORDER = [
-    u'{}countdown'.format(_v['prefix']) for _v in models.Account.VERSIONS.values()
-] + [
     'name', 'japanese_name', 'type',
-    'boost_attribute', 'gacha', 'boost_members', 'cards',
 ] + [
     u'{}{}'.format(_v['prefix'], _f) for _v in models.Account.VERSIONS.values()
-    for _f in ['image', 'start_date', 'end_date', 'rare_stamp', 'stamp_translation']
+    for _f in models.Event.FIELDS_PER_VERSION
+] + [
+    'boost_attribute', 'boost_members', 'cards',
 ]
 
 EVENT_ICONS = {
-    'name': 'world',
-    'japanese_name': 'JP',
+    'name': 'event',
     'start_date': 'date', 'end_date': 'date',
     'english_start_date': 'date', 'english_end_date': 'date',
     'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
     'korean_start_date': 'date', 'korean_end_date': 'date',
-    'type': 'event',
+    'type': 'toggler',
 }
 
 class EventCollection(MagiCollection):
@@ -916,11 +914,18 @@ class EventCollection(MagiCollection):
 
     class ItemView(MagiCollection.ItemView):
         template = 'default'
+        ajax_callback = 'loadEventGacha'
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(EventCollection.ItemView, self).get_queryset(queryset, parameters, request)
             queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'), Prefetch('gachas', to_attr='all_gachas'), Prefetch('gift_songs', to_attr='all_gifted_songs'))
             return queryset
+
+        def extra_context(self, context):
+            if 'js_variables' not in context:
+                context['js_variables'] = {}
+            context['js_variables']['versions_prefixes'] = jsv(models.Account.VERSIONS_PREFIXES)
+            context['js_variables']['fields_per_version'] = jsv(models.Event.FIELDS_PER_VERSION)
 
         def to_fields(self, item, order=None, extra_fields=None, exclude_fields=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
@@ -944,18 +949,26 @@ class EventCollection(MagiCollection):
                             'type': 'html',
                         }),
                     ]
+            extra_fields.append(('image', {
+                'image': staticImageURL('language/ja.png'),
+                'verbose_name': _('Japanese version'),
+                'type': 'image',
+                'value': item.image_url,
+            }))
             if len(item.all_gachas):
-                extra_fields.append(('gacha', {
-                    'image': staticImageURL('gacha.png'),
-                    'verbose_name': _('Gacha'),
-                    'type': 'images_links',
-                    'images': [{
+                for gacha in item.all_gachas:
+                    extra_fields.append((u'gacha-{}'.format(gacha.id), {
+                        'image': staticImageURL('gacha.png'),
+                        'verbose_name': u'{}: {}'.format(
+                            _('Gacha'),
+                            unicode(gacha),
+                        ),
                         'value': gacha.image_url,
+                        'type': 'image_link',
                         'link': gacha.item_url,
                         'ajax_link': gacha.ajax_item_url,
                         'link_text': unicode(gacha),
-                    } for gacha in item.all_gachas]
-                }))
+                    }))
             if len(item.all_members):
                 extra_fields.append(('boost_members', {
                     'icon': 'users',
@@ -981,17 +994,19 @@ class EventCollection(MagiCollection):
                     } for card in [item.main_card, item.secondary_card] if card is not None]
                 }))
             if len(item.all_gifted_songs):
-                extra_fields.append(('songs', {
-                    'icon': 'song',
-                    'verbose_name': _('Gift song'),
-                    'type': 'images_links',
-                    'images': [{
-                        'value': gifted_song.image_url,
-                        'link': gifted_song.item_url,
-                        'ajax_link': gifted_song.ajax_item_url,
-                        'link_text': unicode(gifted_song),
-                    } for gifted_song in item.all_gifted_songs]
-                }))
+                for song in item.all_gifted_songs:
+                    extra_fields.append(('song-{}'.format(song.id), {
+                        'icon': 'song',
+                        'verbose_name': u'{}: {}'.format(
+                            _('Gift song'),
+                            unicode(song),
+                        ),
+                        'value': song.image_url,
+                        'type': 'image_link',
+                        'link': song.item_url,
+                        'ajax_link': song.ajax_item_url,
+                        'link_text': unicode(song),
+                    }))
             for version in models.Account.VERSIONS.values():
                 if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
                     extra_fields.append(('{}image'.format(version['prefix']), {
@@ -1000,12 +1015,13 @@ class EventCollection(MagiCollection):
                         'type': 'html',
                         'value': u'<hr>',
                     }))
-            exclude_fields.append('c_versions')
+            exclude_fields += ['c_versions', 'japanese_name']
             fields = super(EventCollection.ItemView, self).to_fields(
                 item, *args, order=order, extra_fields=extra_fields, exclude_fields=exclude_fields, **kwargs)
 
-            setSubField(fields, 'japanese_name', key='verbose_name', value=_('Title'))
-            setSubField(fields, 'japanese_name', key='verbose_name_subtitle', value=t['Japanese'])
+            setSubField(fields, 'name', key='type', value='text' if get_language() == 'ja' else 'title_text')
+            setSubField(fields, 'name', key='title', value=item.t_name)
+            setSubField(fields, 'name', key='value', value=item.japanese_name)
 
             for version in models.Account.VERSIONS.values():
                 setSubField(fields, u'{}image'.format(version['prefix']), key='verbose_name', value=version['translation'])
@@ -1042,12 +1058,12 @@ GACHA_ICONS = {
 }
 
 GACHA_ITEM_FIELDS_ORDER = [
-    u'{}countdown'.format(_v['prefix']) for _v in models.Account.VERSIONS.values()
-] + [
-    'name', 'attribute', 'limited', 'cards',
+    'name',
 ] + [
     u'{}{}'.format(_v['prefix'], _f) for _v in models.Account.VERSIONS.values()
-    for _f in ['image', 'start_date', 'end_date']
+    for _f in models.Gacha.FIELDS_PER_VERSION
+] + [
+ 'attribute', 'limited', 'cards',
 ]
 
 class GachaCollection(MagiCollection):
@@ -1123,11 +1139,18 @@ class GachaCollection(MagiCollection):
 
     class ItemView(MagiCollection.ItemView):
         template = 'default'
+        ajax_callback = 'loadEventGacha'
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(GachaCollection.ItemView, self).get_queryset(queryset, parameters, request)
             queryset = queryset.select_related('event').prefetch_related(Prefetch('cards', to_attr='all_cards'))
             return queryset
+
+        def extra_context(self, context):
+            if 'js_variables' not in context:
+                context['js_variables'] = {}
+            context['js_variables']['versions_prefixes'] = jsv(models.Account.VERSIONS_PREFIXES)
+            context['js_variables']['fields_per_version'] = jsv(models.Gacha.FIELDS_PER_VERSION)
 
         def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
@@ -1151,6 +1174,12 @@ class GachaCollection(MagiCollection):
                             'type': 'html',
                         }),
                     ]
+            extra_fields.append(('image', {
+                'image': staticImageURL('language/ja.png'),
+                'verbose_name': _('Japanese version'),
+                'type': 'image',
+                'value': item.image_url,
+            }))
             exclude_fields += ['japanese_name', 'c_versions']
             if len(item.all_cards):
                 extra_fields.append(('cards', {

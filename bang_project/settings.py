@@ -172,6 +172,8 @@ HOMEPAGE_CHARACTERS = [
     '//i.bandori.party/u/c/transparent/506Tae-Hanazono-Happy-ZDY0kx.png',
 ]
 
+TOTAL_DONATORS = 2
+
 STATIC_FILES_VERSION = ''
 
 PRICE_PER_STARGEM = 1.33333

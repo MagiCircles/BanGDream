@@ -783,7 +783,7 @@ def _event_gacha_top_image(item, image_name='image'):
     # Otherwise, return banner that makes more sense for the language the users uses
     if not image and get_language() in LANGUAGES_TO_VERSIONS:
         image = getattr(item, u'{}{}_url'.format(Account.VERSIONS_PREFIXES[LANGUAGES_TO_VERSIONS[get_language()]], image_name))
-    return image or getattr(item, u'{}_url'.format(image_name))
+    return image or getattr(item, u'{}_url'.format(image_name)) or staticImageURL('stars.png')
 
 class Event(MagiModel):
     collection_name = 'event'

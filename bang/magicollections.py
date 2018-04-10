@@ -911,6 +911,13 @@ class EventCollection(MagiCollection):
         show_collect_button = {
             'eventparticipation': False,
         }
+        alt_views = MagiCollection.ListView.alt_views + [
+            ('stamps', {
+                'verbose_name': _('Rare stamp'),
+                'template': 'eventStampItem',
+                'per_line': 4,
+            }),
+        ]
 
     class ItemView(MagiCollection.ItemView):
         template = 'default'

@@ -772,18 +772,18 @@ class FavoriteCard(MagiModel):
 ############################################################
 # Events
 
-def _event_gacha_top_image(item):
+def _event_gacha_top_image(item, image_name='image'):
     image = None
     # Check for current event and return banner of current if any
     for prefix in Account.VERSIONS_PREFIXES.values():
         status = getattr(item, u'{}status'.format(prefix))
         if status and status != 'ended':
-            image = getattr(item, u'{}image_url'.format(prefix))
+            image = getattr(item, u'{}{}_url'.format(prefix, image_name))
             break
     # Otherwise, return banner that makes more sense for the language the users uses
     if not image and get_language() in LANGUAGES_TO_VERSIONS:
-        image = getattr(item, u'{}image_url'.format(Account.VERSIONS_PREFIXES[LANGUAGES_TO_VERSIONS[get_language()]]))
-    return image or item.image_url
+        image = getattr(item, u'{}{}_url'.format(Account.VERSIONS_PREFIXES[LANGUAGES_TO_VERSIONS[get_language()]], image_name))
+    return image or getattr(item, u'{}_url'.format(image_name))
 
 class Event(MagiModel):
     collection_name = 'event'
@@ -821,6 +821,9 @@ class Event(MagiModel):
     ]
 
     rare_stamp = models.ImageField(_('Rare stamp'), upload_to=uploadItem('e/stamps'), null=True)
+    @property
+    def rare_stamp_per_version(self):
+        return _event_gacha_top_image(self, image_name='rare_stamp')
 
     stamp_translation = models.CharField(_('Stamp translation'), max_length=200, null=True)
     STAMP_TRANSLATIONS_CHOICES = ALT_LANGUAGES_EXCEPT_JP

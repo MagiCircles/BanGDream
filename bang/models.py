@@ -776,7 +776,7 @@ def _event_gacha_top_image(item):
     image = None
     # Check for current event and return banner of current if any
     for prefix in Account.VERSIONS_PREFIXES.values():
-        status = status
+        status = getattr(item, u'{}status'.format(prefix))
         if status and status != 'ended':
             image = getattr(item, u'{}image_url'.format(prefix))
             break

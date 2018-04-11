@@ -776,13 +776,25 @@ EVENT_PARTICIPATIONS_ICONS = {
     'song_ranking': 'trophy',
     'is_trial_master_completed': 'achievement',
     'is_trial_master_ex_completed': 'achievement',
+    'screenshot': 'pictures',
 }
 
 def to_EventParticipationCollection(cls):
     class _EventParticipationCollection(cls):
         title = _('Participated event')
         plural_title = _('Participated events')
+        multipart = True
+        show_edit_button_superuser_only = True
         form_class = forms.to_EventParticipationForm(cls)
+        reportable = True
+        report_allow_delete = False
+
+        report_edit_templates = OrderedDict([
+            ('Unrealistic Score', 'Your score is unrealistic, so we edited it. If this was a mistake, please upload a screenshot of your game to the details of your event participation to prove your score and change it back. Thank you for your understanding.'),
+            ('Unrealistic Ranking', 'Your ranking is unrealistic, so we edited it. If this was a mistake, please upload a screenshot of your game to the details of your event participation to prove your score and change it back. Thank you for your understanding.'),
+            ('Unrealistic Song Score', 'Your song score is unrealistic, so we edited it. If this was a mistake, please upload a screenshot of your game to the details of your event participation to prove your score and change it back. Thank you for your understanding.'),
+            ('Unrealistic Song Ranking', 'Your song ranking is unrealistic, so we edited it. If this was a mistake, please upload a screenshot of your game to the details of your event participation to prove your score and change it back. Thank you for your understanding.'),
+        ])
 
         filter_cuteform = {
             'is_trial_master_completed': { 'type': CuteFormType.YesNo, },
@@ -1268,6 +1280,13 @@ def to_PlayedSongCollection(cls):
         plural_title = _('Played songs')
         multipart = True
         form_class = forms.to_PlayedSongForm(cls)
+        show_edit_button_superuser_only = True
+        reportable = True
+        report_allow_delete = False
+
+        report_edit_templates = OrderedDict([
+            ('Unrealistic Score', 'Your score is unrealistic, so we edited it. If this was a mistake, please upload a screenshot of your game to the details of your played song to prove your score and change it back. Thank you for your understanding.'),
+        ])
 
         filter_cuteform = dict(_song_cuteform.items() + [
             ('full_combo', {

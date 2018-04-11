@@ -916,6 +916,8 @@ class EventParticipation(AccountAsOwnerModel):
     is_trial_master_completed = models.NullBooleanField(_('Trial master completed'))
     is_trial_master_ex_completed = models.NullBooleanField(_('Trial master EX completed'))
 
+    screenshot = models.ImageField(_('Screenshot'), upload_to=uploadItem('event_screenshot'), null=True)
+
     def to_cache_account(self):
         d = super(EventParticipation, self).to_cache_account()
         d['i_version'] = self.account.i_version

@@ -273,10 +273,12 @@ class MemberCollection(MagiCollection):
 
     class AddView(MagiCollection.AddView):
         staff_required = True
+        permissions_required = ['manage_main_items']
         multipart = True
 
     class EditView(MagiCollection.EditView):
         staff_required = True
+        permissions_required = ['manage_main_items']
         multipart = True
 
 ############################################################
@@ -744,6 +746,7 @@ class CardCollection(MagiCollection):
 
     class AddView(MagiCollection.AddView):
         staff_required = True
+        permissions_required = ['manage_main_items']
         multipart = True
         ajax_callback = 'loadCardForm'
 
@@ -752,6 +755,7 @@ class CardCollection(MagiCollection):
 
     class EditView(MagiCollection.EditView):
         staff_required = True
+        permissions_required = ['manage_main_items']
         multipart = True
         ajax_callback = 'loadCardForm'
 
@@ -1039,10 +1043,12 @@ class EventCollection(MagiCollection):
 
     class AddView(MagiCollection.AddView):
         staff_required = True
+        permissions_required = ['manage_main_items']
         savem2m = True
 
     class EditView(MagiCollection.EditView):
         staff_required = True
+        permissions_required = ['manage_main_items']
         savem2m = True
 
         def to_translate_form_class(self):
@@ -1230,6 +1236,7 @@ class GachaCollection(MagiCollection):
     class AddView(MagiCollection.AddView):
         savem2m = True
         staff_required = True
+        permissions_required = ['manage_main_items']
 
         def after_save(self, request, instance, type=None):
             return self.collection._after_save(request, instance)
@@ -1237,6 +1244,7 @@ class GachaCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         savem2m = True
         staff_required = True
+        permissions_required = ['manage_main_items']
 
         def after_save(self, request, instance):
             return self.collection._after_save(request, instance)
@@ -1488,9 +1496,11 @@ class SongCollection(MagiCollection):
 
     class AddView(MagiCollection.AddView):
         staff_required = True
+        permissions_required = ['manage_main_items']
 
     class EditView(MagiCollection.EditView):
         staff_required = True
+        permissions_required = ['manage_main_items']
 
         def to_translate_form_class(self):
             super(SongCollection.EditView, self).to_translate_form_class()

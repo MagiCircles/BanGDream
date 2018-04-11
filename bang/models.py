@@ -938,7 +938,7 @@ class EventParticipation(AccountAsOwnerModel):
     def __unicode__(self):
         if self.id:
             return unicode(self.event)
-        return super(Eventparticipation, self).__unicode__()
+        return super(EventParticipation, self).__unicode__()
 
 ############################################################
 # Song

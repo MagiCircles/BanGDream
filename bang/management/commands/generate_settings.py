@@ -18,8 +18,12 @@ def generate_settings():
     print 'Get the latest news'
     now = timezone.now()
     two_days_ago = now - datetime.timedelta(days=2)
+    in_five_days = now + datetime.timedelta(days=5)
     for version in models.Account.VERSIONS.values():
-        filters = { version['prefix'] + 'end_date__gte': two_days_ago }
+        filters = {
+            version['prefix'] + 'end_date__gte': two_days_ago,
+            version['prefix'] + 'end_date__lte': in_five_days,
+        }
         old_lang = get_language()
         for event in (list(models.Event.objects.filter(**filters))
                       + list(models.Gacha.objects.filter(**filters))):

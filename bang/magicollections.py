@@ -597,7 +597,7 @@ class CardCollection(MagiCollection):
             if exclude_fields == 1:
                 exclude_fields = []
             else:
-                exclude_fields += CARDS_EXCLUDE + (['versions', 'skill_type'] if get_language() == 'ja' else [])
+                exclude_fields += CARDS_EXCLUDE + (['versions', 'i_skill_type'] if get_language() == 'ja' else [])
             # Order
             order = CARDS_ORDER + order
 

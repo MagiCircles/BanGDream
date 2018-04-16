@@ -3,7 +3,7 @@ import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
 
-from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING, DEFAULT_JAVASCRIPT_TRANSLATED_TERMS
+from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING, DEFAULT_JAVASCRIPT_TRANSLATED_TERMS, DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS
 from magi.utils import tourldash
 from bang import models
 from bang.utils import bangGlobalContext
@@ -69,7 +69,13 @@ _ACTIVITY_TAGS = [
     ('fanart', _('Fan made')),
     ('merch', _('Merchandise')),
     ('community', _('Community')),
-    ('unrelated', _('Unrelated')),
+    ('staff', _('Staff')),
+    ('communityevent', _('Community event')),
+    ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
+]
+
+GLOBAL_OUTSIDE_PERMISSIONS = DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS + [
+    'Google+ Bandori Party group',
 ]
 
 USER_COLORS = [

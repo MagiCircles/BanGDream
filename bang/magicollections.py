@@ -241,7 +241,7 @@ class MemberCollection(MagiCollection):
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))
             if 'romaji_CV' in fields:
                 del(fields['romaji_CV'])
-        if 'description' in fields:
+        if 'description' in fields and get_language() == 'en':
             fields['source'] = {
                 'verbose_name': _('Source'),
                 'link_text': 'BanGDreaming Tumblr',

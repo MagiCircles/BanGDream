@@ -614,7 +614,7 @@ class Card(MagiModel):
         return {
             'id': self.member_id,
             'names': names,
-            'image': unicode(self.member.image),
+            'image': unicode(self.member.square_image),
         }
 
     # Cache events
@@ -707,7 +707,7 @@ class Card(MagiModel):
             'japanese_name': unicode(cameo.japanese_name),
             'image': unicode(cameo.square_image),
         } for cameo in self.cameo_members.all()]
-    
+
     @classmethod
     def cached_cameos_pre(self, d):
         d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']

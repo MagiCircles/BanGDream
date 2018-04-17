@@ -163,11 +163,15 @@ class CardForm(AutoForm):
             imageObject.image.save(image.name, image)
             instance.chibis.add(imageObject)
         instance.force_cache_chibis()
+        # members can't cameo in their own cards
+        instance.cameo_members = filter(lambda x: x.id != instance.member_id, self.cleaned_data['cameo_members'])
+        instance.force_cache_cameos()
         return instance
 
     class Meta(AutoForm.Meta):
         model = models.Card
         fields = '__all__'
+        optional_fields = ('cameo_members',)
         save_owner_on_creation = True
 
 def to_translate_card_form_class(cls):
@@ -201,7 +205,20 @@ class CardFilterForm(MagiFiltersForm):
         return queryset.filter(Q(i_skill_type=value) | Q(i_side_skill_type=value))
     i_skill_type_filter = MagiFilter(to_queryset=skill_filter_to_queryset)
 
+    def member_id_to_queryset(self, queryset, request, value):
+        main_member_condition = Q(member_id=value)
+
+        if self.data.get('member_includes_cameos'):
+            return queryset.filter(main_member_condition | Q(_cache_cameos_search_blob__icontains='@{}@'.format(value)))
+        else:
+            return queryset.filter(main_member_condition)
+
     member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+    member_id_filter = MagiFilter(to_queryset=member_id_to_queryset)
+
+    member_includes_cameos = forms.BooleanField(label=_('Include cameos'))
+    # used in member_id_to_queryset
+    member_includes_cameos_filter = MagiFilter(noop=True)
 
     member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
     member_band_filter = MagiFilter(selector='member__i_band')
@@ -238,7 +255,7 @@ class CardFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
-        fields = ('view', 'search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'origin', 'i_skill_type', 'member_band', 'version', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'member_id', 'member_includes_cameos', 'member_band', 'i_rarity', 'i_attribute', 'origin', 'i_skill_type', 'member_band', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # CollectibleCard

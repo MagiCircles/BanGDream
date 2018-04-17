@@ -13,6 +13,7 @@ from magi.abstract_models import AccountAsOwnerModel, BaseAccount
 from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path, i_choices, getInfoFromChoices
 from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName, staticImageURL
 from bang.django_translated import t
+import json
 
 ############################################################
 # Utility Models
@@ -708,6 +709,34 @@ class Card(MagiModel):
                     else self.name) if self.name or self.japanese_name else ''),
             )
         return u''
+    
+    cameo_members = models.ManyToManyField(Member, related_name='cameo_members', verbose_name=_('Other characters in this card'))
+    _cache_cameos_blob = models.TextField(null=True)
+    _cache_cameos_search_blob = models.TextField(null=True)
+
+    def make_cameo_blobs(self, members=None):
+        if not members:
+            members = self.cameo_members.all()
+
+        self._cache_cameos_blob = json.dumps([(cameo.item_url, cameo.ajax_item_url, unicode(cameo), cameo.square_image_url)
+            for cameo in members])
+        ida = ["@{}@".format(cameo.id) for cameo in members]
+        self._cache_cameos_search_blob = "".join(ida)
+
+    def force_cache_cameos(self):
+        self.make_cameo_blobs()
+        self.save()
+
+    @property
+    def cached_cameos(self):
+        if not (self._cache_cameos_blob and self._cache_cameos_search_blob):
+            self.force_cache_cameos()
+        return [AttrDict({
+            'link': u,
+            'ajax_link': a,
+            'name': n,
+            's_image_url': i,
+        }) for u, a, n, i in json.loads(self._cache_cameos_blob)]
 
 ############################################################
 # Collectible Cards

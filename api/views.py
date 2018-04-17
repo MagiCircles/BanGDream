@@ -146,6 +146,7 @@ class CardSerializer(MagiSerializer):
     def _postsave(self, validated_data, instance):
         instance = super(CardSerializer, self)._postsave(validated_data, instance)
         instance.force_cache_member()
+        instance.force_cache_cameos()
         return instance
 
     class Meta:
@@ -160,7 +161,7 @@ class CardSerializer(MagiSerializer):
             # / Not editable
             'performance_min', 'performance_max', 'performance_trained_max',
             'technique_min', 'technique_max', 'technique_trained_max',
-            'visual_min', 'visual_max', 'visual_trained_max',
+            'visual_min', 'visual_max', 'visual_trained_max', 'cameo_members'
         )
 
 class CardSerializerForEditing(CardSerializer):

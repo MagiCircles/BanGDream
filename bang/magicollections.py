@@ -592,6 +592,19 @@ class CardCollection(MagiCollection):
                         'verbose_name': _('Chibi'),
                     } for chibi in item.cached_chibis],
                 }))
+            
+            if item.cached_cameos:
+                extra_fields.append(('cameo_members', {
+                    'icon': 'users',
+                    'verbose_name': _('Other characters in this card'),
+                    'type': 'images_links',
+                    'images': [{
+                        'value': cameo.s_image_url,
+                        'link': cameo.link,
+                        'ajax_link': cameo.ajax_link,
+                        'link_text': cameo.name,
+                    } for cameo in item.cached_cameos]
+                }))
 
             # Exclude fields
             if exclude_fields == 1:

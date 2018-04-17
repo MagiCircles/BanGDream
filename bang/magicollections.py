@@ -435,7 +435,7 @@ CARDS_ICONS = {
 }
 
 CARDS_ORDER = [
-    'id', 'card_name', 'member', 'rarity', 'attribute', 'versions', 'is_promo', 'release_date',
+    'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'release_date',
     'japanese_skill_name', 'skill_type', 'japanese_skill',
     'gacha', 'images', 'arts', 'transparents',
 ]
@@ -596,7 +596,7 @@ class CardCollection(MagiCollection):
             if item.cached_cameos:
                 extra_fields.append(('cameo_members', {
                     'icon': 'users',
-                    'verbose_name': _('Other characters in this card'),
+                    'verbose_name': _('Other members in this card'),
                     'type': 'images_links',
                     'images': [{
                         'value': cameo.s_image_url,

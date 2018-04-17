@@ -710,7 +710,7 @@ class Card(MagiModel):
             )
         return u''
     
-    cameo_members = models.ManyToManyField(Member, related_name='cameo_members', verbose_name=_('Other characters in this card'))
+    cameo_members = models.ManyToManyField(Member, related_name='cameo_members', verbose_name=_('Other members in this card'))
     _cache_cameos_blob = models.TextField(null=True)
     _cache_cameos_search_blob = models.TextField(null=True)
 

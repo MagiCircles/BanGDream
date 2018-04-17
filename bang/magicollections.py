@@ -417,6 +417,9 @@ CARD_CUTEFORM = {
         'transform': CuteFormTransform.Flaticon,
         'to_cuteform': lambda k, v: CardCollection._origin_to_cuteform[k],
     },
+    'is_limited': {
+        'type': CuteFormType.YesNo,
+    },
 }
 
 CARDS_ICONS = {

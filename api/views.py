@@ -77,7 +77,7 @@ class MagiSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         self.is_creating = True
         validated_data = self._presave(validated_data)
-        instance = self.Meta.model(**validated_data)
+        instance = super(MagiSerializer, self).create(validated_data)
         instance.save()
         return self._postsave(validated_data, instance)
 

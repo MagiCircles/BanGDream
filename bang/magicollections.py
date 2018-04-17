@@ -438,7 +438,7 @@ CARDS_ICONS = {
 }
 
 CARDS_ORDER = [
-    'id', 'card_name', 'member', 'rarity', 'attribute', 'versions', 'is_promo', 'release_date',
+    'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'release_date',
     'japanese_skill_name', 'skill_type', 'japanese_skill',
     'gacha', 'images', 'arts', 'transparents',
 ]
@@ -594,6 +594,19 @@ class CardCollection(MagiCollection):
                         'value': chibi.image_url,
                         'verbose_name': _('Chibi'),
                     } for chibi in item.cached_chibis],
+                }))
+            
+            if item.cached_cameos:
+                extra_fields.append(('cameo_members', {
+                    'icon': 'users',
+                    'verbose_name': _('Cameos'),
+                    'type': 'images_links',
+                    'images': [{
+                        'value': cameo.image_url,
+                        'link': cameo.item_url,
+                        'ajax_link': cameo.ajax_item_url,
+                        'link_text': cameo.name,
+                    } for cameo in item.cached_cameos]
                 }))
 
             # Exclude fields

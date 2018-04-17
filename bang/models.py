@@ -531,6 +531,9 @@ class Card(MagiModel):
 
     chibis = models.ManyToManyField(Image, related_name="chibi", verbose_name=_('Chibi'))
 
+    # Other members that appear in the card art
+    cameo_members = models.ManyToManyField(Member, related_name='cameo_members', verbose_name=_('Cameos'))
+
     # Tools
 
     TRAINABLE_RARITIES = [3, 4]
@@ -691,6 +694,24 @@ class Card(MagiModel):
             'image_url': get_image_url_from_path(path),
             'http_image_url': get_http_image_url_from_path(path),
         }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]
+
+    _cached_cameos_collection_name = 'member'
+    _cache_cameos_days = 200
+    _cache_cameos_last_update = models.DateTimeField(null=True)
+    _cache_j_cameos = models.TextField(null=True)
+
+    def to_cache_cameos(self):
+        return [{
+            'id': cameo.id,
+            'name': unicode(cameo.name),
+            'japanese_name': unicode(cameo.japanese_name),
+            'image': unicode(cameo.square_image),
+        } for cameo in self.cameo_members.all()]
+    
+    @classmethod
+    def cached_cameos_pre(self, d):
+        d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
+        return d
 
     @property # To allow favorite card to use the same template
     def card(self):

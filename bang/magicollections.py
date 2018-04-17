@@ -596,12 +596,12 @@ class CardCollection(MagiCollection):
             if item.cached_cameos:
                 extra_fields.append(('cameo_members', {
                     'icon': 'users',
-                    'verbose_name': _('Other members in this card'),
+                    'verbose_name': _('Cameos'),
                     'type': 'images_links',
                     'images': [{
-                        'value': cameo.s_image_url,
-                        'link': cameo.link,
-                        'ajax_link': cameo.ajax_link,
+                        'value': cameo.image_url,
+                        'link': cameo.item_url,
+                        'ajax_link': cameo.ajax_item_url,
                         'link_text': cameo.name,
                     } for cameo in item.cached_cameos]
                 }))

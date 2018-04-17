@@ -165,7 +165,7 @@ class CardForm(AutoForm):
         instance.force_cache_chibis()
         # members can't cameo in their own cards
         instance.cameo_members = filter(lambda x: x.id != instance.member_id, self.cleaned_data['cameo_members'])
-        instance.force_cache_cameos()
+        instance.update_cache('cameos')
         return instance
 
     class Meta(AutoForm.Meta):

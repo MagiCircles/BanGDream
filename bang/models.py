@@ -693,6 +693,28 @@ class Card(MagiModel):
             'http_image_url': get_http_image_url_from_path(path),
         }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]
 
+    cameo_members = models.ManyToManyField(Member, related_name='cameo_members', verbose_name=_('Cameos'))
+
+    _cached_cameos_collection_name = 'member'
+    _cache_cameos_days = 200
+    _cache_cameos_last_update = models.DateTimeField(null=True)
+    _cache_j_cameos = models.TextField(null=True)
+
+    def to_cache_cameos(self):
+        them = self.cameo_members.all()
+
+        return [{
+            'id': cameo.id,
+            'name': unicode(cameo.name),
+            'japanese_name': unicode(cameo.japanese_name),
+            'image': unicode(cameo.square_image),
+        } for cameo in them]
+    
+    @classmethod
+    def cached_cameos_pre(self, d):
+        d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
+        return d
+
     @property # To allow favorite card to use the same template
     def card(self):
         return self
@@ -709,34 +731,6 @@ class Card(MagiModel):
                     else self.name) if self.name or self.japanese_name else ''),
             )
         return u''
-    
-    cameo_members = models.ManyToManyField(Member, related_name='cameo_members', verbose_name=_('Other members in this card'))
-    _cache_cameos_blob = models.TextField(null=True)
-    _cache_cameos_search_blob = models.TextField(null=True)
-
-    def make_cameo_blobs(self, members=None):
-        if not members:
-            members = self.cameo_members.all()
-
-        self._cache_cameos_blob = json.dumps([(cameo.item_url, cameo.ajax_item_url, unicode(cameo), cameo.square_image_url)
-            for cameo in members])
-        ida = ["@{}@".format(cameo.id) for cameo in members]
-        self._cache_cameos_search_blob = "".join(ida)
-
-    def force_cache_cameos(self):
-        self.make_cameo_blobs()
-        self.save()
-
-    @property
-    def cached_cameos(self):
-        if not (self._cache_cameos_blob and self._cache_cameos_search_blob):
-            self.force_cache_cameos()
-        return [AttrDict({
-            'link': u,
-            'ajax_link': a,
-            'name': n,
-            's_image_url': i,
-        }) for u, a, n, i in json.loads(self._cache_cameos_blob)]
 
 ############################################################
 # Collectible Cards

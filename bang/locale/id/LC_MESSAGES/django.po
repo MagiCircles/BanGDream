@@ -579,11 +579,11 @@ msgstr "Terima kasih telah melaporkan {thing} ini."
 
 #: magi/views.py:352 magi/views.py:380
 msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
-msgstr "{thing}-mu telah dilaporkan, dan moderator memutuskan bahwa itu harus {verb}."
+msgstr "{thing}mu telah dilaporkan, dan moderator memutuskan bahwa itu harus {verb}."
 
 #: magi/views.py:355 magi/views.py:383
 msgid "Your {thing} has been {verb}"
-msgstr "{thing}-mu telah {verb}"
+msgstr "{thing}mu telah {verb}"
 
 #: magi/views.py:372 magi/views.py:383
 msgid "deleted"
@@ -1625,7 +1625,7 @@ msgstr "Nama"
 #: bang/magicollections.py:523 bang/magicollections.py:615 bang/models.py:426
 #: bang/models.py:427
 msgid "Transparent"
-msgstr "Transparan"
+msgstr "Gambar transparan"
 
 #: bang/magicollections.py:523 bang/models.py:422 bang/models.py:423
 msgid "Icon"
@@ -1682,7 +1682,7 @@ msgstr "Kartu"
 
 #: bang/magicollections.py:766
 msgid "Events"
-msgstr "Events"
+msgstr "Event"
 
 #: cpro/raw.py:7
 msgid "Songs"
@@ -1813,7 +1813,7 @@ msgstr "Penggemar"
 
 #: magi/utils.py:164
 msgid "Only"
-msgstr "Bisa"
+msgstr "Ya"
 
 #: magi/utils.py:167
 msgid "None"
@@ -1924,7 +1924,7 @@ msgstr "Waktu lokal"
 #: magi/magicollections.py:557 magi/models.py:467 magi/models.py:474
 #: magi/models.py:561
 msgid "Open {thing}"
-msgstr "Buka {thing}"
+msgstr "Tampilkan {thing}"
 
 #: magi/forms.py:323
 msgid "Reverse order"
@@ -2219,7 +2219,7 @@ msgstr "Kamu telah memiliki {total} {things}. Kamu hanya bisa menambahkan hingga
 
 #: magi/forms.py:325
 msgid "View"
-msgstr "Lihat"
+msgstr "Tampilan"
 
 #: magi/forms.py:534
 msgid "Please provide an updated screenshot of your in-game profile to prove your level."
@@ -2233,11 +2233,11 @@ msgstr "Kamu dapat menggunakan pemformatan Markdown."
 #. Adding to your card Kotori
 #: magi/magicollections.py:249
 msgid "Adding to your {thing} {name}"
-msgstr "Menambahkan {name} ke {thing}-mu"
+msgstr "Menambahkan ke {akun}mu ({thing})"
 
 #: magi/magicollections.py:340
 msgid "Add to your {thing}"
-msgstr "Tambahkan ke {thing}-mu"
+msgstr "Tambahkan sebagai {thing}mu"
 
 #: magi/magicollections.py:354
 msgid "Quick edit"
@@ -2245,7 +2245,7 @@ msgstr "Sunting cepat"
 
 #: magi/magicollections.py:1234
 msgid "Leaderboard position"
-msgstr "Posisi leaderboard"
+msgstr "Peringkat"
 
 #: magi/templates/pages/about.html:93
 msgid "Need help?"
@@ -2257,7 +2257,7 @@ msgstr "Cari jawaban atas pertanyaanmu"
 
 #: magi/templates/pages/about.html:98
 msgid "Share a suggestion or a bug"
-msgstr "Bagikan saran atau kesalahan"
+msgstr "Berikan saran atau tunjukkan bug"
 
 #: magi/templates/pages/about.html:100
 msgid "Fill our feedback form:"
@@ -2277,7 +2277,7 @@ msgstr "Pelacak kesalahan"
 
 #: magi/templates/pages/about.html:108
 msgid "Alternatively..."
-msgstr "Kalau memungkinkan..."
+msgstr "Alternatifnya..."
 
 #: magi/templates/pages/about.html:109
 msgid "The staff team is available on:"
@@ -2379,7 +2379,7 @@ msgstr "Gacha"
 #: bang/forms.py:222 bang/forms.py:371 bang/forms.py:466 bang/forms.py:549
 #: bang/models.py:237 bang/models.py:782 bang/models.py:904 bang/models.py:1073
 msgid "Server availability"
-msgstr "Server pelaksanaan"
+msgstr "Server tersedianya"
 
 #: bang/forms.py:288 bang/forms.py:289 bang/forms.py:364 bang/forms.py:407
 #: bang/forms.py:408 bang/forms.py:456 bang/models.py:39 bang/models.py:784
@@ -2427,12 +2427,12 @@ msgstr "BPM"
 #: bang/forms.py:540 bang/forms.py:541 bang/models.py:883 bang/models.py:925
 #: bang/models.py:926 bang/models.py:1005
 msgid "Hard"
-msgstr "Sulit"
+msgstr "Hard"
 
 #: bang/forms.py:540 bang/forms.py:542 bang/models.py:921 bang/models.py:923
 #: bang/models.py:925 bang/models.py:927
 msgid "Notes"
-msgstr "Catatan"
+msgstr "Jumlah objek"
 
 #: bang/forms.py:541 bang/forms.py:543 bang/models.py:922 bang/models.py:924
 #: bang/models.py:926 bang/models.py:928 bang/models.py:1009
@@ -2446,7 +2446,7 @@ msgstr "Ahli"
 
 #: bang/forms.py:546 bang/magicollections.py:1243
 msgid "Cover"
-msgstr "Sampul"
+msgstr "Cover"
 
 #: bang/magicollections.py:89
 msgid "~{}円 spent (~${})"
@@ -2454,7 +2454,7 @@ msgstr "~{} yen dihabiskan (~${})"
 
 #: bang/magicollections.py:181 bang/templates/pages/indexBackground.html:22
 msgid "Characters"
-msgstr "Karakter-karakter"
+msgstr "Karakter"
 
 #: bang/magicollections.py:270
 msgid "Favorite {thing}"
@@ -2475,7 +2475,7 @@ msgstr "Ikon"
 
 #: bang/magicollections.py:599
 msgid "Quick add"
-msgstr "Tambahkan langsung"
+msgstr "Penambahan cepat"
 
 #: bang/magicollections.py:601
 msgid "Statistics"
@@ -2495,7 +2495,7 @@ msgstr "Event yang telah diikuti"
 
 #: bang/magicollections.py:730
 msgid "Participated events"
-msgstr "Event-event yang telah diikuti"
+msgstr "Event yang telah diikuti"
 
 #: bang/magicollections.py:902
 msgid "Boost Members"
@@ -2519,7 +2519,7 @@ msgstr "Lagu yang telah dimainkan"
 
 #: bang/magicollections.py:1103
 msgid "Played songs"
-msgstr "Lagu-lagu yang telah dimainkan"
+msgstr "Lagu yang telah dimainkan"
 
 #: bang/magicollections.py:1139 bang/magicollections.py:1239
 #: bang/models.py:1000
@@ -2532,7 +2532,7 @@ msgstr "Asli"
 
 #: bang/magicollections.py:1306
 msgid "{} notes"
-msgstr "{} catatan"
+msgstr "{} objek"
 
 #: bang/magicollections.py:1321
 msgid "Songwriters"
@@ -2604,11 +2604,11 @@ msgstr "Challenge Live"
 
 #: bang/models.py:765
 msgid "Band Battle"
-msgstr "Pertandingan Band"
+msgstr "Band Battle"
 
 #: bang/models.py:766
 msgid "Live Trial"
-msgstr "Percobaan Live"
+msgstr "Live Trial"
 
 #: bang/models.py:768
 msgid "Event type"
@@ -2632,11 +2632,11 @@ msgstr "Peringkat lagu"
 
 #: bang/models.py:849
 msgid "Trial master completed"
-msgstr "Menyelesaikan trial master"
+msgstr "Telah menyelesaikan trial master"
 
 #: bang/models.py:850
 msgid "Trial master EX completed"
-msgstr "Menyelesaikan trial master EX"
+msgstr "Telah menyelesaikan trial master EX"
 
 #: bang/models.py:881 bang/models.py:921 bang/models.py:922 bang/models.py:1003
 msgid "Easy"
@@ -2668,7 +2668,7 @@ msgstr "Lagu gubahan (cover)"
 
 #: bang/models.py:914
 msgid "Beats per minute"
-msgstr "Beat per menit"
+msgstr "Ketukan per menit"
 
 #: bang/models.py:932 bang/models.py:933
 msgid "Gift"
@@ -2700,7 +2700,7 @@ msgstr "Hadiah event"
 
 #: bang/models.py:969
 msgid "How to unlock?"
-msgstr "Bagaimana caranya membuka?"
+msgstr "Cara membuka"
 
 #: bang/models.py:1013
 msgid "Full combo"
@@ -2728,7 +2728,7 @@ msgstr "Kamu bisa mencari ID temanmu dengan membuka bagian \"Friends\" dari bera
 
 #: sukutomo/models.py:37
 msgid "Should your friend ID be visible to other players?"
-msgstr "Apakah sebaliknya ID temanmu bisa dilihat oleh pemain lain?"
+msgstr "Apakah sebaiknya ID temanmu bisa dilihat oleh pemain lain?"
 
 #: sukutomo/models.py:40
 msgid "Love gems"

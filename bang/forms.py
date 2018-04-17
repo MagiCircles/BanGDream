@@ -206,12 +206,10 @@ class CardFilterForm(MagiFiltersForm):
     i_skill_type_filter = MagiFilter(to_queryset=skill_filter_to_queryset)
 
     def member_id_to_queryset(self, queryset, request, value):
-        main_member_condition = Q(member_id=value)
-
         if self.data.get('member_includes_cameos'):
-            return queryset.filter(main_member_condition | Q(_cache_cameos_search_blob__icontains='@{}@'.format(value)))
+            return queryset.filter(Q(member_id=value) | Q(cameo_members__id=value))
         else:
-            return queryset.filter(main_member_condition)
+            return queryset.filter(member_id=value)
 
     member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
     member_id_filter = MagiFilter(to_queryset=member_id_to_queryset)

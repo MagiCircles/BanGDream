@@ -145,7 +145,7 @@ class CardSerializer(MagiSerializer):
 
     def _postsave(self, validated_data, instance):
         instance = super(CardSerializer, self)._postsave(validated_data, instance)
-        instance.force_cache_member()
+        instance.update_cache("member")
         instance.force_cache_cameos()
         return instance
 

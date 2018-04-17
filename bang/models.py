@@ -13,7 +13,6 @@ from magi.abstract_models import AccountAsOwnerModel, BaseAccount
 from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path, i_choices, getInfoFromChoices
 from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName, staticImageURL
 from bang.django_translated import t
-import json
 
 ############################################################
 # Utility Models

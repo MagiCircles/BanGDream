@@ -237,6 +237,9 @@ class CardFilterForm(MagiFiltersForm):
     ])
     origin_filter = MagiFilter(to_queryset=_origin_to_queryset)
 
+    is_limited = forms.NullBooleanField(initial=None, required=False, label=_('Limited'))
+    is_limited_filter = MagiFilter(selector='gachas__limited')
+
     def _view_to_queryset(self, queryset, request, value):
         if value == 'chibis':
             return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
@@ -253,7 +256,7 @@ class CardFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
-        fields = ('view', 'search', 'member_id', 'member_includes_cameos', 'member_band', 'i_rarity', 'i_attribute', 'origin', 'i_skill_type', 'member_band', 'version', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'member_id', 'member_includes_cameos', 'member_band', 'i_rarity', 'i_attribute', 'origin', 'is_limited', 'i_skill_type', 'member_band', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # CollectibleCard

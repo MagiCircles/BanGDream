@@ -883,7 +883,8 @@ class Event(MagiModel):
         'i_rarity': 3,
     }, on_delete=models.SET_NULL)
     secondary_card = models.ForeignKey(Card, related_name='secondary_card_event', null=True, limit_choices_to={
-        'i_rarity': 2,
+        'i_rarity__lte': 3,
+        'i_rarity__gt': 1,
     }, on_delete=models.SET_NULL)
 
     BOOST_ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES

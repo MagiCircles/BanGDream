@@ -1,7 +1,7 @@
 from rest_framework import viewsets, serializers, permissions
 from magi.item_model import get_http_image_url_from_path
 from magi import api_permissions
-from magi.utils import shrinkImageFromData
+from magi.utils import shrinkImageFromData, join_data
 from bang import models
 
 ############################################################
@@ -44,6 +44,9 @@ class CField(serializers.ListField):
         self._field_name = field_name
         self._translated = translated
 
+    def to_internal_value(self, data):
+        return join_data(*data)
+
     def to_representation(self, value):
         return self._model.get_csv_values(self._field_name, value, translated=self._translated)
 
@@ -60,6 +63,7 @@ class MagiSerializer(serializers.ModelSerializer):
         return validated_data
 
     def _postsave(self, validated_data, instance):
+        need_save = False
         for field, value in validated_data.items():
             # Optimize images with TinyPNG
             if type(self.Meta.model._meta.get_field(field)) == models.models.ImageField:
@@ -72,13 +76,25 @@ class MagiSerializer(serializers.ModelSerializer):
                 image = shrinkImageFromData(content, filename, settings=getattr(self.Meta.model, 'tinypng_settings', {}).get(field, {}))
                 image.name = self.Meta.model._meta.get_field(field).upload_to(instance, filename)
                 setattr(instance, field, image)
+                need_save = True
+        if need_save:
+            instance.save()
         return instance
 
     def create(self, validated_data):
         self.is_creating = True
         validated_data = self._presave(validated_data)
-        instance = super(MagiSerializer, self).create(validated_data)
+        m2m = getattr(self.Meta, 'many_to_many_fields', [])
+        validated_data_without_m2m = {
+            k: v for k, v in validated_data.items()
+            if k not in m2m
+        }
+        instance = self.Meta.model(**validated_data_without_m2m)
         instance.save()
+        if m2m:
+            for field_name in m2m:
+                setattr(instance, field_name, validated_data[field_name])
+            instance.save()
         return self._postsave(validated_data, instance)
 
     def update(self, instance, validated_data):
@@ -153,6 +169,7 @@ class CardSerializer(MagiSerializer):
     class Meta:
         model = models.Card
         save_owner_on_creation = True
+        many_to_many_fields = ('cameo_members',)
         fields = (
             'id', 'member', 'i_rarity', 'i_attribute', 'name', 'japanese_name', 'release_date',
             'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
@@ -203,7 +220,6 @@ class CardIDViewSet(viewsets.ModelViewSet):
 ############################################################
 # Event
 
-
 class EventSerializer(MagiSerializer):
     image = ImageField(required=True)
     i_type = IField(models.Event, 'type')
@@ -217,6 +233,7 @@ class EventSerializer(MagiSerializer):
     class Meta:
         model = models.Event
         save_owner_on_creation = True
+        many_to_many_fields = ('boost_members',)
         fields = (
             'image', 'name', 'japanese_name', 'i_type', 'start_date', 'end_date', 'c_versions',
             'english_image', 'english_start_date', 'english_end_date',

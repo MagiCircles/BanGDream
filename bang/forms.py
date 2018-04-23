@@ -343,10 +343,10 @@ class EventForm(AutoForm):
         return None
 
     def clean_main_card(self):
-        return self._clean_card_rarity('main_card', {3})
+        return self._clean_card_rarity('main_card', models.Event.MAIN_CARD_ALLOWED_RARITIES)
 
     def clean_secondary_card(self):
-        return self._clean_card_rarity('secondary_card', {3, 2})
+        return self._clean_card_rarity('secondary_card', models.Event.SECONDARY_CARD_ALLOWED_RARITIES)
 
     def save(self, commit=False):
         instance = super(EventForm, self).save(commit=False)

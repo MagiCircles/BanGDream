@@ -222,7 +222,9 @@ class CardFilterForm(MagiFiltersForm):
     member_band_filter = MagiFilter(selector='member__i_band')
 
     def _origin_to_queryset(self, queryset, request, value):
-        if value == 'is_promo':
+        if value == 'is_original':
+            return queryset.filter(is_original=True)
+        elif value == 'is_promo':
             return queryset.filter(is_promo=True)
         elif value == 'is_gacha':
             return queryset.filter(_cache_j_gachas__isnull=False)
@@ -231,6 +233,7 @@ class CardFilterForm(MagiFiltersForm):
         return queryset
 
     origin = forms.ChoiceField(label=_(u'Origin'), choices=BLANK_CHOICE_DASH + [
+        ('is_original', _(u'Original')),
         ('is_event', _(u'Event')),
         ('is_gacha', _(u'Gacha')),
         ('is_promo', _(u'Promo')),

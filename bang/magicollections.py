@@ -467,6 +467,7 @@ class CardCollection(MagiCollection):
     _skill_icons = { _i: _c['icon'] for _i, _c in models.Card.SKILL_TYPES.items() }
     _version_images = { _vn: _v['image'] for _vn, _v in models.Account.VERSIONS.items() }
     _origin_to_cuteform = {
+        'is_original': 'deck',
         'is_promo': 'promo',
         'is_gacha': 'star',
         'is_event': 'event',

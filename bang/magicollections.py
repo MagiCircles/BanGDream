@@ -434,11 +434,13 @@ CARDS_ICONS = {
     'name': 'id',
     'versions': 'world',
     'is_promo': 'promo',
+    'is_original': 'deck',
     'release_date': 'date',
 }
 
 CARDS_ORDER = [
-    'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'release_date',
+    'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'is_original',
+    'release_date',
     'japanese_skill_name', 'skill_type', 'japanese_skill',
     'gacha', 'images', 'arts', 'transparents',
 ]
@@ -637,9 +639,11 @@ class CardCollection(MagiCollection):
                         if item.i_side_skill_type else item.t_skill_type))
             setSubField(fields, 'skill_type', key='value', value=item.full_skill)
             setSubField(fields, 'skill_type', key='icon', value=lambda k: item.skill_icon)
-            # hide is promo
+            # hide is promo, is original
             if not item.is_promo and 'is_promo' in fields:
                 del(fields['is_promo'])
+            if not item.is_original and 'is_original' in fields:
+                del(fields['is_original'])
             return fields
 
     class ListView(MagiCollection.ListView):

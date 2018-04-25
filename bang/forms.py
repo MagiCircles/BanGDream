@@ -348,11 +348,11 @@ class EventForm(AutoForm):
                 continue
             if not self.is_creating:
                 queryset = queryset.filter(
-                    Q(**{ '{}_card_event__isnull'.format(prefix): True})
+                    Q(main_card_event__isnull=True, secondary_card_event__isnull=True)
                     | Q(**{ '{}_card_event__id'.format(prefix): self.instance.id }),
                 )
             else:
-                queryset = queryset.filter(**{ '{}_card_event__isnull'.format(prefix): True })
+                queryset = queryset.filter(main_card_event__isnull=True, secondary_card_event__isnull=True)
             self.fields['{}_card'.format(prefix)].queryset = queryset
 
         if 'c_versions' in self.fields:

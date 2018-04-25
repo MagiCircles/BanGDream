@@ -879,11 +879,14 @@ class Event(MagiModel):
     korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
     korean_rare_stamp = models.ImageField(string_concat(_('Korean version'), ' - ', _('Rare stamp')), upload_to=uploadItem('e/stamps/kr'), null=True)
 
+    MAIN_CARD_ALLOWED_RARITIES = (3,)
+    SECONDARY_CARD_ALLOWED_RARITIES = (3, 2)
+
     main_card = models.ForeignKey(Card, related_name='main_card_event', null=True, limit_choices_to={
-        'i_rarity': 3,
+        'i_rarity__in': MAIN_CARD_ALLOWED_RARITIES,
     }, on_delete=models.SET_NULL)
     secondary_card = models.ForeignKey(Card, related_name='secondary_card_event', null=True, limit_choices_to={
-        'i_rarity': 2,
+        'i_rarity__in': SECONDARY_CARD_ALLOWED_RARITIES,
     }, on_delete=models.SET_NULL)
 
     BOOST_ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES

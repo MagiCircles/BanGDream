@@ -335,18 +335,18 @@ class EventForm(AutoForm):
         if 'c_versions' in self.fields:
             del(self.fields['c_versions'])
 
-    def _clean_card_rarity(self, field_name, rarity):
+    def _clean_card_rarity(self, field_name, rarities):
         if field_name in self.cleaned_data and self.cleaned_data[field_name]:
-            if self.cleaned_data[field_name].i_rarity != rarity:
-                raise forms.ValidationError(u'Rarity must be {}'.format(rarity))
+            if self.cleaned_data[field_name].i_rarity not in rarities:
+                raise forms.ValidationError(u'Rarity must be one of {}'.format(tuple(rarities)))
             return self.cleaned_data[field_name]
         return None
 
     def clean_main_card(self):
-        return self._clean_card_rarity('main_card', 3)
+        return self._clean_card_rarity('main_card', models.Event.MAIN_CARD_ALLOWED_RARITIES)
 
     def clean_secondary_card(self):
-        return self._clean_card_rarity('secondary_card', 2)
+        return self._clean_card_rarity('secondary_card', models.Event.SECONDARY_CARD_ALLOWED_RARITIES)
 
     def save(self, commit=False):
         instance = super(EventForm, self).save(commit=False)

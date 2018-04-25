@@ -310,6 +310,7 @@ class Card(MagiModel):
 
     release_date = models.DateField(_('Release date'), null=True, db_index=True)
     is_promo = models.BooleanField(_('Promo card'), default=False)
+    is_original = models.BooleanField(_('Original card'), default=False)
 
     # Skill info
 

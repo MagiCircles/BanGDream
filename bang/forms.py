@@ -332,6 +332,26 @@ class EventForm(AutoForm):
         super(EventForm, self).__init__(*args, **kwargs)
         self.previous_main_card_id = None if self.is_creating else self.instance.main_card_id
         self.previous_secondary_card_id = None if self.is_creating else self.instance.secondary_card_id
+
+        # Exclude invalid cards
+        for prefix in ['main', 'secondary']:
+            try:
+                queryset = self.fields['{}_card'.format(prefix)].queryset.filter(
+                    gachas__isnull=True,
+                    is_promo=False,
+                    is_original=False,
+                )
+            except KeyError:
+                continue
+            if not self.is_creating:
+                queryset = queryset.filter(
+                    Q(**{ '{}_card_event__isnull'.format(prefix): True})
+                    | Q(**{ '{}_card_event__id'.format(prefix): self.instance.id }),
+                )
+            else:
+                queryset = queryset.filter(**{ '{}_card_event__isnull'.format(prefix): True })
+            self.fields['{}_card'.format(prefix)].queryset = queryset
+
         if 'c_versions' in self.fields:
             del(self.fields['c_versions'])
 
@@ -459,6 +479,21 @@ class GachaForm(AutoForm):
 
     def __init__(self, *args, **kwargs):
         super(GachaForm, self).__init__(*args, **kwargs)
+
+        # Exclude invalid cards
+        if 'cards' in self.fields:
+            queryset = self.fields['cards'].queryset.filter(
+                main_card_event__isnull=True,
+                secondary_card_event__isnull=True,
+                is_promo=False,
+                is_original=False,
+            )
+            if not self.is_creating:
+                queryset = queryset.filter(Q(gachas__isnull=True) | Q(gachas__id=self.instance.id))
+            else:
+                queryset = queryset.filter(gachas__isnull=True)
+            self.fields['cards'].queryset = queryset
+
         if 'c_versions' in self.fields:
             del(self.fields['c_versions'])
 

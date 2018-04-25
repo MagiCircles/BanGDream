@@ -172,6 +172,7 @@ class CardSerializer(MagiSerializer):
         many_to_many_fields = ('cameo_members',)
         fields = (
             'id', 'member', 'i_rarity', 'i_attribute', 'name', 'japanese_name', 'release_date',
+            'is_promo', 'is_original',
             'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
             'skill_name', 'japanese_skill_name', 'i_skill_type', 'i_side_skill_type',
             # Not editable

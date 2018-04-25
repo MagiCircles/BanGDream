@@ -215,6 +215,7 @@ class MemberCollection(MagiCollection):
     translated_fields = ('name', 'food_like', 'food_dislike', 'instrument', 'school', 'description', )
 
     reportable = False
+    blockable = False
 
     form_class = forms.MemberForm
 
@@ -464,6 +465,7 @@ class CardCollection(MagiCollection):
 
     form_class = forms.CardForm
     reportable = False
+    blockable = False
     translated_fields = ('name', 'skill_name', )
 
     _skill_icons = { _i: _c['icon'] for _i, _c in models.Card.SKILL_TYPES.items() }
@@ -866,6 +868,7 @@ class EventCollection(MagiCollection):
     form_class = forms.EventForm
     multipart = True
     reportable = False
+    blockable = False
     translated_fields = ('name', 'stamp_translation', )
     navbar_link_list = 'girlsbandparty'
 
@@ -1120,6 +1123,7 @@ class GachaCollection(MagiCollection):
     multipart = True
     navbar_link_list = 'girlsbandparty'
     reportable = False
+    blockable = False
     translated_fields = ('name', )
 
     filter_cuteform = {
@@ -1409,6 +1413,7 @@ class SongCollection(MagiCollection):
     multipart = True
     icon = 'song'
     reportable = False
+    blockable = False
     translated_fields = ('name', )
     navbar_link_list = 'bangdream'
 

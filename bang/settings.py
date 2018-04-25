@@ -57,7 +57,7 @@ FAVORITE_CHARACTERS = django_settings.FAVORITE_CHARACTERS
 FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))
 FAVORITE_CHARACTER_NAME = _(u'{nth} Favorite Member')
 
-_ACTIVITY_TAGS = [
+ACTIVITY_TAGS = [
     ('comedy', _('Comedy')),
     ('cards', _('New Cards')),
     ('event', _('Event')),
@@ -69,9 +69,20 @@ _ACTIVITY_TAGS = [
     ('fanart', _('Fan made')),
     ('merch', _('Merchandise')),
     ('community', _('Community')),
-    ('staff', _('Staff')),
-    ('communityevent', _('Community event')),
+    ('staff', {
+        'translation': _('Staff'),
+        'has_permission_to_add': lambda r: r.user.is_staff,
+    }),
+    ('communityevent', {
+        'translation': _('Community event'),
+        'has_permission_to_add': lambda r: r.user.hasPermission('post_community_event_activities'),
+    }),
     ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
+    ('nsfw', {
+        'translation': _('NSFW'),
+        'hidden_by_default': True,
+        'has_permission_to_show': lambda r: u'{} {}'.format(_('You need to be over 18 years old.'), _('You can change your birthdate in your settings.') if not r.user.preferences.age else u'') if r.user.is_authenticated() and r.user.preferences.age < 18 else True,
+    }),
 ]
 
 GLOBAL_OUTSIDE_PERMISSIONS = DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS + [

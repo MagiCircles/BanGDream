@@ -196,7 +196,10 @@ class ActivityCollection(_ActivityCollection):
                         card = None
                     if card:
                         context['random_card'] = {
-                            'art_url': random.choice([c for c in card.art_url, card.art_trained_url if c]),
+                            'art_url': random.choice([u for u, s in [
+                                (card.art_url, card.show_art_on_homepage),
+                                (card.art_trained_url, card.show_trained_art_on_homepage),
+                            ] if u and s]),
                             'item_url': card.item_url,
                         }
                 # Random from the last 20 released cards

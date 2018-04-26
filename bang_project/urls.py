@@ -2,6 +2,10 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from rest_framework import routers
 import api.views as api_views
+from django.conf.urls import handler500, handler403
+
+handler500 = 'magi.views.handler500'
+handler403 = 'magi.views.handler403'
 
 router = routers.DefaultRouter()
 

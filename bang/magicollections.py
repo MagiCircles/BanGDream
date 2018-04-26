@@ -175,7 +175,8 @@ class ActivityCollection(_ActivityCollection):
                 context['page_title'] = None
 
                 # Staff cards  preview
-                if (context['request'].user.hasPermission('manage_main_items')
+                if (context['request'].user.is_authenticated()
+                    and context['request'].user.hasPermission('manage_main_items')
                     and 'preview' in context['request'].GET):
                     context['random_card'] = {
                         'art_url': context['request'].GET['preview'],

@@ -162,6 +162,9 @@ def index(request):
     return render(request, 'pages/indexBackground.html', context)
 
 class ActivityCollection(_ActivityCollection):
+    navbar_link = True
+    navbar_link_list = 'community'
+
     class ListView(_ActivityCollection.ListView):
         before_template = 'include/index'
 

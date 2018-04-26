@@ -139,7 +139,7 @@ ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
 ENABLED_NAVBAR_LISTS['community'] = {
     'title': _('Community'),
     'icon': 'users',
-    'order': ['account_list', 'donate_list', 'discord', 'twitter'],
+    'order': ['activity_list', 'account_list', 'donate_list', 'discord', 'twitter'],
 }
 
 ACCOUNT_TAB_ORDERING = ['collectiblecard', 'eventparticipation', 'playedsong', 'about']

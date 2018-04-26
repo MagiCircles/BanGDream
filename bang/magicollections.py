@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import math, simplejson
+import math, simplejson, random
 from itertools import chain
 from collections import OrderedDict
 from django.conf import settings as django_settings
@@ -154,32 +154,58 @@ class DonateCollection(_DonateCollection):
 ############################################################
 # Activity Collection
 
-Notification.MESSAGES[0][1]['url'] = u'/news/{}/{}/'
+def index(request):
+    context = getGlobalContext(request)
+    indexExtraContext(context)
+    context['left_character'] = django_settings.HOMEPAGE_CHARACTERS[0]
+    context['right_character'] = django_settings.HOMEPAGE_CHARACTERS[1]
+    return render(request, 'pages/indexBackground.html', context)
 
 class ActivityCollection(_ActivityCollection):
-    enabled = False
-
-Activity.collection_name = 'news'
-
-class NewsCollection(_ActivityCollection):
-    plural_name = 'news'
-    title = 'Staff news'
-    plural_title = 'Staff news'
-    reportable = False
-    queryset = Activity.objects.all()
-    navbar_link = True
-    navbar_link_list = 'more'
-
     class ListView(_ActivityCollection.ListView):
-        show_title = True
-        item_template = 'activityItem'
-        shortcut_urls = []
+        before_template = 'include/index'
 
-    class ItemView(_ActivityCollection.ItemView):
-        template = 'activityItem'
+        def extra_context(self, context):
+            super(ActivityCollection.ListView, self).extra_context(context)
 
-    class AddView(_ActivityCollection.AddView):
-        staff_required = True
+            # Homepage settings
+            if 'shortcut_url' in context and context['shortcut_url'] == '':
+
+                context['full_width'] = True
+                context['page_title'] = None
+
+                # Staff cards  preview
+                if (context['request'].user.hasPermission('manage_main_items')
+                    and 'preview' in context['request'].GET):
+                    context['random_card'] = {
+                        'art_url': context['request'].GET['preview'],
+                    }
+                # 1 chance out of 5 to get a random card of 1 of your favorite characters
+                elif (context['request'].user.is_authenticated()
+                      and context['request'].user.preferences.favorite_characters
+                      and random.randint(0, 5) == 5):
+                    try:
+                        character_id = random.choice(context['request'].user.preferences.favorite_characters)
+                        card = (models.Card.objects.filter(
+                            member_id=character_id,
+                        ).exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(
+                            show_art_on_homepage=False, show_trained_art_on_homepage=False,
+                        ).order_by('?'))[0]
+                    except IndexError:
+                        card = None
+                    if card:
+                        context['random_card'] = {
+                            'art_url': random.choice([c for c in card.art_url, card.art_trained_url if c]),
+                            'item_url': card.item_url,
+                        }
+                # Random from the last 20 released cards
+                elif django_settings.HOMEPAGE_CARDS:
+                    context['random_card'] = random.choice(django_settings.HOMEPAGE_CARDS)
+                # If no random_card was available
+                if 'random_card' not in context:
+                    context['random_card'] = {
+                        'art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
+                    }
 
 ############################################################
 ############################################################
@@ -619,6 +645,7 @@ class CardCollection(MagiCollection):
                 exclude_fields = []
             else:
                 exclude_fields += CARDS_EXCLUDE + (['versions', 'i_skill_type'] if get_language() == 'ja' else [])
+            exclude_fields += ['show_art_on_homepage', 'show_trained_art_on_homepage']
             # Order
             order = CARDS_ORDER + order
 
@@ -647,6 +674,22 @@ class CardCollection(MagiCollection):
             if not item.is_original and 'is_original' in fields:
                 del(fields['is_original'])
             return fields
+
+        def buttons_per_item(self, request, context, item):
+            buttons = super(CardCollection.ItemView, self).buttons_per_item(request, context, item)
+            if request.user.hasPermission('manage_main_items'):
+                for field in ['art', 'art_trained']:
+                    if getattr(item, field):
+                        buttons[u'preview_{}'.format(field)] = {
+                            'classes': self.item_buttons_classes + ['staff-only'],
+                            'show': True,
+                            'url': u'/?preview={}'.format(getattr(item, u'{}_url'.format(field))),
+                            'icon': 'link',
+                            'title': u'Preview {} on homepage'.format(field.replace('_', ' ')),
+                            'has_permissions': True,
+                            'open_in_new_window': True,
+                        }
+            return buttons
 
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template

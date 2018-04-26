@@ -503,7 +503,9 @@ class Card(MagiModel):
     image = models.ImageField(_('Icon'), upload_to=uploadItem('c'), null=True)
     image_trained = models.ImageField(string_concat(_('Icon'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/a'), null=True)
     art = models.ImageField(_('Art'), upload_to=uploadItem('c/art'), null=True)
+    show_art_on_homepage = models.BooleanField(default=True)
     art_trained = models.ImageField(string_concat(_('Art'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/art/a'), null=True)
+    show_trained_art_on_homepage = models.BooleanField(default=True)
     transparent = models.ImageField(_('Transparent'), upload_to=uploadItem('c/transparent'), null=True)
     transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
 

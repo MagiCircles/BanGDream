@@ -6,13 +6,6 @@ from magi.views import indexExtraContext
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
 
-def index(request):
-    context = getGlobalContext(request)
-    indexExtraContext(context)
-    context['left_character'] = django_settings.HOMEPAGE_CHARACTERS[0]
-    context['right_character'] = django_settings.HOMEPAGE_CHARACTERS[1]
-    return render(request, 'pages/indexBackground.html', context)
-
 def discord(request):
     return redirect('https://discord.gg/8wrXKX3')
 

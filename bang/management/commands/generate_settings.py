@@ -1,5 +1,6 @@
 import time, datetime
 from django.core.management.base import BaseCommand, CommandError
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import get_language, activate as translation_activate
 from django.core.exceptions import ObjectDoesNotExist
@@ -48,21 +49,21 @@ def generate_settings():
 	    member.square_image_url,
     ) for member in all_members]
 
-    print 'Get homepage characters'
-    characters = models.Card.objects.filter(i_rarity=2).order_by('-release_date')[:2]
-    homepage_characters = u','.join([u'\'{}\''.format(c.transparent_url) for c in characters])
-    if len(characters) != 2:
-        homepage_characters = u''
-    if homepage_characters:
-        homepage_characters = u'HOMEPAGE_CHARACTERS = [{}]'.format(homepage_characters)
-
-    # print 'Get the starters'
-    # all_starters = models.Card.objects.filter(pk__in=[100001, 200001, 300001]).order_by('pk')
-    # starters = [(
-    #     card.pk,
-    #     card.cached_member.name,
-    #     card.icon_url,
-    # ) for card in all_starters]
+    print 'Get homepage cards'
+    cards = models.Card.objects.exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(show_art_on_homepage=False, show_trained_art_on_homepage=False).order_by('-release_date')[:20]
+    homepage_cards = []
+    for c in cards:
+        print c
+        if c.show_art_on_homepage:
+            homepage_cards.append({
+                'art_url': c.art_url,
+                'item_url': c.item_url,
+            })
+        if c.art_trained and c.show_trained_art_on_homepage:
+            homepage_cards.append({
+                'art_url': c.art_trained_url,
+                'item_url': c.item_url,
+            })
 
     print 'Get max stats'
     stats = {
@@ -99,7 +100,7 @@ def generate_settings():
 import datetime\n\
 LATEST_NEWS = ' + unicode(latest_news) + u'\n\
 TOTAL_DONATORS = ' + unicode(total_donators) + u'\n\
-' +  unicode(homepage_characters) + u'\n\
+HOMEPAGE_CARDS = ' +  unicode(homepage_cards) + u'\n\
 STAFF_CONFIGURATIONS = ' + unicode(staff_configurations) + u'\n\
 FAVORITE_CHARACTERS = ' + unicode(favorite_characters) + u'\n\
 MAX_STATS = ' + unicode(stats) + u'\n\

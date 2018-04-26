@@ -106,9 +106,6 @@ ENABLED_PAGES['wiki'][0]['divider_before'] = True
 ENABLED_PAGES['wiki'][1]['divider_before'] = True
 ENABLED_PAGES['wiki'][0]['navbar_link_list'] = 'girlsbandparty'
 
-ENABLED_PAGES['index']['enabled'] = True
-ENABLED_PAGES['index']['custom'] = True
-
 ENABLED_PAGES['discord'] = {
     'title': 'Discord',
     'icon': 'comments',

@@ -677,7 +677,7 @@ class CardCollection(MagiCollection):
 
         def buttons_per_item(self, request, context, item):
             buttons = super(CardCollection.ItemView, self).buttons_per_item(request, context, item)
-            if request.user.hasPermission('manage_main_items'):
+            if request.user.is_authenticated() and request.user.hasPermission('manage_main_items'):
                 for field in ['art', 'art_trained']:
                     if getattr(item, field):
                         buttons[u'preview_{}'.format(field)] = {

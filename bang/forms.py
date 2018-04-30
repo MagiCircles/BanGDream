@@ -333,8 +333,9 @@ class EventForm(AutoForm):
 
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
-        self.previous_main_card_id = None if self.is_creating else self.instance.main_card_id
-        self.previous_secondary_card_id = None if self.is_creating else self.instance.secondary_card_id
+        if not self.is_creating:
+            self.instance.previous_main_card_id = self.instance.main_card_id
+            self.instance.previous_secondary_card_id = self.instance.secondary_card_id
 
         # Exclude invalid cards
         for prefix in ['main', 'secondary']:
@@ -389,18 +390,6 @@ class EventForm(AutoForm):
             instance.korean_start_date = instance.korean_start_date.replace(hour=6, minute=00)
         if instance.korean_end_date:
             instance.korean_end_date = instance.korean_end_date.replace(hour=13, minute=00)
-        if self.previous_main_card_id != (instance.main_card.id if instance.main_card else 0):
-            if instance.main_card:
-                instance.main_card.force_update_cache('events')
-            if self.previous_main_card_id:
-                previous_card = models.Card.objects.get(id=self.previous_main_card_id)
-                previous_card.force_update_cache('events')
-        if self.previous_secondary_card_id != (instance.secondary_card.id if instance.secondary_card else 0):
-            if instance.secondary_card:
-                instance.secondary_card.force_update_cache('events')
-            if self.previous_secondary_card_id:
-                previous_card = models.Card.objects.get(id=self.previous_secondary_card_id)
-                previous_card.force_update_cache('events')
         instance.save_c('versions', [
             value for prefix, value in (
                 ('', 'JP'),

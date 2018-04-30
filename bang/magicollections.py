@@ -1127,10 +1127,30 @@ class EventCollection(MagiCollection):
 
             return fields
 
+    # For AddView and EditView
+    def _after_save(self, request, instance, type=None):
+        if instance.main_card and instance.main_card.id:
+            instance.main_card.force_update_cache('events')
+        previous_main_card_id = getattr(instance, 'previous_main_card_id', None)
+        if previous_main_card_id:
+            previous_main_card = models.Card.objects.get(id=previous_main_card_id)
+            previous_main_card.force_update_cache('events')
+        if instance.secondary_card and instance.secondary_card.id:
+            instance.secondary_card.force_update_cache('events')
+        previous_secondary_card_id = getattr(instance, 'previous_secondary_card_id', None)
+        if previous_secondary_card_id:
+            previous_secondary_card = models.Card.objects.get(id=previous_secondary_card_id)
+            previous_secondary_card.force_update_cache('events')
+        return instance
+
     class AddView(MagiCollection.AddView):
         staff_required = True
         permissions_required = ['manage_main_items']
         savem2m = True
+
+        def after_save(self, request, instance, type=None):
+            instance = super(EventCollection.AddView, self).after_save(request, instance, type=type)
+            return self.collection._after_save(request, instance)
 
     class EditView(MagiCollection.EditView):
         staff_required = True
@@ -1140,6 +1160,10 @@ class EventCollection(MagiCollection):
         def to_translate_form_class(self):
             super(EventCollection.EditView, self).to_translate_form_class()
             self._translate_form_class = forms.to_translate_event_form_class(self._translate_form_class)
+
+        def after_save(self, request, instance, type=None):
+            instance = super(EventCollection.EditView, self).after_save(request, instance, type=type)
+            return self.collection._after_save(request, instance)
 
 ############################################################
 # Gacha Collection

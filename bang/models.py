@@ -155,10 +155,10 @@ class Member(MagiModel):
     BAND_CHOICES = (
         'Poppin\' Party',
         'Afterglow',
-        'Pastel\*Palettes',
+        'Pastel*Palettes',
         'Roselia',
         'Hello, Happy World!',
-        'Glitter\*Green'
+        'Glitter*Green'
     )
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
 

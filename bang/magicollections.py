@@ -233,6 +233,7 @@ MEMBERS_ICONS = {
     'food_like': 'heart',
     'food_dislike': 'heart-empty',
     'instrument': 'star',
+    'hobbies': 'star-empty',
     'description': 'id',
     'cards': 'album',
     'fans': 'heart',
@@ -245,7 +246,7 @@ class MemberCollection(MagiCollection):
     navbar_link_title = _('Characters')
     icon = 'idolized'
     navbar_link_list = 'bangdream'
-    translated_fields = ('name', 'food_like', 'food_dislike', 'instrument', 'school', 'description', )
+    translated_fields = ('name',  'school', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description', )
 
     reportable = False
     blockable = False

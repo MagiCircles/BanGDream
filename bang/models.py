@@ -149,16 +149,16 @@ class Member(MagiModel):
             return self.japanese_name
         return self.names.get(get_language(), self.name)
 
-    image = models.ImageField(_('Image'), upload_to=uploadItem('i'))
-    square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
+    image = models.ImageField(_('Image'), upload_to=uploadItem('i'), null=True)
+    square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'), null=True)
 
     BAND_CHOICES = (
         'Poppin\' Party',
         'Afterglow',
-        'Pastel*Palettes',
+        'Pastel\*Palettes',
         'Roselia',
         'Hello, Happy World!',
-        'Glitter*Green'
+        'Glitter\*Green'
     )
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
 
@@ -208,6 +208,10 @@ class Member(MagiModel):
     instrument = models.CharField(_('Instrument'), max_length=100, null=True)
     INSTRUMENTS_CHOICES = ALL_ALT_LANGUAGES
     d_instruments = models.TextField(_('Instrument'), null=True)
+
+    hobbies = models.CharField(_('Hobbies'), max_length=100, null=True)
+    HOBBIESS_CHOICES = ALL_ALT_LANGUAGES
+    d_hobbiess = models.TextField(_('Hobbies'), null=True)
 
     description = models.TextField(_('Description'), null=True)
     DESCRIPTIONS_CHOICES = ALL_ALT_LANGUAGES

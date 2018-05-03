@@ -209,6 +209,10 @@ class Member(MagiModel):
     INSTRUMENTS_CHOICES = ALL_ALT_LANGUAGES
     d_instruments = models.TextField(_('Instrument'), null=True)
 
+    hobbies = models.CharField(_('Hobbies'), max_length=100, null=True)
+    HOBBIESS_CHOICES = ALL_ALT_LANGUAGES
+    d_hobbiess = models.TextField(_('Hobbies'), null=True)
+
     description = models.TextField(_('Description'), null=True)
     DESCRIPTIONS_CHOICES = ALL_ALT_LANGUAGES
     d_descriptions = models.TextField(_('Description'), null=True)

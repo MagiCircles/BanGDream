@@ -6,12 +6,6 @@ from magi.views import indexExtraContext
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
 
-def discord(request):
-    return redirect('https://discord.gg/8wrXKX3')
-
-def twitter(request):
-    return redirect('https://twitter.com/bandoriparty')
-
 def teambuilder(request):
     context = getGlobalContext(request)
 

@@ -85,9 +85,8 @@ ACTIVITY_TAGS = [
     }),
 ]
 
-GLOBAL_OUTSIDE_PERMISSIONS = DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS + [
-    'Google+ Bandori Party group',
-]
+GLOBAL_OUTSIDE_PERMISSIONS = DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS
+GLOBAL_OUTSIDE_PERMISSIONS['Google+ Bandori Party group'] = 'https://plus.google.com/communities/118285892680258114918?sqinv=bUtZVFhDQ3BxNWlESTRQUEMwdFdjQTJ2UGc5czd3'
 
 USER_COLORS = [
     ('power', _('Power'), 'Power', '#FF2D54'),
@@ -110,12 +109,16 @@ ENABLED_PAGES['discord'] = {
     'title': 'Discord',
     'icon': 'comments',
     'navbar_link_list': 'community',
+    'redirect': 'https://discord.gg/8wrXKX3',
+    'new_tab': True,
 }
 
 ENABLED_PAGES['twitter'] = {
     'title': 'Twitter',
     'icon': 'activities',
     'navbar_link_list': 'community',
+    'redirect': 'https://twitter.com/bandoriparty',
+    'new_tab': True,
 }
 
 ENABLED_PAGES['teambuilder'] = {

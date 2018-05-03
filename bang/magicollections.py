@@ -154,13 +154,6 @@ class DonateCollection(_DonateCollection):
 ############################################################
 # Activity Collection
 
-def index(request):
-    context = getGlobalContext(request)
-    indexExtraContext(context)
-    context['left_character'] = django_settings.HOMEPAGE_CHARACTERS[0]
-    context['right_character'] = django_settings.HOMEPAGE_CHARACTERS[1]
-    return render(request, 'pages/indexBackground.html', context)
-
 class ActivityCollection(_ActivityCollection):
     navbar_link = True
     navbar_link_list = 'community'
@@ -633,7 +626,7 @@ class CardCollection(MagiCollection):
                         'verbose_name': _('Chibi'),
                     } for chibi in item.cached_chibis],
                 }))
-            
+            # Add cameos
             if item.cached_cameos:
                 extra_fields.append(('cameo_members', {
                     'icon': 'users',
@@ -824,6 +817,7 @@ class CardCollection(MagiCollection):
         ajax_callback = 'loadCardForm'
 
         def extra_context(self, context):
+            super(CardCollection.AddView, self).extra_context(context)
             self.collection._extra_context_for_form(context)
 
     class EditView(MagiCollection.EditView):
@@ -833,6 +827,7 @@ class CardCollection(MagiCollection):
         ajax_callback = 'loadCardForm'
 
         def extra_context(self, context):
+            super(CardCollection.EditView, self).extra_context(context)
             self.collection._extra_context_for_form(context)
 
         def to_translate_form_class(self):

@@ -149,8 +149,8 @@ class Member(MagiModel):
             return self.japanese_name
         return self.names.get(get_language(), self.name)
 
-    image = models.ImageField(_('Image'), upload_to=uploadItem('i'), null=True)
-    square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'), null=True)
+    image = models.ImageField(_('Image'), upload_to=uploadItem('i'))
+    square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
 
     BAND_CHOICES = (
         'Poppin\' Party',

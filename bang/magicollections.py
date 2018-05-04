@@ -1225,11 +1225,11 @@ class GachaCollection(MagiCollection):
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
         }, exclude_fields=exclude_fields, **kwargs)
-        if get_language() == 'ja':
+        if get_language() == 'ja' or unicode(item.t_name) == unicode(item.japanese_name):
             setSubField(fields, 'name', key='value', value=item.japanese_name)
         else:
             setSubField(fields, 'name', key='type', value='title_text')
-            setSubField(fields, 'name', key='title', value=item.name)
+            setSubField(fields, 'name', key='title', value=item.t_name)
             setSubField(fields, 'name', key='value', value=item.japanese_name)
 
         setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
@@ -1247,10 +1247,6 @@ class GachaCollection(MagiCollection):
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
         setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
-
-        if get_language() in models.ALT_LANGUAGES_EXCEPT_JP_KEYS and unicode(item.name) != unicode(item.t_name):
-            setSubField(fields, 'name', key='value', value=mark_safe(u'{}<br><span class="text-muted">{}</span>'.format(item.japanese_name, item.t_name)))
-
         return fields
 
     class ItemView(MagiCollection.ItemView):

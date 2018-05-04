@@ -43,6 +43,11 @@ LANGUAGES_TO_VERSIONS = {
     'tr': 'EN',
 }
 
+DREAMFES_PER_LANGUAGE = {
+    'ja': u'ドリームフェスティバル',
+    # todo kr, zh-hant, zh-hans when they come out
+}
+
 class Image(BaseMagiModel):
     image = models.ImageField(upload_to=uploadToKeepName('images/'))
 
@@ -1167,6 +1172,7 @@ class Gacha(MagiModel):
         return self.names.get(get_language(), self.name)
 
     limited = models.BooleanField(_('Limited'), default=False)
+    dreamfes = models.BooleanField(default=False)
 
     start_date = models.DateTimeField(_('Beginning'), null=True)
     end_date = models.DateTimeField(_('End'), null=True)

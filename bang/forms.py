@@ -1,6 +1,6 @@
 import datetime, os
 from django.conf import settings as django_settings
-from django.utils.translation import ugettext_lazy as _, string_concat
+from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.safestring import mark_safe
 from django.db.models import Q
@@ -480,10 +480,10 @@ class GachaForm(AutoForm):
                 is_promo=False,
                 is_original=False,
             )
-            if not self.is_creating:
-                queryset = queryset.filter(Q(gachas__isnull=True) | Q(gachas__id=self.instance.id))
-            else:
+            if self.is_creating:
                 queryset = queryset.filter(gachas__isnull=True)
+            elif not self.instance.dreamfes:
+                queryset = queryset.filter(Q(gachas__isnull=True) | Q(gachas__id=self.instance.id))
             self.fields['cards'].queryset = queryset
 
         if 'c_versions' in self.fields:
@@ -541,15 +541,36 @@ class GachaFilterForm(MagiFiltersForm):
         ('japanese_name', string_concat(_('Title'), ' (', t['Japanese'], ')')),
     ]
 
-    is_limited = forms.NullBooleanField(initial=None, required=False, label=_('Limited'))
-    is_limited_filter = MagiFilter(selector='limited')
+    def _gacha_type_to_queryset(self, queryset, request, value):
+        if value == 'permanent':
+            return queryset.filter(limited=False, dreamfes=False)
+        elif value == 'limited':
+            return queryset.filter(limited=True)
+        elif value == 'dreamfes':
+            return queryset.filter(dreamfes=True)
+        return queryset
+
+    gacha_type = forms.ChoiceField(label=_(u'Gacha type'), choices=BLANK_CHOICE_DASH + [
+        ('permanent', _(u'Permanent')),
+        ('limited', _(u'Limited')),
+        ('dreamfes', 'Dream festival'),
+    ])
+    gacha_type_filter = MagiFilter(to_queryset=_gacha_type_to_queryset)
 
     version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
     version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
 
+    def __init__(self, *args, **kwargs):
+        super(GachaFilterForm, self).__init__(*args, **kwargs)
+        if 'gacha_type' in self.fields:
+            self.fields['gacha_type'].choices = [
+                (k, models.DREAMFES_PER_LANGUAGE.get(get_language(), v) if k == 'dreamfes' else v)
+                for k, v in self.fields['gacha_type'].choices
+            ]
+
     class Meta(MagiFiltersForm.Meta):
         model = models.Gacha
-        fields = ('search', 'is_limited', 'version', 'ordering', 'reverse_order')
+        fields = ('search', 'gacha_type', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # Played song

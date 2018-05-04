@@ -553,9 +553,7 @@ class CardCollection(MagiCollection):
             }))
             # Add title field
             title = item.japanese_name if item.japanese_name else (item.name if item.name and get_language() != 'ja' else None)
-            value = item.name if item.name and get_language() != 'ja' and title != item.name else None
-            if get_language() in models.ALT_LANGUAGES_EXCEPT_JP_KEYS and unicode(item.name) != unicode(item.t_name):
-                value = mark_safe(u'{}<br><span class="text-muted">{}</span>'.format(item.name, item.t_name))
+            value = item.t_name if item.t_name and get_language() != 'ja' and unicode(title) != unicode(item.t_name) else None
             if title or value:
                 extra_fields.append(('card_name', {
                     'verbose_name': _('Title'),
@@ -655,14 +653,11 @@ class CardCollection(MagiCollection):
             # skill name
             setSubField(fields, 'japanese_skill_name', key='verbose_name', value=_('Skill name'))
             setSubField(fields, 'japanese_skill_name', key='icon', value='skill')
-            if item.skill_name:
+            if item.skill_name and get_language() != 'ja' and unicode(item.japanese_skill_name) != unicode(item.t_skill_name):
                 setSubField(fields, 'japanese_skill_name', key='type', value='title_text')
                 setSubField(fields, 'japanese_skill_name', key='title', value=item.japanese_skill_name)
-                if get_language() in models.ALT_LANGUAGES_EXCEPT_JP_KEYS and unicode(item.skill_name) != unicode(item.t_skill_name):
-                    setSubField(fields, 'japanese_skill_name', key='value', value=mark_safe(u'{}<br><span class="text-muted">{}</span>'.format(item.skill_name, item.t_skill_name)))
-                else:
-                    setSubField(fields, 'japanese_skill_name', key='value', value=item.t_skill_name)
-            # skill details
+                setSubField(fields, 'japanese_skill_name', key='value', value=item.t_skill_name)
+            # skill deTails
             setSubField(fields, 'skill_type', key='type', value='title_text')
             setSubField(fields, 'skill_type', key='title',
                         value=lambda k: mark_safe(u'{} <span class="text-muted">({})</span>'.format(item.t_skill_type, item.t_side_skill_type)

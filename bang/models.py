@@ -45,7 +45,9 @@ LANGUAGES_TO_VERSIONS = {
 
 DREAMFES_PER_LANGUAGE = {
     'ja': u'ドリームフェスティバル',
-    # todo kr, zh-hant, zh-hans when they come out
+    'kr': u'드림 페스티벌',
+    'zh-hans': u'夢幻祭典轉蛋',
+    'zh-hant': u'夢幻祭典轉蛋',
 }
 
 class Image(BaseMagiModel):

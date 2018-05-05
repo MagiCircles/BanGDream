@@ -900,20 +900,7 @@ EVENT_ICONS = {
     'korean_start_date': 'date', 'korean_end_date': 'date',
     'type': 'toggler',
 }
-
-class EventCollection(MagiCollection):
-    queryset = models.Event.objects.all()
-    title = _('Event')
-    plural_title = _('Events')
-    icon = 'event'
-    form_class = forms.EventForm
-    multipart = True
-    reportable = False
-    blockable = False
-    translated_fields = ('name', 'stamp_translation', )
-    navbar_link_list = 'girlsbandparty'
-
-    filter_cuteform = {
+EVENT_CUTEFORM = {
         'main_card': {
             'to_cuteform': lambda k, v: v.image_url,
             'title': _('Card'),
@@ -939,6 +926,20 @@ class EventCollection(MagiCollection):
             'transform': CuteFormTransform.ImagePath,
         },
     }
+
+class EventCollection(MagiCollection):
+    queryset = models.Event.objects.all()
+    title = _('Event')
+    plural_title = _('Events')
+    icon = 'event'
+    form_class = forms.EventForm
+    multipart = True
+    reportable = False
+    blockable = False
+    translated_fields = ('name', 'stamp_translation', )
+    navbar_link_list = 'girlsbandparty'
+
+    filter_cuteform = EVENT_CUTEFORM
 
     collectible = models.EventParticipation
 
@@ -988,6 +989,42 @@ class EventCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         per_line = 2
         default_ordering = '-start_date'
+
+        filter_cuteform = {
+            'main_card': {
+                'to_cuteform': lambda k, v: v.image_url,
+                'title': _('Card'),
+                'extra_settings': {
+                    'modal': 'true',
+                    'modal-text': 'true',
+                },
+            },
+            'secondary_card': {
+                'to_cuteform': lambda k, v: v.image_url,
+                'title': _('Card'),
+                'extra_settings': {
+                    'modal': 'true',
+                    'modal-text': 'true',
+                },
+            },
+            'i_boost_attribute': {
+                'image_folder': 'i_attribute',
+            },
+            'version': {
+                'to_cuteform': lambda k, v: CardCollection._version_images[k],
+                'image_folder': 'language',
+                'transform': CuteFormTransform.ImagePath,
+            },
+            'boost_members': {
+                'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+                'title': _(' Boost Member'),
+                'extra_settings': {
+                    'modal': 'true',
+                    'modal-text': 'true',
+                },
+            },
+        }
+        
         filter_form = forms.EventFilterForm
         show_collect_button = {
             'eventparticipation': False,

@@ -429,7 +429,7 @@ class EventFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Event
-        fields = ('view', 'search', 'i_type', 'version', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'i_type', 'i_boost_attribute', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # Event participations form

@@ -920,6 +920,41 @@ EVENT_CUTEFORM = {
         'i_boost_attribute': {
             'image_folder': 'i_attribute',
         },
+        'boost_members': {
+            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+            'title': _(' Boost Member'),
+            'extra_settings': {
+                'modal': 'true',
+                'modal-text': 'true',
+            },
+        },
+        'version': {
+            'to_cuteform': lambda k, v: CardCollection._version_images[k],
+            'image_folder': 'language',
+            'transform': CuteFormTransform.ImagePath,
+        },  
+    }
+
+EVENT_EDIT_ADD_CUTEFORM = {
+        'main_card': {
+            'to_cuteform': lambda k, v: v.image_url,
+            'title': _('Card'),
+            'extra_settings': {
+                'modal': 'true',
+                'modal-text': 'true',
+            },
+        },
+        'secondary_card': {
+            'to_cuteform': lambda k, v: v.image_url,
+            'title': _('Card'),
+            'extra_settings': {
+                'modal': 'true',
+                'modal-text': 'true',
+            },
+        },
+        'i_boost_attribute': {
+            'image_folder': 'i_attribute',
+        },
         'version': {
             'to_cuteform': lambda k, v: CardCollection._version_images[k],
             'image_folder': 'language',
@@ -989,41 +1024,6 @@ class EventCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         per_line = 2
         default_ordering = '-start_date'
-
-        filter_cuteform = {
-            'main_card': {
-                'to_cuteform': lambda k, v: v.image_url,
-                'title': _('Card'),
-                'extra_settings': {
-                    'modal': 'true',
-                    'modal-text': 'true',
-                },
-            },
-            'secondary_card': {
-                'to_cuteform': lambda k, v: v.image_url,
-                'title': _('Card'),
-                'extra_settings': {
-                    'modal': 'true',
-                    'modal-text': 'true',
-                },
-            },
-            'i_boost_attribute': {
-                'image_folder': 'i_attribute',
-            },
-            'version': {
-                'to_cuteform': lambda k, v: CardCollection._version_images[k],
-                'image_folder': 'language',
-                'transform': CuteFormTransform.ImagePath,
-            },
-            'boost_members': {
-                'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
-                'title': _(' Boost Member'),
-                'extra_settings': {
-                    'modal': 'true',
-                    'modal-text': 'true',
-                },
-            },
-        }
         
         filter_form = forms.EventFilterForm
         show_collect_button = {
@@ -1175,6 +1175,7 @@ class EventCollection(MagiCollection):
         staff_required = True
         permissions_required = ['manage_main_items']
         savem2m = True
+        filter_cuteform = EVENT_EDIT_ADD_CUTEFORM
 
         def after_save(self, request, instance, type=None):
             instance = super(EventCollection.AddView, self).after_save(request, instance, type=type)
@@ -1184,6 +1185,7 @@ class EventCollection(MagiCollection):
         staff_required = True
         permissions_required = ['manage_main_items']
         savem2m = True
+        filter_cuteform = EVENT_EDIT_ADD_CUTEFORM
 
         def to_translate_form_class(self):
             super(EventCollection.EditView, self).to_translate_form_class()

@@ -135,6 +135,7 @@ LANGUAGES = (
     ('ja', _('Japanese')),
     ('kr', _('Korean')),
     ('id', _('Indonesian')),
+    ('vi', _('Vietnamese')),
     ('zh-hant', _('Traditional Chinese')),
     ('pt', _('Portuguese')),
     ('pt-br', _('Brazilian Portuguese')),

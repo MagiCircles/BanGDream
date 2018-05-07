@@ -32,6 +32,11 @@ FONTS_PER_LANGUAGE = {
         'title': 'Exo 2',
         'title_weight': 800,
     },
+    'vi': {
+        'name': 'Montserrat',
+        'url': '//fonts.googleapis.com/css?family=Montserrat:400,700',
+        'title_weight': 700,
+    },
 }
 
 TITLE_CSS_CLASSES = 'h1, h2, h3, h4, h5, h6, .title, .navbar-brand, .btn-lg, .btn-xl'

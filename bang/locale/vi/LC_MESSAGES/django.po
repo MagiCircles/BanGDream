@@ -1,0 +1,3050 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: MagiCircles\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. In the top bar of the site, when you're not connected. Will open a menu with login or sign up. Can be replaced with something else, like "Anonymous", "Visitor" or "Welcome".
+#: stardustrun/templates/include/empty_pokedex.html:5
+msgid "You"
+msgstr "Bạn"
+
+#: bang/models.py:742 bang/models.py:934 bang/models.py:1108
+msgid "Account"
+msgstr "Tài khoản"
+
+#: stardustrun/templates/include/accountsBeforeTemplate.html:7
+msgid "Leaderboard"
+msgstr "Bảng xếp hạng"
+
+#: magi/magicollections.py:1362
+msgid "Create your account to join the community and be in the leaderboard!"
+msgstr "Hãy tạo một tài khoản cho riêng mình, gia nhập cộng đồng và góp mặt trong bảng xếp hạng!"
+
+#: bang/templates/pages/indexBackground.html:20
+msgid "Profile"
+msgstr "Hồ sơ"
+
+#: magi/magicollections.py:1464
+msgid "Players"
+msgstr "Người chơi khác"
+
+#: magi/magicollections.py:1917 magi/models.py:765
+msgid "Activity"
+msgstr "Hoạt động"
+
+#: magi/default_settings.py:492 magi/magicollections.py:1918
+msgid "Activities"
+msgstr "Các hoạt động"
+
+#: magi/magicollections.py:1966
+msgid "Share your adventures!"
+msgstr "Chia sẻ hành trình của bạn!"
+
+#: magi/magicollections.py:2063
+#: magi/management/commands/cron_notifications.py:30
+#: magi/templates/emails/notification.html:5
+#: magi/templates/emails/notification.html:6
+msgid "Notification"
+msgstr "Thông báo"
+
+#: magi/magicollections.py:2064
+msgid "Notifications"
+msgstr "Các thông báo"
+
+#: magi/default_settings.py:267 magi/templates/pages/login.html:4
+#: magi/templates/pages/login.html.py:6 magi/templates/pages/signup.html:8
+msgid "Login"
+msgstr "Đăng nhập"
+
+#: magi/default_settings.py:273 magi/templates/pages/login.html:8
+#: magi/templates/pages/signup.html:4 magi/templates/pages/signup.html.py:6
+msgid "Sign Up"
+msgstr "Đăng kí"
+
+#: magi/default_settings.py:289 magi/templates/items/profile.html:28
+#: magi/templates/pages/settings.html:18 magi/views.py:207 magi/views.py:353
+msgid "Settings"
+msgstr "Cài đặt"
+
+#: magi/default_settings.py:297
+msgid "Logout"
+msgstr "Đăng xuất"
+
+#: cpro/raw.py:5 cpro/templates/items/ownedcardItem.html:36
+msgid "About"
+msgstr "Về"
+
+#: magi/magicollections.py:2315 magi/templates/emails/donation_footer.html:3
+#: magi/templates/include/about_description.html:7
+#: magi/templates/include/homePage.html:12
+msgid "Donate"
+msgstr "Ủng hộ"
+
+#. Link to a map of all the players (similar to Google maps).
+#: bang/templates/pages/map.html:1
+msgid "Map"
+msgstr "Bản đồ"
+
+#. Link to the help pages that look like a wiki and help people use the site.
+#: magi/default_settings.py:338 magi/default_settings.py:344
+#: magi/templates/pages/about.html:304 magi/views.py:313
+msgid "Help"
+msgstr "Hỗ trợ"
+
+#. The favorite color of the user. Will be used to personalize their profile.
+#: bang/forms.py:73
+msgid "Color"
+msgstr "Màu sắc"
+
+#. This is about the favorite characters the user specified in their preferences.
+#: magi/forms.py:799
+msgid "All your favorites must be unique"
+msgstr "Bạn chọn quá nhiều lần trong cùng một nhân vật. Hãy chọn những nhân vật khác (Họ cũng mong muốn được bạn lựa chọn lắm đấy)"
+
+#: magi/forms.py:922
+msgid "Old Password"
+msgstr "Mật khẩu cũ"
+
+#: magi/forms.py:923
+msgid "New Password"
+msgstr "Mật khẩu mới"
+
+#: magi/forms.py:924
+msgid "New Password Again"
+msgstr "Nhập lại mật khẩu mới"
+
+#: magi/models.py:104
+msgid "Player"
+msgstr "Player"
+
+#: magi/models.py:105
+msgid "Super Player"
+msgstr "Super Player"
+
+#: magi/models.py:106
+msgid "Extreme Player"
+msgstr "Extreme Player"
+
+#: magi/models.py:107
+msgid "Master Player"
+msgstr "Người chơi bậc thầy"
+
+#: magi/models.py:108
+msgid "Ultimate Player"
+msgstr "Master Player"
+
+#: magi/models.py:120
+msgid "blue"
+msgstr "Xanh"
+
+#: magi/models.py:121
+msgid "pink"
+msgstr "Hồng"
+
+#: magi/models.py:122
+msgid "shiny Silver"
+msgstr "Bạc lấp lánh"
+
+#: magi/models.py:123 magi/models.py:124
+msgid "shiny Gold"
+msgstr "Vàng lấp lánh"
+
+#: magi/models.py:329
+msgid "Never"
+msgstr "Không bao giờ"
+
+#: magi/models.py:330
+msgid "Sometimes"
+msgstr "Thi thoảng"
+
+#: magi/models.py:331
+msgid "Often"
+msgstr "thường xuyên"
+
+#: magi/models.py:332
+msgid "Every single day"
+msgstr "Hàng ngày"
+
+#. Example of replacement: "db0 liked your activity: I love going to the beach!" where db0 is the user who liked your activity and "I love going to the beach!" is the content of your activity.
+#: magi/models.py:763
+msgid "{} liked your activity: {}."
+msgstr "{} đã thích hoạt động của bạn: {}."
+
+#. Make sure there's as many {} in your translation than in the original sentence.
+#. Example of replacement: "db0 just followed you." where db0 is the user who follows you.
+#: magi/models.py:770
+msgid "{} just followed you."
+msgstr "{} vừa theo dõi bạn."
+
+#. For the emails settings.
+#: magi/models.py:764
+msgid "When someone likes your activity."
+msgstr "Khi một ai đó thích hoạt động của bạn."
+
+#. For the emails settings.
+#: magi/models.py:771
+msgid "When someone follows you."
+msgstr "Khi một ai đó theo dõi bạn"
+
+#. Personal description you can write on your profile. Similar to twitter's "bio".
+#: sukutomo/models.py:240
+msgid "Description"
+msgstr "Giới thiệu bản thân"
+
+#: magi/models.py:88
+msgid "Write whatever you want. You can add formatting and links using Markdown."
+msgstr "Viết bất cứ thứ gì bạn muốn. Bạn có thể thêm định dạng phông chữ và liên kết có sử dụng Markdown"
+
+#. Your translation must be gender neutral. Example 1er/ère
+#: bang/forms.py:272 bang/magicollections.py:388 bang/models.py:747
+msgid "1st"
+msgstr "Nhất"
+
+#. Your translation must be gender neutral. Example 1er/ère
+#: magi/models.py:90
+msgid "2nd"
+msgstr "Nhì"
+
+#. Your translation must be gender neutral. Example 1er/ère
+#: magi/models.py:91
+msgid "3rd"
+msgstr "Ba"
+
+#: magi/models.py:93
+msgid "Birthdate"
+msgstr "Ngày sinh"
+
+#. Will do a google maps search and put people on the map. Can be replaced by something like "Your city" or "Address".
+#: magi/models.py:96
+msgid "Location"
+msgstr "Địa chỉ"
+
+#: magi/models.py:96
+msgid "The city you live in."
+msgstr "Thành phố bạn đang sống"
+
+#: magi/models.py:96
+msgid "It might take up to 24 hours to update your location on the map."
+msgstr "Có thể mất 24 giờ để cập nhật địa chỉ của bạn trên bản đồ"
+
+#. For links. Select your platform before adding a link. Can be Facebook/Twitter/Reddit, etc.
+#: magi/models.py:326
+msgid "Platform"
+msgstr "Link (Có thể là Facebook, Twitter,...)"
+
+#: magi/models.py:307
+msgid "Username/ID"
+msgstr "Tên in-game/ID"
+
+#. For links.
+#: magi/models.py:307
+msgid "Write your username only, no URL."
+msgstr "Chỉ viết tên in-game của bạn, không cần link"
+
+#. For links.
+#: magi/forms.py:956
+msgid "How often do you tweet/stream/post about {}?"
+msgstr "Mật độ bạn tweet/stream/đăng bài về {}?"
+
+#: magi/templates/base.html:111
+msgid "Help us translate the site"
+msgstr "Giúp đỡ bọn mình dịch trang này"
+
+#: magi/default_settings.py:21 magi/templates/collections/list_page.html:13
+msgid "No result."
+msgstr "Không có kết quả"
+
+#: magi/templates/collections/modification_view.html:29
+msgid "Back to"
+msgstr "Trở về"
+
+#: magi/templates/emails/donation_footer.html:4
+#: magi/templates/include/donate.html:10
+msgid "This will help us cover the costs of the servers and allow us to keep it running for free and without ads."
+msgstr "Nó sẽ giúp đỡ bọn mình bù đắp chi phí của máy chủ và cho phép bọn mình hoạt động miễn phí mà không có quảng cáo"
+
+#: stardustrun/templates/include/pokedex.html:39
+msgid "Apply Changes"
+msgstr "Áp dụng các thay đổi"
+
+#: magi/templates/include/about_description.html:2
+msgid "Nice to meet you, we are Deby and Engil!"
+msgstr "Rất vui được làm quen với bạn, chúng mình là Deby và Engil"
+
+#: magi/templates/include/about_description.html:3
+msgid "We are two developers and casual players. We live in San Francisco, California. We come from the same computer science university and both work as software engineers in the same company we founded:"
+msgstr "Chúng mình là hai nhà phát triển và hoàn toàn là những người chơi bình thường. Chúng mình sống ở San Francisco, California. Chúng mình đến từ một trường đại học về khoa học máy tính và cả hai đều làm kĩ sư phần mềm ở cùng một công ty chúng mình thành lập:"
+
+#: magi/templates/include/about_description.html:6
+msgid "Though we love our job, we don't pay ourselves and don't have any income, so any donation helps a lot and is greatly appreciated."
+msgstr "Mặc dù rất yêu công việc, nhưng bọn mình không thể trả lương cho bản thân, cũng như không có bất cứ một khoản thu nhập nào khác, vì vậy những khoản tiền ủng hộ giúp đỡ bọn mình rất nhiều và là một vinh dự rất lớn để được nhận số tiền đó từ các bạn"
+
+#: magi/templates/include/about_description.html:10
+msgid "The heartwarming support from the community keeps motivating us to do more! We love helping the community by providing as much information as we can about the game, while keeping the website easy to use, shiny and cute ^_^"
+msgstr "Sự hỗ trợ vô cùng cảm động của cộng đồng là một nguồn động viên lớn để chúng mình tiếp tục phát triển! Chúng mình giúp đỡ công đồng bằng cách cung cấp nhiều thông tin nhất có thể về tựa game này, trong khi giữ cho trang web dễ sử dụng hơn, toả sáng và dễ thương hơn ^_^"
+
+#: magi/templates/include/about_description.html:12
+msgid "We don't know how far we will go with this, but one thing we know for sure is that we are having a lot of fun doing it and sharing this adventure with you."
+msgstr "Chúng mình không biết bản thân có thể đi xa tới đâu, nhưng có một điều chúng mình luôn luôn biết, đó là chúng mình có rất nhiều niềm vui khi làm nó và chia sẻ chuyến hành trình này với bạn"
+
+#: magi/templates/include/pagination.html:17
+#: magi/templates/items/profile.html:40
+msgid "Load more..."
+msgstr "Tiếp tục..."
+
+#: magi/templates/items/activityItem.html:79
+msgid "Write Comment"
+msgstr "Viết bình luận"
+
+#: cpro/templates/include/cards-stats.html:113
+#: cpro/templates/include/cards-stats.html:115
+#: cpro/templates/items/eventInfo.html:135
+#: cpro/templates/items/eventInfo.html:138
+#: cpro/templates/items/idolInfo.html:187
+#: cpro/templates/items/idolInfo.html:190
+msgid "Comments"
+msgstr "Các bình luận"
+
+#. Will be showed before another word. For example: "Edit account" or "Edit card". Can be changed to something else so the order works, such as "Modify" or "Modification of". A gender-neutral article may be added, such as "Edit the".
+#: cpro/templates/accountsForProfile.html:44
+#: cpro/templates/items/cardItem.html:42
+#: cpro/templates/items/eventInfo.html:154
+#: cpro/templates/items/idolInfo.html:206 cpro/templates/items/idolItem.html:17
+#: cpro/templates/items/ownedcardItem.html:23
+#: cpro/templates/items/ownedcardItem.html:29
+msgid "Edit"
+msgstr "Sửa"
+
+#. Feel free to use Twitter's word in your language.
+#: magi/templates/items/profile.html:22
+msgid "Unfollow"
+msgstr "Hủy theo dõi"
+
+#. Feel free to use Twitter's word in your language.
+#: magi/templates/items/profile.html:22 magi/templates/items/profile.html:26
+msgid "Follow"
+msgstr "Theo dõi"
+
+#. Feel free to use Twitter's word in your language.
+#: magi/templates/items/profile.html:30
+msgid "Followers"
+msgstr "Người theo dõi"
+
+#. Feel free to use Twitter's word in your language.
+#: magi/templates/include/homePage.html:67 magi/templates/items/profile.html:31
+msgid "Following"
+msgstr "Đang theo dõi"
+
+#: magi/templates/items/profile.html:94
+msgid "No account."
+msgstr "Không có tài khoàn nào"
+
+#. The exact phrase "%(length)s" must appear somewhere in your translation. It will be replaced with a number. If you don't write it or write it incorrectly, the whole page will not work in your language.
+#: magi/templates/items/profile.html:98
+msgid "%(length)s account:"
+msgid_plural "%(length)s accounts:"
+msgstr[0] "%(length)s tài khoản"
+
+#: magi/templates/pages/about.html:49 magi/templates/pages/about.html.py:295
+msgid "Contact us"
+msgstr "Liên hệ"
+
+#: magi/templates/pages/about.html:361
+msgid "Franchise Credits"
+msgstr "Quyền thương mại"
+
+#: magi/templates/pages/about.html:370
+msgid "Icons Credits"
+msgstr "Quyền sử dụng hình ảnh"
+
+#: magi/templates/pages/about.html:80
+msgid "Staff members"
+msgstr "Nhân viên"
+
+#: bang/settings.py:73
+msgid "Staff"
+msgstr "Nhân viên cấp cao"
+
+#: magi/templates/pages/about.html:335
+msgid "Check out our other websites"
+msgstr "Ngó qua các trang web khác của bọn mình"
+
+#: magi/templates/pages/about.html:381
+msgid "Contribute"
+msgstr "Đóng góp"
+
+#: magi/templates/pages/about.html:381 magi/templates/pages/about.html:397
+msgid "Dev"
+msgstr "Nhà phát triển"
+
+#: magi/templates/pages/about.html:383
+msgid "Our project is open-source and open for contributions. We are more than happy to accept pull-requests on GitHub!"
+msgstr "Dự án của chúng mình là một dạng mã nguồn mở và luôn tiếp nhận những đóng góp từ các bạn. Chúng minhf rất vui khi chấp nhận những yêu cầu đóng góp trên GitHub!"
+
+#: magi/templates/pages/about.html:385
+msgid "The website has been made using"
+msgstr "Trang web này được tạo ra bằng"
+
+#: magi/templates/pages/about.html:385
+msgid "so in Python 2. We also use"
+msgstr "trong Python 2. Chúng mình cũng sử dụng"
+
+#: magi/templates/pages/about.html:385
+msgid "for the front-end of the website."
+msgstr "cho front-end của trang web."
+
+#: magi/templates/pages/about.html:387
+msgid "We accept all kind of contributions, from tools to help players, statistics pages, mini-games, or even little CSS changes. Don't be shy! If you need help getting started, just contact us and we will happily take the time to teach you the basics, no matter your level."
+msgstr "Chúng mình chấp nhận tất cả các đóng góp, từ công cụ cho đến giúp đỡ người chơi, trang số liệu thông kê, mini games, hoặc kể cả những thay đổi nhỏ nhất về CSS. Đừng ngại! Nếu bạn cần giúp đỡ khi mới bắt đầu, hãy cứ liên hệ với chúng mình, chúng mình rất vui khi dành thời gian dạy cho bạn những kiến thức cơ bản nhất, bất kể trình độ của bạn đang ở đâu"
+
+#: cpro/templates/include/beforeCards.html:18
+msgid "Get Started"
+msgstr "Bắt đầu"
+
+#: magi/templates/pages/about.html:399
+msgid "If you're a developer and you would like to get the data of the game in a convenient format, we provide a public REST API to get the game data, our users datacards, and more!"
+msgstr "Nếu bạn là lập trình viên và bạn muốn sử dụng dữ liệu của game ở một định dạng thuận tiện hơn, chúng mình cung cấp một REST API công cộng để lấy dữ liệu về game, các thẻ dữ liệu từ những người dùng, và hơn nữa!"
+
+#: magi/magicollections.py:2314 magi/templates/include/donate.html:27
+msgid "Donators"
+msgstr "Những người đóng góp"
+
+#: magi/default_settings.py:355 magi/default_settings.py:362 magi/views.py:316
+msgid "Wiki"
+msgstr "Wiki"
+
+#: magi/templates/pages/login.html:9
+msgid "Forgot password?"
+msgstr "Quên mật khẩu?"
+
+#. Customize profile, colors, location, description, etc.
+#: magi/templates/pages/settings.html:8
+msgid "Customize"
+msgstr "Tùy chỉnh"
+
+#: magi/templates/pages/settings.html:12
+msgid "Change your password"
+msgstr "Đổi mật khẩu"
+
+#: magi/templates/pages/settings.html:14
+msgid "Emails"
+msgstr "Emails"
+
+#: magi/templates/pages/settings.html:24
+msgid "Links"
+msgstr "Liên kết"
+
+#: magi/templates/pages/settings.html:63
+msgid "Avatar"
+msgstr "Hình đại diện"
+
+#: magi/templates/pages/settings.html:66
+msgid "To change your avatar, use Gravatar with the same email address."
+msgstr "Để thay đổi hình đại diện, sử dụng Gravatar với cùng một Email đã đăng ký"
+
+#: magi/templates/pages/settings.html:68
+msgid "F.A.Q."
+msgstr "F.A.Q"
+
+#: magi/templates/pages/settings.html:69
+msgid "Change Avatar"
+msgstr "Thay hình đại diện"
+
+#: magi/default_settings.py:488 magi/magicollections.py:1289
+#: magi/templates/pages/settings.html:73
+msgid "Accounts"
+msgstr "Tài khoản"
+
+#: magi/templates/pages/settings.html:85 magi/templates/pages/settings.html:159
+msgid "Back to my profile"
+msgstr "Trở về hồ sơ của tôi"
+
+#: magi/templates/pages/wiki.html:31
+msgid "Back to wiki home"
+msgstr "Trở về trang wiki"
+
+#. Make sure {object} also appears in your sentence. Will be replaced with the corresponding values.
+#: magi/views_collections.py:177
+msgid "1 {object} matches your search:"
+msgstr "1 {object} phù hợp với tìm kiếm:"
+
+#. Make sure {total} and {object} also appear in your sentence. Will be replaced with the corresponding values.
+#: magi/views_collections.py:177
+msgid "{total} {objects} match your search:"
+msgstr "{total} {objects} phù hợp với tìm kiếm:"
+
+#: magi/magicollections.py:931
+msgid "Become a contributor to help us fill the database"
+msgstr "Trở thành người đóng góp để giúp chúng mình hoàn thành cơ sở dữ liệu"
+
+#: magi/views_collections.py:461
+msgid "You can't cancel this action afterwards."
+msgstr "Bạn không được hủy bỏ hành động này sau đó"
+
+#: magi/views.py:211 magi/views.py:212
+msgid "Link"
+msgstr "Liên kết"
+
+#: magi/forms.py:986 magi/forms.py:990
+msgid "Confirm"
+msgstr "Xác nhận"
+
+#: magi/models.py:613
+msgid "Tags"
+msgstr "Tags"
+
+#: magi/models.py:86 magi/models.py:380 magi/models.py:609
+#: magi/templates/items/activityItem.html:18
+msgid "Language"
+msgstr "Ngôn ngữ"
+
+#: magi/models.py:602 magi/models.py:834
+#: magi/templates/items/reportItem.html:33
+#: magi/templates/items/reportItem.html:58
+msgid "Message"
+msgstr "Tin nhắn"
+
+#: sukutomo/models.py:126
+msgid "Image"
+msgstr "Hình ảnh"
+
+#: magi/templates/items/activityItem.html:67
+#: magi/templates/items/activityItem.html:69
+msgid "Liked"
+msgstr "Đã thích"
+
+#: magi/templates/items/activityItem.html:69
+#: magi/templates/items/activityItem.html:72
+msgid "Like"
+msgstr "Thích"
+
+#: magi/forms.py:1169 magi/models.py:835
+#: magi/templates/items/reportItem.html:38
+msgid "Images"
+msgstr "Các hình ảnh"
+
+#: magi/templates/emails/report.html:16 magi/templates/emails/report.txt:5
+msgid "Staff Message:"
+msgstr "Tin nhắn từ nhân viên"
+
+#: magi/templates/emails/report.html:36 magi/templates/emails/report.txt:10
+msgid "Moderated by:"
+msgstr "Kiểm duyệt bởi:"
+
+#: cpro/templates/accountsForProfile.html:48
+msgid "Report"
+msgstr "Báo cáo"
+
+#: magi/templates/items/reportItem.html:18
+msgid "Reported by:"
+msgstr "Báo cáo bởi:"
+
+#: magi/views.py:457 magi/views.py:485
+msgid "This {thing} you reported has been reviewed by a moderator and {verb}. Thank you so much for your help!"
+msgstr "{thing} mà bạn đã báo cáo đã được xem xét bởi một Mod và {verb}. Cảm ơn bạn rất nhiều!"
+
+#: magi/views.py:457 magi/views.py:465 magi/views.py:468 magi/views.py:493
+msgid "edited"
+msgstr "đã thay đổi"
+
+#: magi/views.py:460 magi/views.py:488
+msgid "Thank you for reporting this {thing}"
+msgstr "Cảm ơn bạn đã báo cáo về {thing}"
+
+#: magi/views.py:465 magi/views.py:493
+msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
+msgstr "{thing} của bạn đã được báo cáo, và một Mod chắc chắn rằng nó nên được {verb}."
+
+#: magi/views.py:468 magi/views.py:496
+msgid "Your {thing} has been {verb}"
+msgstr "{thing} của bạn đã được {verb}"
+
+#: magi/views.py:485 magi/views.py:496
+msgid "deleted"
+msgstr "đã xoá"
+
+#: magi/templates/emails/notification.html:8
+#: magi/templates/emails/notification.txt:1 magi/templates/emails/report.html:9
+#: magi/templates/emails/report.txt:1
+msgid "Hi"
+msgstr "Chào"
+
+#: sukutomo/settings.py:49
+msgid "{nth} Favorite Character"
+msgstr "{nth} Nhân vật ưa thích"
+
+#: magi/settings.py:91
+msgid "The {game} Database & Community"
+msgstr "Cơ sở dữ liệu & Cộng đồng về {game}"
+
+#: magi/views.py:130
+msgid "{site} is not a representative and is not associated with {game}. Its logos and images are Trademarks of {company}."
+msgstr "{site} không phải là một đại diện và cũng không có mối liên quan nào đến {game}. Các logo và hình ảnh đều là thương hiệu của {company}."
+
+#: magi/views.py:130
+msgid "the company that owns {game}"
+msgstr "công ty sở hữu {game}"
+
+#: magi/views_collections.py:376
+msgid "Make sure the {thing} you're about to add doesn't already exist."
+msgstr "Hãy chắc rằng {thing} mà bạn sắp thêm vào chưa tồn tại"
+
+#: stardustrun/collections_settings.py:79 stardustrun/forms.py:125
+#: stardustrun/models.py:52 stardustrun/templates/items/pokemonItem.html:65
+msgid "Hit Points"
+msgstr "HP"
+
+#: stardustrun/collections_settings.py:84 stardustrun/forms.py:126
+#: stardustrun/models.py:53 stardustrun/models.py:329
+#: stardustrun/settings.py:132
+#: stardustrun/templates/items/ownedpokemonItem.html:34
+#: stardustrun/templates/items/pokemonItem.html:69
+msgid "Attack"
+msgstr "ATK"
+
+#: stardustrun/collections_settings.py:89 stardustrun/forms.py:127
+#: stardustrun/models.py:54 stardustrun/templates/items/pokemonItem.html:73
+msgid "Defense"
+msgstr "DEF"
+
+#: stardustrun/collections_settings.py:96 stardustrun/forms.py:124
+#: stardustrun/models.py:55
+#: stardustrun/templates/items/ownedpokemonItem.html:13
+#: stardustrun/templates/items/pokemonItem.html:61
+msgid "Max CP"
+msgstr "CP tối đa"
+
+#: stardustrun/collections_settings.py:101 stardustrun/forms.py:128
+#: stardustrun/models.py:56 stardustrun/templates/items/pokemonItem.html:77
+msgid "Catch Rate"
+msgstr "Tỉ lệ bắt"
+
+#: stardustrun/collections_settings.py:107 stardustrun/forms.py:129
+#: stardustrun/models.py:57 stardustrun/templates/items/pokemonItem.html:81
+msgid "Flee Rate"
+msgstr "Tỉ lệ trốn chạy"
+
+#: stardustrun/collections_settings.py:14
+msgid "Pokédex"
+msgstr "Pokédex"
+
+#: stardustrun/collections_settings.py:15
+msgid "Medals"
+msgstr "Các huy hiệu"
+
+#: cpro/forms.py:72 cpro/forms.py:132 cpro/models.py:215
+#: cpro/templates/ajax/account_about.html:60
+msgid "Starter"
+msgstr "Khởi đầu"
+
+#: cpro/forms.py:96 cpro/forms.py:329
+msgid "This date cannot be in the future."
+msgstr "Ngày này không được phép liên quan đến tương lai"
+
+#: bang/forms.py:21 bang/forms.py:61
+msgid "Level"
+msgstr "Cấp độ"
+
+#: sukutomo/forms.py:11
+msgid "Start Date"
+msgstr "Ngày bắt đầu"
+
+#: bang/forms.py:63
+msgid "Join Date"
+msgstr "Ngày gia nhập"
+
+#: stardustrun/forms.py:100
+msgid "Alphabetical"
+msgstr "Theo thứ tự bảng chứ cái"
+
+#: stardustrun/forms.py:118 stardustrun/models.py:50
+msgid "Available"
+msgstr "Có sẵn"
+
+#: stardustrun/forms.py:122 stardustrun/forms.py:268 stardustrun/models.py:46
+msgid "Pokémon number"
+msgstr "Số hiệu Pokémon"
+
+#: stardustrun/forms.py:123 stardustrun/models.py:47
+msgid "Pokémon name"
+msgstr "Tên Pokémon"
+
+#: stardustrun/forms.py:130 stardustrun/models.py:59
+#: stardustrun/templates/items/pokemonItem.html:85
+msgid "Candies needed to evolve"
+msgstr "Số kẹo cần để tiến hoá"
+
+#: stardustrun/forms.py:131 stardustrun/models.py:60
+#: stardustrun/templates/items/pokemonItem.html:89
+msgid "Egg Distance"
+msgstr "Khoảng cách để trứng nở"
+
+#: stardustrun/forms.py:150 stardustrun/models.py:51
+msgid "Types"
+msgstr "Hệ"
+
+#: stardustrun/model_choices.py:8
+msgid "Instinct"
+msgstr "Bản năng"
+
+#: stardustrun/model_choices.py:9
+msgid "Mystic"
+msgstr "Mystic"
+
+#: stardustrun/model_choices.py:10
+msgid "Valor"
+msgstr "Valor"
+
+#: stardustrun/model_choices.py:17
+msgid "Pokémon Trainer"
+msgstr "Huấn luyện viên Pokémon"
+
+#: stardustrun/model_choices.py:18
+msgid "Super Pokémon Trainer"
+msgstr "Siêu huấn luyện viên Pokémon"
+
+#: stardustrun/model_choices.py:19
+msgid "Expert Pokémon Trainer"
+msgstr "Chuyên gia về Pokémon"
+
+#: stardustrun/model_choices.py:20
+msgid "Pokémon Master"
+msgstr "Bậc thầy huấn luyện Pokémon"
+
+#: stardustrun/model_choices.py:21
+msgid "Ultimate Pokémon Master"
+msgstr "Huấn luyện viên Pokémon tối thượng"
+
+#: stardustrun/model_choices.py:42
+msgid "Fairy"
+msgstr "Tiên"
+
+#: stardustrun/model_choices.py:43
+msgid "Steel"
+msgstr "Thép"
+
+#: stardustrun/model_choices.py:44
+msgid "Dark"
+msgstr "Bóng tối"
+
+#: stardustrun/model_choices.py:45
+msgid "Dragon"
+msgstr "Rồng"
+
+#: stardustrun/model_choices.py:46
+msgid "Ghost"
+msgstr "Ma"
+
+#: stardustrun/model_choices.py:47
+msgid "Rock"
+msgstr "Đá"
+
+#: stardustrun/model_choices.py:48
+msgid "Bug"
+msgstr "Bọ"
+
+#: stardustrun/model_choices.py:49
+msgid "Psychic"
+msgstr "Tâm linh"
+
+#: stardustrun/model_choices.py:50
+msgid "Flying"
+msgstr "Bay"
+
+#: stardustrun/model_choices.py:51
+msgid "Ground"
+msgstr "Đất"
+
+#: stardustrun/model_choices.py:52
+msgid "Poison"
+msgstr "Độc"
+
+#: stardustrun/model_choices.py:53
+msgid "Fighting"
+msgstr "Đấu sĩ"
+
+#: stardustrun/model_choices.py:54
+msgid "Ice"
+msgstr "Băng"
+
+#: stardustrun/model_choices.py:55
+msgid "Grass"
+msgstr "Cỏ"
+
+#: stardustrun/model_choices.py:56
+msgid "Electric"
+msgstr "Điện"
+
+#: stardustrun/model_choices.py:57
+msgid "Water"
+msgstr "Nước"
+
+#: stardustrun/model_choices.py:58
+msgid "Fire"
+msgstr "Lửa"
+
+#: bang/models.py:832 bang/models.py:983 bang/models.py:1032
+#: bang/models.py:1033 bang/models.py:1113
+msgid "Normal"
+msgstr "Thường"
+
+#: cpro/models.py:198
+msgid "Nickname"
+msgstr "Nickname"
+
+#: stardustrun/models.py:196
+msgid "Team"
+msgstr "Đội"
+
+#: stardustrun/models.py:198
+msgid "When you started playing with this account."
+msgstr "Từ khi nào bạn bắt đầu sử dụng tài khoản này."
+
+#: stardustrun/models.py:199 stardustrun/templates/accountsForProfile.html:53
+msgid "Bought Pokécoins"
+msgstr "Mua Pokécoins"
+
+#: stardustrun/forms.py:210 stardustrun/forms.py:233 stardustrun/forms.py:266
+#: stardustrun/models.py:325
+#: stardustrun/templates/items/ownedpokemonItem.html:7
+msgid "CP"
+msgstr "CP"
+
+#: cpro/forms.py:282 cpro/forms.py:283
+msgid "HP"
+msgstr "HP"
+
+#: cpro/forms.py:172 cpro/models.py:60 cpro/templates/items/idolInfo.html:94
+#: cpro/templates/items/idolItem.html:42
+msgid "Weight"
+msgstr "Cân nặng"
+
+#: sukutomo/forms.py:39 sukutomo/models.py:214 sukutomo/models.py:220
+msgid "Height"
+msgstr "Chiều cao"
+
+#: stardustrun/models.py:330 stardustrun/templates/items/attackItem.html:12
+#: stardustrun/templates/items/ownedpokemonItem.html:36
+msgid "Special Attack"
+msgstr "Đòn đặc biệt"
+
+#: stardustrun/models.py:473
+#: stardustrun/templates/include/empty_pokedex.html:23
+#: stardustrun/templates/include/empty_pokedex.html:27
+#: stardustrun/templates/include/pokedex.html:31
+#: stardustrun/templates/include/pokedex.html:35
+#: stardustrun/templates/include/pokedex.html:36
+#: stardustrun/templates/items/pokemonFullItem.html:134
+msgid "Candies"
+msgstr "Kẹo"
+
+#: stardustrun/models.py:474
+#: stardustrun/templates/include/empty_pokedex.html:15
+#: stardustrun/templates/include/pokedex.html:21
+msgid "Seen"
+msgstr "Đã thấy"
+
+#: stardustrun/models.py:475
+#: stardustrun/templates/include/empty_pokedex.html:19
+#: stardustrun/templates/include/pokedex.html:25
+msgid "Caught"
+msgstr "Đã bắt"
+
+#: stardustrun/settings.py:31
+msgid "Pokémon Go is a free-to-play, location-based augmented reality game developed and published by Niantic for iOS and Android devices."
+msgstr "Pokémon GO là một trò chơi miễn phí, dựa trên địa điểm thực tế được phát triển và phát hành bởi Niantic cho hệ máy iOS và Android."
+
+#: stardustrun/settings.py:38
+msgid "{nth} Favorite Pokémon"
+msgstr "{nth} Pokémon yêu thích"
+
+#: stardustrun/collections_settings.py:13 stardustrun/settings.py:92
+#: stardustrun/settings.py:93 stardustrun/settings.py:161
+#: stardustrun/settings.py:162 stardustrun/templates/items/pokemonItem.html:51
+msgid "Pokémon"
+msgstr "Pokémon"
+
+#: stardustrun/settings.py:133
+#: stardustrun/templates/items/pokemonFullItem.html:48
+msgid "Attacks"
+msgstr "Tấn công"
+
+#: cpro/templates/accountsForProfile.html:66
+msgid "Coming soon"
+msgstr "Sắp có"
+
+#: cpro/templates/include/advancedButton.html:3
+msgid "Simple"
+msgstr "Đơn giản"
+
+#: cpro/templates/include/advancedButton.html:5
+msgid "Advanced"
+msgstr "Nâng cao"
+
+#: stardustrun/templates/include/pokemonsBeforeTemplate.html:8
+msgid "Open Pokémon GO, tap the pokéball at the bottom and tap Pokédex"
+msgstr "Mở Pokémon GO, chọn Pokéball ở phần đáy rồi chọn Pokédex"
+
+#: cpro/templates/include/afterCards.html:7
+msgid "Check out your own profile"
+msgstr "Kiểm tra hồ sơ của bạn"
+
+#: cpro/templates/include/afterCards.html:11
+msgid "Customize it"
+msgstr "Tùy chỉnh nó"
+
+#: cpro/templates/include/afterCards.html:14
+msgid "Share it on:"
+msgstr "Chia sẻ trên:"
+
+#: stardustrun/templates/items/ownedpokemonItem.html:26
+msgid "More info"
+msgstr "Thêm thông tin"
+
+#: stardustrun/templates/items/pokemonFullItem.html:42
+#: stardustrun/templates/items/pokemonFullItem.html:78
+msgid "Your Collection"
+msgstr "Bộ sưu tập của bạn"
+
+#: stardustrun/templates/items/pokemonFullItem.html:45
+#: stardustrun/templates/items/pokemonFullItem.html:114
+msgid "Evolutions"
+msgstr "Tiến hoá"
+
+#: stardustrun/templates/items/pokemonFullItem.html:51
+#: stardustrun/templates/pages/ajax_pokedex.html:9
+msgid "Permalink"
+msgstr "Link vĩnh viễn"
+
+#: stardustrun/templates/items/pokemonFullItem.html:98
+#: stardustrun/templates/items/pokemonItem.html:31
+msgid "Click to add %(pokemon)s to your collection"
+msgstr "Nhấn để thêm %(pokemon)s vào bộ sưu tập"
+
+#: stardustrun/templates/pages/ajax_pokedex.html:5
+msgid "Change to icons"
+msgstr "Thay đổi biểu tượng"
+
+#: stardustrun/templates/pages/ajax_pokedex.html:7
+msgid "Change to list"
+msgstr "Thay đổi danh sách"
+
+#: stardustrun/views.py:134
+msgid "You have {} of them in you collection. Delete them before changing this."
+msgstr "Bạn có {} loại này trong bộ sưu tập. Hãy xoá chúng trước khi thay đổi."
+
+#: magi/default_settings.py:324
+msgid "About the game"
+msgstr "Về tựa game này"
+
+#: magi/models.py:139
+msgid "View activities in your language only?"
+msgstr "Xem hoạt động chỉ bằng ngôn ngữ của bạn?"
+
+#: magi/models.py:683
+msgid "Check out {username}'s activity on {site}: {activity}"
+msgstr "Kiểm tra hoạt động của {username} tại {site}: {activity}"
+
+#: magi/settings.py:61
+msgid "Join the community!"
+msgstr "Tham gia cộng đồng!"
+
+#: magi/settings.py:96
+msgid "{site} provides an extended database of information about the game {game} and allows you to keep track of your progress in the game. You can create and customize your very own profile to share your progress and your collection to all your friends. You can also meet other players like you with the social network: read what the others are doing and share your adventures with the community. Comment, like and follow the other players to grow your network. Find players near you with the global map of all the players. And much more!"
+msgstr "{site} cung cấp thông tin mở rộng từ cơ sở dữ liệu về tựa game {game} và cho phép bạn theo dõi tiến độ của bạn trong game. Bạn có thể tạo và tùy chỉnh hồ sơ của riêng bạn để chia sẻ tiến độ và bộ sưu tập đến bạn bè. Bạn còn có thể gặp gỡ những người chơi khác qua mạng xã hội: đọc những gì họ đang làm và chia sẻ chuyến hành trình của bạn đến cộng đồng. Bình luận, thích và theo dõi những người chơi khác để phát triển mối quan hệ. Tìm người chơi gần bạn bằng bản đồ thế giới của tất cả những người chơi. Và hơn thế nữa!"
+
+#: magi/templates/include/activityFollowMessage.html:4
+msgid "Start following players to see their activities!"
+msgstr "Bắt đầu theo dõi người chơi khác để xem hoạt động của họ"
+
+#: magi/templates/include/homePage.html:11
+msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
+msgstr "đã đóng góp bởi %(total_donators)s người ủng hộ %(adjective)s"
+
+#: magi/templates/include/homePage.html:25
+#: magi/templates/include/homePage.html:28
+#: magi/templates/pages/prelaunch.html:14
+#: magi/templates/pages/prelaunch.html:17
+msgid "About %(site_name)s"
+msgstr "Về %(site_name)s"
+
+#: sukutomo/models.py:132
+msgid "All"
+msgstr "Tất cả"
+
+#: magi/magicollections.py:1720
+msgid "Check out {username}'s awesome collection!"
+msgstr "Xem qua bộ sưu tập tuyệt vời của {username}!"
+
+#: stardustrun/collections_settings.py:46
+msgid "Global"
+msgstr "Thế giới"
+
+#: stardustrun/collections_settings.py:64
+msgid "Check out my awesome collection of Pokémon!"
+msgstr "Xem qua bộ sưu tập Pokémon tuyệt vời của tôi!"
+
+#: stardustrun/forms.py:119
+msgid "Pokémon in your collection"
+msgstr "Pokémon trong bộ sưu tập của bạn"
+
+#: stardustrun/forms.py:120
+msgid "Pokémon you've seen"
+msgstr "Pokémon bạn đã thấy"
+
+#: stardustrun/forms.py:183
+msgid "Special"
+msgstr "Đặc biệt"
+
+#: stardustrun/forms.py:185 stardustrun/models.py:20
+#: stardustrun/templates/items/attackItem.html:13
+msgid "Damage"
+msgstr "Sát thương"
+
+#: stardustrun/forms.py:186 stardustrun/models.py:21
+#: stardustrun/templates/items/attackItem.html:15
+msgid "Energy Increase"
+msgstr "Năng lượng gia tăng"
+
+#: stardustrun/forms.py:187 stardustrun/models.py:22
+#: stardustrun/templates/items/attackItem.html:16
+msgid "Critical Hit Chance"
+msgstr "Tỉ lệ chí mạng"
+
+#: stardustrun/forms.py:188 stardustrun/models.py:23
+#: stardustrun/templates/items/attackItem.html:14
+msgid "Duration"
+msgstr "Thời lượng"
+
+#: stardustrun/forms.py:189 stardustrun/models.py:24
+#: stardustrun/templates/items/attackItem.html:17
+msgid "Energy Requirement"
+msgstr "Năng lượng cần thiết"
+
+#: stardustrun/forms.py:233 stardustrun/forms.py:235 stardustrun/forms.py:237
+#: stardustrun/forms.py:239
+msgid "after evolution"
+msgstr "sau khi tiến hoá"
+
+#: stardustrun/models.py:200 stardustrun/models.py:282
+msgid "Stardust"
+msgstr "Bột sao"
+
+#: stardustrun/models.py:201 stardustrun/models.py:283
+msgid "Lucky Eggs"
+msgstr "Quả trứng may mắn"
+
+#: stardustrun/models.py:202 stardustrun/models.py:284
+msgid "Incenses"
+msgstr "Hương"
+
+#: stardustrun/models.py:203 stardustrun/models.py:285
+msgid "Lure Modules"
+msgstr "Máy nhử"
+
+#: stardustrun/settings.py:19
+msgid "The Pokémon GO Sharing Community"
+msgstr "Cộng Đồng Chia Sẻ Pokémon GO"
+
+#: stardustrun/settings.py:29
+#: stardustrun/templates/include/pokemonsBeforeTemplate.html:6
+#: stardustrun/templates/include/pokemonsShareButton.html:4
+msgid "Share your Pokédex!"
+msgstr "Chia sẻ Pokédex của bạn!"
+
+#: stardustrun/settings.py:244 stardustrun/settings.py:251
+#: stardustrun/templates/items/ownedpokemonItem.html:24
+#: stardustrun/templates/pages/evolve.html:6
+msgid "Evolve"
+msgstr "Tiến hoá"
+
+#: stardustrun/templates/include/pokemonsBeforeTemplate.html:9
+msgid "Go through the list of Pokémon below and click on the ones you have to add them in your Stardust Run collection"
+msgstr "Tới danh sách Pokémon bên dưới và nhấn vào một loại mà bạn muốn thêm vào bộ sưu tập tại Stardust Run của bạn"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:22
+msgid "What next?"
+msgstr "Tiếp theo?"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:24
+msgid "Click on the Pokémon that are the most important to you and edit their CP and nicknames"
+msgstr "Nhấn vào Pokémon quan trọng nhất đối với bạn và chỉnh sửa CP và nickname của chúng"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:29
+msgid "Let's go!"
+msgstr "Đi thôi!"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:45
+msgid "Go further"
+msgstr "Đi xa hơn nữa"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:46
+msgid "Discover everything you can do on Stardust Run"
+msgstr "Khám phá mọi thứ bạn có thể tại Stardust Run"
+
+#: stardustrun/templates/items/attackItem.html:19
+msgid "All Pokémon with this attack"
+msgstr "Tất cả Pokémon với đòn tấn công này"
+
+#: stardustrun/templates/items/attackItem.html:21
+msgid "All Attacks"
+msgstr "Tất cả đòn tấn công"
+
+#: stardustrun/templates/items/attackItem.html:31
+msgid "seconds"
+msgstr "thứ hai"
+
+#: magi/forms.py:1121
+msgid "Last Update"
+msgstr "Cập nhật gần nhất"
+
+#: magi/forms.py:1122
+msgid "Creation"
+msgstr "Sự sáng tạo"
+
+#: magi/forms.py:1123 magi/forms.py:1124
+msgid "Most Popular"
+msgstr "Nổi tiếng nhất"
+
+#: magi/forms.py:1123
+msgid "All time"
+msgstr "Tất cả"
+
+#: magi/forms.py:1124
+msgid "This week"
+msgstr "Tuần này"
+
+#: cpro/forms.py:139 cpro/forms.py:176 cpro/forms.py:215 cpro/forms.py:284
+msgid "Ordering"
+msgstr "Theo thứ tự"
+
+#: cpro/templates/include/cards-stats.html:95
+#: cpro/templates/include/cards-stats.html:107
+#: cpro/templates/items/eventInfo.html:47 cpro/templates/items/idolInfo.html:36
+#: cpro/templates/items/idolInfo.html:50 cpro/templates/items/idolInfo.html:64
+msgid "View all"
+msgstr "Xem tất cả"
+
+#: sukutomo/magicollections.py:145
+msgid "{age} years old"
+msgstr "{age} tuổi"
+
+#: cpro/collections_settings.py:108 cpro/magicollections.py:226
+msgid "Check out my collection of cards!"
+msgstr "Xem qua bộ sưu tập thẻ của tôi!"
+
+#: cpro/forms.py:94 cpro/forms.py:327
+msgid "The game didn't even exist at that time."
+msgstr "Game này chưa từng tồn tại ở thời điểm đó"
+
+#: cpro/forms.py:129 cpro/forms.py:130 cpro/forms.py:164 cpro/forms.py:264
+#: cpro/forms.py:342 cpro/models.py:52 cpro/templates/items/idolInfo.html:24
+msgid "Type"
+msgstr "Loại"
+
+#: bang/magicollections.py:65 bang/models.py:57
+msgid "Center"
+msgstr "Trung tâm"
+
+#: bang/forms.py:190 bang/forms.py:303 bang/models.py:272
+msgid "Rarity"
+msgstr "Độ hiếm"
+
+#: cpro/forms.py:133
+msgid "Favorite Idol"
+msgstr "Idol yêu thích"
+
+#: cpro/forms.py:138 cpro/models.py:217
+msgid "Producer Rank"
+msgstr "Cấp độ Producer"
+
+#: cpro/forms.py:140 cpro/forms.py:177 cpro/forms.py:216 cpro/forms.py:285
+msgid "Reverse Order"
+msgstr "Đảo ngược thứ tự"
+
+#: sukutomo/models.py:39
+msgid "Accept friend requests"
+msgstr "Chấp nhận lời mời kết bạn"
+
+#: sukutomo/forms.py:34 sukutomo/forms.py:35 sukutomo/models.py:114
+#: sukutomo/models.py:125
+msgid "Name"
+msgstr "Tên"
+
+#: sukutomo/forms.py:38 sukutomo/models.py:182
+msgid "Age"
+msgstr "Tuổi"
+
+#: sukutomo/forms.py:37 sukutomo/models.py:183
+msgid "Birthday"
+msgstr "Sinh nhật"
+
+#: sukutomo/forms.py:40 sukutomo/models.py:215 sukutomo/models.py:221
+msgid "Bust"
+msgstr "Vòng 1"
+
+#: sukutomo/forms.py:41 sukutomo/models.py:216 sukutomo/models.py:222
+msgid "Waist"
+msgstr "Vòng 2"
+
+#: sukutomo/forms.py:42 sukutomo/models.py:217 sukutomo/models.py:223
+msgid "Hips"
+msgstr "Vòng 3"
+
+#: bang/forms.py:322 bang/forms.py:325 bang/forms.py:328 bang/forms.py:331
+#: bang/forms.py:471 bang/forms.py:474 bang/forms.py:477 bang/forms.py:480
+#: bang/magicollections.py:1124 bang/magicollections.py:1309 bang/models.py:862
+#: bang/models.py:871 bang/models.py:876 bang/models.py:881 bang/models.py:1167
+#: bang/models.py:1171 bang/models.py:1175 bang/models.py:1179
+msgid "Beginning"
+msgstr "Xuất phát"
+
+#: bang/forms.py:323 bang/forms.py:326 bang/forms.py:329 bang/forms.py:332
+#: bang/forms.py:472 bang/forms.py:475 bang/forms.py:478 bang/forms.py:481
+#: bang/magicollections.py:1125 bang/magicollections.py:1310 bang/models.py:863
+#: bang/models.py:872 bang/models.py:877 bang/models.py:882 bang/models.py:1168
+#: bang/models.py:1172 bang/models.py:1176 bang/models.py:1180
+msgid "End"
+msgstr "Kết thúc"
+
+#: cpro/forms.py:213 cpro/models.py:145 cpro/models.py:147 cpro/models.py:149
+#: cpro/models.py:151 cpro/models.py:153
+msgid "T{} points"
+msgstr "Điểm T{}"
+
+#: cpro/forms.py:214 cpro/models.py:146 cpro/models.py:148 cpro/models.py:150
+#: cpro/models.py:152 cpro/models.py:154
+msgid "T{} rank"
+msgstr "Rank T{}"
+
+#: bang/forms.py:237 bang/magicollections.py:589 bang/magicollections.py:915
+#: bang/magicollections.py:1183 bang/magicollections.py:1433 bang/models.py:935
+#: bang/models.py:1087 bang/models.py:1187 bang/settings.py:63
+msgid "Event"
+msgstr "Event"
+
+#: bang/forms.py:243 bang/forms.py:555 bang/magicollections.py:1305
+#: bang/models.py:1165
+msgid "Limited"
+msgstr "Giới hạn"
+
+#: cpro/forms.py:277 cpro/forms.py:279 cpro/forms.py:281 cpro/forms.py:283
+#: cpro/models.py:350 cpro/models.py:374 cpro/models.py:384 cpro/models.py:394
+#: cpro/models.py:406 cpro/models.py:416 cpro/models.py:426 cpro/models.py:435
+#: cpro/models.py:436 cpro/models.py:439 cpro/models.py:440 cpro/models.py:443
+#: cpro/models.py:444 cpro/models.py:447 cpro/models.py:448 cpro/models.py:742
+#: cpro/models.py:790
+msgid "Awakened"
+msgstr "Thức tỉnh"
+
+#: bang/magicollections.py:611 bang/magicollections.py:723
+#: bang/magicollections.py:724 bang/models.py:505 bang/models.py:507
+msgid "Art"
+msgstr "Art"
+
+#: cpro/forms.py:270 cpro/models.py:366
+#: cpro/templates/include/cards-stats.html:44
+msgid "Release Date"
+msgstr "Ngày ra mắt"
+
+#: bang/forms.py:187 bang/magicollections.py:555 bang/models.py:262
+msgid "ID"
+msgstr "ID"
+
+#: cpro/forms.py:276 cpro/forms.py:277 cpro/model_choices.py:43
+#: cpro/model_choices.py:247 cpro/model_choices.py:252 cpro/models.py:437
+#: cpro/models.py:438 cpro/models.py:439 cpro/models.py:440 cpro/models.py:494
+msgid "Vocal"
+msgstr "Vocal"
+
+#: cpro/forms.py:278 cpro/forms.py:279 cpro/model_choices.py:44
+#: cpro/model_choices.py:249 cpro/model_choices.py:252 cpro/models.py:441
+#: cpro/models.py:442 cpro/models.py:443 cpro/models.py:444 cpro/models.py:496
+msgid "Dance"
+msgstr "Dance"
+
+#: bang/forms.py:196 bang/forms.py:197 bang/magicollections.py:799
+#: bang/models.py:519 bang/models.py:520 bang/models.py:521 bang/models.py:590
+msgid "Visual"
+msgstr "Visual"
+
+#: bang/forms.py:310 bang/forms.py:666 bang/magicollections.py:577
+#: bang/models.py:413
+msgid "Skill"
+msgstr "Kĩ năng"
+
+#: cpro/model_choices.py:9
+msgid "Skilled Producer"
+msgstr "Skilled Producer"
+
+#: cpro/model_choices.py:10
+msgid "Expert Producer"
+msgstr "Expert Producer"
+
+#: cpro/model_choices.py:11
+msgid "Veteran Producer"
+msgstr "Veteran Producer"
+
+#: cpro/model_choices.py:12
+msgid "Ultimate Producer"
+msgstr "Ultimate Producer"
+
+#: cpro/model_choices.py:13
+msgid "Idol Master"
+msgstr "Idol Master"
+
+#: cpro/model_choices.py:25
+msgid "Cute"
+msgstr "Cute"
+
+#: sukutomo/models.py:131
+msgid "Cool"
+msgstr "Cool"
+
+#: cpro/model_choices.py:27
+msgid "Passion"
+msgstr "Passion"
+
+#: cpro/model_choices.py:54
+msgid "Right"
+msgstr "Tay phải"
+
+#: cpro/model_choices.py:54
+msgid "Left"
+msgstr "Tay trái"
+
+#: cpro/model_choices.py:54
+msgid "Both"
+msgstr "Cả hai"
+
+#: sukutomo/models.py:186
+msgid "Leo"
+msgstr "Cung Sư Tử"
+
+#: sukutomo/models.py:187
+msgid "Aries"
+msgstr "Cung Bạch Dương"
+
+#: sukutomo/models.py:188
+msgid "Libra"
+msgstr "Cung Thiên Bình"
+
+#: sukutomo/models.py:189
+msgid "Virgo"
+msgstr "Cung Xử Nữ"
+
+#: sukutomo/models.py:190
+msgid "Scorpio"
+msgstr "Cung Thiên Yết"
+
+#: sukutomo/models.py:191
+msgid "Capricorn"
+msgstr "Cung Ma Kết"
+
+#: sukutomo/models.py:192
+msgid "Pisces"
+msgstr "Cung Song Ngư"
+
+#: sukutomo/models.py:193
+msgid "Gemini"
+msgstr "Cung Song Tử"
+
+#: sukutomo/models.py:194
+msgid "Cancer"
+msgstr "Cung Cự Giải"
+
+#: sukutomo/models.py:195
+msgid "Sagittarius"
+msgstr "Cung Xạ Thủ"
+
+#: sukutomo/models.py:196
+msgid "Aquarius"
+msgstr "Cung Bảo Bình"
+
+#: sukutomo/models.py:197
+msgid "Taurus"
+msgstr "Cung Kim Ngưu"
+
+#: cpro/model_choices.py:98
+msgid "Token"
+msgstr "Token"
+
+#: cpro/model_choices.py:99
+msgid "Medley"
+msgstr "Medley"
+
+#: cpro/model_choices.py:100
+msgid "Coop"
+msgstr "Coop"
+
+#: cpro/model_choices.py:101
+msgid "Caravan"
+msgstr "Caravan"
+
+#: cpro/model_choices.py:117
+msgid "Rare"
+msgstr "Rare"
+
+#: cpro/model_choices.py:118
+msgid "Super Rare"
+msgstr "Super Rare"
+
+#: cpro/model_choices.py:119
+msgid "Super Super Rare"
+msgstr "Super Super Rare"
+
+#: cpro/model_choices.py:155
+msgid "Lesser Perfect Lock"
+msgstr "Lesser Perfect Lock"
+
+#: cpro/model_choices.py:156
+msgid "Greater Perfect Lock"
+msgstr "Greater Perfect Lock"
+
+#: cpro/model_choices.py:157
+msgid "Extreme Perfect Lock"
+msgstr "Extreme Perfect Lock"
+
+#: cpro/model_choices.py:158
+msgid "Combo Lock"
+msgstr "Combo Lock"
+
+#: cpro/model_choices.py:159
+msgid "Healer"
+msgstr "Healer"
+
+#: cpro/model_choices.py:160
+msgid "Life Lock"
+msgstr "Life Lock"
+
+#: cpro/model_choices.py:161
+msgid "Combo Bonus"
+msgstr "Combo Bonus"
+
+#: cpro/model_choices.py:162
+msgid "Perfect Score Bonus"
+msgstr "Perfect Score Bonus"
+
+#: cpro/model_choices.py:163
+msgid "Overload"
+msgstr "Overload"
+
+#: cpro/model_choices.py:164
+msgid "Score Boost"
+msgstr "Score Boost"
+
+#: cpro/model_choices.py:190
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Great notes into Perfect notes in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, sẽ có {trigger_chance}% cơ hội chuyển tất cả Great thành Perfect trong {skill_duration} giây sau đó."
+
+#: cpro/model_choices.py:191
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, sẽ có {trigger_chance}% cơ hội chuyển tất cả Nice và Great thành Perfect trong {skill_duration} giây sau đó."
+
+#: cpro/model_choices.py:192
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Bad, Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, sẽ có {trigger_chance}% cơ hội chuyển tất cả Bad, Nice và Great thành Perfect trong {skill_duration} giây sau đó."
+
+#: cpro/model_choices.py:193
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Nice notes will not break the combo in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% cơ hội Nice sẽ không phá Combo trong {skill_duration} giây sau đó."
+
+#: cpro/model_choices.py:194
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will restore {skill_value} life in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% cơ hội Perfect sẽ hồi {skill_value} thể lực trong {skill_duration} giây sau đó."
+
+#: cpro/model_choices.py:195
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will not lose health in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% bạn không bị mất thể lực trong {skill_duration} giây sau đó."
+
+#: cpro/model_choices.py:196
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, sẽ có {trigger_chance}% cơ hội nhận được thêm {skill_value}% combo bonus trong {skill_duration} giây sau đó."
+
+#: cpro/model_choices.py:197
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% cơ hội Perfect sẽ nhận được {skill_value} điểm thưởng trong {skill_duration} giây sau đó."
+
+#: cpro/model_choices.py:198
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% bonus and Nice and Bad notes will not break your combo in the next {skill_duration} seconds, at the cost of {skill_value2} life."
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% cơ hội Perfect sẽ nhận được thêm {skill_value} điểm thưởng và Nice, Bad sẽ không phá Combo trong {skill_duration} giây sau đó, đổi lại {skill_value2} thể lực."
+
+#: cpro/model_choices.py:199
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Great and Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% cơ hội Great và Perfect sẽ nhận được thêm {skill_value} điểm thưởng trong {skill_duration} giây sau đó."
+
+#: cpro/model_choices.py:223
+msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}%."
+msgstr "Tăng {leader_skill_type} của tất cả {idol_type} idol trong {leader_skill_percent}%"
+
+#: cpro/model_choices.py:232 cpro/model_choices.py:250 cpro/models.py:433
+#: cpro/models.py:434 cpro/models.py:435 cpro/models.py:436 cpro/models.py:493
+msgid "Life"
+msgstr "Life"
+
+#: cpro/model_choices.py:265
+msgid "Voice"
+msgstr "Voice"
+
+#: cpro/model_choices.py:266
+msgid "Make-Up"
+msgstr "Make-up"
+
+#: cpro/model_choices.py:267
+msgid "Step"
+msgstr "Step"
+
+#. Type of skill?
+#: cpro/model_choices.py:268
+msgid "Energy"
+msgstr "Energy"
+
+#: cpro/model_choices.py:269
+msgid "Ability"
+msgstr "Ability"
+
+#: cpro/model_choices.py:270
+msgid "Brilliance"
+msgstr "Brilliance"
+
+#: cpro/model_choices.py:285 cpro/model_choices.py:295
+msgid "Shiny"
+msgstr "Shiny"
+
+#: cpro/model_choices.py:286 cpro/model_choices.py:296
+msgid "Tricolor"
+msgstr "Tricolor"
+
+#: sukutomo/models.py:53
+msgid "Thumbs"
+msgstr "Ngón cái"
+
+#: sukutomo/models.py:57
+msgid "All fingers"
+msgstr "Tất cả ngón tay"
+
+#: sukutomo/models.py:61
+msgid "Index fingers"
+msgstr "Ngón trỏ"
+
+#: sukutomo/models.py:65
+msgid "One hand"
+msgstr "Một tay"
+
+#: sukutomo/models.py:69
+msgid "Other"
+msgstr "Khác"
+
+#: cpro/models.py:61 cpro/templates/items/idolInfo.html:101
+msgid "Blood Type"
+msgstr "Nhóm máu"
+
+#: cpro/models.py:64 cpro/templates/items/idolInfo.html:108
+msgid "Writing Hand"
+msgstr "Tay thuận"
+
+#: bang/models.py:204
+msgid "Astrological Sign"
+msgstr "Cung hoàng đạo"
+
+#: cpro/models.py:75 cpro/models.py:76 cpro/templates/items/idolInfo.html:143
+msgid "Hometown"
+msgstr "Quê"
+
+#: sukutomo/models.py:225
+msgid "Hobbies"
+msgstr "Sở thích"
+
+#: bang/magicollections.py:275 bang/models.py:177 bang/models.py:178
+msgid "CV"
+msgstr "VA"
+
+#: cpro/forms.py:165 cpro/models.py:84 cpro/templates/items/idolInfo.html:177
+#: cpro/templates/items/idolInfo.html:180
+msgid "Signature"
+msgstr "Chữ kí"
+
+#: cpro/models.py:142
+msgid "Kind"
+msgstr "Loại"
+
+#: cpro/models.py:199 cpro/templates/ajax/account_about.html:6
+msgid "Game ID"
+msgstr "Game ID"
+
+#: sukutomo/models.py:40
+msgid "Device"
+msgstr "Máy"
+
+#: sukutomo/models.py:75
+msgid "Play with"
+msgstr "Chơi với"
+
+#: sukutomo/models.py:81
+msgid "Operating System"
+msgstr "Hệ điều hành"
+
+#: sukutomo/magicollections.py:82
+msgid "Idol"
+msgstr "Idol"
+
+#: bang/forms.py:434 bang/forms.py:435 bang/forms.py:551 bang/forms.py:552
+#: bang/forms.py:634 bang/forms.py:635 bang/magicollections.py:567
+#: bang/models.py:297 bang/models.py:299 bang/models.py:300 bang/models.py:820
+#: bang/models.py:821 bang/models.py:823 bang/models.py:1000
+#: bang/models.py:1001 bang/models.py:1002 bang/models.py:1004
+#: bang/models.py:1154 bang/models.py:1155 bang/models.py:1157
+msgid "Title"
+msgstr "Chủ đề"
+
+#: bang/magicollections.py:611 bang/magicollections.py:725 bang/models.py:509
+#: bang/models.py:510
+msgid "Transparent"
+msgstr "Transparent"
+
+#: bang/magicollections.py:611 bang/models.py:503 bang/models.py:504
+msgid "Icon"
+msgstr "Icon"
+
+#: cpro/models.py:421 cpro/models.py:426
+#: cpro/templates/include/cards-stats.html:165
+#: cpro/templates/include/cards-stats.html:171
+msgid "Puchi"
+msgstr "Puchi"
+
+#: bang/models.py:513 bang/models.py:516 bang/models.py:519
+msgid "Minimum"
+msgstr "Nhỏ nhất"
+
+#: bang/magicollections.py:756 bang/magicollections.py:763 bang/models.py:514
+#: bang/models.py:515 bang/models.py:517 bang/models.py:518 bang/models.py:520
+#: bang/models.py:521
+msgid "Maximum"
+msgstr "Lớn nhất"
+
+#: bang/forms.py:198 bang/forms.py:199 bang/magicollections.py:756
+#: bang/magicollections.py:763 bang/magicollections.py:800 bang/models.py:591
+msgid "Overall"
+msgstr "Tổng cộng"
+
+#: cpro/models.py:743 cpro/templates/items/ownedcardItem.html:9
+msgid "Max Bonded"
+msgstr "Gắn kết tối đa"
+
+#: bang/models.py:746
+msgid "Max Leveled"
+msgstr "Cấp độ tối đa"
+
+#: cpro/models.py:745 cpro/templates/items/ownedcardItem.html:11
+msgid "Star Rank"
+msgstr "Cấp sao"
+
+#: cpro/models.py:749 cpro/templates/include/cards-stats.html:68
+#: cpro/templates/items/ownedcardItem.html:14
+msgid "Skill Level"
+msgstr "Cấp độ kĩ năng"
+
+#: cpro/models.py:753 cpro/templates/items/ownedcardItem.html:17
+msgid "Obtained Date"
+msgstr "Ngày sở hữu"
+
+#: bang/magicollections.py:329 bang/magicollections.py:365
+#: bang/magicollections.py:495 bang/magicollections.py:1083
+#: bang/magicollections.py:1285 bang/models.py:217
+#: bang/templates/pages/indexBackground.html:21
+msgid "Cards"
+msgstr "Thẻ"
+
+#: bang/magicollections.py:916
+msgid "Events"
+msgstr "Events"
+
+#: bang/magicollections.py:1462
+msgid "Songs"
+msgstr "Bài hát"
+
+#: cpro/settings.py:38
+msgid "{nth} Favorite Idol"
+msgstr "{nth} Idol yêu thích"
+
+#: cpro/settings.py:59
+msgid "Favorite Cards"
+msgstr "Thẻ yêu thích"
+
+#: bang/settings.py:62
+msgid "New Cards"
+msgstr "Thẻ mới"
+
+#: bang/settings.py:64
+msgid "Live"
+msgstr "Live"
+
+#: bang/settings.py:61
+msgid "Comedy"
+msgstr "Hài hước"
+
+#: cpro/settings.py:71
+msgid "Room Decoration"
+msgstr "Trang trí phòng"
+
+#: bang/settings.py:65
+msgid "Introduce yourself"
+msgstr "Giới thiệu bản thân"
+
+#: sukutomo/magicollections.py:83
+msgid "Idols"
+msgstr "Idols"
+
+#: bang/settings.py:68
+msgid "Cosplay"
+msgstr "Cosplay"
+
+#: bang/settings.py:67
+msgid "Anime"
+msgstr "Anime"
+
+#: bang/settings.py:71 bang/settings.py:140
+msgid "Community"
+msgstr "Cộng đồng"
+
+#: bang/magicollections.py:325 bang/magicollections.py:364
+#: bang/magicollections.py:494 bang/magicollections.py:928
+#: bang/magicollections.py:936 bang/models.py:743 bang/models.py:791
+msgid "Card"
+msgstr "Thẻ"
+
+#: cpro/templates/ajax/account_about.html:14
+msgid "Yes"
+msgstr "Có"
+
+#: cpro/templates/ajax/account_about.html:14
+msgid "No"
+msgstr "Không"
+
+#: cpro/templates/include/afterCards.html:4
+msgid "Share your cards!"
+msgstr "Chia sẻ các thẻ của bạn!"
+
+#: cpro/templates/include/beforeCards.html:11
+msgid "Start sharing your beautiful collection!"
+msgstr "Bắt đầu chia sẻ bộ sưu tập tuyệt đẹp của bạn!"
+
+#: cpro/templates/include/beforeCards.html:13
+msgid "Open the game, go to Idols (\"アイドル\"), then go to Idols List (\"所属アイドル一覧\")"
+msgstr "Mở game, nhấn vào Idols (\"アイドル\"), rồi nhấn vào Danh sách Idol (\"所属アイドル一覧\")"
+
+#: cpro/templates/include/beforeCards.html:14
+msgid "Go through the list of cards below and click \"+\" on the ones you have to add them in your Cinderella Producers collection, then click again for more options"
+msgstr "Lướt qua danh sách thẻ bên dưới và nhấn \"+\" ở vị trí mà bạn cần thêm họ vào bộ sưu tập Cinderella Producer, rồi nhấn thêm lần nữa để hiện thêm những tùy chọn"
+
+#: cpro/templates/include/beforeCards.html:30
+msgid "Next"
+msgstr "Tiếp"
+
+#: cpro/templates/include/cards-collection.html:25
+msgid "Click to add %(card)s to your collection"
+msgstr "Nhấn để thêm %(card)s vào bộ sưu tập của bạn"
+
+#: cpro/templates/include/cards-stats.html:78
+msgid "Leader Skill"
+msgstr "Kĩ năng nhóm trưởng"
+
+#: cpro/forms.py:274 cpro/templates/include/cards-stats.html:90
+msgid "Scouted by"
+msgstr "Sở hữu bởi"
+
+#: cpro/templates/include/cards-stats.html:158
+msgid "Download"
+msgstr "Tải xuống"
+
+#: cpro/templates/items/cardItem.html:9
+msgid "Card Info"
+msgstr "Thông tin thẻ"
+
+#: cpro/templates/items/cardItem.html:15
+msgid "Add to"
+msgstr "Thêm vào"
+
+#: cpro/templates/items/cardItem.html:23
+msgid "Add this card to your collection"
+msgstr "Thêm thẻ này vào bộ sưu tập của bạn"
+
+#: cpro/templates/items/cardItem.html:26 cpro/templates/items/cardItem.html:28
+msgid "Your cards"
+msgstr "Thẻ của bạn"
+
+#: cpro/templates/items/cardItem.html:36
+msgid "Remove this card from your favorites"
+msgstr "Bỏ thẻ này khỏi danh sách yêu thích của bạn"
+
+#: cpro/templates/items/cardItem.html:38
+msgid "Add this card to your favorites"
+msgstr "Thêm thẻ này vào danh sách yêu thích của bạn"
+
+#: bang/models.py:218
+msgid "Fans"
+msgstr "Fans"
+
+#: magi/utils.py:311
+msgid "Only"
+msgstr "Duy nhất"
+
+#: magi/utils.py:314
+msgid "None"
+msgstr "Trống"
+
+#: magi/default_settings.py:20
+msgid "Liked this activity"
+msgstr "Đã thích hoạt động này"
+
+#: magi/default_settings.py:21
+msgid "Loading"
+msgstr "Đang tải..."
+
+#: cpro/model_choices.py:102
+msgid "LIVE Parade"
+msgstr "LIVE Parade"
+
+#: cpro/models.py:195
+msgid "Producer Level"
+msgstr "Cấp độ Producer"
+
+#: cpro/templates/include/beforeEvents.html:6
+msgid "%(idol)s performed in %(total_results)s events"
+msgstr "%(idol)s đã trình diễn %(total_results)s event"
+
+#: cpro/templates/include/beforeLeaderboard.html:29
+msgid "%(total_results)s producers scouted %(own_card)s"
+msgstr "%(total_results)s Producer đã sở hữu %(own_card)s"
+
+#: magi/magicollections.py:2112 magi/magicollections.py:2222
+msgid "Badge"
+msgstr "Huy hiệu"
+
+#: magi/default_settings.py:497 magi/magicollections.py:2113
+msgid "Badges"
+msgstr "Các huy hiệu"
+
+#: magi/models.py:949
+msgid "Bronze"
+msgstr "Đồng"
+
+#: magi/models.py:950
+msgid "Silver"
+msgstr "Bạc"
+
+#: magi/models.py:951
+msgid "Gold"
+msgstr "Vàng"
+
+#: magi/templates/include/homePage.html:17
+#: magi/templates/include/homePage.html:19
+msgid "%(percent)s%% funded"
+msgstr "%(percent)s%% đã tài trợ"
+
+#: magi/templates/items/badgeInfo.html:12
+msgid "Granted by"
+msgstr "Được cấp bởi"
+
+#: magi/templates/items/donateItem.html:15
+msgid "No donation yet"
+msgstr "Chưa đóng góp"
+
+#: magi/templates/items/donateItem.html:17
+msgid "Server cost"
+msgstr "Phí Server"
+
+#: magi/forms.py:1010 magi/forms.py:1099
+#: magi/templates/items/donateItem.html:19
+msgid "Learn more"
+msgstr "Tìm hiểu thêm"
+
+#: bang/forms.py:108
+msgid "Popularity"
+msgstr "Độ nổi tiếng"
+
+#: cpro/forms.py:275 cpro/templates/include/cards-stats.html:102
+msgid "Favorited by"
+msgstr "Được yêu thích bởi"
+
+#: bang/settings.py:69
+msgid "Fan made"
+msgstr "Fan made"
+
+#: bang/settings.py:70
+msgid "Merchandise"
+msgstr "Sản phẩm"
+
+#: cpro/settings.py:79
+msgid "Unrelated"
+msgstr "Không liên quan"
+
+#: cpro/templates/include/cards-stats.html:92
+#: cpro/templates/include/cards-stats.html:104
+msgid "%(total)s producer"
+msgid_plural "%(total)s producers"
+msgstr[0] "%(total)s Producer"
+
+#: cpro/templates/include/cards-stats.html:119
+#: cpro/templates/items/eventInfo.html:144
+#: cpro/templates/items/idolInfo.html:196
+msgid "Share"
+msgstr "Chia sẻ"
+
+#: magi/default_settings.py:22
+msgid "Local time"
+msgstr "Giờ địa phương"
+
+#: magi/forms.py:778 magi/item_model.py:494 magi/magicollections.py:437
+#: magi/magicollections.py:616 magi/models.py:765 magi/models.py:772
+#: magi/models.py:859
+msgid "Open {thing}"
+msgstr "Mở {thing}"
+
+#: magi/forms.py:392
+msgid "Reverse order"
+msgstr "Đảo ngược thứ tự"
+
+#: magi/forms.py:1168 magi/models.py:833
+#: magi/templates/items/reportItem.html:29
+msgid "Reason"
+msgstr "Lý do"
+
+#: magi/item_model.py:497 magi/magicollections.py:759
+#: magi/magicollections.py:832 magi/magicollections.py:870
+msgid "Edit {thing}"
+msgstr "Chỉnh sửa {thing}"
+
+#: magi/item_model.py:500 magi/magicollections.py:769 magi/views.py:212
+msgid "Delete {thing}"
+msgstr "Xoá {thing}"
+
+#: magi/item_model.py:503
+msgid "Report {thing}"
+msgstr "Báo cáo {thing}"
+
+#: magi/magicollections.py:866 magi/views.py:210 magi/views.py:211
+msgid "Add {thing}"
+msgstr "Thêm {thing}"
+
+#: magi/magicollections.py:2296
+msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
+msgstr "Chỉ được gửi báo cáo nếu có một vấn đề cụ thể với {thing}. Nếu nó liên quan tới một thứ khác, báo cáo của bạn sẽ bị bỏ qua. Ví dụ, đừng báo cáo một tài khoản hoặc một hồ sơ nếu có vấn đề với hoạt động của họ. Tìm thanh \"Báo cáo\" ngay bây giờ để báo cáo riêng lẻ:"
+
+#: magi/models.py:615
+msgid "Only post official artworks, artworks you own, or fan artworks that are approved by the artist and credited."
+msgstr "Chỉ được đăng bức vẽ chính thức, bức vẽ của riêng bạn, hoặc bức vẽ của fan đã được công nhận bởi hoạ sĩ gốc."
+
+#: magi/models.py:973
+msgid "{month} Donator"
+msgstr "{month} Người đóng góp"
+
+#: magi/models.py:979
+msgid "{donation_platform} supporter of {site_name} who donated to help cover the server costs"
+msgstr "{donation_platform} người ủng hộ của {site_name} đã đóng góp để giúp bù đắp chi phí của server"
+
+#: magi/raw.py:7
+msgid "lovely"
+msgstr "đáng yêu"
+
+#: magi/raw.py:8
+msgid "awesome"
+msgstr "tuyệt vời"
+
+#: magi/raw.py:9
+msgid "incredible"
+msgstr "tuyệt vời"
+
+#: magi/raw.py:10
+msgid "adorable"
+msgstr "dễ thương"
+
+#: magi/raw.py:11
+msgid "generous"
+msgstr "hào phóng"
+
+#: magi/raw.py:12
+msgid "idols-addicted"
+msgstr "nghiện idol"
+
+#: magi/raw.py:13
+msgid "friendly"
+msgstr "thân thiện"
+
+#: magi/raw.py:14
+msgid "kind"
+msgstr "tốt bụng"
+
+#: magi/raw.py:15
+msgid "warmhearted"
+msgstr "hăng hái"
+
+#: magi/raw.py:16
+msgid "nice"
+msgstr "tốt"
+
+#: magi/templates/emails/donation_footer.html:3
+#: magi/templates/include/donate.html:10
+msgid "If you like the website, please consider donating"
+msgstr "Nếu bạn thích trang web, xin hãy xem xét và đóng góp"
+
+#: magi/templates/emails/notification.html:30
+#: magi/templates/emails/notification.txt:7
+msgid "Click here to turn off email notifications."
+msgstr "Nhấn vào để tắt thông báo email."
+
+#: magi/templates/emails/report.html:21
+#: magi/templates/items/activityItem.html:13
+msgid "Translate from %(from_language)s to %(to_language)s"
+msgstr "Dịch từ %(from_language)s sang %(to_language)s"
+
+#: magi/templates/items/profile.html:23
+msgid "follows you"
+msgstr "theo dõi bạn"
+
+#: magi/views.py:606
+msgid "Successfully edited!"
+msgstr "Chỉnh sửa thành công!"
+
+#: stardustrun/forms.py:84
+msgid "The game didn't even existed at that time."
+msgstr "Game chưa từng tồn tại ở thời điểm đó."
+
+#: bang/magicollections.py:1039 bang/magicollections.py:1266
+msgid "Countdown"
+msgstr "Đếm ngược"
+
+#: bang/magicollections.py:1042 bang/magicollections.py:1269
+msgid "{time} left"
+msgstr "Còn lại {time}"
+
+#: bang/magicollections.py:1042 bang/magicollections.py:1269
+msgid "Starts in {time}"
+msgstr "Bắt đầu trong {time}"
+
+#: bang/forms.py:188 bang/forms.py:189 bang/forms.py:214 bang/forms.py:297
+#: bang/magicollections.py:49 bang/magicollections.py:243
+#: bang/magicollections.py:418 bang/models.py:263
+msgid "Member"
+msgstr "Thành viên"
+
+#: bang/forms.py:221 bang/forms.py:300 bang/forms.py:660
+#: bang/magicollections.py:291 bang/magicollections.py:439
+#: bang/magicollections.py:1425 bang/models.py:163 bang/models.py:998
+msgid "Band"
+msgstr "Nhóm nhạc"
+
+#: sukutomo/models.py:135
+msgid "Attribute"
+msgstr "Thuộc tính"
+
+#: bang/forms.py:192 bang/forms.py:193 bang/magicollections.py:797
+#: bang/models.py:513 bang/models.py:514 bang/models.py:515 bang/models.py:588
+msgid "Performance"
+msgstr "Khả năng trình diễn"
+
+#: bang/forms.py:193 bang/forms.py:195 bang/forms.py:197 bang/forms.py:199
+#: bang/magicollections.py:724 bang/magicollections.py:763
+#: bang/magicollections.py:809 bang/models.py:504 bang/models.py:507
+#: bang/models.py:510 bang/models.py:515 bang/models.py:518 bang/models.py:521
+#: bang/models.py:744
+msgid "Trained"
+msgstr "Đã tập luyện"
+
+#: bang/forms.py:194 bang/forms.py:195 bang/magicollections.py:798
+#: bang/models.py:516 bang/models.py:517 bang/models.py:518 bang/models.py:589
+msgid "Technique"
+msgstr "Kĩ thuật"
+
+#: bang/magicollections.py:244 bang/settings.py:66
+msgid "Members"
+msgstr "Các thành viên"
+
+#: bang/models.py:170
+msgid "First"
+msgstr "Nhất"
+
+#: bang/models.py:171
+msgid "Second"
+msgstr "Thứ 2"
+
+#: bang/models.py:276 bang/settings.py:93
+msgid "Power"
+msgstr "Power"
+
+#: sukutomo/models.py:130
+msgid "Pure"
+msgstr "Pure"
+
+#: bang/models.py:288 bang/settings.py:96
+msgid "Happy"
+msgstr "Happy"
+
+#: bang/models.py:319
+msgid "Score up"
+msgstr "Tăng điểm"
+
+#: bang/models.py:347
+msgid "Life recovery"
+msgstr "Hồi thể lực"
+
+#: bang/models.py:363
+msgid "Perfect lock"
+msgstr "Perfect lock"
+
+#: sukutomo/forms.py:36 sukutomo/models.py:171
+msgid "School"
+msgstr "Trường"
+
+#: bang/models.py:174
+msgid "School Year"
+msgstr "Năm"
+
+#: bang/models.py:182 bang/models.py:184
+msgid "Liked food"
+msgstr "Đồ ăn ưa thích"
+
+#: bang/models.py:186 bang/models.py:188
+msgid "Disliked food"
+msgstr "Đồ ăn không thích"
+
+#: bang/models.py:568 bang/models.py:569 bang/models.py:572
+msgid "Level {level}"
+msgstr "Cấp {level}"
+
+#: bang/settings.py:58
+msgid "{nth} Favorite Member"
+msgstr "{nth} Thành viên ưa thích"
+
+#: cpro/templates/items/eventInfo.html:14
+msgid "days"
+msgstr "ngày"
+
+#: cpro/templates/items/eventInfo.html:14
+msgid "hours"
+msgstr "giờ"
+
+#: cpro/templates/items/eventInfo.html:14
+msgid "minutes"
+msgstr "phút"
+
+#: bang/forms.py:67
+msgid "Favorite Member"
+msgstr "Thành viên ưa thích"
+
+#: bang/magicollections.py:280
+msgid "Source"
+msgstr "Nguồn"
+
+#: bang/models.py:208 bang/models.py:210
+msgid "Instrument"
+msgstr "Nhạc cụ"
+
+#: magi/magicollections.py:369
+msgid "Collected {thing}"
+msgstr "Đã sưu tập {thing}"
+
+#: bang/magicollections.py:662 bang/models.py:400 bang/models.py:401
+#: bang/models.py:403
+msgid "Skill name"
+msgstr "Tên kĩ năng"
+
+#: bang/forms.py:272 bang/magicollections.py:388 bang/models.py:747
+msgid "{nth} episode"
+msgstr "{nth} tập"
+
+#: bang/models.py:748
+msgid "Memorial episode"
+msgstr "Tập kỉ niệm"
+
+#: magi/abstract_models.py:129
+msgid "Join date"
+msgstr "Ngày tham gia"
+
+#: magi/abstract_models.py:130
+msgid "Give a nickname to your account to easily differentiate it from your other accounts when you're managing them."
+msgstr "Đặt một nickname cho tài khoản của bạn để dễ nhận biết với các tài khoản còn lại khi bạn đang quản lí chúng."
+
+#: magi/abstract_models.py:131
+msgid "Start date"
+msgstr "Ngày bắt đầu"
+
+#: magi/abstract_models.py:134 magi/models.py:95
+msgid "Default tab"
+msgstr "Trang mặc định"
+
+#: magi/views.py:126
+msgid "Email"
+msgstr "Email"
+
+#: magi/forms.py:224 magi/forms.py:233
+msgid "You've added a lot of {things}, lately. Try to wait a little bit before adding more."
+msgstr "Bạn đã vừa thêm quá nhiều {things}. Thử đợi một lúc trước khi thêm nhiều hơn nữa."
+
+#: magi/forms.py:240
+msgid "You already have {total} {things}. You can only add up to {max} {things}."
+msgstr "Bạn đã có {total} {things}. Bạn chỉ có thể thêm tối đa {max} {things}"
+
+#: magi/forms.py:394
+msgid "View"
+msgstr "Xem"
+
+#: magi/forms.py:606
+msgid "Please provide an updated screenshot of your in-game profile to prove your level."
+msgstr "Xin hãy cung cấp ảnh chụp màn hình tài khoản trong game của bạn để chứng minh cấp độ của bạn."
+
+#: magi/forms.py:1010 magi/forms.py:1012 magi/forms.py:1099 magi/forms.py:1101
+msgid "You may use Markdown formatting."
+msgstr "Bạn có thể dùng định dạng Markdown."
+
+#. Example: Adding to your account db0
+#. Adding to your card Kotori
+#: magi/magicollections.py:286
+msgid "Adding to your {thing} {name}"
+msgstr "Thêm vào {thing} của bạn {name}"
+
+#: magi/magicollections.py:377
+msgid "Add to your {thing}"
+msgstr "Thêm vào {thing} của bạn"
+
+#: magi/magicollections.py:391
+msgid "Quick edit"
+msgstr "Chỉnh sửa nhanh"
+
+#: magi/magicollections.py:1387
+msgid "Leaderboard position"
+msgstr "Vị trí tại Bảng xếp hạng"
+
+#: magi/templates/pages/about.html:302
+msgid "Need help?"
+msgstr "Cần giúp đỡ?"
+
+#: magi/templates/pages/about.html:303
+msgid "Find answers to your questions"
+msgstr "Tìm câu trả lời cho những câu hỏi của bạn"
+
+#: magi/templates/pages/about.html:307
+msgid "Share a suggestion or a bug"
+msgstr "Chia sẻ một đề nghị hoặc một lỗi"
+
+#: magi/templates/pages/about.html:309
+msgid "Fill our feedback form:"
+msgstr "Điền vào mẫu phản hồi của bọn mình:"
+
+#: magi/templates/pages/about.html:310
+msgid "Feedback form"
+msgstr "Mẫu phản hồi"
+
+#: magi/templates/pages/about.html:312
+msgid "Create a ticket in our bug tracker:"
+msgstr "Tạo một tấm vé vào đội theo dõi lỗi của bọn mình:"
+
+#: magi/templates/pages/about.html:313
+msgid "Bug tracker"
+msgstr "Người theo dõi lỗi"
+
+#: magi/templates/pages/about.html:317
+msgid "Alternatively..."
+msgstr "Theo cách khác..."
+
+#: magi/templates/pages/about.html:318
+msgid "The staff team is available on:"
+msgstr "Đội ngũ sẽ rảnh rỗi vào:"
+
+#: magi/utils.py:336
+msgid "Select {}"
+msgstr "Chọn {}"
+
+#: magi/utils.py:591
+msgid "This date has to be in the future."
+msgstr "Ngày này phải tồn tại trong tương lai."
+
+#: magi/views.py:612
+msgid "Successfully added!"
+msgstr "Thêm vào thành công!"
+
+#: magi/views.py:618
+msgid "Successfully deleted!"
+msgstr "Xoá bỏ thành công!"
+
+#: magi/views_collections.py:219
+msgid "{things} list"
+msgstr "Danh sách {things}"
+
+#: cpro/model_choices.py:165
+msgid "All Round"
+msgstr "Tất cả các vòng"
+
+#: cpro/model_choices.py:166
+msgid "Concentration"
+msgstr "Sự tập trung"
+
+#: cpro/model_choices.py:167
+msgid "Skill Boost"
+msgstr "Cường hoá kĩ năng"
+
+#: cpro/model_choices.py:168
+msgid "Cute/Cool/Passion Focus"
+msgstr "Tập trung vào Cute/Cool/Passion"
+
+#: cpro/model_choices.py:200
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus and Perfect notes will restore {skill_value2} life in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% cơ hội bạn sẽ nhận được thêm {skill_value}% combo bonus và Perfect sẽ hồi cho bạn {skill_value2} thể lực trong {skill_duration} giây tiếp theo."
+
+#: cpro/model_choices.py:201
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus but the timing window for Perfect notes is reduced in the next {skill_duration} seconds."
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% cơ hội Perfect sẽ nhận được {skill_value}% điểm thưởng nhưng khung Perfect sẽ bé lại trong {skill_duration} giây tiếp theo."
+
+#: cpro/model_choices.py:202
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% change that currently active skills will be boosted for {skill_duration} seconds"
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% cơ hội cường hoá kĩ năng kích hoạt hiện tại trong {skill_duration} giây tiếp theo."
+
+#: cpro/model_choices.py:203
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus, but only if you have only {type} idols in your team for {skill_duration} seconds"
+msgstr "Với mỗi {trigger_value} giây, có {trigger_chance}% cơ hội Perfect sẽ nhận được {skill_value}% điểm thưởng, đồng thời nhận thêm {skill_value2}% combo bonus, nhưng chỉ kích hoạt khi bạn có duy nhất idol loại {type} trong team. Kĩ năng có tác dụng trong {skill_duration} giây."
+
+#: cpro/templates/include/beforeLeaderboard.html:21
+msgid "%(total_results)s producers love %(favorite_character_idol)s"
+msgstr "%(total_results)s Producer yêu %(favorite_character_idol)s"
+
+#: cpro/templates/items/eventInfo.html:14
+msgid "seconds left"
+msgstr "giây còn lại"
+
+#: cpro/templates/items/eventInfo.html:30
+msgid "translated in English"
+msgstr "đã dịch sang Tiếng Anh"
+
+#: bang/forms.py:35 bang/magicollections.py:97
+msgid "Total {item} bought"
+msgstr "Tổng cổng {item} đã mua"
+
+#: bang/forms.py:35 bang/magicollections.py:97
+msgid "Star gems"
+msgstr "Star Gems"
+
+#: sukutomo/models.py:37
+msgid "Friend ID"
+msgstr "ID của bạn bè"
+
+#: bang/forms.py:239
+msgid "Promo"
+msgstr "Quảng cáo"
+
+#: bang/forms.py:186 bang/forms.py:633 bang/models.py:311 bang/models.py:1024
+msgid "Release date"
+msgstr "Ngày ra mắt"
+
+#: bang/forms.py:235
+msgid "Origin"
+msgstr "Gốc"
+
+#: bang/forms.py:238 bang/magicollections.py:602 bang/magicollections.py:1059
+#: bang/magicollections.py:1170 bang/magicollections.py:1171
+msgid "Gacha"
+msgstr "Gacha"
+
+#: bang/forms.py:257 bang/forms.py:438 bang/forms.py:558 bang/forms.py:647
+#: bang/models.py:309 bang/models.py:868 bang/models.py:1013
+#: bang/models.py:1193
+msgid "Server availability"
+msgstr "Server khả dụng"
+
+#: bang/forms.py:325 bang/forms.py:326 bang/forms.py:431 bang/forms.py:474
+#: bang/forms.py:475 bang/forms.py:548 bang/models.py:67 bang/models.py:870
+#: bang/models.py:871 bang/models.py:872 bang/models.py:873 bang/models.py:1170
+#: bang/models.py:1171 bang/models.py:1172
+msgid "English version"
+msgstr "Bản Tiếng Anh"
+
+#: bang/forms.py:328 bang/forms.py:329 bang/forms.py:432 bang/forms.py:477
+#: bang/forms.py:478 bang/forms.py:549 bang/models.py:73 bang/models.py:875
+#: bang/models.py:876 bang/models.py:877 bang/models.py:878 bang/models.py:1174
+#: bang/models.py:1175 bang/models.py:1176
+msgid "Taiwanese version"
+msgstr "Bản Tiếng Đài Loan"
+
+#: bang/forms.py:331 bang/forms.py:332 bang/forms.py:433 bang/forms.py:480
+#: bang/forms.py:481 bang/forms.py:550 bang/models.py:79 bang/models.py:880
+#: bang/models.py:881 bang/models.py:882 bang/models.py:883 bang/models.py:1178
+#: bang/models.py:1179 bang/models.py:1180
+msgid "Korean version"
+msgstr "Bản Tiếng Hàn"
+
+#: bang/forms.py:430 bang/forms.py:431 bang/forms.py:432 bang/forms.py:433
+#: bang/forms.py:547 bang/forms.py:548 bang/forms.py:549 bang/forms.py:550
+msgid "Date"
+msgstr "Ngày"
+
+#: bang/forms.py:430 bang/forms.py:547 bang/magicollections.py:1050
+#: bang/magicollections.py:1277 bang/models.py:61 bang/models.py:862
+#: bang/models.py:863
+msgid "Japanese version"
+msgstr "Bản Tiếng Nhật"
+
+#: bang/forms.py:635 bang/models.py:140 bang/models.py:1001
+msgid "Romaji"
+msgstr "La Mã tự"
+
+#: bang/forms.py:636 bang/models.py:1016
+msgid "Length"
+msgstr "Độ dài"
+
+#: bang/forms.py:637
+msgid "BPM"
+msgstr "BPM"
+
+#: bang/forms.py:638 bang/forms.py:639 bang/models.py:984 bang/models.py:1034
+#: bang/models.py:1035 bang/models.py:1114
+msgid "Hard"
+msgstr "Khó"
+
+#: bang/forms.py:638 bang/forms.py:640 bang/models.py:1030 bang/models.py:1032
+#: bang/models.py:1034 bang/models.py:1036
+msgid "Notes"
+msgstr "Notes"
+
+#: bang/forms.py:639 bang/forms.py:641 bang/models.py:1031 bang/models.py:1033
+#: bang/models.py:1035 bang/models.py:1037 bang/models.py:1118
+msgid "Difficulty"
+msgstr "Độ khó"
+
+#: bang/forms.py:640 bang/forms.py:641 bang/models.py:985 bang/models.py:1036
+#: bang/models.py:1037 bang/models.py:1115
+msgid "Expert"
+msgstr "Cực khó"
+
+#: bang/forms.py:644 bang/magicollections.py:1507
+msgid "Cover"
+msgstr "Cover"
+
+#: bang/magicollections.py:101
+msgid "~{}円 spent (~${})"
+msgstr "~{} ¥ đã tiêu (~${})"
+
+#: bang/magicollections.py:245 bang/templates/pages/indexBackground.html:22
+msgid "Characters"
+msgstr "Nhân vật"
+
+#: bang/magicollections.py:325
+msgid "Favorite {thing}"
+msgstr "Yêu thích {thing}"
+
+#: bang/magicollections.py:329
+msgid "Favorite {things}"
+msgstr "Yêu thích {things}"
+
+#: bang/magicollections.py:630 bang/magicollections.py:633
+#: bang/magicollections.py:722 bang/models.py:535
+msgid "Chibi"
+msgstr "Chibi"
+
+#: bang/magicollections.py:709
+msgid "Icons"
+msgstr "Icons"
+
+#: bang/magicollections.py:709
+msgid "Quick add"
+msgstr "Thêm nhanh"
+
+#: bang/magicollections.py:711
+msgid "Statistics"
+msgstr "Số liệu thống kê"
+
+#: bang/magicollections.py:808
+msgid "Min"
+msgstr "Nhỏ nhất"
+
+#: bang/magicollections.py:808 bang/magicollections.py:809
+msgid "Max"
+msgstr "Lớn nhất"
+
+#: bang/magicollections.py:857
+msgid "Participated event"
+msgstr "Event đã tham gia"
+
+#: bang/magicollections.py:858
+msgid "Participated events"
+msgstr "Những event đã tham gia"
+
+#: bang/magicollections.py:1071
+msgid "Boost Members"
+msgstr "Thành viên được tăng cường"
+
+#: bang/magicollections.py:1097
+msgid "Gift song"
+msgstr "Bài hát được tặng"
+
+#: bang/magicollections.py:1303
+msgid "Gacha type"
+msgstr "Loại Gacha"
+
+#: bang/magicollections.py:1305
+msgid "Permanent"
+msgstr "Vĩnh viễn"
+
+#: bang/magicollections.py:1354
+msgid "Played song"
+msgstr "Bài hát đã chơi"
+
+#: bang/magicollections.py:1355
+msgid "Played songs"
+msgstr "Những bài hát đã chơi"
+
+#: bang/magicollections.py:1394 bang/magicollections.py:1461
+#: bang/magicollections.py:1503 bang/models.py:1109
+msgid "Song"
+msgstr "Bài hát"
+
+#: bang/forms.py:236 bang/magicollections.py:1507
+msgid "Original"
+msgstr "Nguyên gốc"
+
+#: bang/magicollections.py:1570
+msgid "{} notes"
+msgstr "{} notes"
+
+#: bang/magicollections.py:1585
+msgid "Songwriters"
+msgstr "Người viết nhạc"
+
+#: sukutomo/models.py:34
+msgid "Version"
+msgstr "Phiên bản"
+
+#: sukutomo/models.py:40
+msgid "The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ..."
+msgstr "Model máy của bạn. Ví dụ: Nexus 5, iPhone 4, iPad 2, ..."
+
+#: bang/models.py:127 bang/models.py:946 bang/models.py:1124
+msgid "Screenshot"
+msgstr "Ảnh chụp màn hình"
+
+#: bang/models.py:127
+msgid "In-game profile screenshot"
+msgstr "Ảnh chụp màn hình hồ sơ trong game"
+
+#: bang/models.py:172
+msgid "Junior Third"
+msgstr "Năm ba trung học cơ sở"
+
+#: bang/models.py:312
+msgid "Promo card"
+msgstr "Thẻ quảng cáo"
+
+#: bang/models.py:326
+msgid "For the next {duration} seconds, score of all notes boosted by +{percentage}%"
+msgstr "Trong {duration} giây tiếp theo, tăng +{percentage}% điểm của tất cả các note"
+
+#: bang/models.py:329
+msgid "For the next {duration} seconds, if life is above {stamina}, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%"
+msgstr "Trong {duration} giây tiếp theo, nếu thể lực vượt trên {stamina}, điểm tăng thêm +{percentage}%, hoặc không, điểm tăng thêm +{alt_percentage}%"
+
+#: bang/models.py:343
+msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
+msgstr "và tăng {percentage}% điểm của tất cả các note trong {duration} giây tiếp theo"
+
+#: bang/models.py:354
+msgid "Restores life by {stamina}"
+msgstr "Hồi {stamina} thể lực"
+
+#: bang/models.py:359
+msgid "and restores life by {stamina}"
+msgstr "và hồi {stamina} thể lực"
+
+#: bang/models.py:370
+msgid "All {note_type} notes turn into PERFECT notes"
+msgstr "Tất cả {note_type} chuyển thành PERFECT"
+
+#: bang/models.py:375
+msgid "and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds"
+msgstr "và chuyển tất cả {note_type} thành PERFECT trong {duration} giây tiếp theo"
+
+#: bang/models.py:745
+msgid "Prefer untrained card image"
+msgstr "Thích ảnh thẻ chưa luyện tập hơn"
+
+#: bang/models.py:749
+msgid "Skill level"
+msgstr "Cấp kĩ năng"
+
+#: bang/models.py:833
+msgid "Challenge Live"
+msgstr "Challenge Live"
+
+#: bang/models.py:834
+msgid "Band Battle"
+msgstr "Band Battle"
+
+#: bang/models.py:835
+msgid "Live Trial"
+msgstr "Live Trial"
+
+#: bang/models.py:837
+msgid "Event type"
+msgstr "Loại Event"
+
+#: bang/models.py:937 bang/models.py:1121
+msgid "Score"
+msgstr "Điểm"
+
+#: bang/models.py:938
+msgid "Ranking"
+msgstr "Xếp hạng"
+
+#: bang/models.py:940
+msgid "Song score"
+msgstr "Điểm bài hát"
+
+#: bang/models.py:941
+msgid "Song ranking"
+msgstr "Xếp hạng của bài hát"
+
+#: bang/models.py:943
+msgid "Trial master completed"
+msgstr "Hoàn thành Trail master"
+
+#: bang/models.py:944
+msgid "Trial master EX completed"
+msgstr "Hoàn thành Trail master EX"
+
+#: bang/models.py:982 bang/models.py:1030 bang/models.py:1031
+#: bang/models.py:1112
+msgid "Easy"
+msgstr "Dễ"
+
+#: bang/models.py:989 bang/models.py:1026
+msgid "Composer"
+msgstr "Biên soạn"
+
+#: bang/models.py:990 bang/models.py:1027
+msgid "Lyricist"
+msgstr "Người soạn lời"
+
+#: bang/models.py:991 bang/models.py:1028
+msgid "Arranger"
+msgstr "Người sắp xếp"
+
+#: bang/models.py:1002
+msgid "Translation"
+msgstr "Biên dịch"
+
+#: bang/models.py:1015
+msgid "Preview"
+msgstr "Xem trước"
+
+#: bang/models.py:1022
+msgid "Cover song"
+msgstr "Bài cover"
+
+#: bang/models.py:1023
+msgid "Beats per minute"
+msgstr "Số nhịp trên phút (BPM)"
+
+#: bang/models.py:1041 bang/models.py:1042
+msgid "Gift"
+msgstr "Quà tặng"
+
+#: bang/models.py:1046 bang/models.py:1047
+msgid "Purchase at CiRCLE"
+msgstr "Mua tại CiRCLE"
+
+#: bang/models.py:1051
+msgid "Complete story"
+msgstr "Cốt truyện hoàn thành"
+
+#: bang/models.py:1052
+msgid "Complete {story_type} story, chapter {chapter}"
+msgstr "Hoàn thành cốt truyện {story_type}, phần {chapter}"
+
+#: bang/models.py:1056 bang/models.py:1057
+msgid "Complete Tutorial"
+msgstr "Hoàn thành hướng dẫn"
+
+#: bang/models.py:1061 bang/models.py:1062
+msgid "Initially available"
+msgstr "Có sẵn ban đầu"
+
+#: bang/models.py:1066 bang/models.py:1067
+msgid "Event gift"
+msgstr "Quà Event"
+
+#: bang/models.py:1078
+msgid "How to unlock?"
+msgstr "Làm sao để nhận được?"
+
+#: bang/models.py:1122
+msgid "Full combo"
+msgstr "Full Combo"
+
+#: bang/settings.py:28 bang/settings.py:80 bang/settings.py:130
+msgid "BanG Dream!"
+msgstr "BanG Dream!"
+
+#: bang/settings.py:28 bang/settings.py:135
+msgid "Girls Band Party"
+msgstr "Girl Band Party"
+
+#: bang/settings.py:122 bang/views.py:18 bang/views.py:19
+msgid "Team builder"
+msgstr "Người xây dựng nhóm"
+
+#: sukutomo/models.py:28
+msgid "Worldwide"
+msgstr "Toàn cầu"
+
+#: sukutomo/models.py:37
+msgid "You can find your friend id by going to the \"Friends\" section from the home, then \"ID Search\". Players will be able to send you friend requests or messages using this number."
+msgstr "Bạn có thể tìm ID của bạn bè bằng cách nhấn vào phần \"Friends\" ở trang chủ, rồi \"ID Search\". Những người chơi khác sẽ gửi cho bạn lời mời kết bạn hoặc tin nhắn qua những con số này"
+
+#: sukutomo/models.py:38
+msgid "Should your friend ID be visible to other players?"
+msgstr "Có nên hiện thỉ ID của bạn bè cho những người chơi khác thấy?"
+
+#: sukutomo/models.py:41
+msgid "Love gems"
+msgstr "Love Gems"
+
+#: sukutomo/models.py:41 sukutomo/models.py:42 sukutomo/models.py:43
+#: sukutomo/models.py:44 sukutomo/models.py:45
+msgid "Number of {} you currently have in your account."
+msgstr "Số {} mà bạn có trong tài khoản."
+
+#: sukutomo/models.py:41 sukutomo/models.py:42 sukutomo/models.py:43
+#: sukutomo/models.py:44 sukutomo/models.py:45
+msgid "This field is completely optional, it's here to help you manage your accounts."
+msgstr "Chỗ này hoàn toàn không bắt buộc, nó giúp bạn quản lý tài khoản tốt hơn."
+
+#: sukutomo/models.py:42
+msgid "Friend Points"
+msgstr "Friend Points"
+
+#: sukutomo/models.py:46
+msgid "Total love gems bought"
+msgstr "Tổng số love gem đã mua"
+
+#: sukutomo/models.py:46
+msgid "You can calculate that number in \"Other\" then \"Purchase History\"."
+msgstr "Bạn có thể tính toán con số đó trong phần \"Other\" rồi \"Purchase History\""
+
+#: sukutomo/models.py:47
+msgid "Should your items be visible to other players?"
+msgstr "Có nên hiển thị item của bạn cho tất cả những người chơi khác xem?"
+
+#: sukutomo/models.py:86
+msgid "Fake"
+msgstr "Giả"
+
+#: sukutomo/models.py:129
+msgid "Smile"
+msgstr "Smile"
+
+#: sukutomo/models.py:144
+msgid "Unit"
+msgstr "Nhóm"
+
+#: sukutomo/magicollections.py:62 sukutomo/models.py:157
+msgid "Subunit"
+msgstr "Nhóm phụ"
+
+#: sukutomo/models.py:200
+msgid "Astrological sign"
+msgstr "Cung hoàng đạo"
+
+#: sukutomo/models.py:230 sukutomo/models.py:233
+msgid "Favorite food"
+msgstr "Món ăn ưa thích"
+
+#: sukutomo/models.py:235
+msgid "Least favorite food"
+msgstr "Món ăn không thích"
+
+#: sukutomo/settings.py:21
+msgid "Idol Supporter"
+msgstr "Idol Supporter"
+
+#: sukutomo/settings.py:22
+msgid "Idol Lover"
+msgstr "Idol Lover"
+
+#: sukutomo/settings.py:23
+msgid "Idol Ambassador"
+msgstr "Idol Ambassador"
+
+#: sukutomo/settings.py:24
+msgid "Idol Producer"
+msgstr "Idol Producer"
+
+#: sukutomo/settings.py:25
+msgid "Ultimate Idol Devotee"
+msgstr "Ultimate Idol Devotee"
+
+#: magi/magicollections.py:373
+msgid "Collected {things}"
+msgstr "Đã thu thập {things}"
+
+#: bang/models.py:328
+msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%"
+msgstr "Trong {duration} giây tiếp theo, điểm của PERFECT tăng thêm +{percentage}%"
+
+#: bang/magicollections.py:1006 bang/magicollections.py:1126 bang/models.py:847
+#: bang/models.py:873 bang/models.py:878 bang/models.py:883
+msgid "Rare stamp"
+msgstr "Sticker hiếm"
+
+#: bang/models.py:852 bang/models.py:854
+msgid "Stamp translation"
+msgstr "Sticker này nghĩa là"
+
+#: bang/models.py:897
+msgid "Boost attribute"
+msgstr "Cường hoá thuộc tính"
+
+#: bang/models.py:900
+msgid "Boost members"
+msgstr "Cường hoá thành viên"
+
+#: magi/default_settings.py:44 magi/default_settings.py:51
+msgid "Manager"
+msgstr "Quản lý"
+
+#: magi/default_settings.py:57
+msgid "Team manager"
+msgstr "Quản lý đội ngũ"
+
+#: magi/default_settings.py:69
+msgid "Finance manager"
+msgstr "Quản lý tài chính"
+
+#: magi/default_settings.py:81 magi/default_settings.py:88
+msgid "Database maintainer"
+msgstr "Người bảo trì dữ liệu"
+
+#: magi/default_settings.py:98 magi/default_settings.py:112
+msgid "Community manager"
+msgstr "Quản lý cộng đồng"
+
+#: magi/default_settings.py:106
+msgid "Posted {total} news"
+msgstr "Đã đăng {total} tin mới"
+
+#: magi/default_settings.py:112
+msgid "Twitter"
+msgstr "Twitter"
+
+#: magi/default_settings.py:121
+msgid "External communication"
+msgstr "Giới truyền thông bên ngoài"
+
+#: magi/default_settings.py:127
+msgid "Support"
+msgstr "Hỗ trợ"
+
+#: magi/default_settings.py:139 magi/default_settings.py:151
+#: magi/default_settings.py:192
+msgid "Moderator"
+msgstr "Moderator"
+
+#: magi/default_settings.py:139
+msgid "Active"
+msgstr "Còn hoạt động"
+
+#: magi/default_settings.py:145
+msgid "Submitted {total} reports"
+msgstr "Đã gửi {total} báo cáo"
+
+#: magi/default_settings.py:151
+msgid "Decisive"
+msgstr "Quyết định"
+
+#: magi/default_settings.py:163
+msgid "Edited or deleted {total} reported items"
+msgstr "Đã sửa hoặc xoá {total} bản báo cáo"
+
+#: magi/default_settings.py:169
+msgid "Community entertainer"
+msgstr "Nghệ sĩ của cộng đồng"
+
+#: magi/default_settings.py:180
+msgid "Organized and posted about {total} community events"
+msgstr "Đã tổ chức và đăng {total} sự kiện cho cộng đồng"
+
+#: magi/default_settings.py:186
+msgid "Backup staff"
+msgstr "Staff dự phòng"
+
+#: magi/default_settings.py:201
+msgid "Translator"
+msgstr "Phiên dịch viên"
+
+#: magi/default_settings.py:211
+msgid "Graphic designer"
+msgstr "Nhà thiết kế đồ hoạ"
+
+#: magi/default_settings.py:217
+msgid "Artist"
+msgstr "Hoạ sĩ"
+
+#: magi/default_settings.py:223
+msgid "Developer"
+msgstr "Nhà phát triển"
+
+#: magi/default_settings.py:230
+msgid "System administrator"
+msgstr "Quản trị viên máy chủ"
+
+#: magi/forms.py:743 magi/magicollections.py:2021
+msgid "You are not allowed to see activities with the tag \"{tag}\"."
+msgstr "Bạn không được phép xem các hoạt động có liên quan tới thẻ \"{tag}\"."
+
+#: magi/magicollections.py:832
+msgid "Translations"
+msgstr "Dịch"
+
+#: magi/magicollections.py:1524 magi/views.py:360
+msgid "Block {username}"
+msgstr "Chặn {username}"
+
+#: magi/magicollections.py:2037
+msgid "You can change which tags you would like to see or hide in your settings."
+msgstr "Bạn có thể thay đổi những tags nào bạn muốn xem hoặc ẩn đi ở phần cài đặt."
+
+#: magi/models.py:94
+msgid "Display your birthdate year"
+msgstr "Hiển thị ngày sinh của bạn"
+
+#: magi/models.py:146
+msgid "Roles"
+msgstr "Các vị trí"
+
+#: magi/models.py:158
+msgid "Hide tags"
+msgstr "Ẩn tags"
+
+#: magi/models.py:449
+msgid "hobbies"
+msgstr "sở thích"
+
+#: magi/templates/pages/about.html:38
+msgid "About us"
+msgstr "Về chúng tôi"
+
+#: magi/templates/pages/prelaunch.html:21
+msgid "Pre-register"
+msgstr "Đăng ký sớm"
+
+#: magi/templates/pages/settings.html:16
+msgid "Security"
+msgstr "Bảo vệ"
+
+#: magi/views.py:267 magi/views.py:358 magi/views_collections.py:80
+#: magi/views_collections.py:300
+msgid "You blocked {username}."
+msgstr "Bạn đã chặn {username}."
+
+#: magi/views.py:268 magi/views.py:360 magi/views_collections.py:81
+#: magi/views_collections.py:301
+msgid "Unblock {username}"
+msgstr "Bỏ chặn {username}"
+
+#: magi/views.py:364
+msgid "Are you sure you want to block {username}? You will not be able to see any content created by {username}."
+msgstr "Bạn có chắc chắn muốn chặn {username}? You sẽ không thể xem bất kì thứ gì liên quan tới {username}."
+
+#: magi/views.py:364
+msgid "Are you sure you want to unblock {username}?"
+msgstr "Bạn có chắc muốn bỏ chặn {username}?"
+
+#: magi/views_collections.py:79 magi/views_collections.py:299
+msgid "this user"
+msgstr "người dùng này"
+
+#: bang/forms.py:217
+msgid "Include cameos"
+msgstr "Bao gồm"
+
+#: bang/magicollections.py:640 bang/models.py:538
+msgid "Cameos"
+msgstr "Cameos"
+
+#: bang/models.py:313
+msgid "Original card"
+msgstr "Thẻ gốc"
+
+#: bang/settings.py:77
+msgid "Community event"
+msgstr "Sự kiện cộng đồng"
+
+#: bang/settings.py:80
+msgid "Not about %(game)s"
+msgstr "Không liên quan tới %(game)s"
+
+#: bang/settings.py:82
+msgid "NSFW"
+msgstr "NSFW"
+
+#: bang/settings.py:84
+msgid "You need to be over 18 years old."
+msgstr "Bạn phải đủ 18 tuổi."
+
+#: bang/settings.py:84
+msgid "You can change your birthdate in your settings."
+msgstr "Bạn có thể thay đổi ngày sinh ở phần cài đặt."
+
+#: sukutomo/magicollections.py:121
+msgid "Measurements"
+msgstr "Đo lường"
+
+#: sukutomo/models.py:160
+msgid "Chitose Bridge High School"
+msgstr "Trung học Chitose Bridge"
+
+#: sukutomo/models.py:161
+msgid "Seiran High School"
+msgstr "Trung học Seiran"
+
+#: sukutomo/models.py:162
+msgid "Shinonome Academy"
+msgstr "Học viện Shinonome"
+
+#: sukutomo/models.py:163
+msgid "Shion Girls' Academy"
+msgstr "Học viện nữ sinh Shion"
+
+#: sukutomo/models.py:164
+msgid "Touou Academy"
+msgstr "Học viện Touou"
+
+#: sukutomo/models.py:165
+msgid "Y.G. International Academy"
+msgstr "Học viện quốc tế Y.G"
+
+#: sukutomo/models.py:166
+msgid "Nijigasaki High School"
+msgstr "Trung học Nijigasaki"
+
+#: sukutomo/models.py:167
+msgid "Uranohoshi Girls' High School"
+msgstr "Trung học nữ sinh Uranohoshi"
+
+#: sukutomo/models.py:168
+msgid "Otonokizaka Academy"
+msgstr "Học viện Otonokizaka"
+
+#: sukutomo/models.py:180
+msgid "School year"
+msgstr "Năm học"
+
+#: sukutomo/models.py:211
+msgid "Blood type"
+msgstr "Nhóm máu"
+
+#: sukutomo/models.py:175 sukutomo/models.py:176 sukutomo/models.py:177
+msgid "{nth} year"
+msgstr "Năm {nth}"
+

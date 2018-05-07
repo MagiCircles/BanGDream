@@ -470,7 +470,7 @@ CARDS_ORDER = [
     'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'is_original',
     'release_date',
     'japanese_skill_name', 'skill_type', 'japanese_skill',
-    'gacha', 'images', 'arts', 'transparents',
+    'gacha', 'images', 'arts', 'transparents', 'live2d_model_pkg2'
 ]
 
 CARDS_EXCLUDE = [
@@ -481,6 +481,7 @@ CARDS_EXCLUDE = [
     'visual_min', 'visual_max', 'visual_trained_max',
     'i_skill_note_type', 'skill_stamina', 'skill_duration',
     'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
+    'live2d_model_pkg'
 ]
 
 class CardCollection(MagiCollection):
@@ -637,6 +638,18 @@ class CardCollection(MagiCollection):
                         'ajax_link': cameo.ajax_item_url,
                         'link_text': cameo.name,
                     } for cameo in item.cached_cameos]
+                }))
+            
+            if item.live2d_model_pkg:
+                # "2" to work around a magicircles bug
+                extra_fields.append(('live2d_model_pkg2', {
+                    'verbose_name': 'Live2D',
+                    'type': 'link',
+                    'value': "/live2d/{}/".format(item.id),
+                    'classes': self.item_buttons_classes,
+                    'ajax_link': "/ajax/live2d_ajax/{}/".format(item.id),
+                    'link_text': _("View model"),
+                    'icon': 'pictures',
                 }))
 
             # Exclude fields

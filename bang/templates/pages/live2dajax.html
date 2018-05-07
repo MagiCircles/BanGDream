@@ -1,0 +1,56 @@
+{% extends "ajax.html" %}
+{% load tools %}
+
+{# Be careful. This file is subtly different from live2dviewer.html. #}
+
+{% block afterjs %}
+<script>
+    function actualDLInit() {
+        var pkg = '{{ package_url }}';
+        window.DL = new DirectorLite({
+            canvasName: "dltarget",
+            controlName: "dlcontrols",
+            withPackageAtURL: pkg,
+            mountedToLocation: "banpa",
+            usingInitialModelName: "banpa:director.model.json",
+            callbackOnFirstModelLoaded: function() {
+                var loader = document.getElementById("loadingMessage");
+                loader.parentNode.removeChild(loader);
+            },
+        });
+    }
+
+    ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
+    // Wait for canvas to be visible before initting DL, otherwise it breaks
+    $("#freeModal").one("shown.bs.modal", function() {
+        actualDLInit();
+        $("#freeModal").one("hide.bs.modal", function() {
+            // Bug: the DirectorLite object is leaked because we don't unbind the canvas event handlers.
+            // Live2D objects are properly dealloced, so this is ok for now...
+            window.DL.terminate();
+            delete window.DL;
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="dlcontainer" style="position:relative">
+    <p id="loadingMessage" class="alert alert-warning">Please wait while I load the Live2D model...</p>
+    <canvas id="dltarget" width="562" height="800" style="max-width:562px; width:100%; height:100%; margin:0 auto; image-rendering: pixelated"></canvas>
+
+    <div id="dlcontrols" style="display: none; position: absolute; top: 0; left: 0;">
+        <div id="dltemplate" style="display: none">
+            <i class="flaticon-star"></i> <label class="dlname"></label> <br>
+            <label>Action: </label>
+            <select class="dlmotions"></select><br>
+
+            <label>Expression: </label>
+            <select class="dlexpressions"></select>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

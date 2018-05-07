@@ -520,6 +520,9 @@ class Card(MagiModel):
     transparent = models.ImageField(_('Transparent'), upload_to=uploadItem('c/transparent'), null=True)
     transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
 
+    # Live2D
+    live2d_model_pkg = models.FileField(_('Live2D'), upload_to=uploadItem('c/l2d'), null=True)
+
     # Statistics
     performance_min = models.PositiveIntegerField(string_concat(_('Performance'), ' (', _('Minimum'), ')'), default=0)
     performance_max = models.PositiveIntegerField(string_concat(_('Performance'), ' (', _('Maximum'), ')'), default=0)

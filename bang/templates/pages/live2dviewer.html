@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load tools %}
+
+{% block afterjs %}
+<script>
+    function actualDLInit() {
+        var pkg = '{{ package_url }}';
+        window.DL = new DirectorLite({
+            canvasName: "dltarget",
+            controlName: "dlcontrols",
+            withPackageAtURL: pkg,
+            mountedToLocation: "banpa",
+            usingInitialModelName: "banpa:director.model.json",
+            autoResize: true,
+            callbackOnFirstModelLoaded: function() {
+                var loader = document.getElementById("loadingMessage");
+                loader.parentNode.removeChild(loader);
+            },
+        });
+    }
+
+    ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
+    actualDLInit();
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container item-container">
+    <div id="dlcontainer" style="padding-top:32px; position:relative;">
+        <p id="loadingMessage" class="alert alert-warning">Please wait while I load the Live2D model...</p>
+        <canvas id="dltarget" width="1334" height="1000" style="max-width:100%; max-height:100%; margin: 0 auto; image-rendering: pixelated"></canvas>
+
+        <div id="dlcontrols" style="display: none; position: absolute; top: 60px; left: 0;">
+            <div id="dltemplate" style="display: none">
+                <i class="flaticon-star"></i> <label class="dlname"></label> <br>
+                <label>Action: </label>
+                <select class="dlmotions"></select><br>
+
+                <label>Expression: </label>
+                <select class="dlexpressions"></select>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -901,19 +901,7 @@ EVENT_ICONS = {
     'type': 'toggler',
 }
 
-class EventCollection(MagiCollection):
-    queryset = models.Event.objects.all()
-    title = _('Event')
-    plural_title = _('Events')
-    icon = 'event'
-    form_class = forms.EventForm
-    multipart = True
-    reportable = False
-    blockable = False
-    translated_fields = ('name', 'stamp_translation', )
-    navbar_link_list = 'girlsbandparty'
-
-    filter_cuteform = {
+EVENT_CUTEFORM = {
         'main_card': {
             'to_cuteform': lambda k, v: v.image_url,
             'title': _('Card'),
@@ -939,6 +927,30 @@ class EventCollection(MagiCollection):
             'transform': CuteFormTransform.ImagePath,
         },
     }
+
+EVENT_LIST_ITEM_CUTEFORM = EVENT_CUTEFORM.copy()
+EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
+            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+            'title': _(' Boost Member'),
+            'extra_settings': {
+                'modal': 'true',
+                'modal-text': 'true',
+            },
+        }
+
+class EventCollection(MagiCollection):
+    queryset = models.Event.objects.all()
+    title = _('Event')
+    plural_title = _('Events')
+    icon = 'event'
+    form_class = forms.EventForm
+    multipart = True
+    reportable = False
+    blockable = False
+    translated_fields = ('name', 'stamp_translation', )
+    navbar_link_list = 'girlsbandparty'
+
+    filter_cuteform = EVENT_LIST_ITEM_CUTEFORM
 
     collectible = models.EventParticipation
 
@@ -988,6 +1000,7 @@ class EventCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         per_line = 2
         default_ordering = '-start_date'
+        
         filter_form = forms.EventFilterForm
         show_collect_button = {
             'eventparticipation': False,
@@ -1138,6 +1151,7 @@ class EventCollection(MagiCollection):
         staff_required = True
         permissions_required = ['manage_main_items']
         savem2m = True
+        filter_cuteform = EVENT_CUTEFORM
 
         def after_save(self, request, instance, type=None):
             instance = super(EventCollection.AddView, self).after_save(request, instance, type=type)
@@ -1147,6 +1161,7 @@ class EventCollection(MagiCollection):
         staff_required = True
         permissions_required = ['manage_main_items']
         savem2m = True
+        filter_cuteform = EVENT_CUTEFORM
 
         def to_translate_form_class(self):
             super(EventCollection.EditView, self).to_translate_form_class()

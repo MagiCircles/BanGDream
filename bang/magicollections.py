@@ -928,7 +928,7 @@ EVENT_CUTEFORM = {
         },
     }
 
-EVENT_LIST_ITEM_CUTEFORM = EVENT_CUTEFORM#.copy()
+EVENT_LIST_ITEM_CUTEFORM = EVENT_CUTEFORM.copy()
 EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
             'title': _(' Boost Member'),

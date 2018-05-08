@@ -1006,7 +1006,7 @@ class Song(MagiModel):
 
     BAND_CHOICES = list(Member.BAND_CHOICES) + ['Glitter*Green']
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
-    
+
     japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
     romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)
     name = models.CharField(string_concat(_('Title'), ' (', _('Translation'), ')'), max_length=100, null=True)

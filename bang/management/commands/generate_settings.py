@@ -42,7 +42,7 @@ def generate_settings():
         translation_activate(old_lang)
 
     print 'Get the characters'
-    all_members = models.Member.objects.all().order_by('name')
+    all_members = models.Member.objects.all().order_by('id')
     favorite_characters = [(
         member.pk,
         member.name,

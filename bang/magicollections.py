@@ -900,6 +900,7 @@ EVENT_ICONS = {
     'korean_start_date': 'date', 'korean_end_date': 'date',
     'type': 'toggler',
 }
+
 EVENT_CUTEFORM = {
         'main_card': {
             'to_cuteform': lambda k, v: v.image_url,
@@ -920,47 +921,22 @@ EVENT_CUTEFORM = {
         'i_boost_attribute': {
             'image_folder': 'i_attribute',
         },
-        'boost_members': {
+        'version': {
+            'to_cuteform': lambda k, v: CardCollection._version_images[k],
+            'image_folder': 'language',
+            'transform': CuteFormTransform.ImagePath,
+        },
+    }
+
+EVENT_LIST_ITEM_CUTEFORM = EVENT_CUTEFORM#.copy()
+EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
             'title': _(' Boost Member'),
             'extra_settings': {
                 'modal': 'true',
                 'modal-text': 'true',
             },
-        },
-        'version': {
-            'to_cuteform': lambda k, v: CardCollection._version_images[k],
-            'image_folder': 'language',
-            'transform': CuteFormTransform.ImagePath,
-        },  
-    }
-
-EVENT_EDIT_ADD_CUTEFORM = {
-        'main_card': {
-            'to_cuteform': lambda k, v: v.image_url,
-            'title': _('Card'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
-        },
-        'secondary_card': {
-            'to_cuteform': lambda k, v: v.image_url,
-            'title': _('Card'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
-        },
-        'i_boost_attribute': {
-            'image_folder': 'i_attribute',
-        },
-        'version': {
-            'to_cuteform': lambda k, v: CardCollection._version_images[k],
-            'image_folder': 'language',
-            'transform': CuteFormTransform.ImagePath,
-        },
-    }
+        }
 
 class EventCollection(MagiCollection):
     queryset = models.Event.objects.all()
@@ -974,7 +950,7 @@ class EventCollection(MagiCollection):
     translated_fields = ('name', 'stamp_translation', )
     navbar_link_list = 'girlsbandparty'
 
-    filter_cuteform = EVENT_CUTEFORM
+    filter_cuteform = EVENT_LIST_ITEM_CUTEFORM
 
     collectible = models.EventParticipation
 
@@ -1175,7 +1151,7 @@ class EventCollection(MagiCollection):
         staff_required = True
         permissions_required = ['manage_main_items']
         savem2m = True
-        filter_cuteform = EVENT_EDIT_ADD_CUTEFORM
+        filter_cuteform = EVENT_CUTEFORM
 
         def after_save(self, request, instance, type=None):
             instance = super(EventCollection.AddView, self).after_save(request, instance, type=type)
@@ -1185,7 +1161,7 @@ class EventCollection(MagiCollection):
         staff_required = True
         permissions_required = ['manage_main_items']
         savem2m = True
-        filter_cuteform = EVENT_EDIT_ADD_CUTEFORM
+        filter_cuteform = EVENT_CUTEFORM
 
         def to_translate_form_class(self):
             super(EventCollection.EditView, self).to_translate_form_class()

@@ -297,7 +297,7 @@ class MemberCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
         filter_form = forms.MemberFilterForm
-        default_ordering = '-_cache_total_fans'
+        default_ordering = 'id'
 
     class AddView(MagiCollection.AddView):
         staff_required = True

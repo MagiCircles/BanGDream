@@ -105,6 +105,7 @@ class MemberFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name', 'school', 'CV', 'romaji_CV', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description']
 
     ordering_fields = [
+        ('id', _('Band')),
         ('_cache_total_fans', _('Popularity')),
         ('name', _('Name')),
         ('japanese_name', string_concat(_('Name'), ' (', t['Japanese'], ')')),

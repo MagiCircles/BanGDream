@@ -659,7 +659,7 @@ class SongFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Song
-        fields = ('search', 'i_sband', 'i_unlock', 'is_cover', 'version', 'ordering', 'reverse_order')
+        fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # Single page form

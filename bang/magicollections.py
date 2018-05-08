@@ -1434,7 +1434,7 @@ def to_PlayedSongCollection(cls):
 # Songs Collection
 
 _song_cuteform = {
-    'i_sband': {
+    'i_band': {
         'image_folder': 'band',
         'to_cuteform': 'value',
         'title': _('Band'),
@@ -1506,7 +1506,7 @@ class SongCollection(MagiCollection):
         for fieldName in (
                 ((['japanese_name', 'romaji_name', 'name']
                  if get_language() == 'ja' else ['romaji_name']) if view.view == 'item_view' else [])
-                + ['sband', 'unlock_variables', 'is_cover']
+                + ['band', 'unlock_variables', 'is_cover']
                 + [f for f, t in models.Song.SONGWRITERS_DETAILS]
                 + ((list(chain.from_iterable(
                     (u'{}_notes'.format(d), u'{}_difficulty'.format(d))

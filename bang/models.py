@@ -1004,15 +1004,8 @@ class Song(MagiModel):
     owner = models.ForeignKey(User, related_name='added_songs')
     image = models.ImageField('Album cover', upload_to=uploadItem('s'))
 
-    SBAND_CHOICES = (
-        'Poppin\' Party',
-        'Afterglow',
-        'Pastel*Palettes',
-        'Roselia',
-        'Hello, Happy World!',
-        'Glitter*Green'
-    )
-    i_sband = models.PositiveIntegerField(_('Band'), choices=i_choices(SBAND_CHOICES))
+    BAND_CHOICES = list(Member.BAND_CHOICES) + ['Glitter*Green']
+    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
     
     japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
     romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)

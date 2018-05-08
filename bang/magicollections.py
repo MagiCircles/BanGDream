@@ -1207,6 +1207,13 @@ class GachaCollection(MagiCollection):
     translated_fields = ('name', )
 
     filter_cuteform = {
+        'featured_member': {
+            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+            'extra_settings': {
+                'modal': 'true',
+                'modal-text': 'true',
+            },
+        },
         'i_attribute': {},
         'event': {
             'to_cuteform': lambda k, v: v.image_url,

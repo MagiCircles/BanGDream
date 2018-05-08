@@ -560,6 +560,9 @@ class GachaFilterForm(MagiFiltersForm):
     ])
     gacha_type_filter = MagiFilter(to_queryset=_gacha_type_to_queryset)
 
+    featured_member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+    featured_member_filter = MagiFilter(selector='cards__member_id')
+
     version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
     version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
 
@@ -573,7 +576,7 @@ class GachaFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Gacha
-        fields = ('search', 'gacha_type', 'version', 'ordering', 'reverse_order')
+        fields = ('search', 'gacha_type', 'featured_member', 'i_attribute', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # Played song

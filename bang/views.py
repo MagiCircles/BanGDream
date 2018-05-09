@@ -37,7 +37,7 @@ def live2d(request, pk, slug=None):
     queryset = Card.objects.filter(id=pk, live2d_model_pkg__isnull=False)
     the_card = get_one_object_or_404(queryset)
 
-    context['page_title'] = u"{}: {}".format(_('Live2D'), unicode(the_card))
+    context['page_title'] = u"{}: {}".format('Live2D', unicode(the_card))
     context['item'] = the_card
     context['package_url'] = get_image_url_from_path(the_card.live2d_model_pkg)
     context['js_files'] = LIVE2D_JS_FILES

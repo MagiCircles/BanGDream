@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load tools %}
+{% load i18n %}
 
 {% block afterjs %}
 <script>
@@ -16,6 +17,12 @@
                 var loader = document.getElementById("loadingMessage");
                 loader.parentNode.removeChild(loader);
             },
+            callbackOnInitFailure: function(code) {
+                var errorHTML = document.getElementById("noWebGLMessage");
+                errorHTML.style.display = null;
+                var loader = document.getElementById("loadingMessage");
+                loader.parentNode.removeChild(loader);
+            }
         });
     }
 
@@ -26,18 +33,47 @@
 
 {% block content %}
 <div class="container item-container">
-    <div id="dlcontainer" style="padding-top:32px; position:relative;">
-        <p id="loadingMessage" class="alert alert-warning">Please wait while I load the Live2D model...</p>
-        <canvas id="dltarget" width="1334" height="1000" style="max-width:100%; max-height:100%; margin: 0 auto; image-rendering: pixelated"></canvas>
+    <div id="dlcontainer" style="padding-top:32px; position:relative; text-align:center">
+        <p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">{% trans "Sorry, a browser that supports WebGL is required to view Live2D models." %}</p>
+        <p id="loadingMessage" class="alert alert-warning" style="text-align: left">{% trans "Loading Live2D model. Please wait..." %}</p>
+        <canvas id="dltarget" width="1334" height="1000" style="max-width:100%; max-height:100%;"></canvas>
 
-        <div id="dlcontrols" style="display: none; position: absolute; top: 60px; left: 0;">
-            <div id="dltemplate" style="display: none">
-                <i class="flaticon-star"></i> <label class="dlname"></label> <br>
-                <label>Action: </label>
-                <select class="dlmotions"></select><br>
+        <div id="dlcontrols" class="dlhidden" style="display: none;">
+            <button class="btn btn-secondary btn-sm" title="Controls" onclick="DLToggleControls(event)"><i class="flaticon flaticon-settings"></i></button>
 
-                <label>Expression: </label>
-                <select class="dlexpressions"></select>
+            <div id="dltemplate" style="display: none;">
+                <i class="flaticon-about"></i> <label>{% trans "Model" context "BanPa model viewer" %}: </label> <span class="dlname"></span>
+
+                <div>
+                    {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Breathe" context "BanPa model viewer" %}: </label>
+                    <input type="checkbox" class="dlbreathe" checked />
+                    {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Blink" context "BanPa model viewer" %}: </label>
+                    <input type="checkbox" class="dlblink" checked />
+                    {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Sway" context "BanPa model viewer" %}: </label>
+                    <input type="checkbox" class="dlvariance" checked />
+                </div>
+
+                <div>
+                    {# Translators: Label for a list of choices. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Action" context "BanPa model viewer" %}: </label>
+                    <select class="dlmotions"></select>
+                    {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Loop" context "BanPa model viewer" %}: </label>
+                    <input type="checkbox" class="dlloopmotions" />
+                </div>
+
+                <div>
+                    {# Translators: Label for a list of choices. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Expression" context "BanPa model viewer" %}: </label>
+                    <select class="dlexpressions"></select>
+                </div>
+
+                <div>
+                    <button class="dltoggleupdates btn btn-secondary btn-sm" data-string-pause="{% trans "Pause" context "BanPa model viewer" %}" data-string-unpause="{% trans "Unpause" context "BanPa model viewer" %}">{% trans "Pause" context "BanPa model viewer" %}</button>
+                </div>
             </div>
         </div>
     </div>

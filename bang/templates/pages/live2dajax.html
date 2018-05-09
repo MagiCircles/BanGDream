@@ -26,19 +26,25 @@
                 loader.parentNode.removeChild(loader);
             }
         });
-    }
 
-    ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
-    // Wait for canvas to be visible before initting DL, otherwise it breaks
-    $("#freeModal").one("shown.bs.modal", function() {
-        actualDLInit();
         $("#freeModal").one("hide.bs.modal", function() {
             // Bug: the DirectorLite object is leaked because we don't unbind the canvas event handlers.
             // Live2D objects are properly dealloced, so this is ok for now...
             window.DL.terminate();
             delete window.DL;
         });
-    });
+    }
+
+    ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
+    // Wait for canvas to be visible before initting DL, otherwise it breaks
+    if ($("#freeModal").hasClass("in")) {
+        // Sometimes it's already on screen, so shown.bs.modal doesn't fire again
+        actualDLInit();
+    } else {
+        $("#freeModal").one("shown.bs.modal", function() {
+            actualDLInit();
+        });
+    }
 </script>
 {% endblock %}
 

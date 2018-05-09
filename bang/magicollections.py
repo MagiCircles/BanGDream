@@ -644,9 +644,8 @@ class CardCollection(MagiCollection):
                 # "2" to work around a magicircles bug
                 extra_fields.append(('live2d_model_pkg2', {
                     'verbose_name': 'Live2D',
-                    'type': 'link',
+                    'type': 'button',
                     'value': "/live2d/{}/".format(item.id),
-                    'classes': self.item_buttons_classes,
                     'ajax_link': "/ajax/live2d_ajax/{}/".format(item.id),
                     'link_text': _("View model"),
                     'icon': 'pictures',

@@ -73,9 +73,14 @@
 
                 <div>
                     <button class="dltoggleupdates btn btn-secondary btn-sm" data-string-pause="{% trans "Pause" context "BanPa model viewer" %}" data-string-unpause="{% trans "Unpause" context "BanPa model viewer" %}">{% trans "Pause" context "BanPa model viewer" %}</button>
+                    {# Translators: Button label. #}
+                    <button class="dlscreenshot btn btn-secondary btn-sm">{% trans "Screenshot" context "BanPa model viewer" %}</button>
+                    {# Translators: Button label. This is supposed to be a continuation of "Screenshot". #}
+                    <button class="dlscreenshotbg btn btn-secondary btn-sm">{% trans "(with background)" context "BanPa model viewer" %}</button>
                 </div>
             </div>
         </div>
     </div>
+    <img id="secretBackgroundForScreenshots" src="{{ static_url }}img/bg_live2d_viewer.png" style="display: none;" />
 </div>
 {% endblock %}

@@ -65,7 +65,7 @@
         <canvas id="dltarget" width="{{ canvas_size.0 }}" height="{{ canvas_size.1 }}" style="max-width:100%; max-height:100%;"></canvas>
 
         <div id="dlcontrols" class="dlhidden" style="display: none;">
-            <button class="btn btn-main btn" title="Controls" onclick="DLToggleControls(event)"><i class="flaticon flaticon-settings"></i></button>
+            <button class="btn btn-main btn" title="{% trans "Controls" %}" onclick="DLToggleControls(event)"><i class="flaticon flaticon-settings"></i></button>
 
             <div id="dltemplate" style="display: none;">
                 <i class="flaticon-about"></i> <label>{% trans "Model" context "BanPa model viewer" %}: </label> <span class="dlname"></span>

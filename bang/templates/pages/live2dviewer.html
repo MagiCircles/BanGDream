@@ -27,27 +27,69 @@
     }
 
     {% if ajax %}
-    $("#freeModal").one("hide.bs.modal", function() {
-      // Bug: the DirectorLite object is leaked because we don't unbind the canvas event handlers.
-      // Live2D objects are properly dealloced, so this is ok for now...
-      window.DL.terminate();
-      delete window.DL;
-    });
-    {% endif %}
+    function lateScriptsDidLoad() {
+        ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
 
-    ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
+        // Wait for canvas to be visible before initting DL, otherwise it breaks
+        if ($("#freeModal").hasClass("in")) {
+            // Sometimes it's already on screen, so shown.bs.modal doesn't fire again
+            actualDLInit();
+        } else {
+            $("#freeModal").one("shown.bs.modal", function() {
+                actualDLInit();
+            });
+        }
 
-    {% if ajax %}
-    // Wait for canvas to be visible before initting DL, otherwise it breaks
-    if ($("#freeModal").hasClass("in")) {
-      // Sometimes it's already on screen, so shown.bs.modal doesn't fire again
-      actualDLInit();
-    } else {
-      $("#freeModal").one("shown.bs.modal", function() {
-        actualDLInit();
-      });
+        $("#freeModal").one("hide.bs.modal", function() {
+            // Bug: the DirectorLite object is leaked because we don't unbind the canvas event handlers.
+            // Live2D objects are properly dealloced, so this is ok for now...
+            window.DL.terminate();
+            delete window.DL;
+        });
+
+        // Otherwise we'll have a lot of duplicate script tags if the modal is opened more than once.
+        $(".clean-up-after-director-init").detach();
     }
+
+    // jQuery's AJAX behaviour has a hack where cross-origin scripts are loaded through async script tags.
+    // Some of the Live2D scripts depend on other scripts loading in order, so it causes issues for us.
+    // Work around this by inserting our own script tags that are not-async.
+    function loadLateScripts() {
+        var scripts = [
+            {% for js_file in late_js_files %}
+            "{% if js_file|startswith:'http' %}{{ js_file }}{% else %}{{ static_url }}{% if not js_file|startswith:'bower' %}js/{% endif %}{{ js_file }}.js?{{ static_files_version }}{% endif %}",
+            {% endfor %}
+        ];
+        var lastIndex = scripts.length - 1;
+        var body = document.body;
+
+        for (var i in scripts) {
+            var s = document.createElement("script");
+            // For newer browsers we have to mark them sync explicitly.
+            s.async = false;
+
+            // Assumes the scripts will be loaded and executed in order, which seems to be the
+            // case. We want to init Director after they're all loaded.
+            if (i == lastIndex) {
+                s.onload = lateScriptsDidLoad;
+            } else {
+                s.onload = function(e) {
+                    console.log("onload " + e.target.src);
+                }
+            }
+
+            s.src = scripts[i];
+            s.className = "clean-up-after-director-init";
+            body.appendChild(s);
+        }
+    }
+
+    $(document).ready(function() {
+        loadLateScripts();
+    })
+    
     {% else %}
+    ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
     actualDLInit();
     {% endif %}
 </script>

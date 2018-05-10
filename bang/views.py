@@ -4,22 +4,10 @@ from django.conf import settings as django_settings
 from magi.utils import getGlobalContext, ajaxContext, redirectWhenNotAuthenticated, cuteFormFieldsForContext, CuteFormTransform, get_one_object_or_404
 from magi.item_model import get_image_url_from_path
 from magi.views import indexExtraContext
+from bang.constants import LIVE2D_JS_FILES
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
 from bang.models import Card
-
-LIVE2D_JS_FILES = [
-    'l2d/zip',
-    'l2d/zip-ext',
-    'l2d/z-worker.combo',
-    'l2d/ZipLoader',
-    'l2d/live2d.min',
-    'l2d/Live2DFramework',
-    'l2d/MatrixStack',
-    'l2d/ModelSettingJson',
-    'l2d/LAppModel',
-    'l2d/DirectorLite',
-]
 
 def live2d(request, pk, slug=None):
     ajax = request.path_info.startswith('/ajax/')

@@ -13,6 +13,7 @@ from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CH
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
 from magi.models import Activity, Notification
+from bang.constants import LIVE2D_JS_FILES
 from bang import settings
 from bang.django_translated import t
 from bang.utils import rarity_to_stars_images
@@ -701,6 +702,8 @@ class CardCollection(MagiCollection):
         filter_form = forms.CardFilterForm
         default_ordering = '-release_date,-id'
         ajax_pagination_callback = 'loadCardInList'
+        js_files = LIVE2D_JS_FILES
+
         alt_views = MagiCollection.ListView.alt_views + [
             ('icons', { 'verbose_name': string_concat(_('Icons'), ' (', _('Quick add'), ')') }),
             ('statistics', {

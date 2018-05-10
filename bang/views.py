@@ -24,8 +24,10 @@ def live2d(request, pk, slug=None):
     # Work around jQuery behaviour; details in pages/live2dviewer.html.
     if ajax:
         context['late_js_files'] = LIVE2D_JS_FILES
+        context['danger_zone'] = 220
     else:
         context['js_files'] = LIVE2D_JS_FILES
+        context['danger_zone'] = 100
     
     context['extends'] = 'base.html' if not context['ajax'] else 'ajax.html'
     context['canvas_size'] = (562, 562) if context['ajax'] else (1334, 1000)

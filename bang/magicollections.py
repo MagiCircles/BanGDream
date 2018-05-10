@@ -669,7 +669,7 @@ class CardCollection(MagiCollection):
             # Live2D model viewer
             setSubField(fields, 'live2d_model_pkg', key='type', value='button')
             setSubField(fields, 'live2d_model_pkg', key='value', value=item.live2d_url)
-            setSubField(fields, 'live2d_model_pkg', key='ajax_link', value=item.ajax_live2d_url)
+            #setSubField(fields, 'live2d_model_pkg', key='ajax_link', value=item.ajax_live2d_url)
             setSubField(fields, 'live2d_model_pkg', key='link_text', value=_('View model'))
             setSubField(fields, 'live2d_model_pkg', key='title', value=u'Live2D - {}'.format(unicode(item)))
             # hide is promo, is original

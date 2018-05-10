@@ -96,14 +96,12 @@
 {% endblock %}
 
 {% block content %}
-{% if ajax %}
-<div id="dlcontainer" style="position:relative; text-align:center">
-{% else %}
+{% if not ajax %}
 <div class="container item-container">
-    <div id="dlcontainer" style="padding-top:32px; position:relative; text-align:center">
 {% endif %}
-        <p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">Sorry, a browser that supports WebGL is required to view Live2D models.</p>
-        <p id="loadingMessage" class="text-center fontx2 padding20"><i class="flaticon-loading"></i></p>
+    <p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">Sorry, a browser that supports WebGL is required to view Live2D models.</p>
+    <p id="loadingMessage" class="text-center fontx2 padding20"><i class="flaticon-loading"></i></p>
+    <div id="dlcontainer">
         <canvas id="dltarget" width="{{ canvas_size.0 }}" height="{{ canvas_size.1 }}" style="max-width:100%; max-height:100%;"></canvas>
 
         <div id="dlcontrols" class="dlhidden" style="display: none;">
@@ -163,8 +161,7 @@
         {{ item }}
       </a>
     </h1>
-</div>
-{% if ajax %}
-<div id="dlcontainer" style="position:relative; text-align:center">
+{% if not ajax %}
+</div> <!-- class="container item-container" -->
 {% endif %}
 {% endblock %}

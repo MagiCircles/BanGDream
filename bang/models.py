@@ -523,6 +523,14 @@ class Card(MagiModel):
     # Live2D
     live2d_model_pkg = models.FileField(_('Live2D'), upload_to=uploadItem('c/l2d'), null=True)
 
+    @property
+    def live2d_url(self):
+        return u'/live2d/{}/{}/'.format(self.id, tourldash(unicode(self)))
+
+    @property
+    def ajax_live2d_url(self):
+        return u'/ajax/live2d/{}/'.format(self.id)
+
     # Statistics
     performance_min = models.PositiveIntegerField(string_concat(_('Performance'), ' (', _('Minimum'), ')'), default=0)
     performance_max = models.PositiveIntegerField(string_concat(_('Performance'), ' (', _('Maximum'), ')'), default=0)

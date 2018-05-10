@@ -464,13 +464,14 @@ CARDS_ICONS = {
     'is_promo': 'promo',
     'is_original': 'deck',
     'release_date': 'date',
+    'live2d_model_pkg': 'pictures',
 }
 
 CARDS_ORDER = [
     'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'is_original',
     'release_date',
     'japanese_skill_name', 'skill_type', 'japanese_skill',
-    'gacha', 'images', 'arts', 'transparents', 'live2d_model_pkg2'
+    'gacha', 'images', 'arts', 'transparents', 'chibis', 'live2d_model_pkg'
 ]
 
 CARDS_EXCLUDE = [
@@ -481,7 +482,6 @@ CARDS_EXCLUDE = [
     'visual_min', 'visual_max', 'visual_trained_max',
     'i_skill_note_type', 'skill_stamina', 'skill_duration',
     'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
-    'live2d_model_pkg'
 ]
 
 class CardCollection(MagiCollection):
@@ -639,17 +639,6 @@ class CardCollection(MagiCollection):
                         'link_text': cameo.name,
                     } for cameo in item.cached_cameos]
                 }))
-            
-            if item.live2d_model_pkg:
-                # "2" to work around a magicircles bug
-                extra_fields.append(('live2d_model_pkg2', {
-                    'verbose_name': 'Live2D',
-                    'type': 'button',
-                    'value': "/live2d/{}/".format(item.id),
-                    'ajax_link': "/ajax/live2d_ajax/{}/".format(item.id),
-                    'link_text': _("View model"),
-                    'icon': 'pictures',
-                }))
 
             # Exclude fields
             if exclude_fields == 1:
@@ -676,6 +665,12 @@ class CardCollection(MagiCollection):
                         if item.i_side_skill_type else item.t_skill_type))
             setSubField(fields, 'skill_type', key='value', value=item.full_skill)
             setSubField(fields, 'skill_type', key='icon', value=lambda k: item.skill_icon)
+            # Live2D model viewer
+            setSubField(fields, 'live2d_model_pkg', key='type', value='button')
+            setSubField(fields, 'live2d_model_pkg', key='value', value=item.live2d_url)
+            setSubField(fields, 'live2d_model_pkg', key='ajax_link', value=item.ajax_live2d_url)
+            setSubField(fields, 'live2d_model_pkg', key='link_text', value=_('View model'))
+            setSubField(fields, 'live2d_model_pkg', key='title', value=u'Live2D - {}'.format(unicode(item)))
             # hide is promo, is original
             if not item.is_promo and 'is_promo' in fields:
                 del(fields['is_promo'])

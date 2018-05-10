@@ -142,12 +142,12 @@
                     {# Translators: Button label. #}
                     <button class="dlscreenshot btn btn-main btn-sm">{% trans "Screenshot" context "BanPa model viewer" %}</button>
                     {# Translators: Button label. This is supposed to be a continuation of "Screenshot". #}
-                    <button class="dlscreenshotbg btn btn-main btn-sm hidden">{% trans "(with background)" context "BanPa model viewer" %}</button>
+                    <button class="dlscreenshotbg btn btn-main btn-sm">{% trans "(with background)" context "BanPa model viewer" %}</button>
                 </div>
             </div>
         </div>
     </div>
-    <img id="secretBackgroundForScreenshots" src="{{ static_url }}img/bg_live2d_viewer.png" style="display: none;" />
+    <img id="secretBackgroundForScreenshots" crossorigin="anonymous" src="{{ static_url }}img/bg_live2d_viewer.png" style="display: none;" />
     <h1 class="text-center">
       <a href="{{ item.item_url }}" class="a-nodifference fontx0-8"
          {% if ajax %}

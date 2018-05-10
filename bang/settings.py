@@ -130,13 +130,13 @@ ENABLED_PAGES['teambuilder'] = {
 
 ENABLED_PAGES['live2d'] = [
     {
-        'title': _('Live2D'),
+        'title': 'Live2D',
         'icon': 'settings',
         'navbar_link': False,
         'url_variables': [('pk', '\d+'), ('slug', '[^/]*')]
     },
     {
-        'title': _('Live2D'),
+        'title': 'Live2D',
         'icon': 'settings',
         'navbar_link': False,
         'ajax': True,

@@ -937,13 +937,13 @@ EVENT_CUTEFORM = {
 
 EVENT_LIST_ITEM_CUTEFORM = EVENT_CUTEFORM.copy()
 EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
-            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
-            'title': _(' Boost Member'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
-        }
+    'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+    'title': _('Boost members'),
+    'extra_settings': {
+        'modal': 'true',
+        'modal-text': 'true',
+    },
+}
 
 class EventCollection(MagiCollection):
     queryset = models.Event.objects.all()
@@ -1007,7 +1007,7 @@ class EventCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         per_line = 2
         default_ordering = '-start_date'
-        
+
         filter_form = forms.EventFilterForm
         show_collect_button = {
             'eventparticipation': False,

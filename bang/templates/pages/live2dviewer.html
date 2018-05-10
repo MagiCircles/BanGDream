@@ -60,8 +60,8 @@
 <div class="container item-container">
     <div id="dlcontainer" style="padding-top:32px; position:relative; text-align:center">
 {% endif %}
-        <p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">{% trans "Sorry, a browser that supports WebGL is required to view Live2D models." %}</p>
-        <p id="loadingMessage" class="alert alert-warning" style="text-align: left">{% trans "Loading Live2D model. Please wait..." %}</p>
+        <p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">Sorry, a browser that supports WebGL is required to view Live2D models.</p>
+        <p id="loadingMessage" class="text-center fontx2 padding20"><i class="flaticon-loading"></i></p>
         <canvas id="dltarget" width="{{ canvas_size.0 }}" height="{{ canvas_size.1 }}" style="max-width:100%; max-height:100%;"></canvas>
 
         <div id="dlcontrols" class="dlhidden" style="display: none;">
@@ -98,7 +98,7 @@
                 </div>
 
                 <div>
-                    <button class="dltoggleupdates btn btn-secondary btn-sm" data-string-pause="{% trans "Pause" context "BanPa model viewer" %}" data-string-unpause="{% trans "Unpause" context "BanPa model viewer" %}">{% trans "Pause" context "BanPa model viewer" %}</button>
+                    <button class="dltoggleupdates btn btn-link-secondary btn-sm fontx2 a-nodifference"><i class="dlpausebutton flaticon-pause"></i></button>
                     {# Translators: Button label. #}
                     <button class="dlscreenshot btn btn-main btn-sm">{% trans "Screenshot" context "BanPa model viewer" %}</button>
                     {# Translators: Button label. This is supposed to be a continuation of "Screenshot". #}

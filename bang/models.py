@@ -520,7 +520,7 @@ class Card(MagiModel):
     transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
 
     # Live2D
-    live2d_model_pkg = models.FileField(_('Live2D'), upload_to=uploadItem('c/l2d'), null=True)
+    live2d_model_pkg = models.FileField('Live2D', upload_to=uploadItem('c/l2d'), null=True)
 
     @property
     def live2d_url(self):

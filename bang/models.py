@@ -719,6 +719,8 @@ class Card(MagiModel):
             'http_image_url': get_http_image_url_from_path(path),
         }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]
 
+    # Cache cameos
+
     _cached_cameos_collection_name = 'member'
     _cache_cameos_days = 200
     _cache_cameos_last_update = models.DateTimeField(null=True)
@@ -736,6 +738,29 @@ class Card(MagiModel):
     def cached_cameos_pre(self, d):
         d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
         return d
+
+    # Cache totals
+
+    reverse_related = (
+        ('favorited', None, lambda: _('Favorite {things}').format(things=_('Cards').lower())),
+        ('collectedcards', None, lambda: _('Collected {things}').format(things=_('Cards').lower())),
+    )
+
+    _cache_total_favorited_days = 1
+    _cache_total_favorited_last_update = models.DateTimeField(null=True)
+    _cache_total_favorited = models.PositiveIntegerField(null=True)
+
+    def to_cache_total_favorited(self):
+        return self.favorited.all().count()
+
+    _cache_total_collectedcards_days = 1
+    _cache_total_collectedcards_last_update = models.DateTimeField(null=True)
+    _cache_total_collectedcards = models.PositiveIntegerField(null=True)
+
+    def to_cache_total_collectedcards(self):
+        return self.collectedcards.all().count()
+
+    ########
 
     @property # To allow favorite card to use the same template
     def card(self):

@@ -466,6 +466,8 @@ CARDS_ICONS = {
     'is_original': 'deck',
     'release_date': 'date',
     'live2d_model_pkg': 'pictures',
+    'favorited': 'heart',
+    'collectedcards': 'deck',
 }
 
 CARDS_ORDER = [

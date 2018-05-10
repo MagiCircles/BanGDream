@@ -8,7 +8,7 @@ import magi.utils
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bang', '0035_auto_20180504_0008'),
+        ('bang', '0036_auto_20180508_0600'),
     ]
 
     operations = [

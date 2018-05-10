@@ -1,0 +1,103 @@
+{% extends "ajax.html" %}
+{% load tools %}
+{% load i18n %}
+
+{# Be careful. This file is subtly different from live2dviewer.html. #}
+
+{% block afterjs %}
+<script>
+    function actualDLInit() {
+        var pkg = '{{ package_url }}';
+        window.DL = new DirectorLite({
+            canvasName: "dltarget",
+            controlName: "dlcontrols",
+            withPackageAtURL: pkg,
+            mountedToLocation: "banpa",
+            usingInitialModelName: "banpa:director.model.json",
+            autoResize: true,
+            callbackOnFirstModelLoaded: function() {
+                var loader = document.getElementById("loadingMessage");
+                loader.parentNode.removeChild(loader);
+            },
+            callbackOnInitFailure: function(code) {
+                var errorHTML = document.getElementById("noWebGLMessage");
+                errorHTML.style.display = null;
+                var loader = document.getElementById("loadingMessage");
+                loader.parentNode.removeChild(loader);
+            }
+        });
+
+        $("#freeModal").one("hide.bs.modal", function() {
+            // Bug: the DirectorLite object is leaked because we don't unbind the canvas event handlers.
+            // Live2D objects are properly dealloced, so this is ok for now...
+            window.DL.terminate();
+            delete window.DL;
+        });
+    }
+
+    ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
+    // Wait for canvas to be visible before initting DL, otherwise it breaks
+    if ($("#freeModal").hasClass("in")) {
+        // Sometimes it's already on screen, so shown.bs.modal doesn't fire again
+        actualDLInit();
+    } else {
+        $("#freeModal").one("shown.bs.modal", function() {
+            actualDLInit();
+        });
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="dlcontainer" style="position:relative; text-align:center">
+    <p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">{% trans "Sorry, a browser that supports WebGL is required to view Live2D models." %}</p>
+    <p id="loadingMessage" class="alert alert-warning" style="text-align: left">{% trans "Loading Live2D model. Please wait..." %}</p>
+    <canvas id="dltarget" width="562" height="800" style="max-width:100%; max-height:100%; margin:0 auto"></canvas>
+
+    <div id="dlcontrols" class="dlhidden" style="display: none;">
+        <button class="btn btn-secondary btn-sm" title="Controls" onclick="DLToggleControls(event)"><i class="flaticon flaticon-settings"></i></button>
+
+        <div id="dltemplate" style="display: none;">
+            <i class="flaticon-about"></i> <label>{% trans "Model" context "BanPa model viewer" %}: </label> <span class="dlname"></span>
+
+            <div>
+                {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                <label>{% trans "Breathe" context "BanPa model viewer" %}: </label>
+                <input type="checkbox" class="dlbreathe" checked />
+                {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                <label>{% trans "Blink" context "BanPa model viewer" %}: </label>
+                <input type="checkbox" class="dlblink" checked />
+                {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                <label>{% trans "Sway" context "BanPa model viewer" %}: </label>
+                <input type="checkbox" class="dlvariance" checked />
+            </div>
+
+            <div>
+                {# Translators: Label for a list of choices. Limited space, so please try to keep it short. #}
+                <label>{% trans "Action" context "BanPa model viewer" %}: </label>
+                <select class="dlmotions"></select>
+                {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                <label>{% trans "Loop" context "BanPa model viewer" %}: </label>
+                <input type="checkbox" class="dlloopmotions" />
+            </div>
+
+            <div>
+                {# Translators: Label for a list of choices. Limited space, so please try to keep it short. #}
+                <label>{% trans "Expression" context "BanPa model viewer" %}: </label>
+                <select class="dlexpressions"></select>
+            </div>
+
+            <div>
+                <button class="dltoggleupdates btn btn-secondary btn-sm" data-string-pause="{% trans "Pause" context "BanPa model viewer" %}" data-string-unpause="{% trans "Unpause" context "BanPa model viewer" %}">{% trans "Pause" context "BanPa model viewer" %}</button>
+                <button class="dlscreenshot btn btn-secondary btn-sm">{% trans "Screenshot" context "BanPa model viewer" %}</button>
+                {# Translators: Button label. This is supposed to be a continuation of "Screenshot". #}
+                <button class="dlscreenshotbg btn btn-secondary btn-sm">{% trans "(with background)" context "BanPa model viewer" %}</button>
+            </div>
+        </div>
+    </div>
+    <img id="secretBackgroundForScreenshots" src="{{ static_url }}img/bg_live2d_viewer.png" style="display: none;" />
+</div>
+{% endblock %}
+
+
+

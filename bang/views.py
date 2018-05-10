@@ -1,10 +1,48 @@
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render, redirect
 from django.conf import settings as django_settings
-from magi.utils import getGlobalContext, redirectWhenNotAuthenticated, cuteFormFieldsForContext, CuteFormTransform
+from magi.utils import getGlobalContext, redirectWhenNotAuthenticated, cuteFormFieldsForContext, CuteFormTransform, get_one_object_or_404
+from magi.item_model import get_image_url_from_path
 from magi.views import indexExtraContext
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
+from bang.models import Card
+
+LIVE2D_JS_FILES = [
+    "l2d/zip",
+    "l2d/zip-ext",
+    "l2d/z-worker.combo",
+    "l2d/ZipLoader",
+    "l2d/live2d.min",
+    "l2d/Live2DFramework",
+    "l2d/MatrixStack",
+    "l2d/ModelSettingJson",
+    "l2d/LAppModel",
+    "l2d/DirectorLite",
+]
+
+def live2d_ajax(request, pk):
+    context = getGlobalContext(request)
+    queryset = Card.objects.filter(id=pk, live2d_model_pkg__isnull=False)
+    the_card = get_one_object_or_404(queryset)
+
+    context['item'] = the_card
+    context['package_url'] = get_image_url_from_path(the_card.live2d_model_pkg)
+    context['js_files'] = LIVE2D_JS_FILES
+
+    return render(request, 'pages/live2dajax.html', context)
+
+def live2d(request, pk, slug=None):
+    context = getGlobalContext(request)
+    queryset = Card.objects.filter(id=pk, live2d_model_pkg__isnull=False)
+    the_card = get_one_object_or_404(queryset)
+
+    context['page_title'] = u"{}: {}".format('Live2D', unicode(the_card))
+    context['item'] = the_card
+    context['package_url'] = get_image_url_from_path(the_card.live2d_model_pkg)
+    context['js_files'] = LIVE2D_JS_FILES
+
+    return render(request, 'pages/live2dviewer.html', context)
 
 def teambuilder(request):
     context = getGlobalContext(request)

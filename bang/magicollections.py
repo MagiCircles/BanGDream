@@ -464,13 +464,14 @@ CARDS_ICONS = {
     'is_promo': 'promo',
     'is_original': 'deck',
     'release_date': 'date',
+    'live2d_model_pkg': 'pictures',
 }
 
 CARDS_ORDER = [
     'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'is_original',
     'release_date',
     'japanese_skill_name', 'skill_type', 'japanese_skill',
-    'gacha', 'images', 'arts', 'transparents',
+    'gacha', 'images', 'arts', 'transparents', 'chibis', 'live2d_model_pkg'
 ]
 
 CARDS_EXCLUDE = [
@@ -664,6 +665,12 @@ class CardCollection(MagiCollection):
                         if item.i_side_skill_type else item.t_skill_type))
             setSubField(fields, 'skill_type', key='value', value=item.full_skill)
             setSubField(fields, 'skill_type', key='icon', value=lambda k: item.skill_icon)
+            # Live2D model viewer
+            setSubField(fields, 'live2d_model_pkg', key='type', value='button')
+            setSubField(fields, 'live2d_model_pkg', key='value', value=item.live2d_url)
+            setSubField(fields, 'live2d_model_pkg', key='ajax_link', value=item.ajax_live2d_url)
+            setSubField(fields, 'live2d_model_pkg', key='link_text', value=_('View model'))
+            setSubField(fields, 'live2d_model_pkg', key='title', value=u'Live2D - {}'.format(unicode(item)))
             # hide is promo, is original
             if not item.is_promo and 'is_promo' in fields:
                 del(fields['is_promo'])

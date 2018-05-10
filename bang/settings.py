@@ -128,6 +128,22 @@ ENABLED_PAGES['teambuilder'] = {
     #'navbar_link_list': 'girlsbandparty',
 }
 
+ENABLED_PAGES['live2d'] = [
+    {
+        'title': _('Live2D'),
+        'icon': 'settings',
+        'navbar_link': False,
+        'url_variables': [('pk', '\d+'), ('slug', '[^/]*')]
+    },
+    {
+        'title': _('Live2D'),
+        'icon': 'settings',
+        'navbar_link': False,
+        'ajax': True,
+        'url_variables': [('pk', '\d+')]
+    },
+]
+
 ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),

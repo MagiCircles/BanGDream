@@ -1,0 +1,128 @@
+{% extends extends %}
+{% load tools %}
+{% load i18n %}
+
+{% block afterjs %}
+<script>
+    function actualDLInit() {
+        var pkg = '{{ package_url }}';
+        window.DL = new DirectorLite({
+            canvasName: "dltarget",
+            controlName: "dlcontrols",
+            withPackageAtURL: pkg,
+            mountedToLocation: "banpa",
+            usingInitialModelName: "banpa:director.model.json",
+            autoResize: true,
+            callbackOnFirstModelLoaded: function() {
+                var loader = document.getElementById("loadingMessage");
+                loader.parentNode.removeChild(loader);
+            },
+            callbackOnInitFailure: function(code) {
+                var errorHTML = document.getElementById("noWebGLMessage");
+                errorHTML.style.display = null;
+                var loader = document.getElementById("loadingMessage");
+                loader.parentNode.removeChild(loader);
+            }
+        });
+    }
+
+    {% if ajax %}
+    $("#freeModal").one("hide.bs.modal", function() {
+      // Bug: the DirectorLite object is leaked because we don't unbind the canvas event handlers.
+      // Live2D objects are properly dealloced, so this is ok for now...
+      window.DL.terminate();
+      delete window.DL;
+    });
+    {% endif %}
+
+    ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
+
+    {% if ajax %}
+    // Wait for canvas to be visible before initting DL, otherwise it breaks
+    if ($("#freeModal").hasClass("in")) {
+      // Sometimes it's already on screen, so shown.bs.modal doesn't fire again
+      actualDLInit();
+    } else {
+      $("#freeModal").one("shown.bs.modal", function() {
+        actualDLInit();
+      });
+    }
+    {% else %}
+    actualDLInit();
+    {% endif %}
+</script>
+{% endblock %}
+
+{% block content %}
+{% if ajax %}
+<div id="dlcontainer" style="position:relative; text-align:center">
+{% else %}
+<div class="container item-container">
+    <div id="dlcontainer" style="padding-top:32px; position:relative; text-align:center">
+{% endif %}
+        <p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">{% trans "Sorry, a browser that supports WebGL is required to view Live2D models." %}</p>
+        <p id="loadingMessage" class="alert alert-warning" style="text-align: left">{% trans "Loading Live2D model. Please wait..." %}</p>
+        <canvas id="dltarget" width="{{ canvas_size.0 }}" height="{{ canvas_size.1 }}" style="max-width:100%; max-height:100%;"></canvas>
+
+        <div id="dlcontrols" class="dlhidden" style="display: none;">
+            <button class="btn btn-main btn" title="{% trans "Controls" %}" onclick="DLToggleControls(event)"><i class="flaticon flaticon-settings"></i></button>
+
+            <div id="dltemplate" style="display: none;">
+                <i class="flaticon-about"></i> <label>{% trans "Model" context "BanPa model viewer" %}: </label> <span class="dlname"></span>
+
+                <div>
+                    {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Breathe" context "BanPa model viewer" %}: </label>
+                    <input type="checkbox" class="dlbreathe" checked />
+                    {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Blink" context "BanPa model viewer" %}: </label>
+                    <input type="checkbox" class="dlblink" checked />
+                    {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Sway" context "BanPa model viewer" %}: </label>
+                    <input type="checkbox" class="dlvariance" checked />
+                </div>
+
+                <div>
+                    {# Translators: Label for a list of choices. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Action" context "BanPa model viewer" %}: </label>
+                    <select class="dlmotions"></select>
+                    {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Loop" context "BanPa model viewer" %}: </label>
+                    <input type="checkbox" class="dlloopmotions" />
+                </div>
+
+                <div>
+                    {# Translators: Label for a list of choices. Limited space, so please try to keep it short. #}
+                    <label>{% trans "Expression" context "BanPa model viewer" %}: </label>
+                    <select class="dlexpressions"></select>
+                </div>
+
+                <div>
+                    <button class="dltoggleupdates btn btn-secondary btn-sm" data-string-pause="{% trans "Pause" context "BanPa model viewer" %}" data-string-unpause="{% trans "Unpause" context "BanPa model viewer" %}">{% trans "Pause" context "BanPa model viewer" %}</button>
+                    {# Translators: Button label. #}
+                    <button class="dlscreenshot btn btn-main btn-sm">{% trans "Screenshot" context "BanPa model viewer" %}</button>
+                    {# Translators: Button label. This is supposed to be a continuation of "Screenshot". #}
+                    <button class="dlscreenshotbg btn btn-main btn-sm">{% trans "(with background)" context "BanPa model viewer" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img id="secretBackgroundForScreenshots" src="{{ static_url }}img/bg_live2d_viewer.png" style="display: none;" />
+    <h1 class="text-center">
+      <a href="{{ item.item_url }}" class="a-nodifference fontx0-8"
+         {% if ajax %}
+         data-ajax-url="{{ item.ajax_item_url }}" data-ajax-title="{{ item }}"
+         {% else %}
+         target="_blank"
+         {% endif %}>
+        {% if ajax %}
+        <i class="flaticon-back padding20"></i>
+        {% endif %}
+        {{ item }}
+      </a>
+    </h1>
+</div>
+{% if ajax %}
+<div id="dlcontainer" style="position:relative; text-align:center">
+{% endif %}
+{% endblock %}

@@ -521,6 +521,7 @@ class Card(MagiModel):
 
     # Live2D
     live2d_model_pkg = models.FileField('Live2D', upload_to=uploadItem('c/l2d'), null=True)
+    live2d_screenshot = models.ImageField(upload_to=uploadItem('c/l2d/s'), null=True)
 
     @property
     def live2d_url(self):

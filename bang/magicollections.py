@@ -488,6 +488,7 @@ CARDS_EXCLUDE = [
     'visual_min', 'visual_max', 'visual_trained_max',
     'i_skill_note_type', 'skill_stamina', 'skill_duration',
     'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
+    'live2d_screenshot',
 ]
 
 class CardCollection(MagiCollection):
@@ -672,11 +673,23 @@ class CardCollection(MagiCollection):
             setSubField(fields, 'skill_type', key='value', value=item.full_skill)
             setSubField(fields, 'skill_type', key='icon', value=lambda k: item.skill_icon)
             # Live2D model viewer
-            setSubField(fields, 'live2d_model_pkg', key='type', value='button')
-            setSubField(fields, 'live2d_model_pkg', key='value', value=item.live2d_url)
-            #setSubField(fields, 'live2d_model_pkg', key='ajax_link', value=item.ajax_live2d_url)
-            setSubField(fields, 'live2d_model_pkg', key='link_text', value=_('View model'))
-            setSubField(fields, 'live2d_model_pkg', key='title', value=u'Live2D - {}'.format(unicode(item)))
+            setSubField(fields, 'live2d_model_pkg', key='type', value='html')
+            to_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
+                url=item.live2d_url,
+                ajax_url=item.ajax_live2d_url,
+                ajax_title=u'Live2D - {}'.format(unicode(item)),
+                text=text,
+                classes=classes or '',
+            )
+            setSubField(fields, 'live2d_model_pkg', key='value', value=lambda k: mark_safe(
+                u'{} {}'.format(
+                    to_link(_('View model'), classes='btn btn-lg btn-secondary'),
+                    to_link(u'<img src="{url}" alt="{item} Live2D">'.format(
+                        url=item.live2d_screenshot_url,
+                        item=unicode(item),
+                    )) if item.live2d_screenshot else '',
+                ),
+            ))
             # Totals
             setSubField(fields, 'favorited', key='link', value=u'/users/?favorited_card={}'.format(item.id))
             setSubField(fields, 'favorited', key='ajax_link', value=u'/ajax/users/?favorited_card={}'.format(item.id))

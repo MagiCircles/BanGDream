@@ -206,8 +206,8 @@ class CardFilterForm(MagiFiltersForm):
     ordering_fields = [
         ('release_date,id', _('Release date')),
         ('id', _('ID')),
-        ('_cache_total_collectedcards', lambda: string_concat(_('Popularity'), ' (', _('Favorite {things}').format(things=_('Cards').lower()), ')')),
-        ('_cache_total_favorited', lambda: string_concat(_('Popularity'), ' (', _('Collected {things}').format(things=_('Cards').lower()), ')')),
+        ('_cache_total_collectedcards', lambda: string_concat(_('Popularity'), ' (', _('Collected {things}').format(things=_('Cards').lower()), ')')),
+        ('_cache_total_favorited', lambda: string_concat(_('Popularity'), ' (', _('Favorite {things}').format(things=_('Cards').lower()), ')')),
         ('member__name', string_concat(_('Member'), ' - ', _('Name'))),
         ('member__japanese_name', string_concat(_('Member'), ' - ', _('Name'), ' (', t['Japanese'], ')')),
         ('i_rarity', _('Rarity')),

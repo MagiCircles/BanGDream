@@ -692,9 +692,9 @@ class CardCollection(MagiCollection):
             ))
             # Totals
             setSubField(fields, 'favorited', key='link', value=u'/users/?favorited_card={}'.format(item.id))
-            setSubField(fields, 'favorited', key='ajax_link', value=u'/ajax/users/?favorited_card={}'.format(item.id))
+            setSubField(fields, 'favorited', key='ajax_link', value=u'/ajax/users/?favorited_card={}&ajax_modal_only'.format(item.id))
             setSubField(fields, 'collectedcards', key='link', value=u'/accounts/?collected_card={}'.format(item.id))
-            setSubField(fields, 'collectedcards', key='ajax_link', value=u'/ajax/accounts/?collected_card={}'.format(item.id))
+            setSubField(fields, 'collectedcards', key='ajax_link', value=u'/ajax/accounts/?collected_card={}&ajax_modal_only'.format(item.id))
             # hide is promo, is original
             if not item.is_promo and 'is_promo' in fields:
                 del(fields['is_promo'])

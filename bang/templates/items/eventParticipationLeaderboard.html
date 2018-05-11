@@ -1,7 +1,6 @@
 {% with eventparticipation=item %}
-<br>
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-2 text-center">
     {% if not eventparticipation.ranking %}
     ??
     {% elif eventparticipation.ranking <= 3 %}
@@ -15,21 +14,21 @@
       {% include 'include/avatar.html' with av_user=eventparticipation.account.cached_owner av_size=20 av_image_size=60 av_fixed=True %}
     </a>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <div class="pull-right">
       <img src="{{ eventparticipation.account.version_image_url }}" alt="{{ eventparticipation.account.version }}" width="20">
     </div>
-    <h3>
+    <h3 style="margin: 0">
       {{ eventparticipation.account.nickname|default_if_none:eventparticipation.account.cached_owner.username }}
       <small>{{ eventparticipation.account.level|default_if_none:"" }}</small>
     </h3>
   </div>
-  <div class="col-md-7">
+  <div class="col-md-6">
     <div class="pull-right">
       {% include 'include/below_item.html' with buttons_only=True show_item_buttons=True %}
     </div>
     {% for field, details in eventparticipation.leaderboard_details %}
-    <div style="display: inline-block" class="padding20 text-center">
+    <div style="display: inline-block; padding: 0 20px;" class="text-center">
       <small class="text-muted"><i class="flaticon-{{ details.icon }}"></i> {{ details.verbose_name }}</small><br>
       <strong>
         {% if details.value == True %}<i class="flaticon-checked text-success"></i>

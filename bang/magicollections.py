@@ -930,7 +930,9 @@ def to_EventParticipationCollection(cls):
             def get_queryset(self, queryset, parameters, request):
                 queryset = super(_EventParticipationCollection.ListView, self).get_queryset(queryset, parameters, request)
                 if request.GET.get('view', None) == 'leaderboard':
-                    queryset = queryset.select_related('account').exclude(ranking__isnull=True).exclude(ranking=0)
+                    queryset = queryset.select_related('account')
+                    if request.GET.get('i_version', None) is not None:
+                        queryset = queryset.exclude(ranking__isnull=True).exclude(ranking=0)
                 return queryset
 
             def extra_context(self, context):
@@ -1538,7 +1540,7 @@ def to_PlayedSongCollection(cls):
             def get_queryset(self, queryset, parameters, request):
                 queryset = super(_PlayedSongCollection.ListView, self).get_queryset(queryset, parameters, request)
                 if request.GET.get('view', None) == 'leaderboard':
-                    queryset = queryset.select_related('account').exclude(score__isnull=True).exclude(score=0)
+                    queryset = queryset.select_related('account')
                 return queryset
 
             def table_fields(self, item, *args, **kwargs):

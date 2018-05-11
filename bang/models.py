@@ -5,6 +5,7 @@ from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.db.models import Q
 from django.db import models
 from django.conf import settings as django_settings
@@ -1038,6 +1039,11 @@ class EventParticipation(AccountAsOwnerModel):
                 'icon': 'achievement',
                 'verbose_name': _('Trial master EX completed'),
                 'value': self.is_trial_master_ex_completed,
+            }),
+            ('screenshot', {
+                'icon': 'images',
+                'verbose_name': _('Screenshot'),
+                'value': mark_safe(u'<a href="{}" target="_blank"><i class="flaticon-link"></i></a>'.format(self.screenshot_url)) if self.screenshot else None,
             }),
         ] if v['value'] and not (
             (k in ['song_score', 'song_ranking'] and self.event.type not in Event.SONG_RANKING_TYPES)

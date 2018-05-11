@@ -1211,8 +1211,8 @@ class EventCollection(MagiCollection):
                 setSubField(fields, u'{}rare_stamp'.format(version['prefix']), key='verbose_name', value=_('Rare stamp'))
 
             if 'participations' in fields:
-                setSubField(fields, 'participations', key='link', value=u'{}&view=leaderboard&ordering=ranking'.format(fields['participations']['link']))
-                setSubField(fields, 'participations', key='ajax_link', value=u'{}&view=leaderboard&ordering=ranking&ajax_modal_only'.format(fields['participations']['ajax_link']))
+                setSubField(fields, 'participations', key='link', value=u'{}&view=leaderboard&ordering=id&reverse_order=on'.format(fields['participations']['link']))
+                setSubField(fields, 'participations', key='ajax_link', value=u'{}&view=leaderboard&ordering=id&reverse_order=on&ajax_modal_only'.format(fields['participations']['ajax_link']))
 
             return fields
 

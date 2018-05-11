@@ -483,6 +483,7 @@ def to_EventParticipationFilterForm(cls):
     class _EventParticipationFilterForm(cls.ListView.filter_form):
         search_fields = [u'event__{}'.format(_o) for _o in EventFilterForm.search_fields]
         ordering_fields = [
+            ('id', _('Creation')),
             ('ranking', _('Ranking')),
             ('score', _('Score')),
             ('song_score', _('Song score')),
@@ -639,6 +640,7 @@ def to_PlayedSongFilterForm(cls):
     class _PlayedSongFilterForm(cls.ListView.filter_form):
         search_fields = [u'song__{}'.format(_o) for _o in SongFilterForm.search_fields]
         ordering_fields = [
+            ('id', _('Creation')),
             ('score', _('Score')),
         ] + [(u'song__{}'.format(_o), _t) for _o, _t in SongFilterForm.ordering_fields]
 

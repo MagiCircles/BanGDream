@@ -20,9 +20,17 @@ def live2d(request, pk, slug=None):
     context['page_title'] = u'{}: {}'.format('Live2D', unicode(the_card))
     context['item'] = the_card
     context['package_url'] = get_image_url_from_path(the_card.live2d_model_pkg)
-    context['js_files'] = LIVE2D_JS_FILES
+
+    # Work around jQuery behaviour; details in pages/live2dviewer.html.
+    if ajax:
+        context['late_js_files'] = LIVE2D_JS_FILES
+        context['danger_zone'] = 220
+    else:
+        context['js_files'] = LIVE2D_JS_FILES
+        context['danger_zone'] = 100
+    
     context['extends'] = 'base.html' if not context['ajax'] else 'ajax.html'
-    context['canvas_size'] = (562, 800) if context['ajax'] else (1334, 1000)
+    context['canvas_size'] = (562, 562) if context['ajax'] else (1334, 1000)
 
     return render(request, 'pages/live2dviewer.html', context)
 

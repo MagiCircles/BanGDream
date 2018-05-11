@@ -742,8 +742,8 @@ class Card(MagiModel):
     # Cache totals
 
     reverse_related = (
-        ('favorited', None, lambda: _('Favorite {things}').format(things=_('Cards').lower())),
-        ('collectedcards', None, lambda: _('Collected {things}').format(things=_('Cards').lower())),
+        ('favorited', 'favoritecards', lambda: _('Favorite {things}').format(things=_('Cards').lower())),
+        ('collectedcards', 'collectiblecards', lambda: _('Collected {things}').format(things=_('Cards').lower())),
     )
 
     _cache_total_favorited_days = 1
@@ -908,7 +908,7 @@ class Event(MagiModel):
     start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
     end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)
 
-    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rare_stamp', 'stamp_translation']
+    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'leaderboard']
 
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
@@ -968,6 +968,21 @@ class Event(MagiModel):
     taiwanese_status = property(lambda _s: _s.get_status(version='TW'))
     korean_status = property(lambda _s: _s.get_status(version='KR'))
 
+    # Cache totals
+
+    reverse_related = (
+        ('participations', 'eventparticipations', _('Participated events')),
+    )
+
+    _cache_total_participations_days = 1
+    _cache_total_participations_last_update = models.DateTimeField(null=True)
+    _cache_total_participations = models.PositiveIntegerField(null=True)
+
+    def to_cache_total_participations(self):
+        return self.participations.all().count()
+
+    ########
+
     def __unicode__(self):
         return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
 
@@ -990,6 +1005,44 @@ class EventParticipation(AccountAsOwnerModel):
     is_trial_master_ex_completed = models.NullBooleanField(_('Trial master EX completed'))
 
     screenshot = models.ImageField(_('Screenshot'), upload_to=uploadItem('event_screenshot'), null=True)
+
+    @property
+    def ranking_image_url(self):
+        return get_image_url_from_path(u'static/img/badges/medal{}.png'.format(4 - self.ranking))
+
+    @property
+    def leaderboard_details(self):
+        return [(k, v) for k, v in [
+            ('score', {
+                'icon': 'scoreup',
+                'verbose_name': _('Score'),
+                'value': self.score,
+            }),
+            ('song_score', {
+                'icon': 'song',
+                'verbose_name': _('Song score'),
+                'value': self.song_score,
+            }),
+            ('song_ranking', {
+                'icon': 'contest',
+                'verbose_name': _('Song ranking'),
+                'value': self.song_ranking,
+            }),
+            ('is_trial_master_completed', {
+                'icon': 'achievement',
+                'verbose_name': _('Trial master completed'),
+                'value': self.is_trial_master_completed,
+            }),
+            ('is_trial_master_ex_completed', {
+                'icon': 'achievement',
+                'verbose_name': _('Trial master EX completed'),
+                'value': self.is_trial_master_ex_completed,
+            }),
+        ] if v['value'] and not (
+            (k in ['song_score', 'song_ranking'] and self.event.type not in Event.SONG_RANKING_TYPES)
+            and (k in ['is_trial_master_completed', 'is_trial_master_ex_completed']
+                 and self.event.type not in Event.TRIAL_MASTER_TYPES)
+        )]
 
     def to_cache_account(self):
         d = super(EventParticipation, self).to_cache_account()
@@ -1142,6 +1195,21 @@ class Song(MagiModel):
     def type(self):
         return self.unlock
 
+    # Cache totals
+
+    reverse_related = (
+        ('played', 'playedsongs', _('Played songs')),
+    )
+
+    _cache_total_played_days = 1
+    _cache_total_played_last_update = models.DateTimeField(null=True)
+    _cache_total_played = models.PositiveIntegerField(null=True)
+
+    def to_cache_total_played(self):
+        return self.playedby.all().count()
+
+    ########
+
     def __unicode__(self):
         return self.romaji_name if self.romaji_name and get_language() != 'ja'  else self.japanese_name
 
@@ -1180,6 +1248,21 @@ class PlayedSong(AccountAsOwnerModel):
     @property
     def http_image_url(self):
         return self.song.http_image_url
+
+    @property
+    def leaderboard_details(self):
+        return [(k, v) for k, v in [
+            ('score', {
+                'icon': 'scoreup',
+                'verbose_name': _('Score'),
+                'value': self.score,
+            }),
+            ('full_combo', {
+                'icon': 'combo',
+                'verbose_name': _('Full combo'),
+                'value': self.full_combo,
+            }),
+        ] if v['value']]
 
     def __unicode__(self):
         if self.id:

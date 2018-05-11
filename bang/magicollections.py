@@ -34,6 +34,9 @@ class UserCollection(_UserCollection):
             if get_language() == 'en':
                 context['share_sentence'] = u'Hey, look! I\'m on ✭Bandori Party✭! Follow me ♥︎'
 
+    class ListView(_UserCollection.ListView):
+        filter_form = forms.FilterUsers
+
 ############################################################
 # Account Collection
 
@@ -674,6 +677,11 @@ class CardCollection(MagiCollection):
             #setSubField(fields, 'live2d_model_pkg', key='ajax_link', value=item.ajax_live2d_url)
             setSubField(fields, 'live2d_model_pkg', key='link_text', value=_('View model'))
             setSubField(fields, 'live2d_model_pkg', key='title', value=u'Live2D - {}'.format(unicode(item)))
+            # Totals
+            setSubField(fields, 'favorited', key='link', value=u'/users/?favorited_card={}'.format(item.id))
+            setSubField(fields, 'favorited', key='ajax_link', value=u'/ajax/users/?favorited_card={}'.format(item.id))
+            setSubField(fields, 'collectedcards', key='link', value=u'/accounts/?collected_card={}'.format(item.id))
+            setSubField(fields, 'collectedcards', key='ajax_link', value=u'/ajax/accounts/?collected_card={}'.format(item.id))
             # hide is promo, is original
             if not item.is_promo and 'is_promo' in fields:
                 del(fields['is_promo'])
@@ -873,6 +881,11 @@ def to_EventParticipationCollection(cls):
         ])
 
         filter_cuteform = {
+            'i_version': {
+                'to_cuteform': lambda k, v: AccountCollection._version_images[k],
+                'image_folder': 'language',
+                'transform': CuteFormTransform.ImagePath,
+            },
             'is_trial_master_completed': { 'type': CuteFormType.YesNo, },
             'is_trial_master_ex_completed': { 'type': CuteFormType.YesNo, },
         }
@@ -889,6 +902,28 @@ def to_EventParticipationCollection(cls):
         class ListView(cls.ListView):
             per_line = 3
             default_ordering = '-event__start_date'
+            filter_form = forms.to_EventParticipationFilterForm(cls)
+            show_item_buttons_as_icons = True
+            show_item_buttons_justified = False
+
+            alt_views = cls.ListView.alt_views + [
+                ('leaderboard', {
+                    'verbose_name': _('Leaderboard'),
+                    'template': 'eventParticipationLeaderboard',
+                    'per_line': 1,
+                    'full_width': True,
+                }),
+            ]
+
+            def get_queryset(self, queryset, parameters, request):
+                queryset = super(_EventParticipationCollection.ListView, self).get_queryset(queryset, parameters, request)
+                if request.GET.get('view', None) == 'leaderboard':
+                    queryset = queryset.select_related('account').exclude(ranking__isnull=True).exclude(ranking=0)
+                return queryset
+
+            def extra_context(self, context):
+                if context['view'] == 'leaderboard':
+                    context['show_relevant_fields_on_ordering'] = False
 
     return _EventParticipationCollection
 
@@ -896,7 +931,7 @@ def to_EventParticipationCollection(cls):
 # Event Collection
 
 EVENT_ITEM_FIELDS_ORDER = [
-    'name', 'japanese_name', 'type',
+    'name', 'japanese_name', 'type', 'participations',
 ] + [
     u'{}{}'.format(_v['prefix'], _f) for _v in models.Account.VERSIONS.values()
     for _f in models.Event.FIELDS_PER_VERSION
@@ -906,6 +941,7 @@ EVENT_ITEM_FIELDS_ORDER = [
 
 EVENT_ICONS = {
     'name': 'event',
+    'participations': 'contest',
     'start_date': 'date', 'end_date': 'date',
     'english_start_date': 'date', 'english_end_date': 'date',
     'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
@@ -1119,7 +1155,7 @@ class EventCollection(MagiCollection):
                         'ajax_link': song.ajax_item_url,
                         'link_text': unicode(song),
                     }))
-            for version in models.Account.VERSIONS.values():
+            for i_version, version in enumerate(models.Account.VERSIONS.values()):
                 if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
                     extra_fields.append(('{}image'.format(version['prefix']), {
                         'image': staticImageURL(version['image'], folder='language', extension='png'),
@@ -1127,6 +1163,25 @@ class EventCollection(MagiCollection):
                         'type': 'html',
                         'value': u'<hr>',
                     }))
+                if item.stamp_translation:
+                    extra_fields.append(('{}stamp_translation'.format(version['prefix']), {
+                        'image': staticImageURL('stamp.png'),
+                        'verbose_name': _('Stamp translation'),
+                        'type': 'text',
+                        'value': item.t_stamp_translation,
+                    }))
+                status = getattr(item, u'{}status'.format(version['prefix']))
+                if status == 'ended':
+                    extra_fields.append(('{}leaderboard'.format(version['prefix']), {
+                        'icon': 'contest',
+                        'verbose_name': _('Leaderboard'),
+                        'type': 'button',
+                        'link_text': mark_safe('<i class="flaticon-contest"></i>'),
+                        'value': u'/eventparticipations/?event=1&view=leaderboard&ordering=ranking&i_version={}'.format(i_version),
+                        'ajax_link': u'/ajax/eventparticipations/?event=1&view=leaderboard&ordering=ranking&i_version={}&ajax_modal_only'.format(i_version),
+                        'title': u'{} - {}'.format(unicode(item), _('Leaderboard')),
+                    }))
+
             exclude_fields += ['c_versions', 'japanese_name']
             fields = super(EventCollection.ItemView, self).to_fields(
                 item, *args, order=order, extra_fields=extra_fields, exclude_fields=exclude_fields, **kwargs)
@@ -1140,6 +1195,10 @@ class EventCollection(MagiCollection):
                 setSubField(fields, u'{}start_date'.format(version['prefix']), key='verbose_name', value=_('Beginning'))
                 setSubField(fields, u'{}end_date'.format(version['prefix']), key='verbose_name', value=_('End'))
                 setSubField(fields, u'{}rare_stamp'.format(version['prefix']), key='verbose_name', value=_('Rare stamp'))
+
+            if 'participations' in fields:
+                setSubField(fields, 'participations', key='link', value=u'{}&view=leaderboard&ordering=ranking'.format(fields['participations']['link']))
+                setSubField(fields, 'participations', key='ajax_link', value=u'{}&view=leaderboard&ordering=ranking&ajax_modal_only'.format(fields['participations']['ajax_link']))
 
             return fields
 
@@ -1399,6 +1458,22 @@ PLAYED_SONGS_ICONS = {
 }
 
 def to_PlayedSongCollection(cls):
+    _filter_cuteform = dict(_song_cuteform.items() + [
+        ('full_combo', {
+            'type': CuteFormType.YesNo,
+        }),
+        ('i_difficulty', {
+            'to_cuteform': lambda k, v: models.PlayedSong.DIFFICULTY_CHOICES[k][0],
+            'image_folder': 'songs',
+            'transform': CuteFormTransform.ImagePath,
+        }),
+        ('i_version', {
+            'to_cuteform': lambda k, v: AccountCollection._version_images[k],
+            'image_folder': 'language',
+            'transform': CuteFormTransform.ImagePath,
+        }),
+    ])
+
     class _PlayedSongCollection(cls):
         title = _('Played song')
         plural_title = _('Played songs')
@@ -1412,16 +1487,7 @@ def to_PlayedSongCollection(cls):
             ('Unrealistic Score', 'Your score is unrealistic, so we edited it. If this was a mistake, please upload a screenshot of your game to the details of your played song to prove your score and change it back. Thank you for your understanding.'),
         ])
 
-        filter_cuteform = dict(_song_cuteform.items() + [
-            ('full_combo', {
-                'type': CuteFormType.YesNo,
-            }),
-            ('i_difficulty', {
-                'to_cuteform': lambda k, v: models.PlayedSong.DIFFICULTY_CHOICES[k][0],
-                'image_folder': 'songs',
-                'transform': CuteFormTransform.ImagePath,
-            }),
-        ])
+        filter_cuteform = _filter_cuteform
 
         def to_fields(self, view, item, *args, **kwargs):
             fields = super(_PlayedSongCollection, self).to_fields(view, item, *args, icons=PLAYED_SONGS_ICONS, images={
@@ -1432,11 +1498,32 @@ def to_PlayedSongCollection(cls):
 
         class ListView(cls.ListView):
             default_ordering = 'song__expert_difficulty,song_id,-i_difficulty'
+            filter_form = forms.to_PlayedSongFilterForm(cls)
             item_template = 'default_item_table_view'
             display_style = 'table'
             display_style_table_fields = ['image', 'difficulty', 'score', 'full_combo', 'screenshot']
             show_item_buttons = True
             show_item_buttons_as_icons = True
+            show_item_buttons_justified = False
+
+            filter_cuteform = _filter_cuteform.copy()
+            filter_cuteform['screenshot'] = {
+                'type': CuteFormType.YesNo,
+            }
+
+            alt_views = cls.ListView.alt_views + [
+                ('leaderboard', {
+                    'verbose_name': _('Leaderboard'),
+                    'display_style': 'row',
+                    'template': 'playedSongLeaderboard',
+                }),
+            ]
+
+            def get_queryset(self, queryset, parameters, request):
+                queryset = super(_PlayedSongCollection.ListView, self).get_queryset(queryset, parameters, request)
+                if request.GET.get('view', None) == 'leaderboard':
+                    queryset = queryset.select_related('account').exclude(score__isnull=True).exclude(score=0)
+                return queryset
 
             def table_fields(self, item, *args, **kwargs):
                 fields = super(_PlayedSongCollection.ListView, self).table_fields(item, *args, **kwargs)
@@ -1461,6 +1548,9 @@ def to_PlayedSongCollection(cls):
             def extra_context(self, context):
                 if context['view'] == 'quick_edit':
                     context['include_below_item'] = False
+                if context['view'] == 'leaderboard':
+                    context['include_below_item'] = False
+                    context['show_relevant_fields_on_ordering'] = False
 
     return _PlayedSongCollection
 
@@ -1503,6 +1593,7 @@ SONG_ICONS = {
     'release_date': 'date',
     'event': 'event',
     'versions': 'world',
+    'played': 'contest',
 }
 
 class SongCollection(MagiCollection):
@@ -1623,6 +1714,10 @@ class SongCollection(MagiCollection):
                             difficulty=difficulty,
                         ),
                     }
+
+            if 'played' in fields:
+                setSubField(fields, 'played', key='link', value=u'{}&view=leaderboard&ordering=score&reverse_order=on'.format(fields['played']['link']))
+                setSubField(fields, 'played', key='ajax_link', value=u'{}&view=leaderboard&ordering=score&reverse_order=on&ajax_modal_only'.format(fields['played']['ajax_link']))
 
             details = u''
             for fieldName, verbose_name in models.Song.SONGWRITERS_DETAILS:

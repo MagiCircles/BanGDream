@@ -15,6 +15,23 @@ from bang.django_translated import t
 from bang import models
 
 ############################################################
+# Users
+
+class FilterUsers(MagiFiltersForm):
+    search_fields = ('username', )
+    ordering_fields = (
+        ('username', t['Username']),
+        ('join_date', _('Join Date')),
+    )
+
+    favorited_card = forms.IntegerField(widget=forms.HiddenInput)
+    favorited_card_filter = MagiFilter(selector='favorite_cards__card_id')
+
+    class Meta(MagiFiltersForm.Meta):
+        model = models.User
+        fields = ('search', 'ordering', 'reverse_order')
+
+############################################################
 # Accounts
 
 class AccountForm(_AccountForm):
@@ -72,6 +89,9 @@ class FilterAccounts(MagiFiltersForm):
 
     i_color = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(c[0], c[1]) for c in settings.USER_COLORS], required=False, label=_('Color'))
     i_color_filter = MagiFilter(selector='owner__preferences__color')
+
+    collected_card = forms.IntegerField(widget=forms.HiddenInput)
+    collected_card_filter = MagiFilter(selector='cardscollectors__card_id')
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Account
@@ -458,6 +478,31 @@ def to_EventParticipationForm(cls):
 
     return _EventParticipationForm
 
+def to_EventParticipationFilterForm(cls):
+    class _EventParticipationFilterForm(cls.ListView.filter_form):
+        search_fields = [u'event__{}'.format(_o) for _o in EventFilterForm.search_fields]
+        ordering_fields = [
+            ('ranking', _('Ranking')),
+            ('score', _('Score')),
+            ('song_score', _('Song score')),
+            ('song_ranking', _('Song ranking')),
+        ] + [(u'event__{}'.format(_o), _t) for _o, _t in EventFilterForm.ordering_fields]
+
+        i_version = forms.ChoiceField(label=_('Version'), choices=BLANK_CHOICE_DASH + i_choices(models.Account.VERSION_CHOICES))
+        i_version_filter = MagiFilter(selector='account__i_version')
+
+        # TODO: event type, boost members, boost attribute
+
+        def __init__(self, *args, **kwargs):
+            super(_EventParticipationFilterForm, self).__init__(*args, **kwargs)
+            if 'view' in self.fields and self.request.GET.get('view', None) != 'leaderboard':
+                del(self.fields['view'])
+
+        class Meta(cls.ListView.filter_form.Meta):
+            fields = ('view', 'search', 'i_version', 'ordering', 'reverse_order')
+
+    return _EventParticipationFilterForm
+
 ############################################################
 # Gacha
 
@@ -588,6 +633,31 @@ def to_PlayedSongForm(cls):
         class Meta(cls.form_class.Meta):
             optional_fields = ('score', 'screenshot')
     return _PlayedSongForm
+
+def to_PlayedSongFilterForm(cls):
+    class _PlayedSongFilterForm(cls.ListView.filter_form):
+        search_fields = [u'song__{}'.format(_o) for _o in SongFilterForm.search_fields]
+        ordering_fields = [
+            ('score', _('Score')),
+        ] + [(u'song__{}'.format(_o), _t) for _o, _t in SongFilterForm.ordering_fields]
+
+        i_version = forms.ChoiceField(label=_('Version'), choices=BLANK_CHOICE_DASH + i_choices(models.Account.VERSION_CHOICES))
+        i_version_filter = MagiFilter(selector='account__i_version')
+
+        screenshot = forms.NullBooleanField(label=_('Screenshot'))
+        screenshot_filter = MagiFilter(selector='screenshot__isnull')
+
+        # TODO: band, unlock, cover
+
+        def __init__(self, *args, **kwargs):
+            super(_PlayedSongFilterForm, self).__init__(*args, **kwargs)
+            if 'view' in self.fields and self.request.GET.get('view', None) != 'leaderboard':
+                self.fields['view'].choices = [(k, v) for k, v in self.fields['view'].choices if k != 'leaderboard']
+
+        class Meta(cls.ListView.filter_form.Meta):
+            fields = ('view', 'search', 'i_version', 'i_difficulty', 'full_combo', 'screenshot', 'ordering', 'reverse_order')
+
+    return _PlayedSongFilterForm
 
 ############################################################
 # Song

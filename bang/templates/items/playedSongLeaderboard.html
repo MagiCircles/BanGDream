@@ -1,0 +1,45 @@
+{% with playedsong=item %}
+<br>
+<div class="row">
+  <div class="col-md-1">
+    <img src="{{ playedsong.difficulty_image_url }}" alt="{{ playedsong.difficulty }}" class="img-responsive">
+  </div>
+  <div class="col-md-1">
+    <a href="{{ playedsong.account.cached_owner.item_url }}">
+      {% include 'include/avatar.html' with av_user=playedsong.account.cached_owner av_size=20 av_image_size=60 av_fixed=True %}
+    </a>
+  </div>
+  <div class="col-md-2">
+    <div class="pull-right">
+      <img src="{{ playedsong.account.version_image_url }}" alt="{{ playedsong.account.version }}" width="20">
+    </div>
+    <h3>
+      {{ playedsong.account.nickname|default_if_none:playedsong.account.cached_owner.username }}
+      <small>{{ playedsong.account.level|default_if_none:"" }}</small>
+    </h3>
+  </div>
+  <div class="col-md-{% if playedsong.screenshot %}6{% else %}8{% endif %}">
+    <div class="pull-right">
+      {% include 'include/below_item.html' with buttons_only=True show_item_buttons=True %}
+    </div>
+    {% for field, details in playedsong.leaderboard_details %}
+    <div style="display: inline-block;" class="padding20 text-center">
+      <small class="text-muted"><i class="flaticon-{{ details.icon }}"></i> {{ details.verbose_name }}</small><br>
+      <strong>
+        {% if details.value == True %}<i class="flaticon-checked text-success"></i>
+        {% elif details.value == False %}<i class="flaticon-delete text-danger"></i>
+        {% else %}{{ details.value }}{% endif %}
+      </strong>
+    </div>
+    {% endfor %}
+  </div>
+  {% if playedsong.screenshot %}
+  <div class="col-md-2">
+    <a href="{{ playedsong.screenshot_url }}" target="_blank">
+      <img src="{{ playedsong.screenshot_url }}" alt="{{ playedsong }}" class="img-responsive">
+    </a>
+  </div>
+  {% endif %}
+</div>
+<hr>
+{% endwith %}

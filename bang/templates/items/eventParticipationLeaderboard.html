@@ -1,0 +1,44 @@
+{% with eventparticipation=item %}
+<br>
+<div class="row">
+  <div class="col-md-2">
+    {% if not eventparticipation.ranking %}
+    ??
+    {% elif eventparticipation.ranking <= 3 %}
+    <img src="{{ eventparticipation.ranking_image_url }}" alt="{{ eventparticipation.ranking }}" />
+    {% else %}
+    <span>#{{ eventparticipation.ranking }}</span>
+    {% endif %}
+  </div>
+  <div class="col-md-1">
+    <a href="{{ eventparticipation.account.cached_owner.item_url }}">
+      {% include 'include/avatar.html' with av_user=eventparticipation.account.cached_owner av_size=20 av_image_size=60 av_fixed=True %}
+    </a>
+  </div>
+  <div class="col-md-2">
+    <div class="pull-right">
+      <img src="{{ eventparticipation.account.version_image_url }}" alt="{{ eventparticipation.account.version }}" width="20">
+    </div>
+    <h3>
+      {{ eventparticipation.account.nickname|default_if_none:eventparticipation.account.cached_owner.username }}
+      <small>{{ eventparticipation.account.level|default_if_none:"" }}</small>
+    </h3>
+  </div>
+  <div class="col-md-7">
+    <div class="pull-right">
+      {% include 'include/below_item.html' with buttons_only=True show_item_buttons=True %}
+    </div>
+    {% for field, details in eventparticipation.leaderboard_details %}
+    <div style="display: inline-block" class="padding20 text-center">
+      <small class="text-muted"><i class="flaticon-{{ details.icon }}"></i> {{ details.verbose_name }}</small><br>
+      <strong>
+        {% if details.value == True %}<i class="flaticon-checked text-success"></i>
+        {% elif details.value == False %}<i class="flaticon-delete text-danger"></i>
+        {% else %}{{ details.value }}{% endif %}
+      </strong>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<hr>
+{% endwith %}

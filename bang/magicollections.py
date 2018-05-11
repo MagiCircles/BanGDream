@@ -725,7 +725,6 @@ class CardCollection(MagiCollection):
         filter_form = forms.CardFilterForm
         default_ordering = '-release_date,-id'
         ajax_pagination_callback = 'loadCardInList'
-        js_files = LIVE2D_JS_FILES
 
         alt_views = MagiCollection.ListView.alt_views + [
             ('icons', { 'verbose_name': string_concat(_('Icons'), ' (', _('Quick add'), ')') }),

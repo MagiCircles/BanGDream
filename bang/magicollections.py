@@ -1454,12 +1454,16 @@ class GachaCollection(MagiCollection):
 PLAYED_SONGS_ICONS = {
     'score': 'scoreup',
     'full_combo': 'combo',
+    'all_perfect': 'combo',
     'screenshot': 'pictures',
 }
 
 def to_PlayedSongCollection(cls):
     _filter_cuteform = dict(_song_cuteform.items() + [
         ('full_combo', {
+            'type': CuteFormType.YesNo,
+        }),
+        ('all_perfect', {
             'type': CuteFormType.YesNo,
         }),
         ('i_difficulty', {
@@ -1501,7 +1505,7 @@ def to_PlayedSongCollection(cls):
             filter_form = forms.to_PlayedSongFilterForm(cls)
             item_template = 'default_item_table_view'
             display_style = 'table'
-            display_style_table_fields = ['image', 'difficulty', 'score', 'full_combo', 'screenshot']
+            display_style_table_fields = ['image', 'difficulty', 'score', 'full_combo', 'all_perfect', 'screenshot']
             show_item_buttons = True
             show_item_buttons_as_icons = True
             show_item_buttons_justified = False

@@ -1234,6 +1234,7 @@ class PlayedSong(AccountAsOwnerModel):
 
     score = models.PositiveIntegerField(_('Score'), null=True)
     full_combo = models.NullBooleanField(_('Full combo'))
+    all_perfect = models.NullBooleanField(_('All perfect'))
 
     screenshot = models.ImageField(_('Screenshot'), upload_to=uploadItem('song_screenshot'), null=True)
 
@@ -1261,6 +1262,11 @@ class PlayedSong(AccountAsOwnerModel):
                 'icon': 'combo',
                 'verbose_name': _('Full combo'),
                 'value': self.full_combo,
+            }),
+            ('all_perfect', {
+                'icon': 'combo',
+                'verbose_name': _('All perfect'),
+                'value': self.all_perfect,
             }),
         ] if v['value']]
 

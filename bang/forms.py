@@ -655,7 +655,7 @@ def to_PlayedSongFilterForm(cls):
                 self.fields['view'].choices = [(k, v) for k, v in self.fields['view'].choices if k != 'leaderboard']
 
         class Meta(cls.ListView.filter_form.Meta):
-            fields = ('view', 'search', 'i_version', 'i_difficulty', 'full_combo', 'screenshot', 'ordering', 'reverse_order')
+            fields = ('view', 'search', 'i_version', 'i_difficulty', 'full_combo', 'all_perfect', 'screenshot', 'ordering', 'reverse_order')
 
     return _PlayedSongFilterForm
 

@@ -1191,8 +1191,8 @@ class EventCollection(MagiCollection):
                         'verbose_name': _('Leaderboard'),
                         'type': 'button',
                         'link_text': mark_safe('<i class="flaticon-contest"></i>'),
-                        'value': u'/eventparticipations/?event=1&view=leaderboard&ordering=ranking&i_version={}'.format(i_version),
-                        'ajax_link': u'/ajax/eventparticipations/?event=1&view=leaderboard&ordering=ranking&i_version={}&ajax_modal_only'.format(i_version),
+                        'value': u'/eventparticipations/?event={}&view=leaderboard&ordering=ranking&i_version={}'.format(item.id, i_version),
+                        'ajax_link': u'/ajax/eventparticipations/?event={}&view=leaderboard&ordering=ranking&i_version={}&ajax_modal_only'.format(item.id, i_version),
                         'title': u'{} - {}'.format(unicode(item), _('Leaderboard')),
                     }))
 

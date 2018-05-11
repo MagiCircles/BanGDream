@@ -443,6 +443,7 @@ class EventFilterForm(MagiFiltersForm):
         ('english_start_date', string_concat(_('Date'), ' (', _('English version'), ')')),
         ('taiwanese_start_date', string_concat(_('Date'), ' (', _('Taiwanese version'), ')')),
         ('korean_start_date', string_concat(_('Date'), ' (', _('Korean version'), ')')),
+        ('_cache_total_participations', string_concat(_('Popularity'), ' (', _('Participated events'), ')')),
         ('name', _('Title')),
         ('japanese_name', string_concat(_('Title'), ' (', t['Japanese'], ')')),
     ]
@@ -720,6 +721,7 @@ class SongFilterForm(MagiFiltersForm):
     ordering_fields = [
         ('release_date', _('Release date')),
         ('japanese_name', _('Title')),
+        ('_cache_total_played', string_concat(_('Popularity'), ' (', _('Played songs'), ')')),
         ('romaji_name', string_concat(_('Title'), ' (', _('Romaji'), ')')),
         ('length', _('Length')),
         ('bpm', _('BPM')),

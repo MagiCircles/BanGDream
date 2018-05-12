@@ -105,6 +105,19 @@ ENABLED_PAGES['wiki'][0]['divider_before'] = True
 ENABLED_PAGES['wiki'][1]['divider_before'] = True
 ENABLED_PAGES['wiki'][0]['navbar_link_list'] = 'girlsbandparty'
 
+ENABLED_PAGES['cards_live2d'] = {
+    'title': u'↳ Live2D',
+    'navbar_link_list': 'girlsbandparty',
+    'redirect': '/cards/?view=live2d',
+}
+
+ENABLED_PAGES['cards_quickadd'] = {
+    'title': string_concat(u'↳ ', _('Quick add')),
+    'navbar_link_list': 'girlsbandparty',
+    'redirect': '/cards/?view=icons',
+    'authentication_required': True,
+}
+
 ENABLED_PAGES['discord'] = {
     'title': 'Discord',
     'icon': 'comments',
@@ -153,7 +166,7 @@ ENABLED_NAVBAR_LISTS['bangdream'] = {
 ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
     'title': _('Girls Band Party'),
     'image': 'GirlsBandParty',
-    'order': ['card_list', 'event_list', 'gacha_list', 'wiki', 'teambuilder'],
+    'order': ['card_list', 'cards_quickadd', 'cards_live2d', 'event_list', 'gacha_list', 'wiki', 'teambuilder'],
 }
 ENABLED_NAVBAR_LISTS['community'] = {
     'title': _('Community'),

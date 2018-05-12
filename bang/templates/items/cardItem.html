@@ -8,6 +8,13 @@
 <a href="{{ card.item_url }}" data-ajax-url="{{ card.ajax_item_url}}" data-ajax-title="{{ card }}" class="icon-card">
   <img src="{{ card.image_url }}" width="100%" class="card-solo" {% if card.image_trained %}data-trained="{{ card.image_trained_url }}"{% endif %} />
 </a>
+{% elif view == 'live2d' %}
+<a href="{{ card.item_url }}" data-ajax-url="{{ card.ajax_item_url }}" data-ajax-title="{{ card }}">
+  <img src="{% if card.live2d_screenshot %}{{ card.live2d_screenshot_url }}{% elif card.transparent_trained %}{{ card.transparent_trained_url }}{% else %}{{ card.transparent_url }}{% endif %}" class="img-responsive" alt="{{ card }}">
+</a>
+<a href="{{ card.live2d_url }}" data-ajax-url="{{ card.ajax_live2d_url }}" data-ajax-title="{{ card }}" class="btn btn-{{ card.english_attribute }} btn-block btn-lg">
+  {{ view_model_sentence }}
+</a>
 {% elif view == 'art' or view == 'art_trained' %}
 <a href="{{ card.item_url }}" data-ajax-url="{{ card.ajax_item_url}}" data-ajax-title="{{ card }}" class="panel panel-{{ card.english_attribute }} text-center" style="display: block;">
   <div class="panel-heading">{{ card }}</div>

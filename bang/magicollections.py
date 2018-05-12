@@ -741,6 +741,7 @@ class CardCollection(MagiCollection):
                 ],
             }),
             ('chibis', { 'verbose_name': _('Chibi') }),
+            ('live2d', { 'verbose_name': 'Live2D', 'per_line': 4 }),
             ('art', { 'verbose_name': _('Art') }),
             ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
             ('transparent', { 'verbose_name': _('Transparent') }),
@@ -766,6 +767,8 @@ class CardCollection(MagiCollection):
             if context['view'] == 'statistics':
                 context['full_width'] = True
                 context['include_below_item'] = False
+            if context['view'] == 'live2d':
+                context['view_model_sentence'] = _('View model')
             return context
 
         def ordering_fields(self, item, only_fields=None, exclude_fields=None, *args, **kwargs):

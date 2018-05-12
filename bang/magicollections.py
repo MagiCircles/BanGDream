@@ -411,7 +411,7 @@ def to_CollectibleCardCollection(cls):
 # Card Collection
 
 CARD_CUTEFORM = {
-    'member_id': {
+    'member': {
         'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
         'title': _('Member'),
         'extra_settings': {

@@ -234,8 +234,7 @@ class CardFilterForm(MagiFiltersForm):
         else:
             return queryset.filter(member_id=value)
 
-    member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
-    member_id_filter = MagiFilter(to_queryset=member_id_to_queryset)
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
 
     member_includes_cameos = forms.BooleanField(label=_('Include cameos'))
     # used in member_id_to_queryset
@@ -282,7 +281,7 @@ class CardFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
-        fields = ('view', 'search', 'member_id', 'member_includes_cameos', 'member_band', 'i_rarity', 'i_attribute', 'origin', 'is_limited', 'i_skill_type', 'member_band', 'version', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'member', 'member_includes_cameos', 'member_band', 'i_rarity', 'i_attribute', 'origin', 'is_limited', 'i_skill_type', 'member_band', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # CollectibleCard

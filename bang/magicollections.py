@@ -48,7 +48,7 @@ class AccountCollection(_AccountCollection):
     _version_images = [_c['image'] for _c in models.Account.VERSIONS.values()]
     _play_with_icons = [_c['icon'] for _c in models.Account.PLAY_WITH.values()]
     filter_cuteform = {
-        'member_id': {
+        'member': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
             'title': _('Member'),
             'extra_settings': {

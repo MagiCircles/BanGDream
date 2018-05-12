@@ -81,8 +81,8 @@ class FilterAccounts(MagiFiltersForm):
         ('start_date', _('Start Date')),
     ]
 
-    member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], required=False, label=_('Favorite Member'))
-    member_id_filter = MagiFilter(selectors=['owner__preferences__favorite_character{}'.format(i) for i in range(1, 4)])
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], required=False, label=_('Favorite Member'))
+    member_filter = MagiFilter(selectors=['owner__preferences__favorite_character{}'.format(i) for i in range(1, 4)])
 
     has_friend_id = forms.NullBooleanField(required=False, initial=None, label=_('Friend ID'))
     has_friend_id_filter = MagiFilter(selector='friend_id__isnull')
@@ -95,7 +95,7 @@ class FilterAccounts(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Account
-        fields = ('search', 'friend_id', 'i_version', 'i_color', 'member_id', 'has_friend_id')
+        fields = ('search', 'friend_id', 'i_version', 'i_color', 'member', 'has_friend_id')
 
 ############################################################
 # Member
@@ -316,8 +316,8 @@ def to_CollectibleCardFilterForm(cls):
             if value == '1': return queryset.filter(card__i_skill_type=value) # Score up
             return queryset.filter(Q(card__i_skill_type=value) | Q(card__i_side_skill_type=value))
 
-        member_id = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
-        member_id_filter = MagiFilter(selector='card__member_id')
+        member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+        member_filter = MagiFilter(selector='card__member_id')
 
         member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
         member_band_filter = MagiFilter(selector='card__member__i_band')
@@ -334,7 +334,7 @@ def to_CollectibleCardFilterForm(cls):
 
         class Meta(cls.ListView.filter_form.Meta):
             pass
-            fields = ('search', 'member_id', 'member_band', 'i_rarity', 'i_attribute', 'i_skill_type', 'member_band', 'ordering', 'reverse_order', 'view')
+            fields = ('search', 'member', 'member_band', 'i_rarity', 'i_attribute', 'i_skill_type', 'member_band', 'ordering', 'reverse_order', 'view')
     return _CollectibleCardFilterForm
 
 ############################################################

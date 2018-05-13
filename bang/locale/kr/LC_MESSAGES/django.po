@@ -2474,11 +2474,11 @@ msgstr "캐릭터"
 
 #: bang/magicollections.py:323
 msgid "Favorite {thing}"
-msgstr "제일 좋아하는 {물건}"
+msgstr "제일 좋아하는 {thing}"
 
 #: bang/forms.py:209 bang/magicollections.py:327 bang/models.py:746
 msgid "Favorite {things}"
-msgstr "제일 좋아하는 {물건들}"
+msgstr "제일 좋아하는 {things}"
 
 #. changed TL based on the assumption that this refers to live chibis (not chibis as in "child")
 #: bang/magicollections.py:630 bang/magicollections.py:633
@@ -2585,27 +2585,27 @@ msgstr "{}초간 스코어가 {}% 올라간다."
 
 #: bang/models.py:339
 msgid "For the next {duration} seconds, if life is above {stamina}, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%"
-msgstr "{duration}초간 라이프가 {stamina} 이상이면 스코어가 {}% 올라가고, 적으면 스코어가 {}% 올라간다."
+msgstr "{duration}초간 라이프가 {stamina} 이상이면 스코어가 {percentage}% 올라가고, 적으면 스코어가 {alt_percentage}% 올라간다."
 
 #: bang/models.py:353
 msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
-msgstr "그리고 다음 {}초간 스코어가 {}% 올라간다."
+msgstr "그리고 다음 {duration}초간 스코어가 {percentage}% 올라간다."
 
 #: bang/models.py:364
 msgid "Restores life by {stamina}"
-msgstr "라이프가 {} 회복된다."
+msgstr "라이프가 {stamina} 회복된다."
 
 #: bang/models.py:369
 msgid "and restores life by {stamina}"
-msgstr "그리고 라이프가 {} 회복된다."
+msgstr "그리고 라이프가 {stamina} 회복된다."
 
 #: bang/models.py:380
 msgid "All {note_type} notes turn into PERFECT notes"
-msgstr "{} 판정이 전부 PERFECT 판정이 된다."
+msgstr "{note_type} 판정이 전부 PERFECT 판정이 된다."
 
 #: bang/models.py:385
 msgid "and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds"
-msgstr "그리고 {}초간 {} 판정이 전부 PERFECT 판정이 된다"
+msgstr "그리고 {note_type}초간 {duration} 판정이 전부 PERFECT 판정이 된다"
 
 #: bang/models.py:792
 msgid "Prefer untrained card image"

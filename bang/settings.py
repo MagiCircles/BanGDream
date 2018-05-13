@@ -2,6 +2,7 @@
 import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
+from django.utils import timezone
 
 from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING, DEFAULT_JAVASCRIPT_TRANSLATED_TERMS, DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS
 from magi.utils import tourldash
@@ -76,6 +77,10 @@ ACTIVITY_TAGS = [
     ('communityevent', {
         'translation': _('Community event'),
         'has_permission_to_add': lambda r: r.user.hasPermission('post_community_event_activities'),
+    }),
+    ('thankyouyurushii', {
+        'translation': _('Thank you Yurushii'),
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
     }),
     ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
     ('nsfw', {

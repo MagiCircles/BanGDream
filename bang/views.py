@@ -1,4 +1,5 @@
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 from django.shortcuts import render, redirect
 from django.conf import settings as django_settings
 from magi.utils import getGlobalContext, ajaxContext, redirectWhenNotAuthenticated, cuteFormFieldsForContext, CuteFormTransform, get_one_object_or_404
@@ -34,6 +35,12 @@ def live2d(request, pk, slug=None):
 
     return render(request, 'pages/live2dviewer.html', context)
 
+SKILL_TYPE_TO_MAIN_VALUE = {
+    '1': 'skill_percentage', # score up
+    '2': 'skill_stamina', # life recovery
+    '3': '5 - i_skill_note_type', # perfect lock, BAD = 1, GOOD = 2, GREAT = 3
+}
+
 def teambuilder(request):
     context = getGlobalContext(request)
 
@@ -55,7 +62,10 @@ def teambuilder(request):
             ]
             if form.cleaned_data['i_skill_type']:
                 extra_select['is_correct_skill'] = u'i_skill_type = {}'.format(form.cleaned_data['i_skill_type'])
-                order_by.append('is_correct_skill')
+                extra_select['skill_real_duration'] = u'skill_duration + ((IFNULL(skill_level, 1) - 1) * 0.5)'
+                extra_select['skill_main_value'] = SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']]
+                extra_select['skill_significant_value'] = u'({}) * ({})'.format(extra_select['skill_real_duration'], extra_select['skill_main_value'])
+                order_by += ['-is_correct_skill', '-skill_significant_value']
             order_by += ['-overall_stats']
             queryset = form.Meta.model.objects.extra(select=extra_select).order_by(*order_by).select_related('card', 'card__member')
             queryset = form.filter_queryset(queryset, request.GET, request)
@@ -64,6 +74,20 @@ def teambuilder(request):
             added_members = []
             team = []
             for cc in queryset:
+                cc.calculation_details = [
+                    unicode(cc.card),
+                    u'Skill type: {}'.format(unicode(cc.card.t_skill_type)),
+                    'Skill: {}'.format(cc.card.full_skill),
+                    'Base skill duration: {}'.format(cc.card.skill_duration),
+                    'Skill level: {}'.format(cc.skill_level or 1),
+
+                    mark_safe(u'Real skill duration: {}<br><small class="text-muted">skill_duration + (skill_level - 1) * 0.5)</small>'.format(cc.skill_real_duration)),
+                    mark_safe(u'Main value of skill: {}<br><small class="text-muted">{}</small>'.format(
+                        cc.skill_main_value,
+                        SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']])
+                    ),
+                    mark_safe(u'Significant value (for calculation): {}<br><small class="text-muted">real_skill_duration * main_value</small>'.format(cc.skill_significant_value),),
+                ]
                 if cc.card.member_id in added_members:
                     continue
                 team.append(cc)

@@ -59,7 +59,19 @@ def teambuilder(request):
             order_by += ['-overall_stats']
             queryset = form.Meta.model.objects.extra(select=extra_select).order_by(*order_by).select_related('card', 'card__member')
             queryset = form.filter_queryset(queryset, request.GET, request)
-            context['team'] = queryset[:5]
+
+            # Only allow one of each member per team
+            added_members = []
+            team = []
+            for cc in queryset:
+                if cc.card.member_id in added_members:
+                    continue
+                team.append(cc)
+                added_members.append(cc.card.member_id)
+                if len(team) == 5:
+                    break
+
+            context['team'] = team
         else:
             context['hide_side_bar'] = True
     else:

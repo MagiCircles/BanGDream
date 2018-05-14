@@ -36,7 +36,7 @@ def live2d(request, pk, slug=None):
     return render(request, 'pages/live2dviewer.html', context)
 
 SKILL_TYPE_TO_MAIN_VALUE = {
-    '1': 'skill_percentage * (CASE i_skill_special WHEN i_skill_special IS NULL THEN 1 ELSE 0.8 END)', # score up
+    '1': 'skill_percentage * (CASE i_skill_special WHEN 0 THEN {perfect_accuracy} WHEN 1 THEN {stamina_accuracy} ELSE 1 END)', # score up
     '2': '(CASE i_skill_special WHEN 1 THEN 0 ELSE skill_stamina END)', # life recovery
     '3': '5 - i_skill_note_type', # perfect lock, BAD = 1, GOOD = 2, GREAT = 3
 }
@@ -49,10 +49,15 @@ def teambuilder(request):
     context['side_bar_no_padding'] = True
     context['learn_more_sentence'] = _('Learn more')
     context['no_container'] = True
+    context['js_files'] = ['teambuilder']
 
     if len(request.GET) > 0:
         form = TeamBuilderForm(request.GET, request=request)
         if form.is_valid():
+            skill_type_main_value = SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']].format(
+                perfect_accuracy=form.cleaned_data.get('perfect_accuracy', 0.8),
+                stamina_accuracy=form.cleaned_data.get('stamina_accuracy', 0.8),
+            )
             extra_select = {
                 'overall_stats': u'CASE trained WHEN 1 THEN performance_trained_max + technique_trained_max + visual_trained_max ELSE performance_max + technique_max + visual_max END',
             }
@@ -66,7 +71,7 @@ def teambuilder(request):
             if form.cleaned_data['i_skill_type']:
                 extra_select['is_correct_skill'] = u'i_skill_type = {}'.format(form.cleaned_data['i_skill_type'])
                 extra_select['skill_real_duration'] = u'skill_duration + ((IFNULL(skill_level, 1) - 1) * 0.5)'
-                extra_select['skill_main_value'] = SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']]
+                extra_select['skill_main_value'] = skill_type_main_value
                 extra_select['skill_significant_value'] = u'({}) * ({})'.format(extra_select['skill_real_duration'], extra_select['skill_main_value'])
                 order_by += ['-skill_significant_value', '-is_correct_skill']
             order_by += ['-overall_stats']
@@ -94,8 +99,8 @@ def teambuilder(request):
                             mark_safe(u'Real skill duration: {}<br><small class="text-muted">skill_duration + (skill_level - 1) * 0.5)</small>'.format(cc.skill_real_duration)),
                             mark_safe(u'Main value of skill: {}<br><small class="text-muted">{}</small>'.format(
                                 cc.skill_main_value,
-                                SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']])
-                            ),
+                                skill_type_main_value,
+                            )),
                             mark_safe(u'Skill significant value: {}<br><small class="text-muted">real_skill_duration * main_value</small>'.format(cc.skill_significant_value),),
                         ]
                 if cc.card.member_id in added_members:

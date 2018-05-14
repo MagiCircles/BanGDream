@@ -31,7 +31,7 @@
 {% for item in team %}<div class="team-builder-member">
   {% include 'items/default_item_in_list.html' with item_view_enabled=True ajax_item_popover=True %}
   {% if user.is_staff and item.calculation_details %}
-  <small class="staff-only fontx0-8"><br><br>{% for detail in item.calculation_details %}{{ detail }}<br>{% endfor %}</small>
+  <small class="staff-only fontx0-8"><br><br>{% for detail in item.calculation_details %}{{ detail }}<br><br>{% endfor %}</small>
   {% endif %}
   <br><br><br>
 </div>{% endfor %}

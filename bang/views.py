@@ -74,20 +74,20 @@ def teambuilder(request):
             added_members = []
             team = []
             for cc in queryset:
-                cc.calculation_details = [
-                    unicode(cc.card),
-                    u'Skill type: {}'.format(unicode(cc.card.t_skill_type)),
-                    'Skill: {}'.format(cc.card.full_skill),
-                    'Base skill duration: {}'.format(cc.card.skill_duration),
-                    'Skill level: {}'.format(cc.skill_level or 1),
-
-                    mark_safe(u'Real skill duration: {}<br><small class="text-muted">skill_duration + (skill_level - 1) * 0.5)</small>'.format(cc.skill_real_duration)),
-                    mark_safe(u'Main value of skill: {}<br><small class="text-muted">{}</small>'.format(
-                        cc.skill_main_value,
-                        SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']])
-                    ),
-                    mark_safe(u'Significant value (for calculation): {}<br><small class="text-muted">real_skill_duration * main_value</small>'.format(cc.skill_significant_value),),
-                ]
+                if request.user.is_staff and form.cleaned_data['i_skill_type']:
+                    cc.calculation_details = [
+                        unicode(cc.card),
+                        u'Skill type: {}'.format(unicode(cc.card.t_skill_type)),
+                        'Skill: {}'.format(cc.card.full_skill),
+                        'Base skill duration: {}'.format(cc.card.skill_duration),
+                        'Skill level: {}'.format(cc.skill_level or 1),
+                        mark_safe(u'Real skill duration: {}<br><small class="text-muted">skill_duration + (skill_level - 1) * 0.5)</small>'.format(cc.skill_real_duration)),
+                        mark_safe(u'Main value of skill: {}<br><small class="text-muted">{}</small>'.format(
+                            cc.skill_main_value,
+                            SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']])
+                        ),
+                        mark_safe(u'Significant value (for calculation): {}<br><small class="text-muted">real_skill_duration * main_value</small>'.format(cc.skill_significant_value),),
+                    ]
                 if cc.card.member_id in added_members:
                     continue
                 team.append(cc)

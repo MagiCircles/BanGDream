@@ -54,7 +54,7 @@ def teambuilder(request):
     if len(request.GET) > 0:
         form = TeamBuilderForm(request.GET, request=request)
         if form.is_valid():
-            skill_type_main_value = SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']].format(
+            skill_type_main_value = SKILL_TYPE_TO_MAIN_VALUE.get(form.cleaned_data.get('i_skill_type', ''), '').format(
                 perfect_accuracy=form.cleaned_data.get('perfect_accuracy', 0.8),
                 stamina_accuracy=form.cleaned_data.get('stamina_accuracy', 0.8),
             )

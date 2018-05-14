@@ -766,7 +766,7 @@ class TeamBuilderForm(MagiFiltersForm):
     perfect_accuracy_filter = MagiFilter(noop=True)
 
     def clean_perfect_accuracy(self):
-        return self.cleaned_data.get('perfect_accuracy', 80) / 100
+        return (self.cleaned_data.get('perfect_accuracy', 80) or 0) / 100
 
     stamina_accuracy = forms.IntegerField(label=_('How often is your stamina above 900?'), widget=forms.NumberInput(attrs={
         'type':'range', 'step': '10', 'data-show-value': 'true', 'data-show-value-suffix': '%',
@@ -774,7 +774,7 @@ class TeamBuilderForm(MagiFiltersForm):
     stamina_accuracy_filter = MagiFilter(noop=True)
 
     def clean_stamina_accuracy(self):
-        return self.cleaned_data.get('stamina_accuracy', 80) / 100
+        return (self.cleaned_data.get('stamina_accuracy', 80) or 0) / 100
 
     total_cards = forms.ChoiceField(required=False, label=_('Cards'), initial=5, choices=[
         (5, 5), (10, 10), (15, 15),

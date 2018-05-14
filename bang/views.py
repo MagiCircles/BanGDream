@@ -47,6 +47,7 @@ def teambuilder(request):
     redirectWhenNotAuthenticated(request, context, next_title=_('Team builder'))
     context['page_title'] = _('Team builder')
     context['side_bar_no_padding'] = True
+    context['learn_more_sentence'] = _('Learn more')
 
     if len(request.GET) > 0:
         form = TeamBuilderForm(request.GET, request=request)

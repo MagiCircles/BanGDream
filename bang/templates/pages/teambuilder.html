@@ -20,6 +20,9 @@
 <form method="GET" class="container_form generic-form" id="teambuilder-form">
   {% include "bootstrap_form_horizontal.html" with form=filter_form wrap=0 %}
   <div class="pull-right">
+    <a href="/wiki/Team%20builder/" target="_blank" class="btn btn-link btn-lg">
+      {{ learn_more_sentence }}
+    </a>
     <button type="submit" name="build" class="btn btn-main btn-lg generic-form-submit-button" data-form-loader="true">
       <i class="flaticon-users"></i> {% t 'Build team' %}</button>
   </div>
@@ -28,8 +31,14 @@
 {% for item in team %}<div class="team-builder-member">
   {% include 'items/default_item_in_list.html' with item_view_enabled=True ajax_item_popover=True %}
   {% if user.is_staff and item.calculation_details %}
-  <small class="fontx0-8">{% for detail in item.calculation_details %}{{ detail }}<br><br>{% endfor %}</small>
+  <small class="staff-only fontx0-8"><br><br>{% for detail in item.calculation_details %}{{ detail }}<br><br>{% endfor %}</small>
   {% endif %}
 </div>{% endfor %}
+<br><br><br>
+<div class="padding50 text-center">
+  <a href="/wiki/Team%20builder/" target="_blank" class="text-muted">
+    {{ learn_more_sentence }}
+  </a>
+</div>
 {% endif %}
 {% endblock %}

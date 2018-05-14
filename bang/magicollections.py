@@ -385,7 +385,8 @@ def to_CollectibleCardCollection(cls):
         def to_fields(self, view, item, order=None, exclude_fields=None, extra_fields=None, *args, **kwargs):
             if exclude_fields is None: exclude_fields = []
             if extra_fields is None: extra_fields = []
-            if order is None: order = COLLECTIBLE_CARDS_ORDER
+            if order is None:
+                order = COLLECTIBLE_CARDS_ORDER
             exclude_fields.append('prefer_untrained')
             if item.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
                 exclude_fields.append('trained')
@@ -490,14 +491,17 @@ CARD_CUTEFORM = {
     },
 }
 
-CARDS_ICONS = {
+CARDS_STATS_FIELDS = [
+    u'{}{}'.format(_st, _sf) for _st in [
+        'performance', 'technique', 'visual', 'overall',
+    ] for _sf in [
+        '_min', '_max', '_trained_max',
+    ]
+]
+
+CARDS_ICONS = { _st: 'skill' for _st in CARDS_STATS_FIELDS }
+CARDS_ICONS.update({
     'rarity': 'star',
-    'performance_max': 'skill',
-    'performance_trained_max': 'skill',
-    'technique_max': 'skill',
-    'technique_trained_max': 'skill',
-    'visual_max': 'skill',
-    'visual_trained_max': 'skill',
     'member': 'idolized',
     'name': 'id',
     'versions': 'world',
@@ -507,7 +511,7 @@ CARDS_ICONS = {
     'live2d_model_pkg': 'pictures',
     'favorited': 'heart',
     'collectedcards': 'deck',
-}
+})
 
 CARDS_ORDER = [
     'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'is_original',
@@ -516,12 +520,16 @@ CARDS_ORDER = [
     'gacha', 'images', 'arts', 'transparents', 'chibis', 'live2d_model_pkg'
 ]
 
+CARDS_STATISTICS_ORDER = [
+    'image', 'image_trained',
+] + CARDS_STATS_FIELDS + [
+    'skill_type',
+]
+
 CARDS_EXCLUDE = [
     'name', 'japanese_name', 'skill_name', 'i_side_skill_type',
     'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
-    'performance_min', 'performance_max', 'performance_trained_max',
-    'technique_min', 'technique_max', 'technique_trained_max',
-    'visual_min', 'visual_max', 'visual_trained_max',
+] + CARDS_STATS_FIELDS + [
     'i_skill_note_type', 'skill_stamina', 'skill_duration',
     'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
     'live2d_screenshot',
@@ -587,7 +595,6 @@ class CardCollection(MagiCollection):
         def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
-            if order is None: order = []
             # Add id field
             extra_fields.append(('id', {
                 'verbose_name': _(u'ID'),
@@ -690,7 +697,8 @@ class CardCollection(MagiCollection):
                 exclude_fields += CARDS_EXCLUDE + (['versions', 'i_skill_type'] if get_language() == 'ja' else [])
             exclude_fields += ['show_art_on_homepage', 'show_trained_art_on_homepage']
             # Order
-            order = CARDS_ORDER + order
+            if order is None:
+                order = CARDS_ORDER
 
             fields = super(CardCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             # Modify existing fields
@@ -774,6 +782,7 @@ class CardCollection(MagiCollection):
                     'technique_min', 'technique_max', 'technique_trained_max',
                     'visual_min', 'visual_max', 'visual_trained_max',
                     'overall_min', 'overall_max', 'overall_trained_max',
+                    'skill_type',
                 ],
             }),
             ('chibis', { 'verbose_name': _('Chibi') }),
@@ -830,8 +839,8 @@ class CardCollection(MagiCollection):
         def table_fields(self, item, order=None, extra_fields=None, exclude_fields=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
-            if order is None: order = []
-            order += ['image', 'image_trained']
+            if order is None:
+                order = CARDS_STATISTICS_ORDER
             extra_fields += [
                 (u'overall_{}'.format(suffix), { 'value': getattr(item, u'overall_{}'.format(suffix)) })
                 for suffix in ['min', 'max', 'trained_max']
@@ -858,6 +867,7 @@ class CardCollection(MagiCollection):
                 ('technique', _('Technique'), 3),
                 ('visual', _('Visual'), 3),
                 ('overall', _('Overall'), 3),
+                ('skill', _('Skill'), 1),
             ]
 
         def table_fields_headers(self, fields, view=None):
@@ -866,8 +876,9 @@ class CardCollection(MagiCollection):
                 for name in ['performance', 'technique', 'visual', 'overall']
                 for suffix, verbose_name in [
                         ('min', _('Min')), ('max', _('Max')),
-                        ('trained_max', string_concat(_('Trained'), ', ', _('Max'))),
-                ]]
+                        ('trained_max', _('Trained')),
+                ]] + [('skill_type', '')]
+
     def _extra_context_for_form(self, context):
         if 'js_variables' not in context:
             context['js_variables'] = {}

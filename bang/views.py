@@ -28,7 +28,7 @@ def live2d(request, pk, slug=None):
     else:
         context['js_files'] = LIVE2D_JS_FILES
         context['danger_zone'] = 100
-    
+
     context['extends'] = 'base.html' if not context['ajax'] else 'ajax.html'
     context['canvas_size'] = (562, 562) if context['ajax'] else (1334, 1000)
 

@@ -750,14 +750,19 @@ class SongFilterForm(MagiFiltersForm):
 class TeamBuilderForm(MagiFiltersForm):
     account = forms.ModelChoiceField(queryset=models.Account.objects.all(), empty_label=None)
 
-    i_band = forms.ChoiceField(choices=i_choices(models.Member.BAND_CHOICES), label=_('Band'))
+    i_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), label=_('Band'), required=False)
     i_band_filter = MagiFilter(noop=True)
 
-    i_attribute = forms.ChoiceField(choices=models.Card.ATTRIBUTE_CHOICES, label=_('Attribute'))
+    i_attribute = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.Card.ATTRIBUTE_CHOICES, label=_('Attribute'), required=False)
     i_attribute_filter = MagiFilter(noop=True)
 
     i_skill_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.Card.SKILL_TYPE_CHOICES, label=_('Skill'), required=False)
     i_skill_type_filter = MagiFilter(noop=True)
+
+    total_cards = forms.ChoiceField(required=False, label=_('Cards'), initial=5, choices=[
+        (5, 5), (10, 10), (15, 15),
+    ])
+    total_cards_filter = MagiFilter(noop=True)
 
     def __init__(self, *args, **kwargs):
         super(TeamBuilderForm, self).__init__(*args, **kwargs)

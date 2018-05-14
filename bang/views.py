@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.shortcuts import render, redirect
 from django.conf import settings as django_settings
-from magi.utils import getGlobalContext, ajaxContext, redirectWhenNotAuthenticated, cuteFormFieldsForContext, CuteFormTransform, get_one_object_or_404
+from magi.utils import getGlobalContext, ajaxContext, redirectWhenNotAuthenticated, cuteFormFieldsForContext, CuteFormTransform, CuteFormType, get_one_object_or_404
 from magi.item_model import get_image_url_from_path
 from magi.views import indexExtraContext
 from bang.constants import LIVE2D_JS_FILES
@@ -52,20 +52,21 @@ def teambuilder(request):
         form = TeamBuilderForm(request.GET, request=request)
         if form.is_valid():
             extra_select = {
-                'is_correct_band': u'i_band = {}'.format(form.cleaned_data['i_band']),
-                'is_correct_attribute': u'i_attribute = {}'.format(form.cleaned_data['i_attribute']),
                 'overall_stats': u'CASE trained WHEN 1 THEN performance_trained_max + technique_trained_max + visual_trained_max ELSE performance_max + technique_max + visual_max END',
             }
-            order_by = [
-                '-is_correct_band',
-                '-is_correct_attribute',
-            ]
+            order_by = []
+            if form.cleaned_data['i_band']:
+                extra_select['is_correct_band'] = u'i_band = {}'.format(form.cleaned_data['i_band'])
+                order_by.append('-is_correct_band')
+            if form.cleaned_data['i_attribute']:
+                extra_select['is_correct_attribute'] = u'i_attribute = {}'.format(form.cleaned_data['i_attribute'])
+                order_by.append('-is_correct_attribute')
             if form.cleaned_data['i_skill_type']:
                 extra_select['is_correct_skill'] = u'i_skill_type = {}'.format(form.cleaned_data['i_skill_type'])
                 extra_select['skill_real_duration'] = u'skill_duration + ((IFNULL(skill_level, 1) - 1) * 0.5)'
                 extra_select['skill_main_value'] = SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']]
                 extra_select['skill_significant_value'] = u'({}) * ({})'.format(extra_select['skill_real_duration'], extra_select['skill_main_value'])
-                order_by += ['-is_correct_skill', '-skill_significant_value']
+                order_by += ['-skill_significant_value', '-is_correct_skill']
             order_by += ['-overall_stats']
             queryset = form.Meta.model.objects.extra(select=extra_select).order_by(*order_by).select_related('card', 'card__member')
             queryset = form.filter_queryset(queryset, request.GET, request)
@@ -74,25 +75,32 @@ def teambuilder(request):
             added_members = []
             team = []
             for cc in queryset:
-                if request.user.is_staff and form.cleaned_data['i_skill_type']:
+                if request.user.is_staff:
                     cc.calculation_details = [
                         unicode(cc.card),
-                        u'Skill type: {}'.format(unicode(cc.card.t_skill_type)),
-                        'Skill: {}'.format(cc.card.full_skill),
-                        'Base skill duration: {}'.format(cc.card.skill_duration),
-                        'Skill level: {}'.format(cc.skill_level or 1),
-                        mark_safe(u'Real skill duration: {}<br><small class="text-muted">skill_duration + (skill_level - 1) * 0.5)</small>'.format(cc.skill_real_duration)),
-                        mark_safe(u'Main value of skill: {}<br><small class="text-muted">{}</small>'.format(
-                            cc.skill_main_value,
-                            SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']])
-                        ),
-                        mark_safe(u'Significant value (for calculation): {}<br><small class="text-muted">real_skill_duration * main_value</small>'.format(cc.skill_significant_value),),
+                        mark_safe(u'Ordering: <ol>{}</ol>'.format(''.join([
+                            u'<li>{}</li>'.format(o.replace('-', '').replace('_', ' ').capitalize())
+                            for o in order_by
+                        ]))),
                     ]
+                    if form.cleaned_data['i_skill_type']:
+                        cc.calculation_details += [
+                            u'Skill type: {}'.format(unicode(cc.card.t_skill_type)),
+                            'Skill: {}'.format(cc.card.full_skill),
+                            'Base skill duration: {}'.format(cc.card.skill_duration),
+                            'Skill level: {}'.format(cc.skill_level or 1),
+                            mark_safe(u'Real skill duration: {}<br><small class="text-muted">skill_duration + (skill_level - 1) * 0.5)</small>'.format(cc.skill_real_duration)),
+                            mark_safe(u'Main value of skill: {}<br><small class="text-muted">{}</small>'.format(
+                                cc.skill_main_value,
+                                SKILL_TYPE_TO_MAIN_VALUE[form.cleaned_data['i_skill_type']])
+                            ),
+                            mark_safe(u'Skill significant value: {}<br><small class="text-muted">real_skill_duration * main_value</small>'.format(cc.skill_significant_value),),
+                        ]
                 if cc.card.member_id in added_members:
                     continue
                 team.append(cc)
                 added_members.append(cc.card.member_id)
-                if len(team) == 5:
+                if len(team) == int(form.cleaned_data.get('total_cards', 5) or 5):
                     break
 
             context['team'] = team
@@ -115,6 +123,9 @@ def teambuilder(request):
         'i_skill_type': {
             'to_cuteform': lambda k, v: CardCollection._skill_icons[k],
             'transform': CuteFormTransform.Flaticon,
+        },
+        'total_cards': {
+            'type': CuteFormType.HTML,
         },
     }, context, form=form, prefix='#teambuilder-form ')
 

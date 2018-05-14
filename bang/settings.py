@@ -14,16 +14,17 @@ STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
 SITE_NAME = 'Bandori Party'
 SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'
 SITE_IMAGE = 'bandori_party.png'
-SITE_LOGO = 'bandori_party_logo.png'
+SITE_LOGO = 'logo/bandori_party.png'
 SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
 
 LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
 
 SITE_LOGO_PER_LANGUAGE = {
-    'ja': 'bandori_japanese.png',
-    'tw': 'bandori_taiwanese.png',
-    'kr': 'bandori_korean.png',
-    'ru': 'bandori_russian.png',
+    'ja': 'logo/bandori_party_japanese.png',
+    'zh-hans': 'logo/bandori_party_chinese.png',
+    'zh-hant': 'logo/bandori_party_taiwanese.png',
+    'kr': 'logo/bandori_party_korean.png',
+    'ru': 'logo/bandori_party_russian.png',
 }
 
 GAME_NAME = string_concat(_('BanG Dream!'), ' ', _('Girls Band Party'))

@@ -357,6 +357,12 @@ COLLECTIBLE_CARDS_ICONS = {
     'skill_level': 'skill',
 }
 
+COLLECTIBLE_CARDS_ORDER = [
+    'card', 'trained', 'max_leveled',
+    'performance', 'technique', 'visual', 'overall',
+    'first_episode', 'memorial_episode', 'skill_level',
+]
+
 def to_CollectibleCardCollection(cls):
     class _CollectibleCardCollection(cls):
         title = _('Card')
@@ -376,12 +382,42 @@ def to_CollectibleCardCollection(cls):
             },
         })
 
-        def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
+        def to_fields(self, view, item, order=None, exclude_fields=None, extra_fields=None, *args, **kwargs):
             if exclude_fields is None: exclude_fields = []
+            if extra_fields is None: extra_fields = []
+            if order is None: order = COLLECTIBLE_CARDS_ORDER
             exclude_fields.append('prefer_untrained')
             if item.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
                 exclude_fields.append('trained')
-            fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons=COLLECTIBLE_CARDS_ICONS, exclude_fields=exclude_fields, **kwargs)
+            # Add stats
+            stats = dict(item.card.stats_percent)
+            stats = stats['trained_max'] if item.trained else stats['max']
+            extra_fields += [
+                (stat, {
+                    'verbose_name': verbose_name,
+                    'verbose_name_subtitle': _(u'Level {level}').format(
+                        level=item.card.max_level if item.trained else item.card.max_level_trained,
+                    ).replace(' ', u'\u00A0'),
+                    'value': value,
+                    'type': 'text',
+                    'icon': 'skill' if stat != 'overall' else 'center',
+                })
+                for stat, verbose_name, value, _max, _percentage in stats
+            ]
+            # Add skill
+            if item.card.skill_type:
+                extra_fields.append(('skill', {
+                    'title': mark_safe(u'{} <span class="text-muted">({})</span>'.format(
+                        item.card.t_skill_type.replace(' ', u'\u00A0'),
+                        item.card.t_side_skill_type.replace(' ', u'\u00A0')))
+                    if item.card.i_side_skill_type else item.card.t_skill_type,
+                    'verbose_name': _('Skill'),
+                    'icon': item.card.skill_icon,
+                    'value': item.card.full_skill,
+                    'type': 'title_text',
+                }))
+
+            fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons=COLLECTIBLE_CARDS_ICONS, order=order, exclude_fields=exclude_fields, extra_fields=extra_fields, **kwargs)
             setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
             setSubField(fields, 'first_episode', key='verbose_name', value=_('{nth} episode').format(nth=_('1st')))
             return fields

@@ -414,7 +414,7 @@ def to_CollectibleCardCollection(cls):
                     if item.card.i_side_skill_type else item.card.t_skill_type,
                     'verbose_name': _('Skill'),
                     'icon': item.card.skill_icon,
-                    'value': item.card.full_skill,
+                    'value': item.full_skill,
                     'type': 'title_text',
                 }))
 

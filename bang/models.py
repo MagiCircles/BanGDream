@@ -827,6 +827,16 @@ class CollectibleCard(AccountAsOwnerModel):
     def color(self):
         return self.card.english_attribute
 
+    @property
+    def full_skill(self):
+        if self.card.skill_duration:
+            self.previous_duration = self.card.skill_duration
+            self.card.skill_duration = self.card.skill_duration + (((self.skill_level or 1) - 1) * 0.5)
+        full_skill = unicode(self.card.full_skill)
+        if self.card.skill_duration:
+            self.card.skill_duration = self.previous_duration
+        return full_skill
+
     def __unicode__(self):
         if self.id:
             return unicode(self.card)

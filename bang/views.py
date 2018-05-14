@@ -36,7 +36,7 @@ def live2d(request, pk, slug=None):
     return render(request, 'pages/live2dviewer.html', context)
 
 SKILL_TYPE_TO_MAIN_VALUE = {
-    '1': 'skill_percentage', # score up
+    '1': 'skill_percentage * (CASE i_skill_special WHEN i_skill_special IS NULL THEN 1 ELSE 0.8 END)', # score up
     '2': 'skill_stamina', # life recovery
     '3': '5 - i_skill_note_type', # perfect lock, BAD = 1, GOOD = 2, GREAT = 3
 }

@@ -397,7 +397,7 @@ def to_CollectibleCardCollection(cls):
                 (stat, {
                     'verbose_name': verbose_name,
                     'verbose_name_subtitle': _(u'Level {level}').format(
-                        level=item.card.max_level if item.trained else item.card.max_level_trained,
+                        level=item.card.max_level_trained if item.trained else item.card.max_level,
                     ).replace(' ', u'\u00A0'),
                     'value': value,
                     'type': 'text',

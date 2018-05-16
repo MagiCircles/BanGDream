@@ -2,7 +2,7 @@
 from __future__ import division
 import datetime, time
 from collections import OrderedDict
-from django.utils.translation import ugettext_lazy as _, string_concat, get_language
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 from django.utils.safestring import mark_safe
@@ -1728,3 +1728,50 @@ class Asset(MagiModel):
 
     def __unicode__(self):
         return u'{} {}'.format(self.t_type, self.t_name if self.name else '')
+# Costume
+
+class Costume(MagiModel):
+    collection_name = 'costume'
+    owner = models.ForeignKey(User, related_name='added_costume')
+
+    COSTUME_TYPE = OrderedDict([
+        # Costumes that can be used in lives. Usually associated with cards but
+        # they aren't always (e.g. Year of the Dog)
+        ('Live', _('Live')),
+        # Never associated with cards.
+        ('Story', _('Story')),
+        # Just April Fools '18 for now, I think
+        ('Special', _('Special'))
+    ])
+    COSTUME_TYPE_CHOICES = [(_name, _tl) for _name, _tl in COSTUME_TYPE.items()]
+    i_costume_type = models.PositiveIntegerField(_('Costume type'), choices=i_choices(COSTUME_TYPE_CHOICES))
+
+    # Basically whatever you want. If there's a card associated with a model, we'll use the
+    # card's title instead.
+    name = models.CharField(_('Name'), max_length=250, null=True)
+    NAMES_CHOICES = ALL_ALT_LANGUAGES
+    d_names = models.TextField(_('Name'), null=True)
+
+    @property
+    def t_name(self):
+        if self.card:
+            return self.card.t_name
+        return self.names.get(get_language(), self.name)
+
+    preview_image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'))
+    model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'))
+    
+    # We can't reuse the old URLs, which were based on card IDs. They'll redirect to the new ones.
+    @property
+    def viewer_url(self):
+        return u'/costume/{}/{}/'.format(self.id, tourldash(self.t_name))
+
+    @property
+    def ajax_viewer_url(self):
+        return u'/ajax/costume/{}/'.format(self.id)
+
+    # there's nothing stopping you from associating a costume with a card whose member is
+    # different, but it's weird so keep it in sync elsewhere
+    # additionally, this is nullable just in case we want to upload NPC costumes.
+    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='member', null=True, on_delete=models.CASCADE)
+    card = models.ForeignKey(Card, verbose_name=_('Card'), related_name='card', null=True, on_delete=models.SET_NULL)

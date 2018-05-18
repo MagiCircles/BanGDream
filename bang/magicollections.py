@@ -1812,3 +1812,254 @@ class SongCollection(MagiCollection):
         def to_translate_form_class(self):
             super(SongCollection.EditView, self).to_translate_form_class()
             self._translate_form_class = forms.to_translate_song_form_class(self._translate_form_class)
+
+############################################################
+# Items Collection
+
+class ItemCollection(MagiCollection):
+    title = _('Item')
+    plural_title = _('Items')
+    queryset = models.Item.objects.all()
+    translated_fields = ('name', 'description', )
+    icon = 'star'
+    navbar_link = False
+    multipart = True
+    form_class = forms.ItemForm
+
+    class ListView(MagiCollection.ListView):
+        item_template = custom_item_template
+        before_template = 'include/galleryBackButtons'
+        per_line = 4
+
+    class ItemView(MagiCollection.ItemView):
+        comments_enabled = False
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+############################################################
+# Areas Collection
+
+class AreaCollection(MagiCollection):
+    title = _('Area')
+    plural_title = _('Areas')
+    queryset = models.Area.objects.all()
+    translated_fields = ('name', )
+    icon = 'world'
+    navbar_link = False
+    multipart = True
+    form_class = forms.AreaForm
+
+    class ListView(MagiCollection.ListView):
+        before_template = 'include/beforeAreas'
+        after_template = 'include/afterAreas'
+        per_line = 3
+        item_template = custom_item_template
+
+        def extra_context(self, context):
+            super(AreaCollection.ListView, self).extra_context(context)
+            context['area_items_sentence'] = _('See all')
+            context['gallery_sentence'] = _('Gallery')
+
+    class ItemView(MagiCollection.ItemView):
+        enabled = False
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+############################################################
+# Area items Collection
+
+AREA_ITEM_CUTEFORM = {
+    'member': {
+        'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+    'i_attribute': {},
+    'i_band': {
+        'image_folder': 'band',
+        'to_cuteform': 'value',
+        'title': _('Band'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+}
+
+class AreaItemCollection(MagiCollection):
+    title = _('Area item')
+    plural_title = _('Area items')
+    queryset = models.AreaItem.objects.all()
+    translated_fields = ('name', 'instrument', )
+    icon = 'present'
+    navbar_link = False
+    multipart = True
+    filter_cuteform = AREA_ITEM_CUTEFORM
+
+    types = {
+        _type: {
+            'title': _info['translation'],
+            'form_class': forms.areaitem_type_to_form(_type),
+        }
+        for _type, _info in models.AreaItem.TYPES.items()
+    }
+
+    class ListView(MagiCollection.ListView):
+        filter_form = forms.AreaItemFilters
+        ajax_item_popover = True
+        before_template = 'include/galleryBackButtons'
+        item_template = custom_item_template
+
+        def extra_context(self, context):
+            super(AreaItemCollection.ListView, self).extra_context(context)
+            context['level_1_sentence'] = _('Level {level}').format(level=1)
+
+    class ItemView(MagiCollection.ItemView):
+        comments_enabled = False
+
+        def to_fields(self, item, *args, **kwargs):
+            return OrderedDict([
+                ('area_item', {
+                    'verbose_name': item.formatted_name,
+                    'value': item.formatted_description,
+                    'type': 'long_text',
+                    'icon': 'present',
+                }),
+            ])
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+############################################################
+# Assets Collection
+
+ASSET_CUTEFORM = {
+    'member': {
+        'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+    'i_band': {
+        'image_folder': 'band',
+        'to_cuteform': 'value',
+        'title': _('Band'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+    'i_version': {
+        'to_cuteform': lambda k, v: AccountCollection._version_images[k],
+        'image_folder': 'language',
+        'transform': CuteFormTransform.ImagePath,
+    },
+    'event': {
+        'to_cuteform': lambda k, v: v.image_url,
+        'title': _('Event'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+}
+
+ASSET_ORDER = ['name', 'type'] + [
+    u'{}image'.format(_v['prefix']) for _v in models.Account.VERSIONS.values()
+]
+
+ASSET_ICONS = {
+    'band': 'users',
+    'name': 'album',
+    'type': 'toggler',
+    'tags': 'star-empty',
+}
+
+class AssetCollection(MagiCollection):
+    title = _('Asset')
+    plural_title = _('Assets')
+    queryset = models.Asset.objects.all()
+    translated_fields = ('name', )
+    icon = 'pictures'
+    navbar_link = False
+    multipart = True
+    filter_cuteform = ASSET_CUTEFORM
+    form_class = forms.AssetForm
+
+    types = {
+        _type: {
+            'title': _info['translation'],
+            'form_class': forms.asset_type_to_form(_type),
+        }
+        for _type, _info in models.Asset.TYPES.items()
+    }
+
+    def to_fields(self, view, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
+        if extra_fields is None: extra_fields = []
+        if exclude_fields is None: exclude_fields = []
+        exclude_fields += ['value']
+        if not order:
+            order = ASSET_ORDER
+        if item.image:
+            extra_fields.append(('image', {
+                'image': staticImageURL('language/ja.png'),
+                'verbose_name': string_concat(_('Japanese version'), ' - ', _('Image')),
+                'value': item.image_url,
+                'type': 'image',
+            }))
+        fields = super(AssetCollection, self).to_fields(view, item, *args, icons=ASSET_ICONS, images={
+            'image': staticImageURL('language/ja.png'),
+            'english_image': staticImageURL('language/world.png'),
+            'taiwanese_image': staticImageURL('language/zh-hant.png'),
+            'korean_image': staticImageURL('language/kr.png'),
+        }, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
+        setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
+        setSubField(fields, 'band', key='link', value=lambda f: u'/members/?i_band={}'.format(item.i_band))
+        setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))
+        setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
+        setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
+        return fields
+
+    class ListView(MagiCollection.ListView):
+        before_template = 'include/galleryBackButtons'
+        filter_form = forms.AssetFilterForm
+
+        def extra_context(self, context):
+            super(AssetCollection.ListView, self).extra_context(context)
+            type = context['request'].GET.get('i_type', None)
+            if type in models.Asset.TYPES:
+                per_line = models.Asset.TYPES.get(type, {}).get('per_line', self.per_line)
+                if context.get('per_line', None) != per_line:
+                    context['per_line'] = per_line
+                    context['col_size'] = int(math.ceil(12 / context['per_line']))
+
+    class ItemView(MagiCollection.ItemView):
+        comments_enabled = False
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True
+        permissions_required = ['manage_main_items']

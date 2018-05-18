@@ -1,0 +1,16 @@
+{% extends extends %}
+{% block content %}
+<div class="container">
+  <h1 class="padding50 text-center">{{ page_title }}</h1>
+  <div class="text-center">
+    {% for category in categories %}
+    <div class="padding20" style="display: inline-block;">
+      <a href="{{ category.url }}" class="btn btn-main btn-xl">
+        <i class="flaticon-{{ category.icon }}"></i>
+        {{ category.title }}
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

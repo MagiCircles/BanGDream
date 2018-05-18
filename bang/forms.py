@@ -746,6 +746,149 @@ class SongFilterForm(MagiFiltersForm):
         fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'version', 'ordering', 'reverse_order')
 
 ############################################################
+# Area form
+
+class AreaForm(AutoForm):
+    class Meta(AutoForm.Meta):
+        model = models.Area
+        fields = '__all__'
+        save_owner_on_creation = True
+
+############################################################
+# Area item form
+
+def areaitem_type_to_form(type):
+    class _AreaItemForm(AutoForm):
+        def __init__(self, *args, **kwargs):
+            super(_AreaItemForm, self).__init__(*args, **kwargs)
+            for variable in models.AreaItem.VARIABLES:
+                if variable in self.fields and variable not in models.AreaItem.TYPES[type]['variables']:
+                    del(self.fields[variable])
+            if 'i_type' in self.fields:
+                del(self.fields['i_type'])
+
+        def save(self, commit=False):
+            instance = super(_AreaItemForm, self).save(commit=False)
+            instance.i_type = models.AreaItem.get_i('type', type)
+            if instance.member_id:
+                instance.i_band = instance.member.i_band
+            if commit:
+                instance.save()
+            return instance
+
+        class Meta(AutoForm.Meta):
+            model = models.AreaItem
+            fields = '__all__'
+            save_owner_on_creation = True
+    return _AreaItemForm
+
+class AreaItemFilters(MagiFiltersForm):
+    search_fields = ['area__name', 'area__d_names', 'name', 'd_names', 'instrument', 'd_instruments']
+
+    i_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [('instrument', _('Instrument'))] + [
+        (i, d['translation']) for i, (k, d) in enumerate(models.AreaItem.TYPES.items())
+        if not k.startswith('instrument_')
+    ], label=_('Type'))
+    i_type_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(i_type__in=[
+        models.AreaItem.get_i('type', 'instrument_per_member'),
+        models.AreaItem.get_i('type', 'instrument_per_band'),
+    ]) if value == 'instrument' else queryset.filter(i_type=value))
+
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+
+    area = forms.IntegerField(widget=forms.HiddenInput)
+
+    class Meta(MagiFiltersForm.Meta):
+        model = models.AreaItem
+        fields = ('search', 'i_type', 'i_band', 'member', 'i_attribute', 'i_stat', 'area')
+
+############################################################
+# Item form
+
+class ItemForm(AutoForm):
+    class Meta(AutoForm.Meta):
+        model = models.Item
+        fields = '__all__'
+        save_owner_on_creation = True
+
+############################################################
+# Asset form
+
+class AssetForm(AutoForm):
+    class Meta(AutoForm.Meta):
+        model = models.Asset
+        fields = '__all__'
+        save_owner_on_creation = True
+
+def asset_type_to_form(_type):
+    class _AssetForm(AutoForm):
+        def __init__(self, *args, **kwargs):
+            super(_AssetForm, self).__init__(*args, **kwargs)
+            for variable in models.Asset.VARIABLES:
+                if variable in self.fields and variable not in models.Asset.TYPES[_type]['variables']:
+                    del(self.fields[variable])
+            if 'i_type' in self.fields:
+                del(self.fields['i_type'])
+
+        def save(self, commit=False):
+            instance = super(_AssetForm, self).save(commit=False)
+            instance.i_type = models.Asset.get_i('type', _type)
+            if not instance.c_tags:
+                instance.c_tags = None
+            if instance.member_id:
+                instance.i_band = instance.member.i_band
+            if commit:
+                instance.save()
+            return instance
+
+        class Meta(AutoForm.Meta):
+            model = models.Asset
+            fields = '__all__'
+            save_owner_on_creation = True
+    return _AssetForm
+
+class AssetFilterForm(MagiFiltersForm):
+    search_fields = ('name', 'd_names', 'c_tags')
+
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+
+    def _i_version_to_queryset(self, queryset, request, value):
+        prefix = models.Account.VERSIONS_PREFIXES.get(models.Account.get_reverse_i('version', int(value)))
+        return queryset.filter(**{
+            u'{}image__isnull'.format(prefix): False,
+        }).exclude(**{
+            u'{}image'.format(prefix): '',
+        })
+
+    i_version = forms.ChoiceField(label=_('Version'), choices=BLANK_CHOICE_DASH + i_choices(models.Account.VERSION_CHOICES))
+    i_version_filter = MagiFilter(to_queryset=_i_version_to_queryset)
+
+    event = forms.IntegerField(widget=forms.HiddenInput)
+
+    def __init__(self, *args, **kwargs):
+        super(AssetFilterForm, self).__init__(*args, **kwargs)
+        try:
+            type = models.Asset.get_reverse_i('type', int(self.request.GET.get('i_type', None)))
+        except (KeyError, ValueError, TypeError):
+            type = None
+        if type in models.Asset.TYPES:
+            for variable in models.Asset.VARIABLES:
+                if (variable in self.fields
+                    and variable not in (
+                        models.Asset.TYPES[type]['variables']
+                        + (['i_band'] if 'member' in models.Asset.TYPES[type]['variables'] else [])
+                    )):
+                    del(self.fields[variable])
+            if 'i_type' in self.fields:
+                self.fields['i_type'].widget = forms.HiddenInput()
+
+    class Meta(MagiFiltersForm.Meta):
+        model = models.Asset
+        fields = ['search', 'i_type'] + [
+            v for v in models.Asset.VARIABLES if v not in ['name', 'value']
+        ] + ['i_version']
+
+############################################################
 # Single page form
 
 class TeamBuilderForm(MagiFiltersForm):

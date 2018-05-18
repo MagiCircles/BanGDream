@@ -12,7 +12,7 @@ from django.conf import settings as django_settings
 from magi.models import User, uploadItem
 from magi.abstract_models import AccountAsOwnerModel, BaseAccount
 from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path, i_choices, getInfoFromChoices
-from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName, staticImageURL
+from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName, staticImageURL, FAVORITE_CHARACTERS_NAMES, templateVariables
 from bang.django_translated import t
 
 ############################################################
@@ -1370,3 +1370,254 @@ class Gacha(MagiModel):
 
     def __unicode__(self):
         return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
+
+############################################################
+# Item
+
+class Item(MagiModel):
+    collection_name = 'item'
+
+    owner = models.ForeignKey(User, related_name='added_items')
+
+    image = models.ImageField(_('Image'), upload_to=uploadItem('items'))
+
+    name = models.CharField(_('Title'), max_length=100, null=True)
+    NAMES_CHOICES = ALL_ALT_LANGUAGES
+    d_names = models.TextField(_('Title'), null=True)
+
+    description = models.TextField(_('Description'), null=True)
+    DESCRIPTIONS_CHOICES = ALL_ALT_LANGUAGES
+    d_descriptions = models.TextField(_('Description'), null=True)
+
+    def __unicode__(self):
+        return self.t_name
+
+############################################################
+# Area item
+
+class Area(MagiModel):
+    collection_name = 'area'
+
+    owner = models.ForeignKey(User, related_name='added_areas')
+
+    image = models.ImageField(_('Image'), upload_to=uploadItem('areas'))
+
+    name = models.CharField(_('Title'), max_length=100)
+    NAMES_CHOICES = ALL_ALT_LANGUAGES
+    d_names = models.TextField(_('Title'), null=True)
+
+    def __unicode__(self):
+        return self.t_name
+
+class AreaItem(MagiModel):
+    collection_name = 'areaitem'
+
+    owner = models.ForeignKey(User, related_name='added_area_items')
+
+    TYPES = OrderedDict([
+        ('instrument_per_member', {
+            'translation': 'Instrument per member',
+            'variables': ['member', 'instrument'],
+            'name_template': '{member_name} {instrument}',
+        }),
+        ('instrument_per_band', {
+            'translation': 'Instrument per band',
+            'variables': ['name', 'i_band', 'instrument'],
+            'name_template': '{t_name} {instrument}',
+        }),
+        ('poster', {
+            'translation': _('Poster'),
+            'variables': ['i_band'],
+            'name_template': '{t_band} {t_type}',
+        }),
+        ('flyer', {
+            'translation': _('Flyer'),
+            'variables': ['i_band'],
+            'name_template': '{t_band} {t_type}',
+        }),
+        ('food', {
+            'translation': _('Food'),
+            'variables': ['name', 'i_attribute'],
+        }),
+        ('decoration', {
+            'translation': _('Decoration'),
+            'variables': ['name', 'i_attribute'],
+        }),
+        ('other', {
+            'translation': _('Other'),
+            'variables': ['name', 'i_band', 'i_stat', 'i_attribute', 'depends_on_life', 'flat'],
+        }),
+    ])
+    TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in TYPES.items()]
+    i_type = models.PositiveIntegerField('Type', choices=i_choices(TYPE_CHOICES))
+    type_name_template = property(getInfoFromChoices('type', TYPES, 'name_template'))
+
+    VARIABLES = ['name', 'i_band', 'i_attribute', 'instrument', 'member', 'i_stat', 'depends_on_life', 'flat']
+
+    image = models.ImageField(_('Image'), upload_to=uploadItem('areas/items'))
+    area = models.ForeignKey(Area, verbose_name=_('Area'), null=True)
+    value = models.FloatField(null=True)
+    flat = models.BooleanField('Flat value', default=False, help_text='Default: Percentage')
+
+    name = models.CharField(_('Title'), max_length=100, null=True)
+    NAMES_CHOICES = ALL_ALT_LANGUAGES
+    d_names = models.TextField(_('Title'), null=True)
+
+    BAND_CHOICES = list(Member.BAND_CHOICES)
+    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
+
+    ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES
+    ATTRIBUTE_WITHOUT_I_CHOICES = True
+    i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES, null=True)
+
+    instrument = models.CharField(_('Instrument'), max_length=100, null=True)
+    INSTRUMENTS_CHOICES = ALL_ALT_LANGUAGES
+    d_instruments = models.TextField(_('Instrument'), null=True)
+
+    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='area_items', null=True, on_delete=models.SET_NULL)
+
+    @property
+    def member_name(self):
+        return FAVORITE_CHARACTERS_NAMES.get(self.member_id, None)
+
+    STAT_CHOICES = (
+        ('performance', _('Performance')),
+        ('technique', _('Technique')),
+        ('visual', _('Visual')),
+    )
+    i_stat = models.PositiveIntegerField('Statistics', choices=i_choices(STAT_CHOICES), null=True)
+
+    depends_on_life = models.PositiveIntegerField(null=True)
+    life = property(lambda _s: _s.depends_on_life)
+
+    ###
+
+    @property
+    def formatted_name(self):
+        template = self.type_name_template
+        if not template:
+            return unicode(self.t_name or self.t_type or u'{}: #{}'.format(_('Area items'), self.id))
+        return template.format(**{
+            variable: unicode(getattr(self, variable, ''))
+            for variable in (templateVariables(template) or [])
+        })
+
+    @property
+    def affected_members(self):
+        if self.i_band is not None:
+            return self.t_band
+        elif self.i_attribute is not None:
+            return self.t_attribute
+        return _('All')
+
+    @property
+    def effect_value(self):
+        if self.flat:
+            return unicode(int(self.value))
+        return '{percentage}%'.format(percentage=self.value)
+
+    @property
+    def affected_stat(self):
+        if self.i_stat is not None:
+            return unicode(self.t_stat).lower()
+        return u'/'.join([unicode(stat).lower() for n, stat in self.STAT_CHOICES])
+
+    @property
+    def formatted_description(self):
+        template = (
+            _('{affected_members} members get +{effect_value} {affected_stat} points if life is above {life}')
+            if self.depends_on_life
+            else _('{affected_members} members get +{effect_value} {affected_stat} points')
+        )
+        return template.format(**{
+            variable: unicode(getattr(self, variable, ''))
+            for variable in (templateVariables(template) or [])
+        })
+
+    def __unicode__(self):
+        return self.formatted_name
+
+############################################################
+# Assets
+
+class Asset(MagiModel):
+    collection_name = 'asset'
+
+    owner = models.ForeignKey(User, related_name='added_assets')
+
+    image = models.ImageField(_('Image'), upload_to=uploadItem('asset'), null=True)
+    english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('asset/e'), null=True)
+    taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('asset/t'),  null=True)
+    korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('asset/k'),  null=True)
+
+    @property
+    def top_image(self):
+        image = None
+        if self.request:
+            try:
+                image = getattr(self, u'{}image_url'.format(Account.VERSIONS_PREFIXES[Account.get_reverse_i('version', int(self.request.GET.get('i_version', None)))]))
+            except (ValueError, KeyError, TypeError):
+                pass
+        if not image and get_language() in LANGUAGES_TO_VERSIONS:
+            image = getattr(self, u'{}image_url'.format(Account.VERSIONS_PREFIXES[LANGUAGES_TO_VERSIONS[get_language()]]))
+        return image or getattr(self, u'image_url') or staticImageURL('stars.png')
+
+    VARIABLES = ['name', 'i_band', 'member', 'c_tags', 'event', 'value']
+
+    TYPES = OrderedDict([
+        ('comic', {
+            'translation': _('Comics'),
+            'variables': ['name'],
+            'per_line': 2,
+        }),
+        ('background', {
+            'translation': _('Backgrounds'),
+            'variables': ['i_band', 'c_tags'],
+            'per_line': 2,
+        }),
+        ('stamp', {
+            'translation': _('Stamps'),
+            'variables': ['name', 'member'],
+            'per_line': 4,
+        }),
+        ('title', {
+            'translation': _('Titles'),
+            'variables': ['event', 'value'],
+            'per_line': 3,
+        }),
+        ('interface', {
+            'translation': _('Interface'),
+            'variables': [],
+            'per_line': 3,
+        }),
+    ])
+    TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in TYPES.items()]
+    i_type = models.PositiveIntegerField('Type', choices=i_choices(TYPE_CHOICES), null=True)
+    type_variables = property(getInfoFromChoices('type', TYPES, 'variables'))
+    type_per_line = property(getInfoFromChoices('type', TYPES, 'per_line'))
+
+    name = models.CharField(_('Title'), max_length=100, null=True)
+    NAMES_CHOICES = ALL_ALT_LANGUAGES
+    d_names = models.TextField(_('Title'), null=True)
+
+    BAND_CHOICES = Member.BAND_CHOICES
+    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
+
+    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='stamps', null=True, on_delete=models.SET_NULL)
+
+    TAGS_CHOICES = (
+        ('outdoor', _('Outdoor')),
+        ('indoor', _('Indoor')),
+        ('school', _('School')),
+        ('stage', _('Stage')),
+        ('home', _('Home')),
+        ('date', _('Dating spot')),
+    )
+    c_tags = models.TextField(_('Tags'), null=True)
+
+    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='titles', null=True, on_delete=models.SET_NULL)
+
+    value = models.PositiveIntegerField(null=True)
+
+    def __unicode__(self):
+        return u'{} {}'.format(self.t_type, self.t_name if self.name else '')

@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="text-center fontx1-5">
+  {% if current == 'areaitem_list' %}
+  <a href="/areas/" class="a-nodifference padding20" style="display: inline-block;">
+    <i class="flaticon-back"></i>
+    {% trans 'Areas' %}
+  </a>
+  {% endif %}
+  <a href="/gallery/" class="a-nodifference padding20" style="display: inline-block;">
+    <i class="flaticon-back"></i>
+    {% trans 'Gallery' %}
+  </a>
+</div>

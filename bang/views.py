@@ -8,14 +8,17 @@ from magi.views import indexExtraContext
 from bang.constants import LIVE2D_JS_FILES
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
-from bang.models import Card
+from bang import models
+
+############################################################
+# Live2D
 
 def live2d(request, pk, slug=None):
     ajax = request.path_info.startswith('/ajax/')
     context = ajaxContext(request) if ajax else getGlobalContext(request)
     context['ajax'] = ajax
 
-    queryset = Card.objects.filter(id=pk, live2d_model_pkg__isnull=False)
+    queryset = models.Card.objects.filter(id=pk, live2d_model_pkg__isnull=False)
     the_card = get_one_object_or_404(queryset)
 
     context['page_title'] = u'{}: {}'.format('Live2D', unicode(the_card))
@@ -34,6 +37,40 @@ def live2d(request, pk, slug=None):
     context['canvas_size'] = (562, 562) if context['ajax'] else (1334, 1000)
 
     return render(request, 'pages/live2dviewer.html', context)
+
+############################################################
+# Assets
+
+def gallery(request):
+    ajax = request.path_info.startswith('/ajax/')
+    context = ajaxContext(request) if ajax else getGlobalContext(request)
+    context['ajax'] = ajax
+    context['extends'] = 'base.html' if not context['ajax'] else 'ajax.html'
+    context['page_title'] = _('Gallery')
+
+    context['categories'] = [
+        {
+            'title': details['translation'],
+            'url': u'/assets/?i_type={}'.format(i_type),
+            'icon': 'pictures',
+        } for i_type, details in enumerate(models.Asset.TYPES.values())
+    ] + [
+        {
+            'icon': 'present',
+            'title': _('Area items'),
+            'url': '/areas/',
+        },
+        {
+            'icon': 'star',
+            'title': _('Items'),
+            'url': '/items/',
+        },
+    ]
+
+    return render(request, 'pages/gallery.html', context)
+
+############################################################
+# Team builder
 
 SKILL_TYPE_TO_MAIN_VALUE = {
     '1': 'skill_percentage * (CASE i_skill_special WHEN 0 THEN {perfect_accuracy} WHEN 1 THEN {stamina_accuracy} ELSE 1 END)', # score up

@@ -1,0 +1,11 @@
+<div class="text-center">
+  <a href="{{ item.item_url }}" target="_blank">
+    <img src="{{ item.image_url }}" class="img-responsive" alt="{{ item }}">
+  </a>
+  <br>
+  <h3>{{ item.formatted_name }}</h3>
+  <p>
+    {{ item.formatted_description }}
+    <small class="text-muted">({{ level_1_sentence }})</small>
+  </p>
+</div>

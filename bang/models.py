@@ -1393,6 +1393,30 @@ class Item(MagiModel):
         return self.t_name
 
 ############################################################
+# Collected item
+
+class CollectibleItem(AccountAsOwnerModel):
+    collection_name = 'collectibleitem'
+
+    account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='items')
+    item = models.ForeignKey(Item, verbose_name=_('Item'), related_name='collectedby')
+
+    quantity = models.PositiveIntegerField(_('Quantity'), default=1)
+
+    image = property(lambda _s: _s.item.image)
+    image_url = property(lambda _s: _s.item.image_url)
+    http_image_url = property(lambda _s: _s.item.http_image_url)
+
+    @property
+    def subtitle(self):
+        return u'x{}'.format(self.quantity)
+
+    def __unicode__(self):
+        if self.id:
+            return unicode(self.item)
+        return super(CollectibleItem, self).__unicode__()
+
+############################################################
 # Area item
 
 class Area(MagiModel):
@@ -1534,8 +1558,46 @@ class AreaItem(MagiModel):
             for variable in (templateVariables(template) or [])
         })
 
+    @property
+    def max_level(self):
+        return 6 if self.type == 'instrument_per_band' else 5
+
     def __unicode__(self):
         return self.formatted_name
+
+############################################################
+# Collected item
+
+class CollectibleAreaItem(AccountAsOwnerModel):
+    collection_name = 'collectibleareaitem'
+
+    account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='areaitems')
+    areaitem = models.ForeignKey(AreaItem, verbose_name=_('Area item'), related_name='collectedby')
+
+    level = models.PositiveIntegerField(_('Level'), default=1)
+
+    image = property(lambda _s: _s.areaitem.image)
+    image_url = property(lambda _s: _s.areaitem.image_url)
+    http_image_url = property(lambda _s: _s.areaitem.http_image_url)
+
+    formatted_name = property(lambda _s: _s.areaitem.formatted_name)
+
+    @property
+    def formatted_description(self):
+        previous_value = self.areaitem.value
+        self.areaitem.value += (0.5 * (self.level - 1))
+        formatted_description = unicode(self.areaitem.formatted_description)
+        self.areaitem.value = previous_value
+        return formatted_description
+
+    @property
+    def subtitle(self):
+        return _('Level {level}').format(level=self.level)
+
+    def __unicode__(self):
+        if self.id:
+            return unicode(self.areaitem)
+        return super(CollectibleAreaItem, self).__unicode__()
 
 ############################################################
 # Assets

@@ -812,6 +812,27 @@ class ItemForm(AutoForm):
         save_owner_on_creation = True
 
 ############################################################
+# Item form
+
+def to_CollectibleAreaItemForm(cls):
+    class _CollectibleAreaItemForm(cls.form_class):
+        level = forms.IntegerField(required=False, label=_('Level'), validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5),
+        ])
+
+        def __init__(self, *args, **kwargs):
+            super(_CollectibleAreaItemForm, self).__init__(*args, **kwargs)
+            _type = self.collectible_variables.get('type')
+            if _type and _type == 'instrument_per_band' and 'level' in self.fields:
+                self.fields['level'].validators = [
+                    MinValueValidator(1),
+                    MaxValueValidator(6),
+                ]
+
+    return _CollectibleAreaItemForm
+
+############################################################
 # Asset form
 
 class AssetForm(AutoForm):

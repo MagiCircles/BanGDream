@@ -929,6 +929,7 @@ def to_EventParticipationCollection(cls):
     class _EventParticipationCollection(cls):
         title = _('Participated event')
         plural_title = _('Participated events')
+        collectible_tab_name = _('Events')
         multipart = True
         show_edit_button_superuser_only = True
         form_class = forms.to_EventParticipationForm(cls)
@@ -1545,6 +1546,7 @@ def to_PlayedSongCollection(cls):
     class _PlayedSongCollection(cls):
         title = _('Played song')
         plural_title = _('Played songs')
+        collectible_tab_name = _('Songs')
         multipart = True
         form_class = forms.to_PlayedSongForm(cls)
         show_edit_button_superuser_only = True
@@ -1814,6 +1816,42 @@ class SongCollection(MagiCollection):
             self._translate_form_class = forms.to_translate_song_form_class(self._translate_form_class)
 
 ############################################################
+# Collectible items Collection
+
+COLLECTIBLEITEM_ICON = {
+    'quantity': 'scoreup',
+}
+
+def to_CollectibleItemCollection(cls):
+    class _CollectibleItemCollection(cls):
+        title = _('Item')
+        plural_title = _('Items')
+
+        class ListView(cls.ListView):
+            item_template = 'collectibleitemItem'
+
+        class ItemView(cls.ItemView):
+            def to_fields(self, item, extra_fields=None, *args, **kwargs):
+                if extra_fields is None: extra_fields = []
+                extra_fields.append((
+                    'item_details', {
+                        'verbose_name': item.item.t_name,
+                        'value': item.item.t_description,
+                        'type': 'long_text',
+                        'icon': 'star',
+                    },
+                ))
+                fields = super(_CollectibleItemCollection.ItemView, self).to_fields(
+                    item, *args, icons=COLLECTIBLEITEM_ICON,
+                    extra_fields=extra_fields, **kwargs)
+                return fields
+
+        class AddView(cls.AddView):
+            unique_per_owner = True
+
+    return _CollectibleItemCollection
+
+############################################################
 # Items Collection
 
 class ItemCollection(MagiCollection):
@@ -1825,6 +1863,11 @@ class ItemCollection(MagiCollection):
     navbar_link = False
     multipart = True
     form_class = forms.ItemForm
+    collectible = models.CollectibleItem
+
+    def collectible_to_class(self, model_class):
+        cls = super(ItemCollection, self).collectible_to_class(model_class)
+        return to_CollectibleItemCollection(cls)
 
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
@@ -1833,6 +1876,16 @@ class ItemCollection(MagiCollection):
 
     class ItemView(MagiCollection.ItemView):
         comments_enabled = False
+
+        def to_fields(self, item, *args, **kwargs):
+            return OrderedDict([
+                ('area_item', {
+                    'verbose_name': item.t_name,
+                    'value': item.t_description,
+                    'type': 'long_text',
+                    'icon': 'present',
+                }),
+            ])
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -1878,6 +1931,46 @@ class AreaCollection(MagiCollection):
         permissions_required = ['manage_main_items']
 
 ############################################################
+# Collectible area items Collection
+
+COLLECTIBLEAREAITEM_ICON = {
+    'level': 'scoreup',
+}
+
+def to_CollectibleAreaItemCollection(cls):
+    class _CollectibleAreaItemCollection(cls):
+        title = _('Area item')
+        plural_title = _('Area items')
+        form_class = forms.to_CollectibleAreaItemForm(cls)
+
+        class ListView(cls.ListView):
+            item_template = 'collectibleitemItem'
+
+        class ItemView(cls.ItemView):
+            def to_fields(self, item, extra_fields=None, *args, **kwargs):
+                if extra_fields is None: extra_fields = []
+                extra_fields.append((
+                    'item_details', {
+                        'verbose_name': item.formatted_name,
+                        'value': item.formatted_description,
+                        'type': 'long_text',
+                        'icon': 'present',
+                    },
+                ))
+                fields = super(_CollectibleAreaItemCollection.ItemView, self).to_fields(
+                    item, *args, icons=COLLECTIBLEAREAITEM_ICON,
+                    extra_fields=extra_fields, **kwargs)
+                return fields
+
+        class AddView(cls.AddView):
+            unique_per_owner = True
+            add_to_collection_variables = cls.AddView.add_to_collection_variables + [
+                'type',
+            ]
+
+    return _CollectibleAreaItemCollection
+
+############################################################
 # Area items Collection
 
 AREA_ITEM_CUTEFORM = {
@@ -1917,6 +2010,12 @@ class AreaItemCollection(MagiCollection):
         }
         for _type, _info in models.AreaItem.TYPES.items()
     }
+
+    collectible = models.CollectibleAreaItem
+
+    def collectible_to_class(self, model_class):
+        cls = super(AreaItemCollection, self).collectible_to_class(model_class)
+        return to_CollectibleAreaItemCollection(cls)
 
     class ListView(MagiCollection.ListView):
         filter_form = forms.AreaItemFilters

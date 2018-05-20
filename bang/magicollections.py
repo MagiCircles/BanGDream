@@ -105,6 +105,13 @@ class AccountCollection(_AccountCollection):
         setSubField(fields, 'stargems_bought', key='annotation', value=_(u'~{}円 spent (~${})').format(spent_yen, spent_dollars))
         return fields
 
+    def get_profile_account_tabs(self, request, context, *args, **kwargs):
+        tabs = super(AccountCollection, self).get_profile_account_tabs(request, context, *args, **kwargs)
+        for collection_name, collection in context['collectible_collections']['account'].items():
+            if collection_name in ['collectibleitem', 'collectibleareaitem']:
+                tabs[collection_name]['callback'] = 'function loadAccountComingSoon(tab_name, user_id, account_id, onDone) { onDone(\'<div class="alert alert-info text-center"><i class="flaticon-idolized"></i> \' + gettext(\'Coming soon\') + \' <i class="flaticon-idolized"></i></div>\'); }'
+        return tabs
+
     def share_image(self, context, item):
         return 'screenshots/leaderboard.png'
 

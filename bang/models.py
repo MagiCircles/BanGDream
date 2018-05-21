@@ -1754,11 +1754,13 @@ class Costume(MagiModel):
 
     @property
     def t_name(self):
+        # If we're a card costume, take that card's title so we don't have to save/TL duplicate strings.
+        # The form will make sure self.name is null.
         if self.card:
-            return self.card.t_name
+            return self.card.t_name or self.card.japanese_name
         return self.names.get(get_language(), self.name)
 
-    preview_image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'))
+    preview_image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'), null=True)
     model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'))
     
     # We can't reuse the old URLs, which were based on card IDs. They'll redirect to the new ones.
@@ -1769,9 +1771,27 @@ class Costume(MagiModel):
     @property
     def ajax_viewer_url(self):
         return u'/ajax/costume/{}/'.format(self.id)
+    
+    @property
+    def resolved_preview_image(self):
+        if self.preview_image:
+            return self.preview_image_url
+        elif self.card:
+            for try_img in ['transparent_trained_url', 'transparent_url']:
+                g = getattr(self.card, try_img)
+                if g:
+                    return g
+        return None
 
     # there's nothing stopping you from associating a costume with a card whose member is
     # different, but it's weird so keep it in sync elsewhere
     # additionally, this is nullable just in case we want to upload NPC costumes.
-    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='member', null=True, on_delete=models.CASCADE)
-    card = models.ForeignKey(Card, verbose_name=_('Card'), related_name='card', null=True, on_delete=models.SET_NULL)
+    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='associated_costume', null=True, on_delete=models.CASCADE)
+    card = models.OneToOneField(Card, verbose_name=_('Card'), related_name='associated_costume', null=True, on_delete=models.SET_NULL)
+
+    def __unicode__(self):
+        if self.member:
+            return u"[{title}] {member_name}".format(title=self.t_name, member_name=self.member.name)
+        else:
+            # It'd look weird with nothing outside the brackets, so get rid of them
+            return unicode(self.t_name)

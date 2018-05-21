@@ -2169,3 +2169,106 @@ class AssetCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+
+COSTUME_CUTEFORM = {
+    'card': {
+        'to_cuteform': lambda k, v: v.image_url,
+        'title': _('Card'),
+    },
+    'member': {
+        # TODO: icon for "other"
+        'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k] if k else "duhhh",
+        'title': _('Member'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+}
+
+class CostumeCollection(MagiCollection):
+    queryset = models.Costume.objects.select_related('card')
+    title = _('Costume')
+    plural_title = _('Costumes')
+    multipart = True
+    icon = 'user'
+    reportable = False
+    blockable = False
+    translated_fields = ('name', )
+    navbar_link_list = 'girlsbandparty'
+    form_class = forms.CostumeForm
+    filter_cuteform = COSTUME_CUTEFORM
+    # collectible = models.PlayedSong
+
+    def to_fields(self, view, item, *args, **kwargs):
+        fields = super(CostumeCollection, self).to_fields(
+            view, item, *args, **kwargs)
+        print(fields)
+
+        # Live2D model viewer
+        setSubField(fields, 'model_pkg', key='type', value='html')
+        to_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
+            url=item.viewer_url,
+            ajax_url=item.ajax_viewer_url,
+            ajax_title=u'Live2D - {}'.format(unicode(item)),
+            text=text,
+            classes=classes or '',
+        )
+        setSubField(fields, 'model_pkg', key='value', value=lambda k: mark_safe(
+            u'{} {}'.format(
+                to_link(_('View model'), classes='btn btn-lg btn-secondary'),
+                to_link(u'<img src="{url}" alt="{item} Live2D">'.format(
+                    url=item.preview_image_url,
+                    item=unicode(item),
+                )) if item.preview_image else '',
+            ),
+        ))
+
+        return fields
+
+    class ListView(MagiCollection.ListView):
+        item_template = custom_item_template
+        per_line = 4
+        filter_form = forms.CostumeFilterForm
+        default_ordering = '-id'
+
+        def to_fields(self, item, *args, **kwargs):
+            fields = super(CostumeCollection.ListView, self).to_fields(item, *args, **kwargs)
+            return fields
+
+    class ItemView(MagiCollection.ItemView):
+        template = 'costumeItem'
+        js_files = LIVE2D_JS_FILES
+        ajax_callback = 'loadModelViewerAjax'
+
+        def extra_context(self, context):
+            # the old modal JS loading workaround
+            if context['request'].path_info.startswith('/ajax/'):
+                context['late_js_files'] = context['js_files']
+                context['js_files'] = []
+                context['danger_zone'] = 220
+            else:
+                context['danger_zone'] = 100
+
+            return context
+
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(CostumeCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            queryset = queryset.select_related('card').select_related('member')
+            return queryset
+
+        def to_fields(self, item, *args, **kwargs):
+            fields = super(CostumeCollection.ItemView, self).to_fields(item, *args, **kwargs)
+            return fields
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+        def to_translate_form_class(self):
+            super(CostumeCollection.EditView, self).to_translate_form_class()
+            #self._translate_form_class = forms.to_translate_song_form_class(self._translate_form_class)

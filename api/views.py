@@ -255,3 +255,44 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = models.Event.objects.all().prefetch_related('boost_members')
     serializer_class = EventSerializer
     permission_classes = (api_permissions.IsStaffOrReadOnly, )
+
+############################################################
+# Costume
+
+class CostumeSerializer(MagiSerializer):
+    i_costume_type = IFieldManualChoices({i: key for i, key in enumerate(models.Costume.COSTUME_TYPE.keys())}, required=True)
+
+    def validate(self, data):
+        print(data)
+        if not data['card'] and not data['name']:
+            raise serializers.ValidationError({
+                'name': ['Costumes without associated cards must have a name.'],
+            })
+        elif data['card']:
+            data['member'] = data['card'].member
+            data['name'] = None
+        return data
+
+    class Meta:
+        model = models.Costume
+        save_owner_on_creation = True
+        fields = (
+            'id', 'i_costume_type', 'member', 'card', 'resolved_preview_image', 'name'
+        )
+
+class CostumeSerializerForEditing(CostumeSerializer):
+    model_pkg = FileField(required=True)
+    preview_image = ImageField(required=True)
+
+    class Meta(CostumeSerializer.Meta):
+        fields = CostumeSerializer.Meta.fields + ('model_pkg', 'preview_image')
+
+class CostumeViewSet(viewsets.ModelViewSet):
+    queryset = models.Costume.objects.all()
+    serializer_class = CostumeSerializer
+    permission_classes = (api_permissions.IsStaffOrReadOnly, )
+
+    def get_serializer_class(self):
+        if self.request.method not in permissions.SAFE_METHODS:
+            return CostumeSerializerForEditing
+        return CostumeSerializer

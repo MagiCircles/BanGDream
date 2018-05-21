@@ -1734,6 +1734,7 @@ class Costume(MagiModel):
     collection_name = 'costume'
     owner = models.ForeignKey(User, related_name='added_costume')
 
+    COSTUME_TYPE_LIVE = 0
     COSTUME_TYPE = OrderedDict([
         # Costumes that can be used in lives. Usually associated with cards but
         # they aren't always (e.g. Year of the Dog)

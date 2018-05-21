@@ -918,17 +918,29 @@ class CostumeForm(AutoForm):
             self.instance.previous_card = self.instance.card
             self.instance.previous_member = self.instance.member
 
+        self.fields['card'].queryset = self.fields['card'].queryset.filter(associated_costume__isnull=True)
+        if self.instance.card:
+            self.fields['card'].queryset = self.fields['card'].queryset.filter(associated_costume=self.instance)
+
         self.fields['member'].help_text = _('If associating this costume with a card, you can leave this blank. I\'ll take the member from the card.')
-        self.fields['card'].queryset = self.fields['card'].queryset.filter(Q(associated_costume__isnull=True) | Q(id=self.instance.card.id))
+
+        if not self.is_creating and self.instance.i_costume_type != models.Costume.COSTUME_TYPE_LIVE:
+            self.fields['member'].help_text = ""
+            del self.fields['card']
 
     def clean(self):
         cleaned_data = super(CostumeForm, self).clean()
+
+        if cleaned_data.get('i_costume_type') != models.Costume.COSTUME_TYPE_LIVE:
+            cleaned_data['card'] = None
+
         # We take the card's title, so return null.
-        if not cleaned_data['card'] and not cleaned_data['name']:
+        if not cleaned_data.get('card') and not cleaned_data.get('name'):
             raise forms.ValidationError('Costumes without associated cards must have a name.')
-        elif cleaned_data['card']:
+        elif cleaned_data.get('card'):
             cleaned_data['member'] = cleaned_data['card'].member
             cleaned_data['name'] = None
+
         return cleaned_data
 
     class Meta(AutoForm.Meta):

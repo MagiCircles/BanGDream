@@ -264,11 +264,11 @@ class CostumeSerializer(MagiSerializer):
 
     def validate(self, data):
         print(data)
-        if not data['card'] and not data['name']:
+        if not data.get('card') and not data.get('name'):
             raise serializers.ValidationError({
                 'name': ['Costumes without associated cards must have a name.'],
             })
-        elif data['card']:
+        elif data.get('card'):
             data['member'] = data['card'].member
             data['name'] = None
         return data

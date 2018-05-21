@@ -4,7 +4,7 @@
 {% with costume=item %}
 {% if current == 'costume_list' or current == 'costume_list_ajax' %}
 <a href="{{ costume.viewer_url }}" data-ajax-url="{{ costume.ajax_viewer_url }}" data-ajax-title="{{ costume }}">
-    <div style="height: 200px; display: block;">
+    <div style="height: 200px; display: block; text-align:center;">
         {% if costume.resolved_preview_image %}
         <img alt="{{ costume }}" src="{{ costume.resolved_preview_image }}" height="200"/>
         {% endif %}
@@ -12,7 +12,7 @@
     <p style="text-align: center; font-weight:bold;">{{ costume }}</p>
 </a>
 
-{% elif current == 'costume_item' or current == 'costume_item_ajax' %}
+{% else %}
 
 <p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">Sorry, a browser that supports WebGL is required to view Live2D models.</p>
 <p id="loadingMessage" class="text-center fontx2 padding20"><i class="flaticon-loading"></i></p>

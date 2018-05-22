@@ -2180,8 +2180,8 @@ COSTUME_CUTEFORM = {
         'title': _('Card'),
     },
     'member': {
-        # TODO: icon for "other"
-        'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k] if k else "duhhh",
+        'to_cuteform': lambda k, v: (FAVORITE_CHARACTERS_IMAGES[k] if k != forms.CostumeFilterForm.ID_OF_MISC_MEMBERS 
+            else staticImageURL('i_misc_member.png')),
         'title': _('Member'),
         'extra_settings': {
             'modal': 'true',

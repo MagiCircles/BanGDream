@@ -981,7 +981,8 @@ class CostumeFilterForm(MagiFiltersForm):
         else:
             return queryset.filter(member__id=value)
 
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])] + [(ID_OF_MISC_MEMBERS, 'Other')], initial=None, label=_('Member'))
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])] + 
+        [(ID_OF_MISC_MEMBERS, 'Other')], initial=None, label=_('Member'))
     member_filter = MagiFilter(to_queryset=_member_to_queryset)
 
     class Meta(MagiFiltersForm.Meta):

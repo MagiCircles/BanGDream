@@ -269,8 +269,6 @@ class CardFilterForm(MagiFiltersForm):
     def _view_to_queryset(self, queryset, request, value):
         if value == 'chibis':
             return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
-        elif value == 'live2d':
-            return queryset.filter(live2d_model_pkg__isnull=False).exclude(live2d_model_pkg='')
         elif value == 'art':
             return queryset.filter(art__isnull=False)
         elif value == 'transparent':

@@ -2,12 +2,18 @@
 {% load i18n %}
 
 {% with costume=item %}
-<a href="{{ costume.viewer_url }}" data-ajax-url="{{ costume.ajax_viewer_url }}" data-ajax-title="{{ costume }}">
-    <div style="height: 200px; display: block; text-align:center;">
+<a href="{{ costume.viewer_url }}" class="costume_link" data-ajax-url="{{ costume.ajax_viewer_url }}" data-ajax-title="{{ costume }}">
+    <div class="cos_image">
         {% if costume.resolved_preview_image %}
         <img alt="{{ costume }}" src="{{ costume.resolved_preview_image }}" height="200"/>
         {% endif %}
     </div>
-    <p style="text-align: center; font-weight:bold;">{{ costume }}</p>
+    <p class="cos_caption">
+        {% if costume.member %}
+        [{{ costume.t_name }}]<br>{{ costume.member.t_name }}
+        {% else %}
+        {{ costume.t_name }}
+        {% endif %}
+    </p>
 </a>
 {% endwith %}

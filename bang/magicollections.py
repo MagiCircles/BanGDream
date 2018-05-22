@@ -2195,7 +2195,7 @@ class CostumeCollection(MagiCollection):
     title = _('Costume')
     plural_title = _('Costumes')
     multipart = True
-    icon = 'user'
+    icon = 'users'
     reportable = False
     blockable = False
     translated_fields = ('name',)

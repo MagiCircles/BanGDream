@@ -1773,7 +1773,7 @@ class Costume(MagiModel):
     # We can't reuse the old URLs, which were based on card IDs. They'll redirect to the new ones.
     @property
     def viewer_url(self):
-        return u'/costume/{}/{}/'.format(self.id, tourldash(self.t_name))
+        return u'/costumes/{}/{}/'.format(self.id, tourldash(unicode(self)))
 
     @property
     def ajax_viewer_url(self):
@@ -1791,7 +1791,7 @@ class Costume(MagiModel):
         return None
 
     # there's nothing stopping you from associating a costume with a card whose member is
-    # different, but it's weird so keep it in sync elsewhere
+    # different, but it's weird so keep it in sync elsewhere (forms.py)
     # additionally, this is nullable just in case we want to upload NPC costumes.
     member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='associated_costume', null=True, on_delete=models.CASCADE)
     card = models.OneToOneField(Card, verbose_name=_('Card'), related_name='associated_costume', null=True, on_delete=models.SET_NULL)

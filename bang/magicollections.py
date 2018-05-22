@@ -698,7 +698,7 @@ class CardCollection(MagiCollection):
                     } for cameo in item.cached_cameos]
                 }))
             # Add live2d viewer
-            if item.associated_costume:
+            if hasattr(item, "associated_costume"):
                 to_cos_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
                     url=item.associated_costume.viewer_url,
                     ajax_url=item.associated_costume.ajax_viewer_url + "?from_card",

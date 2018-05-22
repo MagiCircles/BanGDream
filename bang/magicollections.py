@@ -2268,16 +2268,23 @@ class CostumeCollection(MagiCollection):
         def extra_context(self, context):
             # the old modal JS loading workaround
             if context['request'].path_info.startswith('/ajax/'):
+                is_ajax = True
                 context['late_js_files'] = context['js_files']
                 context['js_files'] = []
                 context['danger_zone'] = 220
             else:
+                is_ajax = False
                 context['danger_zone'] = 100
             
             if context['request'].GET.get('from_card') is not None:
                 # try to simulate the big back link in the previous live2d page
                 # only the actual link can be clicked though, unfortunately
                 setSubField(context['item_fields'], 'card', key='icon', value='back')
+
+            if not is_ajax:
+                # disable AJAX on standalone viewer pages, as having two viewers open at once will cause trouble
+                setSubField(context['item_fields'], 'card', key='ajax_link', value=None)
+                setSubField(context['item_fields'], 'costume', key='ajax_link', value=None)
 
             return context
 

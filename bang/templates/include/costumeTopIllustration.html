@@ -79,9 +79,35 @@
                 loader.parentNode.removeChild(loader);
             }
         });
+
+        {% if ajax %}
+        // If the modal ever gets replaced we need to terminate the viewer.
+        // Just hope we never load two live2d pages in a row.
+        window.origFreeModal = window.freeModal;
+        window.freeModal = hookFreeModalForTerminatingDirector;
+        {% endif %}
     }
 
     {% if ajax %}
+    function hookFreeModalForTerminatingDirector() {
+        // restore original freeModal
+        window.freeModal = window.origFreeModal;
+
+        if (window.DL) {
+            wrapDLTerminate();
+            $("#freeModal").off("hide.bs.modal", null, wrapDLTerminate);
+        }
+
+        window.freeModal.apply(this, arguments);
+    }
+
+    function wrapDLTerminate() {
+        // Bug: the DirectorLite object is leaked because we don't unbind the canvas event handlers.
+        // Live2D objects are properly dealloced, so this is ok for now...
+        window.DL.terminate();
+        delete window.DL;
+    }
+
     function lateScriptsDidLoad() {
         ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
 
@@ -95,12 +121,7 @@
             });
         }
 
-        $("#freeModal").one("hide.bs.modal", function() {
-            // Bug: the DirectorLite object is leaked because we don't unbind the canvas event handlers.
-            // Live2D objects are properly dealloced, so this is ok for now...
-            window.DL.terminate();
-            delete window.DL;
-        });
+        $("#freeModal").one("hide.bs.modal", wrapDLTerminate);
 
         // Otherwise we'll have a lot of duplicate script tags if the modal is opened more than once.
         $(".clean-up-after-director-init").detach();

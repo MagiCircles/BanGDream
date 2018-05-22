@@ -1748,7 +1748,7 @@ class Costume(MagiModel):
         # they aren't always (e.g. Year of the Dog)
         ('live', _('Live')),
         # Never associated with cards.
-        ('story', _('Story')),
+        ('other', _('Other')),
     ])
     COSTUME_TYPE_CHOICES = [(_name, _tl) for _name, _tl in COSTUME_TYPE.items()]
     i_costume_type = models.PositiveIntegerField(_('Costume type'), choices=i_choices(COSTUME_TYPE_CHOICES))

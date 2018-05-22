@@ -2202,7 +2202,6 @@ class CostumeCollection(MagiCollection):
     navbar_link_list = 'girlsbandparty'
     form_class = forms.CostumeForm
     filter_cuteform = COSTUME_CUTEFORM
-    # collectible = models.PlayedSong
 
     def to_fields(self, view, item, extra_fields=None, exclude_fields=None, *args, **kwargs):
         extra_fields = extra_fields or []
@@ -2240,8 +2239,16 @@ class CostumeCollection(MagiCollection):
             extra_fields.append(('costume', member_field_params))
         
         fields = super(CostumeCollection, self).to_fields(view, item, extra_fields=extra_fields, exclude_fields=exclude_fields, *args, **kwargs)
-
         return fields
+    
+    def buttons_per_item(self, view, request, context, item):
+        buttons = super(CostumeCollection, self).buttons_per_item(view, request, context, item)
+
+        # Card-associated costumes take their name from the card, so you can't translate them.
+        if 'translate' in buttons and item.card:
+            del buttons['translate']
+        
+        return buttons
 
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template

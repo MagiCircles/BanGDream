@@ -241,6 +241,7 @@ MEMBERS_ICONS = {
     'description': 'id',
     'cards': 'album',
     'fans': 'heart',
+    'costumes': 'profile',
 }
 
 class MemberCollection(MagiCollection):
@@ -524,7 +525,7 @@ CARDS_ORDER = [
     'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'is_original',
     'release_date',
     'japanese_skill_name', 'skill_type', 'japanese_skill',
-    'gacha', 'images', 'arts', 'transparents', 'chibis', 'live2d_model_pkg'
+    'gacha', 'images', 'arts', 'transparents', 'chibis', 'associated_costume'
 ]
 
 CARDS_STATISTICS_ORDER = [
@@ -539,7 +540,6 @@ CARDS_EXCLUDE = [
 ] + CARDS_STATS_FIELDS + [
     'i_skill_note_type', 'skill_stamina', 'skill_duration',
     'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
-    'live2d_screenshot',
 ]
 
 class CardCollection(MagiCollection):
@@ -596,6 +596,7 @@ class CardCollection(MagiCollection):
         return buttons
 
     class ItemView(MagiCollection.ItemView):
+        queryset = models.Card.objects.all().select_related('associated_costume')
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
 
@@ -696,6 +697,27 @@ class CardCollection(MagiCollection):
                         'link_text': cameo.name,
                     } for cameo in item.cached_cameos]
                 }))
+            # Add live2d viewer
+            if item.associated_costume:
+                to_cos_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
+                    url=item.associated_costume.viewer_url,
+                    ajax_url=item.associated_costume.ajax_viewer_url + "?from_card",
+                    ajax_title=string_concat(_("Costume"), " - ", unicode(item)),
+                    text=text,
+                    classes=classes or '',
+                )
+                extra_fields.append(('associated_costume', {
+                    'icon': 'pictures',
+                    'verbose_name': _('Costume'),
+                    'type': 'html',
+                    'value': mark_safe(u'{} {}'.format(
+                        to_cos_link(_('View model'), classes='btn btn-lg btn-secondary'),
+                        to_cos_link(u'<img src="{url}" alt="{item} preview">'.format(
+                            url=item.associated_costume.preview_image_url,
+                            item=unicode(item),
+                        )) if item.associated_costume.preview_image_url else '',
+                    ))
+                }))
 
             # Exclude fields
             if exclude_fields == 1:
@@ -723,24 +745,6 @@ class CardCollection(MagiCollection):
                         if item.i_side_skill_type else item.t_skill_type))
             setSubField(fields, 'skill_type', key='value', value=item.full_skill)
             setSubField(fields, 'skill_type', key='icon', value=lambda k: item.skill_icon)
-            # Live2D model viewer
-            setSubField(fields, 'live2d_model_pkg', key='type', value='html')
-            to_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
-                url=item.live2d_url,
-                ajax_url=item.ajax_live2d_url,
-                ajax_title=u'Live2D - {}'.format(unicode(item)),
-                text=text,
-                classes=classes or '',
-            )
-            setSubField(fields, 'live2d_model_pkg', key='value', value=lambda k: mark_safe(
-                u'{} {}'.format(
-                    to_link(_('View model'), classes='btn btn-lg btn-secondary'),
-                    to_link(u'<img src="{url}" alt="{item} Live2D">'.format(
-                        url=item.live2d_screenshot_url,
-                        item=unicode(item),
-                    )) if item.live2d_screenshot else '',
-                ),
-            ))
             # Totals
             setSubField(fields, 'favorited', key='link', value=u'/users/?favorited_card={}'.format(item.id))
             setSubField(fields, 'favorited', key='ajax_link', value=u'/ajax/users/?favorited_card={}&ajax_modal_only'.format(item.id))

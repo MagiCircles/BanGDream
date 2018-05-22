@@ -230,6 +230,7 @@ class Member(MagiModel):
     reverse_related = (
         ('cards', 'cards', _('Cards')),
         ('fans', 'accounts', _('Fans')),
+        ('costumes', 'costumes', _('Costumes')),
     )
 
     # Cache totals
@@ -237,6 +238,7 @@ class Member(MagiModel):
     _cache_totals_last_update = models.DateTimeField(null=True)
     _cache_total_fans = models.PositiveIntegerField(null=True)
     _cache_total_cards = models.PositiveIntegerField(null=True)
+    _cache_total_costumes = models.PositiveIntegerField(null=True)
 
     def update_cache_totals(self):
         self._cache_totals_last_update = timezone.now()
@@ -246,6 +248,7 @@ class Member(MagiModel):
             | Q(preferences__favorite_character3=self.id)
         ).count()
         self._cache_total_cards = Card.objects.filter(member=self).count()
+        self._cache_total_costumes = Costume.objects.filter(member=self).count()
 
     def force_cache_totals(self):
         self.update_cache_totals()
@@ -262,6 +265,12 @@ class Member(MagiModel):
         if not self._cache_totals_last_update or self._cache_totals_last_update < timezone.now() - datetime.timedelta(hours=self._cache_totals_days):
             self.force_cache_totals()
         return self._cache_total_cards
+    
+    @property
+    def cached_total_costumes(self):
+        if not self._cache_totals_last_update or self._cache_totals_last_update < timezone.now() - datetime.timedelta(hours=self._cache_totals_days):
+            self.force_cache_totals()
+        return self._cache_total_costumes
 
     def __unicode__(self):
         return unicode(self.t_name)

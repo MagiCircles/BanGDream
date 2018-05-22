@@ -918,20 +918,17 @@ class CostumeForm(AutoForm):
             self.instance.previous_card = self.instance.card
             self.instance.previous_member = self.instance.member
 
-        self.fields['card'].queryset = self.fields['card'].queryset.filter(associated_costume__isnull=True)
+        q = Q(associated_costume__isnull=True)
         if self.instance.card:
-            self.fields['card'].queryset = self.fields['card'].queryset.filter(associated_costume=self.instance)
+            q |= Q(associated_costume=self.instance)
+        self.fields['card'].queryset = self.fields['card'].queryset.filter(q)
 
         self.fields['member'].help_text = _('If associating this costume with a card, you can leave this blank. I\'ll take the member from the card.')
-
-        if not self.is_creating and self.instance.i_costume_type != models.Costume.COSTUME_TYPE_LIVE:
-            self.fields['member'].help_text = ""
-            del self.fields['card']
 
     def clean(self):
         cleaned_data = super(CostumeForm, self).clean()
 
-        if cleaned_data.get('i_costume_type') != models.Costume.COSTUME_TYPE_LIVE:
+        if cleaned_data.get('i_costume_type') != models.Costume.get_i('costume_type', 'live'):
             cleaned_data['card'] = None
 
         # We take the card's title, so return null.
@@ -942,6 +939,18 @@ class CostumeForm(AutoForm):
             cleaned_data['name'] = None
 
         return cleaned_data
+    
+    def save(self, commit=False):
+        instance = super(CostumeForm, self).save(commit=False)
+
+        if instance.member != self.instance.previous_member:
+            self.instance.previous_member.force_cache_totals()
+        instance.member.force_cache_totals()
+
+        if commit:
+            instance.save()
+
+        return instance
 
     class Meta(AutoForm.Meta):
         model = models.Costume
@@ -952,6 +961,7 @@ class CostumeFilterForm(MagiFiltersForm):
     # Encompasses people like the dads, chispa... etc.
     # since only the 25 main girls get real Member entries.
     ID_OF_MISC_MEMBERS = 0
+
     search_fields = ['name', 'card__japanese_name', 'card__name', 'member__name', 'member__japanese_name']
     ordering_fields = [
         ('id', _('ID')),

@@ -1743,15 +1743,12 @@ class Costume(MagiModel):
     collection_name = 'costume'
     owner = models.ForeignKey(User, related_name='added_costume')
 
-    COSTUME_TYPE_LIVE = 0
     COSTUME_TYPE = OrderedDict([
         # Costumes that can be used in lives. Usually associated with cards but
         # they aren't always (e.g. Year of the Dog)
-        ('Live', _('Live')),
+        ('live', _('Live')),
         # Never associated with cards.
-        ('Story', _('Story')),
-        # Just April Fools '18 for now, I think
-        ('Special', _('Special'))
+        ('story', _('Story')),
     ])
     COSTUME_TYPE_CHOICES = [(_name, _tl) for _name, _tl in COSTUME_TYPE.items()]
     i_costume_type = models.PositiveIntegerField(_('Costume type'), choices=i_choices(COSTUME_TYPE_CHOICES))

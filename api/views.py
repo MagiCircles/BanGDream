@@ -190,13 +190,11 @@ class CardSerializer(MagiSerializer):
 class CardSerializerForEditing(CardSerializer):
     i_skill_special = IField(models.Card, 'skill_special', required=False)
     i_skill_note_type = IField(models.Card, 'skill_note_type', required=False)
-    live2d_model_pkg = FileField(required=False)
 
     class Meta(CardSerializer.Meta):
         fields = CardSerializer.Meta.fields + (
             'i_skill_special',
             'i_skill_note_type', 'skill_stamina', 'skill_duration', 'skill_percentage', 'skill_alt_percentage',
-            'live2d_model_pkg'
         )
 
 class CardViewSet(viewsets.ModelViewSet):

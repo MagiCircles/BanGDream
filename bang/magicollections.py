@@ -2255,6 +2255,8 @@ class CostumeCollection(MagiCollection):
         per_line = 4
         filter_form = forms.CostumeFilterForm
         default_ordering = '-id'
+        # not with 4 to a row
+        show_relevant_fields_on_ordering = False
 
         def to_fields(self, item, *args, **kwargs):
             fields = super(CostumeCollection.ListView, self).to_fields(item, *args, **kwargs)

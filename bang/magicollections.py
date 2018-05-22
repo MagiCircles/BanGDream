@@ -2187,42 +2187,55 @@ COSTUME_CUTEFORM = {
 }
 
 class CostumeCollection(MagiCollection):
-    queryset = models.Costume.objects.select_related('card')
+    queryset = models.Costume.objects.select_related('card').select_related('member')
     title = _('Costume')
     plural_title = _('Costumes')
     multipart = True
     icon = 'user'
     reportable = False
     blockable = False
-    translated_fields = ('name', )
+    translated_fields = ('name',)
     navbar_link_list = 'girlsbandparty'
     form_class = forms.CostumeForm
     filter_cuteform = COSTUME_CUTEFORM
     # collectible = models.PlayedSong
 
-    def to_fields(self, view, item, *args, **kwargs):
-        fields = super(CostumeCollection, self).to_fields(
-            view, item, *args, **kwargs)
-        print(fields)
+    def to_fields(self, view, item, extra_fields=None, exclude_fields=None, *args, **kwargs):
+        extra_fields = extra_fields or []
+        exclude_fields = exclude_fields or []
+        # these are all redundant with the viewer + extra field below
+        exclude_fields.extend(['i_costume_type', 'preview_image', 'model_pkg', 'name'])
 
-        # Live2D model viewer
-        setSubField(fields, 'model_pkg', key='type', value='html')
-        to_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
-            url=item.viewer_url,
-            ajax_url=item.ajax_viewer_url,
-            ajax_title=u'Live2D - {}'.format(unicode(item)),
-            text=text,
-            classes=classes or '',
-        )
-        setSubField(fields, 'model_pkg', key='value', value=lambda k: mark_safe(
-            u'{} {}'.format(
-                to_link(_('View model'), classes='btn btn-lg btn-secondary'),
-                to_link(u'<img src="{url}" alt="{item} Live2D">'.format(
-                    url=item.preview_image_url,
-                    item=unicode(item),
-                )) if item.preview_image else '',
-            ),
-        ))
+        if item.card:
+            extra_fields.append(('card', {
+                'verbose_name': _('Card'),
+                'type': 'text_with_link',
+                'value': unicode(item.card),
+                'ajax_link': item.card.ajax_item_url,
+                'link': item.card.item_url,
+                'link_text': _('Open card'),
+                'icon': 'album',
+                'image': item.card.image_trained_url or item.card.image_url,
+            }))
+        else:
+            member_field_params = {
+                'verbose_name': _('Costume'),
+                'type': 'text',
+                'value': unicode(item.t_name),
+                'icon': 'profile',
+            }
+            if item.member:
+                member_field_params.update({
+                    'type': 'text_with_link',
+                    'value': string_concat('[', member_field_params['value'], ']'),
+                    'ajax_link': item.member.ajax_item_url,
+                    'link': item.member.item_url,
+                    'link_text': unicode(item.member),
+                    'image': item.member.square_image_url,
+                })
+            extra_fields.append(('costume', member_field_params))
+        
+        fields = super(CostumeCollection, self).to_fields(view, item, extra_fields=extra_fields, exclude_fields=exclude_fields, *args, **kwargs)
 
         return fields
 
@@ -2237,9 +2250,11 @@ class CostumeCollection(MagiCollection):
             return fields
 
     class ItemView(MagiCollection.ItemView):
-        template = 'costumeItem'
+        top_illustration = 'include/costumeTopIllustration'
         js_files = LIVE2D_JS_FILES
         ajax_callback = 'loadModelViewerAjax'
+        show_item_buttons = False
+        item_padding = 0
 
         def extra_context(self, context):
             # the old modal JS loading workaround
@@ -2249,6 +2264,11 @@ class CostumeCollection(MagiCollection):
                 context['danger_zone'] = 220
             else:
                 context['danger_zone'] = 100
+            
+            if context['request'].GET.get('from_card') is not None:
+                # try to simulate the big back link in the previous live2d page
+                # only the actual link can be clicked though, unfortunately
+                setSubField(context['item_fields'], 'card', key='icon', value='back')
 
             return context
 
@@ -2257,10 +2277,6 @@ class CostumeCollection(MagiCollection):
             queryset = queryset.select_related('card').select_related('member')
             return queryset
 
-        def to_fields(self, item, *args, **kwargs):
-            fields = super(CostumeCollection.ItemView, self).to_fields(item, *args, **kwargs)
-            return fields
-
     class AddView(MagiCollection.AddView):
         staff_required = True
         permissions_required = ['manage_main_items']
@@ -2268,7 +2284,3 @@ class CostumeCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
-
-        def to_translate_form_class(self):
-            super(CostumeCollection.EditView, self).to_translate_form_class()
-            #self._translate_form_class = forms.to_translate_song_form_class(self._translate_form_class)

@@ -261,7 +261,6 @@ class CostumeSerializer(MagiSerializer):
     i_costume_type = IFieldManualChoices({i: key for i, key in enumerate(models.Costume.COSTUME_TYPE.keys())}, required=True)
 
     def validate(self, data):
-        print(data)
         if not data.get('card') and not data.get('name'):
             raise serializers.ValidationError({
                 'name': ['Costumes without associated cards must have a name.'],

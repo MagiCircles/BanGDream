@@ -258,17 +258,7 @@ class EventViewSet(viewsets.ModelViewSet):
 # Costume
 
 class CostumeSerializer(MagiSerializer):
-    i_costume_type = IFieldManualChoices({i: key for i, key in enumerate(models.Costume.COSTUME_TYPE.keys())}, required=True)
-
-    def validate(self, data):
-        if not data.get('card') and not data.get('name'):
-            raise serializers.ValidationError({
-                'name': ['Costumes without associated cards must have a name.'],
-            })
-        elif data.get('card'):
-            data['member'] = data['card'].member
-            data['name'] = None
-        return data
+    i_costume_type = IField(models.Costume, 'costume_type', required=True)
 
     class Meta:
         model = models.Costume
@@ -279,7 +269,22 @@ class CostumeSerializer(MagiSerializer):
 
 class CostumeSerializerForEditing(CostumeSerializer):
     model_pkg = FileField(required=True)
-    preview_image = ImageField(required=True)
+    preview_image = ImageField(required=False)
+
+    def validate(self, data):
+        if not data.get('card'):
+            if not data.get('name'):
+                raise serializers.ValidationError({
+                    'name': ['Costumes without associated cards must have a name.'],
+                })
+            if not data.get('preview_image'):
+                raise serializers.ValidationError({
+                    'name': ['Costumes without associated cards must have a preview image.'],
+                })
+        else:
+            data['member'] = data['card'].member
+            data['name'] = None
+        return data
 
     class Meta(CostumeSerializer.Meta):
         fields = CostumeSerializer.Meta.fields + ('model_pkg', 'preview_image')

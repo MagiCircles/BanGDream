@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
             name='Costume',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('i_costume_type', models.PositiveIntegerField(verbose_name='Costume type', choices=[(0, 'Live'), (1, 'Other')])),
+                ('i_costume_type', models.PositiveIntegerField(verbose_name='Costume type', choices=[(0, b'live'), (1, b'other')])),
                 ('name', models.CharField(max_length=250, null=True, verbose_name='Name')),
                 ('d_names', models.TextField(null=True, verbose_name='Name')),
                 ('preview_image', models.ImageField(upload_to=magi.utils.uploadItem(b'cos/p'), null=True, verbose_name='Image')),
@@ -72,5 +72,11 @@ class Migration(migrations.Migration):
         migrations.RemoveField(
             model_name='card',
             name='live2d_screenshot',
+        ),
+        migrations.AddField(
+            model_name='costume',
+            name='_tthumbnail_preview_image',
+            field=models.ImageField(null=True, upload_to=b''),
+            preserve_default=True,
         ),
     ]

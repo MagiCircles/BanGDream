@@ -1730,14 +1730,13 @@ class Costume(MagiModel):
     collection_name = 'costume'
     owner = models.ForeignKey(User, related_name='added_costume')
 
-    COSTUME_TYPE = OrderedDict([
+    COSTUME_TYPE_CHOICES = OrderedDict([
         # Costumes that can be used in lives. Usually associated with cards but
         # they aren't always (e.g. Year of the Dog)
         ('live', _('Live')),
         # Never associated with cards.
         ('other', _('Other')),
     ])
-    COSTUME_TYPE_CHOICES = [(_name, _tl) for _name, _tl in COSTUME_TYPE.items()]
     i_costume_type = models.PositiveIntegerField(_('Costume type'), choices=i_choices(COSTUME_TYPE_CHOICES))
 
     # Basically whatever you want. If there's a card associated with a model, we'll use the
@@ -1754,17 +1753,9 @@ class Costume(MagiModel):
             return self.card.t_name or self.card.japanese_name
         return self.names.get(get_language(), self.name)
 
+    _tthumbnail_preview_image = models.ImageField(null=True)
     preview_image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'), null=True)
     model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'))
-    
-    # We can't reuse the old URLs, which were based on card IDs. They'll redirect to the new ones.
-    @property
-    def viewer_url(self):
-        return u'/costumes/{}/{}/'.format(self.id, tourldash(unicode(self)))
-
-    @property
-    def ajax_viewer_url(self):
-        return u'/ajax/costume/{}/'.format(self.id)
     
     @property
     def resolved_preview_image(self):
@@ -1772,7 +1763,7 @@ class Costume(MagiModel):
             return self.preview_image_url
         elif self.card:
             for try_img in ['transparent_trained_url', 'transparent_url']:
-                g = getattr(self.card, try_img)
+                g = getattr(self.card, try_img, None)
                 if g:
                     return g
         return None
@@ -1784,8 +1775,7 @@ class Costume(MagiModel):
     card = models.OneToOneField(Card, verbose_name=_('Card'), related_name='associated_costume', null=True, on_delete=models.SET_NULL)
 
     def __unicode__(self):
-        if self.member:
-            return u"[{title}] {member_name}".format(title=self.t_name, member_name=self.member.name)
-        else:
-            # It'd look weird with nothing outside the brackets, so get rid of them
-            return unicode(self.t_name)
+        return u'{}{}'.format(
+            u'{} - '.format(self.member.name) if self.member_id else '',
+            self.t_name,
+        )

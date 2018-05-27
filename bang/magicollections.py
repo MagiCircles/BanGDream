@@ -699,8 +699,8 @@ class CardCollection(MagiCollection):
             # Add live2d viewer
             if hasattr(item, 'associated_costume'):
                 to_cos_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
-                    url=item.associated_costume.viewer_url,
-                    ajax_url=item.associated_costume.ajax_viewer_url + "?from_card",
+                    url=item.associated_costume.item_url,
+                    ajax_url=item.associated_costume.ajax_item_url + "?from_card",
                     ajax_title=string_concat(_("Costume"), " - ", unicode(item)),
                     text=text,
                     classes=classes or '',
@@ -2226,7 +2226,6 @@ class CostumeCollection(MagiCollection):
             if item.member:
                 member_field_params.update({
                     'type': 'text_with_link',
-                    'value': string_concat('[', member_field_params['value'], ']'),
                     'ajax_link': item.member.ajax_item_url,
                     'link': item.member.item_url,
                     'link_text': unicode(item.member),

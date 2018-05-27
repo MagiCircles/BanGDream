@@ -144,15 +144,6 @@ ENABLED_PAGES['teambuilder'] = {
     #'navbar_link_list': 'girlsbandparty',
 }
 
-ENABLED_PAGES['live2d'] = [
-    {
-        'title': 'Live2D',
-        'icon': 'settings',
-        'navbar_link': False,
-        'url_variables': [('pk', '\d+'), ('slug', '[^/]*')]
-    },
-]
-
 ENABLED_PAGES['gallery'] = [
     {
         'title': _('Gallery'),

@@ -5,18 +5,9 @@ from django.conf import settings as django_settings
 from magi.utils import getGlobalContext, ajaxContext, redirectWhenNotAuthenticated, cuteFormFieldsForContext, CuteFormTransform, CuteFormType, get_one_object_or_404
 from magi.item_model import get_image_url_from_path
 from magi.views import indexExtraContext
-from bang.constants import LIVE2D_JS_FILES
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
 from bang import models
-
-############################################################
-# Live2D
-
-def live2d(request, pk, slug=None):
-    queryset = models.Card.objects.select_related('associated_costume').filter(id=pk, associated_costume__isnull=False)
-    the_card = get_one_object_or_404(queryset)
-    return redirect(the_card.associated_costume.viewer_url)
 
 ############################################################
 # Assets

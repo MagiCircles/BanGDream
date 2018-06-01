@@ -340,7 +340,7 @@ class Card(MagiModel):
             'template': _(u'For the next {duration} seconds, score of all notes boosted by +{percentage}%'),
             'special_templates': {
                 'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
-                'based_on_stamina': _(u'For the next {duration} seconds, if life is above {stamina}, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%'),
+                'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%'),
             },
             'special_variables': {
                 'perfect_only': ['duration', 'percentage'],

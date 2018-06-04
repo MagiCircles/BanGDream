@@ -662,13 +662,17 @@ class CardCollection(MagiCollection):
                 if getattr(item, image):
                     extra_fields.append((u'{}s'.format(image), {
                         'verbose_name': verbose_name,
-                        'type': 'images',
+                        'type': 'images_links',
                         'images': [{
-                            'value': image_url,
+                            'value': thumbnail_url,
+                            'link': image_url,
                             'verbose_name': verbose_name,
-                        } for image_url in [
-                            getattr(item, u'{}_url'.format(image)),
-                            getattr(item, u'{}_trained_url'.format(image)),
+                            'link_text': verbose_name,
+                        } for image_url, thumbnail_url in [
+                            (getattr(item, u'{}_original_url'.format(image)),
+                             getattr(item, u'{}_thumbnail_url'.format(image))),
+                            (getattr(item, u'{}_trained_original_url'.format(image)),
+                             getattr(item, u'{}_trained_thumbnail_url'.format(image))),
                         ] if image_url],
                         'icon': 'pictures',
                     }))

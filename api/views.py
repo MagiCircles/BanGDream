@@ -70,7 +70,10 @@ class MagiSerializer(serializers.ModelSerializer):
         need_save = False
         for field, value in validated_data.items():
             # Optimize images with TinyPNG
-            if type(self.Meta.model._meta.get_field(field)) == models.models.ImageField:
+            if (hasattr(self.Meta, 'tinypng_on_save')
+                and field in self.Meta.tinypng_on_save
+                and type(self.Meta.model._meta.get_field(field)) == models.models.ImageField
+            ):
                 value = getattr(instance, field)
                 filename = value.name
                 content = value.read()

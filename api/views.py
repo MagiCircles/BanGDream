@@ -70,20 +70,26 @@ class MagiSerializer(serializers.ModelSerializer):
         need_save = False
         for field, value in validated_data.items():
             # Optimize images with TinyPNG
-            if (hasattr(self.Meta, 'tinypng_on_save')
-                and field in self.Meta.tinypng_on_save
-                and type(self.Meta.model._meta.get_field(field)) == models.models.ImageField
-            ):
-                value = getattr(instance, field)
-                filename = value.name
-                content = value.read()
-                if not content:
-                    setattr(instance, field, None)
-                    continue
-                image = shrinkImageFromData(content, filename, settings=getattr(self.Meta.model, 'tinypng_settings', {}).get(field, {}))
-                image.name = self.Meta.model._meta.get_field(field).upload_to(instance, filename)
-                setattr(instance, field, image)
+            if type(self.Meta.model._meta.get_field(field)) == models.models.ImageField:
                 need_save = True
+                if (hasattr(self.Meta, 'tinypng_on_save')
+                    and field in self.Meta.tinypng_on_save
+                ):
+                    value = getattr(instance, field)
+                    filename = value.name
+                    content = value.read()
+                    if not content:
+                        setattr(instance, field, None)
+                        continue
+                    image = shrinkImageFromData(content, filename, settings=getattr(self.Meta.model, 'tinypng_settings', {}).get(field, {}))
+                    image.name = self.Meta.model._meta.get_field(field).upload_to(instance, filename)
+                    setattr(instance, field, image)
+                else:
+                    # Remove any cached processed image
+                    setattr(instance, u'_tthumbnail_{}'.format(field), None)
+                    setattr(instance, u'_thumbnail_{}'.format(field), None)
+                    setattr(instance, u'_original_{}'.format(field), None)
+                    setattr(instance, u'_2x_{}'.format(field), None)
         if need_save:
             instance.save()
         return instance

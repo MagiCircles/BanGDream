@@ -1342,7 +1342,7 @@ class Gacha(MagiModel):
 
     owner = models.ForeignKey(User, related_name='added_gacha')
 
-    _original_screenshot = models.ImageField(null=True, upload_to=uploadTiny('g'))
+    _original_image = models.ImageField(null=True, upload_to=uploadTiny('g'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('g'))
     top_image = property(_event_gacha_top_image)
 

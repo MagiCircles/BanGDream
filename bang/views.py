@@ -5,38 +5,9 @@ from django.conf import settings as django_settings
 from magi.utils import getGlobalContext, ajaxContext, redirectWhenNotAuthenticated, cuteFormFieldsForContext, CuteFormTransform, CuteFormType, get_one_object_or_404
 from magi.item_model import get_image_url_from_path
 from magi.views import indexExtraContext
-from bang.constants import LIVE2D_JS_FILES
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
 from bang import models
-
-############################################################
-# Live2D
-
-def live2d(request, pk, slug=None):
-    ajax = request.path_info.startswith('/ajax/')
-    context = ajaxContext(request) if ajax else getGlobalContext(request)
-    context['ajax'] = ajax
-
-    queryset = models.Card.objects.filter(id=pk, live2d_model_pkg__isnull=False)
-    the_card = get_one_object_or_404(queryset)
-
-    context['page_title'] = u'{}: {}'.format('Live2D', unicode(the_card))
-    context['item'] = the_card
-    context['package_url'] = get_image_url_from_path(the_card.live2d_model_pkg)
-
-    # Work around jQuery behaviour; details in pages/live2dviewer.html.
-    if ajax:
-        context['late_js_files'] = LIVE2D_JS_FILES
-        context['danger_zone'] = 220
-    else:
-        context['js_files'] = LIVE2D_JS_FILES
-        context['danger_zone'] = 100
-
-    context['extends'] = 'base.html' if not context['ajax'] else 'ajax.html'
-    context['canvas_size'] = (562, 562) if context['ajax'] else (1334, 1000)
-
-    return render(request, 'pages/live2dviewer.html', context)
 
 ############################################################
 # Assets

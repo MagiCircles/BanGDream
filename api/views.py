@@ -199,13 +199,11 @@ class CardSerializer(MagiSerializer):
 class CardSerializerForEditing(CardSerializer):
     i_skill_special = IField(models.Card, 'skill_special', required=False)
     i_skill_note_type = IField(models.Card, 'skill_note_type', required=False)
-    live2d_model_pkg = FileField(required=False)
 
     class Meta(CardSerializer.Meta):
         fields = CardSerializer.Meta.fields + (
             'i_skill_special',
             'i_skill_note_type', 'skill_stamina', 'skill_duration', 'skill_percentage', 'skill_alt_percentage',
-            'live2d_model_pkg'
         )
 
 class CardViewSet(viewsets.ModelViewSet):
@@ -264,3 +262,48 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = models.Event.objects.all().prefetch_related('boost_members')
     serializer_class = EventSerializer
     permission_classes = (api_permissions.IsStaffOrReadOnly, )
+
+############################################################
+# Costume
+
+class CostumeSerializer(MagiSerializer):
+    i_costume_type = IField(models.Costume, 'costume_type', required=True)
+
+    class Meta:
+        model = models.Costume
+        save_owner_on_creation = True
+        fields = (
+            'id', 'i_costume_type', 'member', 'card', 'resolved_preview_image', 'name'
+        )
+
+class CostumeSerializerForEditing(CostumeSerializer):
+    model_pkg = FileField(required=True)
+    preview_image = ImageField(required=False)
+
+    def validate(self, data):
+        if not data.get('card'):
+            if not data.get('name'):
+                raise serializers.ValidationError({
+                    'name': ['Costumes without associated cards must have a name.'],
+                })
+            if not data.get('preview_image'):
+                raise serializers.ValidationError({
+                    'name': ['Costumes without associated cards must have a preview image.'],
+                })
+        else:
+            data['member'] = data['card'].member
+            data['name'] = None
+        return data
+
+    class Meta(CostumeSerializer.Meta):
+        fields = CostumeSerializer.Meta.fields + ('model_pkg', 'preview_image')
+
+class CostumeViewSet(viewsets.ModelViewSet):
+    queryset = models.Costume.objects.all()
+    serializer_class = CostumeSerializer
+    permission_classes = (api_permissions.IsStaffOrReadOnly, )
+
+    def get_serializer_class(self):
+        if self.request.method not in permissions.SAFE_METHODS:
+            return CostumeSerializerForEditing
+        return CostumeSerializer

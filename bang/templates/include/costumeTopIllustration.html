@@ -1,0 +1,173 @@
+{% load tools %}
+{% load i18n %}
+
+{% with costume=item %}
+<p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">Sorry, a browser that supports WebGL is required to view Live2D models.</p>
+<p id="loadingMessage" class="text-center fontx2 padding20"><i class="flaticon-loading"></i></p>
+<div id="dlcontainer">
+    <canvas id="dltarget" width="800" height="800" style="max-width:100%; max-height:100%;"></canvas>
+
+    <div id="dlcontrols" class="dlhidden" style="display: none;">
+        <button class="btn btn-main btn" title="{% trans "Controls" %}" onclick="DLToggleControls(event)"><i class="flaticon flaticon-settings"></i></button>
+
+        <div class="dldevelopercontrols" style="display: none;">
+            <label>Package:</label>
+            <input type="file" id="dlpackageinput" />
+            <button class="btn btn-sm btn-main" onclick="DLRestartModelWithUserPackage('dlpackageinput')">Load</button>
+        </div>
+
+        <div id="dltemplate" style="display: none;">
+            <i class="flaticon-about"></i> <label>{% trans "Model" context "BanPa model viewer" %}: </label> <span class="dlname"></span>
+
+            <div>
+                {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                <label>{% trans "Breathe" context "BanPa model viewer" %}: </label>
+                <input type="checkbox" class="dlbreathe" checked />
+                {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                <label>{% trans "Blink" context "BanPa model viewer" %}: </label>
+                <input type="checkbox" class="dlblink" checked />
+                {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                <label>{% trans "Sway" context "BanPa model viewer" %}: </label>
+                <input type="checkbox" class="dlvariance" checked />
+            </div>
+
+            <div>
+                {# Translators: Label for a list of choices. Limited space, so please try to keep it short. #}
+                <label>{% trans "Action" context "BanPa model viewer" %}: </label>
+                <select class="dlmotions"></select>
+                {# Translators: Label for a checkbox. Limited space, so please try to keep it short. #}
+                <label>{% trans "Loop" context "BanPa model viewer" %}: </label>
+                <input type="checkbox" class="dlloopmotions" />
+            </div>
+
+            <div>
+                {# Translators: Label for a list of choices. Limited space, so please try to keep it short. #}
+                <label>{% trans "Expression" context "BanPa model viewer" %}: </label>
+                <select class="dlexpressions"></select>
+            </div>
+
+            <div>
+                <button class="dltoggleupdates btn btn-link-secondary btn-sm fontx2 a-nodifference"><i class="dlpausebutton flaticon-pause"></i></button>
+                {# Translators: Button label. #}
+                <button class="dlscreenshot btn btn-main btn-sm">{% trans "Screenshot" context "BanPa model viewer" %}</button>
+                {# Translators: Button label. This is supposed to be a continuation of "Screenshot". #}
+                <button class="dlscreenshotbg btn btn-main btn-sm">{% trans "(with background)" context "BanPa model viewer" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<img id="secretBackgroundForScreenshots" crossorigin="anonymous" src="{{ static_url }}img/bg_live2d_viewer.png" style="display: none;" />
+
+<script>
+    function actualDLInit(pkg) {
+        window.DL = new DirectorLite({
+            canvasName: "dltarget",
+            controlName: "dlcontrols",
+            withPackageAtURL: pkg,
+            mountedToLocation: "banpa",
+            usingInitialModelName: "banpa:director.model.json",
+            autoResize: true,
+            overrideDangerZoneHeight: {{ danger_zone }},
+            callbackOnFirstModelLoaded: function() {
+                var loader = document.getElementById("loadingMessage");
+                loader.parentNode.removeChild(loader);
+            },
+            callbackOnInitFailure: function(code) {
+                var errorHTML = document.getElementById("noWebGLMessage");
+                errorHTML.style.display = null;
+                var loader = document.getElementById("loadingMessage");
+                loader.parentNode.removeChild(loader);
+            }
+        });
+
+        {% if ajax %}
+        // If the modal ever gets replaced we need to terminate the viewer.
+        // Just hope we never load two live2d pages in a row.
+        window.origFreeModal = window.freeModal;
+        window.freeModal = hookFreeModalForTerminatingDirector;
+        {% endif %}
+    }
+
+    {% if ajax %}
+    function hookFreeModalForTerminatingDirector() {
+        // restore original freeModal
+        window.freeModal = window.origFreeModal;
+
+        if (window.DL) {
+            wrapDLTerminate();
+            $("#freeModal").off("hide.bs.modal", null, wrapDLTerminate);
+        }
+
+        window.freeModal.apply(this, arguments);
+    }
+
+    function wrapDLTerminate() {
+        // Bug: the DirectorLite object is leaked because we don't unbind the canvas event handlers.
+        // Live2D objects are properly dealloced, so this is ok for now...
+        window.DL.terminate();
+        delete window.DL;
+    }
+
+    function lateScriptsDidLoad() {
+        ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
+
+        // Wait for canvas to be visible before initting DL, otherwise it breaks
+        if ($("#freeModal").hasClass("in")) {
+            // Sometimes it's already on screen, so shown.bs.modal doesn't fire again
+            actualDLInit('{{ costume.model_pkg_url }}');
+        } else {
+            $("#freeModal").one("shown.bs.modal", function() {
+                actualDLInit('{{ costume.model_pkg_url }}');
+            });
+        }
+
+        $("#freeModal").one("hide.bs.modal", wrapDLTerminate);
+
+        // Otherwise we'll have a lot of duplicate script tags if the modal is opened more than once.
+        $(".clean-up-after-director-init").detach();
+    }
+
+    // jQuery's AJAX behaviour has a hack where cross-origin scripts are loaded through async script tags.
+    // Some of the Live2D scripts depend on other scripts loading in order, so it causes issues for us.
+    // Work around this by inserting our own script tags that are not-async.
+    function loadLateScripts() {
+        var scripts = [
+            {% for js_file in late_js_files %}
+            "{% if js_file|startswith:'http' %}{{ js_file }}{% else %}{{ static_url }}{% if not js_file|startswith:'bower' %}js/{% endif %}{{ js_file }}.js?{{ static_files_version }}{% endif %}",
+            {% endfor %}
+        ];
+        var lastIndex = scripts.length - 1;
+        var body = document.body;
+
+        for (var i in scripts) {
+            var s = document.createElement("script");
+            // For newer browsers we have to mark them sync explicitly.
+            s.async = false;
+
+            // Assumes the scripts will be loaded and executed in order, which seems to be the
+            // case. We want to init Director after they're all loaded.
+            if (i == lastIndex) {
+                s.onload = lateScriptsDidLoad;
+            } else {
+                s.onload = function(e) {
+                    console.log("onload " + e.target.src);
+                }
+            }
+
+            s.src = scripts[i];
+            s.className = "clean-up-after-director-init";
+            body.appendChild(s);
+        }
+    }
+    {% endif %}
+
+    function loadModelViewerAjax() {
+        {% if ajax %}
+        loadLateScripts();
+        {% else %}
+        ZipLoaderEarlyInit('{{ static_url }}/js/l2d');
+        actualDLInit('{{ costume.model_pkg_url }}');
+        {% endif %}
+    }
+</script>
+{% endwith %}

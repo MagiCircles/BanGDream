@@ -14,6 +14,7 @@ router.register(r'memberids', api_views.MemberIDViewSet)
 router.register(r'cards', api_views.CardViewSet)
 router.register(r'cardids', api_views.CardIDViewSet)
 router.register(r'events', api_views.EventViewSet)
+router.register(r'costumes', api_views.CostumeViewSet)
 
 urlpatterns = patterns('',
     url(r'^', include('magi.urls')),

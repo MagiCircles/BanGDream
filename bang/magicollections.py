@@ -2175,9 +2175,16 @@ class AssetCollection(MagiCollection):
         permissions_required = ['manage_main_items']
 
 COSTUME_CUTEFORM = {
+    'i_costume_type': {
+        'type': CuteFormType.HTML,
+    },
     'card': {
         'to_cuteform': lambda k, v: v.image_url,
         'title': _('Card'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
     },
     'member': {
         'to_cuteform': lambda k, v: (FAVORITE_CHARACTERS_IMAGES[k] if k != forms.CostumeFilterForm.ID_OF_MISC_MEMBERS
@@ -2187,6 +2194,24 @@ COSTUME_CUTEFORM = {
             'modal': 'true',
             'modal-text': 'true',
         },
+    },
+    'i_band': {
+        'image_folder': 'band',
+        'to_cuteform': 'value',
+        'title': _('Band'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+    'i_rarity': {
+        'type': CuteFormType.HTML,
+        'to_cuteform': lambda k, v: rarity_to_stars_images(k),
+    },
+    'version': {
+        'to_cuteform': lambda k, v: CardCollection._version_images[k],
+        'image_folder': 'language',
+        'transform': CuteFormTransform.ImagePath,
     },
 }
 

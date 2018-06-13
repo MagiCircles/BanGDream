@@ -21,7 +21,8 @@ def move_card_live2d_model_pkg(apps, schema_editor):
         costume.card = card
         costume.member = card.member
         costume.model_pkg = card.live2d_model_pkg
-        costume.preview_image = card.live2d_screenshot
+        costume.image = card.live2d_screenshot
+        costume._tthumbnail_image = card._tthumbnail_live2d_screenshot
         costume.save()
         migd += 1
 
@@ -32,7 +33,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('bang', '0039_auto_20180520_1519'),
+        ('bang', '0041_auto_20180611_0632'),
     ]
 
     operations = [
@@ -43,7 +44,8 @@ class Migration(migrations.Migration):
                 ('i_costume_type', models.PositiveIntegerField(verbose_name='Costume type', choices=[(0, b'live'), (1, b'other')])),
                 ('name', models.CharField(max_length=250, null=True, verbose_name='Name')),
                 ('d_names', models.TextField(null=True, verbose_name='Name')),
-                ('preview_image', models.ImageField(upload_to=magi.utils.uploadItem(b'cos/p'), null=True, verbose_name='Image')),
+                ('_tthumbnail_image', models.ImageField(null=True, upload_to=magi.utils.uploadTthumb(b'cos/z'))),
+                ('image', models.ImageField(upload_to=magi.utils.uploadItem(b'cos/p'), null=True, verbose_name='Image')),
                 ('model_pkg', models.FileField(upload_to=magi.utils.uploadItem(b'cos/z'), verbose_name='Model')),
                 ('card', models.OneToOneField(related_name='associated_costume', null=True, on_delete=django.db.models.deletion.SET_NULL, verbose_name='Card', to='bang.Card')),
                 ('member', models.ForeignKey(related_name='associated_costume', verbose_name='Member', to='bang.Member', null=True)),
@@ -72,11 +74,5 @@ class Migration(migrations.Migration):
         migrations.RemoveField(
             model_name='card',
             name='live2d_screenshot',
-        ),
-        migrations.AddField(
-            model_name='costume',
-            name='_tthumbnail_preview_image',
-            field=models.ImageField(null=True, upload_to=b''),
-            preserve_default=True,
         ),
     ]

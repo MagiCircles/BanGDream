@@ -931,7 +931,7 @@ class CostumeForm(AutoForm):
             cleaned_data['card'] = None
 
         if not cleaned_data.get('card'):
-            if not cleaned_data.get('preview_image'):
+            if not cleaned_data.get('image'):
                 raise forms.ValidationError('Costumes without associated cards must have a preview image.')
             if not cleaned_data.get('name'):
                 raise forms.ValidationError('Costumes without associated cards must have a name.')
@@ -941,7 +941,7 @@ class CostumeForm(AutoForm):
             cleaned_data['name'] = None
 
         return cleaned_data
-    
+
     def save(self, commit=False):
         instance = super(CostumeForm, self).save(commit=False)
 
@@ -973,17 +973,17 @@ class CostumeFilterForm(MagiFiltersForm):
     i_rarity_filter = MagiFilter(selector='card__i_rarity')
 
     version =  forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES, label=_('Server availability'))
-    version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(Q(card__c_versions__contains=value) | Q(card__isnull=True)))
+    version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(Q(card__c_versions__contains=u'"{}"'.format(value)) | Q(card__isnull=True)))
 
     def _member_to_queryset(self, queryset, request, value):
         i = int(value)
-        
+
         if i == self.ID_OF_MISC_MEMBERS:
             return queryset.filter(member__isnull=True)
         else:
             return queryset.filter(member__id=value)
 
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])] + 
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])] +
         [(ID_OF_MISC_MEMBERS, _('Other'))], initial=None, label=_('Member'))
     member_filter = MagiFilter(to_queryset=_member_to_queryset)
 

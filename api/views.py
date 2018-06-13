@@ -273,12 +273,12 @@ class CostumeSerializer(MagiSerializer):
         model = models.Costume
         save_owner_on_creation = True
         fields = (
-            'id', 'i_costume_type', 'member', 'card', 'resolved_preview_image', 'name'
+            'id', 'i_costume_type', 'member', 'card', 'display_image', 'name'
         )
 
 class CostumeSerializerForEditing(CostumeSerializer):
     model_pkg = FileField(required=True)
-    preview_image = ImageField(required=False)
+    image = ImageField(required=False)
 
     def validate(self, data):
         if not data.get('card'):
@@ -286,7 +286,7 @@ class CostumeSerializerForEditing(CostumeSerializer):
                 raise serializers.ValidationError({
                     'name': ['Costumes without associated cards must have a name.'],
                 })
-            if not data.get('preview_image'):
+            if not data.get('image'):
                 raise serializers.ValidationError({
                     'name': ['Costumes without associated cards must have a preview image.'],
                 })
@@ -296,7 +296,7 @@ class CostumeSerializerForEditing(CostumeSerializer):
         return data
 
     class Meta(CostumeSerializer.Meta):
-        fields = CostumeSerializer.Meta.fields + ('model_pkg', 'preview_image')
+        fields = CostumeSerializer.Meta.fields + ('model_pkg', 'image')
 
 class CostumeViewSet(viewsets.ModelViewSet):
     queryset = models.Costume.objects.all()

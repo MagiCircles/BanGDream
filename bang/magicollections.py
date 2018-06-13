@@ -716,9 +716,9 @@ class CardCollection(MagiCollection):
                     'value': mark_safe(u'{} {}'.format(
                         to_cos_link(_('View model'), classes='btn btn-lg btn-secondary'),
                         to_cos_link(u'<img src="{url}" alt="{item} preview">'.format(
-                            url=item.associated_costume.preview_image_url,
+                            url=item.associated_costume.image_url,
                             item=unicode(item),
-                        )) if item.associated_costume.preview_image_url else '',
+                        )) if item.associated_costume.image_url else '',
                     ))
                 }))
 
@@ -2180,7 +2180,7 @@ COSTUME_CUTEFORM = {
         'title': _('Card'),
     },
     'member': {
-        'to_cuteform': lambda k, v: (FAVORITE_CHARACTERS_IMAGES[k] if k != forms.CostumeFilterForm.ID_OF_MISC_MEMBERS 
+        'to_cuteform': lambda k, v: (FAVORITE_CHARACTERS_IMAGES[k] if k != forms.CostumeFilterForm.ID_OF_MISC_MEMBERS
             else staticImageURL('i_misc_member.png')),
         'title': _('Member'),
         'extra_settings': {
@@ -2207,7 +2207,7 @@ class CostumeCollection(MagiCollection):
         extra_fields = extra_fields or []
         exclude_fields = exclude_fields or []
         # these are all redundant with the viewer + extra field below
-        exclude_fields.extend(['i_costume_type', 'preview_image', 'model_pkg', 'name'])
+        exclude_fields.extend(['i_costume_type', 'image', 'model_pkg', 'name'])
 
         if item.card:
             extra_fields.append(('card', {
@@ -2236,17 +2236,17 @@ class CostumeCollection(MagiCollection):
                     'image': item.member.square_image_url,
                 })
             extra_fields.append(('costume', member_field_params))
-        
+
         fields = super(CostumeCollection, self).to_fields(view, item, extra_fields=extra_fields, exclude_fields=exclude_fields, *args, **kwargs)
         return fields
-    
+
     def buttons_per_item(self, view, request, context, item):
         buttons = super(CostumeCollection, self).buttons_per_item(view, request, context, item)
 
         # Card-associated costumes take their name from the card, so you can't translate them.
         if 'translate' in buttons and item.card:
             del buttons['translate']
-        
+
         return buttons
 
     class ListView(MagiCollection.ListView):
@@ -2278,7 +2278,7 @@ class CostumeCollection(MagiCollection):
             else:
                 is_ajax = False
                 context['danger_zone'] = 100
-            
+
             if context['request'].GET.get('from_card') is not None:
                 # try to simulate the big back link in the previous live2d page
                 # only the actual link can be clicked though, unfortunately

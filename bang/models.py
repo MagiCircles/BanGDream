@@ -265,7 +265,7 @@ class Member(MagiModel):
         if not self._cache_totals_last_update or self._cache_totals_last_update < timezone.now() - datetime.timedelta(hours=self._cache_totals_days):
             self.force_cache_totals()
         return self._cache_total_cards
-    
+
     @property
     def cached_total_costumes(self):
         if not self._cache_totals_last_update or self._cache_totals_last_update < timezone.now() - datetime.timedelta(hours=self._cache_totals_days):
@@ -1764,14 +1764,14 @@ class Costume(MagiModel):
             return self.card.t_name or self.card.japanese_name
         return self.names.get(get_language(), self.name)
 
-    _tthumbnail_preview_image = models.ImageField(null=True)
-    preview_image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'), null=True)
+    _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('cos/z'))
+    image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'), null=True)
     model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'))
-    
+
     @property
-    def resolved_preview_image(self):
-        if self.preview_image:
-            return self.preview_image_url
+    def display_image(self):
+        if self.image:
+            return self.image_url
         elif self.card:
             for try_img in ['transparent_trained_url', 'transparent_url']:
                 g = getattr(self.card, try_img, None)

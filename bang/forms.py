@@ -269,8 +269,6 @@ class CardFilterForm(MagiFiltersForm):
     def _view_to_queryset(self, queryset, request, value):
         if value == 'chibis':
             return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
-        elif value == 'live2d':
-            return queryset.filter(live2d_model_pkg__isnull=False).exclude(live2d_model_pkg='')
         elif value == 'art':
             return queryset.filter(art__isnull=False)
         elif value == 'transparent':
@@ -908,6 +906,90 @@ class AssetFilterForm(MagiFiltersForm):
         fields = ['search', 'i_type'] + [
             v for v in models.Asset.VARIABLES if v not in ['name', 'value']
         ] + ['i_version']
+
+############################################################
+# Costume form
+class CostumeForm(AutoForm):
+    def __init__(self, *args, **kwargs):
+        super(CostumeForm, self).__init__(*args, **kwargs)
+
+        if not self.is_creating:
+            self.instance.previous_card = self.instance.card
+            self.instance.previous_member = self.instance.member
+
+        q = Q(associated_costume__isnull=True)
+        if self.instance.card:
+            q |= Q(associated_costume=self.instance)
+        self.fields['card'].queryset = self.fields['card'].queryset.filter(q)
+
+        self.fields['member'].help_text = 'If associating this costume with a card, you can leave this blank. I\'ll take the member from the card.'
+
+    def clean(self):
+        cleaned_data = super(CostumeForm, self).clean()
+
+        if cleaned_data.get('i_costume_type') != models.Costume.get_i('costume_type', 'live'):
+            cleaned_data['card'] = None
+
+        if not cleaned_data.get('card'):
+            if not cleaned_data.get('image'):
+                raise forms.ValidationError('Costumes without associated cards must have a preview image.')
+            if not cleaned_data.get('name'):
+                raise forms.ValidationError('Costumes without associated cards must have a name.')
+        else:
+            cleaned_data['member'] = cleaned_data['card'].member
+            # We'll take the card's title, so set the Costume's name to none
+            cleaned_data['name'] = None
+
+        return cleaned_data
+
+    def save(self, commit=False):
+        instance = super(CostumeForm, self).save(commit=False)
+
+        if not self.is_creating and instance.member != self.instance.previous_member:
+            self.instance.previous_member.force_cache_totals()
+        instance.member.force_cache_totals()
+
+        if commit:
+            instance.save()
+
+        return instance
+
+    class Meta(AutoForm.Meta):
+        model = models.Costume
+        fields = '__all__'
+        save_owner_on_creation = True
+
+class CostumeFilterForm(MagiFiltersForm):
+    # Encompasses people like the dads, chispa... etc.
+    # since only the 25 main girls get real Member entries.
+    ID_OF_MISC_MEMBERS = 0
+
+    search_fields = ['name', 'd_names', 'card__japanese_name', 'card__name', 'member__name', 'member__japanese_name']
+
+    i_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), label=_('Band'), required=False)
+    i_band_filter = MagiFilter(selector='member__i_band')
+
+    i_rarity = forms.ChoiceField(choices=BLANK_CHOICE_DASH + list(models.Card.RARITY_CHOICES), label=_('Rarity'), required=False)
+    i_rarity_filter = MagiFilter(selector='card__i_rarity')
+
+    version =  forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES, label=_('Server availability'))
+    version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(Q(card__c_versions__contains=u'"{}"'.format(value)) | Q(card__isnull=True)))
+
+    def _member_to_queryset(self, queryset, request, value):
+        i = int(value)
+
+        if i == self.ID_OF_MISC_MEMBERS:
+            return queryset.filter(member__isnull=True)
+        else:
+            return queryset.filter(member__id=value)
+
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])] +
+        [(ID_OF_MISC_MEMBERS, _('Other'))], initial=None, label=_('Member'))
+    member_filter = MagiFilter(to_queryset=_member_to_queryset)
+
+    class Meta(MagiFiltersForm.Meta):
+        model = models.Costume
+        fields = ('search', 'i_costume_type', 'member', 'i_band', 'i_rarity', 'version')
 
 ############################################################
 # Single page form

@@ -2,7 +2,7 @@
 from __future__ import division
 import datetime, time
 from collections import OrderedDict
-from django.utils.translation import ugettext_lazy as _, string_concat, get_language
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 from django.utils.safestring import mark_safe
@@ -230,6 +230,7 @@ class Member(MagiModel):
     reverse_related = (
         ('cards', 'cards', _('Cards')),
         ('fans', 'accounts', _('Fans')),
+        ('costumes', 'costumes', _('Costumes')),
     )
 
     # Cache totals
@@ -237,6 +238,7 @@ class Member(MagiModel):
     _cache_totals_last_update = models.DateTimeField(null=True)
     _cache_total_fans = models.PositiveIntegerField(null=True)
     _cache_total_cards = models.PositiveIntegerField(null=True)
+    _cache_total_costumes = models.PositiveIntegerField(null=True)
 
     def update_cache_totals(self):
         self._cache_totals_last_update = timezone.now()
@@ -246,6 +248,7 @@ class Member(MagiModel):
             | Q(preferences__favorite_character3=self.id)
         ).count()
         self._cache_total_cards = Card.objects.filter(member=self).count()
+        self._cache_total_costumes = Costume.objects.filter(member=self).count()
 
     def force_cache_totals(self):
         self.update_cache_totals()
@@ -262,6 +265,12 @@ class Member(MagiModel):
         if not self._cache_totals_last_update or self._cache_totals_last_update < timezone.now() - datetime.timedelta(hours=self._cache_totals_days):
             self.force_cache_totals()
         return self._cache_total_cards
+
+    @property
+    def cached_total_costumes(self):
+        if not self._cache_totals_last_update or self._cache_totals_last_update < timezone.now() - datetime.timedelta(hours=self._cache_totals_days):
+            self.force_cache_totals()
+        return self._cache_total_costumes
 
     def __unicode__(self):
         return unicode(self.t_name)
@@ -549,19 +558,6 @@ class Card(MagiModel):
     _tthumbnail_transparent_trained = models.ImageField(null=True, upload_to=uploadTthumb('c/transparent/a'))
     _2x_transparent_trained = models.ImageField(null=True, upload_to=upload2x('c/transparent/a'))
     transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
-
-    # Live2D
-    live2d_model_pkg = models.FileField('Live2D', upload_to=uploadItem('c/l2d'), null=True)
-    _tthumbnail_live2d_screenshot = models.ImageField(null=True)
-    live2d_screenshot = models.ImageField(upload_to=uploadItem('c/l2d/s'), null=True)
-
-    @property
-    def live2d_url(self):
-        return u'/live2d/{}/{}/'.format(self.id, tourldash(unicode(self)))
-
-    @property
-    def ajax_live2d_url(self):
-        return u'/ajax/live2d/{}/'.format(self.id)
 
     # Statistics
     performance_min = models.PositiveIntegerField(string_concat(_('Performance'), ' (', _('Minimum'), ')'), default=0)
@@ -1739,3 +1735,58 @@ class Asset(MagiModel):
 
     def __unicode__(self):
         return u'{} {}'.format(self.t_type, self.t_name if self.name else '')
+# Costume
+
+class Costume(MagiModel):
+    collection_name = 'costume'
+    owner = models.ForeignKey(User, related_name='added_costume')
+
+    COSTUME_TYPE_CHOICES = OrderedDict([
+        # Costumes that can be used in lives. Usually associated with cards but
+        # they aren't always (e.g. Year of the Dog)
+        ('live', _('Live')),
+        # Never associated with cards.
+        ('other', _('Other')),
+    ])
+    i_costume_type = models.PositiveIntegerField(_('Costume type'), choices=i_choices(COSTUME_TYPE_CHOICES))
+
+    # Basically whatever you want. If there's a card associated with a model, we'll use the
+    # card's title instead.
+    name = models.CharField(_('Name'), max_length=250, null=True)
+    NAMES_CHOICES = ALL_ALT_LANGUAGES
+    d_names = models.TextField(_('Name'), null=True)
+
+    @property
+    def t_name(self):
+        # If we're a card costume, take that card's title so we don't have to save/TL duplicate strings.
+        # The form will make sure self.name is null.
+        if self.card:
+            return self.card.t_name or self.card.japanese_name
+        return self.names.get(get_language(), self.name)
+
+    _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('cos/z'))
+    image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'), null=True)
+    model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'))
+
+    @property
+    def display_image(self):
+        if self.image:
+            return self.image_url
+        elif self.card:
+            for try_img in ['transparent_trained_url', 'transparent_url']:
+                g = getattr(self.card, try_img, None)
+                if g:
+                    return g
+        return None
+
+    # there's nothing stopping you from associating a costume with a card whose member is
+    # different, but it's weird so keep it in sync elsewhere (forms.py)
+    # additionally, this is nullable just in case we want to upload NPC costumes.
+    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='associated_costume', null=True, on_delete=models.CASCADE)
+    card = models.OneToOneField(Card, verbose_name=_('Card'), related_name='associated_costume', null=True, on_delete=models.SET_NULL)
+
+    def __unicode__(self):
+        return u'{}{}'.format(
+            u'{} - '.format(self.member.name) if self.member_id else '',
+            self.t_name,
+        )

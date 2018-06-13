@@ -1,0 +1,12 @@
+{% with costume=item %}
+<a href="{{ costume.item_url }}" class="costume_link" data-ajax-url="{{ costume.ajax_item_url }}" data-ajax-title="{{ costume }}">
+    <div class="cos_image">
+        {% if costume.display_image %}
+        <img alt="{{ costume }}" src="{{ costume.display_image }}" class="img-responsive" style="height: 200px"/>
+        {% endif %}
+    </div>
+    <p class="cos_caption">
+        {{ costume }}
+    </p>
+</a>
+{% endwith %}

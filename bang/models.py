@@ -1127,7 +1127,7 @@ class Song(MagiModel):
 
     DIFFICULTY_VALIDATORS = [
         MinValueValidator(1),
-        MaxValueValidator(28),
+        MaxValueValidator(40),
     ]
 
     DIFFICULTIES = [

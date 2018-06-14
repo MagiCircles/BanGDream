@@ -2251,7 +2251,7 @@ class CostumeCollection(MagiCollection):
                 'value': unicode(item.card),
                 'ajax_link': item.card.ajax_item_url,
                 'link': item.card.item_url,
-                'link_text': _('Open card'),
+                'link_text': _('Open {thing}').format(thing=unicode(_('Card')).lower()),
                 'icon': 'album',
                 'image': item.card.image_trained_url or item.card.image_url,
             }))

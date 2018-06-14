@@ -437,6 +437,15 @@ def to_CollectibleCardCollection(cls):
             default_ordering = '-card__i_rarity,-trained,-card__release_date'
             filter_form = forms.to_CollectibleCardFilterForm(cls)
 
+            def get_queryset(self, queryset, parameters, request):
+                queryset = super(_CollectibleCardCollection.ListView, self).get_queryset(queryset, parameters, request)
+                if request.GET.get('ordering', None) in ['card___overall_max', 'card___overall_trained_max']:
+                    queryset = queryset.extra(select={
+                        'card___overall_max': 'performance_max + technique_max + visual_max',
+                        'card___overall_trained_max': 'performance_trained_max + technique_trained_max + visual_trained_max',
+                    })
+                return queryset
+
         class AddView(cls.AddView):
             unique_per_owner = True
             ajax_callback = 'loadCollecticleCardForm'

@@ -1486,12 +1486,12 @@ class AreaItem(MagiModel):
         ('instrument_per_member', {
             'translation': 'Instrument per member',
             'variables': ['member', 'instrument'],
-            'name_template': '{member_name} {instrument}',
+            'name_template': '{member_name} {t_instrument}',
         }),
         ('instrument_per_band', {
             'translation': 'Instrument per band',
             'variables': ['name', 'i_band', 'instrument'],
-            'name_template': '{t_name} {instrument}',
+            'name_template': '{t_name} {t_instrument}',
         }),
         ('poster', {
             'translation': _('Poster'),

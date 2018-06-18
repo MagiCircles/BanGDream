@@ -947,10 +947,12 @@ class CostumeForm(AutoForm):
 
         if not self.is_creating and instance.member != self.instance.previous_member:
             self.instance.previous_member.force_cache_totals()
-        instance.member.force_cache_totals()
 
         if commit:
             instance.save()
+        
+        if instance.member:
+            instance.member.force_cache_totals()
 
         return instance
 

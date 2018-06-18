@@ -1626,7 +1626,10 @@ def to_PlayedSongCollection(cls):
                 setSubField(fields, 'difficulty', key='type', value='image')
                 setSubField(fields, 'difficulty', key='value', value=lambda k: item.difficulty_image_url)
                 setSubField(fields, 'screenshot', key='type', value='html')
-                setSubField(fields, 'screenshot', key='value', value=u'<a href="{url}" target="_blank"><div class="screenshot_preview" style="background-image: url(\'{url}\')"></div></a>'.format(url=item.screenshot_url) if item.screenshot else '')
+                setSubField(fields, 'screenshot', key='value', value=u'<a href="{url}" target="_blank"><div class="screenshot_preview" style="background-image: url(\'{thumbnail_url}\')"></div></a>'.format(
+                    url=item.screenshot_url,
+                    thumbnail_url=item.screenshot_thumbnail_url,
+                ) if item.screenshot else '')
                 return fields
 
             def table_fields_headers(self, fields, view=None):

@@ -172,6 +172,7 @@ class ActivityCollection(_ActivityCollection):
 
     class ListView(_ActivityCollection.ListView):
         before_template = 'include/index'
+        ajax_callback = 'loadIndex'
 
         def extra_context(self, context):
             super(ActivityCollection.ListView, self).extra_context(context)
@@ -188,6 +189,7 @@ class ActivityCollection(_ActivityCollection):
                     and 'preview' in context['request'].GET):
                     context['random_card'] = {
                         'art_url': context['request'].GET['preview'],
+                        'hd_art_url': context['request'].GET['preview'],
                     }
                 # 1 chance out of 5 to get a random card of 1 of your favorite characters
                 elif (context['request'].user.is_authenticated()
@@ -203,11 +205,14 @@ class ActivityCollection(_ActivityCollection):
                     except IndexError:
                         card = None
                     if card:
+                        trained = random.choice([v for v, s in [
+                            (False, card.show_art_on_homepage and card.art_url),
+                            (True, card.show_trained_art_on_homepage and card.art_trained_url),
+                            ] if s
+                        ])
                         context['random_card'] = {
-                            'art_url': random.choice([u for u, s in [
-                                (card.art_url, card.show_art_on_homepage),
-                                (card.art_trained_url, card.show_trained_art_on_homepage),
-                            ] if u and s]),
+                            'art_url': card.art_trained_url if trained else card.art_url,
+                            'hd_art_url': (card.art_trained_2x_url or card.art_trained_original_url) if trained else (card.art_2x_url or card.art_original_url),
                             'item_url': card.item_url,
                         }
                 # Random from the last 20 released cards
@@ -216,7 +221,8 @@ class ActivityCollection(_ActivityCollection):
                 # If no random_card was available
                 if 'random_card' not in context:
                     context['random_card'] = {
-                        'art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
+                        'art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
+                        'hd_art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
                     }
 
 ############################################################
@@ -778,7 +784,10 @@ class CardCollection(MagiCollection):
                         buttons[u'preview_{}'.format(field)] = {
                             'classes': self.item_buttons_classes + ['staff-only'],
                             'show': True,
-                            'url': u'/?preview={}'.format(getattr(item, u'{}_url'.format(field))),
+                            'url': u'/?preview={}'.format(
+                                getattr(item, u'{}_2x_url'.format(field))
+                                or getattr(item, u'{}_original_url'.format(field))
+                            ),
                             'icon': 'link',
                             'title': u'Preview {} on homepage'.format(field.replace('_', ' ')),
                             'has_permissions': True,

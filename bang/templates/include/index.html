@@ -12,7 +12,7 @@
     }
   }
 </style>
-<div class="home-wrapper" style="background-image: url('{{ random_card.art_url }}');">
+<div class="home-wrapper" style="background-image: url('{{ random_card.art_url }}');" data-hd-art="{{ random_card.hd_art_url }}">
   {% if random_card.item_url %}
   <a href="{{ random_card.item_url }}" target="_blank" class="about-card">
     <i class="flaticon-about"></i>

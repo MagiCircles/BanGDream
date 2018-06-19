@@ -53,15 +53,16 @@ def generate_settings():
     cards = models.Card.objects.exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(show_art_on_homepage=False, show_trained_art_on_homepage=False).order_by('-release_date')[:5]
     homepage_cards = []
     for c in cards:
-        print c
         if c.show_art_on_homepage:
             homepage_cards.append({
                 'art_url': c.art_url,
+                'hd_art_url': c.art_2x_url or c.art_original_url,
                 'item_url': c.item_url,
             })
         if c.art_trained and c.show_trained_art_on_homepage:
             homepage_cards.append({
                 'art_url': c.art_trained_url,
+                'hd_art_url': c.art_trained_2x_url or c.art_trained_original_url,
                 'item_url': c.item_url,
             })
 

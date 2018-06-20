@@ -8,7 +8,16 @@ from django.utils.formats import dateformat
 from django.utils.safestring import mark_safe
 from django.db.models import Prefetch, Q
 from django.db.models.fields import BLANK_CHOICE_DASH
-from magi.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection, StaffConfigurationCollection as _StaffConfigurationCollection
+from magi.magicollections import (
+    MagiCollection,
+    AccountCollection as _AccountCollection,
+    ActivityCollection as _ActivityCollection,
+    BadgeCollection as _BadgeCollection,
+    DonateCollection as _DonateCollection,
+    UserCollection as _UserCollection,
+    StaffConfigurationCollection as _StaffConfigurationCollection,
+    PrizeCollection as _PrizeCollection,
+)
 from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn, jsv
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
@@ -147,6 +156,12 @@ class AccountCollection(_AccountCollection):
 # Badge Collection
 
 class BadgeCollection(_BadgeCollection):
+    enabled = True
+
+############################################################
+# Prize Collection
+
+class PrizeCollection(_PrizeCollection):
     enabled = True
 
 ############################################################

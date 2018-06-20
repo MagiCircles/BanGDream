@@ -176,6 +176,8 @@ class Member(MagiModel):
     SCHOOLS_CHOICES = ALL_ALT_LANGUAGES
     d_schools = models.TextField(_('School'), null=True)
 
+    classroom = models.CharField(_('Classroom'), max_length = 10, null=True)
+
     SCHOOL_YEAR_CHOICES = (
         ('First', _('First')),
         ('Second', _('Second')),

@@ -747,7 +747,7 @@ class CardCollection(MagiCollection):
                     'value': mark_safe(u'{} {}'.format(
                         to_cos_link(_('View model'), classes='btn btn-lg btn-secondary'),
                         to_cos_link(u'<img src="{url}" alt="{item} preview">'.format(
-                            url=item.associated_costume.image_url,
+                            url=item.associated_costume.image_thumbnail_url,
                             item=unicode(item),
                         )) if item.associated_costume.image_url else '',
                     ))

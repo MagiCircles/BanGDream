@@ -1735,6 +1735,8 @@ class Asset(MagiModel):
 
     def __unicode__(self):
         return u'{} {}'.format(self.t_type, self.t_name if self.name else '')
+
+############################################################
 # Costume
 
 class Costume(MagiModel):
@@ -1774,6 +1776,17 @@ class Costume(MagiModel):
             return self.image_url
         elif self.card:
             for try_img in ['transparent_trained_url', 'transparent_url']:
+                g = getattr(self.card, try_img, None)
+                if g:
+                    return g
+        return None
+
+    @property
+    def display_image_thumbnail_url(self):
+        if self.image:
+            return self.image_thumbnail_url
+        elif self.card:
+            for try_img in ['transparent_trained_thumbnail_url', 'transparent_thumbnail_url']:
                 g = getattr(self.card, try_img, None)
                 if g:
                     return g

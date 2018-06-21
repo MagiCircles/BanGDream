@@ -1912,6 +1912,7 @@ class ItemCollection(MagiCollection):
     multipart = True
     form_class = forms.ItemForm
     collectible = models.CollectibleItem
+    reportable = False
 
     def collectible_to_class(self, model_class):
         cls = super(ItemCollection, self).collectible_to_class(model_class)
@@ -1955,6 +1956,7 @@ class AreaCollection(MagiCollection):
     navbar_link = False
     multipart = True
     form_class = forms.AreaForm
+    reportable = False
 
     class ListView(MagiCollection.ListView):
         before_template = 'include/beforeAreas'
@@ -2050,6 +2052,7 @@ class AreaItemCollection(MagiCollection):
     navbar_link = False
     multipart = True
     filter_cuteform = AREA_ITEM_CUTEFORM
+    reportable = False
 
     types = {
         _type: {
@@ -2152,6 +2155,7 @@ class AssetCollection(MagiCollection):
     multipart = True
     filter_cuteform = ASSET_CUTEFORM
     form_class = forms.AssetForm
+    reportable = False
 
     types = {
         _type: {

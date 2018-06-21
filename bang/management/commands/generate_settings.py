@@ -5,13 +5,16 @@ from django.utils import timezone
 from django.utils.translation import get_language, activate as translation_activate
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
-from magi.tools import totalDonators, getStaffConfigurations
+from magi.tools import totalDonators, getStaffConfigurations, latestDonationMonth
 from bang import models
 
 def generate_settings():
 
     print 'Get total donators'
-    total_donators = totalDonators()
+    total_donators = totalDonators() or '\'\''
+
+    print 'Get latest donation month'
+    donation_month = latestDonationMonth(failsafe=True)
 
     print 'Get staff configurations'
     staff_configurations, latest_news = getStaffConfigurations()
@@ -101,6 +104,7 @@ def generate_settings():
 import datetime\n\
 LATEST_NEWS = ' + unicode(latest_news) + u'\n\
 TOTAL_DONATORS = ' + unicode(total_donators) + u'\n\
+DONATION_MONTH = ' + unicode(donation_month) + u'\n\
 HOMEPAGE_CARDS = ' +  unicode(homepage_cards) + u'\n\
 STAFF_CONFIGURATIONS = ' + unicode(staff_configurations) + u'\n\
 FAVORITE_CHARACTERS = ' + unicode(favorite_characters) + u'\n\

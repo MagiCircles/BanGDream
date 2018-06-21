@@ -1,10 +1,10 @@
 {% with eventparticipation=item %}
 <div class="row">
-  <div class="col-md-2 text-center">
+  <div class="col-md-1 text-center">
     {% if not eventparticipation.ranking %}
     ??
     {% elif eventparticipation.ranking <= 3 %}
-    <img src="{{ eventparticipation.ranking_image_url }}" alt="{{ eventparticipation.ranking }}" />
+    <img src="{{ eventparticipation.ranking_image_url }}" alt="{{ eventparticipation.ranking }}" style="z-index: 1000; position: relative;" />
     {% else %}
     <span>#{{ eventparticipation.ranking }}</span>
     {% endif %}
@@ -23,10 +23,7 @@
       <small>{{ eventparticipation.account.level|default_if_none:"" }}</small>
     </h3>
   </div>
-  <div class="col-md-6 text-center">
-    <div class="pull-right">
-      {% include 'include/below_item.html' with buttons_only=True show_item_buttons=True %}
-    </div>
+  <div class="col-md-{% if eventparticipation.screenshot %}4{% else %}6{% endif %}">
     {% for field, details in eventparticipation.leaderboard_details %}
     <div style="display: inline-block; padding: 0 20px; padding-bottom: 10px;" class="text-center">
       <small class="text-muted"><i class="flaticon-{{ details.icon }}"></i> {{ details.verbose_name }}</small><br>
@@ -37,6 +34,16 @@
       </strong>
     </div>
     {% endfor %}
+  </div>
+  {% if eventparticipation.screenshot %}
+  <div class="col-md-2">
+    <a href="{{ eventparticipation.screenshot_url }}" target="_blank">
+      <img src="{{ eventparticipation.screenshot_thumbnail_url }}" alt="{{ eventparticipation }}" class="img-responsive">
+    </a>
+  </div>
+  {% endif %}
+  <div class="col-md-1">
+    {% include 'include/below_item.html' with buttons_only=True show_item_buttons=True %}
   </div>
 </div>
 <hr>

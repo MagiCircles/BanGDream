@@ -12,7 +12,7 @@ from django.conf import settings as django_settings
 from magi.models import User, uploadItem
 from magi.abstract_models import AccountAsOwnerModel, BaseAccount
 from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path, i_choices, getInfoFromChoices
-from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName, staticImageURL, FAVORITE_CHARACTERS_NAMES, templateVariables, uploadTthumb, uploadThumb, upload2x, uploadTiny
+from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName, staticImageURL, FAVORITE_CHARACTERS_NAMES, templateVariables, uploadTthumb, uploadThumb, upload2x, uploadTiny, getEventStatus
 from bang.django_translated import t
 
 ############################################################
@@ -70,24 +70,28 @@ class Account(BaseAccount):
             'image': 'ja',
             'prefix': '',
             'code': 'ja',
+            'timezone': 'Asia/Tokyo',
         }),
         ('EN', {
             'translation': _('English version'),
             'image': 'world',
             'prefix': 'english_',
             'code': 'en',
+            'timezone': 'UTC',
         }),
         ('TW', {
             'translation': _('Taiwanese version'),
             'image': 'zh-hant',
             'prefix': 'taiwanese_',
             'code': 'zh-hant',
+            'timezone': 'Asia/Taipei',
         }),
         ('KR', {
             'translation': _('Korean version'),
             'image': 'kr',
             'prefix': 'korean_',
             'code': 'kr',
+            'timezone': 'Asia/Seoul',
         }),
     ])
     VERSION_CHOICES = [(_name, _info['translation']) for _name, _info in VERSIONS.items()]
@@ -328,6 +332,7 @@ class Card(MagiModel):
             return self.japanese_name
         return self.names.get(get_language(), self.name)
 
+    VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
@@ -949,8 +954,9 @@ class Event(MagiModel):
     start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
     end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)
 
-    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'leaderboard']
+    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'leaderboard', 'rerun']
 
+    VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
@@ -1001,14 +1007,7 @@ class Event(MagiModel):
     def get_status(self, version='JP'):
         start_date = getattr(self, u'{}start_date'.format(Account.VERSIONS_PREFIXES[version]))
         end_date = getattr(self, u'{}end_date'.format(Account.VERSIONS_PREFIXES[version]))
-        if not end_date or not start_date:
-            return None
-        now = timezone.now()
-        if now > end_date:
-            return 'ended'
-        elif now > start_date:
-            return 'current'
-        return 'future'
+        return getEventStatus(start_date, end_date)
 
     status = property(lambda _s: _s.get_status())
     english_status = property(lambda _s: _s.get_status(version='EN'))
@@ -1157,6 +1156,7 @@ class Song(MagiModel):
             return self.japanese_name
         return self.names.get(get_language(), self.name)
 
+    VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
@@ -1377,8 +1377,9 @@ class Gacha(MagiModel):
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gachas', null=True, on_delete=models.SET_NULL)
     cards = models.ManyToManyField(Card, verbose_name=('Cards'), related_name='gachas')
 
-    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date']
+    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rerun']
 
+    VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
@@ -1391,14 +1392,7 @@ class Gacha(MagiModel):
     def get_status(self, version='JP'):
         start_date = getattr(self, u'{}start_date'.format(Account.VERSIONS_PREFIXES[version]))
         end_date = getattr(self, u'{}end_date'.format(Account.VERSIONS_PREFIXES[version]))
-        if not end_date or not start_date:
-            return None
-        now = timezone.now()
-        if now > end_date:
-            return 'ended'
-        elif now > start_date:
-            return 'current'
-        return 'future'
+        return getEventStatus(start_date, end_date)
 
     status = property(lambda _s: _s.get_status())
     english_status = property(lambda _s: _s.get_status(version='EN'))
@@ -1407,6 +1401,49 @@ class Gacha(MagiModel):
 
     def __unicode__(self):
         return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
+
+############################################################
+# Rerun gacha event
+
+class Rerun(MagiModel):
+    collection_name = 'rerun'
+
+    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='reruns', null=True)
+    gacha = models.ForeignKey(Gacha, verbose_name=_('Gacha'), related_name='reruns', null=True)
+
+    ITEMS = ['event', 'gacha']
+
+    fk_as_owner = 'event__owner'
+
+    @property
+    def owner(self):
+        return getattr(self.event, 'owner', None) or getattr(self.gacha, 'owner', None)
+
+    @property
+    def owner_id(self):
+        return getattr(self.event, 'owner_id', None) or getattr(self.gacha, 'owner_id', None)
+
+    VERSIONS = Account.VERSIONS
+    VERSION_CHOICES = Account.VERSION_CHOICES
+    i_version = models.PositiveIntegerField(_('Version'), choices=i_choices(VERSION_CHOICES))
+    version_timezone = property(getInfoFromChoices('version', VERSIONS, 'timezone'))
+    version_prefix = property(getInfoFromChoices('version', VERSIONS, 'prefix'))
+
+    start_date = models.DateTimeField(_('Beginning'))
+    end_date = models.DateTimeField(_('End'))
+
+    @property
+    def status(self):
+        return getEventStatus(self.start_date, self.end_date)
+
+    def __unicode__(self):
+        return u'Rerun {} "{}" ({}): {} - {}'.format(
+            'Gacha' if self.gacha_id else 'Event',
+            self.gacha or self.event,
+            self.version,
+            self.start_date,
+            self.end_date,
+        )
 
 ############################################################
 # Item

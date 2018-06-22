@@ -18,14 +18,14 @@ from magi.magicollections import (
     StaffConfigurationCollection as _StaffConfigurationCollection,
     PrizeCollection as _PrizeCollection,
 )
-from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn, jsv
+from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn, jsv, toCountDown
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
 from magi.models import Activity, Notification
 from bang.constants import LIVE2D_JS_FILES
 from bang import settings
 from bang.django_translated import t
-from bang.utils import rarity_to_stars_images
+from bang.utils import rarity_to_stars_images, add_rerun_buttons, add_rerun_fields
 from bang import models, forms
 
 ############################################################
@@ -1138,17 +1138,16 @@ class EventCollection(MagiCollection):
             del(fields['name'])
         if item.name == item.japanese_name and 'japanese_name' in fields:
             del(fields['japanese_name'])
-        setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
-        setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
 
-        setSubField(fields, 'english_start_date', key='timezones', value=['UTC', 'Local time'])
-        setSubField(fields, 'english_end_date', key='timezones', value=['UTC', 'Local time'])
-
-        setSubField(fields, 'taiwanese_start_date', key='timezones', value=['Asia/Taipei', 'Local time'])
-        setSubField(fields, 'taiwanese_end_date', key='timezones', value=['Asia/Taipei', 'Local time'])
-
-        setSubField(fields, 'korean_start_date', key='timezones', value=['Asia/Seoul', 'Local time'])
-        setSubField(fields, 'korean_end_date', key='timezones', value=['Asia/Seoul', 'Local time'])
+        for version, version_details in models.Event.VERSIONS.items():
+            setSubField(
+                fields, u'{}start_date'.format(version_details['prefix']),
+                key='timezones', value=[version_details['timezone'], 'Local time'],
+            )
+            setSubField(
+                fields, u'{}end_date'.format(version_details['prefix']),
+                key='timezones', value=[version_details['timezone'], 'Local time'],
+            )
 
         if get_language() in models.ALT_LANGUAGES_EXCEPT_JP_KEYS and unicode(item.name) != unicode(item.t_name):
             setSubField(fields, 'name', key='value', value=mark_safe(u'{}<br><span class="text-muted">{}</span>'.format(item.name, item.t_name)))
@@ -1177,7 +1176,12 @@ class EventCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(EventCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'), Prefetch('gachas', to_attr='all_gachas'), Prefetch('gift_songs', to_attr='all_gifted_songs'))
+            queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(
+                Prefetch('boost_members', to_attr='all_members'),
+                Prefetch('gachas', to_attr='all_gachas'),
+                Prefetch('gift_songs', to_attr='all_gifted_songs'),
+                Prefetch('reruns', to_attr='all_reruns'),
+            )
             return queryset
 
         def extra_context(self, context):
@@ -1186,7 +1190,7 @@ class EventCollection(MagiCollection):
             context['js_variables']['versions_prefixes'] = jsv(models.Account.VERSIONS_PREFIXES)
             context['js_variables']['fields_per_version'] = jsv(models.Event.FIELDS_PER_VERSION)
 
-        def to_fields(self, item, order=None, extra_fields=None, exclude_fields=None, *args, **kwargs):
+        def to_fields(self, item, order=None, extra_fields=None, exclude_fields=None, request=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
@@ -1265,6 +1269,7 @@ class EventCollection(MagiCollection):
                         'ajax_link': song.ajax_item_url,
                         'link_text': unicode(song),
                     }))
+            extra_fields += add_rerun_fields(self, item, request)
             for i_version, version in enumerate(models.Account.VERSIONS.values()):
                 if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
                     extra_fields.append(('{}image'.format(version['prefix']), {
@@ -1294,7 +1299,8 @@ class EventCollection(MagiCollection):
 
             exclude_fields += ['c_versions', 'japanese_name']
             fields = super(EventCollection.ItemView, self).to_fields(
-                item, *args, order=order, extra_fields=extra_fields, exclude_fields=exclude_fields, **kwargs)
+                item, *args, order=order, extra_fields=extra_fields, exclude_fields=exclude_fields,
+                request=request, **kwargs)
 
             setSubField(fields, 'name', key='type', value='text' if get_language() == 'ja' else 'title_text')
             setSubField(fields, 'name', key='title', value=item.t_name)
@@ -1311,6 +1317,11 @@ class EventCollection(MagiCollection):
                 setSubField(fields, 'participations', key='ajax_link', value=u'{}&view=leaderboard&ordering=id&reverse_order=on&ajax_modal_only'.format(fields['participations']['ajax_link']))
 
             return fields
+
+        def buttons_per_item(self, request, context, item):
+            buttons = super(EventCollection.ItemView, self).buttons_per_item(request, context, item)
+            buttons = add_rerun_buttons(self, buttons, request, item)
+            return buttons
 
     # For AddView and EditView
     def _after_save(self, request, instance, type=None):
@@ -1435,17 +1446,15 @@ class GachaCollection(MagiCollection):
             setSubField(fields, 'name', key='title', value=item.t_name)
             setSubField(fields, 'name', key='value', value=item.japanese_name)
 
-        setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
-        setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
-
-        setSubField(fields, 'english_start_date', key='timezones', value=['UTC', 'Local time'])
-        setSubField(fields, 'english_end_date', key='timezones', value=['UTC', 'Local time'])
-
-        setSubField(fields, 'taiwanese_start_date', key='timezones', value=['Asia/Taipei', 'Local time'])
-        setSubField(fields, 'taiwanese_end_date', key='timezones', value=['Asia/Taipei', 'Local time'])
-
-        setSubField(fields, 'korean_start_date', key='timezones', value=['Asia/Seoul', 'Local time'])
-        setSubField(fields, 'korean_end_date', key='timezones', value=['Asia/Seoul', 'Local time'])
+        for version, version_details in models.Gacha.VERSIONS.items():
+            setSubField(
+                fields, u'{}start_date'.format(version_details['prefix']),
+                key='timezones', value=[version_details['timezone'], 'Local time'],
+            )
+            setSubField(
+                fields, u'{}end_date'.format(version_details['prefix']),
+                key='timezones', value=[version_details['timezone'], 'Local time'],
+            )
 
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
@@ -1458,7 +1467,10 @@ class GachaCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(GachaCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('event').prefetch_related(Prefetch('cards', to_attr='all_cards'))
+            queryset = queryset.select_related('event').prefetch_related(
+                Prefetch('cards', to_attr='all_cards'),
+                Prefetch('reruns', to_attr='all_reruns'),
+            )
             return queryset
 
         def extra_context(self, context):
@@ -1467,7 +1479,7 @@ class GachaCollection(MagiCollection):
             context['js_variables']['versions_prefixes'] = jsv(models.Account.VERSIONS_PREFIXES)
             context['js_variables']['fields_per_version'] = jsv(models.Gacha.FIELDS_PER_VERSION)
 
-        def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
+        def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, request=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
@@ -1480,10 +1492,10 @@ class GachaCollection(MagiCollection):
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
-                            'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
-                                date=torfc2822(end_date if status == 'current' else start_date),
+                            'value': mark_safe(toCountDown(
+                                date=end_date if status == 'current' else start_date,
                                 sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),
-                            ),
+                            )),
                             'icon': 'times',
                             'type': 'html',
                         }),
@@ -1507,6 +1519,7 @@ class GachaCollection(MagiCollection):
                         'link_text': unicode(card),
                     } for card in item.all_cards],
                 }))
+            extra_fields += add_rerun_fields(self, item, request)
             for version in models.Account.VERSIONS.values():
                 if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
                     extra_fields.append(('{}image'.format(version['prefix']), {
@@ -1515,7 +1528,9 @@ class GachaCollection(MagiCollection):
                         'type': 'html',
                         'value': u'<hr>',
                     }))
-            fields = super(GachaCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
+            fields = super(GachaCollection.ItemView, self).to_fields(
+                item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order,
+                request=request, **kwargs)
             setSubField(fields, 'limited', key='verbose_name', value=_('Gacha type'))
             setSubField(fields, 'limited', key='type', value='text')
             setSubField(fields, 'limited', key='value', value=(
@@ -1527,6 +1542,11 @@ class GachaCollection(MagiCollection):
                 setSubField(fields, u'{}start_date'.format(version['prefix']), key='verbose_name', value=_('Beginning'))
                 setSubField(fields, u'{}end_date'.format(version['prefix']), key='verbose_name', value=_('End'))
             return fields
+
+        def buttons_per_item(self, request, context, item):
+            buttons = super(GachaCollection.ItemView, self).buttons_per_item(request, context, item)
+            buttons = add_rerun_buttons(self, buttons, request, item)
+            return buttons
 
     class ListView(MagiCollection.ListView):
         default_ordering = '-start_date'
@@ -1557,6 +1577,58 @@ class GachaCollection(MagiCollection):
         def to_translate_form_class(self):
             super(GachaCollection.EditView, self).to_translate_form_class()
             self._translate_form_class = forms.to_translate_gacha_form_class(self._translate_form_class)
+
+############################################################
+# Rerun gacha event
+
+RERUN_CUTEFORM = {
+    'i_version': {
+        'to_cuteform': lambda k, v: AccountCollection._version_images[k],
+        'image_folder': 'language',
+        'transform': CuteFormTransform.ImagePath,
+    },
+}
+
+class RerunCollection(MagiCollection):
+    queryset = models.Rerun.objects.all().select_related('event', 'gacha')
+
+    filter_cuteform = RERUN_CUTEFORM
+    form_class = forms.RerunForm
+
+    class ListView(MagiCollection.ListView):
+        enabled = False
+
+    class ItemView(MagiCollection.ItemView):
+        enabled = False
+
+    def redirect_after_modification(self, request, item, ajax):
+        if ajax:
+            return (item.gacha.ajax_item_url if item.gacha
+                    else (item.event.ajax_item_url if item.event
+                          else '/'))
+        return (item.gacha.item_url if item.gacha
+                else (item.event.item_url if item.event
+                      else '/'))
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+        alert_duplicate = False
+        back_to_list_button = False
+
+        def redirect_after_add(self, *args, **kwargs):
+            return self.collection.redirect_after_modification(*args, **kwargs)
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+        back_to_list_button = False
+
+        def redirect_after_edit(self, *args, **kwargs):
+            return self.collection.redirect_after_modification(*args, **kwargs)
+
+        def redirect_after_delete(self, *args, **kwargs):
+            return self.collection.redirect_after_modification(*args, **kwargs)
 
 ############################################################
 # Played songs Collection

@@ -158,6 +158,15 @@ ENABLED_PAGES['gallery'] = [
     },
 ]
 
+ENABLED_PAGES['add_rerun'] = {
+    'title': u'Add {} rerun dates'.format(u'/'.join(models.Rerun.ITEMS)),
+    'staff_required': True,
+    'permissions_required': ['manage_main_items'],
+    'icon': 'date',
+    'navbar_link_list': 'staff',
+    'redirect': '/rerun/add/',
+}
+
 ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),

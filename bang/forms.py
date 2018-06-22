@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from magi.item_model import i_choices
-from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession
+from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession, snakeToCamelCase, staticImageURL
 from magi.forms import MagiForm, AutoForm, HiddenModelChoiceField, MagiFiltersForm, MagiFilter, MultiImageField, AccountForm as _AccountForm
 from magi.middleware.httpredirect import HttpRedirectException
 from bang import settings
@@ -629,6 +629,91 @@ class GachaFilterForm(MagiFiltersForm):
         fields = ('search', 'gacha_type', 'featured_member', 'i_attribute', 'version', 'ordering', 'reverse_order')
 
 ############################################################
+# Rerun gacha event
+
+class RerunForm(AutoForm):
+    start_date = forms.DateField(label=_('Beginning'))
+    end_date = forms.DateField(label=_('End'))
+
+    def __init__(self, *args, **kwargs):
+        super(RerunForm, self).__init__(*args, **kwargs)
+        # When editing
+        if not self.is_creating:
+            # Don't allow to edit item
+            for item in models.Rerun.ITEMS:
+                if item in self.fields:
+                    del(self.fields[item])
+            # Don't allow to edit version
+            del(self.fields['i_version'])
+        else:
+            # When adding
+            # When version specified in GET
+            i_version = None
+            if 'i_version' in self.request.GET:
+                i_version = int(self.request.GET['i_version'])
+                self.fields['i_version'].widget = forms.HiddenInput()
+                self.fields['i_version'].initial = i_version
+            item_id = None
+            for item in models.Rerun.ITEMS:
+                if i_version is not None:
+                    self.fields[item].queryset = self.fields[item].queryset.filter(c_versions__contains=u'"{}"'.format(models.Rerun.get_reverse_i('version', i_version)))
+                # When item specified in GET
+                if u'{}_id'.format(item) in self.request.GET:
+                    item_id = self.request.GET[u'{}_id'.format(item)]
+                    if not item_id:
+                        continue
+                    # Hide all other fields
+                    for other_item in models.Rerun.ITEMS:
+                        if other_item != item and other_item in self.fields:
+                            del(self.fields[other_item])
+                    # Set item field as hidden
+                    self.fields[item] = HiddenModelChoiceField(
+                        queryset=self.fields[item].queryset,
+                        initial=item_id,
+                    )
+                    break
+            if item_id or i_version is not None:
+                self.beforefields = mark_safe(u'<div class="col-sm-offset-4">{item}{version}</div><br>'.format(
+                    item=u'<p>Adding to <a href="/{item}/{id}/">{item} #{id}</a></p>'.format(
+                        item=item, id=item_id,
+                    ) if item_id else '',
+                    version=u'<p><img src="{image}" alt="{version}" height="30" /> {version}</p>'.format(
+                        version=models.Rerun.get_verbose_i('version', i_version),
+                        image=staticImageURL(
+                            models.Account.VERSIONS[models.Rerun.get_reverse_i('version', i_version)]['image'],
+                            folder='language', extension='png',
+                        ),
+                    ) if i_version is not None else '',
+                ))
+
+
+    def clean(self):
+        cleaned_data = super(RerunForm, self).clean()
+        if self.is_creating:
+            # Check that there's one and only one item
+            selected_item = None
+            for item in models.Rerun.ITEMS:
+                if cleaned_data.get(item, None):
+                    selected_item = cleaned_data.get(item, None)
+                    for other_item in models.Rerun.ITEMS:
+                        if item != other_item and cleaned_data.get(other_item, None):
+                            raise forms.ValidationError(u'You can\'t have {} + {}, select only one.'.format(item, other_item))
+                    break
+            if not selected_item:
+                raise forms.ValidationError(u'You need at least one {}.'.format(' or '.join(models.Rerun.ITEMS)))
+            # Check that item already ran before for that version
+            i_version = self.cleaned_data.get('i_version', None)
+            if i_version is not None:
+                if models.Rerun.get_reverse_i('version', i_version) not in selected_item.versions:
+                    raise forms.ValidationError(u'The {item} "{item_name}" is not available in {version}'.format(
+                        item=item, item_name=unicode(selected_item), version=models.Rerun.get_verbose_i('version', i_version),
+                    ))
+            return cleaned_data
+
+    class Meta(AutoForm.Meta):
+        model = models.Rerun
+
+############################################################
 # Played song
 
 def to_PlayedSongForm(cls):
@@ -910,6 +995,7 @@ class AssetFilterForm(MagiFiltersForm):
 
 ############################################################
 # Costume form
+
 class CostumeForm(AutoForm):
     def __init__(self, *args, **kwargs):
         super(CostumeForm, self).__init__(*args, **kwargs)
@@ -951,7 +1037,7 @@ class CostumeForm(AutoForm):
 
         if commit:
             instance.save()
-        
+
         if instance.member:
             instance.member.force_cache_totals()
 

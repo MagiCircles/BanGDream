@@ -398,22 +398,18 @@ class EventForm(AutoForm):
 
     def save(self, commit=False):
         instance = super(EventForm, self).save(commit=False)
-        if instance.start_date:
-            instance.start_date = instance.start_date.replace(hour=6, minute=00)
-        if instance.end_date:
-            instance.end_date = instance.end_date.replace(hour=11, minute=59)
-        if instance.english_start_date:
-            instance.english_start_date = instance.english_start_date.replace(hour=1, minute=00)
-        if instance.english_end_date:
-            instance.english_end_date = instance.english_end_date.replace(hour=6, minute=59)
-        if instance.taiwanese_start_date:
-            instance.taiwanese_start_date = instance.taiwanese_start_date.replace(hour=7, minute=00)
-        if instance.taiwanese_end_date:
-            instance.taiwanese_end_date = instance.taiwanese_end_date.replace(hour=13, minute=59)
-        if instance.korean_start_date:
-            instance.korean_start_date = instance.korean_start_date.replace(hour=6, minute=00)
-        if instance.korean_end_date:
-            instance.korean_end_date = instance.korean_end_date.replace(hour=13, minute=00)
+        # Set the right time for each version
+        for version, times in instance.TIMES_PER_VERSIONS.items():
+            version_details = instance.VERSIONS[version]
+            for field_name, time in zip(('start_date', 'end_date'), times):
+                field_name = u'{prefix}{field_name}'.format(
+                    prefix=version_details['prefix'],
+                    field_name=field_name,
+                )
+                value = getattr(instance, field_name)
+                if value:
+                    setattr(instance, field_name, value.replace(hour=time[0], minute=time[1]))
+        # Toggle versions based on start date field
         instance.save_c('versions', [
             value for prefix, value in (
                 ('', 'JP'),
@@ -544,22 +540,18 @@ class GachaForm(AutoForm):
 
     def save(self, commit=False):
         instance = super(GachaForm, self).save(commit=False)
-        if instance.start_date:
-            instance.start_date = instance.start_date.replace(hour=6, minute=00)
-        if instance.end_date:
-            instance.end_date = instance.end_date.replace(hour=5, minute=59)
-        if instance.english_start_date:
-            instance.english_start_date = instance.english_start_date.replace(hour=1, minute=00)
-        if instance.english_end_date:
-            instance.english_end_date = instance.english_end_date.replace(hour=0, minute=59)
-        if instance.taiwanese_start_date:
-            instance.taiwanese_start_date = instance.taiwanese_start_date.replace(hour=7, minute=00)
-        if instance.taiwanese_end_date:
-            instance.taiwanese_end_date = instance.taiwanese_end_date.replace(hour=6, minute=59)
-        if instance.korean_start_date:
-            instance.korean_start_date = instance.korean_start_date.replace(hour=6, minute=00)
-        if instance.korean_end_date:
-            instance.korean_end_date = instance.korean_end_date.replace(hour=6, minute=00)
+        # Set the right time for each version
+        for version, times in instance.TIMES_PER_VERSIONS.items():
+            version_details = instance.VERSIONS[version]
+            for field_name, time in zip(('start_date', 'end_date'), times):
+                field_name = u'{prefix}{field_name}'.format(
+                    prefix=version_details['prefix'],
+                    field_name=field_name,
+                )
+                value = getattr(instance, field_name)
+                if value:
+                    setattr(instance, field_name, value.replace(hour=time[0], minute=time[1]))
+        # Toggle versions based on start date field
         instance.save_c('versions', [
             value for prefix, value in (
                 ('', 'JP'),
@@ -709,6 +701,22 @@ class RerunForm(AutoForm):
                         item=item, item_name=unicode(selected_item), version=models.Rerun.get_verbose_i('version', i_version),
                     ))
             return cleaned_data
+
+    def save(self, commit=False):
+        instance = super(RerunForm, self).save(commit=False)
+        # Set the right time based on version
+        version_details = instance.VERSIONS[instance.version]
+        times = next(model for item, model in models.Rerun.ITEMS_MODELS.items()
+                    if getattr(instance, item, None)).TIMES_PER_VERSIONS[instance.version]
+        for field_name, time in zip(('start_date', 'end_date'), times):
+            field_name = u'{prefix}{field_name}'.format(
+                prefix=version_details['prefix'],
+                field_name=field_name,
+            )
+            setattr(instance, field_name, getattr(instance, field_name).replace(hour=time[0], minute=time[1]))
+        if commit:
+            instance.save()
+        return instance
 
     class Meta(AutoForm.Meta):
         model = models.Rerun

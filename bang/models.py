@@ -954,6 +954,12 @@ class Event(MagiModel):
     start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
     end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)
 
+    TIMES_PER_VERSIONS = {
+        'JP': ((6, 0), (11, 59)),
+        'EN': ((1, 0), (6, 59)),
+        'TW': ((7, 0), (13, 59)),
+        'KR': ((6, 0), (13, 0)),
+    }
     FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'leaderboard', 'rerun']
 
     VERSIONS = Account.VERSIONS
@@ -1377,6 +1383,12 @@ class Gacha(MagiModel):
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gachas', null=True, on_delete=models.SET_NULL)
     cards = models.ManyToManyField(Card, verbose_name=('Cards'), related_name='gachas')
 
+    TIMES_PER_VERSIONS = {
+        'JP': ((6, 0), (5, 59)),
+        'EN': ((1, 0), (0, 59)),
+        'TW': ((7, 0), (6, 59)),
+        'KR': ((6, 0), (6, 0)),
+    }
     FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rerun']
 
     VERSIONS = Account.VERSIONS
@@ -1412,6 +1424,7 @@ class Rerun(MagiModel):
     gacha = models.ForeignKey(Gacha, verbose_name=_('Gacha'), related_name='reruns', null=True)
 
     ITEMS = ['event', 'gacha']
+    ITEMS_MODELS = { 'event': Event, 'gacha': Gacha }
 
     fk_as_owner = 'event__owner'
 

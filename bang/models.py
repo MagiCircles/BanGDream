@@ -159,9 +159,9 @@ class Member(MagiModel):
         return self.names.get(get_language(), self.name)
 
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('i'))
-    image = models.ImageField(_('Image'), upload_to=uploadItem('i'))
+    image = models.ImageField(_('Image'), upload_to=uploadItem('i'), null=True)
     _original_square_image = models.ImageField(null=True, upload_to=uploadTiny('i/m'))
-    square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
+    square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'), null=True)
 
     BAND_CHOICES = (
         'Poppin\' Party',
@@ -176,14 +176,14 @@ class Member(MagiModel):
     SCHOOLS_CHOICES = ALL_ALT_LANGUAGES
     d_schools = models.TextField(_('School'), null=True)
 
-    classroom = models.CharField(_('Classroom'), max_length = 10, null=True)
-
     SCHOOL_YEAR_CHOICES = (
         ('First', _('First')),
         ('Second', _('Second')),
         ('Third', _('Junior Third')),
     )
     i_school_year = models.PositiveIntegerField(_('School Year'), choices=i_choices(SCHOOL_YEAR_CHOICES), null=True)
+
+    classroom = models.CharField(_('Classroom'), max_length = 10, null=True)
 
     # TODO: separate page of voice acctresses
     romaji_CV = models.CharField(_('CV'), help_text='In romaji.', max_length=100, null=True)
@@ -216,6 +216,8 @@ class Member(MagiModel):
     i_astrological_sign = models.PositiveIntegerField(_('Astrological Sign'), choices=i_choices(ASTROLOGICAL_SIGN_CHOICES), null=True)
     @property
     def astrological_sign_image_url(self): return staticImageURL(self.i_astrological_sign, folder='i_astrological_sign', extension='png')
+
+    height = models.PositiveIntegerField(_('Height'), help_text=_('in cm'), null=True)
 
     instrument = models.CharField(_('Instrument'), max_length=100, null=True)
     INSTRUMENTS_CHOICES = ALL_ALT_LANGUAGES

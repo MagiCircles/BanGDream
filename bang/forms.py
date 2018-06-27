@@ -123,7 +123,7 @@ class MemberForm(AutoForm):
         save_owner_on_creation = True
 
 class MemberFilterForm(MagiFiltersForm):
-    search_fields = ['name', 'japanese_name', 'school', 'CV', 'romaji_CV', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description']
+    search_fields = ['name', 'japanese_name', 'school', 'CV', 'romaji_CV', 'height', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description']
 
     ordering_fields = [
         ('id', _('Band')),
@@ -131,13 +131,15 @@ class MemberFilterForm(MagiFiltersForm):
         ('name', _('Name')),
         ('japanese_name', string_concat(_('Name'), ' (', t['Japanese'], ')')),
         ('birthday', _('Birthday')),
+        ('height', _('Height')),
     ]
 
     school = forms.ChoiceField(label=_('School'), choices=BLANK_CHOICE_DASH + [(s, s) for s in getattr(django_settings, 'SCHOOLS', [])], initial=None)
+    classroom = forms.ChoiceField(label=_('Classroom'), choices=BLANK_CHOICE_DASH + [(s, s) for s in getattr(django_settings, 'CLASSROOMS', [])], initial=None)
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Member
-        fields = ('search', 'i_band', 'school', 'i_school_year', 'i_astrological_sign')
+        fields = ('search', 'i_band', 'school', 'i_school_year', 'classroom', 'i_astrological_sign')
 
 ############################################################
 # Card

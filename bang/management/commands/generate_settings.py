@@ -94,6 +94,9 @@ def generate_settings():
     print 'Get schools'
     schools = models.Member.objects.filter(school__isnull=False).values_list('school', flat=True).distinct()
 
+    print 'Get classrooms'
+    classrooms = models.Member.objects.filter(school__isnull=False).values_list('classroom', flat=True).distinct()
+
     print 'Save generated settings'
     # STARTERS = ' + unicode(starters) + u'\n\
     s = u'\
@@ -106,6 +109,7 @@ STAFF_CONFIGURATIONS = ' + unicode(staff_configurations) + u'\n\
 FAVORITE_CHARACTERS = ' + unicode(favorite_characters) + u'\n\
 MAX_STATS = ' + unicode(stats) + u'\n\
 SCHOOLS = ' + unicode(schools) + u'\n\
+CLASSROOMS= ' + unicode(classrooms) + u'\n\
 GENERATED_DATE = datetime.datetime.fromtimestamp(' + unicode(time.time()) + u')\n\
 '
     print s

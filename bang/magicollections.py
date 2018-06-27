@@ -1591,6 +1591,8 @@ RERUN_CUTEFORM = {
 
 class RerunCollection(MagiCollection):
     queryset = models.Rerun.objects.all().select_related('event', 'gacha')
+    reportable = False
+    blockable = False
 
     filter_cuteform = RERUN_CUTEFORM
     form_class = forms.RerunForm

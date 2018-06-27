@@ -94,9 +94,6 @@ def generate_settings():
     print 'Get schools'
     schools = models.Member.objects.filter(school__isnull=False).values_list('school', flat=True).distinct()
 
-    print 'Get classrooms'
-    classrooms = models.Member.objects.filter(school__isnull=False).values_list('classroom', flat=True).distinct()
-
     print 'Save generated settings'
     # STARTERS = ' + unicode(starters) + u'\n\
     s = u'\

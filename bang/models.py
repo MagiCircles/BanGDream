@@ -159,9 +159,9 @@ class Member(MagiModel):
         return self.names.get(get_language(), self.name)
 
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('i'))
-    image = models.ImageField(_('Image'), upload_to=uploadItem('i'), null=True)
+    image = models.ImageField(_('Image'), upload_to=uploadItem('i'))
     _original_square_image = models.ImageField(null=True, upload_to=uploadTiny('i/m'))
-    square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'), null=True)
+    square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
 
     BAND_CHOICES = (
         'Poppin\' Party',
@@ -191,6 +191,8 @@ class Member(MagiModel):
 
     birthday = models.DateField(_('Birthday'), null=True, help_text='The year is not used, so write whatever')
 
+    height = models.PositiveIntegerField(_('Height'), help_text=_('in cm'), null=True)
+    
     food_like = models.CharField(_('Liked food'), max_length=100, null=True)
     FOOD_LIKES_CHOICES = ALL_ALT_LANGUAGES
     d_food_likes = models.TextField(_('Liked food'), null=True)
@@ -216,8 +218,6 @@ class Member(MagiModel):
     i_astrological_sign = models.PositiveIntegerField(_('Astrological Sign'), choices=i_choices(ASTROLOGICAL_SIGN_CHOICES), null=True)
     @property
     def astrological_sign_image_url(self): return staticImageURL(self.i_astrological_sign, folder='i_astrological_sign', extension='png')
-
-    height = models.PositiveIntegerField(_('Height'), help_text=_('in cm'), null=True)
 
     instrument = models.CharField(_('Instrument'), max_length=100, null=True)
     INSTRUMENTS_CHOICES = ALL_ALT_LANGUAGES

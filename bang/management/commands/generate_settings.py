@@ -109,7 +109,6 @@ STAFF_CONFIGURATIONS = ' + unicode(staff_configurations) + u'\n\
 FAVORITE_CHARACTERS = ' + unicode(favorite_characters) + u'\n\
 MAX_STATS = ' + unicode(stats) + u'\n\
 SCHOOLS = ' + unicode(schools) + u'\n\
-CLASSROOMS= ' + unicode(classrooms) + u'\n\
 GENERATED_DATE = datetime.datetime.fromtimestamp(' + unicode(time.time()) + u')\n\
 '
     print s

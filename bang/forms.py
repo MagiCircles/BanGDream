@@ -123,7 +123,7 @@ class MemberForm(AutoForm):
         save_owner_on_creation = True
 
 class MemberFilterForm(MagiFiltersForm):
-    search_fields = ['name', 'japanese_name', 'school', 'CV', 'romaji_CV', 'classroom', 'height', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description']
+    search_fields = ['name', 'japanese_name', 'school', 'CV', 'romaji_CV', 'classroom', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description']
 
     ordering_fields = [
         ('id', _('Band')),

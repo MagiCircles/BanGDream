@@ -290,7 +290,6 @@ class MemberCollection(MagiCollection):
         exclude_fields.append('d_names')
         if item.school is not None:
             exclude_fields.append('classroom')
-        exclude_fields.append('japanese_name')
         fields = super(MemberCollection, self).to_fields(view, item, *args, icons=MEMBERS_ICONS, images={
             'astrological_sign': '{}img/i_astrological_sign/{}.png'.format(RAW_CONTEXT['static_url'], item.i_astrological_sign),
         }, exclude_fields=exclude_fields, **kwargs)
@@ -298,7 +297,7 @@ class MemberCollection(MagiCollection):
             del(fields['square_image'])
         if item.classroom is not None and item.school is not None:
             setSubField(fields, 'school', key='type', value='html')
-            setSubField(fields, 'school', key='value', value= mark_safe(u'<b>{} <span class="text-muted">({})</span></b>'.format(item.school, item.classroom)))
+            setSubField(fields, 'school', key='value', value= u'<b>{} <span class="text-muted">({})</span></b>'.format(item.school, item.classroom))
         setSubField(fields, 'birthday', key='type', value='text')
         setSubField(fields, 'birthday', key='value', value=lambda f: dateformat.format(item.birthday, "F d"))
         setSubField(fields, 'band', key='type', value=lambda f: 'image_link')

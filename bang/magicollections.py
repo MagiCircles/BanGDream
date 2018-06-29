@@ -1457,6 +1457,10 @@ class GachaCollection(MagiCollection):
             )
 
         setSubField(fields, 'event', key='type', value='image_link')
+        setSubField(fields, 'event', key='verbose_name', value=u'{}: {}'.format(
+            _('Event'),
+            unicode(item.event),
+        ))
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
         setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
         return fields

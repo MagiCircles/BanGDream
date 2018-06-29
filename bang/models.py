@@ -329,8 +329,8 @@ class Card(MagiModel):
     @property
     def t_name(self):
         if get_language() == 'ja':
-            return self.japanese_name
-        return self.names.get(get_language(), self.name)
+            return self.japanese_name or self.name
+        return self.names.get(get_language(), self.name or self.japanese_name)
 
     VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
@@ -806,10 +806,7 @@ class Card(MagiModel):
                 rarity=self.t_rarity,
                 member_name=self.cached_member.t_name if self.cached_member else '',
                 attribute=self.t_attribute,
-                name=(u' - {}'.format(
-                    self.japanese_name
-                    if (get_language() == 'ja' and self.japanese_name) or not self.name
-                    else self.name) if self.name or self.japanese_name else ''),
+                name=u' - {}'.format(self.t_name) if self.t_name else '',
             )
         return u''
 
@@ -1036,7 +1033,7 @@ class Event(MagiModel):
     ########
 
     def __unicode__(self):
-        return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
+        return self.t_name
 
 ############################################################
 # Collectible Event
@@ -1412,7 +1409,7 @@ class Gacha(MagiModel):
     korean_status = property(lambda _s: _s.get_status(version='KR'))
 
     def __unicode__(self):
-        return unicode(self.japanese_name if get_language() == 'ja' and self.japanese_name else self.name)
+        return self.t_name
 
 ############################################################
 # Rerun gacha event

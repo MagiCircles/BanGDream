@@ -53,7 +53,7 @@ def generate_settings():
     ) for member in all_members]
 
     print 'Get homepage cards'
-    cards = models.Card.objects.exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(show_art_on_homepage=False, show_trained_art_on_homepage=False).filter(member__i_band=models.Member.get_i('band', 'Pastel*Palettes')).order_by('-release_date')[:200]
+    cards = models.Card.objects.exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(show_art_on_homepage=False, show_trained_art_on_homepage=False).order_by('-release_date')[:5]
     homepage_cards = []
     for c in cards:
         if c.show_art_on_homepage:

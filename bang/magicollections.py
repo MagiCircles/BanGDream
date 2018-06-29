@@ -209,7 +209,7 @@ class ActivityCollection(_ActivityCollection):
                 # 1 chance out of 5 to get a random card of 1 of your favorite characters
                 elif (context['request'].user.is_authenticated()
                       and context['request'].user.preferences.favorite_characters
-                      and random.randint(0, 5) == 42): # tmp for pasupare week, change to 5 after that
+                      and random.randint(0, 5) == 5):
                     try:
                         character_id = random.choice(context['request'].user.preferences.favorite_characters)
                         card = (models.Card.objects.filter(

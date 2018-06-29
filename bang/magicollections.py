@@ -784,6 +784,20 @@ class CardCollection(MagiCollection):
             setSubField(fields, 'favorited', key='ajax_link', value=u'/ajax/users/?favorited_card={}&ajax_modal_only'.format(item.id))
             setSubField(fields, 'collectedcards', key='link', value=u'/accounts/?collected_card={}'.format(item.id))
             setSubField(fields, 'collectedcards', key='ajax_link', value=u'/ajax/accounts/?collected_card={}&ajax_modal_only'.format(item.id))
+            # If there's only one art + one transparent, merge fields:
+            if item.art and not item.art_trained and item.transparent and not item.transparent_trained:
+                setSubField(fields, 'arts', key='verbose_name', value=u'{} / {}'.format(_('Art'), _('Transparent')))
+                setSubField(fields, 'arts', key='images', value=[{
+                    'value': thumbnail_url,
+                    'link': image_url,
+                    'verbose_name': verbose_name,
+                    'link_text': verbose_name,
+                } for image_url, thumbnail_url, verbose_name in [
+                    (getattr(item, u'art_original_url'), getattr(item, u'art_thumbnail_url'), _('Art')),
+                    (getattr(item, u'transparent_original_url'), getattr(item, u'transparent_thumbnail_url'), _('Transparent')),
+                ]])
+                if 'transparents' in fields:
+                    del(fields['transparents'])
             # hide is promo, is original
             if not item.is_promo and 'is_promo' in fields:
                 del(fields['is_promo'])

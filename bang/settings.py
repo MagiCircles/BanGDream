@@ -14,7 +14,7 @@ STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
 SITE_NAME = 'Bandori Party'
 SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'
 SITE_IMAGE = 'bandori_party.png'
-SITE_LOGO = 'pastel_en.png'
+SITE_LOGO = 'logo/bandori_party.png'
 SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
 
 LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
@@ -32,7 +32,7 @@ GAME_URL = 'https://bang-dream.bushimo.jp/'
 
 DISQUS_SHORTNAME = 'bangdream'
 ACCOUNT_MODEL = models.Account
-COLOR = '#1cae82'
+COLOR = '#E40046'
 
 GET_GLOBAL_CONTEXT = bangGlobalContext
 

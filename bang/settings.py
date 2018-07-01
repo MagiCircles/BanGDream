@@ -87,6 +87,10 @@ ACTIVITY_TAGS = [
         'translation': _('Change My Mind Challenge'),
         'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 6, 3, tzinfo=timezone.utc),
     }),
+    ('petiteidolstudiosummer', {
+        'translation': 'PetiteIdolStudioSummer',
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 7, 1, 13, tzinfo=timezone.utc),
+    }),
     ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
     ('nsfw', {
         'translation': _('NSFW'),

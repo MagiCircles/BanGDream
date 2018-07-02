@@ -8,15 +8,24 @@ from django.utils.formats import dateformat
 from django.utils.safestring import mark_safe
 from django.db.models import Prefetch, Q
 from django.db.models.fields import BLANK_CHOICE_DASH
-from magi.magicollections import MagiCollection, AccountCollection as _AccountCollection, ActivityCollection as _ActivityCollection, BadgeCollection as _BadgeCollection, DonateCollection as _DonateCollection, UserCollection as _UserCollection, StaffConfigurationCollection as _StaffConfigurationCollection
-from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn, jsv
+from magi.magicollections import (
+    MagiCollection,
+    AccountCollection as _AccountCollection,
+    ActivityCollection as _ActivityCollection,
+    BadgeCollection as _BadgeCollection,
+    DonateCollection as _DonateCollection,
+    UserCollection as _UserCollection,
+    StaffConfigurationCollection as _StaffConfigurationCollection,
+    PrizeCollection as _PrizeCollection,
+)
+from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn, jsv, toCountDown
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
 from magi.models import Activity, Notification
 from bang.constants import LIVE2D_JS_FILES
 from bang import settings
 from bang.django_translated import t
-from bang.utils import rarity_to_stars_images
+from bang.utils import rarity_to_stars_images, add_rerun_buttons, add_rerun_fields
 from bang import models, forms
 
 ############################################################
@@ -150,6 +159,12 @@ class BadgeCollection(_BadgeCollection):
     enabled = True
 
 ############################################################
+# Prize Collection
+
+class PrizeCollection(_PrizeCollection):
+    enabled = True
+
+############################################################
 # Staff Configuration Collection
 
 class StaffConfigurationCollection(_StaffConfigurationCollection):
@@ -172,6 +187,7 @@ class ActivityCollection(_ActivityCollection):
 
     class ListView(_ActivityCollection.ListView):
         before_template = 'include/index'
+        ajax_callback = 'loadIndex'
 
         def extra_context(self, context):
             super(ActivityCollection.ListView, self).extra_context(context)
@@ -188,6 +204,7 @@ class ActivityCollection(_ActivityCollection):
                     and 'preview' in context['request'].GET):
                     context['random_card'] = {
                         'art_url': context['request'].GET['preview'],
+                        'hd_art_url': context['request'].GET['preview'],
                     }
                 # 1 chance out of 5 to get a random card of 1 of your favorite characters
                 elif (context['request'].user.is_authenticated()
@@ -203,11 +220,14 @@ class ActivityCollection(_ActivityCollection):
                     except IndexError:
                         card = None
                     if card:
+                        trained = random.choice([v for v, s in [
+                            (False, card.show_art_on_homepage and card.art_url),
+                            (True, card.show_trained_art_on_homepage and card.art_trained_url),
+                            ] if s
+                        ])
                         context['random_card'] = {
-                            'art_url': random.choice([u for u, s in [
-                                (card.art_url, card.show_art_on_homepage),
-                                (card.art_trained_url, card.show_trained_art_on_homepage),
-                            ] if u and s]),
+                            'art_url': card.art_trained_url if trained else card.art_url,
+                            'hd_art_url': (card.art_trained_2x_url or card.art_trained_original_url) if trained else (card.art_2x_url or card.art_original_url),
                             'item_url': card.item_url,
                         }
                 # Random from the last 20 released cards
@@ -216,7 +236,8 @@ class ActivityCollection(_ActivityCollection):
                 # If no random_card was available
                 if 'random_card' not in context:
                     context['random_card'] = {
-                        'art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
+                        'art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
+                        'hd_art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
                     }
 
 ############################################################
@@ -321,6 +342,7 @@ class MemberCollection(MagiCollection):
         staff_required = True
         permissions_required = ['manage_main_items']
         multipart = True
+        allow_delete = True
 
 ############################################################
 # Favorite Card Collection
@@ -492,7 +514,7 @@ CARD_CUTEFORM = {
             if k.startswith('member-')
             else staticImageURL(v, folder='band', extension='png')
         ),
-        'title': _('Band'),
+        'title': string_concat(_('Member'), ' / ', _('Band')),
         'extra_settings': {
             'modal': 'true',
             'modal-text': 'true',
@@ -729,7 +751,7 @@ class CardCollection(MagiCollection):
                     'value': mark_safe(u'{} {}'.format(
                         to_cos_link(_('View model'), classes='btn btn-lg btn-secondary'),
                         to_cos_link(u'<img src="{url}" alt="{item} preview">'.format(
-                            url=item.associated_costume.image_url,
+                            url=item.associated_costume.image_thumbnail_url,
                             item=unicode(item),
                         )) if item.associated_costume.image_url else '',
                     ))
@@ -766,6 +788,20 @@ class CardCollection(MagiCollection):
             setSubField(fields, 'favorited', key='ajax_link', value=u'/ajax/users/?favorited_card={}&ajax_modal_only'.format(item.id))
             setSubField(fields, 'collectedcards', key='link', value=u'/accounts/?collected_card={}'.format(item.id))
             setSubField(fields, 'collectedcards', key='ajax_link', value=u'/ajax/accounts/?collected_card={}&ajax_modal_only'.format(item.id))
+            # If there's only one art + one transparent, merge fields:
+            if item.art and not item.art_trained and item.transparent and not item.transparent_trained:
+                setSubField(fields, 'arts', key='verbose_name', value=u'{} / {}'.format(_('Art'), _('Transparent')))
+                setSubField(fields, 'arts', key='images', value=[{
+                    'value': thumbnail_url,
+                    'link': image_url,
+                    'verbose_name': verbose_name,
+                    'link_text': verbose_name,
+                } for image_url, thumbnail_url, verbose_name in [
+                    (getattr(item, u'art_original_url'), getattr(item, u'art_thumbnail_url'), _('Art')),
+                    (getattr(item, u'transparent_original_url'), getattr(item, u'transparent_thumbnail_url'), _('Transparent')),
+                ]])
+                if 'transparents' in fields:
+                    del(fields['transparents'])
             # hide is promo, is original
             if not item.is_promo and 'is_promo' in fields:
                 del(fields['is_promo'])
@@ -781,7 +817,10 @@ class CardCollection(MagiCollection):
                         buttons[u'preview_{}'.format(field)] = {
                             'classes': self.item_buttons_classes + ['staff-only'],
                             'show': True,
-                            'url': u'/?preview={}'.format(getattr(item, u'{}_url'.format(field))),
+                            'url': u'/?preview={}'.format(
+                                getattr(item, u'{}_2x_url'.format(field))
+                                or getattr(item, u'{}_original_url'.format(field))
+                            ),
                             'icon': 'link',
                             'title': u'Preview {} on homepage'.format(field.replace('_', ' ')),
                             'has_permissions': True,
@@ -927,6 +966,7 @@ class CardCollection(MagiCollection):
         permissions_required = ['manage_main_items']
         multipart = True
         ajax_callback = 'loadCardForm'
+        allow_delete = True
 
         def extra_context(self, context):
             super(CardCollection.EditView, self).extra_context(context)
@@ -1117,17 +1157,16 @@ class EventCollection(MagiCollection):
             del(fields['name'])
         if item.name == item.japanese_name and 'japanese_name' in fields:
             del(fields['japanese_name'])
-        setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
-        setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
 
-        setSubField(fields, 'english_start_date', key='timezones', value=['UTC', 'Local time'])
-        setSubField(fields, 'english_end_date', key='timezones', value=['UTC', 'Local time'])
-
-        setSubField(fields, 'taiwanese_start_date', key='timezones', value=['Asia/Taipei', 'Local time'])
-        setSubField(fields, 'taiwanese_end_date', key='timezones', value=['Asia/Taipei', 'Local time'])
-
-        setSubField(fields, 'korean_start_date', key='timezones', value=['Asia/Seoul', 'Local time'])
-        setSubField(fields, 'korean_end_date', key='timezones', value=['Asia/Seoul', 'Local time'])
+        for version, version_details in models.Event.VERSIONS.items():
+            setSubField(
+                fields, u'{}start_date'.format(version_details['prefix']),
+                key='timezones', value=[version_details['timezone'], 'Local time'],
+            )
+            setSubField(
+                fields, u'{}end_date'.format(version_details['prefix']),
+                key='timezones', value=[version_details['timezone'], 'Local time'],
+            )
 
         if get_language() in models.ALT_LANGUAGES_EXCEPT_JP_KEYS and unicode(item.name) != unicode(item.t_name):
             setSubField(fields, 'name', key='value', value=mark_safe(u'{}<br><span class="text-muted">{}</span>'.format(item.name, item.t_name)))
@@ -1156,7 +1195,12 @@ class EventCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(EventCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(Prefetch('boost_members', to_attr='all_members'), Prefetch('gachas', to_attr='all_gachas'), Prefetch('gift_songs', to_attr='all_gifted_songs'))
+            queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(
+                Prefetch('boost_members', to_attr='all_members'),
+                Prefetch('gachas', to_attr='all_gachas'),
+                Prefetch('gift_songs', to_attr='all_gifted_songs'),
+                Prefetch('reruns', to_attr='all_reruns'),
+            )
             return queryset
 
         def extra_context(self, context):
@@ -1165,7 +1209,7 @@ class EventCollection(MagiCollection):
             context['js_variables']['versions_prefixes'] = jsv(models.Account.VERSIONS_PREFIXES)
             context['js_variables']['fields_per_version'] = jsv(models.Event.FIELDS_PER_VERSION)
 
-        def to_fields(self, item, order=None, extra_fields=None, exclude_fields=None, *args, **kwargs):
+        def to_fields(self, item, order=None, extra_fields=None, exclude_fields=None, request=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
@@ -1244,6 +1288,7 @@ class EventCollection(MagiCollection):
                         'ajax_link': song.ajax_item_url,
                         'link_text': unicode(song),
                     }))
+            extra_fields += add_rerun_fields(self, item, request)
             for i_version, version in enumerate(models.Account.VERSIONS.values()):
                 if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
                     extra_fields.append(('{}image'.format(version['prefix']), {
@@ -1273,7 +1318,8 @@ class EventCollection(MagiCollection):
 
             exclude_fields += ['c_versions', 'japanese_name']
             fields = super(EventCollection.ItemView, self).to_fields(
-                item, *args, order=order, extra_fields=extra_fields, exclude_fields=exclude_fields, **kwargs)
+                item, *args, order=order, extra_fields=extra_fields, exclude_fields=exclude_fields,
+                request=request, **kwargs)
 
             setSubField(fields, 'name', key='type', value='text' if get_language() == 'ja' else 'title_text')
             setSubField(fields, 'name', key='title', value=item.t_name)
@@ -1290,6 +1336,11 @@ class EventCollection(MagiCollection):
                 setSubField(fields, 'participations', key='ajax_link', value=u'{}&view=leaderboard&ordering=id&reverse_order=on&ajax_modal_only'.format(fields['participations']['ajax_link']))
 
             return fields
+
+        def buttons_per_item(self, request, context, item):
+            buttons = super(EventCollection.ItemView, self).buttons_per_item(request, context, item)
+            buttons = add_rerun_buttons(self, buttons, request, item)
+            return buttons
 
     # For AddView and EditView
     def _after_save(self, request, instance, type=None):
@@ -1322,6 +1373,7 @@ class EventCollection(MagiCollection):
         permissions_required = ['manage_main_items']
         savem2m = True
         filter_cuteform = EVENT_CUTEFORM
+        allow_delete = True
 
         def to_translate_form_class(self):
             super(EventCollection.EditView, self).to_translate_form_class()
@@ -1414,19 +1466,21 @@ class GachaCollection(MagiCollection):
             setSubField(fields, 'name', key='title', value=item.t_name)
             setSubField(fields, 'name', key='value', value=item.japanese_name)
 
-        setSubField(fields, 'start_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
-        setSubField(fields, 'end_date', key='timezones', value=['Asia/Tokyo', 'Local time'])
-
-        setSubField(fields, 'english_start_date', key='timezones', value=['UTC', 'Local time'])
-        setSubField(fields, 'english_end_date', key='timezones', value=['UTC', 'Local time'])
-
-        setSubField(fields, 'taiwanese_start_date', key='timezones', value=['Asia/Taipei', 'Local time'])
-        setSubField(fields, 'taiwanese_end_date', key='timezones', value=['Asia/Taipei', 'Local time'])
-
-        setSubField(fields, 'korean_start_date', key='timezones', value=['Asia/Seoul', 'Local time'])
-        setSubField(fields, 'korean_end_date', key='timezones', value=['Asia/Seoul', 'Local time'])
+        for version, version_details in models.Gacha.VERSIONS.items():
+            setSubField(
+                fields, u'{}start_date'.format(version_details['prefix']),
+                key='timezones', value=[version_details['timezone'], 'Local time'],
+            )
+            setSubField(
+                fields, u'{}end_date'.format(version_details['prefix']),
+                key='timezones', value=[version_details['timezone'], 'Local time'],
+            )
 
         setSubField(fields, 'event', key='type', value='image_link')
+        setSubField(fields, 'event', key='verbose_name', value=u'{}: {}'.format(
+            _('Event'),
+            unicode(item.event),
+        ))
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
         setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
         return fields
@@ -1437,7 +1491,10 @@ class GachaCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(GachaCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('event').prefetch_related(Prefetch('cards', to_attr='all_cards'))
+            queryset = queryset.select_related('event').prefetch_related(
+                Prefetch('cards', to_attr='all_cards'),
+                Prefetch('reruns', to_attr='all_reruns'),
+            )
             return queryset
 
         def extra_context(self, context):
@@ -1446,7 +1503,7 @@ class GachaCollection(MagiCollection):
             context['js_variables']['versions_prefixes'] = jsv(models.Account.VERSIONS_PREFIXES)
             context['js_variables']['fields_per_version'] = jsv(models.Gacha.FIELDS_PER_VERSION)
 
-        def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
+        def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, request=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
@@ -1459,10 +1516,10 @@ class GachaCollection(MagiCollection):
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
-                            'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
-                                date=torfc2822(end_date if status == 'current' else start_date),
+                            'value': mark_safe(toCountDown(
+                                date=end_date if status == 'current' else start_date,
                                 sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),
-                            ),
+                            )),
                             'icon': 'times',
                             'type': 'html',
                         }),
@@ -1486,6 +1543,7 @@ class GachaCollection(MagiCollection):
                         'link_text': unicode(card),
                     } for card in item.all_cards],
                 }))
+            extra_fields += add_rerun_fields(self, item, request)
             for version in models.Account.VERSIONS.values():
                 if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
                     extra_fields.append(('{}image'.format(version['prefix']), {
@@ -1494,7 +1552,9 @@ class GachaCollection(MagiCollection):
                         'type': 'html',
                         'value': u'<hr>',
                     }))
-            fields = super(GachaCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
+            fields = super(GachaCollection.ItemView, self).to_fields(
+                item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order,
+                request=request, **kwargs)
             setSubField(fields, 'limited', key='verbose_name', value=_('Gacha type'))
             setSubField(fields, 'limited', key='type', value='text')
             setSubField(fields, 'limited', key='value', value=(
@@ -1506,6 +1566,11 @@ class GachaCollection(MagiCollection):
                 setSubField(fields, u'{}start_date'.format(version['prefix']), key='verbose_name', value=_('Beginning'))
                 setSubField(fields, u'{}end_date'.format(version['prefix']), key='verbose_name', value=_('End'))
             return fields
+
+        def buttons_per_item(self, request, context, item):
+            buttons = super(GachaCollection.ItemView, self).buttons_per_item(request, context, item)
+            buttons = add_rerun_buttons(self, buttons, request, item)
+            return buttons
 
     class ListView(MagiCollection.ListView):
         default_ordering = '-start_date'
@@ -1529,6 +1594,7 @@ class GachaCollection(MagiCollection):
         savem2m = True
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
         def after_save(self, request, instance):
             return self.collection._after_save(request, instance)
@@ -1536,6 +1602,61 @@ class GachaCollection(MagiCollection):
         def to_translate_form_class(self):
             super(GachaCollection.EditView, self).to_translate_form_class()
             self._translate_form_class = forms.to_translate_gacha_form_class(self._translate_form_class)
+
+############################################################
+# Rerun gacha event
+
+RERUN_CUTEFORM = {
+    'i_version': {
+        'to_cuteform': lambda k, v: AccountCollection._version_images[k],
+        'image_folder': 'language',
+        'transform': CuteFormTransform.ImagePath,
+    },
+}
+
+class RerunCollection(MagiCollection):
+    queryset = models.Rerun.objects.all().select_related('event', 'gacha')
+    reportable = False
+    blockable = False
+
+    filter_cuteform = RERUN_CUTEFORM
+    form_class = forms.RerunForm
+
+    class ListView(MagiCollection.ListView):
+        enabled = False
+
+    class ItemView(MagiCollection.ItemView):
+        enabled = False
+
+    def redirect_after_modification(self, request, item, ajax):
+        if ajax:
+            return (item.gacha.ajax_item_url if item.gacha
+                    else (item.event.ajax_item_url if item.event
+                          else '/'))
+        return (item.gacha.item_url if item.gacha
+                else (item.event.item_url if item.event
+                      else '/'))
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+        alert_duplicate = False
+        back_to_list_button = False
+
+        def redirect_after_add(self, *args, **kwargs):
+            return self.collection.redirect_after_modification(*args, **kwargs)
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+        back_to_list_button = False
+        allow_delete = True
+
+        def redirect_after_edit(self, *args, **kwargs):
+            return self.collection.redirect_after_modification(*args, **kwargs)
+
+        def redirect_after_delete(self, *args, **kwargs):
+            return self.collection.redirect_after_modification(*args, **kwargs)
 
 ############################################################
 # Played songs Collection
@@ -1837,6 +1958,7 @@ class SongCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
         def to_translate_form_class(self):
             super(SongCollection.EditView, self).to_translate_form_class()
@@ -1891,6 +2013,7 @@ class ItemCollection(MagiCollection):
     multipart = True
     form_class = forms.ItemForm
     collectible = models.CollectibleItem
+    reportable = False
 
     def collectible_to_class(self, model_class):
         cls = super(ItemCollection, self).collectible_to_class(model_class)
@@ -1921,6 +2044,7 @@ class ItemCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
 ############################################################
 # Areas Collection
@@ -1934,6 +2058,7 @@ class AreaCollection(MagiCollection):
     navbar_link = False
     multipart = True
     form_class = forms.AreaForm
+    reportable = False
 
     class ListView(MagiCollection.ListView):
         before_template = 'include/beforeAreas'
@@ -1956,6 +2081,7 @@ class AreaCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
 ############################################################
 # Collectible area items Collection
@@ -2029,6 +2155,7 @@ class AreaItemCollection(MagiCollection):
     navbar_link = False
     multipart = True
     filter_cuteform = AREA_ITEM_CUTEFORM
+    reportable = False
 
     types = {
         _type: {
@@ -2074,6 +2201,7 @@ class AreaItemCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
 ############################################################
 # Assets Collection
@@ -2131,6 +2259,7 @@ class AssetCollection(MagiCollection):
     multipart = True
     filter_cuteform = ASSET_CUTEFORM
     form_class = forms.AssetForm
+    reportable = False
 
     types = {
         _type: {
@@ -2189,6 +2318,7 @@ class AssetCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
 COSTUME_CUTEFORM = {
     'i_costume_type': {
@@ -2344,3 +2474,4 @@ class CostumeCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True

@@ -18,10 +18,7 @@
       <small>{{ playedsong.account.level|default_if_none:"" }}</small>
     </h3>
   </div>
-  <div class="col-md-{% if playedsong.screenshot %}5{% else %}7{% endif %}">
-    <div class="pull-right">
-      {% include 'include/below_item.html' with buttons_only=True show_item_buttons=True %}
-    </div>
+  <div class="col-md-{% if playedsong.screenshot %}4{% else %}6{% endif %}">
     {% for field, details in playedsong.leaderboard_details %}
     <div style="display: inline-block; padding: 0 20px; padding-bottom: 10px;" class="text-center">
       <small class="text-muted"><i class="flaticon-{{ details.icon }}"></i> {{ details.verbose_name }}</small><br>
@@ -36,10 +33,13 @@
   {% if playedsong.screenshot %}
   <div class="col-md-2">
     <a href="{{ playedsong.screenshot_url }}" target="_blank">
-      <img src="{{ playedsong.screenshot_url }}" alt="{{ playedsong }}" class="img-responsive">
+      <img src="{{ playedsong.screenshot_thumbnail_url }}" alt="{{ playedsong }}" class="img-responsive">
     </a>
   </div>
   {% endif %}
+  <div class="col-md-1">
+    {% include 'include/below_item.html' with buttons_only=True show_item_buttons=True %}
+  </div>
 </div>
 <hr>
 {% endwith %}

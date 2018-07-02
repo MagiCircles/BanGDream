@@ -8,12 +8,36 @@ from django.db.models import Q
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from magi.item_model import i_choices
-from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession
+from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession, snakeToCamelCase, staticImageURL
 from magi.forms import MagiForm, AutoForm, HiddenModelChoiceField, MagiFiltersForm, MagiFilter, MultiImageField, AccountForm as _AccountForm
 from magi.middleware.httpredirect import HttpRedirectException
 from bang import settings
 from bang.django_translated import t
 from bang import models
+
+############################################################
+# Form utils
+
+MEMBER_BAND_CHOICE_FIELD = forms.ChoiceField(
+    choices=BLANK_CHOICE_DASH + [
+        (u'member-{}'.format(id), full_name)
+        for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ] + [
+        (u'band-{}'.format(i), band)
+        for i, band in i_choices(models.Member.BAND_CHOICES)
+    ],
+    label=string_concat(_('Member'), ' / ', _('Band')),
+    initial=None,
+)
+
+def member_band_to_queryset(prefix=''):
+    def _member_band_to_queryset(form, queryset, request, value):
+        if value.startswith('member-'):
+            return queryset.filter(**{ u'{}member_id'.format(prefix): value[7:] })
+        elif value.startswith('band-'):
+            return queryset.filter(**{ u'{}member__i_band'.format(prefix): value[5:] })
+        return queryset
+    return _member_band_to_queryset
 
 ############################################################
 # Users
@@ -223,33 +247,29 @@ class CardFilterForm(MagiFiltersForm):
         ('_overall_trained_max', string_concat(_('Overall'), ' (', _('Trained'), ')')),
     ]
 
+    # Skill filter
+
     def skill_filter_to_queryset(self, queryset, request, value):
         if not value: return queryset
         if value == '1': return queryset.filter(i_skill_type=value) # Score up
         return queryset.filter(Q(i_skill_type=value) | Q(i_side_skill_type=value))
     i_skill_type_filter = MagiFilter(to_queryset=skill_filter_to_queryset)
 
-    def member_id_to_queryset(self, queryset, request, value):
+    # Member + band filter
+
+    _member_band_to_queryset = member_band_to_queryset()
+    def member_band_cameos_to_queryset(self, queryset, request, value):
         if self.data.get('member_includes_cameos'):
             return queryset.filter(Q(member_id=value) | Q(cameo_members__id=value))
-        else:
-            return queryset.filter(member_id=value)
+        return self._member_band_to_queryset(self, queryset, request, value)
+
+    member_band = MEMBER_BAND_CHOICE_FIELD
+    member_band_filter = MagiFilter(to_queryset=member_band_cameos_to_queryset)
 
     member_includes_cameos = forms.BooleanField(label=_('Include cameos'))
-    # used in member_id_to_queryset
     member_includes_cameos_filter = MagiFilter(noop=True)
 
-    member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
-        (u'band-{}'.format(i), band)
-        for i, band in i_choices(models.Member.BAND_CHOICES)
-    ] + [
-        (u'member-{}'.format(id), full_name)
-        for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
-    ], initial=None, label=_('Band'))
-    member_band_filter = MagiFilter(
-        selectors=['member__i_band', 'member'],
-        to_value=lambda value: value[0][7:] if value[0].startswith('member-') else value[0][5:],
-    )
+    # Origin filter
 
     def _origin_to_queryset(self, queryset, request, value):
         if value == 'is_original':
@@ -273,6 +293,8 @@ class CardFilterForm(MagiFiltersForm):
     is_limited = forms.NullBooleanField(initial=None, required=False, label=_('Limited'))
     is_limited_filter = MagiFilter(selector='gachas__limited')
 
+    # View filter
+
     def _view_to_queryset(self, queryset, request, value):
         if value == 'chibis':
             return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
@@ -284,12 +306,14 @@ class CardFilterForm(MagiFiltersForm):
 
     view_filter = MagiFilter(to_queryset=_view_to_queryset)
 
+    # Version filter
+
     version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
     version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
-        fields = ('view', 'search', 'member', 'member_includes_cameos', 'member_band', 'i_rarity', 'i_attribute', 'origin', 'is_limited', 'i_skill_type', 'member_band', 'version', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'member_band', 'member_includes_cameos', 'origin', 'is_limited', 'i_rarity', 'i_attribute', 'i_skill_type', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # CollectibleCard
@@ -324,11 +348,8 @@ def to_CollectibleCardFilterForm(cls):
             if value == '1': return queryset.filter(card__i_skill_type=value) # Score up
             return queryset.filter(Q(card__i_skill_type=value) | Q(card__i_side_skill_type=value))
 
-        member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
-        member_filter = MagiFilter(selector='card__member_id')
-
-        member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
-        member_band_filter = MagiFilter(selector='card__member__i_band')
+        member_band = MEMBER_BAND_CHOICE_FIELD
+        member_band_filter = MagiFilter(to_queryset=member_band_to_queryset(prefix='card__'))
 
         i_rarity = forms.ChoiceField(choices=BLANK_CHOICE_DASH + list(models.Card.RARITY_CHOICES), label=_('Rarity'))
         i_rarity_filter = MagiFilter(selector='card__i_rarity')
@@ -342,7 +363,7 @@ def to_CollectibleCardFilterForm(cls):
 
         class Meta(cls.ListView.filter_form.Meta):
             pass
-            fields = ('search', 'member', 'member_band', 'i_rarity', 'i_attribute', 'i_skill_type', 'member_band', 'ordering', 'reverse_order', 'view')
+            fields = ('search', 'member_band', 'i_rarity', 'i_attribute', 'i_skill_type', 'ordering', 'reverse_order', 'view')
     return _CollectibleCardFilterForm
 
 ############################################################
@@ -404,22 +425,18 @@ class EventForm(AutoForm):
 
     def save(self, commit=False):
         instance = super(EventForm, self).save(commit=False)
-        if instance.start_date:
-            instance.start_date = instance.start_date.replace(hour=6, minute=00)
-        if instance.end_date:
-            instance.end_date = instance.end_date.replace(hour=11, minute=59)
-        if instance.english_start_date:
-            instance.english_start_date = instance.english_start_date.replace(hour=1, minute=00)
-        if instance.english_end_date:
-            instance.english_end_date = instance.english_end_date.replace(hour=6, minute=59)
-        if instance.taiwanese_start_date:
-            instance.taiwanese_start_date = instance.taiwanese_start_date.replace(hour=7, minute=00)
-        if instance.taiwanese_end_date:
-            instance.taiwanese_end_date = instance.taiwanese_end_date.replace(hour=13, minute=59)
-        if instance.korean_start_date:
-            instance.korean_start_date = instance.korean_start_date.replace(hour=6, minute=00)
-        if instance.korean_end_date:
-            instance.korean_end_date = instance.korean_end_date.replace(hour=13, minute=00)
+        # Set the right time for each version
+        for version, times in instance.TIMES_PER_VERSIONS.items():
+            version_details = instance.VERSIONS[version]
+            for field_name, time in zip(('start_date', 'end_date'), times):
+                field_name = u'{prefix}{field_name}'.format(
+                    prefix=version_details['prefix'],
+                    field_name=field_name,
+                )
+                value = getattr(instance, field_name)
+                if value:
+                    setattr(instance, field_name, value.replace(hour=time[0], minute=time[1]))
+        # Toggle versions based on start date field
         instance.save_c('versions', [
             value for prefix, value in (
                 ('', 'JP'),
@@ -550,22 +567,18 @@ class GachaForm(AutoForm):
 
     def save(self, commit=False):
         instance = super(GachaForm, self).save(commit=False)
-        if instance.start_date:
-            instance.start_date = instance.start_date.replace(hour=6, minute=00)
-        if instance.end_date:
-            instance.end_date = instance.end_date.replace(hour=5, minute=59)
-        if instance.english_start_date:
-            instance.english_start_date = instance.english_start_date.replace(hour=1, minute=00)
-        if instance.english_end_date:
-            instance.english_end_date = instance.english_end_date.replace(hour=0, minute=59)
-        if instance.taiwanese_start_date:
-            instance.taiwanese_start_date = instance.taiwanese_start_date.replace(hour=7, minute=00)
-        if instance.taiwanese_end_date:
-            instance.taiwanese_end_date = instance.taiwanese_end_date.replace(hour=6, minute=59)
-        if instance.korean_start_date:
-            instance.korean_start_date = instance.korean_start_date.replace(hour=6, minute=00)
-        if instance.korean_end_date:
-            instance.korean_end_date = instance.korean_end_date.replace(hour=6, minute=00)
+        # Set the right time for each version
+        for version, times in instance.TIMES_PER_VERSIONS.items():
+            version_details = instance.VERSIONS[version]
+            for field_name, time in zip(('start_date', 'end_date'), times):
+                field_name = u'{prefix}{field_name}'.format(
+                    prefix=version_details['prefix'],
+                    field_name=field_name,
+                )
+                value = getattr(instance, field_name)
+                if value:
+                    setattr(instance, field_name, value.replace(hour=time[0], minute=time[1]))
+        # Toggle versions based on start date field
         instance.save_c('versions', [
             value for prefix, value in (
                 ('', 'JP'),
@@ -633,6 +646,107 @@ class GachaFilterForm(MagiFiltersForm):
     class Meta(MagiFiltersForm.Meta):
         model = models.Gacha
         fields = ('search', 'gacha_type', 'featured_member', 'i_attribute', 'version', 'ordering', 'reverse_order')
+
+############################################################
+# Rerun gacha event
+
+class RerunForm(AutoForm):
+    start_date = forms.DateField(label=_('Beginning'))
+    end_date = forms.DateField(label=_('End'))
+
+    def __init__(self, *args, **kwargs):
+        super(RerunForm, self).__init__(*args, **kwargs)
+        # When editing
+        if not self.is_creating:
+            # Don't allow to edit item
+            for item in models.Rerun.ITEMS:
+                if item in self.fields:
+                    del(self.fields[item])
+            # Don't allow to edit version
+            del(self.fields['i_version'])
+        else:
+            # When adding
+            # When version specified in GET
+            i_version = None
+            if 'i_version' in self.request.GET:
+                i_version = int(self.request.GET['i_version'])
+                self.fields['i_version'].widget = forms.HiddenInput()
+                self.fields['i_version'].initial = i_version
+            item_id = None
+            for item in models.Rerun.ITEMS:
+                if i_version is not None:
+                    self.fields[item].queryset = self.fields[item].queryset.filter(c_versions__contains=u'"{}"'.format(models.Rerun.get_reverse_i('version', i_version)))
+                # When item specified in GET
+                if u'{}_id'.format(item) in self.request.GET:
+                    item_id = self.request.GET[u'{}_id'.format(item)]
+                    if not item_id:
+                        continue
+                    # Hide all other fields
+                    for other_item in models.Rerun.ITEMS:
+                        if other_item != item and other_item in self.fields:
+                            del(self.fields[other_item])
+                    # Set item field as hidden
+                    self.fields[item] = HiddenModelChoiceField(
+                        queryset=self.fields[item].queryset,
+                        initial=item_id,
+                    )
+                    break
+            if item_id or i_version is not None:
+                self.beforefields = mark_safe(u'<div class="col-sm-offset-4">{item}{version}</div><br>'.format(
+                    item=u'<p>Adding to <a href="/{item}/{id}/">{item} #{id}</a></p>'.format(
+                        item=item, id=item_id,
+                    ) if item_id else '',
+                    version=u'<p><img src="{image}" alt="{version}" height="30" /> {version}</p>'.format(
+                        version=models.Rerun.get_verbose_i('version', i_version),
+                        image=staticImageURL(
+                            models.Account.VERSIONS[models.Rerun.get_reverse_i('version', i_version)]['image'],
+                            folder='language', extension='png',
+                        ),
+                    ) if i_version is not None else '',
+                ))
+
+
+    def clean(self):
+        cleaned_data = super(RerunForm, self).clean()
+        if self.is_creating:
+            # Check that there's one and only one item
+            selected_item = None
+            for item in models.Rerun.ITEMS:
+                if cleaned_data.get(item, None):
+                    selected_item = cleaned_data.get(item, None)
+                    for other_item in models.Rerun.ITEMS:
+                        if item != other_item and cleaned_data.get(other_item, None):
+                            raise forms.ValidationError(u'You can\'t have {} + {}, select only one.'.format(item, other_item))
+                    break
+            if not selected_item:
+                raise forms.ValidationError(u'You need at least one {}.'.format(' or '.join(models.Rerun.ITEMS)))
+            # Check that item already ran before for that version
+            i_version = self.cleaned_data.get('i_version', None)
+            if i_version is not None:
+                if models.Rerun.get_reverse_i('version', i_version) not in selected_item.versions:
+                    raise forms.ValidationError(u'The {item} "{item_name}" is not available in {version}'.format(
+                        item=item, item_name=unicode(selected_item), version=models.Rerun.get_verbose_i('version', i_version),
+                    ))
+            return cleaned_data
+
+    def save(self, commit=False):
+        instance = super(RerunForm, self).save(commit=False)
+        # Set the right time based on version
+        version_details = instance.VERSIONS[instance.version]
+        times = next(model for item, model in models.Rerun.ITEMS_MODELS.items()
+                    if getattr(instance, item, None)).TIMES_PER_VERSIONS[instance.version]
+        for field_name, time in zip(('start_date', 'end_date'), times):
+            field_name = u'{prefix}{field_name}'.format(
+                prefix=version_details['prefix'],
+                field_name=field_name,
+            )
+            setattr(instance, field_name, getattr(instance, field_name).replace(hour=time[0], minute=time[1]))
+        if commit:
+            instance.save()
+        return instance
+
+    class Meta(AutoForm.Meta):
+        model = models.Rerun
 
 ############################################################
 # Played song
@@ -916,6 +1030,7 @@ class AssetFilterForm(MagiFiltersForm):
 
 ############################################################
 # Costume form
+
 class CostumeForm(AutoForm):
     def __init__(self, *args, **kwargs):
         super(CostumeForm, self).__init__(*args, **kwargs)
@@ -954,10 +1069,12 @@ class CostumeForm(AutoForm):
 
         if not self.is_creating and instance.member != self.instance.previous_member:
             self.instance.previous_member.force_cache_totals()
-        instance.member.force_cache_totals()
 
         if commit:
             instance.save()
+
+        if instance.member:
+            instance.member.force_cache_totals()
 
         return instance
 

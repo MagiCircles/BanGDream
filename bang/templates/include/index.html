@@ -1,18 +1,18 @@
 {% if shortcut_url == '' %}
 <style>
   body {
-    background: url('{{ static_url }}img/bg_pattern.png');
+    background: url('{{ static_url }}img/bg_pattern.png?{{ static_files_version }}');
   }
   .top_buttons .btn {
-    background-image: url('{{ static_url }}img/stars.png');
+    background-image: url('{{ static_url }}img/stars.png?{{ static_files_version }}');
   }
   @media(max-width: 991px) {
     .shortcut- .collection-page-wrapper .home-wrapper .home {
-      background: url('{{ static_url }}img/bg_pattern.png');
+      background: url('{{ static_url }}img/bg_pattern.png?{{ static_files_version }}');
     }
   }
 </style>
-<div class="home-wrapper" style="background-image: url('{{ random_card.art_url }}');">
+<div class="home-wrapper" style="background-image: url('{{ random_card.art_url }}');" data-hd-art="{{ random_card.hd_art_url }}">
   {% if random_card.item_url %}
   <a href="{{ random_card.item_url }}" target="_blank" class="about-card">
     <i class="flaticon-about"></i>

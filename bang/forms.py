@@ -260,6 +260,7 @@ class CardFilterForm(MagiFiltersForm):
     _member_band_to_queryset = member_band_to_queryset()
     def member_band_cameos_to_queryset(self, queryset, request, value):
         if self.data.get('member_includes_cameos'):
+            value = value[7:]
             return queryset.filter(Q(member_id=value) | Q(cameo_members__id=value))
         return self._member_band_to_queryset(queryset, request, value)
 

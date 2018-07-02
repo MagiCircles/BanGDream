@@ -138,6 +138,7 @@ class Account(BaseAccount):
 
     _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('account_screenshot'))
     screenshot = models.ImageField(_('Screenshot'), help_text=_('In-game profile screenshot'), upload_to=uploadItem('account_screenshot'), null=True)
+    level_on_screenshot_upload = models.PositiveIntegerField(null=True)
 
     def update_cache_leaderboards(self):
         self._cache_leaderboards_last_update = timezone.now()

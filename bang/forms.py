@@ -16,6 +16,30 @@ from bang.django_translated import t
 from bang import models
 
 ############################################################
+# Form utils
+
+MEMBER_BAND_CHOICE_FIELD = forms.ChoiceField(
+    choices=BLANK_CHOICE_DASH + [
+        (u'member-{}'.format(id), full_name)
+        for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ] + [
+        (u'band-{}'.format(i), band)
+        for i, band in i_choices(models.Member.BAND_CHOICES)
+    ],
+    label=string_concat(_('Member'), ' / ', _('Band')),
+    initial=None,
+)
+
+def member_band_to_queryset(prefix=''):
+    def _member_band_to_queryset(form, queryset, request, value):
+        if value.startswith('member-'):
+            return queryset.filter(**{ u'{}member_id'.format(prefix): value[7:] })
+        elif value.startswith('band-'):
+            return queryset.filter(**{ u'{}member__i_band'.format(prefix): value[5:] })
+        return queryset
+    return _member_band_to_queryset
+
+############################################################
 # Users
 
 class FilterUsers(MagiFiltersForm):
@@ -223,27 +247,29 @@ class CardFilterForm(MagiFiltersForm):
         ('_overall_trained_max', string_concat(_('Overall'), ' (', _('Trained'), ')')),
     ]
 
+    # Skill filter
+
     def skill_filter_to_queryset(self, queryset, request, value):
         if not value: return queryset
         if value == '1': return queryset.filter(i_skill_type=value) # Score up
         return queryset.filter(Q(i_skill_type=value) | Q(i_side_skill_type=value))
     i_skill_type_filter = MagiFilter(to_queryset=skill_filter_to_queryset)
 
-    def member_to_queryset(self, queryset, request, value):
+    # Member + band filter
+
+    _member_band_to_queryset = member_band_to_queryset()
+    def member_band_cameos_to_queryset(self, queryset, request, value):
         if self.data.get('member_includes_cameos'):
             return queryset.filter(Q(member_id=value) | Q(cameo_members__id=value))
-        else:
-            return queryset.filter(member_id=value)
+        return self._member_band_to_queryset(self, queryset, request, value)
 
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
-    member_filter = MagiFilter(to_queryset=member_to_queryset)
+    member_band = MEMBER_BAND_CHOICE_FIELD
+    member_band_filter = MagiFilter(to_queryset=member_band_cameos_to_queryset)
 
     member_includes_cameos = forms.BooleanField(label=_('Include cameos'))
-    # used in member_id_to_queryset
     member_includes_cameos_filter = MagiFilter(noop=True)
 
-    member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
-    member_band_filter = MagiFilter(selector='member__i_band')
+    # Origin filter
 
     def _origin_to_queryset(self, queryset, request, value):
         if value == 'is_original':
@@ -267,6 +293,8 @@ class CardFilterForm(MagiFiltersForm):
     is_limited = forms.NullBooleanField(initial=None, required=False, label=_('Limited'))
     is_limited_filter = MagiFilter(selector='gachas__limited')
 
+    # View filter
+
     def _view_to_queryset(self, queryset, request, value):
         if value == 'chibis':
             return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
@@ -278,12 +306,14 @@ class CardFilterForm(MagiFiltersForm):
 
     view_filter = MagiFilter(to_queryset=_view_to_queryset)
 
+    # Version filter
+
     version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
     version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
-        fields = ('view', 'search', 'member', 'member_includes_cameos', 'member_band', 'i_rarity', 'i_attribute', 'origin', 'is_limited', 'i_skill_type', 'member_band', 'version', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'member_band', 'member_includes_cameos', 'origin', 'is_limited', 'i_rarity', 'i_attribute', 'i_skill_type', 'version', 'ordering', 'reverse_order')
 
 ############################################################
 # CollectibleCard
@@ -318,11 +348,8 @@ def to_CollectibleCardFilterForm(cls):
             if value == '1': return queryset.filter(card__i_skill_type=value) # Score up
             return queryset.filter(Q(card__i_skill_type=value) | Q(card__i_side_skill_type=value))
 
-        member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
-        member_filter = MagiFilter(selector='card__member_id')
-
-        member_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), initial=None, label=_('Band'))
-        member_band_filter = MagiFilter(selector='card__member__i_band')
+        member_band = MEMBER_BAND_CHOICE_FIELD
+        member_band_filter = MagiFilter(to_queryset=member_band_to_queryset(prefix='card__'))
 
         i_rarity = forms.ChoiceField(choices=BLANK_CHOICE_DASH + list(models.Card.RARITY_CHOICES), label=_('Rarity'))
         i_rarity_filter = MagiFilter(selector='card__i_rarity')
@@ -336,7 +363,7 @@ def to_CollectibleCardFilterForm(cls):
 
         class Meta(cls.ListView.filter_form.Meta):
             pass
-            fields = ('search', 'member', 'member_band', 'i_rarity', 'i_attribute', 'i_skill_type', 'member_band', 'ordering', 'reverse_order', 'view')
+            fields = ('search', 'member_band', 'i_rarity', 'i_attribute', 'i_skill_type', 'ordering', 'reverse_order', 'view')
     return _CollectibleCardFilterForm
 
 ############################################################

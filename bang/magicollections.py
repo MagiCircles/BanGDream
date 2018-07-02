@@ -509,9 +509,12 @@ CARD_CUTEFORM = {
         'transform': CuteFormTransform.Flaticon,
     },
     'member_band': {
-        'image_folder': 'band',
-        'to_cuteform': 'value',
-        'title': _('Band'),
+        'to_cuteform': lambda k, v: (
+            FAVORITE_CHARACTERS_IMAGES[int(k[7:])]
+            if k.startswith('member-')
+            else staticImageURL(v, folder='band', extension='png')
+        ),
+        'title': string_concat(_('Member'), ' / ', _('Band')),
         'extra_settings': {
             'modal': 'true',
             'modal-text': 'true',

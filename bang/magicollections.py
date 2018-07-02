@@ -342,6 +342,7 @@ class MemberCollection(MagiCollection):
         staff_required = True
         permissions_required = ['manage_main_items']
         multipart = True
+        allow_delete = True
 
 ############################################################
 # Favorite Card Collection
@@ -962,6 +963,7 @@ class CardCollection(MagiCollection):
         permissions_required = ['manage_main_items']
         multipart = True
         ajax_callback = 'loadCardForm'
+        allow_delete = True
 
         def extra_context(self, context):
             super(CardCollection.EditView, self).extra_context(context)
@@ -1368,6 +1370,7 @@ class EventCollection(MagiCollection):
         permissions_required = ['manage_main_items']
         savem2m = True
         filter_cuteform = EVENT_CUTEFORM
+        allow_delete = True
 
         def to_translate_form_class(self):
             super(EventCollection.EditView, self).to_translate_form_class()
@@ -1588,6 +1591,7 @@ class GachaCollection(MagiCollection):
         savem2m = True
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
         def after_save(self, request, instance):
             return self.collection._after_save(request, instance)
@@ -1643,6 +1647,7 @@ class RerunCollection(MagiCollection):
         staff_required = True
         permissions_required = ['manage_main_items']
         back_to_list_button = False
+        allow_delete = True
 
         def redirect_after_edit(self, *args, **kwargs):
             return self.collection.redirect_after_modification(*args, **kwargs)
@@ -1950,6 +1955,7 @@ class SongCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
         def to_translate_form_class(self):
             super(SongCollection.EditView, self).to_translate_form_class()
@@ -2035,6 +2041,7 @@ class ItemCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
 ############################################################
 # Areas Collection
@@ -2071,6 +2078,7 @@ class AreaCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
 ############################################################
 # Collectible area items Collection
@@ -2190,6 +2198,7 @@ class AreaItemCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
 ############################################################
 # Assets Collection
@@ -2306,6 +2315,7 @@ class AssetCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True
 
 COSTUME_CUTEFORM = {
     'i_costume_type': {
@@ -2461,3 +2471,4 @@ class CostumeCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        allow_delete = True

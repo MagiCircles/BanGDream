@@ -314,7 +314,8 @@ class CardFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
-        fields = ('view', 'search', 'member_band', 'member_includes_cameos', 'origin', 'is_limited', 'i_rarity', 'i_attribute', 'i_skill_type', 'version', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'member_band', 'member_includes_cameos', 'origin', 'is_limited', 'i_rarity', 'i_attribute', 'i_skill_type', 'version', 'ordering', 'reverse_order', 'member')
+        hidden_foreign_keys = ('member',)
 
 ############################################################
 # CollectibleCard

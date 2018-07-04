@@ -400,7 +400,7 @@ def to_CollectibleCardCollection(cls):
         plural_title = _('Cards')
         form_class = forms.to_CollectibleCardForm(cls)
 
-        filter_cuteform = CardCollection.filter_cuteform.copy()
+        filter_cuteform = CardCollection.ListView.filter_cuteform.copy()
         _f = filter_cuteform.update({
             'max_leveled': {
                 'type': CuteFormType.YesNo,
@@ -488,14 +488,6 @@ def to_CollectibleCardCollection(cls):
 # Card Collection
 
 CARD_CUTEFORM = {
-    'member': {
-        'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
-        'title': _('Member'),
-        'extra_settings': {
-            'modal': 'true',
-            'modal-text': 'true',
-        },
-    },
     'i_rarity': {
         'type': CuteFormType.HTML,
         'to_cuteform': lambda k, v: rarity_to_stars_images(k),
@@ -531,6 +523,16 @@ CARD_CUTEFORM = {
     },
     'is_limited': {
         'type': CuteFormType.YesNo,
+    },
+}
+
+CARD_CUTEFORM_EDIT = CARD_CUTEFORM.copy()
+CARD_CUTEFORM_EDIT['member'] = {
+    'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+    'title': _('Member'),
+    'extra_settings': {
+        'modal': 'true',
+        'modal-text': 'true',
     },
 }
 
@@ -596,7 +598,6 @@ class CardCollection(MagiCollection):
         'is_gacha': 'star',
         'is_event': 'event',
     }
-    filter_cuteform = CARD_CUTEFORM
     collectible = [
         models.CollectibleCard,
         models.FavoriteCard,
@@ -835,6 +836,7 @@ class CardCollection(MagiCollection):
         filter_form = forms.CardFilterForm
         default_ordering = '-release_date,-id'
         ajax_pagination_callback = 'loadCardInList'
+        filter_cuteform = CARD_CUTEFORM
 
         alt_views = MagiCollection.ListView.alt_views + [
             ('icons', { 'verbose_name': string_concat(_('Icons'), ' (', _('Quick add'), ')') }),
@@ -967,6 +969,7 @@ class CardCollection(MagiCollection):
         multipart = True
         ajax_callback = 'loadCardForm'
         allow_delete = True
+        filter_cuteform = CARD_CUTEFORM_EDIT
 
         def extra_context(self, context):
             super(CardCollection.EditView, self).extra_context(context)

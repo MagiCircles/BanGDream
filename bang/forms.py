@@ -992,7 +992,12 @@ def asset_type_to_form(_type):
 class AssetFilterForm(MagiFiltersForm):
     search_fields = ('name', 'd_names', 'c_tags')
 
+    def members_to_queryset(self, queryset, request, value):
+        member = models.Member.objects.get(id=value)
+        return queryset.filter(Q(members=member) | Q(i_band=member.i_band))
+
     members = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+    members_filter = MagiFilter(to_queryset=members_to_queryset)
 
     def _i_version_to_queryset(self, queryset, request, value):
         prefix = models.Account.VERSIONS_PREFIXES.get(models.Account.get_reverse_i('version', int(value)))

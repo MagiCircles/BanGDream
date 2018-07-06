@@ -979,8 +979,6 @@ def asset_type_to_form(_type):
             instance.i_type = models.Asset.get_i('type', _type)
             if not instance.c_tags:
                 instance.c_tags = None
-            if instance.member_id:
-                instance.i_band = instance.member.i_band
             if commit:
                 instance.save()
             return instance
@@ -994,7 +992,7 @@ def asset_type_to_form(_type):
 class AssetFilterForm(MagiFiltersForm):
     search_fields = ('name', 'd_names', 'c_tags')
 
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+    members = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
 
     def _i_version_to_queryset(self, queryset, request, value):
         prefix = models.Account.VERSIONS_PREFIXES.get(models.Account.get_reverse_i('version', int(value)))
@@ -1006,6 +1004,8 @@ class AssetFilterForm(MagiFiltersForm):
 
     i_version = forms.ChoiceField(label=_('Version'), choices=BLANK_CHOICE_DASH + i_choices(models.Account.VERSION_CHOICES))
     i_version_filter = MagiFilter(to_queryset=_i_version_to_queryset)
+
+    i_band_filter = MagiFilter(selectors=['i_band', 'members__i_band'])
 
     event = forms.IntegerField(widget=forms.HiddenInput)
 
@@ -1020,7 +1020,7 @@ class AssetFilterForm(MagiFiltersForm):
                 if (variable in self.fields
                     and variable not in (
                         models.Asset.TYPES[type]['variables']
-                        + (['i_band'] if 'member' in models.Asset.TYPES[type]['variables'] else [])
+                        + (['i_band'] if 'members' in models.Asset.TYPES[type]['variables'] else [])
                     )):
                     del(self.fields[variable])
             if 'i_type' in self.fields:

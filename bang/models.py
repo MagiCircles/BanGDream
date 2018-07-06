@@ -1731,7 +1731,7 @@ class Asset(MagiModel):
             image = getattr(self, u'{}image_url'.format(Account.VERSIONS_PREFIXES[LANGUAGES_TO_VERSIONS[get_language()]]))
         return image or getattr(self, u'image_url') or staticImageURL('stars.png')
 
-    VARIABLES = ['name', 'i_band', 'member', 'c_tags', 'event', 'value', 'source', 'source_link']
+    VARIABLES = ['name', 'i_band', 'members', 'c_tags', 'event', 'value', 'source', 'source_link']
 
     TYPES = OrderedDict([
         ('comic', {
@@ -1741,27 +1741,27 @@ class Asset(MagiModel):
         }),
         ('background', {
             'translation': _('Backgrounds'),
-            'variables': ['i_band', 'c_tags'],
+            'variables': ['name', 'i_band', 'c_tags'],
             'per_line': 2,
         }),
         ('stamp', {
             'translation': _('Stamps'),
-            'variables': ['name', 'member'],
+            'variables': ['name', 'members'],
             'per_line': 4,
         }),
         ('title', {
             'translation': _('Titles'),
-            'variables': ['event', 'value'],
+            'variables': ['name', 'event', 'value'],
             'per_line': 3,
         }),
         ('interface', {
             'translation': _('Interface'),
-            'variables': [],
+            'variables': ['name'],
             'per_line': 3,
         }),
         ('official', {
             'translation': _('Official art'),
-            'variables': ['i_band', 'member', 'c_tags', 'source', 'source_link'],
+            'variables': ['name', 'i_band', 'members', 'c_tags', 'source', 'source_link'],
             'per_line': 3,
         }),
     ])
@@ -1777,7 +1777,7 @@ class Asset(MagiModel):
     BAND_CHOICES = Member.BAND_CHOICES
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
 
-    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='stamps', null=True, on_delete=models.SET_NULL)
+    members = models.ManyToManyField(Member, related_name='assets', verbose_name=_('Members'), null=True)
 
     TAGS_CHOICES = (
         ('outdoor', _('Outdoor')),

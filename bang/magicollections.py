@@ -2224,7 +2224,7 @@ class AreaItemCollection(MagiCollection):
 # Assets Collection
 
 ASSET_CUTEFORM = {
-    'member': {
+    'members': {
         'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
         'extra_settings': {
             'modal': 'true',
@@ -2318,6 +2318,32 @@ class AssetCollection(MagiCollection):
             setSubField(fields,'source', key='link_text', value=item.source)
         return fields
 
+    class ItemView(MagiCollection.ItemView):
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(AssetCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            queryset = queryset.prefetch_related(
+                Prefetch('members', to_attr='all_members'),
+            )
+            return queryset
+
+        def to_fields(self, item, extra_fields=None, *args, **kwargs):
+            if not extra_fields: extra_fields = []
+            if len(item.all_members):
+                extra_fields.append(('members', {
+                    'icon': 'users',
+                    'verbose_name': _('Members'),
+                    'type': 'images_links',
+                    'images': [{
+                        'value': member.square_image_url,
+                        'link': member.item_url,
+                        'ajax_link': member.ajax_item_url,
+                        'link_text': unicode(member),
+                    } for member in item.all_members]
+                }))
+            fields = super(AssetCollection.ItemView, self).to_fields(
+                item, *args, extra_fields=extra_fields, **kwargs)
+            return fields
+
     class ListView(MagiCollection.ListView):
         before_template = 'include/galleryBackButtons'
         filter_form = forms.AssetFilterForm
@@ -2331,17 +2357,16 @@ class AssetCollection(MagiCollection):
                     context['per_line'] = per_line
                     context['col_size'] = int(math.ceil(12 / context['per_line']))
 
-    class ItemView(MagiCollection.ItemView):
-        comments_enabled = False
-
     class AddView(MagiCollection.AddView):
         staff_required = True
         permissions_required = ['manage_main_items']
+        savem2m = True
 
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
         allow_delete = True
+        savem2m = True
 
 COSTUME_CUTEFORM = {
     'i_costume_type': {

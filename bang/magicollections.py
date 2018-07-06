@@ -2030,9 +2030,15 @@ class ItemCollection(MagiCollection):
         cls = super(ItemCollection, self).collectible_to_class(model_class)
         return to_CollectibleItemCollection(cls)
 
+    def buttons_per_item(self, view, request, context, item):
+        buttons = super(ItemCollection, self).buttons_per_item(view, request, context, item)
+        if 'collectibleitem' in buttons:
+            buttons['collectibleitem']['title'] = _(u'Add to your {thing}').format(thing=unicode(item).lower())
+        return buttons
+
     class ListView(MagiCollection.ListView):
-        item_template = custom_item_template
         before_template = 'include/galleryBackButtons'
+        ajax_item_popover = True
         per_line = 4
 
     class ItemView(MagiCollection.ItemView):

@@ -1471,7 +1471,7 @@ class Item(MagiModel):
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('items'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('items'))
 
-    name = models.CharField(_('Title'), max_length=100, null=True)
+    name = models.CharField(_('Title'), max_length=100, null=True, help_text='plural')
     NAMES_CHOICES = ALL_ALT_LANGUAGES
     d_names = models.TextField(_('Title'), null=True)
 

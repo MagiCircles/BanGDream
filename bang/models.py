@@ -1471,9 +1471,9 @@ class Item(MagiModel):
     NAMES_CHOICES = ALL_ALT_LANGUAGES
     d_names = models.TextField(_('Title'), null=True)
 
-    description = models.TextField(_('Description'), null=True)
-    DESCRIPTIONS_CHOICES = ALL_ALT_LANGUAGES
-    d_descriptions = models.TextField(_('Description'), null=True)
+    m_description = models.TextField(_('Description'), null=True)
+    M_DESCRIPTIONS_CHOICES = ALL_ALT_LANGUAGES
+    d_m_descriptions = models.TextField(_('Description'), null=True)
 
     def __unicode__(self):
         return self.t_name

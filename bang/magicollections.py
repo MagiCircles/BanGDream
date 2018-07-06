@@ -2010,7 +2010,7 @@ class ItemCollection(MagiCollection):
     title = _('Item')
     plural_title = _('Items')
     queryset = models.Item.objects.all()
-    translated_fields = ('name', 'description', )
+    translated_fields = ('name', 'm_description', )
     icon = 'star'
     navbar_link = False
     multipart = True
@@ -2030,15 +2030,11 @@ class ItemCollection(MagiCollection):
     class ItemView(MagiCollection.ItemView):
         comments_enabled = False
 
-        def to_fields(self, item, *args, **kwargs):
-            return OrderedDict([
-                ('area_item', {
-                    'verbose_name': item.t_name,
-                    'value': item.t_description,
-                    'type': 'long_text',
-                    'icon': 'present',
-                }),
-            ])
+        def to_fields(self, *args, **kwargs):
+            fields = super(ItemCollection.ItemView, self).to_fields(*args, **kwargs)
+            for field in fields.values():
+                field['icon'] = 'present'
+            return fields
 
     class AddView(MagiCollection.AddView):
         staff_required = True

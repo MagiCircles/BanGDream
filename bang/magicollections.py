@@ -2264,6 +2264,7 @@ ASSET_ICONS = {
     'name': 'album',
     'type': 'toggler',
     'tags': 'star-empty',
+    'source': 'about',
 }
 
 class AssetCollection(MagiCollection):
@@ -2289,7 +2290,7 @@ class AssetCollection(MagiCollection):
     def to_fields(self, view, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
         if extra_fields is None: extra_fields = []
         if exclude_fields is None: exclude_fields = []
-        exclude_fields += ['value']
+        exclude_fields += ['value', 'source_link']
         if not order:
             order = ASSET_ORDER
         if item.image:
@@ -2310,6 +2311,11 @@ class AssetCollection(MagiCollection):
         setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))
         setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
         setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
+        if item.source and item.source_link:
+            setSubField(fields,'source', key='type', value='link')
+            setSubField(fields,'source', key='value', value=item.source_link)
+            setSubField(fields,'source', key='icon', value='link')
+            setSubField(fields,'source', key='link_text', value=item.source)
         return fields
 
     class ListView(MagiCollection.ListView):

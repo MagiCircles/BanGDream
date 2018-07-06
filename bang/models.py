@@ -1697,6 +1697,14 @@ class CollectibleAreaItem(AccountAsOwnerModel):
 class Asset(MagiModel):
     collection_name = 'asset'
 
+    tinypng_settings = {
+        '{}image'.format(version_prefix): {
+            'resize': 'fit',
+            'max_height': 800,
+            'max_width': 800,
+        } for version_prefix in Account.VERSIONS_PREFIXES.values()
+    }
+
     owner = models.ForeignKey(User, related_name='added_assets')
 
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('asset'))
@@ -1723,7 +1731,7 @@ class Asset(MagiModel):
             image = getattr(self, u'{}image_url'.format(Account.VERSIONS_PREFIXES[LANGUAGES_TO_VERSIONS[get_language()]]))
         return image or getattr(self, u'image_url') or staticImageURL('stars.png')
 
-    VARIABLES = ['name', 'i_band', 'member', 'c_tags', 'event', 'value']
+    VARIABLES = ['name', 'i_band', 'member', 'c_tags', 'event', 'value', 'source', 'source_link']
 
     TYPES = OrderedDict([
         ('comic', {
@@ -1749,6 +1757,11 @@ class Asset(MagiModel):
         ('interface', {
             'translation': _('Interface'),
             'variables': [],
+            'per_line': 3,
+        }),
+        ('official', {
+            'translation': _('Official art'),
+            'variables': ['i_band', 'member', 'c_tags', 'source', 'source_link'],
             'per_line': 3,
         }),
     ])
@@ -1777,6 +1790,9 @@ class Asset(MagiModel):
     c_tags = models.TextField(_('Tags'), null=True)
 
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='titles', null=True, on_delete=models.SET_NULL)
+
+    source = models.CharField(_('Source'), max_length=100, null=True)
+    source_link = models.CharField(max_length=100, null=True)
 
     value = models.PositiveIntegerField(null=True)
 

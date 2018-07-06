@@ -750,6 +750,7 @@ class RerunForm(AutoForm):
 
     class Meta(AutoForm.Meta):
         model = models.Rerun
+        fields = '__all__'
 
 ############################################################
 # Played song

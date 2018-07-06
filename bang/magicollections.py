@@ -1996,9 +1996,9 @@ def to_CollectibleItemCollection(cls):
                 extra_fields.append((
                     'item_details', {
                         'verbose_name': item.item.t_name,
-                        'value': item.item.t_description,
-                        'type': 'long_text',
-                        'icon': 'star',
+                        'value': (False, item.item.t_m_description if item.item.m_description else ''),
+                        'type': 'markdown',
+                        'image': item.item.image_url,
                     },
                 ))
                 fields = super(_CollectibleItemCollection.ItemView, self).to_fields(
@@ -2040,14 +2040,18 @@ class ItemCollection(MagiCollection):
         before_template = 'include/galleryBackButtons'
         ajax_item_popover = True
         per_line = 4
+        default_ordering = 'id'
 
     class ItemView(MagiCollection.ItemView):
         comments_enabled = False
+        share_enabled = False
 
-        def to_fields(self, *args, **kwargs):
-            fields = super(ItemCollection.ItemView, self).to_fields(*args, **kwargs)
-            for field in fields.values():
-                field['icon'] = 'present'
+        def to_fields(self, item, only_fields=None, *args, **kwargs):
+            if not only_fields:
+                only_fields = ['m_description']
+            fields = super(ItemCollection.ItemView, self).to_fields(item, *args, only_fields=only_fields, **kwargs)
+            setSubField(fields, 'description', key='image', value=item.image_url)
+            setSubField(fields, 'description', key='verbose_name', value=unicode(item))
             return fields
 
     class AddView(MagiCollection.AddView):

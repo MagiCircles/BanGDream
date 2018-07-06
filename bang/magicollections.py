@@ -2033,7 +2033,7 @@ class ItemCollection(MagiCollection):
     def buttons_per_item(self, view, request, context, item):
         buttons = super(ItemCollection, self).buttons_per_item(view, request, context, item)
         if 'collectibleitem' in buttons:
-            buttons['collectibleitem']['title'] = _(u'Add to your {thing}').format(thing=unicode(item).lower())
+            buttons['collectibleitem']['title'] = _(u'Edit your {thing}').format(thing=unicode(item).lower())
         return buttons
 
     class ListView(MagiCollection.ListView):

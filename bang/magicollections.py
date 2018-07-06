@@ -2224,13 +2224,6 @@ class AreaItemCollection(MagiCollection):
 # Assets Collection
 
 ASSET_CUTEFORM = {
-    'members': {
-        'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
-        'extra_settings': {
-            'modal': 'true',
-            'modal-text': 'true',
-        },
-    },
     'i_band': {
         'image_folder': 'band',
         'to_cuteform': 'value',
@@ -2253,6 +2246,15 @@ ASSET_CUTEFORM = {
             'modal-text': 'true',
         },
     },
+}
+
+ASSET_CUTEFORM_LIST = ASSET_CUTEFORM.copy()
+ASSET_CUTEFORM_LIST['members'] = {
+    'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+    'extra_settings': {
+        'modal': 'true',
+        'modal-text': 'true',
+    }
 }
 
 ASSET_ORDER = ['name', 'type'] + [
@@ -2347,6 +2349,7 @@ class AssetCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         before_template = 'include/galleryBackButtons'
         filter_form = forms.AssetFilterForm
+        filter_cuteform = ASSET_CUTEFORM_LIST
 
         def extra_context(self, context):
             super(AssetCollection.ListView, self).extra_context(context)

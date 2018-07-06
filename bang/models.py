@@ -196,8 +196,8 @@ class Member(MagiModel):
 
     birthday = models.DateField(_('Birthday'), null=True, help_text='The year is not used, so write whatever')
 
-    height = models.PositiveIntegerField(_('Height'), help_text=_('in cm'), null=True)
-    
+    height = models.PositiveIntegerField(_('Height'), help_text='in cm', null=True)
+
     food_like = models.CharField(_('Liked food'), max_length=100, null=True)
     FOOD_LIKES_CHOICES = ALL_ALT_LANGUAGES
     d_food_likes = models.TextField(_('Liked food'), null=True)

@@ -188,12 +188,16 @@ class Member(MagiModel):
     )
     i_school_year = models.PositiveIntegerField(_('School Year'), choices=i_choices(SCHOOL_YEAR_CHOICES), null=True)
 
+    classroom = models.CharField(_('Classroom'), max_length = 10, null=True)
+
     # TODO: separate page of voice acctresses
     romaji_CV = models.CharField(_('CV'), help_text='In romaji.', max_length=100, null=True)
     CV = models.CharField(string_concat(_('CV'), ' (', t['Japanese'], ')'), help_text='In Japanese characters.', max_length=100, null=True)
 
     birthday = models.DateField(_('Birthday'), null=True, help_text='The year is not used, so write whatever')
 
+    height = models.PositiveIntegerField(_('Height'), help_text=_('in cm'), null=True)
+    
     food_like = models.CharField(_('Liked food'), max_length=100, null=True)
     FOOD_LIKES_CHOICES = ALL_ALT_LANGUAGES
     d_food_likes = models.TextField(_('Liked food'), null=True)

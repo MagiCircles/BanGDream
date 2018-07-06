@@ -253,9 +253,11 @@ MEMBERS_ICONS = {
     'band': 'users',
     'school': 'id',
     'school_year': 'id',
+    'classroom': 'id',
     'CV': 'profile',
     'romaji_CV': 'profile',
     'birthday': 'event',
+    'height': 'scoreup',
     'food_like': 'heart',
     'food_dislike': 'heart-empty',
     'instrument': 'star',
@@ -286,11 +288,16 @@ class MemberCollection(MagiCollection):
     def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
         exclude_fields.append('d_names')
+        if item.school is not None:
+            exclude_fields.append('classroom')
         fields = super(MemberCollection, self).to_fields(view, item, *args, icons=MEMBERS_ICONS, images={
             'astrological_sign': '{}img/i_astrological_sign/{}.png'.format(RAW_CONTEXT['static_url'], item.i_astrological_sign),
         }, exclude_fields=exclude_fields, **kwargs)
         if 'square_image' in fields:
             del(fields['square_image'])
+        if item.classroom is not None and item.school is not None:
+            setSubField(fields, 'school', key='type', value='html')
+            setSubField(fields, 'school', key='value', value= u'<b>{} <span class="text-muted">({})</span></b>'.format(item.school, item.classroom))
         setSubField(fields, 'birthday', key='type', value='text')
         setSubField(fields, 'birthday', key='value', value=lambda f: dateformat.format(item.birthday, "F d"))
         setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
@@ -298,6 +305,7 @@ class MemberCollection(MagiCollection):
         setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))
         setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
         setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
+        setSubField(fields, 'height', key='value', value=u'{} cm'.format(item.height))
         setSubField(fields, 'description', key='type', value='long_text')
         if get_language() == 'ja':
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))

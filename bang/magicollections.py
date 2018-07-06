@@ -2297,7 +2297,7 @@ class AssetCollection(MagiCollection):
             extra_fields.append(('image', {
                 'image': staticImageURL('language/ja.png'),
                 'verbose_name': string_concat(_('Japanese version'), ' - ', _('Image')),
-                'value': item.image_url,
+                'value': item.image_original_url,
                 'type': 'image',
             }))
         fields = super(AssetCollection, self).to_fields(view, item, *args, icons=ASSET_ICONS, images={

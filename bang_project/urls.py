@@ -23,3 +23,5 @@ urlpatterns = patterns('',
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 )
+
+urlpatterns += patterns('', url(r'^silk/', include('silk.urls', namespace='silk')))

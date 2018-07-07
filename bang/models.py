@@ -1164,6 +1164,10 @@ class Song(MagiModel):
             return self.japanese_name
         return self.names.get(get_language(), self.name)
 
+    special_band = models.CharField(_('Special Band'), max_length=100, null=True)
+    SPECIAL_BANDS_CHOICES = LANGUAGES_DIFFERENT_CHARSET
+    d_special_bands = models.TextField(_('Special Band'), null=True)
+
     VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')

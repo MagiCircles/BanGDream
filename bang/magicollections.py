@@ -597,6 +597,7 @@ class CardCollection(MagiCollection):
     reportable = False
     blockable = False
     translated_fields = ('name', 'skill_name', )
+    show_collect_total = False
 
     _skill_icons = { _i: _c['icon'] for _i, _c in models.Card.SKILL_TYPES.items() }
     _version_images = { _vn: _v['image'] for _vn, _v in models.Account.VERSIONS.items() }

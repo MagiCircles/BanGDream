@@ -1149,7 +1149,7 @@ class Song(MagiModel):
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('s'))
     image = models.ImageField('Album cover', upload_to=uploadItem('s'))
 
-    BAND_CHOICES = list(Member.BAND_CHOICES) + ['Glitter*Green']
+    BAND_CHOICES = list(Member.BAND_CHOICES) + ['Glitter*Green', 'Special Band']
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
 
     japanese_name = models.CharField(_('Title'), max_length=100, unique=True)

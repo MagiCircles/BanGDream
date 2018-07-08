@@ -169,7 +169,7 @@ class Member(MagiModel):
     square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
 
     BAND_CHOICES = (
-        'Poppin\' Party',
+        'Poppin\'Party',
         'Afterglow',
         'Pastel*Palettes',
         'Roselia',
@@ -1147,7 +1147,7 @@ class Song(MagiModel):
 
     owner = models.ForeignKey(User, related_name='added_songs')
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('s'))
-    image = models.ImageField('Album cover', upload_to=uploadItem('s'))
+    image = models.ImageField(_('Album cover'), upload_to=uploadItem('s'))
 
     BAND_CHOICES = list(Member.BAND_CHOICES) + ['Glitter*Green', 'Special Band']
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))

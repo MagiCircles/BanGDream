@@ -843,7 +843,7 @@ class CardCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
         per_line = 2
-        page_size = 8
+        page_size = 12
         filter_form = forms.CardFilterForm
         default_ordering = '-release_date,-id'
         ajax_pagination_callback = 'loadCardInList'

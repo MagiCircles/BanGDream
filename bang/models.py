@@ -858,6 +858,10 @@ class CollectibleCard(AccountAsOwnerModel):
         return self.card.http_art_trained_url if self.trained and not self.prefer_untrained else self.card.http_art_url
 
     @property
+    def art_url_original(self):
+        return self.card.art_trained_original_url if self.trained and not self.prefer_untrained else self.card.art_original_url
+
+    @property
     def color(self):
         return self.card.english_attribute
 

@@ -683,26 +683,24 @@ class CardCollection(MagiCollection):
             for cached_event in (item.cached_events or []):
                 extra_fields.append((u'event-{}'.format(cached_event), {
                     'verbose_name': u'{}: {}'.format(
-                        _('Event'),
-                        cached_event.japanese_name if get_language() == 'ja' else cached_event.name),
+                        _('Event'), cached_event.unicode),
                     'icon': 'event',
                     'value': cached_event.image_url,
                     'type': 'image_link',
                     'link': cached_event.item_url,
                     'ajax_link': cached_event.ajax_item_url,
-                    'link_text': cached_event.japanese_name if get_language() == 'ja' else cached_event.name,
+                    'link_text': cached_event.t_name,
                 }))
             for cached_gacha in (item.cached_gachas or []):
                 extra_fields.append((u'gacha-{}'.format(cached_gacha.id), {
                     'image': staticImageURL('gacha.png'),
                     'verbose_name': u'{}: {}'.format(
-                        _('Gacha'),
-                        cached_gacha.unicode),
+                        _('Gacha'), cached_gacha.unicode),
                     'value': cached_gacha.image_url,
                     'type': 'image_link',
                     'link': cached_gacha.item_url,
                     'ajax_link': cached_gacha.ajax_item_url,
-                    'link_text': cached_gacha.japanese_name if get_language() == 'ja' else cached_gacha.name,
+                    'link_text': cached_gacha.t_name,
                 }))
             # Add images fields
             for image, verbose_name in [('image', _('Icon')), ('art', _('Art')), ('transparent', _('Transparent'))]:

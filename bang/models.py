@@ -689,16 +689,19 @@ class Card(MagiModel):
 
     @classmethod
     def cached_events_pre(self, d):
-        d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
-        return d
+        d['name'] = d['names'].get('en', None)
+        d['japanese_name'] = d['names'].get('ja', None)
+        d['t_name'] = d['unicode'] = d['names'].get(get_language(), d['name'])
 
     def to_cache_events(self):
         events = []
         for event in Event.objects.filter(Q(main_card_id=self.id) | Q(secondary_card_id=self.id)):
+            names = event.names or {}
+            names['en'] = event.name
+            names['ja'] = event.japanese_name
             events.append({
                 'id': event.id,
-                'name': event.name,
-                'japanese_name': event.japanese_name,
+                'names': names,
                 'image': unicode(event.image),
             })
         return events if events else None
@@ -712,16 +715,19 @@ class Card(MagiModel):
 
     @classmethod
     def cached_gachas_pre(self, d):
-        d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
-        return d
+        d['name'] = d['names'].get('en', None)
+        d['japanese_name'] = d['names'].get('ja', None)
+        d['t_name'] = d['unicode'] = d['names'].get(get_language(), d['name'])
 
     def to_cache_gachas(self):
         gachas = []
         for gacha in Gacha.objects.filter(cards__id=self.id):
+            names = gacha.names or {}
+            names['en'] = gacha.name
+            names['ja'] = gacha.japanese_name
             gachas.append({
                 'id': gacha.id,
-                'name': gacha.name,
-                'japanese_name': gacha.japanese_name,
+                'names': names,
                 'image': unicode(gacha.image),
             })
         return gachas if gachas else None

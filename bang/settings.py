@@ -89,7 +89,7 @@ ACTIVITY_TAGS = [
     }),
     ('petiteidolstudiosummer', {
         'translation': 'PetiteIdolStudioSummer',
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 7, 1, 13, tzinfo=timezone.utc),
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 7, 31, 13, tzinfo=timezone.utc),
     }),
     ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
     ('nsfw', {

@@ -118,6 +118,8 @@ ENABLED_PAGES['wiki'][1]['enabled'] = True
 ENABLED_PAGES['wiki'][0]['divider_before'] = True
 ENABLED_PAGES['wiki'][0]['navbar_link_list'] = 'girlsbandparty'
 
+ENABLED_PAGES['map']['navbar_link_list'] = 'community'
+
 ENABLED_PAGES['cards_quickadd'] = {
     'title': string_concat(u'↳ ', _('Quick add')),
     'navbar_link_list': 'girlsbandparty',
@@ -188,7 +190,7 @@ ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
 ENABLED_NAVBAR_LISTS['community'] = {
     'title': _('Community'),
     'icon': 'users',
-    'order': ['activity_list', 'account_list', 'donate_list', 'discord', 'twitter'],
+    'order': ['activity_list', 'account_list', 'map', 'donate_list', 'discord', 'twitter'],
 }
 
 ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playedsong', 'item', 'areaitem']

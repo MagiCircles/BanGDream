@@ -2,10 +2,12 @@ import time, datetime
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
 from django.utils import timezone
-from django.utils.translation import get_language, activate as translation_activate
+from django.utils.translation import get_language, activate as translation_activate, ugettext_lazy as _
+from django.utils.formats import dateformat
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
 from magi.tools import totalDonators, getStaffConfigurations, latestDonationMonth
+from magi.utils import birthdays_within
 from bang import models
 
 def generate_settings():
@@ -44,6 +46,28 @@ def generate_settings():
                 'ajax': False, #event.ajax_item_url, weird carousel bug with data-ajax
             })
         translation_activate(old_lang)
+
+    for member in  models.Member.objects.filter(
+            birthdays_within(days_after=12, days_before=1, field_name='birthday')
+    ):
+        card = models.Card.objects.filter(member=member).filter(show_art_on_homepage=True).order_by('-i_rarity', '-release_date')[0]
+        t_titles = {}
+        for lang, _verbose in django_settings.LANGUAGES:
+            translation_activate(lang)
+            t_titles[lang] = u'{}, {}! {}'.format(
+                _('Happy Birthday'),
+                member.first_name,
+                dateformat.format(member.birthday, 'F d'),
+            )
+        translation_activate(old_lang)
+        latest_news.append({
+            't_titles': t_titles,
+            'background': card.art_url,
+            'url': member.item_url,
+            'hide_title': False,
+            'ajax': False,
+            'css_classes': 'birthday',
+        })
 
     print 'Get the characters'
     all_members = models.Member.objects.all().order_by('id')

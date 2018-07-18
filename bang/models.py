@@ -158,6 +158,14 @@ class Member(MagiModel):
     d_names = models.TextField(_('Name'), null=True)
 
     @property
+    def first_name(self):
+        if get_language() == 'ja':
+            return self.t_name.split(' ')[-1] + u'ちゃん'
+        elif get_language() in ['zh-hans', 'zh-hant', 'kr']:
+            return self.t_name.split(' ')[-1]
+        return self.t_name.split(' ')[0]
+
+    @property
     def t_name(self):
         if get_language() == 'ja':
             return self.japanese_name

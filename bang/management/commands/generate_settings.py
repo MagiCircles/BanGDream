@@ -23,14 +23,15 @@ def generate_settings():
     now = timezone.now()
     two_days_ago = now - datetime.timedelta(days=2)
     in_twelve_days = now + datetime.timedelta(days=12) # = event length 7d + 5d margin
+    old_lang = get_language()
     for version in models.Account.VERSIONS.values():
-        filters = {
-            version['prefix'] + 'end_date__gte': two_days_ago,
-            version['prefix'] + 'end_date__lte': in_twelve_days,
-        }
-        old_lang = get_language()
-        for event in (list(models.Event.objects.filter(**filters))
-                      + list(models.Gacha.objects.filter(**filters))):
+        for event in (list(
+                models.Event.objects.filter(**{
+                    version['prefix'] + 'end_date__gte': two_days_ago,
+                    version['prefix'] + 'end_date__lte': in_twelve_days,
+                })) + list(models.Gacha.objects.filter(**{
+                    version['prefix'] + 'end_date__lte': in_twelve_days,
+                }))):
             image = getattr(event, u'{}image_url'.format(version['prefix']))
             if not image:
                 continue
@@ -40,7 +41,7 @@ def generate_settings():
                 'image': image,
                 'url': event.item_url,
                 'hide_title': True,
-                'ajax': event.ajax_item_url,
+                'ajax': False, #event.ajax_item_url, weird carousel bug with data-ajax
             })
         translation_activate(old_lang)
 

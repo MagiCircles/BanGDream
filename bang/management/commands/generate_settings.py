@@ -23,9 +23,32 @@ def generate_settings():
 
     print 'Get the latest news'
     now = timezone.now()
+    old_lang = get_language()
+
+    for member in  models.Member.objects.filter(
+            birthdays_within(days_after=12, days_before=1, field_name='birthday')
+    ):
+        card = models.Card.objects.filter(member=member).filter(show_art_on_homepage=True).order_by('-i_rarity', '-release_date')[0]
+        t_titles = {}
+        for lang, _verbose in django_settings.LANGUAGES:
+            translation_activate(lang)
+            t_titles[lang] = u'{}, {}! {}'.format(
+                _('Happy Birthday'),
+                member.first_name,
+                dateformat.format(member.birthday, 'F d'),
+            )
+        translation_activate(old_lang)
+        latest_news.append({
+            't_titles': t_titles,
+            'background': card.art_original_url,
+            'url': member.item_url,
+            'hide_title': False,
+            'ajax': False,
+            'css_classes': 'birthday',
+        })
+
     two_days_ago = now - datetime.timedelta(days=2)
     in_twelve_days = now + datetime.timedelta(days=12) # = event length 7d + 5d margin
-    old_lang = get_language()
     for version in models.Account.VERSIONS.values():
         for event in (list(
                 models.Event.objects.filter(**{
@@ -47,28 +70,6 @@ def generate_settings():
                 'ajax': False, #event.ajax_item_url, weird carousel bug with data-ajax
             })
         translation_activate(old_lang)
-
-    for member in  models.Member.objects.filter(
-            birthdays_within(days_after=12, days_before=1, field_name='birthday')
-    ):
-        card = models.Card.objects.filter(member=member).filter(show_art_on_homepage=True).order_by('-i_rarity', '-release_date')[0]
-        t_titles = {}
-        for lang, _verbose in django_settings.LANGUAGES:
-            translation_activate(lang)
-            t_titles[lang] = u'{}, {}! {}'.format(
-                _('Happy Birthday'),
-                member.first_name,
-                dateformat.format(member.birthday, 'F d'),
-            )
-        translation_activate(old_lang)
-        latest_news.append({
-            't_titles': t_titles,
-            'background': card.art_url,
-            'url': member.item_url,
-            'hide_title': False,
-            'ajax': False,
-            'css_classes': 'birthday',
-        })
 
     print 'Get the characters'
     all_members = models.Member.objects.all().order_by('id')

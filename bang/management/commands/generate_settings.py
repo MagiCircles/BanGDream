@@ -32,6 +32,7 @@ def generate_settings():
                     version['prefix'] + 'end_date__gte': two_days_ago,
                     version['prefix'] + 'end_date__lte': in_twelve_days,
                 })) + list(models.Gacha.objects.filter(**{
+                    version['prefix'] + 'end_date__gte': now,
                     version['prefix'] + 'end_date__lte': in_twelve_days,
                 }))):
             image = getattr(event, u'{}image_url'.format(version['prefix']))

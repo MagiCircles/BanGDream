@@ -59,6 +59,8 @@ FAVORITE_CHARACTERS = django_settings.FAVORITE_CHARACTERS
 FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))
 FAVORITE_CHARACTER_NAME = _(u'{nth} Favorite Member')
 
+MINIMUM_LIKES_POPULAR = 1
+
 ACTIVITY_TAGS = [
     ('comedy', _('Comedy')),
     ('cards', _('New Cards')),
@@ -72,7 +74,7 @@ ACTIVITY_TAGS = [
     ('merch', _('Merchandise')),
     ('community', _('Community')),
     ('staff', {
-        'translation': _('Staff'),
+        'translation': _('Staff picks'),
         'has_permission_to_add': lambda r: r.user.is_staff,
     }),
     ('communityevent', {
@@ -129,7 +131,7 @@ ENABLED_PAGES['cards_quickadd'] = {
 
 ENABLED_PAGES['discord'] = {
     'title': 'Discord',
-    'icon': 'comments',
+    'icon': 'chat',
     'navbar_link_list': 'community',
     'redirect': 'https://discord.gg/8wrXKX3',
     'new_tab': True,
@@ -137,7 +139,7 @@ ENABLED_PAGES['discord'] = {
 
 ENABLED_PAGES['twitter'] = {
     'title': 'Twitter',
-    'icon': 'activities',
+    'icon': 'twitter',
     'navbar_link_list': 'community',
     'redirect': 'https://twitter.com/bandoriparty',
     'new_tab': True,

@@ -131,7 +131,7 @@ class Account(BaseAccount):
         'iOs',
     )
     i_os = models.PositiveIntegerField(_('Operating System'), choices=i_choices(OS_CHOICES), null=True)
-    os_icon = property(lambda _a: _a.os)
+    os_icon = property(lambda _a: _a.os.lower() if _a.os else None)
 
     device = models.CharField(_('Device'), help_text=_('The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ...'), max_length=150, null=True)
     stargems_bought = models.PositiveIntegerField(null=True)

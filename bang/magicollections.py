@@ -193,7 +193,7 @@ class ActivityCollection(_ActivityCollection):
             super(ActivityCollection.ListView, self).extra_context(context)
 
             # Homepage settings
-            if 'shortcut_url' in context and context['shortcut_url'] == '':
+            if 'shortcut_url' in context and context['shortcut_url'] is not None:
 
                 context['full_width'] = True
                 context['page_title'] = None

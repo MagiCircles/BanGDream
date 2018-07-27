@@ -1,4 +1,4 @@
-{% if shortcut_url == '' %}
+{% if shortcut_url != None %}
 <style>
   body {
     background: url('{{ static_url }}img/bg_pattern.png?{{ static_files_version }}');
@@ -7,7 +7,7 @@
     background-image: url('{{ static_url }}img/stars.png?{{ static_files_version }}');
   }
   @media(max-width: 991px) {
-    .shortcut- .collection-page-wrapper .home-wrapper .home {
+    .current-activity_list[class*="shortcut-"] .collection-page-wrapper .home-wrapper .home {
       background: url('{{ static_url }}img/bg_pattern.png?{{ static_files_version }}');
     }
   }

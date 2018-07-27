@@ -339,7 +339,7 @@ class MemberCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
         filter_form = forms.MemberFilterForm
-        default_ordering = 'id'
+        default_ordering = '-id'
 
     class AddView(MagiCollection.AddView):
         staff_required = True

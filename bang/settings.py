@@ -143,6 +143,13 @@ ENABLED_PAGES['twitter'] = {
     'new_tab': True,
 }
 
+ENABLED_PAGES['donate'] = {
+    'title': _('Donate'),
+    'icon': 'heart',
+    'navbar_link_list': 'more',
+    'redirect': '/donate/',
+}
+
 ENABLED_PAGES['teambuilder'] = {
     'title': _('Team builder'),
     'icon': 'settings',
@@ -192,6 +199,7 @@ ENABLED_NAVBAR_LISTS['community'] = {
     'icon': 'users',
     'order': ['activity_list', 'account_list', 'map', 'donate_list', 'discord', 'twitter'],
 }
+ENABLED_NAVBAR_LISTS['more']['order'] = ENABLED_NAVBAR_LISTS['more']['order'] + ['donate']
 
 ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playedsong', 'item', 'areaitem']
 

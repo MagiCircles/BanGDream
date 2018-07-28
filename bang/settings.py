@@ -4,7 +4,14 @@ from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils import timezone
 
-from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING, DEFAULT_JAVASCRIPT_TRANSLATED_TERMS, DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS
+from magi.default_settings import (
+    DEFAULT_ENABLED_NAVBAR_LISTS,
+    DEFAULT_ENABLED_PAGES,
+    DEFAULT_NAVBAR_ORDERING,
+    DEFAULT_JAVASCRIPT_TRANSLATED_TERMS,
+    DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS,
+    DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
+)
 from magi.utils import tourldash
 from bang import models
 from bang.utils import bangGlobalContext
@@ -133,6 +140,7 @@ ENABLED_PAGES['discord'] = {
     'navbar_link_list': 'community',
     'redirect': 'https://discord.gg/8wrXKX3',
     'new_tab': True,
+    'check_permissions': lambda c: c['request'].LANGUAGE_CODE not in DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
 }
 
 ENABLED_PAGES['twitter'] = {
@@ -141,6 +149,7 @@ ENABLED_PAGES['twitter'] = {
     'navbar_link_list': 'community',
     'redirect': 'https://twitter.com/bandoriparty',
     'new_tab': True,
+    'check_permissions': lambda c: c['request'].LANGUAGE_CODE not in DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
 }
 
 ENABLED_PAGES['donate'] = {

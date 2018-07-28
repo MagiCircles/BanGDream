@@ -96,7 +96,9 @@ class AddAccountForm(AccountForm):
         fields = ('nickname', 'i_version', 'level', 'friend_id', 'screenshot')
 
 class FilterAccounts(MagiFiltersForm):
-    search_fields = ['owner__username', 'owner__preferences__description', 'owner__preferences__location', 'owner__links__value']
+    # TODO: these fields stopped working suddenly with error that nested lookup don't work - not sure why
+    # 'owner__preferences__description', 'owner__preferences__location'
+    search_fields = ['owner__username', 'owner__links__value']
     search_fields_exact = ['owner__email']
 
     ordering_fields = [
@@ -293,7 +295,7 @@ class CardFilterForm(MagiFiltersForm):
     origin_filter = MagiFilter(to_queryset=_origin_to_queryset)
 
     is_limited = forms.NullBooleanField(initial=None, required=False, label=_('Limited'))
-    is_limited_filter = MagiFilter(selector='gachas__limited')
+    is_limited_filter = MagiFilter(selector='gachas__limited', distinct=True)
 
     # View filter
 

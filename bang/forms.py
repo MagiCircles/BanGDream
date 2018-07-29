@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from magi.item_model import i_choices
-from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession, snakeToCamelCase, staticImageURL
+from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession, snakeToCamelCase, staticImageURL, filterEventsByStatus
 from magi.forms import MagiForm, AutoForm, HiddenModelChoiceField, MagiFiltersForm, MagiFilter, MultiImageField, AccountForm as _AccountForm
 from magi.middleware.httpredirect import HttpRedirectException
 from bang import settings
@@ -482,9 +482,22 @@ class EventFilterForm(MagiFiltersForm):
     version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
     version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
 
+    def _status_to_queryset(self, queryset, request, value):
+        prefix = ''
+        if self.data.get('version'):
+            prefix = models.Event.VERSIONS[self.data.get('version')]['prefix']
+        return filterEventsByStatus(queryset, value, prefix=prefix)
+
+    status = forms.ChoiceField(label=_('Status'), choices=BLANK_CHOICE_DASH + [
+        ('ended', _('Past')),
+        ('current', _('Current')),
+        ('future', _('Future')),
+    ])
+    status_filter = MagiFilter(to_queryset=_status_to_queryset)
+
     class Meta(MagiFiltersForm.Meta):
         model = models.Event
-        fields = ('view', 'search', 'i_type', 'boost_members', 'i_boost_attribute', 'version', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'i_type', 'boost_members', 'i_boost_attribute', 'version', 'status', 'ordering', 'reverse_order')
 
 ############################################################
 # Event participations form
@@ -640,6 +653,19 @@ class GachaFilterForm(MagiFiltersForm):
     version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
     version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
 
+    def _status_to_queryset(self, queryset, request, value):
+        prefix = ''
+        if self.data.get('version'):
+            prefix = models.Gacha.VERSIONS[self.data.get('version')]['prefix']
+        return filterEventsByStatus(queryset, value, prefix=prefix)
+
+    status = forms.ChoiceField(label=_('Status'), choices=BLANK_CHOICE_DASH + [
+        ('ended', _('Past')),
+        ('current', _('Current')),
+        ('future', _('Future')),
+    ])
+    status_filter = MagiFilter(to_queryset=_status_to_queryset)
+
     def __init__(self, *args, **kwargs):
         super(GachaFilterForm, self).__init__(*args, **kwargs)
         if 'gacha_type' in self.fields:
@@ -650,7 +676,7 @@ class GachaFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Gacha
-        fields = ('search', 'gacha_type', 'featured_member', 'i_attribute', 'version', 'ordering', 'reverse_order')
+        fields = ('search', 'gacha_type', 'featured_member', 'i_attribute', 'version', 'status', 'ordering', 'reverse_order')
 
 ############################################################
 # Rerun gacha event

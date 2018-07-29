@@ -1126,6 +1126,9 @@ EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
         'modal-text': 'true',
     },
 }
+EVENT_LIST_ITEM_CUTEFORM['status'] = {
+    'type': CuteFormType.HTML,
+}
 
 class EventCollection(MagiCollection):
     queryset = models.Event.objects.all()
@@ -1188,6 +1191,7 @@ class EventCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         per_line = 2
         default_ordering = '-start_date'
+        ajax_callback = 'loadEventGachaInList'
 
         filter_form = forms.EventFilterForm
         show_collect_button = {
@@ -1465,6 +1469,9 @@ class GachaCollection(MagiCollection):
             'transform': CuteFormTransform.Flaticon,
             'to_cuteform': lambda k, v: GachaCollection._gacha_type_to_cuteform[k],
         },
+        'status': {
+            'type': CuteFormType.HTML,
+        },
     }
 
     def to_fields(self, view, item, in_list=False, exclude_fields=None, *args, **kwargs):
@@ -1598,6 +1605,7 @@ class GachaCollection(MagiCollection):
         default_ordering = '-start_date'
         per_line = 2
         filter_form = forms.GachaFilterForm
+        ajax_callback = 'loadEventGachaInList'
 
     def _after_save(self, request, instance):
         for card in instance.cards.all():

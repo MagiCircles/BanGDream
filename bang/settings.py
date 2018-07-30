@@ -20,11 +20,19 @@ STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
 
 SITE_NAME = 'Bandori Party'
 SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'
-SITE_IMAGE = 'bandori_party.png'
+SITE_IMAGE = 'share/bandori_party.png'
 SITE_LOGO = 'logo/bandori_party.png'
 SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
 
 LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
+
+SITE_NAME_PER_LANGUAGE = {
+    'ja': u'バンドレリパーティー',
+    'zh-hans': u'Bandori 派对',
+    'zh-hant': u'Bandori 派對',
+    'kr' : u'밴드리파티',
+    'ru': u'бандори парти',
+}
 
 SITE_LOGO_PER_LANGUAGE = {
     'ja': 'logo/bandori_party_japanese.png',
@@ -32,6 +40,15 @@ SITE_LOGO_PER_LANGUAGE = {
     'zh-hant': 'logo/bandori_party_taiwanese.png',
     'kr': 'logo/bandori_party_korean.png',
     'ru': 'logo/bandori_party_russian.png',
+}
+
+SITE_IMAGE_PER_LANGUAGE = {
+    'en': 'share/bandori_party_english.png',
+    'ja': 'share/bandori_party_japanese.png',
+    'zh-hans': 'share/bandori_party_chinese.png',
+    'zh-hant': 'share/bandori_party_taiwanese.png',
+    'kr': 'share/bandori_party_korean.png',
+    'ru': 'share/bandori_party_russian.png',
 }
 
 GAME_NAME = string_concat(_('BanG Dream!'), ' ', _('Girls Band Party'))

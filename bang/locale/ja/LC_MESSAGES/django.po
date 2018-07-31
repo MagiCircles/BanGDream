@@ -1919,8 +1919,9 @@ msgid "Open {thing}"
 msgstr ""
 
 #: magi/forms.py:435
+#, fuzzy
 msgid "Reverse order"
-msgstr ""
+msgstr "逆順"
 
 #: magi/forms.py:1471 magi/models.py:939
 #: magi/templates/items/reportItem.html:29
@@ -1929,21 +1930,24 @@ msgstr "道理"
 
 #: magi/item_model.py:621 magi/magicollections.py:873
 #: magi/magicollections.py:911
+#, fuzzy
 msgid "Edit {thing}"
-msgstr ""
+msgstr "{thing}を変更する"
 
 #: magi/item_model.py:624 magi/magicollections.py:803 magi/views.py:258
+#, fuzzy
 msgid "Delete {thing}"
-msgstr ""
+msgstr "{thing}を削除"
 
 #: magi/item_model.py:627
 msgid "Report {thing}"
-msgstr ""
+msgstr "{thing}を報告する"
 
 #: magi/forms.py:1122 magi/magicollections.py:907 magi/views.py:257
 #: magi/views.py:334
+#, fuzzy
 msgid "Add {thing}"
-msgstr ""
+msgstr "{thing}を追加"
 
 #: magi/magicollections.py:2499
 msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
@@ -1971,35 +1975,36 @@ msgstr "恐るべし"
 
 #: magi/raw.py:9
 msgid "incredible"
-msgstr ""
+msgstr "面白い"
 
 #: magi/raw.py:10
 msgid "adorable"
-msgstr ""
+msgstr "すごい"
 
 #: magi/raw.py:11
+#, fuzzy
 msgid "generous"
-msgstr ""
+msgstr "驚くべき"
 
 #: magi/raw.py:12
 msgid "idols-addicted"
-msgstr ""
+msgstr "ラブリー"
 
 #: magi/raw.py:13
 msgid "friendly"
-msgstr ""
+msgstr "ハンサム"
 
 #: magi/raw.py:14
 msgid "kind"
-msgstr ""
+msgstr "親切な"
 
 #: magi/raw.py:15
 msgid "warmhearted"
-msgstr ""
+msgstr "優しい"
 
 #: magi/raw.py:16
 msgid "nice"
-msgstr ""
+msgstr "いい"
 
 #: magi/templates/emails/donation_footer.html:3
 #: magi/templates/include/donate.html:10 magi/templates/pages/settings.html:83
@@ -2014,8 +2019,9 @@ msgstr "電子メールのお知らせを無効にするには、ここをクリ
 #: magi/templates/emails/report.html:21
 #: magi/templates/items/activityItem.html:32
 #: magi/templates/pages/settings.html:132
+#, fuzzy
 msgid "Translate from %(from_language)s to %(to_language)s"
-msgstr ""
+msgstr "%(from_language)sから%(to_language)sへの翻訳"
 
 #: magi/templates/items/profile.html:28
 msgid "follows you"
@@ -2035,12 +2041,14 @@ msgid "Countdown"
 msgstr "秒読み"
 
 #: sukutomo/magicollections.py:284
+#, fuzzy
 msgid "{time} left"
-msgstr ""
+msgstr "残り{time}"
 
 #: sukutomo/magicollections.py:284
+#, fuzzy
 msgid "Starts in {time}"
-msgstr ""
+msgstr "{time}で開始"
 
 #: bang/forms.py:29 bang/forms.py:237 bang/forms.py:238 bang/forms.py:635
 #: bang/forms.py:920 bang/forms.py:999 bang/forms.py:1120
@@ -2239,8 +2247,9 @@ msgid "Adding to your {thing} {name}"
 msgstr ""
 
 #: magi/magicollections.py:385
+#, fuzzy
 msgid "Add to your {thing}"
-msgstr ""
+msgstr "{thing}を追加"
 
 #: magi/magicollections.py:399
 msgid "Quick edit"
@@ -2304,8 +2313,9 @@ msgid "Successfully deleted!"
 msgstr ""
 
 #: magi/views_collections.py:233
+#, fuzzy
 msgid "{things} list"
-msgstr ""
+msgstr "{thing}のリスト"
 
 #: cpro/model_choices.py:165
 msgid "All Round"
@@ -2369,8 +2379,9 @@ msgid "Promo"
 msgstr "番宣"
 
 #: bang/forms.py:233 bang/forms.py:849 bang/models.py:352 bang/models.py:1198
+#, fuzzy
 msgid "Release date"
-msgstr ""
+msgstr "受付期間"
 
 #: bang/forms.py:287
 msgid "Origin"
@@ -2383,27 +2394,28 @@ msgid "Gacha"
 msgstr "ガチャ"
 
 #: sukutomo/forms.py:85 sukutomo/models.py:274
+#, fuzzy
 msgid "Server availability"
-msgstr ""
+msgstr "サーバー"
 
 #: bang/forms.py:379 bang/forms.py:380 bang/forms.py:470 bang/forms.py:542
 #: bang/forms.py:543 bang/forms.py:612 bang/models.py:76 bang/models.py:990
 #: bang/models.py:991 bang/models.py:992 bang/models.py:994 bang/models.py:1384
 #: bang/models.py:1385 bang/models.py:1386 bang/models.py:1732
 msgid "English version"
-msgstr ""
+msgstr "外国のサーバ"
 
 #: sukutomo/forms.py:59 sukutomo/forms.py:60 sukutomo/forms.py:79
 #: sukutomo/models.py:31 sukutomo/models.py:284 sukutomo/models.py:285
 #: sukutomo/models.py:286
 msgid "Taiwanese version"
-msgstr ""
+msgstr "台湾のサーバー"
 
 #: sukutomo/forms.py:62 sukutomo/forms.py:63 sukutomo/forms.py:80
 #: sukutomo/models.py:29 sukutomo/models.py:288 sukutomo/models.py:289
 #: sukutomo/models.py:290
 msgid "Korean version"
-msgstr ""
+msgstr "韓国のサーバー"
 
 #: sukutomo/forms.py:77 sukutomo/forms.py:78 sukutomo/forms.py:79
 #: sukutomo/forms.py:80 sukutomo/forms.py:81
@@ -2413,8 +2425,9 @@ msgstr ""
 #: sukutomo/forms.py:53 sukutomo/forms.py:54 sukutomo/forms.py:77
 #: sukutomo/models.py:27 sukutomo/models.py:276 sukutomo/models.py:277
 #: sukutomo/models.py:278
+#, fuzzy
 msgid "Japanese version"
-msgstr ""
+msgstr "日本のサーバー"
 
 #: bang/forms.py:852 bang/models.py:154 bang/models.py:1174
 msgid "Romaji"

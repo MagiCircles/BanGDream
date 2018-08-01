@@ -46,7 +46,7 @@ class FilterUsers(MagiFiltersForm):
     search_fields = ('username', )
     ordering_fields = (
         ('username', t['Username']),
-        ('join_date', _('Join Date')),
+        ('date_joined', _('Join Date')),
     )
 
     favorited_card = forms.IntegerField(widget=forms.HiddenInput)

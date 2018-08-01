@@ -93,7 +93,6 @@ ACTIVITY_TAGS = [
     ('introduction', _('Introduce yourself')),
     ('members', _('Characters')),
     ('birthday', _('Birthday')),
-    ('anime', _('Anime')),
     ('anime', string_concat(_('Anime'), ' / ', _('Manga'))),
     ('cosplay', _('Cosplay')),
     ('fanart', _('Fan made')),

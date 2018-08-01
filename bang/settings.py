@@ -85,16 +85,22 @@ FAVORITE_CHARACTER_NAME = _(u'{nth} Favorite Member')
 
 ACTIVITY_TAGS = [
     ('comedy', _('Comedy')),
-    ('cards', _('New Cards')),
+    ('meme', _('Meme')),
+    ('cards', _('Cards')),
+    ('scout', _('Scouting')),
     ('event', _('Event')),
-    ('live', _('Live')),
+    ('live', _('Songs')),
+    ('live', _('Songs')),
     ('introduction', _('Introduce yourself')),
-    ('members', _('Members')),
+    ('members', _('Characters')),
+    ('birthday', _('Birthday')),
     ('anime', _('Anime')),
+    ('anime', string_concat(_('Anime'), ' / ', _('Manga'))),
     ('cosplay', _('Cosplay')),
     ('fanart', _('Fan made')),
     ('merch', _('Merchandise')),
     ('community', _('Community')),
+    ('question', _('Question')),
     ('staff', {
         'translation': _('Staff picks'),
         'has_permission_to_add': lambda r: r.user.is_staff,
@@ -103,19 +109,20 @@ ACTIVITY_TAGS = [
         'translation': _('Community event'),
         'has_permission_to_add': lambda r: r.user.hasPermission('post_community_event_activities'),
     }),
-    ('thankyouyurushii', {
-        'translation': _('Thank you Yurishii'),
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
+    ('petiteidolstudiosummer', {
+        'translation': 'PetiteIdolStudioSummer',
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 7, 31, 13, tzinfo=timezone.utc),
     }),
     ('changemymindchallenge', {
         'translation': _('Change My Mind Challenge'),
         'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 6, 3, tzinfo=timezone.utc),
     }),
-    ('petiteidolstudiosummer', {
-        'translation': 'PetiteIdolStudioSummer',
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 7, 31, 13, tzinfo=timezone.utc),
+    ('thankyouyurushii', {
+        'translation': _('Thank you Yurishii'),
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
     }),
     ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
+    ('swearing', _('Swearing')),
     ('nsfw', {
         'translation': _('NSFW'),
         'hidden_by_default': True,

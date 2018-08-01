@@ -90,7 +90,6 @@ ACTIVITY_TAGS = [
     ('scout', _('Scouting')),
     ('event', _('Event')),
     ('live', _('Songs')),
-    ('live', _('Songs')),
     ('introduction', _('Introduce yourself')),
     ('members', _('Characters')),
     ('birthday', _('Birthday')),

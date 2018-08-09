@@ -1147,7 +1147,7 @@ class Song(MagiModel):
 
     DIFFICULTY_VALIDATORS = [
         MinValueValidator(1),
-        MaxValueValidator(40),
+        MaxValueValidator(50),
     ]
 
     DIFFICULTIES = [
@@ -1155,6 +1155,7 @@ class Song(MagiModel):
         ('normal', _('Normal')),
         ('hard', _('Hard')),
         ('expert', _('Expert')),
+        ('special', _('Special')),
     ]
 
     SONGWRITERS_DETAILS = [
@@ -1209,6 +1210,8 @@ class Song(MagiModel):
     hard_difficulty = models.PositiveIntegerField(string_concat(_('Hard'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
     expert_notes = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Notes')), null=True)
     expert_difficulty = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
+    special_notes = models.PositiveIntegerField(string_concat(_('Special'), ' - ', _('Notes')), null=True)
+    special_difficulty = models.PositiveIntegerField(string_concat(_('Special'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
 
     UNLOCK = OrderedDict([
         ('gift', {
@@ -1302,6 +1305,7 @@ class PlayedSong(AccountAsOwnerModel):
         ('normal', _('Normal')),
         ('hard', _('Hard')),
         ('expert', _('Expert')),
+        ('special', _('Special')),
     )
 
     i_difficulty = models.PositiveIntegerField(_('Difficulty'), choices=i_choices(DIFFICULTY_CHOICES), default=0)

@@ -801,6 +801,13 @@ class _SongForm(AutoForm):
         if 'length' in self.fields:
             self.fields['length'].help_text = 'in seconds'
 
+    def clean(self):
+        cleaned_data = super(_SongForm, self).clean()
+        if (cleaned_data.get('i_band', None) == models.Song.get_i('band', 'Special Band')
+            and not cleaned_data.get('special_band', None)):
+            self.add_error('special_band',  'Specify the name of the band')
+        return cleaned_data
+
     class Meta(AutoForm.Meta):
         model = models.Song
         fields = '__all__'

@@ -1152,6 +1152,10 @@ class Song(MagiModel):
     BAND_CHOICES = list(Member.BAND_CHOICES) + ['Glitter*Green', 'Special Band']
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
 
+    special_band = models.CharField(_('Band'), max_length=100, null=True)
+    SPECIAL_BANDS_CHOICES = LANGUAGES_DIFFERENT_CHARSET
+    d_special_bands = models.TextField(_('Band'), null=True)
+
     japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
     romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)
     name = models.CharField(string_concat(_('Title'), ' (', _('Translation'), ')'), max_length=100, null=True)
@@ -1163,10 +1167,6 @@ class Song(MagiModel):
         if get_language() == 'ja':
             return self.japanese_name
         return self.names.get(get_language(), self.name)
-
-    special_band = models.CharField(_('Special Band'), max_length=100, null=True)
-    SPECIAL_BANDS_CHOICES = LANGUAGES_DIFFERENT_CHARSET
-    d_special_bands = models.TextField(_('Special Band'), null=True)
 
     VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES

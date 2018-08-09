@@ -884,6 +884,8 @@ class SongFilterForm(MagiFiltersForm):
         ('hard_difficulty', string_concat(_('Hard'), ' - ', _('Difficulty'))),
         ('expert_notes', string_concat(_('Expert'), ' - ', _('Notes'))),
         ('expert_difficulty', string_concat(_('Expert'), ' - ', _('Difficulty'))),
+        ('special_notes', string_concat(_('Special'), ' - ', _('Notes'))),
+        ('special_difficulty', string_concat(_('Special'), ' - ', _('Difficulty'))),
     ]
 
     is_cover = forms.NullBooleanField(initial=None, required=False, label=_('Cover'))

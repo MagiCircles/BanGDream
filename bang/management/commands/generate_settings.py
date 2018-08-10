@@ -2,12 +2,10 @@ import time, datetime
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
 from django.utils import timezone
-from django.utils.translation import get_language, activate as translation_activate, ugettext_lazy as _
-from django.utils.formats import dateformat
+from django.utils.translation import get_language, activate as translation_activate
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
 from magi.tools import totalDonators, getStaffConfigurations, latestDonationMonth
-from magi.utils import birthdays_within
 from bang import models
 
 def generate_settings():
@@ -23,41 +21,16 @@ def generate_settings():
 
     print 'Get the latest news'
     now = timezone.now()
-    old_lang = get_language()
-
-    for member in  models.Member.objects.filter(
-            birthdays_within(days_after=12, days_before=1, field_name='birthday')
-    ):
-        card = models.Card.objects.filter(member=member).filter(show_art_on_homepage=True).order_by('-i_rarity', '-release_date')[0]
-        t_titles = {}
-        for lang, _verbose in django_settings.LANGUAGES:
-            translation_activate(lang)
-            t_titles[lang] = u'{}, {}! {}'.format(
-                _('Happy Birthday'),
-                member.first_name,
-                dateformat.format(member.birthday, 'F d'),
-            )
-        translation_activate(old_lang)
-        latest_news.append({
-            't_titles': t_titles,
-            'background': card.art_original_url,
-            'url': member.item_url,
-            'hide_title': False,
-            'ajax': False,
-            'css_classes': 'birthday',
-        })
-
     two_days_ago = now - datetime.timedelta(days=2)
     in_twelve_days = now + datetime.timedelta(days=12) # = event length 7d + 5d margin
     for version in models.Account.VERSIONS.values():
-        for event in (list(
-                models.Event.objects.filter(**{
-                    version['prefix'] + 'end_date__gte': two_days_ago,
-                    version['prefix'] + 'end_date__lte': in_twelve_days,
-                })) + list(models.Gacha.objects.filter(**{
-                    version['prefix'] + 'end_date__gte': now,
-                    version['prefix'] + 'end_date__lte': in_twelve_days,
-                }))):
+        filters = {
+            version['prefix'] + 'end_date__gte': two_days_ago,
+            version['prefix'] + 'end_date__lte': in_twelve_days,
+        }
+        old_lang = get_language()
+        for event in (list(models.Event.objects.filter(**filters))
+                      + list(models.Gacha.objects.filter(**filters))):
             image = getattr(event, u'{}image_url'.format(version['prefix']))
             if not image:
                 continue
@@ -67,7 +40,7 @@ def generate_settings():
                 'image': image,
                 'url': event.item_url,
                 'hide_title': True,
-                'ajax': False, #event.ajax_item_url, weird carousel bug with data-ajax
+                'ajax': event.ajax_item_url,
             })
         translation_activate(old_lang)
 

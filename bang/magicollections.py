@@ -91,7 +91,7 @@ class AccountCollection(_AccountCollection):
             'transform': CuteFormTransform.FlaticonWithText,
         },
         'i_os': {
-            'to_cuteform': lambda k, v: models.Account.OS_CHOICES[k].lower(),
+            'to_cuteform': lambda k, v: models.Account.OS_CHOICES[k],
             'transform': CuteFormTransform.FlaticonWithText,
         },
     }
@@ -193,7 +193,7 @@ class ActivityCollection(_ActivityCollection):
             super(ActivityCollection.ListView, self).extra_context(context)
 
             # Homepage settings
-            if 'shortcut_url' in context and context['shortcut_url'] is not None:
+            if 'shortcut_url' in context and context['shortcut_url'] == '':
 
                 context['full_width'] = True
                 context['page_title'] = None
@@ -250,22 +250,22 @@ class ActivityCollection(_ActivityCollection):
 MEMBERS_ICONS = {
     'name': 'id',
     'japanese_name': 'id',
-    'band': 'rock',
-    'school': 'school',
-    'school_year': 'education',
-    'classroom': 'school',
-    'CV': 'voice-actress',
-    'romaji_CV': 'voice-actress',
-    'birthday': 'birthday',
-    'height': 'measurements',
-    'food_like': 'food-like',
-    'food_dislike': 'food-dislike',
-    'instrument': 'guitar',
-    'hobbies': 'hobbies',
+    'band': 'users',
+    'school': 'id',
+    'school_year': 'id',
+    'classroom': 'id',
+    'CV': 'profile',
+    'romaji_CV': 'profile',
+    'birthday': 'event',
+    'height': 'scoreup',
+    'food_like': 'heart',
+    'food_dislike': 'heart-empty',
+    'instrument': 'star',
+    'hobbies': 'star-empty',
     'description': 'id',
     'cards': 'album',
     'fans': 'heart',
-    'costumes': 'dress',
+    'costumes': 'profile',
 }
 
 class MemberCollection(MagiCollection):
@@ -273,7 +273,7 @@ class MemberCollection(MagiCollection):
     title = _('Member')
     plural_title = _('Members')
     navbar_link_title = _('Characters')
-    icon = 'idol'
+    icon = 'idolized'
     navbar_link_list = 'bangdream'
     translated_fields = ('name',  'school', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description', )
 
@@ -555,7 +555,7 @@ CARDS_STATS_FIELDS = [
 CARDS_ICONS = { _st: 'skill' for _st in CARDS_STATS_FIELDS }
 CARDS_ICONS.update({
     'rarity': 'star',
-    'member': 'idol',
+    'member': 'idolized',
     'name': 'id',
     'versions': 'world',
     'is_promo': 'promo',
@@ -597,16 +597,14 @@ class CardCollection(MagiCollection):
     reportable = False
     blockable = False
     translated_fields = ('name', 'skill_name', )
-    show_collect_total = {
-        'collectiblecard': False,
-    }
+    show_collect_total = False
 
     _skill_icons = { _i: _c['icon'] for _i, _c in models.Card.SKILL_TYPES.items() }
     _version_images = { _vn: _v['image'] for _vn, _v in models.Account.VERSIONS.items() }
     _origin_to_cuteform = {
         'is_original': 'deck',
         'is_promo': 'promo',
-        'is_gacha': 'scout-box',
+        'is_gacha': 'star',
         'is_event': 'event',
     }
     collectible = [
@@ -683,24 +681,26 @@ class CardCollection(MagiCollection):
             for cached_event in (item.cached_events or []):
                 extra_fields.append((u'event-{}'.format(cached_event), {
                     'verbose_name': u'{}: {}'.format(
-                        _('Event'), cached_event.unicode),
+                        _('Event'),
+                        cached_event.japanese_name if get_language() == 'ja' else cached_event.name),
                     'icon': 'event',
                     'value': cached_event.image_url,
                     'type': 'image_link',
                     'link': cached_event.item_url,
                     'ajax_link': cached_event.ajax_item_url,
-                    'link_text': cached_event.t_name,
+                    'link_text': cached_event.japanese_name if get_language() == 'ja' else cached_event.name,
                 }))
             for cached_gacha in (item.cached_gachas or []):
                 extra_fields.append((u'gacha-{}'.format(cached_gacha.id), {
                     'image': staticImageURL('gacha.png'),
                     'verbose_name': u'{}: {}'.format(
-                        _('Gacha'), cached_gacha.unicode),
+                        _('Gacha'),
+                        cached_gacha.unicode),
                     'value': cached_gacha.image_url,
                     'type': 'image_link',
                     'link': cached_gacha.item_url,
                     'ajax_link': cached_gacha.ajax_item_url,
-                    'link_text': cached_gacha.t_name,
+                    'link_text': cached_gacha.japanese_name if get_language() == 'ja' else cached_gacha.name,
                 }))
             # Add images fields
             for image, verbose_name in [('image', _('Icon')), ('art', _('Art')), ('transparent', _('Transparent'))]:
@@ -755,7 +755,7 @@ class CardCollection(MagiCollection):
                     classes=classes or '',
                 )
                 extra_fields.append(('associated_costume', {
-                    'icon': 'dress',
+                    'icon': 'pictures',
                     'verbose_name': _('Costume'),
                     'type': 'html',
                     'value': mark_safe(u'{} {}'.format(
@@ -841,7 +841,7 @@ class CardCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
         per_line = 2
-        page_size = 12
+        page_size = 8
         filter_form = forms.CardFilterForm
         default_ordering = '-release_date,-id'
         ajax_pagination_callback = 'loadCardInList'
@@ -998,7 +998,7 @@ EVENT_PARTICIPATIONS_ICONS = {
     'song_ranking': 'trophy',
     'is_trial_master_completed': 'achievement',
     'is_trial_master_ex_completed': 'achievement',
-    'screenshot': 'screenshot',
+    'screenshot': 'pictures',
 }
 
 def to_EventParticipationCollection(cls):
@@ -1087,7 +1087,7 @@ EVENT_ICONS = {
     'english_start_date': 'date', 'english_end_date': 'date',
     'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
     'korean_start_date': 'date', 'korean_end_date': 'date',
-    'type': 'category',
+    'type': 'toggler',
 }
 
 EVENT_CUTEFORM = {
@@ -1125,9 +1125,6 @@ EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
         'modal': 'true',
         'modal-text': 'true',
     },
-}
-EVENT_LIST_ITEM_CUTEFORM['status'] = {
-    'type': CuteFormType.HTML,
 }
 
 class EventCollection(MagiCollection):
@@ -1191,7 +1188,6 @@ class EventCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         per_line = 2
         default_ordering = '-start_date'
-        ajax_callback = 'loadEventGachaInList'
 
         filter_form = forms.EventFilterForm
         show_collect_button = {
@@ -1323,10 +1319,10 @@ class EventCollection(MagiCollection):
                 status = getattr(item, u'{}status'.format(version['prefix']))
                 if status == 'ended':
                     extra_fields.append(('{}leaderboard'.format(version['prefix']), {
-                        'icon': 'leaderboard',
+                        'icon': 'contest',
                         'verbose_name': _('Leaderboard'),
                         'type': 'button',
-                        'link_text': mark_safe('<i class="flaticon-leaderboard"></i>'),
+                        'link_text': mark_safe('<i class="flaticon-contest"></i>'),
                         'value': u'/eventparticipations/?event={}&view=leaderboard&ordering=ranking&i_version={}'.format(item.id, i_version),
                         'ajax_link': u'/ajax/eventparticipations/?event={}&view=leaderboard&ordering=ranking&i_version={}&ajax_modal_only'.format(item.id, i_version),
                         'title': u'{} - {}'.format(unicode(item), _('Leaderboard')),
@@ -1409,7 +1405,7 @@ GACHA_ICONS = {
     'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
     'korean_start_date': 'date', 'korean_end_date': 'date',
     'event': 'event',
-    'limited': 'hourglass',
+    'limited': 'toggler',
     'versions': 'world',
 }
 
@@ -1424,7 +1420,7 @@ GACHA_ITEM_FIELDS_ORDER = [
 
 class GachaCollection(MagiCollection):
     queryset = models.Gacha.objects.all()
-    icon = 'scout-box'
+    icon = 'star'
     title = _('Gacha')
     plural_title = _('Gacha')
     form_class = forms.GachaForm
@@ -1433,12 +1429,6 @@ class GachaCollection(MagiCollection):
     reportable = False
     blockable = False
     translated_fields = ('name', )
-
-    _gacha_type_to_cuteform = {
-        'permanent': 'scout-box',
-        'limited': 'hourglass',
-        'dreamfes': 'music',
-    }
 
     filter_cuteform = {
         'featured_member': {
@@ -1464,13 +1454,6 @@ class GachaCollection(MagiCollection):
             'to_cuteform': lambda k, v: CardCollection._version_images[k],
             'image_folder': 'language',
             'transform': CuteFormTransform.ImagePath,
-        },
-        'gacha_type': {
-            'transform': CuteFormTransform.Flaticon,
-            'to_cuteform': lambda k, v: GachaCollection._gacha_type_to_cuteform[k],
-        },
-        'status': {
-            'type': CuteFormType.HTML,
         },
     }
 
@@ -1605,7 +1588,6 @@ class GachaCollection(MagiCollection):
         default_ordering = '-start_date'
         per_line = 2
         filter_form = forms.GachaFilterForm
-        ajax_callback = 'loadEventGachaInList'
 
     def _after_save(self, request, instance):
         for card in instance.cards.all():
@@ -1695,7 +1677,7 @@ PLAYED_SONGS_ICONS = {
     'score': 'scoreup',
     'full_combo': 'combo',
     'all_perfect': 'combo',
-    'screenshot': 'screenshot',
+    'screenshot': 'pictures',
 }
 
 def to_PlayedSongCollection(cls):
@@ -1832,12 +1814,12 @@ _song_cuteform = {
 
 SONG_ICONS = {
     'japanese_name': 'song',
-    'name': 'translate',
+    'name': 'world',
     'romaji_name': 'song',
     'special_band': 'id',
     'itunes_id': 'play',
     'length': 'times',
-    'unlock': 'unlock',
+    'unlock': 'perfectlock',
     'bpm': 'hp',
     'release_date': 'date',
     'event': 'event',
@@ -2284,10 +2266,10 @@ ASSET_ORDER = ['name', 'type'] + [
 ]
 
 ASSET_ICONS = {
-    'band': 'rock',
+    'band': 'users',
     'name': 'album',
-    'type': 'category',
-    'tags': 'hashtag',
+    'type': 'toggler',
+    'tags': 'star-empty',
     'source': 'about',
 }
 
@@ -2439,7 +2421,7 @@ class CostumeCollection(MagiCollection):
     title = _('Costume')
     plural_title = _('Costumes')
     multipart = True
-    icon = 'dress'
+    icon = 'users'
     reportable = False
     blockable = False
     translated_fields = ('name',)

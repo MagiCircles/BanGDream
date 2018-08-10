@@ -4,14 +4,7 @@ from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils import timezone
 
-from magi.default_settings import (
-    DEFAULT_ENABLED_NAVBAR_LISTS,
-    DEFAULT_ENABLED_PAGES,
-    DEFAULT_NAVBAR_ORDERING,
-    DEFAULT_JAVASCRIPT_TRANSLATED_TERMS,
-    DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS,
-    DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
-)
+from magi.default_settings import DEFAULT_ENABLED_NAVBAR_LISTS, DEFAULT_ENABLED_PAGES, DEFAULT_NAVBAR_ORDERING, DEFAULT_JAVASCRIPT_TRANSLATED_TERMS, DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS
 from magi.utils import tourldash
 from bang import models
 from bang.utils import bangGlobalContext
@@ -20,19 +13,11 @@ STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
 
 SITE_NAME = 'Bandori Party'
 SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'
-SITE_IMAGE = 'share/bandori_party.png'
+SITE_IMAGE = 'bandori_party.png'
 SITE_LOGO = 'logo/bandori_party.png'
 SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
 
 LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
-
-SITE_NAME_PER_LANGUAGE = {
-    'ja': u'バンドレリパーティー',
-    'zh-hans': u'Bandori 派对',
-    'zh-hant': u'Bandori 派對',
-    'kr' : u'밴드리파티',
-    'ru': u'бандори парти',
-}
 
 SITE_LOGO_PER_LANGUAGE = {
     'ja': 'logo/bandori_party_japanese.png',
@@ -40,15 +25,6 @@ SITE_LOGO_PER_LANGUAGE = {
     'zh-hant': 'logo/bandori_party_taiwanese.png',
     'kr': 'logo/bandori_party_korean.png',
     'ru': 'logo/bandori_party_russian.png',
-}
-
-SITE_IMAGE_PER_LANGUAGE = {
-    'en': 'share/bandori_party_english.png',
-    'ja': 'share/bandori_party_japanese.png',
-    'zh-hans': 'share/bandori_party_chinese.png',
-    'zh-hant': 'share/bandori_party_taiwanese.png',
-    'kr': 'share/bandori_party_korean.png',
-    'ru': 'share/bandori_party_russian.png',
 }
 
 GAME_NAME = string_concat(_('BanG Dream!'), ' ', _('Girls Band Party'))
@@ -85,42 +61,37 @@ FAVORITE_CHARACTER_NAME = _(u'{nth} Favorite Member')
 
 ACTIVITY_TAGS = [
     ('comedy', _('Comedy')),
-    ('meme', _('Meme')),
-    ('cards', _('Cards')),
-    ('scout', _('Scouting')),
+    ('cards', _('New Cards')),
     ('event', _('Event')),
-    ('live', _('Songs')),
+    ('live', _('Live')),
     ('introduction', _('Introduce yourself')),
-    ('members', _('Characters')),
-    ('birthday', _('Birthday')),
-    ('anime', string_concat(_('Anime'), ' / ', _('Manga'))),
+    ('members', _('Members')),
+    ('anime', _('Anime')),
     ('cosplay', _('Cosplay')),
     ('fanart', _('Fan made')),
     ('merch', _('Merchandise')),
     ('community', _('Community')),
-    ('question', _('Question')),
     ('staff', {
-        'translation': _('Staff picks'),
+        'translation': _('Staff'),
         'has_permission_to_add': lambda r: r.user.is_staff,
     }),
     ('communityevent', {
         'translation': _('Community event'),
         'has_permission_to_add': lambda r: r.user.hasPermission('post_community_event_activities'),
     }),
-    ('petiteidolstudiosummer', {
-        'translation': 'PetiteIdolStudioSummer',
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 8, 5, 13, tzinfo=timezone.utc),
+    ('thankyouyurushii', {
+        'translation': _('Thank you Yurishii'),
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
     }),
     ('changemymindchallenge', {
         'translation': _('Change My Mind Challenge'),
         'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 6, 3, tzinfo=timezone.utc),
     }),
-    ('thankyouyurushii', {
-        'translation': _('Thank you Yurishii'),
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
+    ('petiteidolstudiosummer', {
+        'translation': 'PetiteIdolStudioSummer',
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 7, 1, 13, tzinfo=timezone.utc),
     }),
     ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
-    ('swearing', _('Swearing')),
     ('nsfw', {
         'translation': _('NSFW'),
         'hidden_by_default': True,
@@ -147,8 +118,6 @@ ENABLED_PAGES['wiki'][1]['enabled'] = True
 ENABLED_PAGES['wiki'][0]['divider_before'] = True
 ENABLED_PAGES['wiki'][0]['navbar_link_list'] = 'girlsbandparty'
 
-ENABLED_PAGES['map']['navbar_link_list'] = 'community'
-
 ENABLED_PAGES['cards_quickadd'] = {
     'title': string_concat(u'↳ ', _('Quick add')),
     'navbar_link_list': 'girlsbandparty',
@@ -158,27 +127,18 @@ ENABLED_PAGES['cards_quickadd'] = {
 
 ENABLED_PAGES['discord'] = {
     'title': 'Discord',
-    'icon': 'chat',
+    'icon': 'comments',
     'navbar_link_list': 'community',
     'redirect': 'https://discord.gg/8wrXKX3',
     'new_tab': True,
-    'check_permissions': lambda c: c['request'].LANGUAGE_CODE not in DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
 }
 
 ENABLED_PAGES['twitter'] = {
     'title': 'Twitter',
-    'icon': 'twitter',
+    'icon': 'activities',
     'navbar_link_list': 'community',
     'redirect': 'https://twitter.com/bandoriparty',
     'new_tab': True,
-    'check_permissions': lambda c: c['request'].LANGUAGE_CODE not in DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
-}
-
-ENABLED_PAGES['donate'] = {
-    'title': _('Donate'),
-    'icon': 'heart',
-    'navbar_link_list': 'more',
-    'redirect': '/donate/',
 }
 
 ENABLED_PAGES['teambuilder'] = {
@@ -228,9 +188,8 @@ ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
 ENABLED_NAVBAR_LISTS['community'] = {
     'title': _('Community'),
     'icon': 'users',
-    'order': ['activity_list', 'account_list', 'map', 'donate_list', 'discord', 'twitter'],
+    'order': ['activity_list', 'account_list', 'donate_list', 'discord', 'twitter'],
 }
-ENABLED_NAVBAR_LISTS['more']['order'] = ENABLED_NAVBAR_LISTS['more']['order'] + ['donate']
 
 ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playedsong', 'item', 'areaitem']
 

@@ -1,13 +1,13 @@
-{% if shortcut_url != None %}
+{% if shortcut_url == '' %}
 <style>
   body {
     background: url('{{ static_url }}img/bg_pattern.png?{{ static_files_version }}');
   }
-  [data-top-btn-name="add"] {
+  .top_buttons .btn {
     background-image: url('{{ static_url }}img/stars.png?{{ static_files_version }}');
   }
   @media(max-width: 991px) {
-    .current-activity_list[class*="shortcut-"] .collection-page-wrapper .home-wrapper .home {
+    .shortcut- .collection-page-wrapper .home-wrapper .home {
       background: url('{{ static_url }}img/bg_pattern.png?{{ static_files_version }}');
     }
   }

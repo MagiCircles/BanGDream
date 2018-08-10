@@ -131,7 +131,7 @@ class Account(BaseAccount):
         'iOs',
     )
     i_os = models.PositiveIntegerField(_('Operating System'), choices=i_choices(OS_CHOICES), null=True)
-    os_icon = property(lambda _a: _a.os.lower() if _a.os else None)
+    os_icon = property(lambda _a: _a.os)
 
     device = models.CharField(_('Device'), help_text=_('The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ...'), max_length=150, null=True)
     stargems_bought = models.PositiveIntegerField(null=True)
@@ -156,14 +156,6 @@ class Member(MagiModel):
 
     NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
     d_names = models.TextField(_('Name'), null=True)
-
-    @property
-    def first_name(self):
-        if get_language() == 'ja':
-            return self.t_name.split(' ')[-1] + u'ちゃん'
-        elif get_language() in ['zh-hans', 'zh-hant', 'kr']:
-            return self.t_name.split(' ')[-1]
-        return self.t_name.split(' ')[0]
 
     @property
     def t_name(self):
@@ -697,19 +689,16 @@ class Card(MagiModel):
 
     @classmethod
     def cached_events_pre(self, d):
-        d['name'] = d['names'].get('en', None)
-        d['japanese_name'] = d['names'].get('ja', None)
-        d['t_name'] = d['unicode'] = d['names'].get(get_language(), d['name'])
+        d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
+        return d
 
     def to_cache_events(self):
         events = []
         for event in Event.objects.filter(Q(main_card_id=self.id) | Q(secondary_card_id=self.id)):
-            names = event.names or {}
-            names['en'] = event.name
-            names['ja'] = event.japanese_name
             events.append({
                 'id': event.id,
-                'names': names,
+                'name': event.name,
+                'japanese_name': event.japanese_name,
                 'image': unicode(event.image),
             })
         return events if events else None
@@ -723,19 +712,16 @@ class Card(MagiModel):
 
     @classmethod
     def cached_gachas_pre(self, d):
-        d['name'] = d['names'].get('en', None)
-        d['japanese_name'] = d['names'].get('ja', None)
-        d['t_name'] = d['unicode'] = d['names'].get(get_language(), d['name'])
+        d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
+        return d
 
     def to_cache_gachas(self):
         gachas = []
         for gacha in Gacha.objects.filter(cards__id=self.id):
-            names = gacha.names or {}
-            names['en'] = gacha.name
-            names['ja'] = gacha.japanese_name
             gachas.append({
                 'id': gacha.id,
-                'names': names,
+                'name': gacha.name,
+                'japanese_name': gacha.japanese_name,
                 'image': unicode(gacha.image),
             })
         return gachas if gachas else None
@@ -870,10 +856,6 @@ class CollectibleCard(AccountAsOwnerModel):
     @property
     def http_art_url(self):
         return self.card.http_art_trained_url if self.trained and not self.prefer_untrained else self.card.http_art_url
-
-    @property
-    def art_url_original(self):
-        return self.card.art_trained_original_url if self.trained and not self.prefer_untrained else self.card.art_original_url
 
     @property
     def color(self):
@@ -1147,7 +1129,7 @@ class Song(MagiModel):
 
     DIFFICULTY_VALIDATORS = [
         MinValueValidator(1),
-        MaxValueValidator(50),
+        MaxValueValidator(40),
     ]
 
     DIFFICULTIES = [
@@ -1155,7 +1137,6 @@ class Song(MagiModel):
         ('normal', _('Normal')),
         ('hard', _('Hard')),
         ('expert', _('Expert')),
-        ('special', _('Special')),
     ]
 
     SONGWRITERS_DETAILS = [
@@ -1214,8 +1195,6 @@ class Song(MagiModel):
     hard_difficulty = models.PositiveIntegerField(string_concat(_('Hard'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
     expert_notes = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Notes')), null=True)
     expert_difficulty = models.PositiveIntegerField(string_concat(_('Expert'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
-    special_notes = models.PositiveIntegerField(string_concat(_('Special'), ' - ', _('Notes')), null=True)
-    special_difficulty = models.PositiveIntegerField(string_concat(_('Special'), ' - ', _('Difficulty')), validators=DIFFICULTY_VALIDATORS, null=True)
 
     UNLOCK = OrderedDict([
         ('gift', {
@@ -1309,7 +1288,6 @@ class PlayedSong(AccountAsOwnerModel):
         ('normal', _('Normal')),
         ('hard', _('Hard')),
         ('expert', _('Expert')),
-        ('special', _('Special')),
     )
 
     i_difficulty = models.PositiveIntegerField(_('Difficulty'), choices=i_choices(DIFFICULTY_CHOICES), default=0)

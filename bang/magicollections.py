@@ -1834,7 +1834,7 @@ SONG_ICONS = {
     'japanese_name': 'song',
     'name': 'translate',
     'romaji_name': 'song',
-    'special_band': 'id',
+    'special_band': 'rock',
     'itunes_id': 'play',
     'length': 'times',
     'unlock': 'unlock',

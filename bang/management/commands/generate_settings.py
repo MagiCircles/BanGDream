@@ -49,6 +49,7 @@ def generate_settings():
 
     two_days_ago = now - datetime.timedelta(days=2)
     in_twelve_days = now + datetime.timedelta(days=12) # = event length 7d + 5d margin
+    events_with_cards = []
     for version in models.Account.VERSIONS.values():
         for event in (list(
                 models.Event.objects.filter(**{
@@ -58,6 +59,8 @@ def generate_settings():
                     version['prefix'] + 'end_date__gte': now,
                     version['prefix'] + 'end_date__lte': in_twelve_days,
                 }))):
+            if version in ['JP', 'EN']:
+                events_with_cards += event
             image = getattr(event, u'{}image_url'.format(version['prefix']))
             if not image:
                 continue
@@ -80,9 +83,28 @@ def generate_settings():
     ) for member in all_members]
 
     print 'Get homepage cards'
-    cards = models.Card.objects.exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(show_art_on_homepage=False, show_trained_art_on_homepage=False).order_by('-release_date')[:5]
+    cards = models.Card.objects.exclude(
+        Q(art__isnull=True) | Q(art=''),
+    ).exclude(
+        i_rarity=1,
+    ).exclude(
+        show_art_on_homepage=False,
+        show_trained_art_on_homepage=False,
+    ).order_by('-release_date')
+    condition = Q()
+    for event in events_with_cards:
+        if event._meta.model.__name__ == 'Gacha':
+            condition |= Q(gachas=event)
+        else:
+            condition |= Q(secondary_card_event=event)
+            condition |= Q(main_card_event=event)
+    filtered_cards = cards.filter(condition)
+    if filtered_cards:
+        filtered_cards = filtered_cards[:10]
+    else:
+        filtered_cards = cards[:5]
     homepage_cards = []
-    for c in cards:
+    for c in filtered_cards:
         if c.show_art_on_homepage:
             homepage_cards.append({
                 'art_url': c.art_url,

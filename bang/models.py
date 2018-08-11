@@ -1022,6 +1022,13 @@ class Event(MagiModel):
     i_boost_attribute = models.PositiveIntegerField(_('Boost attribute'), choices=BOOST_ATTRIBUTE_CHOICES, null=True)
     english_boost_attribute = property(getInfoFromChoices('boost_attribute', Card.ATTRIBUTES, 'english'))
 
+    BOOST_STAT_CHOICES = (
+        ('performance', _('Performance')),
+        ('technique', _('Technique')),
+        ('visual', _('Visual')),
+    )
+    i_boost_stat = models.PositiveIntegerField(_('Boost stat'), choices=i_choices(BOOST_STAT_CHOICES), null=True)
+
     boost_members = models.ManyToManyField(Member, related_name='boost_in_events', verbose_name=_('Boost members'))
 
     @property

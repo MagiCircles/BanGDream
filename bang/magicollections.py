@@ -1077,7 +1077,7 @@ EVENT_ITEM_FIELDS_ORDER = [
     u'{}{}'.format(_v['prefix'], _f) for _v in models.Account.VERSIONS.values()
     for _f in models.Event.FIELDS_PER_VERSION
 ] + [
-    'boost_attribute', 'boost_members', 'cards',
+    'boost_attribute', 'boost_stat', 'boost_members', 'cards',
 ]
 
 EVENT_ICONS = {
@@ -1109,6 +1109,9 @@ EVENT_CUTEFORM = {
         },
         'i_boost_attribute': {
             'image_folder': 'i_attribute',
+        },
+        'i_boost_stat': {
+            'image_folder': 'stats',
         },
         'version': {
             'to_cuteform': lambda k, v: CardCollection._version_images[k],
@@ -1158,6 +1161,10 @@ class EventCollection(MagiCollection):
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_boost_attribute,
             ),
+            'boost_stat': u'{static_url}img/stats/{value}.png'.format(
+                static_url=RAW_CONTEXT['static_url'],
+                value=item.i_boost_stat,
+            ),
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
@@ -1191,7 +1198,7 @@ class EventCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         per_line = 2
         default_ordering = '-start_date'
-        ajax_callback = 'loadEventGachaInList'
+        ajax_callback = 'loadEventInList'
 
         filter_form = forms.EventFilterForm
         show_collect_button = {
@@ -1379,6 +1386,7 @@ class EventCollection(MagiCollection):
         permissions_required = ['manage_main_items']
         savem2m = True
         filter_cuteform = EVENT_CUTEFORM
+        ajax_callback = 'loadEventForm'
 
         def after_save(self, request, instance, type=None):
             instance = super(EventCollection.AddView, self).after_save(request, instance, type=type)
@@ -1390,6 +1398,7 @@ class EventCollection(MagiCollection):
         savem2m = True
         filter_cuteform = EVENT_CUTEFORM
         allow_delete = True
+        ajax_callback = 'loadEventForm'
 
         def to_translate_form_class(self):
             super(EventCollection.EditView, self).to_translate_form_class()
@@ -1605,7 +1614,7 @@ class GachaCollection(MagiCollection):
         default_ordering = '-start_date'
         per_line = 2
         filter_form = forms.GachaFilterForm
-        ajax_callback = 'loadEventGachaInList'
+        ajax_callback = 'loadGachaInList'
 
     def _after_save(self, request, instance):
         for card in instance.cards.all():

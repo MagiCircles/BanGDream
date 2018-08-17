@@ -1903,22 +1903,17 @@ class SongCollection(MagiCollection):
                 static_url=RAW_CONTEXT['static_url'],
                 difficulty=difficulty,
             )
-            notes = getattr(item, u'{}_notes'.format(difficulty), None)
-            diff = getattr(item, u'{}_difficulty'.format(difficulty), None)
-            if notes != None:
-                setSubField(fields, u'{}_notes'.format(difficulty), key='image',
-                            value=image)
+            diff = getattr(item, u'{}_difficulty'.format(difficulty), None)            
+            setSubField(fields, u'{}_notes'.format(difficulty), key='image', value=image)            
             if diff != None:
-                print diff
-                setSubField(fields, u'{}_difficulty'.format(difficulty), key='image',
-                            value=image)
+                setSubField(fields, u'{}_difficulty'.format(difficulty), key='image', value=image)
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='type',
                             value='html')
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='value',
                     value=mark_safe(u'{big_images}{small_images}'.format(diff=diff,
-            big_images=(u'<img src="{}" class="song-big-note">'.format(note_image) * (diff // 5)),
-            small_images=(u'<img src="{}" class="song-small-note">'.format(note_image) * (diff % 5)),
-        )))
+                    big_images=(u'<img src="{}" class="song-big-note">'.format(note_image) * (diff // 5)),
+                    small_images=(u'<img src="{}" class="song-small-note">'.format(note_image) * (diff % 5)),
+                )))
 
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
@@ -1954,23 +1949,19 @@ class SongCollection(MagiCollection):
             note_image = u'{}img/note.png'.format(RAW_CONTEXT['static_url'])
             for difficulty, verbose_name in models.Song.DIFFICULTIES:
                 diff_value=''
-                notes = getattr(item, u'{}_notes'.format(difficulty), None)
                 diff = getattr(item, u'{}_difficulty'.format(difficulty), None)
                 if diff != None: diff_value=mark_safe(u'{big_images}{small_images}'.format(diff=diff,
                     big_images=(u'<img src="{}" class="song-big-note">'.format(note_image) * (diff // 5)),
                     small_images=(u'<img src="{}" class="song-small-note">'.format(note_image) * (diff % 5)),
                     ))
                 if diff_value != '': diff_value+='<br />'
-                if notes != None: diff_value+=_(u'{} notes').format(notes)
+                if getattr(item, u'{}_notes'.format(difficulty), None) != None: diff_value+=_(u'{} notes').format(getattr(item, u'{}_notes'.format(difficulty), None))
                 if diff_value != '':
                     fields[difficulty] = {
                         'verbose_name': verbose_name,
                         'type': 'html',
                         'value': diff_value,
-                        'image': u'{static_url}img/songs/{difficulty}.png'.format(
-                            static_url=RAW_CONTEXT['static_url'],
-                            difficulty=difficulty,
-                        ),
+                        'image': u'{static_url}img/songs/{difficulty}.png'.format(static_url=RAW_CONTEXT['static_url'], difficulty=difficulty,),
                     }
 
             if 'played' in fields:

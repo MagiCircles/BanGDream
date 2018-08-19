@@ -5,7 +5,14 @@
   </div>
   <div class="col-md-7">
     <div class="song-title-section">
+      {% if song.band == 'Special Band' and song.special_band %}
+      <h1 class="text-main">
+        {% if song.special_band != song.t_special_band  %}{{ song.t_special_band }}
+        {% else %}<span class="romaji">{{ song.t_special_band }}</span>{% endif %}
+      </h1>
+      {% else %}
       <img src="{{ static_url }}img/band/{{ song.band }}.png" class="band" alt="{{ song.band }}">
+      {% endif %}
       <h1>
         {% if LANGUAGE_CODE == 'ja' or not song.romaji_name  %}{{ song.japanese_name }}
         {% else %}<span class="romaji">{{ song.romaji_name }}</span>{% endif %}

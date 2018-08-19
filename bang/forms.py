@@ -872,7 +872,7 @@ def to_translate_song_form_class(cls):
     return _TranslateSongForm
 
 class SongFilterForm(MagiFiltersForm):
-    search_fields = ['japanese_name', 'romaji_name', 'name', 'composer', 'lyricist', 'arranger', 'c_unlock_variables']
+    search_fields = ['japanese_name', 'romaji_name', 'name', 'special_band', 'composer', 'lyricist', 'arranger', 'c_unlock_variables']
     ordering_fields = [
         ('release_date', _('Release date')),
         ('japanese_name', _('Title')),

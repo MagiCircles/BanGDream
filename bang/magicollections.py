@@ -1834,6 +1834,7 @@ SONG_ICONS = {
     'japanese_name': 'song',
     'name': 'translate',
     'romaji_name': 'song',
+    'special_band': 'rock',
     'itunes_id': 'play',
     'length': 'times',
     'unlock': 'unlock',
@@ -1852,7 +1853,7 @@ class SongCollection(MagiCollection):
     icon = 'song'
     reportable = False
     blockable = False
-    translated_fields = ('name', )
+    translated_fields = ('name', 'special_band')
     navbar_link_list = 'bangdream'
 
     types = {
@@ -1983,10 +1984,12 @@ class SongCollection(MagiCollection):
 
     class AddView(MagiCollection.AddView):
         staff_required = True
+        ajax_callback = 'loadSongForm'
         permissions_required = ['manage_main_items']
 
     class EditView(MagiCollection.EditView):
         staff_required = True
+        ajax_callback = 'loadSongForm'
         permissions_required = ['manage_main_items']
         allow_delete = True
 

@@ -177,7 +177,7 @@ class Member(MagiModel):
     square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
 
     BAND_CHOICES = (
-        'Poppin\' Party',
+        'Poppin\'Party',
         'Afterglow',
         'Pastel*Palettes',
         'Roselia',
@@ -1168,8 +1168,12 @@ class Song(MagiModel):
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('s'))
     image = models.ImageField('Album cover', upload_to=uploadItem('s'))
 
-    BAND_CHOICES = list(Member.BAND_CHOICES) + ['Glitter*Green']
+    BAND_CHOICES = list(Member.BAND_CHOICES) + ['Glitter*Green', 'Special Band']
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
+
+    special_band = models.CharField(_('Band'), max_length=100, null=True)
+    SPECIAL_BANDS_CHOICES = LANGUAGES_DIFFERENT_CHARSET
+    d_special_bands = models.TextField(_('Band'), null=True)
 
     japanese_name = models.CharField(_('Title'), max_length=100, unique=True)
     romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)

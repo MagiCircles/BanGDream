@@ -1,6 +1,7 @@
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, get_language
 from magi.default_settings import RAW_CONTEXT
-from magi.utils import globalContext, toTimeZoneDateTime, toCountDown
+from magi.utils import globalContext, toTimeZoneDateTime, toCountDown, staticImageURL
 from bang import models
 #from bang.model_choices import TRAINABLE_RARITIES
 
@@ -64,6 +65,15 @@ def rarity_to_stars_images(rarity):
         static_url=RAW_CONTEXT['static_url'],
         un='' if rarity in models.Card.TRAINABLE_RARITIES else 'un',
     ) * rarity
+
+def generateDifficulty(difficulty, space):
+    note_image = staticImageURL('note.png')
+    val = mark_safe(u'{big_images}{small_images}'.format(
+    big_images=(u'<img src="{}" class="song-big-note">'.format(note_image) * (difficulty // 5)),
+    small_images=(u'<img src="{}" class="song-small-note">'.format(note_image) * (difficulty % 5)),))
+    if space is True:
+        val += '<br />'
+    return val
 
 def add_rerun_buttons(view, buttons, request, item):
     if request.user.is_authenticated() and request.user.hasPermission('manage_main_items'):

@@ -1163,13 +1163,35 @@ class CostumeForm(AutoForm):
 
         self.fields['member'].help_text = 'If associating this costume with a card, you can leave this blank. I\'ll take the member from the card.'
 
+    def has_at_least_one_chibi(self, cleaned_data):
+        if cleaned_data.get('chibis'):
+            return True
+
+        if not self.is_creating:
+            survivors = set()
+            for image_obj in self.all_chibis:
+                field_name = u'delete_chibi_{}'.format(image_obj.id)
+                if not cleaned_data.get(field_name):
+                    survivors.add(image_obj.id)
+            if survivors:
+                return True
+
+        return False
+    
+    def has_a_model(self, cleaned_data):
+        if not self.is_creating and self.instance.model_pkg:
+            return True
+        
+        if cleaned_data.get('model'):
+            return True
+
     def clean(self):
         cleaned_data = super(CostumeForm, self).clean()
 
         if cleaned_data.get('i_costume_type') != models.Costume.get_i('costume_type', 'live'):
             cleaned_data['card'] = None
         
-        if not (cleaned_data.get('model') or cleaned_data.get('chibis')):
+        if not (self.has_a_model(cleaned_data) or self.has_at_least_one_chibi(cleaned_data)):
             raise forms.ValidationError('A costume must have a model or chibis on it.')
 
         if cleaned_data.get('card'):
@@ -1198,7 +1220,6 @@ class CostumeForm(AutoForm):
                 field_name = u'delete_chibi_{}'.format(imageObject.id)
                 field = self.fields.get(field_name)
                 if field and self.cleaned_data[field_name]:
-                    instance.chibis.remove(imageObject)
                     imageObject.delete()
 
         # Upload new chibis

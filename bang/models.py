@@ -1968,7 +1968,7 @@ class Costume(MagiModel):
 
     _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('cos/z'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'), null=True)
-    model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'))
+    model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'), null=True)
 
     @property
     def display_image(self):
@@ -1997,9 +1997,42 @@ class Costume(MagiModel):
     # additionally, this is nullable just in case we want to upload NPC costumes.
     member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='associated_costume', null=True, on_delete=models.CASCADE)
     card = models.OneToOneField(Card, verbose_name=_('Card'), related_name='associated_costume', null=True, on_delete=models.SET_NULL)
+    chibis = models.ManyToManyField(Image, related_name="associated_chibi", verbose_name=_('Chibi'))
 
     def __unicode__(self):
         return u'{}{}'.format(
             u'{} - '.format(self.member.t_name) if self.member_id else '',
             self.t_name,
         )
+    
+    # Cache chibis
+
+    _cache_chibis_days = 200
+    _cache_chibis_last_update = models.DateTimeField(null=True)
+    _cache_chibis_ids = models.TextField(null=True)
+    _cache_chibis_paths = models.TextField(null=True)
+
+    def update_cache_chibis(self, chibis=None):
+        self._cache_chibis_last_update = timezone.now()
+        if not chibis:
+            chibis = self.chibis.all()
+        self._cache_chibis_ids = join_data(*[ image.id for image in chibis ])
+        self._cache_chibis_paths = join_data(*[ unicode(image) for image in chibis ])
+
+    def force_cache_chibis(self):
+        self.update_cache_chibis()
+        self.save()
+
+    @property
+    def cached_chibis(self):
+        if not self._cache_chibis_last_update or self._cache_chibis_last_update < timezone.now() - datetime.timedelta(days=self._cache_chibis_days):
+            self.force_cache_chibis()
+        if not self._cache_chibis_ids:
+            return []
+        return [AttrDict({
+            'id': id,
+            'pk': id,
+            'image': path,
+            'image_url': get_image_url_from_path(path),
+            'http_image_url': get_http_image_url_from_path(path),
+        }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]

@@ -1139,12 +1139,22 @@ class AssetFilterForm(MagiFiltersForm):
 # Costume form
 
 class CostumeForm(AutoForm):
+    chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
+
     def __init__(self, *args, **kwargs):
         super(CostumeForm, self).__init__(*args, **kwargs)
 
         if not self.is_creating:
             self.instance.previous_card = self.instance.card
             self.instance.previous_member = self.instance.member
+
+            # chibi delete fields
+            self.all_chibis = self.instance.chibis.all()
+            for imageObject in self.all_chibis:
+                self.fields[u'delete_chibi_{}'.format(imageObject.id)] = forms.BooleanField(
+                    label=mark_safe(u'Delete chibi <img src="{}" height="100" />'.format(imageObject.image_url)),
+                    initial=False, required=False,
+                )
 
         q = Q(associated_costume__isnull=True)
         if self.instance.card:
@@ -1158,16 +1168,19 @@ class CostumeForm(AutoForm):
 
         if cleaned_data.get('i_costume_type') != models.Costume.get_i('costume_type', 'live'):
             cleaned_data['card'] = None
+        
+        if not (cleaned_data.get('model') or cleaned_data.get('chibis')):
+            raise forms.ValidationError('A costume must have a model or chibis on it.')
 
-        if not cleaned_data.get('card'):
-            if not cleaned_data.get('image'):
-                raise forms.ValidationError('Costumes without associated cards must have a preview image.')
-            if not cleaned_data.get('name'):
-                raise forms.ValidationError('Costumes without associated cards must have a name.')
-        else:
+        if cleaned_data.get('card'):
             cleaned_data['member'] = cleaned_data['card'].member
             # We'll take the card's title, so set the Costume's name to none
             cleaned_data['name'] = None
+        else:
+            if not cleaned_data.get('image') and cleaned_data.get('model'):
+                raise forms.ValidationError('Costumes without associated cards must have a preview image.')
+            if not cleaned_data.get('name'):
+                raise forms.ValidationError('Costumes without associated cards must have a name.')
 
         return cleaned_data
 
@@ -1179,6 +1192,35 @@ class CostumeForm(AutoForm):
 
         if commit:
             instance.save()
+
+        # Delete existing chibis
+        if not self.is_creating:
+            for imageObject in self.all_chibis:
+                field_name = u'delete_chibi_{}'.format(imageObject.id)
+                field = self.fields.get(field_name)
+                if field and self.cleaned_data[field_name]:
+                    instance.chibis.remove(imageObject)
+                    imageObject.delete()
+
+        # Upload new chibis
+        for image in self.cleaned_data['chibis']:
+            if isinstance(image, int):
+                continue
+            name, extension = os.path.splitext(image.name)
+            imageObject = models.Image.objects.create()
+            image = shrinkImageFromData(image.read(), image.name)
+            if instance.card:
+                use_attribute = instance.card.english_attribute
+            else:
+                use_attribute = 'cos' # ehhh
+            image.name = u'{name}-{attribute}-chibi.{extension}'.format(
+                name=tourldash(instance.member.name),
+                attribute=use_attribute,
+                extension=extension,
+            )
+            imageObject.image.save(image.name, image)
+            instance.chibis.add(imageObject)
+        instance.force_cache_chibis()
 
         if instance.member:
             instance.member.force_cache_totals()

@@ -2657,6 +2657,10 @@ class CostumeCollection(MagiCollection):
         # not with 4 to a row
         show_relevant_fields_on_ordering = False
 
+        alt_views = MagiCollection.ListView.alt_views + [
+            ('chibis', { 'verbose_name': _('Chibi'), 'per_line': 2 }),
+        ]
+
         def to_fields(self, item, *args, **kwargs):
             fields = super(CostumeCollection.ListView, self).to_fields(item, *args, **kwargs)
             return fields

@@ -1,10 +1,24 @@
 {% with costume=item %}
+{% if view == 'chibis' and costume.cached_chibis %}
+<a style="display: block;"
+    {% if costume.card %}
+    href="{{ costume.card.item_url }}" data-ajax-url="{{ costume.card.ajax_item_url }}" data-ajax-title="{{ costume }}" class="panel panel-{{ costume.card.english_attribute }} text-center"
+    {% else %}
+    href="{{ costume.item_url }}" data-ajax-url="{{ costume.ajax_item_url }}" data-ajax-title="{{ costume }}" class="panel panel-secondary text-center"
+    {% endif %}
+>
+    {# above: link to cards instead of live2d if we can, to be like the old chibi view #}
+    <div class="panel-heading">{{ costume }}</div>
+    <div class="panel-content padding20"><div>{% for chibi in costume.cached_chibis %}<img src="{{ chibi.image_url }}" alt="chibi" width="33%" />{% endfor %}</div></div>
+</a>
+{% else %}
 <a href="{{ costume.item_url }}" class="costume_link" data-ajax-url="{{ costume.ajax_item_url }}" data-ajax-title="{{ costume }}">
     <div class="cos_image">
-      <img alt="{{ costume }}" src="{{ costume.display_image_thumbnail_url }}" class="img-responsive" style="height: 200px"/>
+        <img alt="{{ costume }}" src="{{ costume.display_image_thumbnail_url }}" class="img-responsive" style="height: 200px"/>
     </div>
     <p class="cos_caption">
         {{ costume }}
     </p>
 </a>
+{% endif %}
 {% endwith %}

@@ -766,17 +766,6 @@ class CardCollection(MagiCollection):
                         ] if image_url],
                         'icon': 'pictures',
                     }))
-            # Add chibis
-            if item.cached_chibis:
-                extra_fields.append(('chibis', {
-                    'icon': 'pictures',
-                    'type': 'images',
-                    'verbose_name': _('Chibi'),
-                    'images': [{
-                        'value': chibi.image_url,
-                        'verbose_name': _('Chibi'),
-                    } for chibi in item.cached_chibis],
-                }))
             # Add cameos
             if item.cached_cameos:
                 extra_fields.append(('cameo_members', {
@@ -790,8 +779,19 @@ class CardCollection(MagiCollection):
                         'link_text': cameo.name,
                     } for cameo in item.cached_cameos]
                 }))
-            # Add live2d viewer
+            # Add live2d viewer and chibis
             if hasattr(item, 'associated_costume'):
+                if item.associated_costume.cached_chibis:
+                    extra_fields.append(('chibis', {
+                        'icon': 'pictures',
+                        'type': 'images',
+                        'verbose_name': _('Chibi'),
+                        'images': [{
+                            'value': chibi.image_url,
+                            'verbose_name': _('Chibi'),
+                        } for chibi in item.associated_costume.cached_chibis],
+                    }))
+
                 to_cos_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
                     url=item.associated_costume.item_url,
                     ajax_url=item.associated_costume.ajax_item_url + "?from_card",

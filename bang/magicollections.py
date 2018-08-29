@@ -907,7 +907,6 @@ class CardCollection(MagiCollection):
                     'skill_type',
                 ],
             }),
-            ('chibis', { 'verbose_name': _('Chibi') }),
             ('art', { 'verbose_name': _('Art') }),
             ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
             ('transparent', { 'verbose_name': _('Transparent') }),
@@ -2636,6 +2635,17 @@ class CostumeCollection(MagiCollection):
                     'image': item.member.square_image_url,
                 })
             extra_fields.append(('costume', member_field_params))
+        
+        if item.cached_chibis:
+            extra_fields.append(('chibis', {
+                'icon': 'pictures',
+                'type': 'images',
+                'verbose_name': _('Chibi'),
+                'images': [{
+                    'value': chibi.image_url,
+                    'verbose_name': _('Chibi'),
+                } for chibi in item.cached_chibis],
+            }))
 
         fields = super(CostumeCollection, self).to_fields(view, item, extra_fields=extra_fields, exclude_fields=exclude_fields, *args, **kwargs)
         return fields

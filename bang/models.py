@@ -73,12 +73,6 @@ DREAMFES_PER_LANGUAGE = {
     'zh-hant': u'夢幻祭典轉蛋',
 }
 
-class Image(BaseMagiModel):
-    image = models.ImageField(upload_to=uploadToKeepName('images/'))
-
-    def __unicode__(self):
-        return unicode(self.image)
-
 ############################################################
 # Account
 
@@ -1903,6 +1897,13 @@ class Asset(MagiModel):
 ############################################################
 # Costume
 
+class Chibi(BaseMagiModel):
+    image = models.ImageField(upload_to=uploadToKeepName('images/'))
+    costume = models.ForeignKey('Costume', verbose_name=_('Costume'), related_name='owned_chibis', on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return unicode(self.image)
+
 class Costume(MagiModel):
     collection_name = 'costume'
     owner = models.ForeignKey(User, related_name='added_costume')
@@ -1961,7 +1962,7 @@ class Costume(MagiModel):
     # additionally, this is nullable just in case we want to upload NPC costumes.
     member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='associated_costume', null=True, on_delete=models.CASCADE)
     card = models.OneToOneField(Card, verbose_name=_('Card'), related_name='associated_costume', null=True, on_delete=models.SET_NULL)
-    chibis = models.ManyToManyField(Image, related_name="associated_chibi", verbose_name=_('Chibi'))
+    # owned_chibis
 
     def __unicode__(self):
         return u'{}{}'.format(
@@ -1979,7 +1980,7 @@ class Costume(MagiModel):
     def update_cache_chibis(self, chibis=None):
         self._cache_chibis_last_update = timezone.now()
         if not chibis:
-            chibis = self.chibis.all()
+            chibis = Chibi.objects.filter(costume=self)
         self._cache_chibis_ids = join_data(*[ image.id for image in chibis ])
         self._cache_chibis_paths = join_data(*[ unicode(image) for image in chibis ])
 

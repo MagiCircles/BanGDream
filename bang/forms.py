@@ -216,7 +216,7 @@ class CardForm(AutoForm):
             if isinstance(image, int):
                 continue
             name, extension = os.path.splitext(image.name)
-            imageObject = models.Image.objects.create()
+            imageObject = models.Chibi.objects.create()
             image = shrinkImageFromData(image.read(), image.name)
             image.name = u'{name}-{attribute}-chibi.{extension}'.format(
                 name=tourldash(instance.member.name),
@@ -1149,7 +1149,7 @@ class CostumeForm(AutoForm):
             self.instance.previous_member = self.instance.member
 
             # chibi delete fields
-            self.all_chibis = self.instance.chibis.all()
+            self.all_chibis = self.instance.owned_chibis.all()
             for imageObject in self.all_chibis:
                 self.fields[u'delete_chibi_{}'.format(imageObject.id)] = forms.BooleanField(
                     label=mark_safe(u'Delete chibi <img src="{}" height="100" />'.format(imageObject.image_url)),
@@ -1190,8 +1190,7 @@ class CostumeForm(AutoForm):
         if not self.is_creating and instance.member != self.instance.previous_member:
             self.instance.previous_member.force_cache_totals()
 
-        if commit:
-            instance.save()
+        instance.save()
 
         # Delete existing chibis
         if not self.is_creating:
@@ -1207,7 +1206,7 @@ class CostumeForm(AutoForm):
             if isinstance(image, int):
                 continue
             name, extension = os.path.splitext(image.name)
-            imageObject = models.Image.objects.create()
+            imageObject = models.Chibi()
             image = shrinkImageFromData(image.read(), image.name)
             if instance.card:
                 use_attribute = instance.card.english_attribute
@@ -1218,8 +1217,8 @@ class CostumeForm(AutoForm):
                 attribute=use_attribute,
                 extension=extension,
             )
+            imageObject.costume = instance
             imageObject.image.save(image.name, image)
-            instance.chibis.add(imageObject)
         instance.force_cache_chibis()
 
         if instance.member:

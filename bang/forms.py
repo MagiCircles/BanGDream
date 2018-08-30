@@ -1148,7 +1148,7 @@ class CostumeForm(AutoForm):
         if not self.is_creating and self.instance.model_pkg:
             return True
         
-        if cleaned_data.get('model'):
+        if cleaned_data.get('model_pkg'):
             return True
 
     def clean(self):

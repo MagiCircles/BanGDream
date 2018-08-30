@@ -184,48 +184,16 @@ class MemberFilterForm(MagiFiltersForm):
 # Card
 
 class CardForm(AutoForm):
-    chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
-
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
         self.previous_member_id = None if self.is_creating else self.instance.member_id
-        # Delete existing chibis
-        if not self.is_creating:
-            self.all_chibis = self.instance.chibis.all()
-            for imageObject in self.all_chibis:
-                self.fields[u'delete_chibi_{}'.format(imageObject.id)] = forms.BooleanField(
-                    label=mark_safe(u'Delete chibi <img src="{}" height="100" />'.format(imageObject.image_url)),
-                    initial=False, required=False,
-                )
 
     def save(self, commit=False):
         instance = super(CardForm, self).save(commit=False)
         if self.previous_member_id != instance.member_id:
             instance.update_cache('member')
         instance.save()
-        # Delete existing chibis
-        if not self.is_creating:
-            for imageObject in self.all_chibis:
-                field_name = u'delete_chibi_{}'.format(imageObject.id)
-                field = self.fields.get(field_name)
-                if field and self.cleaned_data[field_name]:
-                    instance.chibis.remove(imageObject)
-                    imageObject.delete()
-        # Upload new chibis
-        for image in self.cleaned_data['chibis']:
-            if isinstance(image, int):
-                continue
-            name, extension = os.path.splitext(image.name)
-            imageObject = models.Chibi.objects.create()
-            image = shrinkImageFromData(image.read(), image.name)
-            image.name = u'{name}-{attribute}-chibi.{extension}'.format(
-                name=tourldash(instance.member.name),
-                attribute=instance.english_attribute,
-                extension=extension,
-            )
-            imageObject.image.save(image.name, image)
-            instance.chibis.add(imageObject)
-        instance.force_cache_chibis()
+
         # members can't cameo in their own cards
         instance.cameo_members = filter(lambda x: x.id != instance.member_id, self.cleaned_data['cameo_members'])
         instance.update_cache('cameos')
@@ -314,9 +282,7 @@ class CardFilterForm(MagiFiltersForm):
     # View filter
 
     def _view_to_queryset(self, queryset, request, value):
-        if value == 'chibis':
-            return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
-        elif value == 'art':
+        if value == 'art':
             return queryset.filter(art__isnull=False)
         elif value == 'transparent':
             return queryset.filter(transparent__isnull=False)

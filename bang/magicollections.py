@@ -2671,6 +2671,13 @@ class CostumeCollection(MagiCollection):
             ('chibis', { 'verbose_name': _('Chibi'), 'per_line': 2 }),
         ]
 
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(CostumeCollection.ListView, self).get_queryset(queryset, parameters, request)
+            if parameters.get('view') == 'chibis':
+                return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
+            else:
+                return queryset.filter(model_pkg__isnull=False).exclude(model_pkg='')
+
         def to_fields(self, item, *args, **kwargs):
             fields = super(CostumeCollection.ListView, self).to_fields(item, *args, **kwargs)
             return fields

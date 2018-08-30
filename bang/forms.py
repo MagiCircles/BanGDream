@@ -1280,13 +1280,6 @@ class CostumeFilterForm(MagiFiltersForm):
         [(ID_OF_MISC_MEMBERS, _('Other'))], initial=None, label=_('Member'))
     member_filter = MagiFilter(to_queryset=_member_to_queryset)
 
-    def _view_to_queryset(self, queryset, request, value):
-        if value == 'chibis':
-            return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
-        else:
-            return queryset.filter(model__isnull=False)
-    view_filter = MagiFilter(to_queryset=_view_to_queryset)
-
     class Meta(MagiFiltersForm.Meta):
         model = models.Costume
         fields = ('view', 'search', 'i_costume_type', 'member', 'i_band', 'i_rarity', 'version')

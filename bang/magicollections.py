@@ -297,7 +297,7 @@ class MemberCollection(MagiCollection):
             del(fields['square_image'])
         if item.classroom is not None and item.school is not None:
             setSubField(fields, 'school', key='type', value='html')
-            setSubField(fields, 'school', key='value', value= u'<b>{} <span class="text-muted">({})</span></b>'.format(item.school, item.classroom))
+            setSubField(fields, 'school', key='value', value= u'<b>{} <span class="text-muted">({})</span></b>'.format(item.t_school, item.classroom))
         setSubField(fields, 'birthday', key='type', value='text')
         setSubField(fields, 'birthday', key='value', value=lambda f: dateformat.format(item.birthday, "F d"))
         setSubField(fields, 'band', key='type', value=lambda f: 'image_link')

@@ -1889,6 +1889,6 @@ class Costume(MagiModel):
 
     def __unicode__(self):
         return u'{}{}'.format(
-            u'{} - '.format(self.member.name) if self.member_id else '',
+            u'{} - '.format(self.member.t_name) if self.member_id else '',
             self.t_name,
         )

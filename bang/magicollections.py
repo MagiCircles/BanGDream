@@ -1899,15 +1899,14 @@ class SongCollection(MagiCollection):
         setSubField(fields, 'unlock', key='value', value=item.unlock_sentence)
 
         for difficulty, verbose_name in models.Song.DIFFICULTIES:
-            note_image = staticImageURL('note.png')
-            image = staticImageURL('songs/{difficulty}.png'.format(difficulty=difficulty))            
+            image = staticImageURL(difficulty, folder='songs', extension='png')            
             setSubField(fields, u'{}_notes'.format(difficulty), key='image', value=image)
 
             diff = getattr(item, u'{}_difficulty'.format(difficulty), None)
             if diff is not None:
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='image', value=image)
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='type', value='html')
-                setSubField(fields, u'{}_difficulty'.format(difficulty), key='value', value=generateDifficulty(diff, False))
+                setSubField(fields, u'{}_difficulty'.format(difficulty), key='value', value=mark_safe(u'{}<br />'.format(generateDifficulty(diff))))
 
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
@@ -1944,14 +1943,15 @@ class SongCollection(MagiCollection):
                 diff_value = ''
                 diff = getattr(item, u'{}_difficulty'.format(difficulty), None)
                 if diff is not None:
-                    diff_value = generateDifficulty(diff, True)
-                if getattr(item, u'{}_notes'.format(difficulty), None) != None: diff_value+=_(u'{} notes').format(getattr(item, u'{}_notes'.format(difficulty), None))
+                    diff_value = mark_safe(u'{}<br />'.format(generateDifficulty(diff)))
+                if getattr(item, u'{}_notes'.format(difficulty), None) is not None:
+                    diff_value+=_(u'{} notes').format(getattr(item, u'{}_notes'.format(difficulty), None))
                 if diff_value != '':
                     fields[difficulty] = {
                         'verbose_name': verbose_name,
                         'type': 'html',
-                        'value': diff_value,
-                        'image': staticImageURL('songs/{difficulty}.png'.format(difficulty=difficulty)),
+                        'value': mark_safe(u'{}'.format(diff_value)),
+                        'image': staticImageURL(difficulty, folder='songs', extension='png'),
                     }
 
             if 'played' in fields:

@@ -66,13 +66,12 @@ def rarity_to_stars_images(rarity):
         un='' if rarity in models.Card.TRAINABLE_RARITIES else 'un',
     ) * rarity
 
-def generateDifficulty(difficulty, space):
+def generateDifficulty(difficulty):
     note_image = staticImageURL('note.png')
-    val = mark_safe(u'{big_images}{small_images}'.format(
-    big_images=(u'<img src="{}" class="song-big-note">'.format(note_image) * (difficulty // 5)),
-    small_images=(u'<img src="{}" class="song-small-note">'.format(note_image) * (difficulty % 5)),))
-    if space is True:
-        val += '<br />'
+    val = '{big_images}{small_images}'.format(
+        big_images=(u'<img src="{}" class="song-big-note">'.format(note_image) * (difficulty // 5)),
+        small_images=(u'<img src="{}" class="song-small-note">'.format(note_image) * (difficulty % 5)),
+    )
     return val
 
 def add_rerun_buttons(view, buttons, request, item):

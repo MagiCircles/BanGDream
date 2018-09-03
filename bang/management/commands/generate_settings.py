@@ -50,7 +50,7 @@ def generate_settings():
     two_days_ago = now - datetime.timedelta(days=2)
     in_twelve_days = now + datetime.timedelta(days=12) # = event length 7d + 5d margin
     events_with_cards = []
-    for version in models.Account.VERSIONS.values():
+    for version_name, version in models.Account.VERSIONS.items():
         for event in (list(
                 models.Event.objects.filter(**{
                     version['prefix'] + 'end_date__gte': two_days_ago,
@@ -59,8 +59,8 @@ def generate_settings():
                     version['prefix'] + 'end_date__gte': now,
                     version['prefix'] + 'end_date__lte': in_twelve_days,
                 }))):
-            if version in ['JP', 'EN']:
-                events_with_cards += event
+            if version_name in ['JP', 'EN']:
+                events_with_cards.append(event)
             image = getattr(event, u'{}image_url'.format(version['prefix']))
             if not image:
                 continue

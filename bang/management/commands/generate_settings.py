@@ -6,14 +6,14 @@ from django.utils.translation import get_language, activate as translation_activ
 from django.utils.formats import dateformat
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
-from magi.tools import totalDonators, getStaffConfigurations, latestDonationMonth
+from magi.tools import totalDonatorsThisMonth, getStaffConfigurations, latestDonationMonth
 from magi.utils import birthdays_within
 from bang import models
 
 def generate_settings():
 
     print 'Get total donators'
-    total_donators = totalDonators() or '\'\''
+    total_donators = totalDonatorsThisMonth() or '\'\''
 
     print 'Get latest donation month'
     donation_month = latestDonationMonth(failsafe=True)

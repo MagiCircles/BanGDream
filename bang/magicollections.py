@@ -287,7 +287,7 @@ class MemberCollection(MagiCollection):
 
     def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
-        exclude_fields.append('d_names')
+        exclude_fields += ['japanese_name']
         if item.school is not None:
             exclude_fields.append('classroom')
         fields = super(MemberCollection, self).to_fields(view, item, *args, icons=MEMBERS_ICONS, images={
@@ -307,6 +307,19 @@ class MemberCollection(MagiCollection):
         setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
         setSubField(fields, 'height', key='value', value=u'{} cm'.format(item.height))
         setSubField(fields, 'description', key='type', value='long_text')
+
+        setSubField(fields, 'name', key='type', value='text_annotation')
+        setSubField(fields, 'name', key='verbose_name', value=_('Name'))
+        if get_language() == 'ja':
+            setSubField(fields, 'name', key='value', value=item.japanese_name)
+            setSubField(fields, 'name', key='annotation', value=item.name)
+        elif item.t_name != item.name:
+            setSubField(fields, 'name', key='value', value=item.t_name)
+            setSubField(fields, 'name', key='annotation', value=mark_safe(u'<br>'.join([item.japanese_name, item.name])))
+        else:
+            setSubField(fields, 'name', key='value', value=item.t_name)
+            setSubField(fields, 'name', key='annotation', value=item.japanese_name)
+
         if get_language() == 'ja':
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))
             if 'romaji_CV' in fields:

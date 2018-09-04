@@ -257,6 +257,7 @@ MEMBERS_ICONS = {
     'CV': 'voice-actress',
     'romaji_CV': 'voice-actress',
     'birthday': 'birthday',
+    'color': 'palette',
     'height': 'measurements',
     'food_like': 'food-like',
     'food_dislike': 'food-dislike',
@@ -296,8 +297,8 @@ class MemberCollection(MagiCollection):
         if 'square_image' in fields:
             del(fields['square_image'])
         if item.classroom is not None and item.school is not None:
-            setSubField(fields, 'school', key='type', value='html')
-            setSubField(fields, 'school', key='value', value= u'<b>{} <span class="text-muted">({})</span></b>'.format(item.t_school, item.classroom))
+            setSubField(fields, 'school', key='type', value='text_annotation')
+            setSubField(fields, 'school', key='annotation', value= item.classroom)
         setSubField(fields, 'birthday', key='type', value='text')
         setSubField(fields, 'birthday', key='value', value=lambda f: date_format(item.birthday, format='MONTH_DAY_FORMAT', use_l10n=True))
         setSubField(fields, 'band', key='type', value=lambda f: 'image_link')

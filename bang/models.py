@@ -12,7 +12,22 @@ from django.conf import settings as django_settings
 from magi.models import User, uploadItem
 from magi.abstract_models import AccountAsOwnerModel, BaseAccount
 from magi.item_model import BaseMagiModel, MagiModel, get_image_url_from_path, get_http_image_url_from_path, i_choices, getInfoFromChoices
-from magi.utils import AttrDict, tourldash, split_data, join_data, uploadToKeepName, staticImageURL, FAVORITE_CHARACTERS_NAMES, templateVariables, uploadTthumb, uploadThumb, upload2x, uploadTiny, getEventStatus
+from magi.utils import (
+    AttrDict,
+    tourldash,
+    split_data,
+    join_data,
+    uploadToKeepName,
+    staticImageURL,
+    FAVORITE_CHARACTERS_NAMES,
+    templateVariables,
+    uploadTthumb,
+    uploadThumb,
+    upload2x,
+    uploadTiny,
+    getEventStatus,
+    ColorField,
+)
 from bang.django_translated import t
 
 ############################################################
@@ -183,7 +198,7 @@ class Member(MagiModel):
         'Roselia',
         'Hello, Happy World!',
     )
-    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
+    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
 
     school = models.CharField(_('School'), max_length=100, null=True)
     SCHOOLS_CHOICES = ALL_ALT_LANGUAGES
@@ -197,6 +212,8 @@ class Member(MagiModel):
     i_school_year = models.PositiveIntegerField(_('School Year'), choices=i_choices(SCHOOL_YEAR_CHOICES), null=True)
 
     classroom = models.CharField(_('Classroom'), max_length = 10, null=True)
+
+    color = ColorField(_('Color'), null=True, blank=True)
 
     # TODO: separate page of voice acctresses
     romaji_CV = models.CharField(_('CV'), help_text='In romaji.', max_length=100, null=True)

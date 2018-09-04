@@ -4,7 +4,7 @@ from itertools import chain
 from collections import OrderedDict
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
-from django.utils.formats import dateformat
+from django.utils.formats import date_format
 from django.utils.safestring import mark_safe
 from django.db.models import Prefetch, Q
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -299,7 +299,7 @@ class MemberCollection(MagiCollection):
             setSubField(fields, 'school', key='type', value='html')
             setSubField(fields, 'school', key='value', value= u'<b>{} <span class="text-muted">({})</span></b>'.format(item.t_school, item.classroom))
         setSubField(fields, 'birthday', key='type', value='text')
-        setSubField(fields, 'birthday', key='value', value=lambda f: dateformat.format(item.birthday, "F d"))
+        setSubField(fields, 'birthday', key='value', value=lambda f: date_format(item.birthday, format='MONTH_DAY_FORMAT', use_l10n=True))
         setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
         setSubField(fields, 'band', key='link', value=lambda f: u'/members/?i_band={}'.format(item.i_band))
         setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))

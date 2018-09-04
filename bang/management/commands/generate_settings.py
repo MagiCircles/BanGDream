@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import get_language, activate as translation_activate, ugettext_lazy as _
-from django.utils.formats import dateformat
+from django.utils.formats import date_format
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
 from magi.tools import totalDonatorsThisMonth, getStaffConfigurations, latestDonationMonth
@@ -35,7 +35,7 @@ def generate_settings():
             t_titles[lang] = u'{}, {}! {}'.format(
                 _('Happy Birthday'),
                 member.first_name,
-                dateformat.format(member.birthday, 'F d'),
+                date_format(member.birthday, format='MONTH_DAY_FORMAT', use_l10n=True),
             )
         translation_activate(old_lang)
         latest_news.append({

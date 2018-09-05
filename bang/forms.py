@@ -158,6 +158,7 @@ class MemberFilterForm(MagiFiltersForm):
         ('japanese_name', string_concat(_('Name'), ' (', t['Japanese'], ')')),
         ('birthday', _('Birthday')),
         ('height', _('Height')),
+        ('color', _('Color')),
     ]
 
     school = forms.ChoiceField(label=_('School'), choices=BLANK_CHOICE_DASH + [(s, s) for s in getattr(django_settings, 'SCHOOLS', [])], initial=None)

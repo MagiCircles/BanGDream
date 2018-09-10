@@ -2077,6 +2077,8 @@ class ItemCollection(MagiCollection):
         ajax_item_popover = True
         per_line = 4
         default_ordering = 'id'
+        filter_form = forms.ItemFilterForm
+        hide_sidebar = True
 
     class ItemView(MagiCollection.ItemView):
         comments_enabled = False

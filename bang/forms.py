@@ -965,6 +965,13 @@ class ItemForm(AutoForm):
         fields = '__all__'
         save_owner_on_creation = True
 
+class ItemFilterForm(MagiFiltersForm):
+    search_fields = ('name', 'm_description', 'd_names', 'd_m_descriptions')
+
+    class Meta(MagiFiltersForm.Meta):
+        model = models.Item
+        fields = ('search', )
+
 ############################################################
 # Item form
 

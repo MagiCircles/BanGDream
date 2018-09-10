@@ -90,21 +90,23 @@ def generate_settings():
     ).exclude(
         show_art_on_homepage=False,
         show_trained_art_on_homepage=False,
-    ).order_by('-release_date')
-    condition = Q()
-    for event in events_with_cards:
-        if event._meta.model.__name__ == 'Gacha':
-            condition |= Q(gachas=event)
-        else:
-            condition |= Q(secondary_card_event=event)
-            condition |= Q(main_card_event=event)
-    filtered_cards = cards.filter(condition)
-    if filtered_cards:
-        filtered_cards = filtered_cards[:10]
-    else:
-        filtered_cards = cards[:5]
+    ).filter(
+        member__i_band=models.Member.get_i('band', 'Afterglow'),
+    ).order_by('-release_date')[:200]
+##    condition = Q()
+##    for event in events_with_cards:
+##        if event._meta.model.__name__ == 'Gacha':
+##            condition |= Q(gachas=event)
+##        else:
+##            condition |= Q(secondary_card_event=event)
+##            condition |= Q(main_card_event=event)
+##    filtered_cards = cards.filter(condition)
+##    if filtered_cards:
+##        filtered_cards = filtered_cards[:10]
+##    else:
+##        filtered_cards = cards[:5]
     homepage_cards = []
-    for c in filtered_cards:
+    for c in cards:
         if c.show_art_on_homepage:
             homepage_cards.append({
                 'art_url': c.art_url,

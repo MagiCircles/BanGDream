@@ -199,6 +199,7 @@ class Member(MagiModel):
         'Hello, Happy World!',
     )
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
+    band_image = lambda _s: staticImageURL(_s.band, folder='band', extension='png')
 
     school = models.CharField(_('School'), max_length=100, null=True)
     SCHOOLS_CHOICES = ALL_ALT_LANGUAGES

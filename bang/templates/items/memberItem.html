@@ -1,4 +1,9 @@
 {% with member=item %}
+{% if forloop.counter == 3 or forloop.counter == 8 or forloop.counter == 13 or forloop.counter == 18 or forloop.counter == 23 %}
+<img src="{{ member.band_image }}" alt="{{ member.band }}" height="100" style="margin-left: 50%; transform: translateX(-50%); overflow: visible;">
+{% else %}
+<div style="height: 100px"></div>
+{% endif %}
 <a href="{{ member.item_url }}" data-ajax-url="{{ member.ajax_item_url }}" data-ajax-title="{{ member }}" class="member">
   <img src="{{ member.image_url }}" alt="{{ member }}">
   <h2>{{ member }}</h2>

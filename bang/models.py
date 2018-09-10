@@ -960,14 +960,14 @@ class Event(MagiModel):
     TYPE_CHOICES = (
         ('normal', _('Normal')),
         ('challenge_live', _('Challenge Live')),
-        ('band_battle', _('Band Battle')),
+        ('vs_live', _('VS Live')),
         ('live_trial', _('Live Trial')),
     )
     i_type = models.PositiveIntegerField(_('Event type'), choices=i_choices(TYPE_CHOICES), default=0)
 
     SONG_RANKING_TYPES = [
         'challenge_live',
-        'band_battle',
+        'vs_live',
     ]
     TRIAL_MASTER_TYPES = [
         'live_trial',

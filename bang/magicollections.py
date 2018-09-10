@@ -353,6 +353,8 @@ class MemberCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
         filter_form = forms.MemberFilterForm
+        per_line = 5
+        page_size = 25
         default_ordering = 'id'
 
     class AddView(MagiCollection.AddView):

@@ -35,6 +35,17 @@ from bang import models, forms
 # User Collection
 
 class UserCollection(_UserCollection):
+    filter_cuteform = {
+        'member': {
+            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+            'title': _('Member'),
+            'extra_settings': {
+                'modal': 'true',
+                'modal-text': 'true',
+            },
+        },
+    }
+
     class ItemView(_UserCollection.ItemView):
         def extra_context(self, context):
             super(UserCollection.ItemView, self).extra_context(context)
@@ -44,7 +55,7 @@ class UserCollection(_UserCollection):
                 context['share_sentence'] = u'Hey, look! I\'m on ✭Bandori Party✭! Follow me ♥︎'
 
     class ListView(_UserCollection.ListView):
-        filter_form = forms.FilterUsers
+        filter_form = forms.UserFilterForm
 
 ############################################################
 # Account Collection

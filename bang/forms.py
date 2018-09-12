@@ -9,7 +9,16 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from magi.item_model import i_choices
 from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession, snakeToCamelCase, staticImageURL, filterEventsByStatus
-from magi.forms import MagiForm, AutoForm, HiddenModelChoiceField, MagiFiltersForm, MagiFilter, MultiImageField, AccountForm as _AccountForm
+from magi.forms import (
+    MagiForm,
+    AutoForm,
+    HiddenModelChoiceField,
+    MagiFiltersForm,
+    MagiFilter,
+    MultiImageField,
+    AccountForm as _AccountForm,
+    UserFilterForm as _UserFilterForm,
+)
 from magi.middleware.httpredirect import HttpRedirectException
 from bang import settings
 from bang.django_translated import t
@@ -42,19 +51,18 @@ def member_band_to_queryset(prefix=''):
 ############################################################
 # Users
 
-class FilterUsers(MagiFiltersForm):
-    search_fields = ('username', )
-    ordering_fields = (
-        ('username', t['Username']),
-        ('date_joined', _('Join Date')),
-    )
-
+class UserFilterForm(_UserFilterForm):
     favorited_card = forms.IntegerField(widget=forms.HiddenInput)
     favorited_card_filter = MagiFilter(selector='favorite_cards__card_id')
 
-    class Meta(MagiFiltersForm.Meta):
-        model = models.User
-        fields = ('search', 'ordering', 'reverse_order')
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
+        (id, full_name) for (id, full_name, image)
+        in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ], required=False, label=_('Favorite Member'))
+    member_filter = MagiFilter(selectors=['preferences__favorite_character{}'.format(i) for i in range(1, 4)])
+
+    class Meta(_UserFilterForm.Meta):
+        fields = ('search', 'member', 'ordering', 'reverse_order')
 
 ############################################################
 # Accounts

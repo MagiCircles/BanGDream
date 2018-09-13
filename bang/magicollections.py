@@ -1087,7 +1087,7 @@ EVENT_ICONS = {
     'english_start_date': 'date', 'english_end_date': 'date',
     'taiwanese_start_date': 'date', 'taiwanese_end_date': 'date',
     'korean_start_date': 'date', 'korean_end_date': 'date',
-    'type': 'category',
+    'type': 'category', 'boost_stat': 'statistics',
 }
 
 EVENT_CUTEFORM = {
@@ -1109,9 +1109,6 @@ EVENT_CUTEFORM = {
         },
         'i_boost_attribute': {
             'image_folder': 'i_attribute',
-        },
-        'i_boost_stat': {
-            'image_folder': 'stats',
         },
         'version': {
             'to_cuteform': lambda k, v: CardCollection._version_images[k],
@@ -1160,10 +1157,6 @@ class EventCollection(MagiCollection):
             'boost_attribute': u'{static_url}img/i_attribute/{value}.png'.format(
                 static_url=RAW_CONTEXT['static_url'],
                 value=item.i_boost_attribute,
-            ),
-            'boost_stat': u'{static_url}img/stats/{value}.png'.format(
-                static_url=RAW_CONTEXT['static_url'],
-                value=item.i_boost_stat,
             ),
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),

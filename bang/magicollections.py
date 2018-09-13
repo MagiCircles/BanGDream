@@ -1943,14 +1943,14 @@ class SongCollection(MagiCollection):
                 diff_value = ''
                 diff = getattr(item, u'{}_difficulty'.format(difficulty), None)
                 if diff is not None:
-                    diff_value = mark_safe(u'{}<br />'.format(generateDifficulty(diff)))
+                    diff_value = u'{}<br />'.format(generateDifficulty(diff))
                 if getattr(item, u'{}_notes'.format(difficulty), None) is not None:
-                    diff_value+=_(u'{} notes').format(getattr(item, u'{}_notes'.format(difficulty), None))
+                    diff_value += _(u'{} notes').format(getattr(item, u'{}_notes'.format(difficulty), None))
                 if diff_value != '':
                     fields[difficulty] = {
                         'verbose_name': verbose_name,
                         'type': 'html',
-                        'value': mark_safe(u'{}'.format(diff_value)),
+                        'value': mark_safe(diff_value),
                         'image': staticImageURL(difficulty, folder='songs', extension='png'),
                     }
 

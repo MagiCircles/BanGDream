@@ -68,11 +68,10 @@ def rarity_to_stars_images(rarity):
 
 def generateDifficulty(difficulty):
     note_image = staticImageURL('note.png')
-    val = '{big_images}{small_images}'.format(
+    return u'{big_images}{small_images}'.format(
         big_images=(u'<img src="{}" class="song-big-note">'.format(note_image) * (difficulty // 5)),
         small_images=(u'<img src="{}" class="song-small-note">'.format(note_image) * (difficulty % 5)),
     )
-    return val
 
 def add_rerun_buttons(view, buttons, request, item):
     if request.user.is_authenticated() and request.user.hasPermission('manage_main_items'):

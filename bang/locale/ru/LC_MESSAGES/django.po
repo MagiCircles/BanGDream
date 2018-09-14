@@ -185,17 +185,17 @@ msgstr "О себе"
 #. Your translation must be gender neutral. Example 1er/ère
 #: bang/forms.py:340 bang/magicollections.py:489 bang/models.py:861
 msgid "1st"
-msgstr "1-ая"
+msgstr "1-ый"
 
 #. Your translation must be gender neutral. Example 1er/ère
 #: magi/models.py:134
 msgid "2nd"
-msgstr "2-ая"
+msgstr "2-ой"
 
 #. Your translation must be gender neutral. Example 1er/ère
 #: magi/models.py:135
 msgid "3rd"
-msgstr "3-я"
+msgstr "3-ий"
 
 #: magi/models.py:137
 msgid "Birthdate"
@@ -1363,15 +1363,15 @@ msgstr "Караван"
 
 #: cpro/model_choices.py:123
 msgid "Rare"
-msgstr "Редкая"
+msgstr "Rare"
 
 #: cpro/model_choices.py:124
 msgid "Super Rare"
-msgstr "Супер редкая"
+msgstr "Super Rare"
 
 #: cpro/model_choices.py:125
 msgid "Super Super Rare"
-msgstr "Супер супер редкая"
+msgstr "Super Super Rare"
 
 #: cpro/model_choices.py:167
 msgid "Lesser Perfect Lock"
@@ -1484,7 +1484,7 @@ msgstr "Способность"
 
 #: cpro/model_choices.py:311
 msgid "Brilliance"
-msgstr "Блеск"
+msgstr "Brilliance"
 
 #: cpro/model_choices.py:294
 msgid "Shiny"
@@ -1731,7 +1731,7 @@ msgstr "Навык лидера"
 
 #: cpro/forms.py:291 cpro/templates/include/cards-stats.html:95
 msgid "Scouted by"
-msgstr "Скаутнута"
+msgstr "Скаутнули"
 
 #: cpro/templates/include/cards-stats.html:163
 msgid "Download"
@@ -2112,7 +2112,7 @@ msgstr "Уровень {level}"
 
 #: bang/settings.py:84
 msgid "{nth} Favorite Member"
-msgstr "{nth} Любимая Участница"
+msgstr "{nth} Любимый Персонаж"
 
 #: cpro/templates/items/eventInfo.html:14
 msgid "days"
@@ -2128,7 +2128,7 @@ msgstr "минут"
 
 #: bang/forms.py:61 bang/forms.py:119
 msgid "Favorite Member"
-msgstr "Любимая Участница"
+msgstr "Любимый Персонаж"
 
 #: bang/magicollections.py:341 bang/models.py:1838
 msgid "Source"
@@ -2140,9 +2140,8 @@ msgid "Instrument"
 msgstr "Инструмент"
 
 #: magi/magicollections.py:415
-#, fuzzy
 msgid "Collected {thing}"
-msgstr "Коллекционируемый {thing}"
+msgstr "Собранные {thing}"
 
 #: bang/magicollections.py:810 bang/models.py:459 bang/models.py:460
 #: bang/models.py:462
@@ -3526,24 +3525,24 @@ msgstr "Ругательства"
 
 #: magi/default_settings.py:25
 msgid "End of new messages"
-msgstr ""
+msgstr "Конец новых сообщений"
 
 #: magi/magicollections.py:1637 magi/magicollections.py:2792
 msgid "Private messages"
-msgstr ""
+msgstr "Личные сообщения"
 
 #: magi/magicollections.py:1675 magi/magicollections.py:2803
 msgid "Send a message"
-msgstr ""
+msgstr "Отправить сообщение"
 
 #: magi/magicollections.py:2791 magi/models.py:948
 msgid "Private message"
-msgstr ""
+msgstr "Личное сообщение"
 
 #: magi/magicollections.py:2800 magi/magicollections.py:2953
 #: magi/magicollections.py:3006 magi/magicollections.py:3007
 msgid "Inbox"
-msgstr ""
+msgstr "Почта"
 
 #: magi/magicollections.py:2953 magi/views.py:316 magi/views.py:496
 #: magi/views_collections.py:45
@@ -3552,69 +3551,69 @@ msgstr "Назад к {page_name}"
 
 #: magi/magicollections.py:3009
 msgid "You are not allowed to send private messages."
-msgstr ""
+msgstr "Ты не можешь отправлять личные сообщения."
 
 #: magi/magicollections.py:3010
 msgid "Take some time to play around {site_name} to unlock this feature!"
-msgstr ""
+msgstr "Чтобы открыть эту функцию, проведи немного времени на {site_name}!"
 
 #: magi/models.py:244
 msgid "Anyone"
-msgstr ""
+msgstr "Все"
 
 #: magi/models.py:245
 msgid "Only people I follow"
-msgstr ""
+msgstr "Те, на кого я подписан"
 
 #: magi/models.py:246
 msgid "Nobody"
-msgstr ""
+msgstr "Никто"
 
 #: magi/models.py:248
 msgid "Who is allowed to send you private messages?"
-msgstr ""
+msgstr "Кто может присылать тебе личные сообщения?"
 
 #: magi/models.py:946
 msgid "You have a new private message from {}."
-msgstr ""
+msgstr "У вас новое личное сообщение от {}."
 
 #: magi/models.py:947
 msgid "When someone sends you a private message."
-msgstr ""
+msgstr "Когда кто-то прислал тебе личное сообщение."
 
 #: magi/templates/base.html:247
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
 #: magi/templates/base.html:251
 msgid "Remind me later"
-msgstr ""
+msgstr "Напомнить позже"
 
 #: magi/templates/base.html:255
 msgid "Don't show this again"
-msgstr ""
+msgstr "Больше не показывать"
 
 #: magi/utils.py:292
 msgid "Your email address is invalid."
-msgstr ""
+msgstr "Ваш адрес эл. почты неправильный."
 
 #: magi/utils.py:293
 msgid "Some features might not work properly."
-msgstr ""
+msgstr "Некоторые функции могут работать неправильно."
 
 #: magi/views.py:497
 msgid "Wiki home"
-msgstr ""
+msgstr "Дом. страница викии"
 
 #: cpro/model_choices.py:184
 msgid "Focus"
-msgstr ""
+msgstr "Focus"
 
 #: cpro/model_choices.py:227
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus for {skill_duration} seconds"
-msgstr ""
+msgstr "Каждые {trigger_value} секунд, есть {trigger_chance}% шанс, что Perfect ноты получат {skill_value}% бонус к очкам и игрок получит {skill_value2}% бонус к комбо на {skill_duration} секунд"
 
 #: bang/models.py:963
 msgid "VS Live"
-msgstr ""
+msgstr "VS Лайв"
 

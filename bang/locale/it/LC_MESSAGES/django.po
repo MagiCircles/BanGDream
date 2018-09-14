@@ -2647,7 +2647,7 @@ msgstr "Completa il Tutorial"
 
 #: bang/models.py:1260 bang/models.py:1261
 msgid "Initially available"
-msgstr "Disponibile inizialmente"
+msgstr "Disponibile dall'inizio"
 
 #: bang/models.py:1265 bang/models.py:1266
 msgid "Event gift"
@@ -3423,113 +3423,113 @@ msgstr "Sinergia Tricolore"
 
 #: cpro/model_choices.py:224
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance to activate the previous skill again for {skill_duration} seconds."
-msgstr ""
+msgstr "Ogni {trigger_value} secondi, c'è un {trigger_chance}% di possibilità di attivare nuovamente la skill precedente per {skill_duration} secondi."
 
 #: cpro/model_choices.py:225
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra combo bonus based on your current health for {skill_duration} seconds."
-msgstr ""
+msgstr "Ogni {trigger_value} secondi, c'è un {trigger_chance}% di possibilità di guadagnare un bonus combo extra in base alla vita attuale per {skill_duration} secondi."
 
 #: cpro/model_choices.py:226
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that with all three types of idols on the team, you will gain an extra {skill_value2}% combo bonus, and Perfect notes will receive a {skill_value}% score bonus plus restore {skill_value3} life, for {skill_duration} seconds."
-msgstr ""
+msgstr "Ogni {trigger_value} secondi, c'è un {trigger_chance}% di possibilità che con tutti i tre tipi di idol nel team, di guadagnare un bonus combo extra del {skill_value2}%, e le note Perfect riceveranno un bonus punteggio del {skill_value}% in più recupera {skill_value3} di vita, per {skill_duration} secondi."
 
 #: cpro/model_choices.py:312
 msgid "Princess"
-msgstr ""
+msgstr "Princess"
 
 #: cpro/model_choices.py:315
 msgid "Cheer"
-msgstr ""
+msgstr "Cheer"
 
 #: cpro/model_choices.py:316
 msgid "Cinderella Charm"
-msgstr ""
+msgstr "Cinderella Charm"
 
 #: cpro/model_choices.py:317
 msgid "Fortune Present"
-msgstr ""
+msgstr "Fortune Present"
 
 #: cpro/model_choices.py:339
 msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}% when there are only {idol_type} idols on the team."
-msgstr ""
+msgstr "Aumenta {leader_skill_type} di tutte le idol {idol_type} del {leader_skill_percent}% quando solo le idol {idol_type} sono nel team."
 
 #: cpro/model_choices.py:342
 msgid "Raises {leader_skill_type} of all idols by {leader_skill_percent}% when there are {all_types} idols on the team."
-msgstr ""
+msgstr "Aumenta {leader_skill_type} di tutte le idol del {leader_skill_percent}% quando tutte le idol {all_types} sono nel team."
 
 #: cpro/model_choices.py:354
 msgid "Increases fan gain by {leader_skill_percent}% when you finish a live."
-msgstr ""
+msgstr "Aumenta i fan ottenuti del {leader_skill_percent}% al termine di un live."
 
 #: cpro/model_choices.py:355
 msgid "Gives extra rewards when you finish a live."
-msgstr ""
+msgstr "Dà premi extra al termine di un live."
 
 #: cpro/model_choices.py:371 cpro/model_choices.py:376
 #: cpro/model_choices.py:377 cpro/model_choices.py:378
 msgid "{type} appeal"
-msgstr ""
+msgstr "Aspetto {type}"
 
 #: cpro/model_choices.py:381
 msgid "Skill probability"
-msgstr ""
+msgstr "Probabilità di skill"
 
 #: bang/forms.py:500 bang/forms.py:671
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
 #: bang/forms.py:501 bang/forms.py:672
 msgid "Past"
-msgstr ""
+msgstr "Passato"
 
 #: bang/forms.py:502 bang/forms.py:673
 msgid "Current"
-msgstr ""
+msgstr "Attuale"
 
 #: bang/forms.py:503 bang/forms.py:674
 msgid "Future"
-msgstr ""
+msgstr "Futuro"
 
 #: bang/settings.py:88
 msgid "Meme"
-msgstr ""
+msgstr "Meme"
 
 #: bang/settings.py:90
 msgid "Scouting"
-msgstr ""
+msgstr "Scouting"
 
 #: bang/settings.py:96
 msgid "Manga"
-msgstr ""
+msgstr "Manga"
 
 #: bang/settings.py:101
 msgid "Question"
-msgstr ""
+msgstr "Domande"
 
 #: bang/settings.py:123
 msgid "Swearing"
-msgstr ""
+msgstr "Giuramenti"
 
 #: magi/default_settings.py:25
 msgid "End of new messages"
-msgstr ""
+msgstr "Fine di nuovi messaggi"
 
 #: magi/magicollections.py:1637 magi/magicollections.py:2792
 msgid "Private messages"
-msgstr ""
+msgstr "Messaggi privati"
 
 #: magi/magicollections.py:1675 magi/magicollections.py:2803
 msgid "Send a message"
-msgstr ""
+msgstr "Invia un messaggio"
 
 #: magi/magicollections.py:2791 magi/models.py:948
 msgid "Private message"
-msgstr ""
+msgstr "Messaggio privato"
 
 #: magi/magicollections.py:2800 magi/magicollections.py:2953
 #: magi/magicollections.py:3006 magi/magicollections.py:3007
 msgid "Inbox"
-msgstr ""
+msgstr "Casella"
 
 #: magi/magicollections.py:2953 magi/views.py:316 magi/views.py:496
 #: magi/views_collections.py:45
@@ -3538,69 +3538,69 @@ msgstr "Ritorna a {page_name}"
 
 #: magi/magicollections.py:3009
 msgid "You are not allowed to send private messages."
-msgstr ""
+msgstr "Non ti è permesso inviare messaggi privati."
 
 #: magi/magicollections.py:3010
 msgid "Take some time to play around {site_name} to unlock this feature!"
-msgstr ""
+msgstr "Prenditi del tempo per esplorare {site_name} per sbloccare questa feature!"
 
 #: magi/models.py:244
 msgid "Anyone"
-msgstr ""
+msgstr "Chiunque"
 
 #: magi/models.py:245
 msgid "Only people I follow"
-msgstr ""
+msgstr "Solo chi seguo"
 
 #: magi/models.py:246
 msgid "Nobody"
-msgstr ""
+msgstr "Nessuno"
 
 #: magi/models.py:248
 msgid "Who is allowed to send you private messages?"
-msgstr ""
+msgstr "Chi può inviarti messaggi privati?"
 
 #: magi/models.py:946
 msgid "You have a new private message from {}."
-msgstr ""
+msgstr "Hai un messaggio privato da {}."
 
 #: magi/models.py:947
 msgid "When someone sends you a private message."
-msgstr ""
+msgstr "Quando qualcuno ti invia un messaggio privato."
 
 #: magi/templates/base.html:247
 msgid "Close"
-msgstr ""
+msgstr "Chiudi"
 
 #: magi/templates/base.html:251
 msgid "Remind me later"
-msgstr ""
+msgstr "Ricordamelo dopo"
 
 #: magi/templates/base.html:255
 msgid "Don't show this again"
-msgstr ""
+msgstr "Non mostrarlo di nuovo"
 
 #: magi/utils.py:292
 msgid "Your email address is invalid."
-msgstr ""
+msgstr "Il tuo indirizzo email non è valido."
 
 #: magi/utils.py:293
 msgid "Some features might not work properly."
-msgstr ""
+msgstr "Alcune feature potrebbero non funzionare correttamente."
 
 #: magi/views.py:497
 msgid "Wiki home"
-msgstr ""
+msgstr "Wiki home"
 
 #: cpro/model_choices.py:184
 msgid "Focus"
-msgstr ""
+msgstr "Focus"
 
 #: cpro/model_choices.py:227
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus for {skill_duration} seconds"
-msgstr ""
+msgstr "Ogni {trigger_value} secondi, c'è un {trigger_chance}% di possibilità che le note Perfect ricevano un bonus punteggio del {skill_value}%, e di ottenere un bonus combo extra del {skill_value2}% per {skill_duration} secondi."
 
 #: bang/models.py:963
 msgid "VS Live"
-msgstr ""
+msgstr "VS Live"
 

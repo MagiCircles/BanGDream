@@ -119,6 +119,10 @@ ACTIVITY_TAGS = [
         'translation': _('Thank you Yurishii'),
         'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
     }),
+    ('thankyouakesaka', {
+        'translation': _('Thank you Ake-san'),
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 9, 25, tzinfo=timezone.utc),
+    }),
     ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
     ('swearing', _('Swearing')),
     ('nsfw', {

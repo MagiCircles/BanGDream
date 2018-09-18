@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import division
 import datetime, os
 from django.conf import settings as django_settings
@@ -1019,6 +1020,20 @@ def asset_type_to_form(_type):
                     del(self.fields[variable])
             if 'i_type' in self.fields:
                 del(self.fields['i_type'])
+            if 'value' in self.fields and _type == 'comic':
+                self.fields['value'] = forms.ChoiceField(label=_('Comics'), choices=(
+                    BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en']))
+
+        def clean(self):
+            cleaned_data = super(_AssetForm, self).clean()
+
+            # Check that there is at least one image uploaded or already present
+            for version in models.Account.VERSIONS.values():
+                if (cleaned_data.get(u'{prefix}image'.format(prefix=version['prefix']), None)
+                    or (not self.is_creating
+                        and getattr(self.instance, u'{prefix}image'.format(prefix=version['prefix']), None))):
+                    return cleaned_data
+            raise forms.ValidationError('At least one image is required.')
 
         def save(self, commit=False):
             instance = super(_AssetForm, self).save(commit=False)
@@ -1035,12 +1050,23 @@ def asset_type_to_form(_type):
             save_owner_on_creation = True
     return _AssetForm
 
+ASSET_COMICS_VALUE_PER_LANGUAGE = {
+    'en': [('1', u'1-koma'), ('4', u'4-koma')],
+    'ja': [('1', u'一コマ'), ('4', u'4コマ')],
+    'kr': [('1', u'한 컷'), ('4', u'네 컷')],
+    'zh-hans': [('1', u'单格'), ('4', u'四格')],
+    'zh-hant': [('1', u'單格'), ('4', u'四格')],
+}
+
 class AssetFilterForm(MagiFiltersForm):
     search_fields = ('name', 'd_names', 'c_tags')
 
     def members_to_queryset(self, queryset, request, value):
         member = models.Member.objects.get(id=value)
         return queryset.filter(Q(members=member) | Q(i_band=member.i_band))
+
+    is_event = forms.NullBooleanField(label=_('Event'))
+    is_event_filter = MagiFilter(selector='event__isnull')
 
     members = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
     members_filter = MagiFilter(to_queryset=members_to_queryset)
@@ -1058,6 +1084,8 @@ class AssetFilterForm(MagiFiltersForm):
 
     i_band_filter = MagiFilter(selectors=['i_band', 'members__i_band'])
 
+    value = forms.ChoiceField(label=_('Comics'), choices=BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en'])
+
     event = forms.IntegerField(widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
@@ -1066,6 +1094,7 @@ class AssetFilterForm(MagiFiltersForm):
             type = models.Asset.get_reverse_i('type', int(self.request.GET.get('i_type', None)))
         except (KeyError, ValueError, TypeError):
             type = None
+        # Show only variables that match type
         if type in models.Asset.TYPES:
             for variable in models.Asset.VARIABLES:
                 if (variable in self.fields
@@ -1076,11 +1105,20 @@ class AssetFilterForm(MagiFiltersForm):
                     del(self.fields[variable])
             if 'i_type' in self.fields:
                 self.fields['i_type'].widget = forms.HiddenInput()
+        # Remove value filter except for comic
+        if 'value' in self.fields:
+            if type == 'comic':
+                self.fields['value'].choices = BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE.get(
+                    self.request.LANGUAGE_CODE,
+                    ASSET_COMICS_VALUE_PER_LANGUAGE['en'],
+                )
+            else:
+                del(self.fields['value'])
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Asset
-        fields = ['search', 'i_type'] + [
-            v for v in models.Asset.VARIABLES if v not in ['name', 'value']
+        fields = ['search', 'i_type', 'is_event'] + [
+            v for v in models.Asset.VARIABLES if v not in ['name', 'source', 'source_link']
         ] + ['i_version']
 
 ############################################################

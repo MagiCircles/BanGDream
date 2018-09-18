@@ -998,7 +998,8 @@ class Event(MagiModel):
         'TW': ((7, 0), (13, 59)),
         'KR': ((6, 0), (13, 0)),
     }
-    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rare_stamp', 'stamp_translation', 'leaderboard', 'rerun']
+    FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'leaderboard', 'rerun']
+    # Assets (stamps, titles) are added dynamically to the js variable because multiple can be present
 
     VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
@@ -1577,22 +1578,22 @@ class AreaItem(MagiModel):
         ('instrument_per_member', {
             'translation': 'Instrument per member',
             'variables': ['member', 'instrument'],
-            'name_template': '{member_name} {t_instrument}',
+            'name_template': u'{member_name} {t_instrument}',
         }),
         ('instrument_per_band', {
             'translation': 'Instrument per band',
             'variables': ['name', 'i_band', 'instrument'],
-            'name_template': '{t_name} {t_instrument}',
+            'name_template': u'{t_name} {t_instrument}',
         }),
         ('poster', {
             'translation': _('Poster'),
             'variables': ['i_band'],
-            'name_template': '{t_band} {t_type}',
+            'name_template': u'{t_band} {t_type}',
         }),
         ('flyer', {
             'translation': _('Flyer'),
             'variables': ['i_band'],
-            'name_template': '{t_band} {t_type}',
+            'name_template': u'{t_band} {t_type}',
         }),
         ('food', {
             'translation': _('Food'),
@@ -1741,78 +1742,113 @@ class CollectibleAreaItem(AccountAsOwnerModel):
 class Asset(MagiModel):
     collection_name = 'asset'
 
-    tinypng_settings = {
-        '{}image'.format(version_prefix): {
-            'resize': 'fit',
-            'max_height': 800,
-            'max_width': 800,
-        } for version_prefix in Account.VERSIONS_PREFIXES.values()
-    }
-
     owner = models.ForeignKey(User, related_name='added_assets')
 
+    _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('asset'))
+    # todo: deprecate
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('asset'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('asset'), null=True)
 
+    _tthumbnail_english_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/e'))
+    # todo: deprecate
     _original_english_image = models.ImageField(null=True, upload_to=uploadTiny('asset/e'))
     english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('asset/e'), null=True)
 
+    _tthumbnail_taiwanese_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/t'))
+    # todo: deprecate
     _original_taiwanese_image = models.ImageField(null=True, upload_to=uploadTiny('asset/t'))
     taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('asset/t'),  null=True)
 
+    _tthumbnail_korean_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/k'))
+    # todo: deprecate
     _original_korean_image = models.ImageField(null=True, upload_to=uploadTiny('asset/k'))
     korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('asset/k'),  null=True)
 
-    @property
-    def top_image(self):
-        image = None
+    def _get_top_image(self, thumbnail):
+        show_image_version = 'EN'
+
+        # Get preferred version of image from user's language
+        if get_language() in LANGUAGES_TO_VERSIONS:
+            show_image_version = LANGUAGES_TO_VERSIONS[get_language()]
+
+        # Get preferred version of image from filtered choice
         if self.request:
             try:
-                image = getattr(self, u'{}image_url'.format(Account.VERSIONS_PREFIXES[Account.get_reverse_i('version', int(self.request.GET.get('i_version', None)))]))
-            except (ValueError, KeyError, TypeError):
+                show_image_version = Account.get_reverse_i(
+                    'version', int(self.request.GET.get('i_version', None)),
+                ) or show_image_version
+            except (KeyError, ValueError, TypeError):
                 pass
-        if not image and get_language() in LANGUAGES_TO_VERSIONS:
-            image = getattr(self, u'{}image_url'.format(Account.VERSIONS_PREFIXES[LANGUAGES_TO_VERSIONS[get_language()]]))
-        return image or getattr(self, u'image_url') or staticImageURL('stars.png')
+
+        # Get thumbnail of image from preferred version
+        image = getattr(self, u'{prefix}image{thumbnail}_url'.format(
+            prefix=Account.VERSIONS[show_image_version]['prefix'],
+            thumbnail='_thumbnail' if thumbnail else '',
+        ), None)
+
+        # Fallback to first image that exists
+        if not image:
+            for version in Account.VERSIONS.values():
+                version_image = getattr(self, u'{prefix}image{thumbnail}_url'.format(
+                    prefix=version['prefix'],
+                    thumbnail='_thumbnail' if thumbnail else '',
+                ), None)
+                if version_image:
+                    image = version_image
+                    break
+
+        return image or staticImageURL('stars.png')
+
+    top_image = property(lambda _s: _s._get_top_image(thumbnail=False))
+    top_image_list = property(lambda _s: _s._get_top_image(thumbnail=True))
 
     VARIABLES = ['name', 'i_band', 'members', 'c_tags', 'event', 'value', 'source', 'source_link']
 
     TYPES = OrderedDict([
         ('comic', {
             'translation': _('Comics'),
-            'variables': ['name'],
-            'per_line': 2,
+            'variables': ['name', 'i_band', 'value'],
+            'to_unicode': lambda _a: _a.t_name or _('Comics'),
         }),
         ('background', {
             'translation': _('Backgrounds'),
             'variables': ['name', 'i_band', 'c_tags'],
-            'per_line': 2,
+            'to_unicode': lambda _a: u'{}{}'.format(
+                _a.name or _('Backgrounds'),
+                u' ({})'.format(a.band) if a.band else '',
+            ),
         }),
         ('stamp', {
             'translation': _('Stamps'),
-            'variables': ['name', 'members'],
-            'per_line': 4,
+            'variables': ['name', 'members', 'event'],
+            'image': 'stamp.png',
+            'to_unicode': lambda _a: _a.t_name or _('Stamp'),
         }),
         ('title', {
             'translation': _('Titles'),
             'variables': ['name', 'event', 'value'],
-            'per_line': 3,
+            'to_unicode': lambda _a: u'{} {}'.format(
+                _a.t_name, _a.value if _a.value else '',
+            ) if _a.name else _('Title'),
         }),
         ('interface', {
             'translation': _('Interface'),
             'variables': ['name'],
-            'per_line': 3,
+            'to_unicode': lambda _a: _a.t_name or _('Interface'),
         }),
         ('official', {
             'translation': _('Official art'),
             'variables': ['name', 'i_band', 'members', 'c_tags', 'source', 'source_link'],
-            'per_line': 3,
+            'to_unicode': lambda _a: _a.t_name or _('Official art'),
         }),
     ])
     TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in TYPES.items()]
     i_type = models.PositiveIntegerField('Type', choices=i_choices(TYPE_CHOICES), null=True)
     type_variables = property(getInfoFromChoices('type', TYPES, 'variables'))
     type_per_line = property(getInfoFromChoices('type', TYPES, 'per_line'))
+    to_unicode = property(getInfoFromChoices('type', TYPES, 'to_unicode'))
+    type_image = property(getInfoFromChoices('type', TYPES, 'image'))
+    type_icon = 'pictures'
 
     name = models.CharField(_('Title'), max_length=100, null=True)
     NAMES_CHOICES = ALL_ALT_LANGUAGES
@@ -1830,18 +1866,52 @@ class Asset(MagiModel):
         ('stage', _('Stage')),
         ('home', _('Home')),
         ('date', _('Dating spot')),
+        ('transparent', _('Transparent')),
+        ('login', _('Login')),
+        ('twitter', 'Twitter'),
     )
     c_tags = models.TextField(_('Tags'), null=True)
 
-    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='titles', null=True, on_delete=models.SET_NULL)
+    event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='assets', null=True, on_delete=models.SET_NULL)
 
     source = models.CharField(_('Source'), max_length=100, null=True)
     source_link = models.CharField(max_length=100, null=True)
 
     value = models.PositiveIntegerField(null=True)
 
+    @property
+    def tinypng_settings(self):
+        # Don't generate thumbnails for titles, just use TinyPNG to compress (hacky)
+        if self.type == 'title':
+            return {
+                '_tthumbnail_{}image'.format(version_prefix): {
+                    'resize': None,
+                } for version_prefix in Account.VERSIONS_PREFIXES.values()
+            }
+        return {}
+
+    @property
+    def item_url(self):
+        item_url = MagiModel.item_url.fget(self)
+        if self.request and self.request.GET.get('i_version', None):
+            return u'{}?i_version={}'.format(
+                item_url,
+                self.request.GET['i_version'],
+            )
+        return item_url
+
+    @property
+    def ajax_item_url(self):
+        item_url = MagiModel.ajax_item_url.fget(self)
+        if self.request and self.request.GET.get('i_version', None):
+            return u'{}?i_version={}'.format(
+                item_url,
+                self.request.GET['i_version'],
+            )
+        return item_url
+
     def __unicode__(self):
-        return u'{} {}'.format(self.t_type, self.t_name if self.name else '')
+        return unicode(self.to_unicode(self))
 
 ############################################################
 # Costume

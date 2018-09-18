@@ -253,7 +253,6 @@ class EventSerializer(MagiSerializer):
             'english_image', 'english_start_date', 'english_end_date',
             'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date',
             'korean_image', 'korean_start_date', 'korean_end_date',
-            'rare_stamp', 'stamp_translation',
             'main_card', 'secondary_card',
             'i_boost_attribute', 'boost_members',
         )

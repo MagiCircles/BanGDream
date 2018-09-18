@@ -973,22 +973,6 @@ class Event(MagiModel):
         'live_trial',
     ]
 
-    _original_rare_stamp = models.ImageField(null=True, upload_to=uploadTiny('e/stamps'))
-    rare_stamp = models.ImageField(_('Rare stamp'), upload_to=uploadItem('e/stamps'), null=True)
-    @property
-    def rare_stamp_per_version(self):
-        return _event_gacha_top_image(self, image_name='rare_stamp')
-
-    stamp_translation = models.CharField(_('Stamp translation'), max_length=200, null=True)
-    STAMP_TRANSLATIONS_CHOICES = ALT_LANGUAGES_EXCEPT_JP
-    d_stamp_translations = models.TextField(_('Stamp translation'), null=True)
-
-    @property
-    def t_stamp_translation(self):
-        if get_language() == 'ja':
-            return None
-        return self.stamp_translations.get(get_language(), self.stamp_translation)
-
     start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
     end_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ',_('End')), null=True)
 
@@ -1009,22 +993,16 @@ class Event(MagiModel):
     english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('e/e'), null=True)
     english_start_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('Beginning')), null=True)
     english_end_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('End')), null=True)
-    _original_english_rare_stamp = models.ImageField(null=True, upload_to=uploadTiny('e/stamps/en'))
-    english_rare_stamp = models.ImageField(string_concat(_('English version'), ' - ', _('Rare stamp')), upload_to=uploadItem('e/stamps/en'), null=True)
 
     _original_taiwanese_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
     taiwanese_start_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('Beginning')), null=True)
     taiwanese_end_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('End')), null=True)
-    _original_taiwanese_rare_stamp = models.ImageField(null=True, upload_to=uploadTiny('e/stamps/tw'))
-    taiwanese_rare_stamp = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Rare stamp')), upload_to=uploadItem('e/stamps/tw'), null=True)
 
     _original_korean_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
     korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
     korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
-    _original_korean_rare_stamp = models.ImageField(null=True, upload_to=uploadTiny('e/stamps/kr'))
-    korean_rare_stamp = models.ImageField(string_concat(_('Korean version'), ' - ', _('Rare stamp')), upload_to=uploadItem('e/stamps/kr'), null=True)
 
     MAIN_CARD_ALLOWED_RARITIES = (3,)
     SECONDARY_CARD_ALLOWED_RARITIES = (3, 2)
@@ -1745,23 +1723,15 @@ class Asset(MagiModel):
     owner = models.ForeignKey(User, related_name='added_assets')
 
     _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('asset'))
-    # todo: deprecate
-    _original_image = models.ImageField(null=True, upload_to=uploadTiny('asset'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('asset'), null=True)
 
     _tthumbnail_english_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/e'))
-    # todo: deprecate
-    _original_english_image = models.ImageField(null=True, upload_to=uploadTiny('asset/e'))
     english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('asset/e'), null=True)
 
     _tthumbnail_taiwanese_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/t'))
-    # todo: deprecate
-    _original_taiwanese_image = models.ImageField(null=True, upload_to=uploadTiny('asset/t'))
     taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('asset/t'),  null=True)
 
     _tthumbnail_korean_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/k'))
-    # todo: deprecate
-    _original_korean_image = models.ImageField(null=True, upload_to=uploadTiny('asset/k'))
     korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('asset/k'),  null=True)
 
     def _get_top_image(self, thumbnail):

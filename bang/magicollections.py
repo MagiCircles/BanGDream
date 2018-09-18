@@ -1177,7 +1177,7 @@ class EventCollection(MagiCollection):
     multipart = True
     reportable = False
     blockable = False
-    translated_fields = ('name', 'stamp_translation', )
+    translated_fields = ('name', )
     navbar_link_list = 'girlsbandparty'
 
     filter_cuteform = EVENT_LIST_ITEM_CUTEFORM
@@ -1199,10 +1199,6 @@ class EventCollection(MagiCollection):
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
-            'rare_stamp': staticImageURL('stamp.png'),
-            'english_rare_stamp': staticImageURL('stamp.png'),
-            'taiwanese_rare_stamp': staticImageURL('stamp.png'),
-            'korean_rare_stamp': staticImageURL('stamp.png'),
         }, **kwargs)
         if get_language() == 'ja' and 'name' in fields and 'japanese_name' in fields:
             setSubField(fields, 'japanese_name', key='verbose_name', value=fields['name']['verbose_name'])
@@ -1398,7 +1394,7 @@ class EventCollection(MagiCollection):
                         'title': u'{} - {}'.format(unicode(item), _('Leaderboard')),
                     }))
 
-            exclude_fields += ['c_versions', 'japanese_name', 'rare_stamp', 'd_stamp_translations']
+            exclude_fields += ['c_versions', 'japanese_name']
 
             if request:
                 request.fields_per_version = fields_per_version.keys()

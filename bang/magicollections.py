@@ -1386,7 +1386,7 @@ class EventCollection(MagiCollection):
                                     'link': asset_image_url,
                                     'link_text': asset.names.get(
                                         models.VERSIONS_TO_LANGUAGES[version_name],
-                                        verbose_name_subtitle,
+                                        verbose_name_subtitle or asset.name,
                                     ),
                                 }))
                             orders_per_versions[version_name].append(version_field_name)

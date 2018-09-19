@@ -1360,26 +1360,21 @@ class EventCollection(MagiCollection):
                             version_field_name = '{}{}'.format(version['prefix'], field_name)
                             image_icon = staticImageURL(asset.type_image)
                             verbose_name_subtitle = None
-                            # Stamps
-                            if asset.type == 'stamp':
-                                # Translation will be what shows up on the image, show nothing
-                                if models.VERSIONS_TO_LANGUAGES[version_name] == get_language():
-                                    pass
-                                # English stamp translation
-                                elif get_language() == 'en' and asset.name:
-                                    verbose_name_subtitle = asset.name
-                                # Other languages translation when available
-                                elif asset.names.get(get_language(), None):
-                                    verbose_name_subtitle = asset.t_name
-                                # Other languages and likely can't speak English, show nothing
-                                elif get_language() in settings.LANGUAGES_CANT_SPEAK_ENGLISH:
-                                    pass
-                                # Other languages and available in English, show English with link to translate
-                                elif asset.name:
-                                    verbose_name_subtitle = mark_safe(translationURL(asset.name))
-                            # Other types of assets
+                            # Translation will be what shows up on the image, show nothing
+                            if models.VERSIONS_TO_LANGUAGES[version_name] == get_language():
+                                pass
+                            # English stamp translation
+                            elif get_language() == 'en' and asset.name:
+                                verbose_name_subtitle = asset.name
+                            # Other languages translation when available
+                            elif asset.names.get(get_language(), None):
+                                verbose_name_subtitle = asset.t_name
+                            # Other languages and likely can't speak English, show nothing
+                            elif get_language() in settings.LANGUAGES_CANT_SPEAK_ENGLISH:
+                                pass
+                            # Other languages and available in English, show English with link to translate
                             elif asset.name:
-                                verbose_name_subtitle = unicode(asset)
+                                verbose_name_subtitle = mark_safe(translationURL(asset.name))
                             extra_fields.append((
                                 version_field_name, {
                                     'type': 'image_link',

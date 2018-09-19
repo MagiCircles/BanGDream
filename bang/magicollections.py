@@ -30,12 +30,13 @@ from magi.utils import (
     justReturn,
     jsv,
     toCountDown,
+    translationURL,
 )
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
 from magi.models import Activity, Notification
 from bang.constants import LIVE2D_JS_FILES
-from bang import settings
+from magi import settings
 from bang.django_translated import t
 from bang.utils import rarity_to_stars_images, add_rerun_buttons, add_rerun_fields
 from bang import models, forms
@@ -1358,11 +1359,32 @@ class EventCollection(MagiCollection):
                             field_name = '{}_{}'.format(asset.type, asset.id)
                             version_field_name = '{}{}'.format(version['prefix'], field_name)
                             image_icon = staticImageURL(asset.type_image)
+                            verbose_name_subtitle = None
+                            # Stamps
+                            if asset.type == 'stamp':
+                                # Translation will be what shows up on the image, show nothing
+                                if models.VERSIONS_TO_LANGUAGES[version_name] == get_language():
+                                    pass
+                                # English stamp translation
+                                elif get_language() == 'en' and asset.name:
+                                    verbose_name_subtitle = asset.name
+                                # Other languages translation when available
+                                elif asset.names.get(get_language(), None):
+                                    verbose_name_subtitle = asset.t_name
+                                # Other languages and likely can't speak English, show nothing
+                                elif get_language() in settings.LANGUAGES_CANT_SPEAK_ENGLISH:
+                                    pass
+                                # Other languages and available in English, show English with link to translate
+                                elif asset.name:
+                                    verbose_name_subtitle = mark_safe(translationURL(asset.name))
+                            # Other types of assets
+                            elif asset.name:
+                                verbose_name_subtitle = unicode(asset)
                             extra_fields.append((
                                 version_field_name, {
                                     'type': 'image_link',
                                     'verbose_name': _('Rare stamp') if asset.type == 'stamp' else _('Title'),
-                                    'verbose_name_subtitle': unicode(asset),
+                                    'verbose_name_subtitle': verbose_name_subtitle,
                                     'icon': asset.type_icon if not image_icon else None,
                                     'image': image_icon,
                                     'value': asset_thumbnail_url if asset.type != 'title' else asset_image_url,

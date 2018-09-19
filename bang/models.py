@@ -59,6 +59,13 @@ LANGUAGES_TO_VERSIONS = {
     'tr': 'EN',
 }
 
+VERSIONS_TO_LANGUAGES = {
+    'JP': 'ja',
+    'EN': 'en',
+    'TW': 'zh-hant',
+    'KR': 'kr',
+}
+
 DREAMFES_PER_LANGUAGE = {
     'ja': u'ドリームフェスティバル',
     'kr': u'드림 페스티벌',

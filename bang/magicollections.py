@@ -1264,7 +1264,7 @@ class EventCollection(MagiCollection):
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
 
-            new_order = EVENT_ITEM_FIELDS_ORDER_BEFORE
+            new_order = EVENT_ITEM_FIELDS_ORDER_BEFORE[:]
 
             orders_per_versions = OrderedDict([
                 (version_name, [

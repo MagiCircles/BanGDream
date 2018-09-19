@@ -1114,6 +1114,9 @@ class AssetFilterForm(MagiFiltersForm):
                 )
             else:
                 del(self.fields['value'])
+        # Remove event from fields if type can't be linked with events
+        if 'event' not in self.fields and 'is_event' in self.fields:
+            del(self.fields['is_event'])
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Asset

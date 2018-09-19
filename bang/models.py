@@ -1799,14 +1799,20 @@ class Asset(MagiModel):
             'translation': _('Stamps'),
             'variables': ['name', 'members', 'event'],
             'image': 'stamp.png',
-            'to_unicode': lambda _a: _a.t_name or _('Stamp'),
+            'to_unicode': lambda _a: u'{event} {name}'.format(
+                event=_a.event if _a.event else '',
+                name=((_a.t_name if not _a.event else u'“{name}”'.format(name=_a.t_name))
+                      if _a.name else (_('Stamps') if not _a.event else _('Rare stamp'))),
+            ),
         }),
         ('title', {
             'translation': _('Titles'),
             'variables': ['name', 'event', 'value'],
-            'to_unicode': lambda _a: u'{} {}'.format(
-                _a.t_name, _a.value if _a.value else '',
-            ) if _a.name else _('Title'),
+            'to_unicode': lambda _a: u'{event} {name} {value}'.format(
+                event=_a.event if _a.event else '',
+                name=_a.t_name if _a.name else _('Title'),
+                value=_a.value if _a.value else '',
+            ),
         }),
         ('interface', {
             'translation': _('Interface'),

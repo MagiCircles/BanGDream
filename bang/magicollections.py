@@ -1384,7 +1384,10 @@ class EventCollection(MagiCollection):
                                     'image': image_icon,
                                     'value': asset_thumbnail_url if asset.type != 'title' else asset_image_url,
                                     'link': asset_image_url,
-                                    'link_text': unicode(asset),
+                                    'link_text': asset.names.get(
+                                        models.VERSIONS_TO_LANGUAGES[version_name],
+                                        verbose_name_subtitle,
+                                    ),
                                 }))
                             orders_per_versions[version_name].append(version_field_name)
                             fields_per_version[field_name] = True
@@ -2432,10 +2435,14 @@ class AssetCollection(MagiCollection):
         setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
         setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
         if item.source and item.source_link:
-            setSubField(fields,'source', key='type', value='link')
-            setSubField(fields,'source', key='value', value=item.source_link)
-            setSubField(fields,'source', key='icon', value='link')
-            setSubField(fields,'source', key='link_text', value=item.source)
+            setSubField(fields, 'source', key='type', value='link')
+            setSubField(fields, 'source', key='value', value=item.source_link)
+            setSubField(fields, 'source', key='icon', value='link')
+            setSubField(fields, 'source', key='link_text', value=item.source)
+        # Use correct translation for each asset in alt of image
+        for version_name, version in models.Account.VERSIONS.items():
+            setSubField(fields, u'{}image'.format(version['prefix']), key='image_text',
+                        value=item.names.get(models.VERSIONS_TO_LANGUAGES.get(version_name, None), item.name))
         return fields
 
     class ItemView(MagiCollection.ItemView):
@@ -2475,6 +2482,16 @@ class AssetCollection(MagiCollection):
         col_break = 'sm'
         item_padding = None
         show_items_titles = True
+
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(AssetCollection.ListView, self).get_queryset(queryset, parameters, request)
+            if not request.GET.get('i_type', None) or int(request.GET.get('i_type')) in [
+                    i
+                    for i, (type_name, type) in enumerate(models.Asset.TYPES.items())
+                    if 'event' in type['variables']
+            ]:
+                queryset = queryset.select_related('event')
+            return queryset
 
         def top_buttons(self, request, context):
             buttons = super(AssetCollection.ListView, self).top_buttons(request, context)

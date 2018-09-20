@@ -13,10 +13,18 @@ from magi.utils import (
     staticImageURL,
 )
 from magi.item_model import get_image_url_from_path
-from magi.views import indexExtraContext
+from magi.views import indexExtraContext, mapDefaultContext
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
 from bang import models
+
+############################################################
+# Default MagiCircles Views
+
+def map(request):
+    context = mapDefaultContext(request)
+    context['share_image'] = staticImageURL('screenshots/map.png')
+    return render(request, 'pages/map.html', context)
 
 ############################################################
 # Assets

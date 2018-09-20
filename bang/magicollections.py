@@ -146,8 +146,7 @@ class AccountCollection(_AccountCollection):
                     tabs[collection_name]['callback'] = 'function loadAccountComingSoon(tab_name, user_id, account_id, onDone) { onDone(\'<div class="alert alert-info text-center"><i class="flaticon-idolized"></i> \' + gettext(\'Coming soon\') + \' <i class="flaticon-idolized"></i></div>\'); }'
         return tabs
 
-    def share_image(self, context, item):
-        return 'screenshots/leaderboard.png'
+    share_image = justReturn('screenshots/leaderboard.png')
 
     class ListView(_AccountCollection.ListView):
         filter_form = forms.FilterAccounts
@@ -307,8 +306,7 @@ class MemberCollection(MagiCollection):
 
     form_class = forms.MemberForm
 
-    def share_image(self, context, item):
-        return 'screenshots/members.png'
+    share_image = justReturn('screenshots/members.png')
 
     def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
@@ -660,8 +658,7 @@ class CardCollection(MagiCollection):
             return to_FavoriteCardCollection(cls)
         return to_CollectibleCardCollection(cls)
 
-    def share_image(self, context, item):
-        return 'screenshots/cards.png'
+    share_image = justReturn('screenshots/cards.png')
 
     def to_fields(self, view, item, *args, **kwargs):
         fields = super(CardCollection, self).to_fields(view, item, *args, icons=CARDS_ICONS, images={
@@ -1185,6 +1182,8 @@ class EventCollection(MagiCollection):
 
     collectible = models.EventParticipation
 
+    share_image = justReturn('screenshots/events.png')
+
     def collectible_to_class(self, model_class):
         cls = super(EventCollection, self).collectible_to_class(model_class)
         if model_class.collection_name == 'eventparticipation':
@@ -1559,6 +1558,8 @@ class GachaCollection(MagiCollection):
             'type': CuteFormType.HTML,
         },
     }
+
+    share_image = justReturn('screenshots/gachas.png')
 
     def to_fields(self, view, item, in_list=False, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
@@ -1953,6 +1954,8 @@ class SongCollection(MagiCollection):
     filter_cuteform = _song_cuteform
 
     collectible = models.PlayedSong
+
+    share_image = justReturn('screenshots/songs.png')
 
     def collectible_to_class(self, model_class):
         cls = super(SongCollection, self).collectible_to_class(model_class)
@@ -2570,6 +2573,8 @@ class CostumeCollection(MagiCollection):
     navbar_link_list = 'girlsbandparty'
     form_class = forms.CostumeForm
     filter_cuteform = COSTUME_CUTEFORM
+
+    share_image = justReturn('screenshots/costumes.png')
 
     def to_fields(self, view, item, extra_fields=None, exclude_fields=None, *args, **kwargs):
         extra_fields = extra_fields or []

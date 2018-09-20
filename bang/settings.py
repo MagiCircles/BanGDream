@@ -151,6 +151,7 @@ ENABLED_PAGES['wiki'][1]['enabled'] = True
 ENABLED_PAGES['wiki'][0]['divider_before'] = True
 ENABLED_PAGES['wiki'][0]['navbar_link_list'] = 'girlsbandparty'
 
+ENABLED_PAGES['map']['custom'] = True
 ENABLED_PAGES['map']['navbar_link_list'] = 'community'
 
 ENABLED_PAGES['cards_quickadd'] = {

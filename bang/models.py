@@ -1864,8 +1864,8 @@ class Asset(MagiModel):
 
     @property
     def tinypng_settings(self):
-        # Don't generate thumbnails for titles, just use TinyPNG to compress (hacky)
-        if self.type == 'title':
+        # Don't generate thumbnails for titles + stamps, just use TinyPNG to compress (hacky)
+        if self.type in ['title', 'stamp']:
             return {
                 '_tthumbnail_{}image'.format(version_prefix): {
                     'resize': None,

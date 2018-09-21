@@ -1297,7 +1297,21 @@ class Song(MagiModel):
     ########
 
     def __unicode__(self):
-        return self.romaji_name if self.romaji_name and get_language() != 'ja'  else self.japanese_name
+        if get_language() == 'ja':
+            return self.japanese_name
+        if not self.romaji_name:
+            return self.t_name or self.japanese_name
+        if get_language() == 'en' and self.name:
+            return u'{} ({})'.format(
+                self.romaji_name,
+                self.name,
+            )
+        if self.names.get(get_language(), None):
+            return u'{} ({})'.format(
+                self.romaji_name,
+                self.t_name,
+            )
+        return self.romaji_name
 
 ############################################################
 # Collectible Song
@@ -1807,11 +1821,16 @@ class Asset(MagiModel):
         }),
         ('title', {
             'translation': _('Titles'),
-            'variables': ['name', 'event', 'value'],
-            'to_unicode': lambda _a: u'{event} {name} {value}'.format(
+            'variables': ['name', 'event', 'song', 'value'],
+            'to_unicode': lambda _a: u'{event}{song}{name}'.format(
                 event=_a.event if _a.event else '',
-                name=_a.t_name if _a.name else _('Title'),
-                value=_a.value if _a.value else '',
+                song=u' - {song}'.format(
+                    song=_a.song if _a.song else ''),
+                name=u' - {name}{value}'.format(
+                    name=_a.t_name if _a.name else '',
+                    value=u' {value}'.format(value=_a.value) if _a.value and _a.name else (
+                        _a.value if _a.value else ''),
+                ) if _a.name or _a.value else '',
             ),
         }),
         ('interface', {
@@ -1821,8 +1840,14 @@ class Asset(MagiModel):
         }),
         ('official', {
             'translation': _('Official art'),
-            'variables': ['name', 'i_band', 'members', 'c_tags', 'source', 'source_link'],
-            'to_unicode': lambda _a: _a.t_name or _('Official art'),
+            'variables': ['name', 'i_band', 'members', 'song', 'c_tags', 'source', 'source_link'],
+            'to_unicode': lambda _a: (
+                _a.t_name
+                or _a.song
+                or _a.band
+                or u', '.join([member.t_name for member in getattr(_a, 'all_members', [])])
+                or _('Official art')
+            ),
         }),
     ])
     TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in TYPES.items()]
@@ -1863,6 +1888,7 @@ class Asset(MagiModel):
     c_tags = models.TextField(_('Tags'), null=True)
 
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='assets', null=True, on_delete=models.SET_NULL)
+    song = models.ForeignKey(Song, verbose_name=_('Song'), related_name='assets', null=True, on_delete=models.SET_NULL)
 
     source = models.CharField(_('Source'), max_length=100, null=True)
     source_link = models.CharField(max_length=100, null=True)

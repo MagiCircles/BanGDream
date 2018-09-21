@@ -1087,6 +1087,7 @@ class AssetFilterForm(MagiFiltersForm):
     value = forms.ChoiceField(label=_('Comics'), choices=BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en'])
 
     event = forms.IntegerField(widget=forms.HiddenInput)
+    song = forms.IntegerField(widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
         super(AssetFilterForm, self).__init__(*args, **kwargs)

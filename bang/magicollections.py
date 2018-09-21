@@ -1359,21 +1359,25 @@ class EventCollection(MagiCollection):
                             version_field_name = '{}{}'.format(version['prefix'], field_name)
                             image_icon = staticImageURL(asset.type_image)
                             verbose_name_subtitle = None
+                            safe_verbose_name = None
                             # Translation will be what shows up on the image, show nothing
                             if models.VERSIONS_TO_LANGUAGES[version_name] == get_language():
                                 pass
                             # English stamp translation
                             elif get_language() == 'en' and asset.name:
                                 verbose_name_subtitle = asset.name
+                                safe_verbose_name = asset.name
                             # Other languages translation when available
                             elif asset.names.get(get_language(), None):
                                 verbose_name_subtitle = asset.t_name
+                                safe_verbose_name = asset.t_name
                             # Other languages and likely can't speak English, show nothing
                             elif get_language() in settings.LANGUAGES_CANT_SPEAK_ENGLISH:
                                 pass
                             # Other languages and available in English, show English with link to translate
                             elif asset.name:
                                 verbose_name_subtitle = mark_safe(translationURL(asset.name))
+                                safe_verbose_name = asset.name
                             extra_fields.append((
                                 version_field_name, {
                                     'type': 'image_link',
@@ -1385,7 +1389,7 @@ class EventCollection(MagiCollection):
                                     'link': asset_image_url,
                                     'link_text': asset.names.get(
                                         models.VERSIONS_TO_LANGUAGES[version_name],
-                                        verbose_name_subtitle or asset.name,
+                                        safe_verbose_name or asset.name,
                                     ) if version_name != 'EN' else asset.name,
                                 }))
                             orders_per_versions[version_name].append(version_field_name)
@@ -2387,6 +2391,7 @@ ASSET_ICONS = {
     'tags': 'hashtag',
     'source': 'about',
     'event': 'event',
+    'song': 'song',
 }
 
 class AssetCollection(MagiCollection):
@@ -2408,6 +2413,23 @@ class AssetCollection(MagiCollection):
         }
         for _type, _info in models.Asset.TYPES.items()
     }
+
+    def _preselect_based_on_type(self, queryset, request, variable, prefetch=False):
+        if not request.GET.get('i_type', None) or int(request.GET.get('i_type')) in [
+                i for i, (type_name, type) in enumerate(models.Asset.TYPES.items())
+                if variable in type['variables']]:
+            if prefetch:
+                return queryset.prefetch_related(Prefetch(variable, to_attr=u'all_{}'.format(variable)))
+            else:
+                return queryset.select_related(variable)
+        return queryset
+
+    def get_queryset(self, queryset, parameters, request):
+        queryset = super(AssetCollection, self).get_queryset(queryset, parameters, request)
+        queryset = self._preselect_based_on_type(queryset, request, 'event')
+        queryset = self._preselect_based_on_type(queryset, request, 'song')
+        queryset = self._preselect_based_on_type(queryset, request, 'members', prefetch=True)
+        return queryset
 
     def to_fields(self, view, item, extra_fields=None, exclude_fields=None, order=None, icons=None, *args, **kwargs):
         if extra_fields is None: extra_fields = []
@@ -2449,18 +2471,11 @@ class AssetCollection(MagiCollection):
         return fields
 
     class ItemView(MagiCollection.ItemView):
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(AssetCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.prefetch_related(
-                Prefetch('members', to_attr='all_members'),
-            ).select_related('event')
-            return queryset
-
         def to_fields(self, item, extra_fields=None, preselected=None, *args, **kwargs):
             if not extra_fields: extra_fields = []
             if not preselected: preselected = []
-            preselected.append('event')
-            if len(item.all_members):
+            preselected += ['event', 'song']
+            if getattr(item, 'all_members', []):
                 extra_fields.append(('members', {
                     'icon': 'users',
                     'verbose_name': _('Members'),
@@ -2485,16 +2500,6 @@ class AssetCollection(MagiCollection):
         col_break = 'sm'
         item_padding = None
         show_items_titles = True
-
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(AssetCollection.ListView, self).get_queryset(queryset, parameters, request)
-            if not request.GET.get('i_type', None) or int(request.GET.get('i_type')) in [
-                    i
-                    for i, (type_name, type) in enumerate(models.Asset.TYPES.items())
-                    if 'event' in type['variables']
-            ]:
-                queryset = queryset.select_related('event')
-            return queryset
 
         def top_buttons(self, request, context):
             buttons = super(AssetCollection.ListView, self).top_buttons(request, context)

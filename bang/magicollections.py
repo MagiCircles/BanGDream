@@ -2369,6 +2369,9 @@ ASSET_CUTEFORM = {
     'is_event': {
         'type': CuteFormType.YesNo,
     },
+    'is_song': {
+        'type': CuteFormType.YesNo,
+    },
 }
 
 ASSET_CUTEFORM_LIST = ASSET_CUTEFORM.copy()

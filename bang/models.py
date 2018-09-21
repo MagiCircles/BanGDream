@@ -1826,9 +1826,11 @@ class Asset(MagiModel):
             'variables': ['name', 'event', 'song', 'value'],
             'to_unicode': lambda _a: u'{event}{song}{name}'.format(
                 event=_a.event if _a.event else '',
-                song=u' - {song}'.format(
+                song=u'{dash}{song}'.format(
+                    dash=u' - ' if _a.event else '',
                     song=_a.song) if _a.song else '',
-                name=u' - {name}{value}'.format(
+                name=u'{dash}{name}{value}'.format(
+                    dash=u' - ' if _a.event or _a.song else '',
                     name=_a.t_name if _a.name else '',
                     value=u' {value}'.format(value=_a.value) if _a.value and _a.name else (
                         _a.value if _a.value else ''),

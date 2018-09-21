@@ -1068,6 +1068,9 @@ class AssetFilterForm(MagiFiltersForm):
     is_event = forms.NullBooleanField(label=_('Event'))
     is_event_filter = MagiFilter(selector='event__isnull')
 
+    is_song = forms.NullBooleanField(label=_('Song'))
+    is_song_filter = MagiFilter(selector='song__isnull')
+
     members = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
     members_filter = MagiFilter(to_queryset=members_to_queryset)
 
@@ -1115,13 +1118,16 @@ class AssetFilterForm(MagiFiltersForm):
                 )
             else:
                 del(self.fields['value'])
-        # Remove event from fields if type can't be linked with events
+        # Remove is event from fields if type can't be linked with events
         if 'event' not in self.fields and 'is_event' in self.fields:
             del(self.fields['is_event'])
+        # Only show is song filter for titles (not even official art)
+        if type and type != 'title' and 'is_song' in self.fields:
+            del(self.fields['is_song'])
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Asset
-        fields = ['search', 'i_type', 'is_event'] + [
+        fields = ['search', 'i_type', 'is_event', 'is_song'] + [
             v for v in models.Asset.VARIABLES if v not in ['name', 'source', 'source_link']
         ] + ['i_version']
 

@@ -1852,6 +1852,13 @@ class Asset(MagiModel):
         ('transparent', _('Transparent')),
         ('login', _('Login')),
         ('twitter', 'Twitter'),
+        ('bluray', 'Blu-ray'),
+        ('cd', _('CD cover')),
+        ('collab', _('Collab')),
+        ('dengeki', _('Dengeki G\'s magazine')),
+        ('seasonal', _('Seasonal')),
+        ('birthday', _('Birthday')),
+        ('live', _('Live')),
     )
     c_tags = models.TextField(_('Tags'), null=True)
 

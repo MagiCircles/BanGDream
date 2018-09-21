@@ -1302,15 +1302,17 @@ class Song(MagiModel):
         if not self.romaji_name:
             return self.t_name or self.japanese_name
         if get_language() == 'en' and self.name:
-            return u'{} ({})'.format(
-                self.romaji_name,
-                self.name,
-            )
-        if self.names.get(get_language(), None):
-            return u'{} ({})'.format(
-                self.romaji_name,
-                self.t_name,
-            )
+            if self.name != self.romaji_name:
+                return u'{} ({})'.format(
+                    self.romaji_name,
+                    self.name,
+                )
+        elif self.names.get(get_language(), None):
+            if self.t_name != self.romaji_name:
+                return u'{} ({})'.format(
+                    self.romaji_name,
+                    self.t_name,
+                )
         return self.romaji_name
 
 ############################################################

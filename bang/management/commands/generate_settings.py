@@ -98,6 +98,8 @@ def generate_settings():
         else:
             condition |= Q(secondary_card_event=event)
             condition |= Q(main_card_event=event)
+    ten_days_ago = now - datetime.timedelta(days=10)
+    condition |= Q(is_promo=True, release_date__gte=ten_days_ago)
     filtered_cards = cards.filter(condition)
     if filtered_cards:
         filtered_cards = filtered_cards[:10]

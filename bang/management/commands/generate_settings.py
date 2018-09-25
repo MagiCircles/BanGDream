@@ -102,9 +102,9 @@ def generate_settings():
     condition |= Q(is_promo=True, release_date__gte=ten_days_ago)
     filtered_cards = cards.filter(condition)
     if filtered_cards:
-        filtered_cards = filtered_cards[:10]
+        filtered_cards = filtered_cards[:20]
     else:
-        filtered_cards = cards[:5]
+        filtered_cards = cards[:10]
     homepage_cards = []
     for c in filtered_cards:
         if c.show_art_on_homepage:

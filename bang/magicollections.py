@@ -120,6 +120,14 @@ class AccountCollection(_AccountCollection):
         },
     }
 
+    @property
+    def report_edit_templates(self):
+        templates = _AccountCollection.report_edit_templates.fget(self)
+        templates['Incorrect version'] = 'You appear to have selected the wrong version for this account, so we edited it.'
+        templates['Incorrect friend ID'] = 'You don\'t seem to be the owner of the account associated with this friend ID in game, so we edited it. Feel free to contact us with a proof and we won\'t edit it again.'
+        templates['Unrealistic star gems bought'] = 'Your total number of star gems bought has been reported as being unrealistic so we edited it. Feel free to contact us with a proof and we won\'t edit it again.'
+        return templates
+
     def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
         exclude_fields.append('owner')

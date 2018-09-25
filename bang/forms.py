@@ -80,6 +80,10 @@ class AccountForm(_AccountForm):
 
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
+        if self.is_reported:
+            for field in ['i_play_with', 'i_os']:
+                if field in self.fields:
+                    del(self.fields[field])
         if 'center' in self.fields:
             self.fields['center'].queryset = self.fields['center'].queryset.select_related('card').order_by('-card__release_date', '-card__id')
         if 'stargems_bought' in self.fields:

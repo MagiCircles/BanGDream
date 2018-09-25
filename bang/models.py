@@ -122,6 +122,8 @@ class Account(BaseAccount):
     version_image = property(getInfoFromChoices('version', VERSIONS, 'image'))
     version_image_url = property(lambda _a: staticImageURL(_a.version_image, folder=u'language', extension='png'))
 
+    is_playground = models.BooleanField(_('Playground'), default=False, db_index=True)
+
     PLAY_WITH = OrderedDict([
         ('Thumbs', {
             'translation': _('Thumbs'),
@@ -161,6 +163,7 @@ class Account(BaseAccount):
     _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('account_screenshot'))
     screenshot = models.ImageField(_('Screenshot'), help_text=_('In-game profile screenshot'), upload_to=uploadItem('account_screenshot'), null=True)
     level_on_screenshot_upload = models.PositiveIntegerField(null=True)
+    is_hidden_from_leaderboard = models.BooleanField('Hide from leaderboard', default=False, db_index=True)
 
     def update_cache_leaderboards(self):
         self._cache_leaderboards_last_update = timezone.now()

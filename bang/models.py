@@ -1798,7 +1798,7 @@ class Asset(MagiModel):
     top_image = property(lambda _s: _s._get_top_image(thumbnail=False))
     top_image_list = property(lambda _s: _s._get_top_image(thumbnail=True))
 
-    VARIABLES = ['name', 'i_band', 'members', 'c_tags', 'event', 'value', 'source', 'source_link']
+    VARIABLES = ['name', 'i_band', 'members', 'c_tags', 'event', 'value', 'source', 'source_link', 'song']
 
     TYPES = OrderedDict([
         ('comic', {

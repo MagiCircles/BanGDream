@@ -1811,7 +1811,7 @@ class Asset(MagiModel):
             'variables': ['name', 'i_band', 'c_tags'],
             'to_unicode': lambda _a: u'{}{}'.format(
                 _a.name or _('Backgrounds'),
-                u' ({})'.format(a.band) if a.band else '',
+                u' ({})'.format(_a.band) if _a.band else '',
             ),
         }),
         ('stamp', {

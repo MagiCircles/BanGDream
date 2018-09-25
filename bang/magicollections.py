@@ -1250,7 +1250,8 @@ class EventCollection(MagiCollection):
                 Prefetch('gachas', to_attr='all_gachas'),
                 Prefetch('gift_songs', to_attr='all_gifted_songs'),
                 Prefetch('reruns', to_attr='all_reruns'),
-                Prefetch('assets', queryset=models.Asset.objects.order_by('i_type'), to_attr='all_assets'),
+                Prefetch('assets', queryset=models.Asset.objects.select_related(
+                    'song').order_by('i_type'), to_attr='all_assets'),
             )
             return queryset
 
@@ -1386,6 +1387,16 @@ class EventCollection(MagiCollection):
                             elif asset.name:
                                 verbose_name_subtitle = mark_safe(translationURL(asset.name))
                                 safe_verbose_name = asset.name
+                            # Song title for titles
+                            if not verbose_name_subtitle and asset.song:
+                                verbose_name_subtitle = mark_safe(
+                                    u'<a href="{url}" data-ajax-url="{ajax_url}" class="{cls}">{title}</a>'.format(
+                                        url=asset.song.item_url,
+                                        ajax_url=asset.song.ajax_item_url,
+                                        cls='a-nodifference',
+                                        title=unicode(asset.song),
+                                    ))
+                                safe_verbose_name = unicode(asset.song)
                             extra_fields.append((
                                 version_field_name, {
                                     'type': 'image_link',

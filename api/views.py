@@ -241,7 +241,6 @@ class EventSerializer(MagiSerializer):
     english_image = ImageField(required=False)
     taiwanese_image = ImageField(required=False)
     korean_image = ImageField(required=False)
-    rare_stamp = ImageField(required=False)
     i_boost_attribute = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.ATTRIBUTES.items() }, required=False)
 
     class Meta:

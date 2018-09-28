@@ -274,13 +274,24 @@ def import_comics(args):
                 and getattr(existing_comic, image_field_name, None)
                 and 'redownload' not in args):
                 comic = existing_comic
+                for k, v in data.items():
+                    if k == 'members':
+                        for member in v:
+                            if member not in comic.members.all():
+                                comic.members.add(member)
+                    else:
+                        setattr(comic, k, v)
                 should_download_image = False
                 print '     ', comic_name, 'already exists and has image in this version.'
             else:
                 if existing_comic:
                     comic = existing_comic
                     had_already = bool(getattr(existing_comic, image_field_name, None))
-                    for k, v in data.items():
+                    if k == 'members':
+                        for member in v:
+                            if member not in comic.members.all():
+                                comic.members.add(member)
+                    else:
                         setattr(comic, k, v)
                     if language == 'en':
                         comic.name = comic_name
@@ -331,10 +342,10 @@ def import_comics(args):
                     setattr(comic, image_field_name, image)
                     print '        Done.'
 
-                comic.save()
                 print '      Comic:', comic.http_item_url
                 print '      Done.'
 
+            comic.save()
             # -- End of for per comic
         # -- End of for per version
 

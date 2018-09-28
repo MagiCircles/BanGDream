@@ -124,11 +124,11 @@ def parse_comic_title(all_members, comic_title, version):
             continue
         # Band name
         if band_or_member in models.Song.BAND_CHOICES: # Has more bands than Member.BAND_CHOICES
-            data['band'] = models.Song.get_i('band', band_or_member)
+            data['i_band'] = models.Song.get_i('band', band_or_member)
             continue
         # Band alt names:
         if band_or_member in BAND_ALT_NAMES:
-            data['band'] = models.Song.get_i('band', BAND_ALT_NAMES[band_or_member])
+            data['i_band'] = models.Song.get_i('band', BAND_ALT_NAMES[band_or_member])
             continue
         # Member name (can be full name of first name)
         member = find_member_from_name_or_partial_name(all_members, band_or_member, version)

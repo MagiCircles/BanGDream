@@ -62,7 +62,13 @@ def get_owner():
 
 def find_existing_comic_by_name(comics_in_db, language, comic_name):
     for comic in comics_in_db:
-        if comic.names.get(language, None) == comic_name:
+        name = comic.names.get(language, None)
+        if name == comic_name:
+            return comic
+        if (name == comic_name.replace(u'…?', u'…')
+            or name == comic_name.replace(u'...', u'…')
+            or name == comic_name.replace('?', '')
+        ):
             return comic
     return None
 
@@ -97,9 +103,8 @@ def _parse_comic_title_parts(comic_title, version):
     for separator in PARTS_SEPARATORS_PER_VERSION[version]:
         parts = comic_title.split(separator)
         if len(parts) > 1:
-            return parts[0], parts[1]
+            return parts[0].strip(), parts[1].strip()
     print '  ! Warning: Couldn\'t parse data from title. Using full title as name with no data.'
-    exit()
     return '', comic_title
 
 def parse_comic_title(all_members, comic_title, version):
@@ -133,7 +138,6 @@ def parse_comic_title(all_members, comic_title, version):
             data['members'].append(member)
             continue
         print '  ! Warning: Couldn\'t parse any data for prefix part', band_or_member
-        exit()
     return data, comic_name.replace(u'「', '').replace(u'」', '')
 
 def find_possible_matching_comics_from_data(data, comics_bundles, version):
@@ -181,19 +185,14 @@ def resize_image_from_data(data, filename, width=200, height=200):
 
 def import_comics(args):
     comics_bundles = {}
-    comics_in_db = models.Asset.objects.filter(i_type=models.Asset.get_i('type', 'comic'))
+    comics_in_db = models.Asset.objects.filter(i_type=models.Asset.get_i('type', 'comic'), value=1)
     all_members = models.Member.objects.all()
     owner = get_owner()
     added_comics = 0
     updated_comics = 0
 
-    for version, version_details in models.Account.VERSIONS.items():
+    for version, version_details in [(v, vv) for v, vv in models.Account.VERSIONS.items() if v == 'KR'] + [(v, vv) for v, vv in models.Account.VERSIONS.items() if v != 'KR']:
         language = models.VERSIONS_TO_LANGUAGES[version]
-
-        if language == 'en':
-            comics_in_db_for_language = comics_in_db.filter(name__isnull=False).exclude(name='')
-        else:
-            comics_in_db_for_language = comics_in_db.filter(d_names__icontains=u'"{}"'.format(language))
 
         print 'Downloading list of comics for', unicode(version_details['translation']), '...'
         filename = u'comics_{}.json'.format(version.lower())
@@ -222,11 +221,12 @@ def import_comics(args):
                 existing_comic = comics_bundles[comic_bundle]
                 # If the data doesn't match, it's likely not the same comic so it will be re-added as a separate one
                 # No way to detect which one is the right one, so it prints a warning and gives potential matches
-                # And users have to check visually to re-match them via the site
+                # And users can pick a match
                 if existing_comic.parsed_data != data:
                     existing_comic = None
                     comic_bundle += '-special'
                     print '      !! Warning: Different data found from previously added with same bundle'
+                    print '      Existing one data:', existing_comic.parsed_data
                     print '      Image URL:', image_url
                     accepted_match = False
                     possible_matches = find_possible_matching_comics_from_data(data, comics_bundles, version)
@@ -281,6 +281,12 @@ def import_comics(args):
                 if existing_comic:
                     comic = existing_comic
                     had_already = bool(getattr(existing_comic, image_field_name, None))
+                    for k, v in data.items():
+                        setattr(comic, k, v)
+                    if language == 'en':
+                        comic.name = comic_name
+                    else:
+                        comic.add_d('names', language, comic_name)
                     if had_already:
                         print '      Update image...'
                         updated_comics += 1
@@ -293,6 +299,7 @@ def import_comics(args):
                         'owner': owner,
                         'i_type': models.Asset.get_i('type', 'comic'),
                         'name': comic_name if language == 'en' else None,
+                        'value': 1,
                     }
                     comic = models.Asset.objects.create(**data)
                     print '      Done.'
@@ -310,20 +317,20 @@ def import_comics(args):
             if should_download_image:
                 if 'nodownload' not in args:
                     image = download_image_file(image_url)
+                    filename = image.name
                     if not image:
                         print '!! Error while downloading image for comic', comic_name
                         continue
                     if version in VERSIONS_NEED_RESIZE:
-                        filename = image.name
                         adjusted_width = image.height * 600 / 436
                         print u'        Resize image from {}x{} to {}x{}...'.format(
                             image.width, image.height,
                             adjusted_width, image.height,
                         )
                         image = resize_image_from_data(image.read(), filename, width=adjusted_width, height=image.height)
-                        image.name = models.Asset._meta.get_field('image').upload_to(comic, filename)
-                        setattr(comic, image_field_name, image)
-                        print '        Done.'
+                    image.name = models.Asset._meta.get_field('image').upload_to(comic, filename)
+                    setattr(comic, image_field_name, image)
+                    print '        Done.'
 
                 comic.save()
                 print '      Comic:', comic.http_item_url

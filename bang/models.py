@@ -1803,7 +1803,7 @@ class Asset(MagiModel):
     TYPES = OrderedDict([
         ('comic', {
             'translation': _('Comics'),
-            'variables': ['name', 'i_band', 'value'],
+            'variables': ['name', 'i_band', 'members', 'value'],
             'to_unicode': lambda _a: _a.t_name or _('Comics'),
         }),
         ('background', {

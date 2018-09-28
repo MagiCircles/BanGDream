@@ -226,7 +226,6 @@ def import_comics(args):
                     existing_comic = None
                     comic_bundle += '-special'
                     print '      !! Warning: Different data found from previously added with same bundle'
-                    print '      Existing one data:', existing_comic.parsed_data
                     print '      Image URL:', image_url
                     accepted_match = False
                     possible_matches = find_possible_matching_comics_from_data(data, comics_bundles, version)

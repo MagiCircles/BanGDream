@@ -1898,7 +1898,8 @@ class Asset(MagiModel):
 # Costume
 
 class Chibi(BaseMagiModel):
-    image = models.ImageField(upload_to=uploadToKeepName('images/'))
+    _original_image = models.ImageField(upload_to=uploadTiny('cos/chibi'), null=True)
+    image = models.ImageField(upload_to=uploadItem('cos/chibi'))
     costume = models.ForeignKey('Costume', verbose_name=_('Costume'), related_name='owned_chibis', on_delete=models.CASCADE)
 
     def __unicode__(self):

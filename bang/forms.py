@@ -1192,21 +1192,20 @@ class CostumeForm(AutoForm):
         for image in self.cleaned_data['chibis']:
             if isinstance(image, int):
                 continue
-            name, extension = os.path.splitext(image.name)
-            imageObject = models.Chibi()
-            image = shrinkImageFromData(image.read(), image.name)
+            
             if instance.card:
                 use_attribute = instance.card.english_attribute
             else:
                 use_attribute = 'cos' # ehhh
-            image.name = u'{name}-{attribute}-chibi.{extension}'.format(
+            image.name = u'{name}-{attribute}-chibi'.format(
                 name=tourldash(instance.member.name),
                 attribute=use_attribute,
-                extension=extension,
             )
+
+            imageObject = models.Chibi()
             imageObject.costume = instance
-            imageObject.image.save(image.name, image)
-        instance.force_cache_chibis()
+            imageObject.image = image
+            imageObject.save()
 
         if instance.member:
             instance.member.force_cache_totals()

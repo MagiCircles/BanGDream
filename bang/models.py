@@ -1973,32 +1973,32 @@ class Costume(MagiModel):
     
     # Cache chibis
 
-    _cache_chibis_days = 200
-    _cache_chibis_last_update = models.DateTimeField(null=True)
-    _cache_chibis_ids = models.TextField(null=True)
-    _cache_chibis_paths = models.TextField(null=True)
+    # _cache_chibis_days = 200
+    # _cache_chibis_last_update = models.DateTimeField(null=True)
+    # _cache_chibis_ids = models.TextField(null=True)
+    # _cache_chibis_paths = models.TextField(null=True)
 
-    def update_cache_chibis(self, chibis=None):
-        self._cache_chibis_last_update = timezone.now()
-        if not chibis:
-            chibis = Chibi.objects.filter(costume=self)
-        self._cache_chibis_ids = join_data(*[ image.id for image in chibis ])
-        self._cache_chibis_paths = join_data(*[ unicode(image) for image in chibis ])
+    # def update_cache_chibis(self, chibis=None):
+    #     self._cache_chibis_last_update = timezone.now()
+    #     if not chibis:
+    #         chibis = Chibi.objects.filter(costume=self)
+    #     self._cache_chibis_ids = join_data(*[ image.id for image in chibis ])
+    #     self._cache_chibis_paths = join_data(*[ unicode(image) for image in chibis ])
 
-    def force_cache_chibis(self):
-        self.update_cache_chibis()
-        self.save()
+    # def force_cache_chibis(self):
+    #     self.update_cache_chibis()
+    #     self.save()
 
-    @property
-    def cached_chibis(self):
-        if not self._cache_chibis_last_update or self._cache_chibis_last_update < timezone.now() - datetime.timedelta(days=self._cache_chibis_days):
-            self.force_cache_chibis()
-        if not self._cache_chibis_ids:
-            return []
-        return [AttrDict({
-            'id': id,
-            'pk': id,
-            'image': path,
-            'image_url': get_image_url_from_path(path),
-            'http_image_url': get_http_image_url_from_path(path),
-        }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]
+    # @property
+    # def cached_chibis(self):
+    #     if not self._cache_chibis_last_update or self._cache_chibis_last_update < timezone.now() - datetime.timedelta(days=self._cache_chibis_days):
+    #         self.force_cache_chibis()
+    #     if not self._cache_chibis_ids:
+    #         return []
+    #     return [AttrDict({
+    #         'id': id,
+    #         'pk': id,
+    #         'image': path,
+    #         'image_url': get_image_url_from_path(path),
+    #         'http_image_url': get_http_image_url_from_path(path),
+    #     }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]

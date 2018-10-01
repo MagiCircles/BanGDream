@@ -781,7 +781,8 @@ class CardCollection(MagiCollection):
                 }))
             # Add live2d viewer and chibis
             if hasattr(item, 'associated_costume'):
-                if item.associated_costume.cached_chibis:
+                chibis_set = item.associated_costume.owned_chibis.all()
+                if chibis_set:
                     extra_fields.append(('chibis', {
                         'icon': 'pictures',
                         'type': 'images',
@@ -789,7 +790,7 @@ class CardCollection(MagiCollection):
                         'images': [{
                             'value': chibi.image_url,
                             'verbose_name': _('Chibi'),
-                        } for chibi in item.associated_costume.cached_chibis],
+                        } for chibi in chibis_set],
                     }))
 
                 to_cos_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
@@ -2636,7 +2637,8 @@ class CostumeCollection(MagiCollection):
                 })
             extra_fields.append(('costume', member_field_params))
         
-        if item.cached_chibis:
+        chibis_set = item.owned_chibis.all()
+        if chibis_set:
             extra_fields.append(('chibis', {
                 'icon': 'pictures',
                 'type': 'images',
@@ -2644,7 +2646,7 @@ class CostumeCollection(MagiCollection):
                 'images': [{
                     'value': chibi.image_url,
                     'verbose_name': _('Chibi'),
-                } for chibi in item.cached_chibis],
+                } for chibi in chibis_set],
             }))
 
         fields = super(CostumeCollection, self).to_fields(view, item, extra_fields=extra_fields, exclude_fields=exclude_fields, *args, **kwargs)
@@ -2674,7 +2676,7 @@ class CostumeCollection(MagiCollection):
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CostumeCollection.ListView, self).get_queryset(queryset, parameters, request)
             if parameters.get('view') == 'chibis':
-                return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
+                return queryset.filter(owned_chibis__isnull=False).distinct()
             else:
                 return queryset.filter(model_pkg__isnull=False).exclude(model_pkg='')
 

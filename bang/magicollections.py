@@ -687,7 +687,6 @@ class CardCollection(MagiCollection):
         return buttons
 
     class ItemView(MagiCollection.ItemView):
-        queryset = models.Card.objects.all().select_related('associated_costume')
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
 
@@ -883,6 +882,11 @@ class CardCollection(MagiCollection):
                             'open_in_new_window': True,
                         }
             return buttons
+        
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(CardCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            return queryset.select_related('associated_costume').prefetch_related(
+                Prefetch('associated_costume__owned_chibis', to_attr='costume_chibis'))
 
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
@@ -2676,7 +2680,8 @@ class CostumeCollection(MagiCollection):
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CostumeCollection.ListView, self).get_queryset(queryset, parameters, request)
             if parameters.get('view') == 'chibis':
-                return queryset.filter(owned_chibis__isnull=False).distinct()
+                return queryset.filter(owned_chibis__isnull=False).distinct().prefetch_related(
+                    Prefetch('owned_chibis', to_attr='chibis'))
             else:
                 return queryset.filter(model_pkg__isnull=False).exclude(model_pkg='')
 
@@ -2716,7 +2721,8 @@ class CostumeCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CostumeCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('card').select_related('member')
+            queryset = queryset.select_related('card', 'member').prefetch_related(
+                Prefetch('owned_chibis', to_attr='chibis'))
             return queryset
 
     class AddView(MagiCollection.AddView):

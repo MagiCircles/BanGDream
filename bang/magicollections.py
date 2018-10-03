@@ -780,17 +780,17 @@ class CardCollection(MagiCollection):
                 }))
             # Add live2d viewer and chibis
             if hasattr(item, 'associated_costume'):
-                chibis_set = item.associated_costume.owned_chibis.all()
-                if chibis_set:
-                    extra_fields.append(('chibis', {
-                        'icon': 'pictures',
-                        'type': 'images',
+                extra_fields.append(('chibis', {
+                    'icon': 'pictures',
+                    'type': 'images_links',
+                    'verbose_name': _('Chibi'),
+                    'images': [{
+                        'value': chibi.image_url,
+                        'link': chibi.image_original_url,
+                        'link_text': u'{} - {}'.format(unicode(item), _('Chibi')),
                         'verbose_name': _('Chibi'),
-                        'images': [{
-                            'value': chibi.image_url,
-                            'verbose_name': _('Chibi'),
-                        } for chibi in chibis_set],
-                    }))
+                    } for chibi in item.associated_costume.costume_chibis],
+                }))
 
                 to_cos_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
                     url=item.associated_costume.item_url,
@@ -2641,16 +2641,17 @@ class CostumeCollection(MagiCollection):
                 })
             extra_fields.append(('costume', member_field_params))
         
-        chibis_set = item.owned_chibis.all()
-        if chibis_set:
+        if item.chibis:
             extra_fields.append(('chibis', {
                 'icon': 'pictures',
-                'type': 'images',
+                'type': 'images_links',
                 'verbose_name': _('Chibi'),
                 'images': [{
                     'value': chibi.image_url,
+                    'link': chibi.image_original_url,
+                    'link_text': u'{} - {}'.format(unicode(item), _('Chibi')),
                     'verbose_name': _('Chibi'),
-                } for chibi in chibis_set],
+                } for chibi in item.chibis],
             }))
 
         fields = super(CostumeCollection, self).to_fields(view, item, extra_fields=extra_fields, exclude_fields=exclude_fields, *args, **kwargs)

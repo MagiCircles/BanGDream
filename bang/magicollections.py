@@ -780,17 +780,18 @@ class CardCollection(MagiCollection):
                 }))
             # Add live2d viewer and chibis
             if hasattr(item, 'associated_costume'):
-                extra_fields.append(('chibis', {
-                    'icon': 'pictures',
-                    'type': 'images_links',
-                    'verbose_name': _('Chibi'),
-                    'images': [{
-                        'value': chibi.image_url,
-                        'link': chibi.image_original_url,
-                        'link_text': u'{} - {}'.format(unicode(item), _('Chibi')),
+                if item.associated_costume.chibis:
+                    extra_fields.append(('chibis', {
+                        'icon': 'pictures',
+                        'type': 'images_links',
                         'verbose_name': _('Chibi'),
-                    } for chibi in item.associated_costume.costume_chibis],
-                }))
+                        'images': [{
+                            'value': chibi.image_url,
+                            'link': chibi.image_original_url,
+                            'link_text': u'{} - {}'.format(unicode(item), _('Chibi')),
+                            'verbose_name': _('Chibi'),
+                        } for chibi in item.associated_costume.chibis],
+                    }))
 
                 to_cos_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
                     url=item.associated_costume.item_url,
@@ -886,7 +887,7 @@ class CardCollection(MagiCollection):
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CardCollection.ItemView, self).get_queryset(queryset, parameters, request)
             return queryset.select_related('associated_costume').prefetch_related(
-                Prefetch('associated_costume__owned_chibis', to_attr='costume_chibis'))
+                Prefetch('associated_costume__owned_chibis', to_attr='chibis'))
 
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
@@ -2640,7 +2641,7 @@ class CostumeCollection(MagiCollection):
                     'image': item.member.square_image_url,
                 })
             extra_fields.append(('costume', member_field_params))
-        
+
         if item.chibis:
             extra_fields.append(('chibis', {
                 'icon': 'pictures',

@@ -1985,7 +1985,7 @@ class SongCollection(MagiCollection):
         if model_class.collection_name == 'playedsong':
             return to_PlayedSongCollection(cls)
         return cls
-    
+
     def to_fields(self, view, item, *args, **kwargs):
         fields = super(SongCollection, self).to_fields(
             view, item, *args, icons=SONG_ICONS, **kwargs)
@@ -2359,6 +2359,18 @@ ASSET_CUTEFORM = {
             'modal-text': 'true',
         },
     },
+    'member_band': {
+        'to_cuteform': lambda k, v: (
+            FAVORITE_CHARACTERS_IMAGES[int(k[7:])]
+            if k.startswith('member-')
+            else staticImageURL(v, folder='band', extension='png')
+        ),
+        'title': string_concat(_('Member'), ' / ', _('Band')),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
     'i_version': {
         'to_cuteform': lambda k, v: AccountCollection._version_images[k],
         'image_folder': 'language',
@@ -2509,7 +2521,6 @@ class AssetCollection(MagiCollection):
         filter_cuteform = ASSET_CUTEFORM_LIST
         per_line = 5
         page_size = 25
-        col_break = 'sm'
         item_padding = None
         show_items_titles = True
 

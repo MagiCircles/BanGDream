@@ -1810,7 +1810,7 @@ class Asset(MagiModel):
             'translation': _('Backgrounds'),
             'variables': ['name', 'i_band', 'c_tags'],
             'to_unicode': lambda _a: u'{}{}'.format(
-                _a.name or _('Backgrounds'),
+                _a.t_name or _('Backgrounds'),
                 u' ({})'.format(_a.band) if _a.band else '',
             ),
         }),
@@ -1870,17 +1870,26 @@ class Asset(MagiModel):
     d_names = models.TextField(_('Title'), null=True)
 
     BAND_CHOICES = Member.BAND_CHOICES
-    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
+    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True, help_text='Tagging a band is a shortcut to tagging all the members, so you don\'t need to tag the members when you tag a band.')
 
     members = models.ManyToManyField(Member, related_name='assets', verbose_name=_('Members'), null=True)
 
-    TAGS_CHOICES = (
+    BACKGROUND_TAGS = (
         ('outdoor', _('Outdoor')),
         ('indoor', _('Indoor')),
         ('school', _('School')),
         ('stage', _('Stage')),
         ('home', _('Home')),
         ('date', _('Dating spot')),
+        ('seasonal', _('Seasonal')),
+        ('sunset', _('Sunset')),
+        ('night', _('Night')),
+        ('rain', _('Rain')),
+        ('snow', _('Snow')),
+        ('sakura', _('Cherry blossoms')),
+        ('fireworks', _('Fireworks')),
+    )
+    OFFICIAL_TAGS = (
         ('transparent', _('Transparent')),
         ('login', _('Login')),
         ('twitter', 'Twitter'),
@@ -1892,6 +1901,7 @@ class Asset(MagiModel):
         ('birthday', _('Birthday')),
         ('live', _('Live')),
     )
+    TAGS_CHOICES = BACKGROUND_TAGS + OFFICIAL_TAGS
     c_tags = models.TextField(_('Tags'), null=True)
 
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='assets', null=True, on_delete=models.SET_NULL)

@@ -1027,6 +1027,12 @@ def asset_type_to_form(_type):
             if 'value' in self.fields and _type == 'comic':
                 self.fields['value'] = forms.ChoiceField(label=_('Comics'), choices=(
                     BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en']))
+            # Limit tags per type
+            if 'c_tags' in self.fields:
+                if _type == 'background':
+                    self.fields['c_tags'].choices = models.Asset.BACKGROUND_TAGS
+                elif _type == 'official':
+                    self.fields['c_tags'].choices = models.Asset.OFFICIAL_TAGS
 
         def clean(self):
             cleaned_data = super(_AssetForm, self).clean()
@@ -1065,18 +1071,28 @@ ASSET_COMICS_VALUE_PER_LANGUAGE = {
 class AssetFilterForm(MagiFiltersForm):
     search_fields = ('name', 'd_names', 'c_tags')
 
-    def members_to_queryset(self, queryset, request, value):
-        member = models.Member.objects.get(id=value)
-        return queryset.filter(Q(members=member) | Q(i_band=member.i_band))
-
     is_event = forms.NullBooleanField(label=_('Event'))
     is_event_filter = MagiFilter(selector='event__isnull')
 
     is_song = forms.NullBooleanField(label=_('Song'))
     is_song_filter = MagiFilter(selector='song__isnull')
 
+    def members_to_queryset(self, queryset, request, value):
+        member = models.Member.objects.get(id=value)
+        return queryset.filter(Q(members=member) | Q(i_band=member.i_band)).distinct()
+
     members = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
     members_filter = MagiFilter(to_queryset=members_to_queryset)
+
+    def members_band_to_queryset(self, queryset, request, value):
+        if value.startswith('member-'):
+            return self.members_to_queryset(queryset, request, value[7:])
+        elif value.startswith('band-'):
+            return queryset.filter(Q(i_band=value[5:]) | Q(members__i_band=value[5:])).distinct()
+        return queryset
+
+    member_band = MEMBER_BAND_CHOICE_FIELD
+    member_band_filter = MagiFilter(to_queryset=members_band_to_queryset)
 
     def _i_version_to_queryset(self, queryset, request, value):
         prefix = models.Account.VERSIONS_PREFIXES.get(models.Account.get_reverse_i('version', int(value)))
@@ -1089,7 +1105,7 @@ class AssetFilterForm(MagiFiltersForm):
     i_version = forms.ChoiceField(label=_('Version'), choices=BLANK_CHOICE_DASH + i_choices(models.Account.VERSION_CHOICES))
     i_version_filter = MagiFilter(to_queryset=_i_version_to_queryset)
 
-    i_band_filter = MagiFilter(selectors=['i_band', 'members__i_band'])
+    i_band_filter = MagiFilter(selectors=['i_band', 'members__i_band'], distinct=True)
 
     value = forms.ChoiceField(label=_('Comics'), choices=BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en'])
 
@@ -1128,10 +1144,25 @@ class AssetFilterForm(MagiFiltersForm):
         # Only show is song filter for titles (not even official art)
         if type and type != 'title' and 'is_song' in self.fields:
             del(self.fields['is_song'])
+        # Replace band + member with member_band filter
+        if 'i_band' in self.fields and 'members' in self.fields:
+            del(self.fields['i_band'])
+            del(self.fields['members'])
+        else:
+            del(self.fields['member_band'])
+        # Remove help text of band
+        if 'i_band' in self.fields:
+            self.fields['i_band'].help_text = None
+        # Limit tags per type
+        if 'c_tags' in self.fields:
+            if type == 'background':
+                self.fields['c_tags'].choices = models.Asset.BACKGROUND_TAGS
+            elif type == 'official':
+                self.fields['c_tags'].choices = models.Asset.OFFICIAL_TAGS
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Asset
-        fields = ['search', 'i_type', 'is_event', 'is_song'] + [
+        fields = ['search', 'i_type', 'member_band', 'is_event', 'is_song'] + [
             v for v in models.Asset.VARIABLES if v not in ['name', 'source', 'source_link']
         ] + ['i_version']
 

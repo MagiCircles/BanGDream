@@ -2537,6 +2537,14 @@ class AssetCollection(MagiCollection):
                 ])
             return buttons
 
+        def extra_context(self, context):
+            super(AssetCollection.ListView, self).extra_context(context)
+            if 'i_type' in context['request'].GET:
+                if len(context['request'].GET) == 1:
+                    context['show_search_results'] = False
+                context['h1_page_title'] = models.Asset.get_verbose_i('type', int(context['request'].GET['i_type']))
+                context['page_title'] = u'{} | {}'.format(context['h1_page_title'], context['page_title'])
+
     class AddView(MagiCollection.AddView):
         staff_required = True
         permissions_required = ['manage_main_items']

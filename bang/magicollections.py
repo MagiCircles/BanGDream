@@ -687,7 +687,6 @@ class CardCollection(MagiCollection):
         return buttons
 
     class ItemView(MagiCollection.ItemView):
-        queryset = models.Card.objects.all().select_related('associated_costume')
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
 
@@ -766,17 +765,6 @@ class CardCollection(MagiCollection):
                         ] if image_url],
                         'icon': 'pictures',
                     }))
-            # Add chibis
-            if item.cached_chibis:
-                extra_fields.append(('chibis', {
-                    'icon': 'pictures',
-                    'type': 'images',
-                    'verbose_name': _('Chibi'),
-                    'images': [{
-                        'value': chibi.image_url,
-                        'verbose_name': _('Chibi'),
-                    } for chibi in item.cached_chibis],
-                }))
             # Add cameos
             if item.cached_cameos:
                 extra_fields.append(('cameo_members', {
@@ -790,8 +778,21 @@ class CardCollection(MagiCollection):
                         'link_text': cameo.name,
                     } for cameo in item.cached_cameos]
                 }))
-            # Add live2d viewer
+            # Add live2d viewer and chibis
             if hasattr(item, 'associated_costume'):
+                if item.associated_costume.chibis:
+                    extra_fields.append(('chibis', {
+                        'icon': 'pictures',
+                        'type': 'images_links',
+                        'verbose_name': _('Chibi'),
+                        'images': [{
+                            'value': chibi.image_url,
+                            'link': chibi.image_original_url,
+                            'link_text': u'{} - {}'.format(unicode(item), _('Chibi')),
+                            'verbose_name': _('Chibi'),
+                        } for chibi in item.associated_costume.chibis],
+                    }))
+
                 to_cos_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
                     url=item.associated_costume.item_url,
                     ajax_url=item.associated_costume.ajax_item_url + "?from_card",
@@ -882,6 +883,11 @@ class CardCollection(MagiCollection):
                             'open_in_new_window': True,
                         }
             return buttons
+        
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(CardCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            return queryset.select_related('associated_costume').prefetch_related(
+                Prefetch('associated_costume__owned_chibis', to_attr='chibis'))
 
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
@@ -907,7 +913,6 @@ class CardCollection(MagiCollection):
                     'skill_type',
                 ],
             }),
-            ('chibis', { 'verbose_name': _('Chibi') }),
             ('art', { 'verbose_name': _('Art') }),
             ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
             ('transparent', { 'verbose_name': _('Transparent') }),
@@ -2646,6 +2651,19 @@ class CostumeCollection(MagiCollection):
                 })
             extra_fields.append(('costume', member_field_params))
 
+        if item.chibis:
+            extra_fields.append(('chibis', {
+                'icon': 'pictures',
+                'type': 'images_links',
+                'verbose_name': _('Chibi'),
+                'images': [{
+                    'value': chibi.image_url,
+                    'link': chibi.image_original_url,
+                    'link_text': u'{} - {}'.format(unicode(item), _('Chibi')),
+                    'verbose_name': _('Chibi'),
+                } for chibi in item.chibis],
+            }))
+
         fields = super(CostumeCollection, self).to_fields(view, item, extra_fields=extra_fields, exclude_fields=exclude_fields, *args, **kwargs)
         return fields
 
@@ -2665,6 +2683,18 @@ class CostumeCollection(MagiCollection):
         default_ordering = '-id'
         # not with 4 to a row
         show_relevant_fields_on_ordering = False
+
+        alt_views = MagiCollection.ListView.alt_views + [
+            ('chibis', { 'verbose_name': _('Chibi'), 'per_line': 2 }),
+        ]
+
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(CostumeCollection.ListView, self).get_queryset(queryset, parameters, request)
+            if parameters.get('view') == 'chibis':
+                return queryset.filter(owned_chibis__isnull=False).distinct().prefetch_related(
+                    Prefetch('owned_chibis', to_attr='chibis'))
+            else:
+                return queryset.filter(model_pkg__isnull=False).exclude(model_pkg='')
 
         def to_fields(self, item, *args, **kwargs):
             fields = super(CostumeCollection.ListView, self).to_fields(item, *args, **kwargs)
@@ -2702,7 +2732,8 @@ class CostumeCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CostumeCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('card').select_related('member')
+            queryset = queryset.select_related('card', 'member').prefetch_related(
+                Prefetch('owned_chibis', to_attr='chibis'))
             return queryset
 
     class AddView(MagiCollection.AddView):

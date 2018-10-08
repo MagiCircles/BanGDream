@@ -184,48 +184,16 @@ class MemberFilterForm(MagiFiltersForm):
 # Card
 
 class CardForm(AutoForm):
-    chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
-
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
         self.previous_member_id = None if self.is_creating else self.instance.member_id
-        # Delete existing chibis
-        if not self.is_creating:
-            self.all_chibis = self.instance.chibis.all()
-            for imageObject in self.all_chibis:
-                self.fields[u'delete_chibi_{}'.format(imageObject.id)] = forms.BooleanField(
-                    label=mark_safe(u'Delete chibi <img src="{}" height="100" />'.format(imageObject.image_url)),
-                    initial=False, required=False,
-                )
 
     def save(self, commit=False):
         instance = super(CardForm, self).save(commit=False)
         if self.previous_member_id != instance.member_id:
             instance.update_cache('member')
         instance.save()
-        # Delete existing chibis
-        if not self.is_creating:
-            for imageObject in self.all_chibis:
-                field_name = u'delete_chibi_{}'.format(imageObject.id)
-                field = self.fields.get(field_name)
-                if field and self.cleaned_data[field_name]:
-                    instance.chibis.remove(imageObject)
-                    imageObject.delete()
-        # Upload new chibis
-        for image in self.cleaned_data['chibis']:
-            if isinstance(image, int):
-                continue
-            name, extension = os.path.splitext(image.name)
-            imageObject = models.Image.objects.create()
-            image = shrinkImageFromData(image.read(), image.name)
-            image.name = u'{name}-{attribute}-chibi.{extension}'.format(
-                name=tourldash(instance.member.name),
-                attribute=instance.english_attribute,
-                extension=extension,
-            )
-            imageObject.image.save(image.name, image)
-            instance.chibis.add(imageObject)
-        instance.force_cache_chibis()
+
         # members can't cameo in their own cards
         instance.cameo_members = filter(lambda x: x.id != instance.member_id, self.cleaned_data['cameo_members'])
         instance.update_cache('cameos')
@@ -314,9 +282,7 @@ class CardFilterForm(MagiFiltersForm):
     # View filter
 
     def _view_to_queryset(self, queryset, request, value):
-        if value == 'chibis':
-            return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
-        elif value == 'art':
+        if value == 'art':
             return queryset.filter(art__isnull=False)
         elif value == 'transparent':
             return queryset.filter(transparent__isnull=False)
@@ -1170,12 +1136,22 @@ class AssetFilterForm(MagiFiltersForm):
 # Costume form
 
 class CostumeForm(AutoForm):
+    chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
+
     def __init__(self, *args, **kwargs):
         super(CostumeForm, self).__init__(*args, **kwargs)
 
         if not self.is_creating:
             self.instance.previous_card = self.instance.card
             self.instance.previous_member = self.instance.member
+
+            # chibi delete fields
+            self.all_chibis = self.instance.owned_chibis.all()
+            for imageObject in self.all_chibis:
+                self.fields[u'delete_chibi_{}'.format(imageObject.id)] = forms.BooleanField(
+                    label=mark_safe(u'Delete chibi <img src="{}" height="100" />'.format(imageObject.image_url)),
+                    initial=False, required=False,
+                )
 
         q = Q(associated_costume__isnull=True)
         if self.instance.card:
@@ -1184,21 +1160,46 @@ class CostumeForm(AutoForm):
 
         self.fields['member'].help_text = 'If associating this costume with a card, you can leave this blank. I\'ll take the member from the card.'
 
+    def has_at_least_one_chibi(self, cleaned_data):
+        if cleaned_data.get('chibis'):
+            return True
+
+        if not self.is_creating:
+            survivors = set()
+            for image_obj in self.all_chibis:
+                field_name = u'delete_chibi_{}'.format(image_obj.id)
+                if not cleaned_data.get(field_name):
+                    survivors.add(image_obj.id)
+            if survivors:
+                return True
+
+        return False
+    
+    def has_a_model(self, cleaned_data):
+        if not self.is_creating and self.instance.model_pkg:
+            return True
+        
+        if cleaned_data.get('model_pkg'):
+            return True
+
     def clean(self):
         cleaned_data = super(CostumeForm, self).clean()
 
         if cleaned_data.get('i_costume_type') != models.Costume.get_i('costume_type', 'live'):
             cleaned_data['card'] = None
+        
+        if not (self.has_a_model(cleaned_data) or self.has_at_least_one_chibi(cleaned_data)):
+            raise forms.ValidationError('A costume must have a model or chibis on it.')
 
-        if not cleaned_data.get('card'):
-            if not cleaned_data.get('image'):
-                raise forms.ValidationError('Costumes without associated cards must have a preview image.')
-            if not cleaned_data.get('name'):
-                raise forms.ValidationError('Costumes without associated cards must have a name.')
-        else:
+        if cleaned_data.get('card'):
             cleaned_data['member'] = cleaned_data['card'].member
             # We'll take the card's title, so set the Costume's name to none
             cleaned_data['name'] = None
+        else:
+            if not cleaned_data.get('image') and cleaned_data.get('model'):
+                raise forms.ValidationError('Costumes without associated cards must have a preview image.')
+            if not cleaned_data.get('name'):
+                raise forms.ValidationError('Costumes without associated cards must have a name.')
 
         return cleaned_data
 
@@ -1208,8 +1209,34 @@ class CostumeForm(AutoForm):
         if not self.is_creating and instance.member != self.instance.previous_member:
             self.instance.previous_member.force_cache_totals()
 
-        if commit:
-            instance.save()
+        instance.save()
+
+        # Delete existing chibis
+        if not self.is_creating:
+            for imageObject in self.all_chibis:
+                field_name = u'delete_chibi_{}'.format(imageObject.id)
+                field = self.fields.get(field_name)
+                if field and self.cleaned_data[field_name]:
+                    imageObject.delete()
+
+        # Upload new chibis
+        for image in self.cleaned_data['chibis']:
+            if isinstance(image, int):
+                continue
+            
+            if instance.card:
+                use_attribute = instance.card.english_attribute
+            else:
+                use_attribute = 'cos' # ehhh
+            image.name = u'{name}-{attribute}-chibi'.format(
+                name=tourldash(instance.member.name),
+                attribute=use_attribute,
+            )
+
+            imageObject = models.Chibi()
+            imageObject.costume = instance
+            imageObject.image = image
+            imageObject.save()
 
         if instance.member:
             instance.member.force_cache_totals()
@@ -1251,7 +1278,7 @@ class CostumeFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Costume
-        fields = ('search', 'i_costume_type', 'member', 'i_band', 'i_rarity', 'version')
+        fields = ('view', 'search', 'i_costume_type', 'member', 'i_band', 'i_rarity', 'version')
 
 ############################################################
 # Single page form

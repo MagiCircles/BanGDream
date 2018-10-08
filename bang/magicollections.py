@@ -690,6 +690,10 @@ class CardCollection(MagiCollection):
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
 
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(CardCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            return queryset.select_related('associated_costume')
+
         def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
@@ -780,6 +784,7 @@ class CardCollection(MagiCollection):
                 }))
             # Add live2d viewer and chibis
             if hasattr(item, 'associated_costume'):
+                item.associated_costume.chibis = item.associated_costume.owned_chibis.all()
                 if item.associated_costume.chibis:
                     extra_fields.append(('chibis', {
                         'icon': 'pictures',
@@ -883,11 +888,6 @@ class CardCollection(MagiCollection):
                             'open_in_new_window': True,
                         }
             return buttons
-        
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(CardCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            return queryset.select_related('associated_costume').prefetch_related(
-                Prefetch('associated_costume__owned_chibis', to_attr='chibis'))
 
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
@@ -2016,7 +2016,7 @@ class SongCollection(MagiCollection):
         setSubField(fields, 'unlock', key='value', value=item.unlock_sentence)
 
         for difficulty, verbose_name in models.Song.DIFFICULTIES:
-            image = staticImageURL(difficulty, folder='songs', extension='png')            
+            image = staticImageURL(difficulty, folder='songs', extension='png')
             setSubField(fields, u'{}_notes'.format(difficulty), key='image', value=image)
 
             diff = getattr(item, u'{}_difficulty'.format(difficulty), None)

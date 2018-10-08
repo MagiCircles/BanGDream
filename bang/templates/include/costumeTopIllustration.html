@@ -2,6 +2,7 @@
 {% load i18n %}
 
 {% with costume=item %}
+{% if costume.model_pkg %}
 <p id="noWebGLMessage" class="alert alert-danger" style="text-align: left; display:none;">Sorry, a browser that supports WebGL is required to view Live2D models.</p>
 <p id="loadingMessage" class="text-center fontx2 padding20"><i class="flaticon-loading"></i></p>
 <div id="dlcontainer">
@@ -178,4 +179,11 @@
         {% endif %}
     }
 </script>
+{% else %}
+<script>
+    function loadModelViewerAjax() {
+        // well, this is awkward...
+    }
+</script>
+{% endif %}
 {% endwith %}

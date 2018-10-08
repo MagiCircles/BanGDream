@@ -73,12 +73,6 @@ DREAMFES_PER_LANGUAGE = {
     'zh-hant': u'夢幻祭典轉蛋',
 }
 
-class Image(BaseMagiModel):
-    image = models.ImageField(upload_to=uploadToKeepName('images/'))
-
-    def __unicode__(self):
-        return unicode(self.image)
-
 ############################################################
 # Account
 
@@ -626,10 +620,6 @@ class Card(MagiModel):
     def overall_trained_max(self):
         return self.performance_trained_max + self.technique_trained_max + self.visual_trained_max
 
-    # Chibi images
-
-    chibis = models.ManyToManyField(Image, related_name="chibi", verbose_name=_('Chibi'))
-
     # Other members that appear in the card art
     cameo_members = models.ManyToManyField(Member, related_name='cameo_members', verbose_name=_('Cameos'))
 
@@ -767,38 +757,6 @@ class Card(MagiModel):
                 'image': unicode(gacha.image),
             })
         return gachas if gachas else None
-
-    # Cache chibis
-
-    _cache_chibis_days = 200
-    _cache_chibis_last_update = models.DateTimeField(null=True)
-    _cache_chibis_ids = models.TextField(null=True)
-    _cache_chibis_paths = models.TextField(null=True)
-
-    def update_cache_chibis(self, chibis=None):
-        self._cache_chibis_last_update = timezone.now()
-        if not chibis:
-            chibis = self.chibis.all()
-        self._cache_chibis_ids = join_data(*[ image.id for image in chibis ])
-        self._cache_chibis_paths = join_data(*[ unicode(image) for image in chibis ])
-
-    def force_cache_chibis(self):
-        self.update_cache_chibis()
-        self.save()
-
-    @property
-    def cached_chibis(self):
-        if not self._cache_chibis_last_update or self._cache_chibis_last_update < timezone.now() - datetime.timedelta(days=self._cache_chibis_days):
-            self.force_cache_chibis()
-        if not self._cache_chibis_ids:
-            return []
-        return [AttrDict({
-            'id': id,
-            'pk': id,
-            'image': path,
-            'image_url': get_image_url_from_path(path),
-            'http_image_url': get_http_image_url_from_path(path),
-        }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]
 
     # Cache cameos
 
@@ -1949,6 +1907,14 @@ class Asset(MagiModel):
 ############################################################
 # Costume
 
+class Chibi(BaseMagiModel):
+    _original_image = models.ImageField(upload_to=uploadTiny('cos/chibi'), null=True)
+    image = models.ImageField(upload_to=uploadItem('cos/chibi'))
+    costume = models.ForeignKey('Costume', verbose_name=_('Costume'), related_name='owned_chibis', on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return unicode(self.image)
+
 class Costume(MagiModel):
     collection_name = 'costume'
     owner = models.ForeignKey(User, related_name='added_costume')
@@ -1978,7 +1944,7 @@ class Costume(MagiModel):
 
     _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('cos/z'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'), null=True)
-    model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'))
+    model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'), null=True)
 
     @property
     def display_image(self):
@@ -2007,9 +1973,42 @@ class Costume(MagiModel):
     # additionally, this is nullable just in case we want to upload NPC costumes.
     member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='associated_costume', null=True, on_delete=models.CASCADE)
     card = models.OneToOneField(Card, verbose_name=_('Card'), related_name='associated_costume', null=True, on_delete=models.SET_NULL)
+    # owned_chibis
 
     def __unicode__(self):
         return u'{}{}'.format(
             u'{} - '.format(self.member.t_name) if self.member_id else '',
             self.t_name,
         )
+    
+    # Cache chibis
+
+    # _cache_chibis_days = 200
+    # _cache_chibis_last_update = models.DateTimeField(null=True)
+    # _cache_chibis_ids = models.TextField(null=True)
+    # _cache_chibis_paths = models.TextField(null=True)
+
+    # def update_cache_chibis(self, chibis=None):
+    #     self._cache_chibis_last_update = timezone.now()
+    #     if not chibis:
+    #         chibis = Chibi.objects.filter(costume=self)
+    #     self._cache_chibis_ids = join_data(*[ image.id for image in chibis ])
+    #     self._cache_chibis_paths = join_data(*[ unicode(image) for image in chibis ])
+
+    # def force_cache_chibis(self):
+    #     self.update_cache_chibis()
+    #     self.save()
+
+    # @property
+    # def cached_chibis(self):
+    #     if not self._cache_chibis_last_update or self._cache_chibis_last_update < timezone.now() - datetime.timedelta(days=self._cache_chibis_days):
+    #         self.force_cache_chibis()
+    #     if not self._cache_chibis_ids:
+    #         return []
+    #     return [AttrDict({
+    #         'id': id,
+    #         'pk': id,
+    #         'image': path,
+    #         'image_url': get_image_url_from_path(path),
+    #         'http_image_url': get_http_image_url_from_path(path),
+    #     }) for id, path in zip(split_data(self._cache_chibis_ids), split_data(self._cache_chibis_paths))]

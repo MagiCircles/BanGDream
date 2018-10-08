@@ -1912,6 +1912,13 @@ class Chibi(BaseMagiModel):
     image = models.ImageField(upload_to=uploadItem('cos/chibi'))
     costume = models.ForeignKey('Costume', verbose_name=_('Costume'), related_name='owned_chibis', on_delete=models.CASCADE)
 
+    tinypng_settings = {
+        'image': {
+            'resize': 'scale',
+            'height': 200,
+        },
+    }
+
     def __unicode__(self):
         return unicode(self.image)
 
@@ -1980,7 +1987,7 @@ class Costume(MagiModel):
             u'{} - '.format(self.member.t_name) if self.member_id else '',
             self.t_name,
         )
-    
+
     # Cache chibis
 
     # _cache_chibis_days = 200

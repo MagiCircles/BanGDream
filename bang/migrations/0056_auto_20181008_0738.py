@@ -46,8 +46,8 @@ class Migration(migrations.Migration):
             name='Chibi',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('image', models.ImageField(upload_to=magi.utils.uploadTiny(b'cos/chibi'))),
-                ('_original_image', models.ImageField(upload_to=magi.utils.uploadItem(b'cos/chibi'), null=True)),
+                ('image', models.ImageField(upload_to=magi.utils.uploadItem(b'cos/chibi'))),
+                ('_original_image', models.ImageField(null=True, upload_to=magi.utils.uploadTiny(b'cos/chibi'))),
                 ('costume', models.ForeignKey(related_name='owned_chibis', verbose_name='Costume', to='bang.Costume')),
             ],
             options={
@@ -80,5 +80,11 @@ class Migration(migrations.Migration):
         ),
         migrations.DeleteModel(
             name='Image',
+        ),
+        migrations.AlterField(
+            model_name='asset',
+            name='i_band',
+            field=models.PositiveIntegerField(help_text=b"Tagging a band is a shortcut to tagging all the members, so you don't need to tag the members when you tag a band.", null=True, verbose_name='Band', choices=[(0, b"Poppin'Party"), (1, b'Afterglow'), (2, b'Pastel*Palettes'), (3, b'Roselia'), (4, b'Hello, Happy World!')]),
+            preserve_default=True,
         ),
     ]

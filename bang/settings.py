@@ -26,6 +26,8 @@ SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django
 
 LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
 
+CORNER_POPUP_IMAGE = 'chibi_kanae.png'
+
 SITE_NAME_PER_LANGUAGE = {
     'ja': u'バンドレリパーティー',
     'zh-hans': u'Bandori 派对',

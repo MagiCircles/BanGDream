@@ -58,6 +58,10 @@ def bangGlobalContext(request):
                 title_weight=(u' font-weight: {weight};'.format(weight=f['title_weight'])
                               if 'title_weight' in f else ''),
             )
+    for popup_name, popup in context.get('corner_popups', {}).items():
+        popup['image_overflow'] = True
+        if popup_name == 'happy_birthday':
+            popup['image'] = staticImageURL('birthday_kanae.png')
     return context
 
 def rarity_to_stars_images(rarity):

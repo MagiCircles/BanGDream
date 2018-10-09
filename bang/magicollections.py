@@ -67,6 +67,9 @@ class UserCollection(_UserCollection):
                 context['hashtags'] = context['hashtags'] + ['MyBanpaCollection']
             if get_language() == 'en':
                 context['share_sentence'] = u'Hey, look! I\'m on ✭Bandori Party✭! Follow me ♥︎'
+            if 'profile_birthday' in context['corner_popups']:
+                context['corner_popups']['profile_birthday']['image_overflow'] = True
+                context['corner_popups']['profile_birthday']['image'] = staticImageURL('birthday_kanae.png')
 
     class ListView(_UserCollection.ListView):
         filter_form = forms.UserFilterForm

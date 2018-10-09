@@ -35,6 +35,7 @@ from magi.utils import (
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
 from magi.models import Activity, Notification
+from magi.forms import get_account_simple_form
 from bang.constants import LIVE2D_JS_FILES
 from magi import settings
 from bang.django_translated import t
@@ -173,7 +174,9 @@ class AccountCollection(_AccountCollection):
 
     class AddView(_AccountCollection.AddView):
         back_to_list_button = False
-        simpler_form = forms.AddAccountForm
+        simpler_form = get_account_simple_form(forms.AccountForm, simple_fields=[
+            'nickname', 'i_version', 'level', 'friend_id',
+        ])
 
         def redirect_after_add(self, request, item, ajax):
             if not ajax:

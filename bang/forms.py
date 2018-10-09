@@ -97,17 +97,6 @@ class AccountForm(_AccountForm):
             instance.save()
         return instance
 
-class AddAccountForm(AccountForm):
-    def __init__(self, *args, **kwargs):
-        super(AddAccountForm, self).__init__(*args, **kwargs)
-        if not self.data.get('screenshot') and 'screenshot' in self.fields and int(self.data.get('level', 0) or 0) < 200:
-            self.fields['screenshot'].widget = forms.HiddenInput()
-        if 'start_date' in self.fields:
-            del(self.fields['start_date'])
-
-    class Meta(AccountForm.Meta):
-        fields = ('nickname', 'i_version', 'level', 'friend_id', 'screenshot')
-
 class FilterAccounts(MagiFiltersForm):
     # TODO: these fields stopped working suddenly with error that nested lookup don't work - not sure why
     # 'owner__preferences__description', 'owner__preferences__location'
@@ -1174,11 +1163,11 @@ class CostumeForm(AutoForm):
                 return True
 
         return False
-    
+
     def has_a_model(self, cleaned_data):
         if not self.is_creating and self.instance.model_pkg:
             return True
-        
+
         if cleaned_data.get('model_pkg'):
             return True
 
@@ -1187,7 +1176,7 @@ class CostumeForm(AutoForm):
 
         if cleaned_data.get('i_costume_type') != models.Costume.get_i('costume_type', 'live'):
             cleaned_data['card'] = None
-        
+
         if not (self.has_a_model(cleaned_data) or self.has_at_least_one_chibi(cleaned_data)):
             raise forms.ValidationError('A costume must have a model or chibis on it.')
 
@@ -1223,7 +1212,7 @@ class CostumeForm(AutoForm):
         for image in self.cleaned_data['chibis']:
             if isinstance(image, int):
                 continue
-            
+
             if instance.card:
                 use_attribute = instance.card.english_attribute
             else:

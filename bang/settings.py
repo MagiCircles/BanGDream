@@ -11,6 +11,7 @@ from magi.default_settings import (
     DEFAULT_JAVASCRIPT_TRANSLATED_TERMS,
     DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS,
     DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
+    DEFAULT_EXTRA_PREFERENCES,
 )
 from magi.utils import tourldash
 from bang import models
@@ -27,6 +28,12 @@ SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django
 LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
 
 CORNER_POPUP_IMAGE = 'chibi_kanae.png'
+
+CUSTOM_PREFERENCES_FORM = True
+
+EXTRA_PREFERENCES = DEFAULT_EXTRA_PREFERENCES + [
+    ('i_favorite_band', lambda: _('Favorite {thing}').format(thing=_('Band'))),
+]
 
 SITE_NAME_PER_LANGUAGE = {
     'ja': u'バンドレリパーティー',
@@ -161,6 +168,8 @@ ENABLED_PAGES['wiki'][0]['navbar_link_list'] = 'girlsbandparty'
 
 ENABLED_PAGES['map']['custom'] = True
 ENABLED_PAGES['map']['navbar_link_list'] = 'community'
+
+ENABLED_PAGES['settings']['custom'] = True
 
 ENABLED_PAGES['cards_quickadd'] = {
     'title': string_concat(u'↳ ', _('Quick add')),

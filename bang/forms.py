@@ -19,6 +19,7 @@ from magi.forms import (
     MultiImageField,
     AccountForm as _AccountForm,
     UserFilterForm as _UserFilterForm,
+    UserPreferencesForm as _UserPreferencesForm,
 )
 from magi.middleware.httpredirect import HttpRedirectException
 from bang import settings
@@ -64,6 +65,16 @@ class UserFilterForm(_UserFilterForm):
 
     class Meta(_UserFilterForm.Meta):
         fields = ('search', 'member', 'ordering', 'reverse_order')
+
+class UserPreferencesForm(_UserPreferencesForm):
+    def __init__(self, *args, **kwargs):
+        super(UserPreferencesForm, self).__init__(*args, **kwargs)
+        if 'd_extra-i_favorite_band' in self.fields:
+            self.fields['d_extra-i_favorite_band'] = forms.ChoiceField(
+                required=False,
+                choices=BLANK_CHOICE_DASH + i_choices(models.Song.BAND_CHOICES[:-1]),
+                label=self.fields['d_extra-i_favorite_band'].label,
+            )
 
 ############################################################
 # Accounts

@@ -31,6 +31,7 @@ from magi.utils import (
     jsv,
     toCountDown,
     translationURL,
+    AttrDict,
 )
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
@@ -61,6 +62,18 @@ class UserCollection(_UserCollection):
     }
 
     class ItemView(_UserCollection.ItemView):
+
+        def get_meta_links(self, user, context):
+            first_links, meta_links, links = super(UserCollection.ItemView, self).get_meta_links(user, context)
+            if user.preferences.extra.get('i_favorite_band', None):
+                band = models.Song.get_reverse_i('band', int(user.preferences.extra['i_favorite_band']))
+                meta_links.insert(0, AttrDict({
+                    't_type': _('Favorite {thing}').format(thing=_('Band')),
+                    'value': band,
+                    'image_url': staticImageURL(band, folder='mini_band',  extension='png'),
+                }))
+            return (first_links, meta_links, links)
+
         def extra_context(self, context):
             super(UserCollection.ItemView, self).extra_context(context)
             if context['item'].id == context['request'].user.id:

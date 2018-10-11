@@ -74,6 +74,7 @@ class UserPreferencesForm(_UserPreferencesForm):
                 required=False,
                 choices=BLANK_CHOICE_DASH + i_choices(models.Song.BAND_CHOICES[:-1]),
                 label=self.fields['d_extra-i_favorite_band'].label,
+                initial=self.fields['d_extra-i_favorite_band'].initial,
             )
 
 ############################################################

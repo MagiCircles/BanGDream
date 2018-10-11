@@ -63,8 +63,8 @@ class UserCollection(_UserCollection):
 
     class ItemView(_UserCollection.ItemView):
 
-        def get_meta_links(self, user, context):
-            first_links, meta_links, links = super(UserCollection.ItemView, self).get_meta_links(user, context)
+        def get_meta_links(self, user, *args, **kwargs):
+            first_links, meta_links, links = super(UserCollection.ItemView, self).get_meta_links(user, *args, **kwargs)
             if user.preferences.extra.get('i_favorite_band', None):
                 band = models.Song.get_reverse_i('band', int(user.preferences.extra['i_favorite_band']))
                 meta_links.insert(0, AttrDict({

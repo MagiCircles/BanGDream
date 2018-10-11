@@ -9,7 +9,7 @@
 >
     {# above: link to cards instead of live2d if we can, to be like the old chibi view #}
     <div class="panel-heading">{{ costume }}</div>
-    <div class="panel-content padding20"><div>{% for chibi in costume.chibis %}<img src="{{ chibi.image_url }}" alt="chibi" width="33%" />{% endfor %}</div></div>
+    <div class="panel-content padding20"><div>{% for chibi in costume.chibis %}<img src="{{ chibi.image_original_url }}" alt="chibi" width="33%" />{% endfor %}</div></div>
 </a>
 {% else %}
 <a href="{{ costume.item_url }}" class="costume_link" data-ajax-url="{{ costume.ajax_item_url }}" data-ajax-title="{{ costume }}">

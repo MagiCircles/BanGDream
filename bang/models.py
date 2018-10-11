@@ -1768,7 +1768,7 @@ class Asset(MagiModel):
             'translation': _('Backgrounds'),
             'variables': ['name', 'i_band', 'c_tags'],
             'to_unicode': lambda _a: u'{}{}'.format(
-                _a.t_name or _('Backgrounds'),
+                _a.t_name or _('Background'),
                 u' ({})'.format(_a.band) if _a.band else '',
             ),
         }),

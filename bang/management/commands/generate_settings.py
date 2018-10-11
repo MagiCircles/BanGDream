@@ -1,4 +1,4 @@
-import time, datetime
+import datetime
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
 from django.utils import timezone
@@ -6,7 +6,12 @@ from django.utils.translation import get_language, activate as translation_activ
 from django.utils.formats import date_format
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
-from magi.tools import totalDonatorsThisMonth, getStaffConfigurations, latestDonationMonth
+from magi.tools import (
+    generateSettings,
+    totalDonatorsThisMonth,
+    getStaffConfigurations,
+    latestDonationMonth,
+)
 from magi.utils import birthdays_within
 from bang import models
 
@@ -73,6 +78,20 @@ def generate_settings():
                 'ajax': False, #event.ajax_item_url, weird carousel bug with data-ajax
             })
         translation_activate(old_lang)
+
+    print 'Get the backgrounds'
+    backgrounds = [
+        {
+            'id': background.id,
+            'thumbnail': background.top_image_list,
+            'image': background.top_image,
+            'name': background.name,
+            'd_names': background.names,
+        }
+        for background in models.Asset.objects.filter(
+                i_type=models.Asset.get_i('type', 'background'),
+        ) if background.top_image
+    ]
 
     print 'Get the characters'
     all_members = models.Member.objects.all().order_by('id')
@@ -152,24 +171,18 @@ def generate_settings():
     schools = models.Member.objects.filter(school__isnull=False).values_list('school', flat=True).distinct()
 
     print 'Save generated settings'
-    # STARTERS = ' + unicode(starters) + u'\n\
-    s = u'\
-# -*- coding: utf-8 -*-\n\
-import datetime\n\
-LATEST_NEWS = ' + unicode(latest_news) + u'\n\
-TOTAL_DONATORS = ' + unicode(total_donators) + u'\n\
-DONATION_MONTH = ' + unicode(donation_month) + u'\n\
-HOMEPAGE_CARDS = ' +  unicode(homepage_cards) + u'\n\
-STAFF_CONFIGURATIONS = ' + unicode(staff_configurations) + u'\n\
-FAVORITE_CHARACTERS = ' + unicode(favorite_characters) + u'\n\
-MAX_STATS = ' + unicode(stats) + u'\n\
-SCHOOLS = ' + unicode(schools) + u'\n\
-GENERATED_DATE = datetime.datetime.fromtimestamp(' + unicode(time.time()) + u')\n\
-'
-    print s
-    with open(django_settings.BASE_DIR + '/' + django_settings.SITE + '_project/generated_settings.py', 'w') as f:
-        f.write(s.encode('utf8'))
-        f.close()
+
+    generateSettings({
+        'LATEST_NEWS': latest_news,
+        'TOTAL_DONATORS': total_donators,
+        'DONATION_MONTH': donation_month,
+        'HOMEPAGE_CARDS': homepage_cards,
+        'STAFF_CONFIGURATIONS': staff_configurations,
+        'FAVORITE_CHARACTERS': favorite_characters,
+        'BACKGROUNDS': backgrounds,
+        'MAX_STATS': stats,
+        'SCHOOLS': schools,
+    })
 
 class Command(BaseCommand):
     can_import_settings = True

@@ -64,12 +64,20 @@ def generate_settings():
         })
 
     # Users birthdays
+    max_usernames = 5
     users = list(magi_models.User.objects.filter(
         preferences__birthdate__day=now.day,
         preferences__birthdate__month=now.month,
-    ))
+    ).extra(select={
+        'total_followers': 'SELECT COUNT(*) FROM {table}_following WHERE user_id = auth_user.id'.format(
+            table=magi_models.UserPreferences._meta.db_table,
+        ),
+    }).order_by('-total_followers'))
     if users:
-        usernames = u', '.join([user.username for user in users])
+        usernames = u'{}{}'.format(
+            u', '.join([user.username for user in users[:max_usernames]]),
+            u' + {}'.format(len(users[max_usernames:])) if users[max_usernames:] else '',
+        )
         t_titles = {}
         for lang, _verbose in django_settings.LANGUAGES:
             translation_activate(lang)

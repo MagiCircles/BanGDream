@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
@@ -6,13 +7,15 @@ from django.utils.translation import get_language, activate as translation_activ
 from django.utils.formats import date_format
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings as django_settings
+from magi import urls # needed to load static_url
 from magi.tools import (
     generateSettings,
     totalDonatorsThisMonth,
     getStaffConfigurations,
     latestDonationMonth,
 )
-from magi.utils import birthdays_within
+from magi.utils import birthdays_within, staticImageURL
+from magi import models as magi_models
 from bang import models
 
 def generate_settings():
@@ -30,9 +33,17 @@ def generate_settings():
     now = timezone.now()
     old_lang = get_language()
 
+
+    # Birthdays
+
+    # Make sure all members use the same year as birthdate
+    for member in models.Member.objects.filter(birthday__isnull=False).order_by('birthday'):
+        member.birthday = member.birthday.replace(year=2015)
+        member.save()
+
     for member in  models.Member.objects.filter(
             birthdays_within(days_after=12, days_before=1, field_name='birthday')
-    ):
+    ).order_by('birthday'):
         card = models.Card.objects.filter(member=member).filter(show_art_on_homepage=True).order_by('-i_rarity', '-release_date')[0]
         t_titles = {}
         for lang, _verbose in django_settings.LANGUAGES:
@@ -51,6 +62,36 @@ def generate_settings():
             'ajax': False,
             'css_classes': 'birthday',
         })
+
+    # Users birthdays
+    users = list(magi_models.User.objects.filter(
+        preferences__birthdate__day=now.day,
+        preferences__birthdate__month=now.month,
+    ))
+    if users:
+        usernames = u', '.join([user.username for user in users])
+        t_titles = {}
+        for lang, _verbose in django_settings.LANGUAGES:
+            translation_activate(lang)
+            t_titles[lang] = u'{} 🎂🎉 {}'.format(
+                _('Happy Birthday'),
+                usernames,
+            )
+        translation_activate(old_lang)
+        latest_news.append({
+            't_titles': t_titles,
+            'image': staticImageURL('happy_birthday.png'),
+            'url': (
+                users[0].item_url
+                if len(users) == 1
+                else u'/users/?ids={}'.format(u','.join([unicode(user.id) for user in users]))
+            ),
+            'hide_title': False,
+            'css_classes': 'birthday font0-5',
+        })
+
+
+    # Events & Gachas
 
     two_days_ago = now - datetime.timedelta(days=2)
     in_twelve_days = now + datetime.timedelta(days=12) # = event length 7d + 5d margin

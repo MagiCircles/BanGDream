@@ -13,18 +13,19 @@ msgstr ""
 msgid "You"
 msgstr "Você"
 
-#: bang/models.py:856 bang/models.py:1085 bang/models.py:1322
-#: bang/models.py:1535 bang/models.py:1710
+#: bang/models.py:824 bang/models.py:1032 bang/models.py:1285
+#: bang/models.py:1498 bang/models.py:1673
 msgid "Account"
 msgstr "Conta"
 
 #. It's the leaderboard of all players ordered by their rank!
-#: bang/magicollections.py:1077 bang/magicollections.py:1354
-#: bang/magicollections.py:1359 bang/magicollections.py:1788
+#: bang/magicollections.py:1119 bang/magicollections.py:1453
+#: bang/magicollections.py:1456 bang/magicollections.py:1460
+#: bang/magicollections.py:1895
 msgid "Leaderboard"
 msgstr "Tabela de classificação"
 
-#: magi/magicollections.py:1467
+#: magi/magicollections.py:1477
 msgid "Create your account to join the community and be in the leaderboard!"
 msgstr "Crie sua conta para entrar na comunidade e estar no ranking!"
 
@@ -32,50 +33,49 @@ msgstr "Crie sua conta para entrar na comunidade e estar no ranking!"
 msgid "Profile"
 msgstr "Perfil"
 
-#: magi/magicollections.py:1583
+#: magi/magicollections.py:1603
 msgid "Players"
 msgstr "Jogadores"
 
-#: magi/magicollections.py:2147 magi/models.py:927 magi/models.py:941
+#: magi/magicollections.py:2199 magi/models.py:962 magi/models.py:976
 msgid "Activity"
 msgstr "Atividade"
 
-#: magi/default_settings.py:665 magi/forms.py:895 magi/magicollections.py:2148
+#: magi/default_settings.py:673 magi/forms.py:1014 magi/magicollections.py:2200
 msgid "Activities"
 msgstr "Atividades"
 
-#: magi/magicollections.py:2283
+#: magi/magicollections.py:2335
 msgid "Share your adventures!"
 msgstr "Compartilhe suas aventuras!"
 
-#: magi/magicollections.py:2406
-#: magi/management/commands/cron_notifications.py:31
+#: magi/magicollections.py:2458
+#: magi/management/commands/cron_notifications.py:35
 #: magi/templates/emails/notification.html:5
 #: magi/templates/emails/notification.html:6
 msgid "Notification"
 msgstr "Notificação"
 
-#: magi/magicollections.py:2407
+#: magi/magicollections.py:2459
 msgid "Notifications"
 msgstr "Notificações"
 
-#: magi/default_settings.py:356 magi/templates/pages/login.html:4
-#: magi/templates/pages/login.html.py:6 magi/templates/pages/signup.html:8
+#: bang/models.py:1852
 msgid "Login"
 msgstr "Entrar"
 
-#: magi/default_settings.py:362 magi/templates/pages/login.html:8
+#: magi/default_settings.py:363 magi/templates/pages/login.html:8
 #: magi/templates/pages/signup.html:4 magi/templates/pages/signup.html.py:6
 msgid "Sign Up"
 msgstr "Cadastre-se"
 
-#: magi/default_settings.py:378 magi/magicollections.py:1692
+#: magi/default_settings.py:379 magi/magicollections.py:1712
 #: magi/templates/items/profile.html:33 magi/templates/pages/settings.html:8
-#: magi/utils.py:296 magi/views.py:306 magi/views.py:309 magi/views.py:542
+#: magi/utils.py:331 magi/views.py:307 magi/views.py:310 magi/views.py:562
 msgid "Settings"
 msgstr "Configurações"
 
-#: magi/default_settings.py:386
+#: magi/default_settings.py:387
 msgid "Logout"
 msgstr "Sair"
 
@@ -83,7 +83,7 @@ msgstr "Sair"
 msgid "About"
 msgstr "Sobre"
 
-#: bang/settings.py:178
+#: bang/settings.py:200
 msgid "Donate"
 msgstr "Doe"
 
@@ -93,30 +93,30 @@ msgid "Map"
 msgstr "Mapa"
 
 #. Link to the help pages that look like a wiki and help people use the site.
-#: magi/default_settings.py:426 magi/default_settings.py:432
-#: magi/templates/pages/about.html:384 magi/views.py:502
+#: magi/default_settings.py:427 magi/default_settings.py:433
+#: magi/templates/pages/about.html:384 magi/views.py:522
 msgid "Help"
 msgstr "Ajuda"
 
 #. The favorite color of the user. Will be used to personalize their profile.
-#: bang/forms.py:125 bang/forms.py:169 bang/models.py:217
+#: bang/forms.py:139 bang/forms.py:188 bang/models.py:221
 msgid "Color"
 msgstr "Cor"
 
 #. This is about the favorite characters the user specified in their preferences.
-#: magi/forms.py:1021
+#: magi/forms.py:1155
 msgid "All your favorites must be unique"
 msgstr "Todos os seus favoritos devem ser únicos"
 
-#: magi/forms.py:1200
+#: magi/forms.py:1334
 msgid "Old Password"
 msgstr "Antiga Senha"
 
-#: magi/forms.py:1201
+#: magi/forms.py:1335
 msgid "New Password"
 msgstr "Nova Senha"
 
-#: magi/forms.py:1202
+#: magi/forms.py:1336
 msgid "New Password Again"
 msgstr "Repita a Nova Senha"
 
@@ -140,60 +140,60 @@ msgstr "Jogador Mestre"
 msgid "Ultimate Player"
 msgstr "Melhor Jogador"
 
-#: magi/models.py:439
+#: magi/models.py:474
 msgid "Never"
 msgstr "Nunca"
 
-#: magi/models.py:440
+#: magi/models.py:475
 msgid "Sometimes"
 msgstr "Às vezes"
 
-#: magi/models.py:441
+#: magi/models.py:476
 msgid "Often"
 msgstr "Frequentemente"
 
-#: magi/models.py:442
+#: magi/models.py:477
 msgid "Every single day"
 msgstr "Todo dia"
 
 #. Example of replacement: "db0 liked your activity: I love going to the beach!" where db0 is the user who liked your activity and "I love going to the beach!" is the content of your activity.
-#: magi/models.py:925 magi/models.py:939
+#: magi/models.py:960 magi/models.py:974
 msgid "{} liked your activity: {}."
 msgstr "{} curtiu sua atividade: {}."
 
 #. Make sure there's as many {} in your translation than in the original sentence.
 #. Example of replacement: "db0 just followed you." where db0 is the user who follows you.
-#: magi/models.py:932
+#: magi/models.py:967
 msgid "{} just followed you."
 msgstr "{} te seguiu."
 
 #. For the emails settings.
-#: magi/models.py:926
+#: magi/models.py:961
 msgid "When someone likes your activity."
 msgstr "Quando alguém curte sua atividade."
 
 #. For the emails settings.
-#: magi/models.py:933
+#: magi/models.py:968
 msgid "When someone follows you."
 msgstr "Quando alguém te segue."
 
 #. Personal description you can write on your profile. Similar to twitter's "bio".
-#: sukutomo/models.py:237
+#: sukutomo/models.py:234
 msgid "Description"
 msgstr "Descrição"
 
 #. Your translation must be gender neutral. Example 1er/ère
-#: bang/forms.py:340 bang/magicollections.py:489 bang/models.py:861
+#: bang/forms.py:325 bang/magicollections.py:527 bang/models.py:829
 msgid "1st"
 msgstr "1º"
 
 #. Your translation must be gender neutral. Example 1er/ère
-#: magi/models.py:134
+#: magi/default_settings.py:26
 msgid "2nd"
 msgstr "2º"
 
 #. Your translation must be gender neutral. Example 1er/ère
-#: magi/models.py:135
+#: magi/default_settings.py:26
 msgid "3rd"
 msgstr "3º"
 
@@ -215,21 +215,21 @@ msgid "It might take up to 24 hours to update your location on the map."
 msgstr "Talvez demore até 24 horas para atualizar sua localização no mapa."
 
 #. For links. Select your platform before adding a link. Can be Facebook/Twitter/Reddit, etc.
-#: magi/models.py:436
+#: magi/models.py:471
 msgid "Platform"
 msgstr "Plataforma"
 
-#: magi/models.py:406
+#: magi/models.py:441
 msgid "Username/ID"
 msgstr "Usuário/ID"
 
 #. For links.
-#: magi/models.py:406
+#: magi/models.py:441
 msgid "Write your username only, no URL."
 msgstr "Escreva somente seu usuário, sem URL."
 
 #. For links.
-#: magi/forms.py:1292
+#: magi/forms.py:1426
 msgid "How often do you tweet/stream/post about {}?"
 msgstr "Com que frequência você tweeta/faz stream/posta sobre {}?"
 
@@ -271,11 +271,11 @@ msgid "We don't know how far we will go with this, but one thing we know for sur
 msgstr "Nós não sabemos o quão longe iremos com isso, mas uma coisa que sabemos com certeza é que estamos tendo muita diversão fazendo isso e compartilhando essa aventura com vocês."
 
 #: magi/templates/include/pagination.html:17
-#: magi/templates/items/profile.html:63
+#: magi/templates/items/profile.html:73
 msgid "Load more..."
 msgstr "Carregar mais..."
 
-#: magi/templates/items/activityItem.html:116
+#: magi/templates/items/activityItem.html:118
 msgid "Write Comment"
 msgstr "Escrever Comentário"
 
@@ -299,33 +299,33 @@ msgid "Edit"
 msgstr "Edite"
 
 #. Feel free to use Twitter's word in your language.
-#: magi/magicollections.py:1704 magi/templates/items/profile.html:27
+#: magi/magicollections.py:1724 magi/templates/items/profile.html:27
 msgid "Unfollow"
 msgstr "Deixar de Seguir"
 
 #. Feel free to use Twitter's word in your language.
-#: magi/forms.py:1234 magi/magicollections.py:1704
+#: magi/forms.py:1368 magi/magicollections.py:1724
 #: magi/templates/items/profile.html:27 magi/templates/items/profile.html:31
 msgid "Follow"
 msgstr "Seguir"
 
 #. Feel free to use Twitter's word in your language.
-#: magi/templates/items/profile.html:37 magi/templates/items/profile.html:39
+#: magi/templates/items/profile.html:39 magi/templates/items/profile.html:41
 msgid "Followers"
 msgstr "Seguidores"
 
 #. Feel free to use Twitter's word in your language.
-#: magi/default_settings.py:328 magi/forms.py:1564
-#: magi/templates/items/profile.html:43 magi/templates/items/profile.html:45
+#: magi/default_settings.py:329 magi/forms.py:1698
+#: magi/templates/items/profile.html:46 magi/templates/items/profile.html:48
 msgid "Following"
 msgstr "Seguindo"
 
-#: magi/templates/items/profile.html:119
+#: magi/templates/items/profile.html:129
 msgid "No account."
 msgstr "Sem conta."
 
 #. The exact phrase "%(length)s" must appear somewhere in your translation. It will be replaced with a number. If you don't write it or write it incorrectly, the whole page will not work in your language.
-#: magi/templates/items/profile.html:123
+#: magi/templates/items/profile.html:133
 msgid "%(length)s account:"
 msgid_plural "%(length)s accounts:"
 msgstr[0] "%(length)s conta:"
@@ -348,7 +348,7 @@ msgstr "Crédito dos Icons"
 msgid "Staff members"
 msgstr "Membros da Equipe"
 
-#: magi/forms.py:1843 magi/templates/items/profile.html:15
+#: magi/forms.py:1980 magi/templates/items/profile.html:15
 #: magi/templates/items/reportItem.html:50
 #: magi/templates/items/reportItem.html:58
 msgid "Staff"
@@ -394,11 +394,11 @@ msgstr "Comece"
 msgid "If you're a developer and you would like to get the data of the game in a convenient format, we provide a public REST API to get the game data, our users datacards, and more!"
 msgstr "Se você é um desenvolvedor e gostaria de obter os dados do jogo em um formato conveniente, nós provemos uma API REST pública para obter os dados do jogo, os datacards dos nossos usuários e mais!"
 
-#: magi/magicollections.py:2660 magi/templates/include/donate.html:57
+#: magi/magicollections.py:2717 magi/templates/include/donate.html:57
 msgid "Donators"
 msgstr "Doadores"
 
-#: magi/default_settings.py:443 magi/default_settings.py:451 magi/views.py:505
+#: magi/default_settings.py:444 magi/default_settings.py:452 magi/views.py:525
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -406,11 +406,11 @@ msgstr "Wiki"
 msgid "Forgot password?"
 msgstr "Esqueceu a senha?"
 
-#: magi/forms.py:1197
+#: magi/forms.py:1331
 msgid "Change your password"
 msgstr "Mude sua senha"
 
-#: magi/forms.py:868
+#: magi/forms.py:987
 msgid "Emails"
 msgstr "Emails"
 
@@ -434,69 +434,69 @@ msgstr "F.A.Q."
 msgid "Change Avatar"
 msgstr "Mudar Avatar"
 
-#: magi/default_settings.py:661 magi/magicollections.py:1393
+#: magi/default_settings.py:669 magi/magicollections.py:1400
 #: magi/templates/pages/settings.html:29
 msgid "Accounts"
 msgstr "Contas"
 
 #. Make sure {object} also appears in your sentence. Will be replaced with the corresponding values.
-#: magi/views_collections.py:210
+#: magi/views_collections.py:208
 msgid "1 {object} matches your search:"
 msgstr "1 {object} está de acordo com a sua pesquisa:"
 
 #. Make sure {total} and {object} also appear in your sentence. Will be replaced with the corresponding values.
-#: magi/views_collections.py:210
+#: magi/views_collections.py:208
 msgid "{total} {objects} match your search:"
 msgstr "{total} {objects} estão de acordo com a sua pesquisa:"
 
-#: magi/magicollections.py:1028
+#: magi/magicollections.py:1035
 msgid "Become a contributor to help us fill the database"
 msgstr "Torne-se um contribuidor para ajudar-nos a preencher nosso banco de dados."
 
-#: magi/views.py:607 magi/views_collections.py:530
+#: magi/views.py:627 magi/views_collections.py:531
 msgid "You can't cancel this action afterwards."
 msgstr "Você não poderá cancelar essa ação depois."
 
-#: magi/forms.py:1287 magi/views.py:313 magi/views.py:314
+#: magi/forms.py:1421 magi/views.py:320 magi/views.py:321
 msgid "Link"
 msgstr "Link"
 
-#: magi/forms.py:1339 magi/forms.py:1373
+#: magi/forms.py:1473 magi/forms.py:1507
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: bang/models.py:1834
+#: bang/models.py:1863
 msgid "Tags"
 msgstr "Tags"
 
-#: magi/forms.py:1328 magi/models.py:128 magi/models.py:501 magi/models.py:731
+#: magi/forms.py:1462 magi/models.py:128 magi/models.py:536 magi/models.py:766
 #: magi/templates/base.html:120 magi/templates/items/activityItem.html:46
 msgid "Language"
 msgstr "Idioma"
 
-#: magi/models.py:724 magi/models.py:1012 magi/models.py:1233
+#: magi/models.py:759 magi/models.py:1047 magi/models.py:1285
 #: magi/templates/items/reportItem.html:33
 #: magi/templates/items/reportItem.html:58
 msgid "Message"
 msgstr "Mensagem"
 
-#: sukutomo/models.py:123 sukutomo/models.py:253 sukutomo/models.py:276
-#: sukutomo/models.py:280 sukutomo/models.py:284 sukutomo/models.py:288
-#: sukutomo/models.py:292
+#: sukutomo/models.py:123 sukutomo/models.py:250 sukutomo/models.py:273
+#: sukutomo/models.py:277 sukutomo/models.py:281 sukutomo/models.py:285
+#: sukutomo/models.py:289
 msgid "Image"
 msgstr "Imagem"
 
-#: magi/forms.py:1570 magi/templates/items/activityItem.html:100
-#: magi/templates/items/activityItem.html:102
+#: magi/forms.py:1704 magi/templates/items/activityItem.html:102
+#: magi/templates/items/activityItem.html:104
 msgid "Liked"
 msgstr "Curtiu"
 
-#: magi/templates/items/activityItem.html:102
-#: magi/templates/items/activityItem.html:105
+#: magi/templates/items/activityItem.html:104
+#: magi/templates/items/activityItem.html:107
 msgid "Like"
 msgstr "Curta"
 
-#: magi/forms.py:1649 magi/models.py:1013
+#: magi/forms.py:1786 magi/models.py:1048
 #: magi/templates/items/reportItem.html:38
 msgid "Images"
 msgstr "Imagens"
@@ -519,28 +519,28 @@ msgstr "Denuncie"
 msgid "Reported by:"
 msgstr "Denunciado por:"
 
-#: magi/views.py:673 magi/views.py:708
+#: magi/views.py:693 magi/views.py:728
 msgid "This {thing} you reported has been reviewed by a moderator and {verb}. Thank you so much for your help!"
 msgstr "O {thing} que você denunciou foi revisto por um moderador e {verb}. Muito obrigado pela sua ajuda!"
 
-#: magi/views.py:429 magi/views.py:673 magi/views.py:684 magi/views.py:689
-#: magi/views.py:719
+#: magi/views.py:436 magi/views.py:693 magi/views.py:704 magi/views.py:709
+#: magi/views.py:739
 msgid "edited"
 msgstr "editado"
 
-#: magi/views.py:678 magi/views.py:713
+#: magi/views.py:698 magi/views.py:733
 msgid "Thank you for reporting this {thing}"
 msgstr "Obrigado por denunciar essa {thing}"
 
-#: magi/views.py:423 magi/views.py:684 magi/views.py:719
+#: magi/views.py:430 magi/views.py:704 magi/views.py:739
 msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
 msgstr "Sua {thing} foi denunciada, e um moderador confirmou que isso deveria {verb}."
 
-#: magi/views.py:689 magi/views.py:724
+#: magi/views.py:709 magi/views.py:744
 msgid "Your {thing} has been {verb}"
 msgstr "Sua {thing} foi {verb}"
 
-#: magi/views.py:432 magi/views.py:708 magi/views.py:724
+#: magi/views.py:439 magi/views.py:728 magi/views.py:744
 msgid "deleted"
 msgstr "deletado"
 
@@ -550,19 +550,15 @@ msgstr "deletado"
 msgid "Hi"
 msgstr "Oi"
 
-#: sukutomo/settings.py:49
-msgid "{nth} Favorite Character"
-msgstr "{nth} Personagem Favorito"
-
-#: magi/settings.py:104
+#: magi/settings.py:105
 msgid "The {game} Database & Community"
 msgstr "Banco de dados & Comunidade do {game}"
 
-#: magi/views.py:219
+#: magi/views.py:220
 msgid "{site} is not a representative and is not associated with {game}. Its logos and images are Trademarks of {company}."
 msgstr "{site} não representa e não está associado com {game}. Os logotipos e imagens são Marcas Registradas de {company}."
 
-#: magi/views.py:221
+#: magi/views.py:222
 msgid "the company that owns {game}"
 msgstr "a companhia a qual pertence o {game}"
 
@@ -622,7 +618,7 @@ msgstr "Inicial"
 msgid "This date cannot be in the future."
 msgstr "Essa data não pode ser no futuro"
 
-#: bang/forms.py:71 bang/forms.py:113 bang/forms.py:988 bang/models.py:1713
+#: bang/forms.py:89 bang/forms.py:124 bang/forms.py:973 bang/models.py:1676
 msgid "Level"
 msgstr "Nível"
 
@@ -630,7 +626,7 @@ msgstr "Nível"
 msgid "Start Date"
 msgstr "Data de início"
 
-#: bang/forms.py:115
+#: bang/forms.py:126
 msgid "Join Date"
 msgstr "Data de afiliação"
 
@@ -764,8 +760,8 @@ msgstr "Água"
 msgid "Fire"
 msgstr "Fogo"
 
-#: bang/models.py:961 bang/models.py:1173 bang/models.py:1229
-#: bang/models.py:1230 bang/models.py:1327
+#: bang/models.py:929 bang/models.py:1120 bang/models.py:1176
+#: bang/models.py:1177 bang/models.py:1290
 msgid "Normal"
 msgstr "Normal"
 
@@ -915,7 +911,7 @@ msgstr "Mudar para lista"
 msgid "You have {} of them in you collection. Delete them before changing this."
 msgstr "Você tem {} destes em sua coleção. Delete-os antes de mudar isso."
 
-#: magi/default_settings.py:413
+#: magi/default_settings.py:414
 msgid "About the game"
 msgstr "Sobre o jogo"
 
@@ -923,15 +919,15 @@ msgstr "Sobre o jogo"
 msgid "View activities in your language only?"
 msgstr "Ver atividades apenas no seu idioma?"
 
-#: magi/models.py:845
+#: magi/models.py:880
 msgid "Check out {username}'s activity on {site}: {activity}"
 msgstr "Confira a atividade de {username} em {site}: {activity}"
 
-#: magi/settings.py:74
+#: magi/settings.py:75
 msgid "Join the community!"
 msgstr "Faça parte da comunidade!"
 
-#: magi/settings.py:109
+#: magi/settings.py:110
 msgid "{site} provides an extended database of information about the game {game} and allows you to keep track of your progress in the game. You can create and customize your very own profile to share your progress and your collection to all your friends. You can also meet other players like you with the social network: read what the others are doing and share your adventures with the community. Comment, like and follow the other players to grow your network. Find players near you with the global map of all the players. And much more!"
 msgstr "{site} provê uma base de dados estendido de informação sobre o jogo {game} e permite que você acompanhe o seu progresso no jogo. Você pode criar e personalizar o seu próprio perfil para compartilhar o seu progresso e sua coleção com todos os seus amigos. Você também pode conhecer outros jogadores como você com a rede social: leia o que os outros estão fazendo e compartilhe suas aventuras com a comunidade. Comente, curta e siga os outros jogadores para crescer a sua rede. Encontre jogadores perto de você com o mapa global de todos os jogadores. E muito mais!"
 
@@ -954,7 +950,7 @@ msgstr "Sobre %(site_name)s"
 msgid "All"
 msgstr "Tudo"
 
-#: magi/magicollections.py:1935
+#: magi/magicollections.py:1961
 msgid "Check out {username}'s awesome collection!"
 msgstr "Confira a coleção incrível de {username}!"
 
@@ -974,8 +970,8 @@ msgstr "Pokémon na sua coleção"
 msgid "Pokémon you've seen"
 msgstr "Pokémon que você viu"
 
-#: bang/forms.py:896 bang/forms.py:897 bang/models.py:1176 bang/models.py:1235
-#: bang/models.py:1236 bang/models.py:1330
+#: bang/forms.py:881 bang/forms.py:882 bang/models.py:1123 bang/models.py:1182
+#: bang/models.py:1183 bang/models.py:1293
 msgid "Special"
 msgstr "Especial"
 
@@ -1077,19 +1073,19 @@ msgstr "Todos os ataques"
 msgid "seconds"
 msgstr "segundos"
 
-#: bang/forms.py:537 bang/forms.py:805
+#: bang/forms.py:522 bang/forms.py:790
 msgid "Creation"
 msgstr "Criação"
 
-#: magi/forms.py:1525 magi/forms.py:1526
+#: magi/forms.py:1659 magi/forms.py:1660
 msgid "Most Popular"
 msgstr "Mais Popular"
 
-#: magi/forms.py:1525
+#: magi/forms.py:1659
 msgid "All time"
 msgstr "Todo o tempo"
 
-#: magi/forms.py:1526
+#: magi/forms.py:1660
 msgid "This week"
 msgstr "Essa semana"
 
@@ -1116,15 +1112,15 @@ msgstr "Veja minha coleção de cards!"
 msgid "The game didn't even exist at that time."
 msgstr "O jogo nem mesmo existia naquela época."
 
-#: bang/forms.py:953
+#: bang/forms.py:938
 msgid "Type"
 msgstr "Tipo"
 
-#: bang/magicollections.py:89 bang/models.py:80
+#: bang/magicollections.py:119 bang/models.py:81
 msgid "Center"
 msgstr "Center"
 
-#: bang/forms.py:250 bang/forms.py:368 bang/forms.py:1151 bang/models.py:330
+#: bang/forms.py:237 bang/forms.py:353 bang/forms.py:1275 bang/models.py:334
 msgid "Rarity"
 msgstr "Raridade"
 
@@ -1170,16 +1166,16 @@ msgid "Hips"
 msgstr "Quadris"
 
 #: sukutomo/forms.py:53 sukutomo/forms.py:56 sukutomo/forms.py:59
-#: sukutomo/forms.py:62 sukutomo/forms.py:65 sukutomo/models.py:277
-#: sukutomo/models.py:281 sukutomo/models.py:285 sukutomo/models.py:289
-#: sukutomo/models.py:293
+#: sukutomo/forms.py:62 sukutomo/forms.py:65 sukutomo/models.py:274
+#: sukutomo/models.py:278 sukutomo/models.py:282 sukutomo/models.py:286
+#: sukutomo/models.py:290
 msgid "Beginning"
 msgstr "Início"
 
 #: sukutomo/forms.py:54 sukutomo/forms.py:57 sukutomo/forms.py:60
-#: sukutomo/forms.py:63 sukutomo/forms.py:66 sukutomo/models.py:278
-#: sukutomo/models.py:282 sukutomo/models.py:286 sukutomo/models.py:290
-#: sukutomo/models.py:294
+#: sukutomo/forms.py:63 sukutomo/forms.py:66 sukutomo/models.py:275
+#: sukutomo/models.py:279 sukutomo/models.py:283 sukutomo/models.py:287
+#: sukutomo/models.py:291
 msgid "End"
 msgstr "Fim"
 
@@ -1197,8 +1193,8 @@ msgstr "T{} tank"
 msgid "Event"
 msgstr "Evento"
 
-#: bang/forms.py:306 bang/forms.py:654 bang/magicollections.py:1617
-#: bang/models.py:1403
+#: bang/forms.py:293 bang/forms.py:639 bang/magicollections.py:1724
+#: bang/models.py:1366
 msgid "Limited"
 msgstr "Limitado"
 
@@ -1211,9 +1207,9 @@ msgstr "Limitado"
 msgid "Awakened"
 msgstr "Despertado"
 
-#: bang/magicollections.py:733 bang/magicollections.py:830
-#: bang/magicollections.py:837 bang/magicollections.py:893
-#: bang/magicollections.py:894 bang/models.py:581 bang/models.py:587
+#: bang/magicollections.py:773 bang/magicollections.py:873
+#: bang/magicollections.py:880 bang/magicollections.py:935
+#: bang/magicollections.py:936 bang/models.py:585 bang/models.py:591
 msgid "Art"
 msgstr "Arte"
 
@@ -1222,7 +1218,7 @@ msgstr "Arte"
 msgid "Release Date"
 msgstr "Data de Lançamento"
 
-#: bang/forms.py:245 bang/magicollections.py:681 bang/models.py:320
+#: bang/forms.py:232 bang/magicollections.py:721 bang/models.py:324
 msgid "ID"
 msgstr "ID"
 
@@ -1238,14 +1234,14 @@ msgstr "Vocal"
 msgid "Dance"
 msgstr "Dança"
 
-#: bang/forms.py:256 bang/forms.py:257 bang/magicollections.py:969
-#: bang/models.py:605 bang/models.py:606 bang/models.py:607 bang/models.py:676
-#: bang/models.py:1646
+#: bang/forms.py:243 bang/forms.py:244 bang/magicollections.py:1011
+#: bang/models.py:609 bang/models.py:610 bang/models.py:611 bang/models.py:676
+#: bang/models.py:1609
 msgid "Visual"
 msgstr "Visual"
 
-#: bang/forms.py:375 bang/forms.py:1185 bang/magicollections.py:481
-#: bang/magicollections.py:701 bang/magicollections.py:971 bang/models.py:472
+#: bang/forms.py:360 bang/forms.py:1309 bang/magicollections.py:519
+#: bang/magicollections.py:741 bang/magicollections.py:1013 bang/models.py:476
 msgid "Skill"
 msgstr "Habilidade"
 
@@ -1341,7 +1337,7 @@ msgstr "Aquário"
 msgid "Taurus"
 msgstr "Touro"
 
-#: sukutomo/models.py:256
+#: sukutomo/models.py:253
 msgid "Token"
 msgstr "Token"
 
@@ -1518,7 +1514,7 @@ msgstr "Tipo Sanguíneo"
 msgid "Writing Hand"
 msgstr "Mão de Escrita "
 
-#: bang/models.py:249
+#: bang/models.py:253
 msgid "Astrological Sign"
 msgstr "Signo Astrológico"
 
@@ -1530,7 +1526,7 @@ msgstr "Cidade Natal"
 msgid "Hobbies"
 msgstr "Hobbies"
 
-#: bang/magicollections.py:336 bang/models.py:220 bang/models.py:221
+#: bang/magicollections.py:374 bang/models.py:224 bang/models.py:225
 msgid "CV"
 msgstr "CV"
 
@@ -1559,21 +1555,21 @@ msgstr "Joga com"
 msgid "Operating System"
 msgstr "Sistema Operacional"
 
-#: sukutomo/magicollections.py:94
+#: sukutomo/magicollections.py:94 sukutomo/settings.py:49
 msgid "Idol"
 msgstr "Idol"
 
-#: sukutomo/forms.py:82 sukutomo/models.py:249
+#: sukutomo/forms.py:82 sukutomo/models.py:246
 msgid "Title"
 msgstr "Título"
 
-#: bang/magicollections.py:733 bang/magicollections.py:830
-#: bang/magicollections.py:838 bang/magicollections.py:895 bang/models.py:592
-#: bang/models.py:596
+#: bang/magicollections.py:773 bang/magicollections.py:873
+#: bang/magicollections.py:881 bang/magicollections.py:937 bang/models.py:596
+#: bang/models.py:600 bang/models.py:1851
 msgid "Transparent"
 msgstr "Transparente"
 
-#: bang/magicollections.py:733 bang/models.py:563 bang/models.py:565
+#: bang/magicollections.py:773 bang/models.py:567 bang/models.py:569
 msgid "Icon"
 msgstr "Icon"
 
@@ -1583,18 +1579,18 @@ msgstr "Icon"
 msgid "Puchi"
 msgstr "Puchi"
 
-#: bang/models.py:599 bang/models.py:602 bang/models.py:605
+#: bang/models.py:603 bang/models.py:606 bang/models.py:609
 msgid "Minimum"
 msgstr "Mínimo"
 
-#: bang/magicollections.py:926 bang/magicollections.py:933 bang/models.py:600
-#: bang/models.py:601 bang/models.py:603 bang/models.py:604 bang/models.py:606
-#: bang/models.py:607
+#: bang/magicollections.py:968 bang/magicollections.py:975 bang/models.py:604
+#: bang/models.py:605 bang/models.py:607 bang/models.py:608 bang/models.py:610
+#: bang/models.py:611
 msgid "Maximum"
 msgstr "Máximo"
 
-#: bang/forms.py:258 bang/forms.py:259 bang/magicollections.py:926
-#: bang/magicollections.py:933 bang/magicollections.py:970 bang/models.py:677
+#: bang/forms.py:245 bang/forms.py:246 bang/magicollections.py:968
+#: bang/magicollections.py:975 bang/magicollections.py:1012 bang/models.py:677
 msgid "Overall"
 msgstr "Geral"
 
@@ -1602,7 +1598,7 @@ msgstr "Geral"
 msgid "Max Bonded"
 msgstr "Bond Máximo"
 
-#: bang/models.py:860
+#: bang/models.py:828
 msgid "Max Leveled"
 msgstr "Nível Máximo"
 
@@ -1619,11 +1615,11 @@ msgstr "Nível da Habilidade"
 msgid "Obtained Date"
 msgstr "Data de Obtenção"
 
-#: bang/forms.py:246 bang/forms.py:247 bang/forms.py:1204
-#: bang/magicollections.py:393 bang/magicollections.py:435
-#: bang/magicollections.py:619 bang/magicollections.py:1311
-#: bang/magicollections.py:1593 bang/models.py:266 bang/models.py:816
-#: bang/models.py:817 bang/settings.py:89
+#: bang/forms.py:233 bang/forms.py:234 bang/forms.py:1328
+#: bang/magicollections.py:431 bang/magicollections.py:473
+#: bang/magicollections.py:657 bang/magicollections.py:1362
+#: bang/magicollections.py:1700 bang/models.py:270 bang/models.py:784
+#: bang/models.py:785 bang/settings.py:100
 #: bang/templates/pages/indexBackground.html:21
 msgid "Cards"
 msgstr "Cards"
@@ -1632,8 +1628,8 @@ msgstr "Cards"
 msgid "Events"
 msgstr "Eventos"
 
-#: bang/magicollections.py:1751 bang/magicollections.py:1878
-#: bang/settings.py:92
+#: bang/magicollections.py:1858 bang/magicollections.py:1985
+#: bang/settings.py:103
 msgid "Songs"
 msgstr "Músicas"
 
@@ -1649,11 +1645,11 @@ msgstr "Cards Favoritos"
 msgid "New Cards"
 msgstr "Novos Cards"
 
-#: bang/models.py:1856
+#: bang/models.py:1860 bang/models.py:1932
 msgid "Live"
 msgstr "Live"
 
-#: bang/settings.py:87
+#: bang/settings.py:98
 msgid "Comedy"
 msgstr "Comédia"
 
@@ -1661,7 +1657,7 @@ msgstr "Comédia"
 msgid "Room Decoration"
 msgstr "Decoração de Quarto"
 
-#: bang/settings.py:93
+#: bang/settings.py:104
 msgid "Introduce yourself"
 msgstr "Apresente-se"
 
@@ -1669,23 +1665,23 @@ msgstr "Apresente-se"
 msgid "Idols"
 msgstr "Idols"
 
-#: bang/settings.py:97
+#: bang/settings.py:108
 msgid "Cosplay"
 msgstr "Cosplay"
 
-#: bang/settings.py:96
+#: bang/settings.py:107
 msgid "Anime"
 msgstr "Anime"
 
-#: bang/settings.py:100 bang/settings.py:229
+#: bang/settings.py:111 bang/settings.py:251
 msgid "Community"
 msgstr "Comunidade"
 
-#: bang/magicollections.py:389 bang/magicollections.py:434
-#: bang/magicollections.py:618 bang/magicollections.py:1123
-#: bang/magicollections.py:1131 bang/magicollections.py:2431
-#: bang/magicollections.py:2487 bang/magicollections.py:2492 bang/models.py:857
-#: bang/models.py:919 bang/models.py:1906
+#: bang/magicollections.py:427 bang/magicollections.py:472
+#: bang/magicollections.py:656 bang/magicollections.py:1164
+#: bang/magicollections.py:1172 bang/magicollections.py:2589
+#: bang/magicollections.py:2647 bang/magicollections.py:2652 bang/models.py:825
+#: bang/models.py:887 bang/models.py:1982
 msgid "Card"
 msgstr "Card"
 
@@ -1757,19 +1753,19 @@ msgstr "Remover esse card de seus favoritos"
 msgid "Add this card to your favorites"
 msgstr "Adicionar essa carta aos seus favoritos"
 
-#: bang/models.py:267
+#: bang/models.py:271
 msgid "Fans"
 msgstr "Fãs"
 
-#: magi/forms.py:1564 magi/forms.py:1570 magi/utils.py:393
+#: magi/forms.py:1698 magi/forms.py:1704 magi/utils.py:433
 msgid "Only"
 msgstr "Apenas"
 
-#: magi/utils.py:396
+#: magi/utils.py:436
 msgid "None"
 msgstr "Nenhum"
 
-#: magi/templates/items/activityItem.html:111
+#: magi/templates/items/activityItem.html:113
 msgid "Liked this activity"
 msgstr "Curtiu essa atividade"
 
@@ -1793,23 +1789,24 @@ msgstr "%(idol)s se apresentaram em %(total_results)s eventos."
 msgid "%(total_results)s producers scouted %(own_card)s"
 msgstr "%(total_results)s producers scouted %(own_card)s"
 
-#: magi/magicollections.py:2455 magi/magicollections.py:2565
+#: magi/magicollections.py:2507 magi/magicollections.py:2617
+#: magi/models.py:1165
 msgid "Badge"
 msgstr "Insígnia"
 
-#: magi/default_settings.py:670 magi/magicollections.py:2456
+#: magi/default_settings.py:678 magi/magicollections.py:2508
 msgid "Badges"
 msgstr "Insígnias"
 
-#: magi/models.py:1144
+#: magi/models.py:1195
 msgid "Bronze"
 msgstr "Bronze"
 
-#: magi/models.py:1145
+#: magi/models.py:1196
 msgid "Silver"
 msgstr "Prata"
 
-#: magi/models.py:1146
+#: magi/models.py:1197
 msgid "Gold"
 msgstr "Ouro"
 
@@ -1822,16 +1819,16 @@ msgstr "%(percent)s%% financiados"
 msgid "Granted by"
 msgstr "Concedido por"
 
-#: magi/templates/items/donateItem.html:15
+#: magi/templates/items/donateItem.html:36
 msgid "No donation yet"
 msgstr "Nenhuma doação até agora"
 
-#: bang/views.py:58
+#: bang/views.py:93
 msgid "Learn more"
 msgstr "Saiba mais"
 
-#: bang/forms.py:164 bang/forms.py:246 bang/forms.py:247 bang/forms.py:484
-#: bang/forms.py:888
+#: bang/forms.py:183 bang/forms.py:233 bang/forms.py:234 bang/forms.py:469
+#: bang/forms.py:873
 msgid "Popularity"
 msgstr "Popularidade"
 
@@ -1839,11 +1836,11 @@ msgstr "Popularidade"
 msgid "Favorited by"
 msgstr "Favoritada por"
 
-#: bang/settings.py:98
+#: bang/settings.py:109
 msgid "Fan made"
 msgstr "Feito por fãs"
 
-#: bang/settings.py:99
+#: bang/settings.py:110
 msgid "Merchandise"
 msgstr "Mercadorias"
 
@@ -1868,25 +1865,25 @@ msgstr "Compartilhar"
 msgid "Local time"
 msgstr "Horário local"
 
-#: bang/magicollections.py:2492
+#: bang/magicollections.py:1456 bang/magicollections.py:2652
 msgid "Open {thing}"
 msgstr "Abrir {thing}"
 
-#: magi/forms.py:493
+#: magi/forms.py:567
 msgid "Reverse order"
 msgstr "Inverter ordem"
 
-#: magi/forms.py:1648 magi/models.py:1011
+#: magi/forms.py:1785 magi/models.py:1046
 #: magi/templates/items/reportItem.html:29
 msgid "Reason"
 msgstr "Razão"
 
-#: magi/item_model.py:621 magi/magicollections.py:918
-#: magi/magicollections.py:964
+#: magi/item_model.py:621 magi/magicollections.py:923
+#: magi/magicollections.py:969
 msgid "Edit {thing}"
 msgstr "Editar {thing}"
 
-#: magi/item_model.py:624 magi/magicollections.py:848 magi/views.py:314
+#: magi/item_model.py:624 magi/magicollections.py:853 magi/views.py:321
 msgid "Delete {thing}"
 msgstr "Deletar {thing}"
 
@@ -1894,24 +1891,24 @@ msgstr "Deletar {thing}"
 msgid "Report {thing}"
 msgstr "Reportar {thing}"
 
-#: magi/forms.py:1287 magi/magicollections.py:960 magi/views.py:313
-#: magi/views.py:400
+#: magi/forms.py:1421 magi/magicollections.py:965 magi/views.py:320
+#: magi/views.py:407
 msgid "Add {thing}"
 msgstr "Adicionar {thing}"
 
-#: magi/magicollections.py:2639
+#: magi/magicollections.py:2696
 msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
 msgstr "Apenas envie um relatório se há algum problema com esta {thing} específica. Se é sobre outra coisa, seu relatório será ignorado. Por exemplo, não reporte uma conta ou um perfil se há um problema com uma atividade. Procure pelos botões \"Report\" a seguir para reportar individualmente."
 
-#: magi/models.py:738
+#: magi/models.py:773
 msgid "Only post official artworks, artworks you own, or fan artworks that are approved by the artist and credited."
 msgstr "Poste apenas obras de artes oficiais, suas, ou de fãs que são aprovadas pelo artista e com os créditos."
 
-#: magi/models.py:1177
+#: magi/models.py:1159 magi/models.py:1228
 msgid "{month} Donator"
 msgstr "Doador de {month}"
 
-#: magi/models.py:1183
+#: magi/models.py:1234
 msgid "{donation_platform} supporter of {site_name} who donated to help cover the server costs"
 msgstr "{donation_platform} apoiador do {site_name} que doou para ajudar a cobrir os custos do servidor"
 
@@ -1975,7 +1972,7 @@ msgstr "Traduzir de %(from_language)s para %(to_language)s"
 msgid "follows you"
 msgstr "te segue"
 
-#: magi/views.py:300 magi/views.py:989
+#: magi/views.py:301 magi/views.py:1009
 #, fuzzy
 msgid "Successfully edited!"
 msgstr "Editado com sucesso!"
@@ -1996,21 +1993,23 @@ msgstr "{time} restante"
 msgid "Starts in {time}"
 msgstr "Começa em {time}"
 
-#: bang/forms.py:38 bang/forms.py:248 bang/forms.py:249 bang/forms.py:659
-#: bang/forms.py:959 bang/forms.py:1045 bang/forms.py:1166
-#: bang/magicollections.py:41 bang/magicollections.py:73
-#: bang/magicollections.py:285 bang/magicollections.py:544
-#: bang/magicollections.py:567 bang/magicollections.py:2440 bang/models.py:321
-#: bang/models.py:1637 bang/models.py:1905
+#: bang/forms.py:40 bang/forms.py:69 bang/forms.py:148 bang/forms.py:235
+#: bang/forms.py:236 bang/forms.py:644 bang/forms.py:944 bang/forms.py:1064
+#: bang/forms.py:1290 bang/magicollections.py:56 bang/magicollections.py:103
+#: bang/magicollections.py:324 bang/magicollections.py:582
+#: bang/magicollections.py:605 bang/magicollections.py:2392
+#: bang/magicollections.py:2598 bang/models.py:325 bang/models.py:1600
+#: bang/models.py:1981 bang/settings.py:93
 msgid "Member"
 msgstr "Membro"
 
-#: bang/forms.py:38 bang/forms.py:163 bang/forms.py:1148 bang/forms.py:1179
-#: bang/magicollections.py:352 bang/magicollections.py:544
-#: bang/magicollections.py:1839 bang/magicollections.py:2209
-#: bang/magicollections.py:2281 bang/magicollections.py:2449 bang/models.py:201
-#: bang/models.py:1190 bang/models.py:1192 bang/models.py:1194
-#: bang/models.py:1627 bang/models.py:1822
+#: bang/forms.py:40 bang/forms.py:182 bang/forms.py:1272 bang/forms.py:1303
+#: bang/magicollections.py:71 bang/magicollections.py:390
+#: bang/magicollections.py:582 bang/magicollections.py:1946
+#: bang/magicollections.py:2308 bang/magicollections.py:2380
+#: bang/magicollections.py:2392 bang/magicollections.py:2607 bang/models.py:205
+#: bang/models.py:1137 bang/models.py:1139 bang/models.py:1141
+#: bang/models.py:1590 bang/models.py:1831 bang/settings.py:35 bang/views.py:35
 msgid "Band"
 msgstr "Banda"
 
@@ -2018,39 +2017,39 @@ msgstr "Banda"
 msgid "Attribute"
 msgstr "Atributo"
 
-#: bang/forms.py:252 bang/forms.py:253 bang/magicollections.py:967
-#: bang/models.py:599 bang/models.py:600 bang/models.py:601 bang/models.py:674
-#: bang/models.py:1644
+#: bang/forms.py:239 bang/forms.py:240 bang/magicollections.py:1009
+#: bang/models.py:603 bang/models.py:604 bang/models.py:605 bang/models.py:674
+#: bang/models.py:1607
 msgid "Performance"
 msgstr "Performance"
 
-#: bang/forms.py:253 bang/forms.py:255 bang/forms.py:257 bang/forms.py:259
-#: bang/magicollections.py:894 bang/magicollections.py:933
-#: bang/magicollections.py:980 bang/models.py:565 bang/models.py:587
-#: bang/models.py:596 bang/models.py:601 bang/models.py:604 bang/models.py:607
-#: bang/models.py:858
+#: bang/forms.py:240 bang/forms.py:242 bang/forms.py:244 bang/forms.py:246
+#: bang/magicollections.py:936 bang/magicollections.py:975
+#: bang/magicollections.py:1022 bang/models.py:569 bang/models.py:591
+#: bang/models.py:600 bang/models.py:605 bang/models.py:608 bang/models.py:611
+#: bang/models.py:826
 msgid "Trained"
 msgstr "Treinado"
 
-#: bang/forms.py:254 bang/forms.py:255 bang/magicollections.py:968
-#: bang/models.py:602 bang/models.py:603 bang/models.py:604 bang/models.py:675
-#: bang/models.py:1645
+#: bang/forms.py:241 bang/forms.py:242 bang/magicollections.py:1010
+#: bang/models.py:606 bang/models.py:607 bang/models.py:608 bang/models.py:675
+#: bang/models.py:1608
 msgid "Technique"
 msgstr "Técnica"
 
-#: bang/magicollections.py:286 bang/magicollections.py:2387 bang/models.py:1824
+#: bang/magicollections.py:325 bang/magicollections.py:2529 bang/models.py:1833
 msgid "Members"
 msgstr "Membros"
 
-#: bang/models.py:209
+#: bang/models.py:213
 msgid "First"
 msgstr "Primeiro"
 
-#: bang/models.py:210
+#: bang/models.py:214
 msgid "Second"
 msgstr "Segundo"
 
-#: bang/models.py:334 bang/settings.py:135
+#: bang/models.py:338 bang/settings.py:154
 msgid "Power"
 msgstr "Poder"
 
@@ -2058,21 +2057,21 @@ msgstr "Poder"
 msgid "Pure"
 msgstr "Puro"
 
-#: bang/models.py:346 bang/settings.py:138
+#: bang/models.py:350 bang/settings.py:157
 msgid "Happy"
 msgstr "Feliz"
 
-#: bang/models.py:378
+#: bang/models.py:382
 #, fuzzy
 msgid "Score up"
 msgstr "Aumento na Pontuação"
 
-#: bang/models.py:406
+#: bang/models.py:410
 #, fuzzy
 msgid "Life recovery"
 msgstr "Recuperação de vida"
 
-#: bang/models.py:422
+#: bang/models.py:426
 #, fuzzy
 msgid "Perfect lock"
 msgstr "Trava de Perfect"
@@ -2081,26 +2080,22 @@ msgstr "Trava de Perfect"
 msgid "School"
 msgstr "Escola"
 
-#: bang/models.py:213
+#: bang/models.py:217
 msgid "School Year"
 msgstr "Ano escolar"
 
-#: bang/models.py:227 bang/models.py:229
+#: sukutomo/models.py:226 sukutomo/models.py:228
 msgid "Liked food"
 msgstr "Comidas que gosta"
 
-#: bang/models.py:231 bang/models.py:233
+#: sukutomo/models.py:230 sukutomo/models.py:232
 msgid "Disliked food"
 msgstr "Comidas que não gosta"
 
-#: bang/magicollections.py:465 bang/magicollections.py:2250 bang/models.py:654
-#: bang/models.py:655 bang/models.py:658 bang/models.py:1731
+#: bang/magicollections.py:503 bang/magicollections.py:2349 bang/models.py:654
+#: bang/models.py:655 bang/models.py:658 bang/models.py:1694
 msgid "Level {level}"
 msgstr "Nível {level}"
-
-#: bang/settings.py:84
-msgid "{nth} Favorite Member"
-msgstr "{nth} Membro Favorito"
 
 #: cpro/templates/items/eventInfo.html:14
 msgid "days"
@@ -2114,94 +2109,90 @@ msgstr "horas"
 msgid "minutes"
 msgstr "minutos"
 
-#: bang/forms.py:61 bang/forms.py:119
-msgid "Favorite Member"
-msgstr "Membro Favorito"
-
-#: bang/magicollections.py:341 bang/models.py:1838
+#: bang/magicollections.py:379 bang/models.py:1868
 msgid "Source"
 msgstr "Fonte"
 
-#: bang/forms.py:950 bang/models.py:253 bang/models.py:255 bang/models.py:1633
-#: bang/models.py:1635
+#: bang/forms.py:935 bang/models.py:257 bang/models.py:259 bang/models.py:1596
+#: bang/models.py:1598
 msgid "Instrument"
 msgstr "Instrumento"
 
-#: magi/magicollections.py:415
+#: magi/magicollections.py:416
 #, fuzzy
 msgid "Collected {thing}"
 msgstr "{thing} colecionável"
 
-#: bang/magicollections.py:810 bang/models.py:459 bang/models.py:460
-#: bang/models.py:462
+#: bang/magicollections.py:853 bang/models.py:463 bang/models.py:464
+#: bang/models.py:466
 msgid "Skill name"
 msgstr "Nome da habilidade"
 
-#: bang/forms.py:340 bang/magicollections.py:489 bang/models.py:861
+#: bang/forms.py:325 bang/magicollections.py:527 bang/models.py:829
 msgid "{nth} episode"
 msgstr "{nth} episódio\n"
 ""
 
-#: bang/models.py:862
+#: bang/models.py:830
 msgid "Memorial episode"
 msgstr "Episódio memorial"
 
-#: magi/abstract_models.py:131
+#: magi/abstract_models.py:157
 msgid "Join date"
 msgstr "Data de entrada"
 
-#: magi/abstract_models.py:132
+#: magi/abstract_models.py:158
 msgid "Give a nickname to your account to easily differentiate it from your other accounts when you're managing them."
 msgstr "Dê um apelido à sua conta para diferenciá-la facilmente das suas outras contas quando vocês as estiver gerenciando."
 
-#: magi/abstract_models.py:133
+#: magi/abstract_models.py:159
 msgid "Start date"
 msgstr "Data de início"
 
-#: magi/abstract_models.py:136 magi/forms.py:968 magi/models.py:139
+#: magi/abstract_models.py:162 magi/forms.py:1087 magi/models.py:139
 #: magi/models.py:160
 msgid "Default tab"
 msgstr "Aba padrão"
 
-#: magi/views.py:215
+#: magi/views.py:216
 msgid "Email"
 msgstr "Email"
 
-#: magi/forms.py:268 magi/forms.py:277 magi/forms.py:286
+#: magi/forms.py:298 magi/forms.py:307 magi/forms.py:316
 msgid "You've added a lot of {things}, lately. Try to wait a little bit before adding more."
 msgstr "Você adicionou muitas {things}, recentemente. Tente esperar um pouco antes de adicionar mais."
 
-#: magi/forms.py:293
+#: magi/forms.py:323
 msgid "You already have {total} {things}. You can only add up to {max} {things}."
 msgstr "Você já tem {total} {things}. Você só pode adicionar até {max} {things}."
 
-#: magi/forms.py:495
+#: magi/forms.py:569
 msgid "View"
 msgstr "Ver"
 
-#: magi/forms.py:765
+#: magi/forms.py:857
 msgid "Please provide an updated screenshot of your in-game profile to prove your level."
 msgstr "Por favor forneça uma captura de tela do seu perfil dentro do jogo para provar o seu nível."
 
-#: magi/utils.py:985 magi/utils.py:989
+#: magi/utils.py:1049 magi/utils.py:1053
 msgid "You may use Markdown formatting."
 msgstr "Você pode usar formatação Markdown."
 
 #. Example: Adding to your account db0
 #. Adding to your card Kotori
-#: magi/magicollections.py:331
+#: magi/magicollections.py:332
 msgid "Adding to your {thing} {name}"
 msgstr "Adicionar ao seu {thing} {name}"
 
-#: magi/magicollections.py:423
+#: magi/magicollections.py:424
 msgid "Add to your {thing}"
 msgstr "Adicionar ao seu {thing}"
 
-#: magi/magicollections.py:438
+#: magi/magicollections.py:439
 msgid "Quick edit"
 msgstr "Edição rápida"
 
-#: magi/magicollections.py:1498
+#: magi/magicollections.py:1516
 msgid "Leaderboard position"
 msgstr "Posição na tabela de classificação"
 
@@ -2241,23 +2232,23 @@ msgstr "Alternativamente..."
 msgid "The staff team is available on:"
 msgstr "A equipe de funcionários está disponível em:"
 
-#: magi/utils.py:418
+#: magi/utils.py:458
 msgid "Select {}"
 msgstr "Selecione {}"
 
-#: magi/utils.py:840
+#: magi/utils.py:904
 msgid "This date has to be in the future."
 msgstr "Esta data deve ser no futuro"
 
-#: magi/views.py:300 magi/views.py:995
+#: magi/views.py:301 magi/views.py:1015
 msgid "Successfully added!"
 msgstr "Adicionado com sucesso!"
 
-#: magi/views.py:1001
+#: magi/views.py:1021
 msgid "Successfully deleted!"
 msgstr "Deletado com sucesso!"
 
-#: magi/views_collections.py:254
+#: magi/views_collections.py:252
 msgid "{things} list"
 msgstr "Lista de {things}"
 
@@ -2305,11 +2296,11 @@ msgstr "segundos restantes"
 msgid "translated in English"
 msgstr "traduzido em Inglês"
 
-#: bang/forms.py:85 bang/magicollections.py:121
+#: bang/forms.py:107 bang/magicollections.py:159
 msgid "Total {item} bought"
 msgstr "Total de {item} comprados"
 
-#: bang/forms.py:85 bang/magicollections.py:121
+#: bang/forms.py:107 bang/magicollections.py:159
 msgid "Star gems"
 msgstr "Star gems"
 
@@ -2317,45 +2308,44 @@ msgstr "Star gems"
 msgid "Friend ID"
 msgstr "ID do Amigo"
 
-#: bang/forms.py:302
+#: bang/forms.py:289
 msgid "Promo"
 msgstr "Promoção"
 
-#: bang/forms.py:244 bang/forms.py:886 bang/models.py:370 bang/models.py:1221
+#: bang/forms.py:231 bang/forms.py:871 bang/models.py:374 bang/models.py:1168
 msgid "Release date"
 msgstr "Data de lançamento"
 
-#: bang/forms.py:298
+#: bang/forms.py:285
 msgid "Origin"
 msgstr "Origem"
 
-#: bang/forms.py:301 bang/magicollections.py:725 bang/magicollections.py:1287
-#: bang/magicollections.py:1455 bang/magicollections.py:1456
-#: bang/models.py:1470
+#: bang/forms.py:288 bang/magicollections.py:765 bang/magicollections.py:1338
+#: bang/magicollections.py:1560 bang/magicollections.py:1561
+#: bang/models.py:1433
 msgid "Gacha"
 msgstr "Gacha"
 
-#: sukutomo/forms.py:85 sukutomo/models.py:274
+#: sukutomo/forms.py:85 sukutomo/models.py:271
 msgid "Server availability"
 msgstr "Disponibilidade do servidor"
 
-#: bang/forms.py:390 bang/forms.py:391 bang/forms.py:481 bang/forms.py:566
-#: bang/forms.py:567 bang/forms.py:636 bang/models.py:91 bang/models.py:1008
-#: bang/models.py:1009 bang/models.py:1010 bang/models.py:1012
-#: bang/models.py:1410 bang/models.py:1411 bang/models.py:1412
-#: bang/models.py:1758
+#: bang/forms.py:375 bang/forms.py:376 bang/forms.py:466 bang/forms.py:551
+#: bang/forms.py:552 bang/forms.py:621 bang/models.py:92 bang/models.py:961
+#: bang/models.py:962 bang/models.py:963 bang/models.py:1373
+#: bang/models.py:1374 bang/models.py:1375 bang/models.py:1713
 msgid "English version"
 msgstr "Versão Inglesa"
 
 #: sukutomo/forms.py:59 sukutomo/forms.py:60 sukutomo/forms.py:79
-#: sukutomo/models.py:31 sukutomo/models.py:284 sukutomo/models.py:285
-#: sukutomo/models.py:286
+#: sukutomo/models.py:31 sukutomo/models.py:281 sukutomo/models.py:282
+#: sukutomo/models.py:283
 msgid "Taiwanese version"
 msgstr "Versão Taiwanesa"
 
 #: sukutomo/forms.py:62 sukutomo/forms.py:63 sukutomo/forms.py:80
-#: sukutomo/models.py:29 sukutomo/models.py:288 sukutomo/models.py:289
-#: sukutomo/models.py:290
+#: sukutomo/models.py:29 sukutomo/models.py:285 sukutomo/models.py:286
+#: sukutomo/models.py:287
 msgid "Korean version"
 msgstr "Versão Coreana"
 
@@ -2365,137 +2355,140 @@ msgid "Date"
 msgstr "Data"
 
 #: sukutomo/forms.py:53 sukutomo/forms.py:54 sukutomo/forms.py:77
-#: sukutomo/models.py:27 sukutomo/models.py:276 sukutomo/models.py:277
-#: sukutomo/models.py:278
+#: sukutomo/models.py:27 sukutomo/models.py:273 sukutomo/models.py:274
+#: sukutomo/models.py:275
 msgid "Japanese version"
 msgstr "Versão Japonesa"
 
-#: bang/forms.py:889 bang/models.py:169 bang/models.py:1197
+#: bang/forms.py:874 bang/models.py:173 bang/models.py:1144
 msgid "Romaji"
 msgstr "Romaji"
 
-#: bang/forms.py:890 bang/models.py:1213
+#: bang/forms.py:875 bang/models.py:1160
 msgid "Length"
 msgstr "Comprimento"
 
-#: bang/forms.py:891
+#: bang/forms.py:876
 msgid "BPM"
 msgstr "BPM"
 
-#: bang/forms.py:892 bang/forms.py:893 bang/models.py:1174 bang/models.py:1231
-#: bang/models.py:1232 bang/models.py:1328
+#: bang/forms.py:877 bang/forms.py:878 bang/models.py:1121 bang/models.py:1178
+#: bang/models.py:1179 bang/models.py:1291
 msgid "Hard"
 msgstr "Difícil"
 
-#: bang/forms.py:892 bang/forms.py:894 bang/forms.py:896 bang/models.py:1227
-#: bang/models.py:1229 bang/models.py:1231 bang/models.py:1233
-#: bang/models.py:1235
+#: bang/forms.py:877 bang/forms.py:879 bang/forms.py:881 bang/models.py:1174
+#: bang/models.py:1176 bang/models.py:1178 bang/models.py:1180
+#: bang/models.py:1182
 msgid "Notes"
 msgstr "Notas"
 
-#: bang/forms.py:893 bang/forms.py:895 bang/forms.py:897 bang/models.py:1228
-#: bang/models.py:1230 bang/models.py:1232 bang/models.py:1234
-#: bang/models.py:1236 bang/models.py:1333
+#: bang/forms.py:878 bang/forms.py:880 bang/forms.py:882 bang/models.py:1175
+#: bang/models.py:1177 bang/models.py:1179 bang/models.py:1181
+#: bang/models.py:1183 bang/models.py:1296
 msgid "Difficulty"
 msgstr "Dificuldade"
 
-#: bang/forms.py:894 bang/forms.py:895 bang/models.py:1175 bang/models.py:1233
-#: bang/models.py:1234 bang/models.py:1329
+#: bang/forms.py:879 bang/forms.py:880 bang/models.py:1122 bang/models.py:1180
+#: bang/models.py:1181 bang/models.py:1292
 msgid "Expert"
 msgstr "Expert"
 
-#: bang/forms.py:900 bang/magicollections.py:1923
+#: bang/forms.py:885 bang/magicollections.py:2032
 msgid "Cover"
 msgstr "Capa"
 
-#: bang/magicollections.py:125
+#: bang/magicollections.py:163
 msgid "~{}円 spent (~${})"
 msgstr "~{}円 gastos (~${})"
 
-#: bang/magicollections.py:287 bang/settings.py:94
+#: bang/magicollections.py:326 bang/settings.py:105
 #: bang/templates/pages/indexBackground.html:22
 msgid "Characters"
 msgstr "Personagens"
 
-#: bang/magicollections.py:389
+#: bang/forms.py:69 bang/forms.py:148 bang/magicollections.py:71
+#: bang/magicollections.py:427 bang/settings.py:35
 msgid "Favorite {thing}"
 msgstr "{thing} favorita"
 
-#: bang/forms.py:247 bang/magicollections.py:393 bang/models.py:816
+#: bang/forms.py:234 bang/magicollections.py:431 bang/models.py:784
 msgid "Favorite {things}"
 msgstr "{things} favoritas"
 
-#: bang/magicollections.py:756 bang/magicollections.py:759
-#: bang/magicollections.py:892 bang/models.py:621
+#: bang/magicollections.py:811 bang/magicollections.py:815
+#: bang/magicollections.py:816 bang/magicollections.py:2677
+#: bang/magicollections.py:2681 bang/magicollections.py:2682
+#: bang/magicollections.py:2707
 msgid "Chibi"
 msgstr "Chibi"
 
-#: bang/magicollections.py:878
+#: bang/magicollections.py:921
 msgid "Icons"
 msgstr "Ícones"
 
-#: bang/magicollections.py:878 bang/settings.py:153
+#: bang/magicollections.py:921 bang/settings.py:175
 msgid "Quick add"
 msgstr "Adição rápida"
 
-#: bang/magicollections.py:880
+#: bang/magicollections.py:923
 msgid "Statistics"
 msgstr "Estatísticas"
 
-#: bang/magicollections.py:979
+#: bang/magicollections.py:1021
 msgid "Min"
 msgstr "Mínimo"
 
-#: bang/magicollections.py:979
+#: bang/magicollections.py:1021
 msgid "Max"
 msgstr "Máximo"
 
-#: bang/magicollections.py:1033
+#: bang/magicollections.py:1075
 msgid "Participated event"
 msgstr "Evento participado"
 
-#: bang/forms.py:484 bang/magicollections.py:1034 bang/models.py:1064
+#: bang/forms.py:469 bang/magicollections.py:1076 bang/models.py:1011
 msgid "Participated events"
 msgstr "Eventos participados"
 
-#: bang/magicollections.py:1299
+#: bang/magicollections.py:1350
 msgid "Boost Members"
 msgstr ""
 
-#: bang/magicollections.py:1325
+#: bang/magicollections.py:1376
 msgid "Gift song"
 msgstr "Musica de Presente"
 
-#: bang/forms.py:652 bang/magicollections.py:1614
+#: bang/forms.py:637 bang/magicollections.py:1721
 msgid "Gacha type"
 msgstr "Tipo de Gacha"
 
-#: bang/forms.py:653 bang/magicollections.py:1619
+#: bang/forms.py:638 bang/magicollections.py:1726
 msgid "Permanent"
 msgstr "Permanente"
 
-#: bang/magicollections.py:1749
+#: bang/magicollections.py:1856
 msgid "Played song"
 msgstr "Música jogada"
 
-#: bang/forms.py:888 bang/magicollections.py:1750 bang/models.py:1301
+#: bang/forms.py:873 bang/magicollections.py:1857 bang/models.py:1248
 msgid "Played songs"
 msgstr "Músicas jogadas"
 
-#: bang/magicollections.py:1802 bang/magicollections.py:1877
-#: bang/magicollections.py:1919 bang/models.py:1323
+#: bang/forms.py:1057 bang/magicollections.py:1909 bang/magicollections.py:1984
+#: bang/magicollections.py:2028 bang/models.py:1286 bang/models.py:1866
 msgid "Song"
 msgstr "Música"
 
-#: bang/forms.py:299 bang/magicollections.py:1923
+#: bang/forms.py:286 bang/magicollections.py:2032
 msgid "Original"
 msgstr "Original"
 
-#: bang/magicollections.py:1986
+#: bang/magicollections.py:2084
 msgid "{} notes"
 msgstr "{} notas"
 
-#: bang/magicollections.py:2005
+#: bang/magicollections.py:2104
 msgid "Songwriters"
 msgstr "Compositores"
 
@@ -2507,171 +2500,171 @@ msgstr "Versão"
 msgid "The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ..."
 msgstr "O modelo do seu aparelho. Exemplo: Nexus 5, iPhone 4, iPad2, ..."
 
-#: bang/forms.py:812 bang/models.py:155 bang/models.py:1098 bang/models.py:1341
+#: bang/forms.py:797 bang/models.py:158 bang/models.py:1045 bang/models.py:1304
 msgid "Screenshot"
 msgstr "Captura de Tela"
 
-#: bang/models.py:155
+#: bang/models.py:158
 msgid "In-game profile screenshot"
 msgstr "Captura de Tela do seu perfil dentro do jogo"
 
-#: bang/models.py:211
+#: bang/models.py:215
 msgid "Junior Third"
 msgstr ""
 
-#: bang/models.py:371
+#: bang/models.py:375
 msgid "Promo card"
 msgstr "Carta promo"
 
-#: bang/models.py:385
+#: bang/models.py:389
 msgid "For the next {duration} seconds, score of all notes boosted by +{percentage}%"
 msgstr "Pelos próximos {duration} segundos, a pontuação de todas as notas é aumentada em +{percentage}%"
 
-#: bang/models.py:402
+#: bang/models.py:406
 msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
 msgstr "e aumenta a pontuação de todas as notas em {percentage}% pelos próximos {duration} segundos"
 
-#: bang/models.py:413
+#: bang/models.py:417
 msgid "Restores life by {stamina}"
 msgstr "Restaura {stamina} de vida"
 
-#: bang/models.py:418
+#: bang/models.py:422
 msgid "and restores life by {stamina}"
 msgstr "e restaura {stamina} de vida"
 
-#: bang/models.py:429
+#: bang/models.py:433
 msgid "All {note_type} notes turn into PERFECT notes"
 msgstr "Todas as notas {note_type} se tornam notas PERFECT"
 
-#: bang/models.py:434
+#: bang/models.py:438
 msgid "and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds"
 msgstr "e torna todas as notas {note_type} em notas PERFECT pelos próximos {duration} segundos"
 
-#: bang/models.py:859
+#: bang/models.py:827
 msgid "Prefer untrained card image"
 msgstr "Preferir imagem das cadas não-treinadas"
 
-#: bang/models.py:863
+#: bang/models.py:831
 msgid "Skill level"
 msgstr "Nível da habilidade"
 
-#: bang/models.py:962
+#: bang/models.py:930
 msgid "Challenge Live"
 msgstr "Show Desafio"
 
-#: bang/models.py:964
+#: bang/models.py:932
 msgid "Live Trial"
 msgstr ""
 
-#: sukutomo/models.py:264
+#: sukutomo/models.py:261
 msgid "Event type"
 msgstr "Tipo de evento"
 
-#: bang/forms.py:539 bang/forms.py:806 bang/models.py:1088 bang/models.py:1109
-#: bang/models.py:1336 bang/models.py:1360
+#: bang/forms.py:524 bang/forms.py:791 bang/models.py:1035 bang/models.py:1056
+#: bang/models.py:1299 bang/models.py:1323
 msgid "Score"
 msgstr "Pontuação"
 
-#: bang/forms.py:538 bang/models.py:1089
+#: bang/forms.py:523 bang/models.py:1036
 msgid "Ranking"
 msgstr "Classificação"
 
-#: bang/forms.py:540 bang/models.py:1091 bang/models.py:1114
+#: bang/forms.py:525 bang/models.py:1038 bang/models.py:1061
 msgid "Song score"
 msgstr "Pontuação de música"
 
-#: bang/forms.py:541 bang/models.py:1092 bang/models.py:1119
+#: bang/forms.py:526 bang/models.py:1039 bang/models.py:1066
 msgid "Song ranking"
 msgstr "Classificação de música"
 
-#: bang/models.py:1094 bang/models.py:1124
+#: bang/models.py:1041 bang/models.py:1071
 msgid "Trial master completed"
 msgstr ""
 
-#: bang/models.py:1095 bang/models.py:1129
+#: bang/models.py:1042 bang/models.py:1076
 msgid "Trial master EX completed"
 msgstr ""
 
-#: bang/models.py:1172 bang/models.py:1227 bang/models.py:1228
-#: bang/models.py:1326
+#: bang/models.py:1119 bang/models.py:1174 bang/models.py:1175
+#: bang/models.py:1289
 msgid "Easy"
 msgstr "Fácil"
 
-#: bang/models.py:1180 bang/models.py:1223
+#: bang/models.py:1127 bang/models.py:1170
 msgid "Composer"
 msgstr "Compositor"
 
-#: bang/models.py:1181 bang/models.py:1224
+#: bang/models.py:1128 bang/models.py:1171
 msgid "Lyricist"
 msgstr "Letrista"
 
-#: bang/models.py:1182 bang/models.py:1225
+#: bang/models.py:1129 bang/models.py:1172
 msgid "Arranger"
 msgstr "Arranjador"
 
-#: bang/models.py:1198
+#: bang/models.py:1145
 msgid "Translation"
 msgstr "Tradução"
 
-#: bang/models.py:1212
+#: bang/models.py:1159
 msgid "Preview"
 msgstr "Pré-visualizar"
 
-#: bang/models.py:1219
+#: bang/models.py:1166
 msgid "Cover song"
 msgstr "Música cover"
 
-#: bang/models.py:1220
+#: bang/models.py:1167
 msgid "Beats per minute"
 msgstr "Batidas por minuto"
 
-#: bang/models.py:1240 bang/models.py:1241
+#: bang/models.py:1187 bang/models.py:1188
 msgid "Gift"
 msgstr "Presente"
 
-#: bang/models.py:1245 bang/models.py:1246
+#: bang/models.py:1192 bang/models.py:1193
 msgid "Purchase at CiRCLE"
 msgstr "Compre no CiRCLE"
 
-#: bang/models.py:1250
+#: bang/models.py:1197
 msgid "Complete story"
 msgstr "Completar estória"
 
-#: bang/models.py:1251
+#: bang/models.py:1198
 msgid "Complete {story_type} story, chapter {chapter}"
 msgstr "Completar a estória {story_type}, capítulo {chapter}"
 
-#: bang/models.py:1255 bang/models.py:1256
+#: bang/models.py:1202 bang/models.py:1203
 msgid "Complete Tutorial"
 msgstr "Completar Tutorial"
 
-#: bang/models.py:1260 bang/models.py:1261
+#: bang/models.py:1207 bang/models.py:1208
 msgid "Initially available"
 msgstr "Disponível inicialmente"
 
-#: bang/models.py:1265 bang/models.py:1266
+#: bang/models.py:1212 bang/models.py:1213
 msgid "Event gift"
 msgstr "Presente de Evento"
 
-#: bang/models.py:1277
+#: bang/models.py:1224
 msgid "How to unlock?"
 msgstr "Como desbloquear?"
 
-#: bang/models.py:1337 bang/models.py:1365
+#: bang/models.py:1300 bang/models.py:1328
 msgid "Full combo"
 msgstr "Full combo"
 
 #. Name of a license, so it's unlikely you need to translate unless your language uses a different set of characters (Chinese, Japanese, Korean, Russian, etc.)
-#: bang/settings.py:54 bang/settings.py:122 bang/settings.py:216
+#: bang/settings.py:63 bang/settings.py:141 bang/settings.py:238
 msgid "BanG Dream!"
 msgstr "BanG Dream!"
 
 #. Name of a license, so it's unlikely you need to translate unless your language uses a different set of characters (Chinese, Japanese, Korean, Russian, etc.)
-#: bang/settings.py:54 bang/settings.py:221
+#: bang/settings.py:63 bang/settings.py:243
 msgid "Girls Band Party"
 msgstr "Girls Band Party"
 
-#: bang/settings.py:185 bang/views.py:55 bang/views.py:56
+#: bang/settings.py:207 bang/views.py:90 bang/views.py:91
 msgid "Team builder"
 msgstr "Construtor de times"
 
@@ -2717,7 +2710,7 @@ msgstr "Seus itens devem ser visíveis para outros jogadores?"
 msgid "Smile"
 msgstr "Sorriso"
 
-#: sukutomo/models.py:141 sukutomo/models.py:271
+#: sukutomo/models.py:141 sukutomo/models.py:268
 msgid "Unit"
 msgstr "Unit"
 
@@ -2728,14 +2721,6 @@ msgstr "Subunit"
 #: sukutomo/models.py:197
 msgid "Astrological sign"
 msgstr "Signo astrológico"
-
-#: sukutomo/models.py:227 sukutomo/models.py:230
-msgid "Favorite food"
-msgstr "Comida favorita"
-
-#: sukutomo/models.py:232
-msgid "Least favorite food"
-msgstr "Comida menos favorita"
 
 #: sukutomo/settings.py:21
 msgid "Idol Supporter"
@@ -2757,133 +2742,128 @@ msgstr "Produtor de Idol"
 msgid "Ultimate Idol Devotee"
 msgstr "Entusiasta Supremo de Idol"
 
-#: bang/forms.py:246 bang/models.py:817
+#: bang/forms.py:233 bang/models.py:785
 msgid "Collected {things}"
 msgstr "{things} coletadas"
 
-#: bang/models.py:387
+#: bang/models.py:391
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%"
 msgstr "Pelos próximos {duration} segundos, a pontuação de notas PERFECT é aumentada em +{percentage}%"
 
-#: bang/magicollections.py:1229 bang/magicollections.py:1375 bang/models.py:977
-#: bang/models.py:1012 bang/models.py:1019 bang/models.py:1026
+#: bang/magicollections.py:1427 bang/models.py:1782
 msgid "Rare stamp"
 msgstr "Selo raro"
 
-#: bang/magicollections.py:1346 bang/models.py:982 bang/models.py:984
-msgid "Stamp translation"
-msgstr "Tradução de selo"
-
-#: bang/models.py:1040
+#: bang/models.py:987
 msgid "Boost attribute"
 msgstr ""
 
-#: bang/forms.py:489 bang/magicollections.py:1150 bang/models.py:1043
+#: bang/forms.py:474 bang/magicollections.py:1191 bang/models.py:990
 msgid "Boost members"
 msgstr ""
 
-#: magi/default_settings.py:55 magi/default_settings.py:72
+#: magi/default_settings.py:56 magi/default_settings.py:73
 msgid "Manager"
 msgstr "Gerente"
 
-#: magi/default_settings.py:78
+#: magi/default_settings.py:79
 msgid "Team manager"
 msgstr "Gerente de Equipe"
 
-#: magi/default_settings.py:90
+#: magi/default_settings.py:91
 msgid "Finance manager"
 msgstr "Gerente de Finanças"
 
-#: magi/default_settings.py:102 magi/default_settings.py:109
+#: magi/default_settings.py:103 magi/default_settings.py:110
 msgid "Database maintainer"
 msgstr "Mantenedor de Bando de Dados"
 
-#: magi/default_settings.py:119 magi/default_settings.py:133
+#: magi/default_settings.py:120 magi/default_settings.py:134
 msgid "Community manager"
 msgstr "Gerenciador de Comunidade"
 
-#: magi/default_settings.py:127
+#: magi/default_settings.py:128
 msgid "Posted {total} news"
 msgstr "Postou {total} notícias."
 
-#: magi/default_settings.py:133
+#: magi/default_settings.py:134
 msgid "Twitter"
 msgstr "Twitter"
 
-#: magi/default_settings.py:142
+#: magi/default_settings.py:143
 msgid "External communication"
 msgstr "Comunicação externa."
 
-#: magi/default_settings.py:148
+#: magi/default_settings.py:149
 msgid "Support"
 msgstr "Suporte"
 
-#: magi/default_settings.py:161 magi/default_settings.py:178
-#: magi/default_settings.py:230
+#: magi/default_settings.py:162 magi/default_settings.py:179
+#: magi/default_settings.py:231
 msgid "Moderator"
 msgstr "Moderador"
 
-#: magi/default_settings.py:161
+#: magi/default_settings.py:162
 msgid "Active"
 msgstr "Ativo"
 
-#: magi/default_settings.py:172
+#: magi/default_settings.py:173
 msgid "Submitted {total} reports"
 msgstr "Submeteu {total} reportes"
 
-#: magi/default_settings.py:178
+#: magi/default_settings.py:179
 msgid "Decisive"
 msgstr "Decisivo"
 
-#: magi/default_settings.py:194
+#: magi/default_settings.py:195
 msgid "Edited or deleted {total} reported items"
 msgstr "Editou ou deletou {total} items reportados"
 
-#: magi/default_settings.py:200
+#: magi/default_settings.py:201
 msgid "Community entertainer"
 msgstr "Animador da Comunidade"
 
-#: magi/default_settings.py:218
+#: magi/default_settings.py:219
 msgid "Organized and posted about {total} community events"
 msgstr "Organizou e postou acerca de {total} eventos da comunidade"
 
-#: magi/default_settings.py:224
+#: magi/default_settings.py:225
 msgid "Backup staff"
 msgstr "Pessoal substituto"
 
-#: magi/default_settings.py:239
+#: magi/default_settings.py:240
 msgid "Translator"
 msgstr "Tradutor"
 
-#: magi/default_settings.py:250
+#: magi/default_settings.py:251
 msgid "Graphic designer"
 msgstr "Designer Gráfico"
 
-#: magi/default_settings.py:256
+#: magi/default_settings.py:257
 msgid "Artist"
 msgstr "Artista"
 
-#: magi/default_settings.py:262
+#: magi/default_settings.py:263
 msgid "Developer"
 msgstr "Desenvolvedor"
 
-#: magi/default_settings.py:269
+#: magi/default_settings.py:270
 msgid "System administrator"
 msgstr "Administrador de sistema"
 
-#: magi/forms.py:940 magi/magicollections.py:2361
+#: magi/forms.py:1059 magi/magicollections.py:2413
 msgid "You are not allowed to see activities with the tag \"{tag}\"."
 msgstr "Você não tem permissão para ver atividades com a tag \"{tag}\""
 
-#: magi/magicollections.py:918
+#: magi/magicollections.py:923
 msgid "Translations"
 msgstr "Traduções"
 
-#: magi/magicollections.py:1654 magi/magicollections.py:2901 magi/views.py:549
+#: magi/magicollections.py:1674 magi/magicollections.py:2958 magi/views.py:569
 msgid "Block {username}"
 msgstr "Bloquear {username}"
 
-#: magi/magicollections.py:2377
+#: magi/magicollections.py:2429
 msgid "You can change which tags you would like to see or hide in your settings."
 msgstr "Você pode mudar quais tags gostaria de ver ou ocultar nas suas configurações."
 
@@ -2899,7 +2879,7 @@ msgstr "Papeis"
 msgid "Hide tags"
 msgstr "Ocultar tags"
 
-#: magi/models.py:571
+#: magi/models.py:606
 msgid "hobbies"
 msgstr "hobbies"
 
@@ -2911,61 +2891,61 @@ msgstr "Sobre nós"
 msgid "Pre-register"
 msgstr "Pré-registrar"
 
-#: magi/forms.py:952
+#: magi/forms.py:1071
 msgid "Security"
 msgstr "Segurança"
 
-#: magi/magicollections.py:2940 magi/views.py:410 magi/views.py:547
-#: magi/views_collections.py:91 magi/views_collections.py:365
+#: magi/magicollections.py:2997 magi/views.py:417 magi/views.py:567
+#: magi/views_collections.py:89 magi/views_collections.py:365
 msgid "You blocked {username}."
 msgstr "Você bloqueou {username}."
 
-#: magi/magicollections.py:2941 magi/views.py:411 magi/views.py:549
-#: magi/views_collections.py:92 magi/views_collections.py:366
+#: magi/magicollections.py:2998 magi/views.py:418 magi/views.py:569
+#: magi/views_collections.py:90 magi/views_collections.py:366
 msgid "Unblock {username}"
 msgstr "Desbloquear {username}"
 
-#: magi/views.py:553
+#: magi/views.py:573
 msgid "Are you sure you want to block {username}? You will not be able to see any content created by {username}."
 msgstr "Tem certeza que quer bloquear {username}? Você não poderá ver nenhum conteúdo criado por {username}."
 
-#: magi/views.py:553
+#: magi/views.py:573
 msgid "Are you sure you want to unblock {username}?"
 msgstr "Tem certeza que quer desbloquear {username}?"
 
-#: magi/views_collections.py:90 magi/views_collections.py:364
+#: magi/views_collections.py:88 magi/views_collections.py:364
 msgid "this user"
 msgstr "este usuário"
 
-#: bang/forms.py:282
+#: bang/forms.py:269
 msgid "Include cameos"
 msgstr "Inclui cameos"
 
-#: bang/magicollections.py:766 bang/models.py:624
+#: bang/magicollections.py:795 bang/models.py:624
 msgid "Cameos"
 msgstr "Participação"
 
-#: bang/models.py:372
+#: bang/models.py:376
 msgid "Original card"
 msgstr "Carta original"
 
-#: bang/settings.py:107
+#: bang/settings.py:118
 msgid "Community event"
 msgstr "Evento da Comunidade"
 
-#: bang/settings.py:122
+#: bang/settings.py:141
 msgid "Not about %(game)s"
 msgstr ""
 
-#: bang/settings.py:125
+#: bang/settings.py:144
 msgid "NSFW"
 msgstr "NSFW"
 
-#: bang/settings.py:127
+#: bang/settings.py:146
 msgid "You need to be over 18 years old."
 msgstr "Você precisa ter mais de 18 anos."
 
-#: bang/settings.py:127
+#: bang/settings.py:146
 msgid "You can change your birthdate in your settings."
 msgstr "Você pode mudar sua data de nascimento em suas configurações."
 
@@ -3025,268 +3005,270 @@ msgstr "{nth} ano"
 msgid "Contributors"
 msgstr "Contribuidores"
 
-#: bang/magicollections.py:789
+#: bang/magicollections.py:832
 msgid "View model"
 msgstr "Visualizar modelo"
 
-#: bang/templates/include/costumeTopIllustration.html:11
+#: bang/templates/include/costumeTopIllustration.html:12
 msgid "Controls"
 msgstr "Controles"
 
-#: bang/models.py:1878 bang/templates/include/costumeTopIllustration.html:20
+#: bang/models.py:1954 bang/templates/include/costumeTopIllustration.html:21
 msgctxt "BanPa model viewer"
 msgid "Model"
 msgstr "Modelo"
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
-#: bang/templates/include/costumeTopIllustration.html:24
+#: bang/templates/include/costumeTopIllustration.html:25
 msgctxt "BanPa model viewer"
 msgid "Breathe"
 msgstr "Respirar"
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
-#: bang/templates/include/costumeTopIllustration.html:27
+#: bang/templates/include/costumeTopIllustration.html:28
 msgctxt "BanPa model viewer"
 msgid "Blink"
 msgstr "Piscar"
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
-#: bang/templates/include/costumeTopIllustration.html:30
+#: bang/templates/include/costumeTopIllustration.html:31
 msgctxt "BanPa model viewer"
 msgid "Sway"
 msgstr "Balanço"
 
 #. Translators: Label for a list of choices. Limited space, so please try to keep it short.
-#: bang/templates/include/costumeTopIllustration.html:36
+#: bang/templates/include/costumeTopIllustration.html:37
 msgctxt "BanPa model viewer"
 msgid "Action"
 msgstr "Ação"
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
-#: bang/templates/include/costumeTopIllustration.html:39
+#: bang/templates/include/costumeTopIllustration.html:40
 msgctxt "BanPa model viewer"
 msgid "Loop"
 msgstr "Repetir"
 
 #. Translators: Label for a list of choices. Limited space, so please try to keep it short.
-#: bang/templates/include/costumeTopIllustration.html:45
+#: bang/templates/include/costumeTopIllustration.html:46
 msgctxt "BanPa model viewer"
 msgid "Expression"
 msgstr "Expressão"
 
 #. Translators: Button label.
-#: bang/templates/include/costumeTopIllustration.html:52
+#: bang/templates/include/costumeTopIllustration.html:53
 msgctxt "BanPa model viewer"
 msgid "Screenshot"
 msgstr "Captura de tela"
 
 #. Translators: Button label. This is supposed to be a continuation of "Screenshot".
-#: bang/templates/include/costumeTopIllustration.html:54
+#: bang/templates/include/costumeTopIllustration.html:55
 msgctxt "BanPa model viewer"
 msgid "(with background)"
 msgstr "(com plano de fundo)"
 
-#: bang/models.py:1338 bang/models.py:1370
+#: bang/models.py:1301 bang/models.py:1333
 msgid "All perfect"
 msgstr ""
 
-#: bang/settings.py:119
+#: bang/settings.py:130
 msgid "Thank you Yurishii"
 msgstr "Obrigado Yurishii"
 
 #. Refers to the "hot feed" of activities on the homepage (don't translate literally!)
-#: magi/default_settings.py:313 magi/forms.py:1523
+#: magi/default_settings.py:314 magi/forms.py:1657
 msgid "Hot"
 msgstr "Hot"
 
-#: bang/forms.py:1188
+#: bang/forms.py:1312
 msgid "How often do you hit PERFECT notes?"
 msgstr "Com que freqência você acerta notas PERFECT?"
 
-#: bang/forms.py:1196
+#: bang/forms.py:1320
 msgid "How often is your life above 900?"
 msgstr "Com que frequência a sua vida está acima de 9000?"
 
-#: bang/magicollections.py:780 bang/magicollections.py:786
-#: bang/magicollections.py:2468 bang/magicollections.py:2498
+#: bang/magicollections.py:823 bang/magicollections.py:829
+#: bang/magicollections.py:2626 bang/magicollections.py:2658
+#: bang/models.py:1913
 msgid "Costume"
 msgstr "Figurino"
 
-#: bang/magicollections.py:2036 bang/magicollections.py:2067
-#: bang/models.py:1536
+#: bang/magicollections.py:2135 bang/magicollections.py:2166
+#: bang/models.py:1499
 msgid "Item"
 msgstr "Item"
 
-#: bang/magicollections.py:2037 bang/magicollections.py:2068 bang/views.py:36
+#: bang/magicollections.py:2136 bang/magicollections.py:2167 bang/views.py:70
 msgid "Items"
 msgstr "Itens"
 
-#: bang/magicollections.py:2121 bang/models.py:1618
+#: bang/magicollections.py:2220 bang/models.py:1581
 msgid "Area"
 msgstr "Área"
 
-#: bang/magicollections.py:2122
-#: bang/templates/include/galleryBackButtons.html:6
+#: bang/magicollections.py:2221
+#: bang/templates/include/galleryBackButtons.html:11
 msgid "Areas"
 msgstr "Áreas"
 
-#: bang/magicollections.py:2139
+#: bang/magicollections.py:2238
 msgid "See all"
 msgstr "Ver todos"
 
-#: bang/magicollections.py:2140 bang/settings.py:193 bang/settings.py:199
-#: bang/templates/include/galleryBackButtons.html:11 bang/views.py:20
+#: bang/magicollections.py:2239 bang/settings.py:215 bang/settings.py:221
+#: bang/templates/include/galleryBackButtons.html:16 bang/views.py:52
 msgid "Gallery"
 msgstr "Galeria"
 
-#: bang/magicollections.py:2163 bang/magicollections.py:2218
-#: bang/models.py:1711
+#: bang/magicollections.py:2262 bang/magicollections.py:2317
+#: bang/models.py:1674
 msgid "Area item"
 msgstr "Item de área"
 
-#: bang/magicollections.py:2164 bang/magicollections.py:2219
-#: bang/models.py:1659 bang/views.py:31
+#: bang/magicollections.py:2263 bang/magicollections.py:2318
+#: bang/models.py:1622 bang/views.py:64
 msgid "Area items"
 msgstr "Itens de área"
 
-#: bang/magicollections.py:2324
+#: bang/magicollections.py:2446
 msgid "Asset"
 msgstr ""
 
-#: bang/magicollections.py:2325
+#: bang/magicollections.py:2447
 msgid "Assets"
 msgstr ""
 
-#: bang/magicollections.py:2469 bang/models.py:268
+#: bang/magicollections.py:2627 bang/models.py:272
 msgid "Costumes"
 msgstr "Figurinos"
 
-#: bang/models.py:1538
+#: bang/models.py:1501
 msgid "Quantity"
 msgstr "Quantidade"
 
-#: bang/models.py:1588
+#: bang/models.py:1551
 msgid "Poster"
 msgstr "Cartaz"
 
-#: bang/models.py:1593
+#: bang/models.py:1556
 msgid "Flyer"
 msgstr "Panfleto"
 
-#: bang/models.py:1598
+#: bang/models.py:1561
 msgid "Food"
 msgstr "Comida"
 
-#: bang/models.py:1602
+#: bang/models.py:1565
 msgid "Decoration"
 msgstr "Decoração"
 
 #. affected_members can be a band "Afterglow" or an attribute "Happy"
 #. affected_stat = Technique / Performance / ...
-#: bang/models.py:1688
+#: bang/models.py:1651
 msgid "{affected_members} members get +{effect_value} {affected_stat} points if life is above {life}"
 msgstr "Membros {affected_members} recebem +{effect_value} pontos de {affected_stat} se a vida estiver acima de {life}"
 
 #. affected_members can be a band "Afterglow" or an attribute "Happy"
 #. affected_stat = Technique / Performance / ...
-#: bang/models.py:1690
+#: bang/models.py:1653
 msgid "{affected_members} members get +{effect_value} {affected_stat} points"
 msgstr "Membos {affected_members} recebem +{effect_value} pontos de {affected_stat}.\n"
 ""
 
-#: bang/models.py:1782
+#: bang/forms.py:1008 bang/forms.py:1090 bang/models.py:1763
+#: bang/models.py:1765
 msgid "Comics"
 msgstr "Quadrinhos"
 
-#: bang/models.py:1787
+#: bang/models.py:1768
 msgid "Backgrounds"
 msgstr "Planos de Fundo"
 
-#: bang/models.py:1792
+#: bang/models.py:1776 bang/models.py:1782
 msgid "Stamps"
 msgstr "Selos"
 
-#: bang/models.py:1797
+#: bang/models.py:1786
 msgid "Titles"
 msgstr "Títulos"
 
-#: bang/models.py:1802
+#: bang/models.py:1802 bang/models.py:1804
 msgid "Interface"
 msgstr "Interface"
 
-#: bang/models.py:1827
+#: bang/models.py:1836
 msgid "Outdoor"
 msgstr "Exterior"
 
-#: bang/models.py:1828
+#: bang/models.py:1837
 msgid "Indoor"
 msgstr "Interior"
 
-#: bang/models.py:1830
+#: bang/models.py:1839
 msgid "Stage"
 msgstr "Palco"
 
-#: bang/models.py:1831
+#: bang/models.py:1840
 msgid "Home"
 msgstr "Casa"
 
-#: bang/models.py:1832
+#: bang/models.py:1841
 msgid "Dating spot"
 msgstr "Local de Encontro"
 
-#: bang/models.py:1860
+#: bang/models.py:1936
 msgid "Costume type"
 msgstr "Tipo de Figurino"
 
-#: bang/settings.py:115
+#: bang/settings.py:126
 msgid "Change My Mind Challenge"
 msgstr "Desafio Mude Minha Opinião"
 
 #: sukutomo/forms.py:56 sukutomo/forms.py:57 sukutomo/forms.py:78
-#: sukutomo/models.py:28 sukutomo/models.py:280 sukutomo/models.py:281
-#: sukutomo/models.py:282
+#: sukutomo/models.py:28 sukutomo/models.py:277 sukutomo/models.py:278
+#: sukutomo/models.py:279
 msgid "Worldwide version"
 msgstr "Versão mundial"
 
 #: sukutomo/forms.py:65 sukutomo/forms.py:66 sukutomo/forms.py:81
-#: sukutomo/models.py:30 sukutomo/models.py:292 sukutomo/models.py:293
-#: sukutomo/models.py:294
+#: sukutomo/models.py:30 sukutomo/models.py:289 sukutomo/models.py:290
+#: sukutomo/models.py:291
 msgid "Chinese version"
 msgstr "Versão chinesa"
 
-#: sukutomo/models.py:257
+#: sukutomo/models.py:254
 msgid "Score Match"
 msgstr "Partida de Pontuação"
 
-#: sukutomo/models.py:258
+#: sukutomo/models.py:255
 msgid "Medley Festival"
 msgstr "Festival de Medley"
 
-#: sukutomo/models.py:259
+#: sukutomo/models.py:256
 msgid "Challenge Festival"
 msgstr "Festival de Desafio"
 
-#: sukutomo/models.py:260
+#: sukutomo/models.py:257
 msgid "Adventure Stroll"
 msgstr "Passeio da Aventura"
 
-#: sukutomo/models.py:261
+#: sukutomo/models.py:258
 msgid "Friendly Match"
 msgstr "Partida Amigável"
 
-#: bang/models.py:388
+#: bang/models.py:392
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%"
 msgstr "Pelos próximos {duration} segundos, se a vida está acima de {stamina}, a pontuação é aumentada em +{percentage}%, senão, a pontuação é aumentada em +{alt_percentage}%"
 
-#: bang/magicollections.py:2085
+#: bang/magicollections.py:2184
 msgid "Edit your {thing}"
 msgstr "Edite a sua {thing}"
 
-#: magi/views.py:605
+#: magi/views.py:625
 msgid "If you delete this {thing} ({instance}), the following will automatically be deleted as well:"
 msgstr "Se você deletar esta {thing} ({instance}), os seguintes serão automaticamente deletados também:"
 
-#: magi/views.py:606
+#: magi/views.py:626
 msgid "Are you sure you want to delete this {thing} ({instance})?"
 msgstr "Tem certeza de que você quer deletar esta {thing} ({instance})?"
 
@@ -3300,20 +3282,21 @@ msgstr ""
 msgid "Gym"
 msgstr ""
 
-#: bang/management/commands/generate_settings.py:36
+#: bang/management/commands/generate_settings.py:52
+#: bang/management/commands/generate_settings.py:85
 msgid "Happy Birthday"
 msgstr "Feliz Aniversário"
 
-#: bang/models.py:215
+#: bang/models.py:219
 msgid "Classroom"
 msgstr "Sala de aula"
 
-#: bang/models.py:1807
+#: bang/models.py:1807 bang/models.py:1814
 msgid "Official art"
 msgstr "Arte oficial"
 
 #. When events or gacha run again
-#: bang/utils.py:93
+#: bang/utils.py:105
 msgid "Rerun"
 msgstr ""
 
@@ -3329,45 +3312,45 @@ msgstr "Arquivado"
 msgid "Unarchived"
 msgstr "Desarquivado"
 
-#: magi/default_settings.py:307 magi/forms.py:1556
+#: magi/default_settings.py:308 magi/forms.py:1690
 #: magi/templates/items/activityItem.html:14
 msgid "Popular"
 msgstr "Popular"
 
-#: magi/default_settings.py:320
+#: magi/default_settings.py:321
 msgid "New"
 msgstr "Novo"
 
-#: bang/settings.py:103
+#: bang/settings.py:114
 msgid "Staff picks"
 msgstr ""
 
-#: magi/forms.py:963
+#: magi/forms.py:1082
 msgid "Customize profile"
 msgstr "Customizar perfil"
 
-#: magi/forms.py:1559
+#: magi/forms.py:1693
 msgid "Hide archived activities"
 msgstr "Esconder atividades arquivadas"
 
-#: magi/magicollections.py:2211
+#: magi/magicollections.py:2263
 msgid "Unarchive"
 msgstr "Desarquivar"
 
-#: magi/magicollections.py:2220 magi/magicollections.py:2222
+#: magi/magicollections.py:2272 magi/magicollections.py:2274
 msgid "Archive"
 msgstr "Arquivo"
 
-#: magi/magicollections.py:2225 magi/templates/pages/settings.html:70
+#: magi/magicollections.py:2277 magi/templates/pages/settings.html:70
 #: magi/templates/pages/settings.html:139
 msgid "Premium feature"
 msgstr ""
 
-#: magi/magicollections.py:2320
+#: magi/magicollections.py:2372
 msgid "You might be the first person who sees these activities!"
 msgstr "Você pode ser a primeira pessoa a ver estas atividades!"
 
-#: magi/magicollections.py:2321
+#: magi/magicollections.py:2373
 msgid "If you see anything that doesn't follow our rules, please help us by reporting it."
 msgstr "Se você ver algo que não seguir nossas regras, por favor nos ajude denunciando."
 
@@ -3375,11 +3358,11 @@ msgstr "Se você ver algo que não seguir nossas regras, por favor nos ajude den
 msgid "Post activities in {language}"
 msgstr "Postar atividades em {language}"
 
-#: magi/models.py:192 magi/views.py:400
+#: magi/models.py:192 magi/views.py:407
 msgid "Custom link"
 msgstr ""
 
-#: magi/models.py:940
+#: magi/models.py:975
 msgid "When someone likes an activity you archived."
 msgstr "Quando alguém gosta de uma atividade que você arquivou."
 
@@ -3405,11 +3388,11 @@ msgstr ""
 msgid "Can't use Patreon?"
 msgstr "Não pode usar Patreon?"
 
-#: magi/templates/items/donateItem.html:19
+#: magi/templates/items/donateItem.html:40
 msgid "Goal"
 msgstr "Objetivo"
 
-#: magi/templates/items/donateItem.html:21
+#: magi/templates/items/donateItem.html:42
 msgid "Total spent"
 msgstr "Total gasto"
 
@@ -3478,39 +3461,39 @@ msgstr ""
 msgid "Skill probability"
 msgstr "Probabilidade de habilidade"
 
-#: bang/forms.py:500 bang/forms.py:671
+#: bang/forms.py:485 bang/forms.py:656
 msgid "Status"
 msgstr "Estado"
 
-#: bang/forms.py:501 bang/forms.py:672
+#: bang/forms.py:486 bang/forms.py:657
 msgid "Past"
 msgstr "Passado"
 
-#: bang/forms.py:502 bang/forms.py:673
+#: bang/forms.py:487 bang/forms.py:658
 msgid "Current"
 msgstr "Atual"
 
-#: bang/forms.py:503 bang/forms.py:674
+#: bang/forms.py:488 bang/forms.py:659
 msgid "Future"
 msgstr "Futuro"
 
-#: bang/settings.py:88
+#: bang/settings.py:99
 msgid "Meme"
 msgstr ""
 
-#: bang/settings.py:90
+#: bang/settings.py:101
 msgid "Scouting"
 msgstr ""
 
-#: bang/settings.py:96
+#: bang/settings.py:107
 msgid "Manga"
 msgstr ""
 
-#: bang/settings.py:101
+#: bang/settings.py:112
 msgid "Question"
 msgstr "Pergunta"
 
-#: bang/settings.py:123
+#: bang/settings.py:142
 msgid "Swearing"
 msgstr ""
 
@@ -3518,33 +3501,34 @@ msgstr ""
 msgid "End of new messages"
 msgstr ""
 
-#: magi/magicollections.py:1637 magi/magicollections.py:2792
+#: magi/magicollections.py:1657 magi/magicollections.py:2849
 msgid "Private messages"
 msgstr ""
 
-#: magi/magicollections.py:1675 magi/magicollections.py:2803
+#: magi/magicollections.py:1695 magi/magicollections.py:1980
+#: magi/magicollections.py:2860
 msgid "Send a message"
 msgstr ""
 
-#: magi/magicollections.py:2791 magi/models.py:948
+#: magi/magicollections.py:2848 magi/models.py:983
 msgid "Private message"
 msgstr ""
 
-#: magi/magicollections.py:2800 magi/magicollections.py:2953
-#: magi/magicollections.py:3006 magi/magicollections.py:3007
+#: magi/magicollections.py:2857 magi/magicollections.py:3010
+#: magi/magicollections.py:3063 magi/magicollections.py:3064
 msgid "Inbox"
 msgstr ""
 
-#: magi/magicollections.py:2953 magi/views.py:316 magi/views.py:496
-#: magi/views_collections.py:45
+#: magi/magicollections.py:3010 magi/views.py:323 magi/views.py:516
+#: magi/views_collections.py:43
 msgid "Back to {page_name}"
 msgstr "Voltar para {page_name}"
 
-#: magi/magicollections.py:3009
+#: magi/magicollections.py:3066
 msgid "You are not allowed to send private messages."
 msgstr ""
 
-#: magi/magicollections.py:3010
+#: magi/magicollections.py:3067
 msgid "Take some time to play around {site_name} to unlock this feature!"
 msgstr ""
 
@@ -3564,35 +3548,35 @@ msgstr ""
 msgid "Who is allowed to send you private messages?"
 msgstr ""
 
-#: magi/models.py:946
+#: magi/models.py:981
 msgid "You have a new private message from {}."
 msgstr ""
 
-#: magi/models.py:947
+#: magi/models.py:982
 msgid "When someone sends you a private message."
 msgstr ""
 
-#: magi/templates/base.html:247
+#: magi/templates/base.html:248
 msgid "Close"
 msgstr ""
 
-#: magi/templates/base.html:251
+#: magi/templates/base.html:252
 msgid "Remind me later"
 msgstr ""
 
-#: magi/templates/base.html:255
+#: magi/templates/base.html:256
 msgid "Don't show this again"
 msgstr ""
 
-#: magi/utils.py:292
+#: magi/utils.py:327
 msgid "Your email address is invalid."
 msgstr ""
 
-#: magi/utils.py:293
+#: magi/utils.py:328
 msgid "Some features might not work properly."
 msgstr ""
 
-#: magi/views.py:497
+#: magi/views.py:517
 msgid "Wiki home"
 msgstr ""
 
@@ -3604,7 +3588,75 @@ msgstr ""
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus for {skill_duration} seconds"
 msgstr ""
 
-#: bang/models.py:963
+#: bang/models.py:931
 msgid "VS Live"
+msgstr ""
+
+#: bang/models.py:1855
+msgid "CD cover"
+msgstr ""
+
+#: bang/models.py:1856
+msgid "Collab"
+msgstr ""
+
+#: bang/models.py:1857
+msgid "Dengeki G's magazine"
+msgstr ""
+
+#: bang/models.py:1842 bang/models.py:1858
+msgid "Seasonal"
+msgstr ""
+
+#: bang/settings.py:134
+msgid "Thank you Ake-san"
+msgstr ""
+
+#: bang/models.py:119
+msgid "Playground"
+msgstr ""
+
+#: bang/models.py:1843
+msgid "Sunset"
+msgstr ""
+
+#: bang/models.py:1844
+msgid "Night"
+msgstr ""
+
+#: bang/models.py:1845
+msgid "Rain"
+msgstr ""
+
+#: bang/models.py:1846
+msgid "Snow"
+msgstr ""
+
+#: bang/models.py:1847
+msgid "Cherry blossoms"
+msgstr ""
+
+#: bang/models.py:1848
+msgid "Fireworks"
+msgstr ""
+
+#: bang/settings.py:138
+msgid "CosParty 2018"
+msgstr ""
+
+#: magi/models.py:1169
+msgid "This is {month}'s badge. It's limited to this month only, and only our donators can get it. It's not too late! If you donate now, it will appear on your profile."
+msgstr ""
+
+#: bang/models.py:1771
+msgid "Background"
+msgstr ""
+
+#: magi/models.py:299 magi/models.py:304
+msgid "{nth} Favorite {thing}"
+msgstr "{nth} {thing} Favorito"
+
+#: magi/models.py:299
+msgid "Character"
 msgstr ""
 

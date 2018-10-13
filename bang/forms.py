@@ -60,8 +60,13 @@ class UserFilterForm(_UserFilterForm):
     member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
         (id, full_name) for (id, full_name, image)
         in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
-    ], required=False, label=_('Favorite Member'))
+    ], required=False)
     member_filter = MagiFilter(selectors=['preferences__favorite_character{}'.format(i) for i in range(1, 4)])
+
+    def __init__(self, *args, **kwargs):
+        super(UserFilterForm, self).__init__(*args, **kwargs)
+        if 'member' in self.fields:
+            self.fields['member'].label = _('Favorite {thing}').format(thing=_('Member').lower())
 
     class Meta(_UserFilterForm.Meta):
         fields = ('search', 'member', 'ordering', 'reverse_order')
@@ -122,7 +127,10 @@ class FilterAccounts(MagiFiltersForm):
         ('start_date', _('Start Date')),
     ]
 
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], required=False, label=_('Favorite Member'))
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
+        (id, full_name)
+        for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ], required=False)
     member_filter = MagiFilter(selectors=['owner__preferences__favorite_character{}'.format(i) for i in range(1, 4)])
 
     has_friend_id = forms.NullBooleanField(required=False, initial=None, label=_('Friend ID'))
@@ -133,6 +141,11 @@ class FilterAccounts(MagiFiltersForm):
 
     collected_card = forms.IntegerField(widget=forms.HiddenInput)
     collected_card_filter = MagiFilter(selector='cardscollectors__card_id')
+
+    def __init__(self, *args, **kwargs):
+        super(FilterAccounts, self).__init__(*args, **kwargs)
+        if 'member' in self.fields:
+            self.fields['member'].label = _('Favorite {thing}').format(thing=_('Member').lower())
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Account

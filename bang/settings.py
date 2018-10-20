@@ -22,7 +22,7 @@ STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
 SITE_NAME = 'Bandori Party'
 SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'
 SITE_IMAGE = 'share/bandori_party.png'
-SITE_LOGO = 'hhwparty.png'
+SITE_LOGO = 'logo/bandori_party.png'
 SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
 
 LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
@@ -44,11 +44,11 @@ SITE_NAME_PER_LANGUAGE = {
 }
 
 SITE_LOGO_PER_LANGUAGE = {
-    'ja': 'hhwparty_japanese.png',
-    'zh-hans': 'hhwparty_chinese.png',
-    'zh-hant': 'hhwparty_taiwanese.png',
-    'kr': 'hhwparty_korean.png',
-    'ru': 'hhwparty_russian.png',
+    'ja': 'logo/bandori_party_japanese.png',
+    'zh-hans': 'logo/bandori_party_chinese.png',
+    'zh-hant': 'logo/bandori_party_taiwanese.png',
+    'kr': 'logo/bandori_party_korean.png',
+    'ru': 'logo/bandori_party_russian.png',
 }
 
 SITE_IMAGE_PER_LANGUAGE = {
@@ -84,9 +84,9 @@ GET_STARTED_VIDEO = 'TqL9nSNouhw'
 
 ABOUT_PHOTO = 'deby.jpg'
 
-EMPTY_IMAGE = 'HHW_stars_with_white.png'
+EMPTY_IMAGE = 'stars_with_white.png'
 
-SITE_NAV_LOGO = 'HHW_star.png'
+SITE_NAV_LOGO = 'star.png'
 
 FAVORITE_CHARACTERS = django_settings.FAVORITE_CHARACTERS
 FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))
@@ -236,12 +236,12 @@ ENABLED_PAGES['add_rerun'] = {
 ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),
-    'image': 'HHW_BanGDream',
+    'image': 'BanGDream',
     'order': ['member_list', 'song_list'],
 }
 ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
     'title': _('Girls Band Party'),
-    'image': 'HHW_GirlsBandParty',
+    'image': 'GirlsBandParty',
     'order': [
         'card_list', 'cards_quickadd', 'event_list', 'gacha_list', 'costume_list',
         'wiki', 'gallery', 'teambuilder',

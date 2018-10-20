@@ -158,26 +158,23 @@ def generate_settings():
     ).exclude(
         show_art_on_homepage=False,
         show_trained_art_on_homepage=False,
-    ).filter(
-        member__i_band=models.Member.get_i('band', 'Hello, Happy World!'),
-    ).order_by('-release_date')[:200]
-##    ).order_by('-release_date')
-##    condition = Q()
-##    for event in events_with_cards:
-##        if event._meta.model.__name__ == 'Gacha':
-##            condition |= Q(gachas=event)
-##        else:
-##            condition |= Q(secondary_card_event=event)
-##            condition |= Q(main_card_event=event)
-##    ten_days_ago = now - datetime.timedelta(days=10)
-##    condition |= Q(is_promo=True, release_date__gte=ten_days_ago)
-##    filtered_cards = cards.filter(condition)
-##    if filtered_cards:
-##        filtered_cards = filtered_cards[:20]
-##    else:
-##        filtered_cards = cards[:10]
+   ).order_by('-release_date')
+   condition = Q()
+   for event in events_with_cards:
+       if event._meta.model.__name__ == 'Gacha':
+           condition |= Q(gachas=event)
+       else:
+           condition |= Q(secondary_card_event=event)
+           condition |= Q(main_card_event=event)
+   ten_days_ago = now - datetime.timedelta(days=10)
+   condition |= Q(is_promo=True, release_date__gte=ten_days_ago)
+   filtered_cards = cards.filter(condition)
+   if filtered_cards:
+       filtered_cards = filtered_cards[:20]
+   else:
+       filtered_cards = cards[:10]
     homepage_cards = []
-    for c in cards:
+    for c in filtered_cards:
         if c.show_art_on_homepage:
             homepage_cards.append({
                 'art_url': c.art_url,

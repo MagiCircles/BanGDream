@@ -173,20 +173,25 @@ def generate_settings():
         filtered_cards = filtered_cards[:20]
     else:
         filtered_cards = cards[:10]
-    homepage_cards = []
+    homepage_arts = []
     for c in filtered_cards:
         if c.show_art_on_homepage:
-            homepage_cards.append({
-                'art_url': c.art_url,
-                'hd_art_url': c.art_2x_url or c.art_original_url,
-                'item_url': c.item_url,
+            homepage_arts.append({
+                'url': c.art_url,
+                'hd_url': c.art_2x_url or c.art_original_url,
+                'about_url': c.item_url,
             })
         if c.art_trained and c.show_trained_art_on_homepage:
-            homepage_cards.append({
-                'art_url': c.art_trained_url,
-                'hd_art_url': c.art_trained_2x_url or c.art_trained_original_url,
-                'item_url': c.item_url,
+            homepage_arts.append({
+                'url': c.art_trained_url,
+                'hd_url': c.art_trained_2x_url or c.art_trained_original_url,
+                'about_url': c.item_url,
             })
+    if not homepage_arts:
+        homepage_arts = [{
+            'url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
+            'hd_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
+        }]
 
     print 'Get max stats'
     stats = {
@@ -222,7 +227,7 @@ def generate_settings():
         'LATEST_NEWS': latest_news,
         'TOTAL_DONATORS': total_donators,
         'DONATION_MONTH': donation_month,
-        'HOMEPAGE_CARDS': homepage_cards,
+        'HOMEPAGE_ARTS': homepage_arts,
         'STAFF_CONFIGURATIONS': staff_configurations,
         'FAVORITE_CHARACTERS': favorite_characters,
         'BACKGROUNDS': backgrounds,

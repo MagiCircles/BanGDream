@@ -235,61 +235,6 @@ class ActivityCollection(_ActivityCollection):
     navbar_link = True
     navbar_link_list = 'community'
 
-    class ListView(_ActivityCollection.ListView):
-        before_template = 'include/index'
-        ajax_callback = 'loadIndex'
-
-        def extra_context(self, context):
-            super(ActivityCollection.ListView, self).extra_context(context)
-
-            # Homepage settings
-            if 'shortcut_url' in context and context['shortcut_url'] is not None:
-
-                context['full_width'] = True
-                context['page_title'] = None
-
-                # Staff cards preview
-                if (context['request'].user.is_authenticated()
-                    and context['request'].user.hasPermission('manage_main_items')
-                    and 'preview' in context['request'].GET):
-                    context['random_card'] = {
-                        'art_url': context['request'].GET['preview'],
-                        'hd_art_url': context['request'].GET['preview'],
-                    }
-                # 1 chance out of 5 to get a random card of 1 of your favorite characters
-                elif (context['request'].user.is_authenticated()
-                      and context['request'].user.preferences.favorite_characters
-                      and random.randint(0, 5) == 5):
-                    try:
-                        character_id = random.choice(context['request'].user.preferences.favorite_characters)
-                        card = (models.Card.objects.filter(
-                            member_id=character_id,
-                        ).exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(
-                            show_art_on_homepage=False, show_trained_art_on_homepage=False,
-                        ).order_by('?'))[0]
-                    except IndexError:
-                        card = None
-                    if card:
-                        trained = random.choice([v for v, s in [
-                            (False, card.show_art_on_homepage and card.art_url),
-                            (True, card.show_trained_art_on_homepage and card.art_trained_url),
-                            ] if s
-                        ])
-                        context['random_card'] = {
-                            'art_url': card.art_trained_url if trained else card.art_url,
-                            'hd_art_url': (card.art_trained_2x_url or card.art_trained_original_url) if trained else (card.art_2x_url or card.art_original_url),
-                            'item_url': card.item_url,
-                        }
-                # Random from the last 20 released cards
-                elif django_settings.HOMEPAGE_CARDS:
-                    context['random_card'] = random.choice(django_settings.HOMEPAGE_CARDS)
-                # If no random_card was available
-                if 'random_card' not in context:
-                    context['random_card'] = {
-                        'art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
-                        'hd_art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
-                    }
-
 ############################################################
 ############################################################
 ############################################################

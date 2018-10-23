@@ -1,5 +1,7 @@
+import random
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, get_language
+from django.db.models import Q
 from magi.default_settings import RAW_CONTEXT
 from magi.utils import globalContext, toTimeZoneDateTime, toCountDown, staticImageURL
 from bang import models
@@ -63,6 +65,31 @@ def bangGlobalContext(request):
         if popup_name == 'happy_birthday':
             popup['image'] = staticImageURL('birthday_kanae.png')
     return context
+
+def randomArtForCharacter(character_id):
+    try:
+        card = models.Card.objects.filter(
+            member_id=character_id,
+        ).exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(
+            show_art_on_homepage=False, show_trained_art_on_homepage=False,
+        ).order_by('?')[0]
+    except IndexError:
+        return {
+            'url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
+            'hd_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
+        }
+    trained = random.choice([v for v, s in [
+        (False, card.show_art_on_homepage and card.art_url),
+        (True, card.show_trained_art_on_homepage and card.art_trained_url),
+    ] if s
+    ])
+    return {
+        'url': card.art_trained_url if trained else card.art_url,
+        'hd_url': (
+            card.art_trained_2x_url or card.art_trained_original_url
+        ) if trained else (card.art_2x_url or card.art_original_url),
+        'about_url': card.item_url,
+    }
 
 def rarity_to_stars_images(rarity):
     return u'<img src="{static_url}img/star_{un}trained.png" alt="star">'.format(

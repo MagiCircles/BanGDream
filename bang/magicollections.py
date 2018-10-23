@@ -235,6 +235,38 @@ class ActivityCollection(_ActivityCollection):
     navbar_link = True
     navbar_link_list = 'community'
 
+    class ListView(_ActivityCollection.ListView):
+        def top_buttons(self, request, context):
+            buttons = super(ActivityCollection.ListView, self).top_buttons(request, context)
+            if request.user.is_authenticated():
+                top_tab = (
+                    'this_week' if context['filter_form'].active_tab == 'top_this_week'
+                    else ('all_time' if 'from_tab' in request.GET else None
+                    ))
+                if top_tab:
+                    buttons['other_top'] = {
+                        'show': True,
+                        'has_permissions': True,
+                        'classes': [
+                            cls for cls in self.top_buttons_classes if cls != 'btn-main'
+                        ] + ['btn-secondary'],
+                        'title': string_concat(
+                            _('TOP'), ' - ',
+                            _('This week') if top_tab == 'this_week' else _('All time'),
+                        ),
+                        'subtitle': _('Open {thing}').format(thing=string_concat(
+                            _('TOP'), ' - ',
+                            _('All time') if top_tab == 'this_week' else _('This week'),
+                        )),
+                        'url': (
+                            '/?ordering=_cache_total_likes%2Ccreation&reverse_order=on&from_tab'
+                            if top_tab == 'this_week'
+                            else '/activities/top_this_week/'
+                        ),
+                        'icon': 'trophy',
+                    }
+            return buttons
+
 ############################################################
 ############################################################
 ############################################################

@@ -84,12 +84,14 @@ HASHTAGS = [u'バンドリ', u'ガルパ']
 
 RANDOM_ART_FOR_CHARACTER = randomArtForCharacter
 HOMEPAGE_BACKGROUND = 'bg_pattern.png'
+HOMEPAGE_ART_SIDE = 'left'
 HOMEPAGE_ART_POSITION = {
     'position': 'center right',
-    'size': 150,
-    'y': 40,
-    'x': 100,
+    'size': '150%',
+    'y': '40%',
+    'x': '100%',
 }
+HOMEPAGE_ART_GRADIENT = True
 
 HOME_ACTIVITY_TABS = DEFAULT_HOME_ACTIVITY_TABS.copy()
 if 'staffpicks' in HOME_ACTIVITY_TABS:
@@ -175,7 +177,6 @@ EXTRA_PREFERENCES = DEFAULT_EXTRA_PREFERENCES + [
 
 FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))
 FAVORITE_CHARACTER_NAME = _('Member')
-
 
 USER_COLORS = [
     ('power', _('Power'), 'Power', '#FF2D54'),

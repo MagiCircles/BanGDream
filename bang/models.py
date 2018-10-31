@@ -930,6 +930,7 @@ class Event(MagiModel):
         ('challenge_live', _('Challenge Live')),
         ('vs_live', _('VS Live')),
         ('live_trial', _('Live Trial')),
+        ('mission_live', _('Mission Live')),
     )
     i_type = models.PositiveIntegerField(_('Event type'), choices=i_choices(TYPE_CHOICES), default=0)
 

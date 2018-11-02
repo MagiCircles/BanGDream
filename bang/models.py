@@ -1536,130 +1536,136 @@ class AreaItem(MagiModel):
 
     owner = models.ForeignKey(User, related_name='added_area_items')
 
-    TYPES = OrderedDict([
-        ('instrument_per_member', {
-            'translation': 'Instrument per member',
-            'variables': ['member', 'instrument'],
-            'name_template': u'{member_name} {t_instrument}',
-        }),
-        ('instrument_per_band', {
-            'translation': 'Instrument per band',
-            'variables': ['name', 'i_band', 'instrument'],
-            'name_template': u'{t_name} {t_instrument}',
-        }),
-        ('poster', {
-            'translation': _('Poster'),
-            'variables': ['i_band'],
-            'name_template': u'{t_band} {t_type}',
-        }),
-        ('flyer', {
-            'translation': _('Flyer'),
-            'variables': ['i_band'],
-            'name_template': u'{t_band} {t_type}',
-        }),
-        ('food', {
-            'translation': _('Food'),
-            'variables': ['name', 'i_attribute'],
-        }),
-        ('decoration', {
-            'translation': _('Decoration'),
-            'variables': ['name', 'i_attribute'],
-        }),
-        ('other', {
-            'translation': _('Other'),
-            'variables': ['name', 'i_band', 'i_stat', 'i_attribute', 'depends_on_life', 'flat'],
-        }),
-    ])
-    TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in TYPES.items()]
-    i_type = models.PositiveIntegerField('Type', choices=i_choices(TYPE_CHOICES))
-    type_name_template = property(getInfoFromChoices('type', TYPES, 'name_template'))
-
-    VARIABLES = ['name', 'i_band', 'i_attribute', 'instrument', 'member', 'i_stat', 'depends_on_life', 'flat']
-
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('areas/items'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('areas/items'))
-    area = models.ForeignKey(Area, verbose_name=_('Area'), null=True)
-    value = models.FloatField(null=True)
-    flat = models.BooleanField('Flat value', default=False, help_text='Default: Percentage')
 
+    TYPE_CHOICES=[
+        ('studio', _('Studio')),
+        ('poster', _('Poster')),
+        ('counter', _('Counter')),
+        ('minitable', _('Mini Table')),
+        ('magazine', _('Magazine Rack')),
+        ('entrance', _('Entrance')),
+        ('sign', _('Sign')),
+        ('plaza', _('Plaza')),
+        ('garden', _('Garden')),
+        ('special', _('Specials Menu')),
+    ]
+    i_type = models.PositiveIntegerField(_('Type'), choices=i_choices(TYPE_CHOICES), null=True)
+    area = models.ForeignKey(Area, verbose_name=_('Shop'), null=True)
+    #currently organizing these as "Areas" on site, but shops can be seperate from the areas so owo
+    
     name = models.CharField(_('Title'), max_length=100, null=True)
     NAMES_CHOICES = ALL_ALT_LANGUAGES
     d_names = models.TextField(_('Title'), null=True)
 
-    BAND_CHOICES = list(Member.BAND_CHOICES)
-    i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
+    about = models.TextField(_('About'), null=True)
+    ABOUTS_CHOICES = ALL_ALT_LANGUAGES
+    d_abouts = models.TextField(_('About'), null=True)
+    
+##    value = models.FloatField(null=True, help_text='at level 1')
+##    increase = models.FloatField(null=True, help_text='% increase per level')
+##    # value will increase by % increase per level. If 0, won't change at all uwu there done!
+
+    values=models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
+    lifes=models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
+
+    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='area_items',
+        help_text='Unless instrument, just choose member in affected band', null=True, on_delete=models.SET_NULL,)
 
     ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES
-    ATTRIBUTE_WITHOUT_I_CHOICES = True
     i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES, null=True)
 
-    instrument = models.CharField(_('Instrument'), max_length=100, null=True)
-    INSTRUMENTS_CHOICES = ALL_ALT_LANGUAGES
-    d_instruments = models.TextField(_('Instrument'), null=True)
-
-    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='area_items', null=True, on_delete=models.SET_NULL)
-
-    @property
-    def member_name(self):
-        return FAVORITE_CHARACTERS_NAMES.get(self.member_id, None)
+    INSTRUMENT_CHOICES=[
+        ('mic', _('Mic')),
+        ('guitar', _('Guitar')),
+        ('bass', _('Bass')),
+        ('drum', _('Drums')),
+        ('other', _('Other')),
+    ]
+    i_instrument = models.PositiveIntegerField(_('Instrument'), choices=i_choices(INSTRUMENT_CHOICES), null=True)
 
     STAT_CHOICES = (
         ('performance', _('Performance')),
         ('technique', _('Technique')),
         ('visual', _('Visual')),
     )
-    i_stat = models.PositiveIntegerField('Statistics', choices=i_choices(STAT_CHOICES), null=True)
-
-    depends_on_life = models.PositiveIntegerField(null=True)
-    life = property(lambda _s: _s.depends_on_life)
-
-    ###
+    i_stat = models.PositiveIntegerField(_('Stat'), choices=i_choices(STAT_CHOICES), null=True)
 
     @property
     def formatted_name(self):
-        template = self.type_name_template
-        if not template:
-            return unicode(self.t_name or self.t_type or u'{}: #{}'.format(_('Area items'), self.id))
-        return template.format(**{
-            variable: unicode(getattr(self, variable, ''))
-            for variable in (templateVariables(template) or [])
-        })
+        formatted_name=''
+        if self.member != None:
+            if self.instrument != 'mic':
+                formatted_name+=unicode(_('{name}\'s').format(name=self.member.first_name))
+            else:
+                formatted_name+=unicode(self.member.t_band)
+        if self.t_name:
+            formatted_name +=' ' + unicode(self.t_name)
+        if self.instrument not in ['other', None]:
+            formatted_name+=' ' + unicode(self.t_instrument)
+        return formatted_name
 
     @property
-    def affected_members(self):
-        if self.i_band is not None:
-            return self.t_band
+    def affected(self):
+        if self.member is not None:
+            return self.member.t_band
         elif self.i_attribute is not None:
             return self.t_attribute
-        return _('All')
+        return None
 
     @property
-    def effect_value(self):
-        if self.flat:
-            return unicode(int(self.value))
-        return '{percentage}%'.format(percentage=self.value)
-
-    @property
-    def affected_stat(self):
+    def stat(self):
         if self.i_stat is not None:
             return unicode(self.t_stat).lower()
-        return u'/'.join([unicode(stat).lower() for n, stat in self.STAT_CHOICES])
+        return unicode(_('All')).lower()
 
     @property
     def formatted_description(self):
-        template = (
-            _('{affected_members} members get +{effect_value} {affected_stat} points if life is above {life}')
-            if self.depends_on_life
-            else _('{affected_members} members get +{effect_value} {affected_stat} points')
-        )
-        return template.format(**{
-            variable: unicode(getattr(self, variable, ''))
-            for variable in (templateVariables(template) or [])
-        })
+        value = self.values.split()
+        life = self.lifes.split()
+        if self.lifes != None:
+            if self.affected != None:
+                return _('Restores life by {life} and {affected} members get a {value} boost on {stat} Stats').format(
+                    life=life[0], affected=self.affected, value=value[0], stat=self.stat)
+            return _('Restores life by {life} and {value} boost on {stat} Stats').format(
+                life=life[0], value=value[0], stat=self.stat)
+        elif self.affected != None:
+            return _('{affected} members get a {value} boost on {stat} Stats').format(
+                affected=self.affected, value=value[0], stat=self.stat)
+        elif value != None:
+            return _('{value} boost on {stat} Stats').format(value=value[0], stat=self.stat)
+        return ''
+
+    def formatted_description(self, level=1):
+        value = self.values.split()
+        if level-1 > len(value)-1:
+            value='???'
+        else:
+            value=value[level-1]
+        life = self.lifes.split()
+        if level-1 > len(life)-1:
+            life='???'
+        else:
+            life=life[level-1]
+        print value
+        print life
+        if self.lifes != None:
+            if self.affected != None:
+                return _('Restores life by {life} and {affected} members get a {value} boost on {stat} Stats').format(
+                    life=life, affected=self.affected, value=value, stat=self.stat)
+            return _('Restores life by {life} and {value} boost on {stat} Stats').format(
+                life=life, value=value, stat=self.stat)
+        elif self.affected != None:
+            return _('{affected} members get a {value} boost on {stat} Stats').format(
+                affected=self.affected, value=value, stat=self.stat)
+        elif self.values != None:
+            return _('{value} boost on {stat} Stats').format(value=value, stat=self.stat)
+        return u''                 
 
     @property
     def max_level(self):
-        return 6 if self.type == 'instrument_per_band' else 5
+        return 6 if self.type == 'studio' else 5
 
     def __unicode__(self):
         return self.formatted_name
@@ -1672,22 +1678,17 @@ class CollectibleAreaItem(AccountAsOwnerModel):
 
     account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='areaitems')
     areaitem = models.ForeignKey(AreaItem, verbose_name=_('Area item'), related_name='collectedby')
-
     level = models.PositiveIntegerField(_('Level'), default=1)
 
     image = property(lambda _s: _s.areaitem.image)
     image_url = property(lambda _s: _s.areaitem.image_url)
     http_image_url = property(lambda _s: _s.areaitem.http_image_url)
-
     formatted_name = property(lambda _s: _s.areaitem.formatted_name)
 
     @property
     def formatted_description(self):
-        previous_value = self.areaitem.value
-        self.areaitem.value += (0.5 * (self.level - 1))
-        formatted_description = unicode(self.areaitem.formatted_description)
-        self.areaitem.value = previous_value
-        return formatted_description
+        #oh no owo owo owo
+        return self.areaitem.formatted_description(level=self.level)
 
     @property
     def subtitle(self):

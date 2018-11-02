@@ -2271,15 +2271,8 @@ def to_CollectibleAreaItemCollection(cls):
 # Area items Collection
 
 AREA_ITEM_CUTEFORM = {
-    'member': {
-        'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
-        'extra_settings': {
-            'modal': 'true',
-            'modal-text': 'true',
-        },
-    },
     'i_attribute': {},
-    'i_band': {
+    'band': {
         'image_folder': 'band',
         'to_cuteform': 'value',
         'title': _('Band'),
@@ -2294,20 +2287,12 @@ class AreaItemCollection(MagiCollection):
     title = _('Area item')
     plural_title = _('Area items')
     queryset = models.AreaItem.objects.all()
-    translated_fields = ('name', 'instrument', )
+    translated_fields = ('name', 'about')
     icon = 'present'
     navbar_link = False
     multipart = True
     filter_cuteform = AREA_ITEM_CUTEFORM
     reportable = False
-
-    types = {
-        _type: {
-            'title': _info['translation'],
-            'form_class': forms.areaitem_type_to_form(_type),
-        }
-        for _type, _info in models.AreaItem.TYPES.items()
-    }
 
     collectible = models.CollectibleAreaItem
 
@@ -2316,7 +2301,7 @@ class AreaItemCollection(MagiCollection):
         return to_CollectibleAreaItemCollection(cls)
 
     class ListView(MagiCollection.ListView):
-        filter_form = forms.AreaItemFilters
+        filter_form = forms.AreaItemFilter
         ajax_item_popover = True
         before_template = 'include/galleryBackButtons'
         item_template = custom_item_template

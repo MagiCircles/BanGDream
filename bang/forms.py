@@ -902,52 +902,31 @@ class AreaForm(AutoForm):
         save_owner_on_creation = True
 
 ############################################################
-# Area item form
+# AreaItem form
 
-def areaitem_type_to_form(type):
-    class _AreaItemForm(AutoForm):
-        def __init__(self, *args, **kwargs):
-            super(_AreaItemForm, self).__init__(*args, **kwargs)
-            for variable in models.AreaItem.VARIABLES:
-                if variable in self.fields and variable not in models.AreaItem.TYPES[type]['variables']:
-                    del(self.fields[variable])
-            if 'i_type' in self.fields:
-                del(self.fields['i_type'])
+class AreaItemForm(AutoForm):
+    class Meta(AutoForm.Meta):
+        model = models.AreaItem
+        fields = '__all__'
+        save_owner_on_creation = True
 
-        def save(self, commit=False):
-            instance = super(_AreaItemForm, self).save(commit=False)
-            instance.i_type = models.AreaItem.get_i('type', type)
-            if instance.member_id:
-                instance.i_band = instance.member.i_band
-            if commit:
-                instance.save()
-            return instance
+class AreaItemFilter(MagiFiltersForm):
+    search_fields = ['area__name', 'area__d_names', 'name', 'd_names', 'about', 'd_abouts']
 
-        class Meta(AutoForm.Meta):
-            model = models.AreaItem
-            fields = '__all__'
-            save_owner_on_creation = True
-    return _AreaItemForm
+    i_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
+        (i, string_concat(_('Studio'), ' (', d, ')')) for i, d in models.AreaItem.INSTRUMENT_CHOICES] + [
+        (i, d) for i, d in models.AreaItem.TYPE_CHOICES if i != 'studio'], label=_('Type'))
+        
+    i_type_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(i_type=value))
 
-class AreaItemFilters(MagiFiltersForm):
-    search_fields = ['area__name', 'area__d_names', 'name', 'd_names', 'instrument', 'd_instruments']
-
-    i_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [('instrument', _('Instrument'))] + [
-        (i, d['translation']) for i, (k, d) in enumerate(models.AreaItem.TYPES.items())
-        if not k.startswith('instrument_')
-    ], label=_('Type'))
-    i_type_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(i_type__in=[
-        models.AreaItem.get_i('type', 'instrument_per_member'),
-        models.AreaItem.get_i('type', 'instrument_per_band'),
-    ]) if value == 'instrument' else queryset.filter(i_type=value))
-
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+    member_band = MEMBER_BAND_CHOICE_FIELD
+    member_band_filter = MagiFilter(to_queryset=member_band_to_queryset)
 
     area = forms.IntegerField(widget=forms.HiddenInput)
 
     class Meta(MagiFiltersForm.Meta):
         model = models.AreaItem
-        fields = ('search', 'i_type', 'i_band', 'member', 'i_attribute', 'i_stat', 'area')
+        fields = ('search', 'i_type', 'i_instrument', 'member_band', 'i_attribute', 'i_stat', 'area')
 
 ############################################################
 # Item form
@@ -966,7 +945,7 @@ class ItemFilterForm(MagiFiltersForm):
         fields = ('search', )
 
 ############################################################
-# Item form
+#CollectibleAreaItem form
 
 def to_CollectibleAreaItemForm(cls):
     class _CollectibleAreaItemForm(cls.form_class):
@@ -978,7 +957,7 @@ def to_CollectibleAreaItemForm(cls):
         def __init__(self, *args, **kwargs):
             super(_CollectibleAreaItemForm, self).__init__(*args, **kwargs)
             _type = self.collectible_variables.get('type')
-            if _type and _type == 'instrument_per_band' and 'level' in self.fields:
+            if _type == 'studio' and 'level' in self.fields:
                 self.fields['level'].validators = [
                     MinValueValidator(1),
                     MaxValueValidator(6),

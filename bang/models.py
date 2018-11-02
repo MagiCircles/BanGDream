@@ -1596,7 +1596,7 @@ class AreaItem(MagiModel):
     def formatted_name(self):
         formatted_name=''
         if self.member != None:
-            if self.instrument != 'mic':
+            if self.instrument != 'mic' and self.instrument != None:
                 formatted_name+=unicode(_('{name}\'s').format(name=self.member.first_name))
             else:
                 formatted_name+=unicode(self.member.t_band)
@@ -1619,23 +1619,6 @@ class AreaItem(MagiModel):
         if self.i_stat is not None:
             return unicode(self.t_stat).lower()
         return unicode(_('All')).lower()
-
-    @property
-    def formatted_description(self):
-        value = self.values.split()
-        life = self.lifes.split()
-        if self.lifes != None:
-            if self.affected != None:
-                return _('Restores life by {life} and {affected} members get a {value} boost on {stat} Stats').format(
-                    life=life[0], affected=self.affected, value=value[0], stat=self.stat)
-            return _('Restores life by {life} and {value} boost on {stat} Stats').format(
-                life=life[0], value=value[0], stat=self.stat)
-        elif self.affected != None:
-            return _('{affected} members get a {value} boost on {stat} Stats').format(
-                affected=self.affected, value=value[0], stat=self.stat)
-        elif value != None:
-            return _('{value} boost on {stat} Stats').format(value=value[0], stat=self.stat)
-        return ''
 
     def formatted_description(self, level=1):
         value = self.values.split()

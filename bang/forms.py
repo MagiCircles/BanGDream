@@ -913,11 +913,11 @@ class AreaItemForm(AutoForm):
 class AreaItemFilter(MagiFiltersForm):
     search_fields = ['area__name', 'area__d_names', 'name', 'd_names', 'about', 'd_abouts']
 
-    i_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
-        (i, string_concat(_('Studio'), ' (', d, ')')) for i, d in models.AreaItem.INSTRUMENT_CHOICES] + [
-        (i, d) for i, d in models.AreaItem.TYPE_CHOICES if i != 'studio'], label=_('Type'))
+##    i_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
+##        (i, string_concat(_('Studio'), ' (', d, ')')) for i, d in models.AreaItem.INSTRUMENT_CHOICES] + [
+##        (i, d) for i, d in models.AreaItem.TYPE_CHOICES if i != 'studio'], label=_('Type'))
         
-    i_type_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(i_type=value))
+##    i_type_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(i_type=value))
 
     member_band = MEMBER_BAND_CHOICE_FIELD
     member_band_filter = MagiFilter(to_queryset=member_band_to_queryset)

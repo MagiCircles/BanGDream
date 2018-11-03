@@ -2118,14 +2118,19 @@ def to_CollectibleItemCollection(cls):
         class ItemView(cls.ItemView):
             def to_fields(self, item, extra_fields=None, *args, **kwargs):
                 if extra_fields is None: extra_fields = []
+                if item.item.i_type != None:
+                    extra_fields.append(('type', {
+                        'verbose_name': _('Type'),
+                        'value': item.item.t_type,
+                        'icon': 'category',
+                    },))
                 extra_fields.append((
                     'item_details', {
                         'verbose_name': item.item.t_name,
                         'value': (False, item.item.t_m_description if item.item.m_description else ''),
                         'type': 'markdown',
-                        'image': item.item.image_url,
-                    },
-                ))
+                        'icon': 'present',
+                    },))
                 fields = super(_CollectibleItemCollection.ItemView, self).to_fields(
                     item, *args, icons=COLLECTIBLEITEM_ICON,
                     extra_fields=extra_fields, **kwargs)
@@ -2144,7 +2149,7 @@ class ItemCollection(MagiCollection):
     plural_title = _('Items')
     queryset = models.Item.objects.all()
     translated_fields = ('name', 'm_description', )
-    icon = 'star'
+    icon = 'archive'
     navbar_link = False
     multipart = True
     form_class = forms.ItemForm
@@ -2175,9 +2180,10 @@ class ItemCollection(MagiCollection):
 
         def to_fields(self, item, only_fields=None, *args, **kwargs):
             if not only_fields:
-                only_fields = ['m_description']
-            fields = super(ItemCollection.ItemView, self).to_fields(item, *args, only_fields=only_fields, **kwargs)
-            setSubField(fields, 'description', key='image', value=item.image_url)
+                only_fields = ['i_type', 'm_description']
+            fields = super(ItemCollection.ItemView, self).to_fields(item, *args,
+                only_fields=only_fields, icons={'type': 'category', 'description': 'present',}, **kwargs)
+##            setSubField(fields, 'description', key='image', value=item.image_url)
             setSubField(fields, 'description', key='verbose_name', value=unicode(item))
             return fields
 
@@ -2250,14 +2256,14 @@ def to_CollectibleAreaItemCollection(cls):
                     extra_fields.append(('type', {
                         'verbose_name': _('Area'),
                         'value': item.areaitem.t_type if item.areaitem.instrument == None else string_concat(item.areaitem.t_type, ' (', item.areaitem.t_instrument, ')'),
-                        'icon': 'town',
+                        'icon': 'pinpoint',
                     }))
                 extra_fields.append((
                     'item_details', {
                         'verbose_name': item.formatted_name,
                         'value': item.formatted_description,
                         'type': 'long_text',
-                        'icon': 'present',
+                        'icon': 'fountain',
                     },
                 ))
                 fields = super(_CollectibleAreaItemCollection.ItemView, self).to_fields(
@@ -2294,7 +2300,7 @@ class AreaItemCollection(MagiCollection):
     plural_title = _('Area items')
     queryset = models.AreaItem.objects.all()
     translated_fields = ('name', 'about')
-    icon = 'present'
+    icon = 'town'
     navbar_link = False
     multipart = True
     filter_cuteform = AREA_ITEM_CUTEFORM
@@ -2326,13 +2332,13 @@ class AreaItemCollection(MagiCollection):
                fields += [('type', {
                     'verbose_name': _('Area'),
                     'value': item.t_type if item.instrument == None else string_concat(item.t_type, ' (', item.t_instrument, ')'),
-                    'icon': 'town',
+                    'icon': 'pinpoint',
                 })]
             fields += [('item_details', {
                 'verbose_name': item.formatted_name,
                 'value': item.formatted_description,
                 'type': 'long_text',
-                'icon': 'present',
+                'icon': 'fountain',
             })]
             if item.about != None:
                 fields += [('about', {

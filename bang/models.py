@@ -1472,7 +1472,6 @@ class Rerun(MagiModel):
 
 class Item(MagiModel):
     collection_name = 'item'
-
     owner = models.ForeignKey(User, related_name='added_items')
 
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('items'))
@@ -1481,6 +1480,14 @@ class Item(MagiModel):
     name = models.CharField(_('Title'), max_length=100, null=True, help_text='plural')
     NAMES_CHOICES = ALL_ALT_LANGUAGES
     d_names = models.TextField(_('Title'), null=True)
+
+    TYPE_CHOICES=[
+        ('main', _('Main')),
+        ('boost', _('Live Boost')),
+        ('ticket', _('Studio Ticket')),
+        ('other', _('Other')),
+    ]
+    i_type = models.PositiveIntegerField(_('Type'), choices=i_choices(TYPE_CHOICES), null=True)
 
     m_description = models.TextField(_('Description'), null=True)
     M_DESCRIPTIONS_CHOICES = ALL_ALT_LANGUAGES
@@ -1497,9 +1504,8 @@ class CollectibleItem(AccountAsOwnerModel):
 
     account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='items')
     item = models.ForeignKey(Item, verbose_name=_('Item'), related_name='collectedby')
-
     quantity = models.PositiveIntegerField(_('Quantity'), default=1)
-
+                                             
     image = property(lambda _s: _s.item.image)
     image_url = property(lambda _s: _s.item.image_url)
     http_image_url = property(lambda _s: _s.item.http_image_url)
@@ -1533,7 +1539,6 @@ class Area(MagiModel):
 
 class AreaItem(MagiModel):
     collection_name = 'areaitem'
-
     owner = models.ForeignKey(User, related_name='added_area_items')
 
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('areas/items'))
@@ -1543,7 +1548,7 @@ class AreaItem(MagiModel):
     NAMES_CHOICES = ALL_ALT_LANGUAGES
     d_names = models.TextField(_('Title'), null=True)
 
-    area = models.ForeignKey(Area, verbose_name=_('Area'), null=True)
+    area = models.ForeignKey(Area, verbose_name=_('Area'), null=True, on_delete=models.SET_NULL)
     
     TYPE_CHOICES=[
         ('studio', _('Studio')),

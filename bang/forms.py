@@ -937,7 +937,7 @@ class ItemFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Item
-        fields = ('search', )
+        fields = ('search', 'i_type')
 
 ############################################################
 #CollectibleAreaItem form

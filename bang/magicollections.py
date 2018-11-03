@@ -2246,6 +2246,12 @@ def to_CollectibleAreaItemCollection(cls):
         class ItemView(cls.ItemView):
             def to_fields(self, item, extra_fields=None, *args, **kwargs):
                 if extra_fields is None: extra_fields = []
+                if item.areaitem.type != None:
+                    extra_fields.append(('type', {
+                        'verbose_name': _('Area'),
+                        'value': item.areaitem.t_type if item.areaitem.instrument == None else string_concat(item.areaitem.t_type, ' (', item.areaitem.t_instrument, ')'),
+                        'icon': 'town',
+                    }))
                 extra_fields.append((
                     'item_details', {
                         'verbose_name': item.formatted_name,
@@ -2312,16 +2318,31 @@ class AreaItemCollection(MagiCollection):
 
     class ItemView(MagiCollection.ItemView):
         comments_enabled = False
+        share_enabled = False
 
         def to_fields(self, item, *args, **kwargs):
-            return OrderedDict([
-                ('area_item', {
-                    'verbose_name': item.formatted_name,
-                    'value': item.formatted_description,
+            fields = []
+            if item.type != None:
+               fields += [('type', {
+                    'verbose_name': _('Area'),
+                    'value': item.t_type if item.instrument == None else string_concat(item.t_type, ' (', item.t_instrument, ')'),
+                    'icon': 'town',
+                })]
+            fields += [('item_details', {
+                'verbose_name': item.formatted_name,
+                'value': item.formatted_description,
+                'type': 'long_text',
+                'icon': 'present',
+            })]
+            if item.about != None:
+                fields += [('about', {
+                    'verbose_name': _('About'),
+                    'value': item.t_about,
                     'type': 'long_text',
-                    'icon': 'present',
-                }),
-            ])
+                    'icon': 'author',
+                })]
+            fields = OrderedDict(fields)
+            return fields
 
     class AddView(MagiCollection.AddView):
         staff_required = True

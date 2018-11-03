@@ -913,20 +913,15 @@ class AreaItemForm(AutoForm):
 class AreaItemFilter(MagiFiltersForm):
     search_fields = ['area__name', 'area__d_names', 'name', 'd_names', 'about', 'd_abouts']
 
-##    i_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
-##        (i, string_concat(_('Studio'), ' (', d, ')')) for i, d in models.AreaItem.INSTRUMENT_CHOICES] + [
-##        (i, d) for i, d in models.AreaItem.TYPE_CHOICES if i != 'studio'], label=_('Type'))
-        
-##    i_type_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(i_type=value))
-
-    member_band = MEMBER_BAND_CHOICE_FIELD
-    member_band_filter = MagiFilter(to_queryset=member_band_to_queryset)
+    band = forms.ChoiceField(label=_('Band'), choices=BLANK_CHOICE_DASH + [(i, band)
+        for i, band in i_choices(models.Member.BAND_CHOICES)], initial=None)
+    band_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(member__i_band=value))
 
     area = forms.IntegerField(widget=forms.HiddenInput)
 
     class Meta(MagiFiltersForm.Meta):
         model = models.AreaItem
-        fields = ('search', 'i_type', 'i_instrument', 'member_band', 'i_attribute', 'i_stat', 'area')
+        fields = ('search', 'i_type', 'i_instrument', 'band', 'i_attribute', 'i_stat', 'area')
 
 ############################################################
 # Item form

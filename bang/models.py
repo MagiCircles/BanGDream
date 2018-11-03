@@ -1539,6 +1539,12 @@ class AreaItem(MagiModel):
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('areas/items'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('areas/items'))
 
+    name = models.CharField(_('Title'), max_length=100, null=True)
+    NAMES_CHOICES = ALL_ALT_LANGUAGES
+    d_names = models.TextField(_('Title'), null=True)
+
+    area = models.ForeignKey(Area, verbose_name=_('Area'), null=True)
+    
     TYPE_CHOICES=[
         ('studio', _('Studio')),
         ('poster', _('Poster')),
@@ -1552,30 +1558,7 @@ class AreaItem(MagiModel):
         ('special', _('Specials Menu')),
     ]
     i_type = models.PositiveIntegerField(_('Type'), choices=i_choices(TYPE_CHOICES), null=True)
-    area = models.ForeignKey(Area, verbose_name=_('Shop'), null=True)
-    #currently organizing these as "Areas" on site, but shops can be seperate from the areas so owo
     
-    name = models.CharField(_('Title'), max_length=100, null=True)
-    NAMES_CHOICES = ALL_ALT_LANGUAGES
-    d_names = models.TextField(_('Title'), null=True)
-
-    about = models.TextField(_('About'), null=True)
-    ABOUTS_CHOICES = ALL_ALT_LANGUAGES
-    d_abouts = models.TextField(_('About'), null=True)
-    
-##    value = models.FloatField(null=True, help_text='at level 1')
-##    increase = models.FloatField(null=True, help_text='% increase per level')
-##    # value will increase by % increase per level. If 0, won't change at all uwu there done!
-
-    values=models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
-    lifes=models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
-
-    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='area_items',
-        help_text='Unless instrument, just choose member in affected band', null=True, on_delete=models.SET_NULL,)
-
-    ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES
-    i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES, null=True)
-
     INSTRUMENT_CHOICES=[
         ('mic', _('Mic')),
         ('guitar', _('Guitar')),
@@ -1585,6 +1568,13 @@ class AreaItem(MagiModel):
     ]
     i_instrument = models.PositiveIntegerField(_('Instrument'), choices=i_choices(INSTRUMENT_CHOICES), null=True)
 
+    member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='area_items',
+        help_text='Unless instrument, just choose member in affected band', null=True, on_delete=models.SET_NULL,)
+
+    ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES
+    ATTRIBUTE_WITHOUT_I_CHOICES = True
+    i_attribute = models.PositiveIntegerField(_('Attribute'), choices=ATTRIBUTE_CHOICES, null=True)
+
     STAT_CHOICES = (
         ('performance', _('Performance')),
         ('technique', _('Technique')),
@@ -1592,14 +1582,22 @@ class AreaItem(MagiModel):
     )
     i_stat = models.PositiveIntegerField(_('Stat'), choices=i_choices(STAT_CHOICES), null=True)
 
+    values=models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
+    lifes=models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
+
+    about = models.TextField(_('About'), null=True)
+    ABOUTS_CHOICES = ALL_ALT_LANGUAGES
+    d_abouts = models.TextField(_('About'), null=True)
+
     @property
     def formatted_name(self):
         formatted_name=''
         if self.member != None:
-            if self.instrument != 'mic' and self.instrument != None:
-                formatted_name+=unicode(_('{name}\'s').format(name=self.member.first_name))
-            else:
-                formatted_name+=unicode(self.member.t_band)
+            if self.type in ['studio', 'poster', 'entrance']:
+                if self.type == 'studio' and self.instrument not in [None, 'mic']:
+                    formatted_name+=unicode(_('{name}\'s').format(name=self.member.first_name))
+                else:
+                    formatted_name+=unicode(self.member.t_band)
         if self.t_name:
             formatted_name +=' ' + unicode(self.t_name)
         if self.instrument not in ['other', None]:
@@ -1608,11 +1606,14 @@ class AreaItem(MagiModel):
 
     @property
     def affected(self):
-        if self.member is not None:
-            return self.member.t_band
-        elif self.i_attribute is not None:
-            return self.t_attribute
-        return None
+        string = ''
+        if self.i_attribute != None:
+            string += unicode(self.t_attribute)
+        if self.member != None:
+            if string != '':
+                string +=' '
+            string += self.member.t_band
+        return string if string != '' else None
 
     @property
     def stat(self):
@@ -1631,8 +1632,6 @@ class AreaItem(MagiModel):
             life='???'
         else:
             life=life[level-1]
-        print value
-        print life
         if self.lifes != None:
             if self.affected != None:
                 return _('Restores life by {life} and {affected} members get a {value} boost on {stat} Stats').format(
@@ -1670,7 +1669,6 @@ class CollectibleAreaItem(AccountAsOwnerModel):
 
     @property
     def formatted_description(self):
-        #oh no owo owo owo
         return self.areaitem.formatted_description(level=self.level)
 
     @property

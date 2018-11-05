@@ -1207,7 +1207,7 @@ class EventCollection(MagiCollection):
 
     def to_fields(self, view, item, *args, **kwargs):
         fields = super(EventCollection, self).to_fields(view, item, *args, icons=EVENT_ICONS, images={
-            'boost_attribute': staticImageURL(item.i_attribute, folder='i_attribute', extension='png'),
+            'boost_attribute': staticImageURL(item.i_boost_attribute, folder='i_attribute', extension='png'),
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
@@ -1295,8 +1295,11 @@ class EventCollection(MagiCollection):
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
-                            'value': mark_safe(toCountDown(date=torfc2822(end_date if status=='current' else start_date),
-                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'), classes="fontx1-5")),
+                            'value': mark_safe(toCountDown(
+                                date=end_date if status == 'current' else start_date,
+                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),
+                                classes=['fontx1-5'],
+                            )),
                             'icon': 'times',
                             'type': 'html',
                         }),
@@ -1525,12 +1528,12 @@ GACHA_ICONS = {
 }
 
 GACHA_ITEM_FIELDS_ORDER = [
-    'name',
+    'name', 'limited',
 ] + [
     u'{}{}'.format(_v['prefix'], _f) for _v in models.Account.VERSIONS.values()
     for _f in models.Gacha.FIELDS_PER_VERSION
 ] + [
- 'attribute', 'limited', 'cards',
+ 'attribute', 'cards',
 ]
 
 class GachaCollection(MagiCollection):
@@ -1655,8 +1658,11 @@ class GachaCollection(MagiCollection):
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
-                            'value': mark_safe(toCountDown(date=torfc2822(end_date if status=='current' else start_date),
-                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'), classes="fontx1-5")),
+                            'value': mark_safe(toCountDown(
+                                date=end_date if status == 'current' else start_date,
+                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),
+                                classes=['fontx1-5'],
+                            )),
                             'icon': 'times',
                             'type': 'html',
                         }),

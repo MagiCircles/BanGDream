@@ -159,6 +159,7 @@ PASSWORD_EMAIL = 'password@schoolido.lu'
 AWS_SES_RETURN_PATH = 'contact@bandori.party'
 
 FAVORITE_CHARACTERS = []
+BACKGROUNDS = []
 STAFF_CONFIGURATIONS = {}
 
 MAX_WIDTH = 1200

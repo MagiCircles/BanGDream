@@ -4,7 +4,7 @@ from itertools import chain
 from collections import OrderedDict
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
-from django.utils.formats import dateformat
+from django.utils.formats import date_format
 from django.utils.safestring import mark_safe
 from django.db.models import Prefetch, Q
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -18,14 +18,29 @@ from magi.magicollections import (
     StaffConfigurationCollection as _StaffConfigurationCollection,
     PrizeCollection as _PrizeCollection,
 )
-from magi.utils import setSubField, CuteFormType, CuteFormTransform, FAVORITE_CHARACTERS_IMAGES, getMagiCollection, torfc2822, custom_item_template, staticImageURL, justReturn, jsv, toCountDown
+from magi.utils import (
+    setSubField,
+    CuteFormType,
+    CuteFormTransform,
+    FAVORITE_CHARACTERS_IMAGES,
+    getMagiCollection,
+    torfc2822,
+    custom_item_template,
+    staticImageURL,
+    justReturn,
+    jsv,
+    toCountDown,
+    translationURL,
+    AttrDict,
+)
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
 from magi.models import Activity, Notification
+from magi.forms import get_account_simple_form
 from bang.constants import LIVE2D_JS_FILES
-from bang import settings
+from magi import settings
 from bang.django_translated import t
-from bang.utils import rarity_to_stars_images, add_rerun_buttons, add_rerun_fields
+from bang.utils import rarity_to_stars_images, generateDifficulty, add_rerun_buttons, add_rerun_fields
 from bang import models, forms
 
 ############################################################
@@ -35,16 +50,42 @@ from bang import models, forms
 # User Collection
 
 class UserCollection(_UserCollection):
+    filter_cuteform = {
+        'member': {
+            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+            'title': _('Member'),
+            'extra_settings': {
+                'modal': 'true',
+                'modal-text': 'true',
+            },
+        },
+    }
+
     class ItemView(_UserCollection.ItemView):
+
+        def get_meta_links(self, user, *args, **kwargs):
+            first_links, meta_links, links = super(UserCollection.ItemView, self).get_meta_links(user, *args, **kwargs)
+            if user.preferences.extra.get('i_favorite_band', None):
+                band = models.Song.get_reverse_i('band', int(user.preferences.extra['i_favorite_band']))
+                meta_links.insert(0, AttrDict({
+                    't_type': _('Favorite {thing}').format(thing=_('Band')),
+                    'value': band,
+                    'image_url': staticImageURL(band, folder='mini_band',  extension='png'),
+                }))
+            return (first_links, meta_links, links)
+
         def extra_context(self, context):
             super(UserCollection.ItemView, self).extra_context(context)
             if context['item'].id == context['request'].user.id:
                 context['hashtags'] = context['hashtags'] + ['MyBanpaCollection']
             if get_language() == 'en':
                 context['share_sentence'] = u'Hey, look! I\'m on ✭Bandori Party✭! Follow me ♥︎'
+            if 'profile_birthday' in context['corner_popups']:
+                context['corner_popups']['profile_birthday']['image_overflow'] = True
+                context['corner_popups']['profile_birthday']['image'] = staticImageURL('birthday_kanae.png')
 
     class ListView(_UserCollection.ListView):
-        filter_form = forms.FilterUsers
+        filter_form = forms.UserFilterForm
 
 ############################################################
 # Account Collection
@@ -96,6 +137,14 @@ class AccountCollection(_AccountCollection):
         },
     }
 
+    @property
+    def report_edit_templates(self):
+        templates = _AccountCollection.report_edit_templates.fget(self)
+        templates['Incorrect version'] = 'You appear to have selected the wrong version for this account, so we edited it.'
+        templates['Incorrect friend ID'] = 'You don\'t seem to be the owner of the account associated with this friend ID in game, so we edited it. Feel free to contact us with a proof and we won\'t edit it again.'
+        templates['Unrealistic star gems bought'] = 'Your total number of star gems bought has been reported as being unrealistic so we edited it. Feel free to contact us with a proof and we won\'t edit it again.'
+        return templates
+
     def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
         exclude_fields.append('owner')
@@ -122,8 +171,7 @@ class AccountCollection(_AccountCollection):
                     tabs[collection_name]['callback'] = 'function loadAccountComingSoon(tab_name, user_id, account_id, onDone) { onDone(\'<div class="alert alert-info text-center"><i class="flaticon-idolized"></i> \' + gettext(\'Coming soon\') + \' <i class="flaticon-idolized"></i></div>\'); }'
         return tabs
 
-    def share_image(self, context, item):
-        return 'screenshots/leaderboard.png'
+    share_image = justReturn('screenshots/leaderboard.png')
 
     class ListView(_AccountCollection.ListView):
         filter_form = forms.FilterAccounts
@@ -142,7 +190,9 @@ class AccountCollection(_AccountCollection):
 
     class AddView(_AccountCollection.AddView):
         back_to_list_button = False
-        simpler_form = forms.AddAccountForm
+        simpler_form = get_account_simple_form(forms.AccountForm, simple_fields=[
+            'nickname', 'i_version', 'level', 'friend_id',
+        ])
 
         def redirect_after_add(self, request, item, ajax):
             if not ajax:
@@ -186,59 +236,36 @@ class ActivityCollection(_ActivityCollection):
     navbar_link_list = 'community'
 
     class ListView(_ActivityCollection.ListView):
-        before_template = 'include/index'
-        ajax_callback = 'loadIndex'
-
-        def extra_context(self, context):
-            super(ActivityCollection.ListView, self).extra_context(context)
-
-            # Homepage settings
-            if 'shortcut_url' in context and context['shortcut_url'] is not None:
-
-                context['full_width'] = True
-                context['page_title'] = None
-
-                # Staff cards preview
-                if (context['request'].user.is_authenticated()
-                    and context['request'].user.hasPermission('manage_main_items')
-                    and 'preview' in context['request'].GET):
-                    context['random_card'] = {
-                        'art_url': context['request'].GET['preview'],
-                        'hd_art_url': context['request'].GET['preview'],
+        def top_buttons(self, request, context):
+            buttons = super(ActivityCollection.ListView, self).top_buttons(request, context)
+            if request.user.is_authenticated():
+                top_tab = (
+                    'this_week' if context['filter_form'].active_tab == 'top_this_week'
+                    else ('all_time' if 'from_tab' in request.GET else None
+                    ))
+                if top_tab:
+                    buttons['other_top'] = {
+                        'show': True,
+                        'has_permissions': True,
+                        'classes': [
+                            cls for cls in self.top_buttons_classes if cls != 'btn-main'
+                        ] + ['btn-secondary'],
+                        'title': string_concat(
+                            _('TOP'), ' - ',
+                            _('This week') if top_tab == 'this_week' else _('All time'),
+                        ),
+                        'subtitle': _('Open {thing}').format(thing=string_concat(
+                            _('TOP'), ' - ',
+                            _('All time') if top_tab == 'this_week' else _('This week'),
+                        )),
+                        'url': (
+                            '/?ordering=_cache_total_likes%2Ccreation&reverse_order=on&from_tab'
+                            if top_tab == 'this_week'
+                            else '/activities/top_this_week/'
+                        ),
+                        'icon': 'trophy',
                     }
-                # 1 chance out of 5 to get a random card of 1 of your favorite characters
-                elif (context['request'].user.is_authenticated()
-                      and context['request'].user.preferences.favorite_characters
-                      and random.randint(0, 5) == 5):
-                    try:
-                        character_id = random.choice(context['request'].user.preferences.favorite_characters)
-                        card = (models.Card.objects.filter(
-                            member_id=character_id,
-                        ).exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(
-                            show_art_on_homepage=False, show_trained_art_on_homepage=False,
-                        ).order_by('?'))[0]
-                    except IndexError:
-                        card = None
-                    if card:
-                        trained = random.choice([v for v, s in [
-                            (False, card.show_art_on_homepage and card.art_url),
-                            (True, card.show_trained_art_on_homepage and card.art_trained_url),
-                            ] if s
-                        ])
-                        context['random_card'] = {
-                            'art_url': card.art_trained_url if trained else card.art_url,
-                            'hd_art_url': (card.art_trained_2x_url or card.art_trained_original_url) if trained else (card.art_2x_url or card.art_original_url),
-                            'item_url': card.item_url,
-                        }
-                # Random from the last 20 released cards
-                elif django_settings.HOMEPAGE_CARDS:
-                    context['random_card'] = random.choice(django_settings.HOMEPAGE_CARDS)
-                # If no random_card was available
-                if 'random_card' not in context:
-                    context['random_card'] = {
-                        'art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
-                        'hd_art_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
-                    }
+            return buttons
 
 ############################################################
 ############################################################
@@ -257,6 +284,7 @@ MEMBERS_ICONS = {
     'CV': 'voice-actress',
     'romaji_CV': 'voice-actress',
     'birthday': 'birthday',
+    'color': 'palette',
     'height': 'measurements',
     'food_like': 'food-like',
     'food_dislike': 'food-dislike',
@@ -282,12 +310,11 @@ class MemberCollection(MagiCollection):
 
     form_class = forms.MemberForm
 
-    def share_image(self, context, item):
-        return 'screenshots/members.png'
+    share_image = justReturn('screenshots/members.png')
 
     def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
-        exclude_fields.append('d_names')
+        exclude_fields += ['japanese_name']
         if item.school is not None:
             exclude_fields.append('classroom')
         fields = super(MemberCollection, self).to_fields(view, item, *args, icons=MEMBERS_ICONS, images={
@@ -296,10 +323,10 @@ class MemberCollection(MagiCollection):
         if 'square_image' in fields:
             del(fields['square_image'])
         if item.classroom is not None and item.school is not None:
-            setSubField(fields, 'school', key='type', value='html')
-            setSubField(fields, 'school', key='value', value= u'<b>{} <span class="text-muted">({})</span></b>'.format(item.school, item.classroom))
+            setSubField(fields, 'school', key='type', value='text_annotation')
+            setSubField(fields, 'school', key='annotation', value= item.classroom)
         setSubField(fields, 'birthday', key='type', value='text')
-        setSubField(fields, 'birthday', key='value', value=lambda f: dateformat.format(item.birthday, "F d"))
+        setSubField(fields, 'birthday', key='value', value=lambda f: date_format(item.birthday, format='MONTH_DAY_FORMAT', use_l10n=True))
         setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
         setSubField(fields, 'band', key='link', value=lambda f: u'/members/?i_band={}'.format(item.i_band))
         setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))
@@ -307,6 +334,19 @@ class MemberCollection(MagiCollection):
         setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
         setSubField(fields, 'height', key='value', value=u'{} cm'.format(item.height))
         setSubField(fields, 'description', key='type', value='long_text')
+
+        setSubField(fields, 'name', key='type', value='text_annotation')
+        setSubField(fields, 'name', key='verbose_name', value=_('Name'))
+        if get_language() == 'ja':
+            setSubField(fields, 'name', key='value', value=item.japanese_name)
+            setSubField(fields, 'name', key='annotation', value=item.name)
+        elif item.t_name != item.name:
+            setSubField(fields, 'name', key='value', value=item.t_name)
+            setSubField(fields, 'name', key='annotation', value=mark_safe(u'<br>'.join([item.japanese_name, item.name])))
+        else:
+            setSubField(fields, 'name', key='value', value=item.t_name)
+            setSubField(fields, 'name', key='annotation', value=item.japanese_name)
+
         if get_language() == 'ja':
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))
             if 'romaji_CV' in fields:
@@ -339,6 +379,8 @@ class MemberCollection(MagiCollection):
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template
         filter_form = forms.MemberFilterForm
+        per_line = 5
+        page_size = 25
         default_ordering = 'id'
 
     class AddView(MagiCollection.AddView):
@@ -620,8 +662,7 @@ class CardCollection(MagiCollection):
             return to_FavoriteCardCollection(cls)
         return to_CollectibleCardCollection(cls)
 
-    def share_image(self, context, item):
-        return 'screenshots/cards.png'
+    share_image = justReturn('screenshots/cards.png')
 
     def to_fields(self, view, item, *args, **kwargs):
         fields = super(CardCollection, self).to_fields(view, item, *args, icons=CARDS_ICONS, images={
@@ -642,9 +683,12 @@ class CardCollection(MagiCollection):
         return buttons
 
     class ItemView(MagiCollection.ItemView):
-        queryset = models.Card.objects.all().select_related('associated_costume')
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
+
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(CardCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            return queryset.select_related('associated_costume')
 
         def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
@@ -721,17 +765,6 @@ class CardCollection(MagiCollection):
                         ] if image_url],
                         'icon': 'pictures',
                     }))
-            # Add chibis
-            if item.cached_chibis:
-                extra_fields.append(('chibis', {
-                    'icon': 'pictures',
-                    'type': 'images',
-                    'verbose_name': _('Chibi'),
-                    'images': [{
-                        'value': chibi.image_url,
-                        'verbose_name': _('Chibi'),
-                    } for chibi in item.cached_chibis],
-                }))
             # Add cameos
             if item.cached_cameos:
                 extra_fields.append(('cameo_members', {
@@ -745,8 +778,22 @@ class CardCollection(MagiCollection):
                         'link_text': cameo.name,
                     } for cameo in item.cached_cameos]
                 }))
-            # Add live2d viewer
+            # Add live2d viewer and chibis
             if hasattr(item, 'associated_costume'):
+                item.associated_costume.chibis = item.associated_costume.owned_chibis.all()
+                if item.associated_costume.chibis:
+                    extra_fields.append(('chibis', {
+                        'icon': 'pictures',
+                        'type': 'images_links',
+                        'verbose_name': _('Chibi'),
+                        'images': [{
+                            'value': chibi.image_url,
+                            'link': chibi.image_original_url,
+                            'link_text': u'{} - {}'.format(unicode(item), _('Chibi')),
+                            'verbose_name': _('Chibi'),
+                        } for chibi in item.associated_costume.chibis],
+                    }))
+
                 to_cos_link = lambda text, classes=None: u'<a href="{url}" target="_blank" class="{classes}" data-ajax-url="{ajax_url}" data-ajax-title="{ajax_title}">{text}</a>'.format(
                     url=item.associated_costume.item_url,
                     ajax_url=item.associated_costume.ajax_item_url + "?from_card",
@@ -862,7 +909,6 @@ class CardCollection(MagiCollection):
                     'skill_type',
                 ],
             }),
-            ('chibis', { 'verbose_name': _('Chibi') }),
             ('art', { 'verbose_name': _('Art') }),
             ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
             ('transparent', { 'verbose_name': _('Transparent') }),
@@ -1071,13 +1117,12 @@ def to_EventParticipationCollection(cls):
 ############################################################
 # Event Collection
 
-EVENT_ITEM_FIELDS_ORDER = [
-    'name', 'japanese_name', 'type', 'participations',
-] + [
-    u'{}{}'.format(_v['prefix'], _f) for _v in models.Account.VERSIONS.values()
-    for _f in models.Event.FIELDS_PER_VERSION
-] + [
-    'boost_attribute', 'boost_stat', 'boost_members', 'cards',
+EVENT_ITEM_FIELDS_ORDER_BEFORE = [
+    'name', 'type',
+]
+
+EVENT_ITEM_FIELDS_ORDER_AFTER = [
+    'participations', 'boost_attribute', 'boost_stat', 'boost_members', 'cards',
 ]
 
 EVENT_ICONS = {
@@ -1139,12 +1184,14 @@ class EventCollection(MagiCollection):
     multipart = True
     reportable = False
     blockable = False
-    translated_fields = ('name', 'stamp_translation', )
+    translated_fields = ('name', )
     navbar_link_list = 'girlsbandparty'
 
     filter_cuteform = EVENT_LIST_ITEM_CUTEFORM
 
     collectible = models.EventParticipation
+
+    share_image = justReturn('screenshots/events.png')
 
     def collectible_to_class(self, model_class):
         cls = super(EventCollection, self).collectible_to_class(model_class)
@@ -1161,11 +1208,6 @@ class EventCollection(MagiCollection):
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
-            'rare_stamp': staticImageURL('stamp.png'),
-            'stamp_translation': staticImageURL('stamp.png'),
-            'english_rare_stamp': staticImageURL('stamp.png'),
-            'taiwanese_rare_stamp': staticImageURL('stamp.png'),
-            'korean_rare_stamp': staticImageURL('stamp.png'),
         }, **kwargs)
         if get_language() == 'ja' and 'name' in fields and 'japanese_name' in fields:
             setSubField(fields, 'japanese_name', key='verbose_name', value=fields['name']['verbose_name'])
@@ -1197,13 +1239,6 @@ class EventCollection(MagiCollection):
         show_collect_button = {
             'eventparticipation': False,
         }
-        alt_views = MagiCollection.ListView.alt_views + [
-            ('stamps', {
-                'verbose_name': _('Rare stamp'),
-                'template': 'eventStampItem',
-                'per_line': 4,
-            }),
-        ]
 
     class ItemView(MagiCollection.ItemView):
         template = 'default'
@@ -1216,6 +1251,8 @@ class EventCollection(MagiCollection):
                 Prefetch('gachas', to_attr='all_gachas'),
                 Prefetch('gift_songs', to_attr='all_gifted_songs'),
                 Prefetch('reruns', to_attr='all_reruns'),
+                Prefetch('assets', queryset=models.Asset.objects.select_related(
+                    'song').order_by('i_type'), to_attr='all_assets'),
             )
             return queryset
 
@@ -1223,13 +1260,31 @@ class EventCollection(MagiCollection):
             if 'js_variables' not in context:
                 context['js_variables'] = {}
             context['js_variables']['versions_prefixes'] = jsv(models.Account.VERSIONS_PREFIXES)
-            context['js_variables']['fields_per_version'] = jsv(models.Event.FIELDS_PER_VERSION)
+
+            if hasattr(context['request'], 'fields_per_version'):
+                context['js_variables']['fields_per_version'] = jsv(
+                    models.Event.FIELDS_PER_VERSION
+                    + context['request'].fields_per_version
+                )
+            else:
+                context['js_variables']['fields_per_version'] = jsv(models.Event.FIELDS_PER_VERSION)
 
         def to_fields(self, item, order=None, extra_fields=None, exclude_fields=None, request=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
-            order = EVENT_ITEM_FIELDS_ORDER + order
+
+            new_order = EVENT_ITEM_FIELDS_ORDER_BEFORE[:]
+
+            orders_per_versions = OrderedDict([
+                (version_name, [
+                    u'{}{}'.format(version['prefix'], _f)
+                    for _f in models.Event.FIELDS_PER_VERSION
+                ])
+                for version_name, version in models.Account.VERSIONS.items()
+            ])
+            fields_per_version = {}
+
             for version in models.Account.VERSIONS.values():
                 status = getattr(item, u'{}status'.format(version['prefix']))
                 if status and status != 'ended':
@@ -1304,6 +1359,61 @@ class EventCollection(MagiCollection):
                         'ajax_link': song.ajax_item_url,
                         'link_text': unicode(song),
                     }))
+            if len(item.all_assets):
+                for asset in item.all_assets:
+                    for version_name, version in models.Account.VERSIONS.items():
+                        asset_image_url = getattr(asset, u'{}image_url'.format(version['prefix']), None)
+                        asset_thumbnail_url = getattr(asset, u'{}image_thumbnail_url'.format(version['prefix']), None)
+                        if asset_image_url:
+                            field_name = '{}_{}'.format(asset.type, asset.id)
+                            version_field_name = '{}{}'.format(version['prefix'], field_name)
+                            image_icon = staticImageURL(asset.type_image)
+                            verbose_name_subtitle = None
+                            safe_verbose_name = None
+                            # Translation will be what shows up on the image, show nothing
+                            if models.VERSIONS_TO_LANGUAGES[version_name] == get_language():
+                                pass
+                            # English stamp translation
+                            elif get_language() == 'en' and asset.name:
+                                verbose_name_subtitle = asset.name
+                                safe_verbose_name = asset.name
+                            # Other languages translation when available
+                            elif asset.names.get(get_language(), None):
+                                verbose_name_subtitle = asset.t_name
+                                safe_verbose_name = asset.t_name
+                            # Other languages and likely can't speak English, show nothing
+                            elif get_language() in settings.LANGUAGES_CANT_SPEAK_ENGLISH:
+                                pass
+                            # Other languages and available in English, show English with link to translate
+                            elif asset.name:
+                                verbose_name_subtitle = mark_safe(translationURL(asset.name))
+                                safe_verbose_name = asset.name
+                            # Song title for titles
+                            if not verbose_name_subtitle and asset.song:
+                                verbose_name_subtitle = mark_safe(
+                                    u'<a href="{url}" data-ajax-url="{ajax_url}" class="{cls}">{title}</a>'.format(
+                                        url=asset.song.item_url,
+                                        ajax_url=asset.song.ajax_item_url,
+                                        cls='a-nodifference',
+                                        title=unicode(asset.song),
+                                    ))
+                                safe_verbose_name = unicode(asset.song)
+                            extra_fields.append((
+                                version_field_name, {
+                                    'type': 'image_link',
+                                    'verbose_name': _('Rare stamp') if asset.type == 'stamp' else _('Title'),
+                                    'verbose_name_subtitle': verbose_name_subtitle,
+                                    'icon': asset.type_icon if not image_icon else None,
+                                    'image': image_icon,
+                                    'value': asset_thumbnail_url if asset.type != 'title' else asset_image_url,
+                                    'link': asset_image_url,
+                                    'link_text': asset.names.get(
+                                        models.VERSIONS_TO_LANGUAGES[version_name],
+                                        safe_verbose_name or asset.name,
+                                    ) if version_name != 'EN' else asset.name,
+                                }))
+                            orders_per_versions[version_name].append(version_field_name)
+                            fields_per_version[field_name] = True
             extra_fields += add_rerun_fields(self, item, request)
             for i_version, version in enumerate(models.Account.VERSIONS.values()):
                 if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
@@ -1313,28 +1423,28 @@ class EventCollection(MagiCollection):
                         'type': 'html',
                         'value': u'<hr>',
                     }))
-                if item.stamp_translation:
-                    extra_fields.append(('{}stamp_translation'.format(version['prefix']), {
-                        'image': staticImageURL('stamp.png'),
-                        'verbose_name': _('Stamp translation'),
-                        'type': 'text',
-                        'value': item.t_stamp_translation,
-                    }))
                 status = getattr(item, u'{}status'.format(version['prefix']))
                 if status == 'ended':
                     extra_fields.append(('{}leaderboard'.format(version['prefix']), {
                         'icon': 'leaderboard',
                         'verbose_name': _('Leaderboard'),
                         'type': 'button',
-                        'link_text': mark_safe('<i class="flaticon-leaderboard"></i>'),
+                        'link_text': mark_safe(u'<i class="flaticon-leaderboard"></i> {}'.format(
+                            _('Open {thing}').format(thing=_('Leaderboard').lower()),
+                        )),
                         'value': u'/eventparticipations/?event={}&view=leaderboard&ordering=ranking&i_version={}'.format(item.id, i_version),
                         'ajax_link': u'/ajax/eventparticipations/?event={}&view=leaderboard&ordering=ranking&i_version={}&ajax_modal_only'.format(item.id, i_version),
                         'title': u'{} - {}'.format(unicode(item), _('Leaderboard')),
                     }))
 
             exclude_fields += ['c_versions', 'japanese_name']
+
+            if request:
+                request.fields_per_version = fields_per_version.keys()
+            new_order += [_o for _l in orders_per_versions.values() for _o in _l] + EVENT_ITEM_FIELDS_AFTER + order
+
             fields = super(EventCollection.ItemView, self).to_fields(
-                item, *args, order=order, extra_fields=extra_fields, exclude_fields=exclude_fields,
+                item, *args, order=new_order, extra_fields=extra_fields, exclude_fields=exclude_fields,
                 request=request, **kwargs)
 
             setSubField(fields, 'name', key='type', value='text' if get_language() == 'ja' else 'title_text')
@@ -1345,7 +1455,6 @@ class EventCollection(MagiCollection):
                 setSubField(fields, u'{}image'.format(version['prefix']), key='verbose_name', value=version['translation'])
                 setSubField(fields, u'{}start_date'.format(version['prefix']), key='verbose_name', value=_('Beginning'))
                 setSubField(fields, u'{}end_date'.format(version['prefix']), key='verbose_name', value=_('End'))
-                setSubField(fields, u'{}rare_stamp'.format(version['prefix']), key='verbose_name', value=_('Rare stamp'))
 
             if 'participations' in fields:
                 setSubField(fields, 'participations', key='link', value=u'{}&view=leaderboard&ordering=id&reverse_order=on'.format(fields['participations']['link']))
@@ -1475,6 +1584,8 @@ class GachaCollection(MagiCollection):
             'type': CuteFormType.HTML,
         },
     }
+
+    share_image = justReturn('screenshots/gachas.png')
 
     def to_fields(self, view, item, in_list=False, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
@@ -1870,6 +1981,8 @@ class SongCollection(MagiCollection):
 
     collectible = models.PlayedSong
 
+    share_image = justReturn('screenshots/songs.png')
+
     def collectible_to_class(self, model_class):
         cls = super(SongCollection, self).collectible_to_class(model_class)
         if model_class.collection_name == 'playedsong':
@@ -1900,6 +2013,16 @@ class SongCollection(MagiCollection):
         setSubField(fields, 'length', key='value', value=lambda f: item.length_in_minutes)
         setSubField(fields, 'unlock', key='value', value=item.unlock_sentence)
 
+        for difficulty, verbose_name in models.Song.DIFFICULTIES:
+            image = staticImageURL(difficulty, folder='songs', extension='png')
+            setSubField(fields, u'{}_notes'.format(difficulty), key='image', value=image)
+
+            diff = getattr(item, u'{}_difficulty'.format(difficulty), None)
+            if diff is not None:
+                setSubField(fields, u'{}_difficulty'.format(difficulty), key='image', value=image)
+                setSubField(fields, u'{}_difficulty'.format(difficulty), key='type', value='html')
+                setSubField(fields, u'{}_difficulty'.format(difficulty), key='value', value=mark_safe(u'{}<br />'.format(generateDifficulty(diff))))
+
         setSubField(fields, 'event', key='type', value='image_link')
         setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
         setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
@@ -1919,19 +2042,6 @@ class SongCollection(MagiCollection):
             }),
         ])
 
-        def to_fields(self, item, *args, **kwargs):
-            fields = super(SongCollection.ListView, self).to_fields(item, *args, **kwargs)
-            for difficulty, verbose_name in models.Song.DIFFICULTIES:
-                image = lambda f: u'{static_url}img/songs/{difficulty}.png'.format(
-                    static_url=RAW_CONTEXT['static_url'],
-                    difficulty=difficulty,
-                )
-                setSubField(fields, u'{}_notes'.format(difficulty), key='image',
-                            value=image)
-                setSubField(fields, u'{}_difficulty'.format(difficulty), key='image',
-                            value=image)
-            return fields
-
     class ItemView(MagiCollection.ItemView):
         template = 'default'
         top_illustration = 'include/songTopIllustration'
@@ -1944,26 +2054,19 @@ class SongCollection(MagiCollection):
 
         def to_fields(self, item, *args, **kwargs):
             fields = super(SongCollection.ItemView, self).to_fields(item, *args, **kwargs)
-            note_image = u'{}img/note.png'.format(RAW_CONTEXT['static_url'])
             for difficulty, verbose_name in models.Song.DIFFICULTIES:
-                notes = getattr(item, u'{}_notes'.format(difficulty), None)
-                difficulty_level = getattr(item, u'{}_difficulty'.format(difficulty), None)
-                if notes or difficulty_level:
+                diff_value = ''
+                diff = getattr(item, u'{}_difficulty'.format(difficulty), None)
+                if diff is not None:
+                    diff_value = u'{}<br />'.format(generateDifficulty(diff))
+                if getattr(item, u'{}_notes'.format(difficulty), None) is not None:
+                    diff_value += _(u'{} notes').format(getattr(item, u'{}_notes'.format(difficulty), None))
+                if diff_value != '':
                     fields[difficulty] = {
                         'verbose_name': verbose_name,
                         'type': 'html',
-                        'value': mark_safe(u'{big_images}{small_images}<br />{notes}'.format(
-                            difficulty_level=difficulty_level,
-                            big_images=(u'<img src="{}" class="song-big-note">'.format(note_image)
-                                        * (difficulty_level // 5)),
-                            small_images=(u'<img src="{}" class="song-small-note">'.format(note_image)
-                                          * (difficulty_level % 5)),
-                            notes=_(u'{} notes').format(notes),
-                        )),
-                        'image': u'{static_url}img/songs/{difficulty}.png'.format(
-                            static_url=RAW_CONTEXT['static_url'],
-                            difficulty=difficulty,
-                        ),
+                        'value': mark_safe(diff_value),
+                        'image': staticImageURL(difficulty, folder='songs', extension='png'),
                     }
 
             if 'played' in fields:
@@ -2065,6 +2168,8 @@ class ItemCollection(MagiCollection):
         ajax_item_popover = True
         per_line = 4
         default_ordering = 'id'
+        filter_form = forms.ItemFilterForm
+        hide_sidebar = True
 
     class ItemView(MagiCollection.ItemView):
         comments_enabled = False
@@ -2257,6 +2362,18 @@ ASSET_CUTEFORM = {
             'modal-text': 'true',
         },
     },
+    'member_band': {
+        'to_cuteform': lambda k, v: (
+            FAVORITE_CHARACTERS_IMAGES[int(k[7:])]
+            if k.startswith('member-')
+            else staticImageURL(v, folder='band', extension='png')
+        ),
+        'title': string_concat(_('Member'), ' / ', _('Band')),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
     'i_version': {
         'to_cuteform': lambda k, v: AccountCollection._version_images[k],
         'image_folder': 'language',
@@ -2269,6 +2386,15 @@ ASSET_CUTEFORM = {
             'modal': 'true',
             'modal-text': 'true',
         },
+    },
+    'value': {
+        'type': CuteFormType.HTML,
+    },
+    'is_event': {
+        'type': CuteFormType.YesNo,
+    },
+    'is_song': {
+        'type': CuteFormType.YesNo,
     },
 }
 
@@ -2291,6 +2417,8 @@ ASSET_ICONS = {
     'type': 'category',
     'tags': 'hashtag',
     'source': 'about',
+    'event': 'event',
+    'song': 'song',
 }
 
 class AssetCollection(MagiCollection):
@@ -2313,20 +2441,41 @@ class AssetCollection(MagiCollection):
         for _type, _info in models.Asset.TYPES.items()
     }
 
-    def to_fields(self, view, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
+    def _preselect_based_on_type(self, queryset, request, variable, prefetch=False):
+        if not request.GET.get('i_type', None) or int(request.GET.get('i_type')) in [
+                i for i, (type_name, type) in enumerate(models.Asset.TYPES.items())
+                if variable in type['variables']]:
+            if prefetch:
+                return queryset.prefetch_related(Prefetch(variable, to_attr=u'all_{}'.format(variable)))
+            else:
+                return queryset.select_related(variable)
+        return queryset
+
+    def get_queryset(self, queryset, parameters, request):
+        queryset = super(AssetCollection, self).get_queryset(queryset, parameters, request)
+        queryset = self._preselect_based_on_type(queryset, request, 'event')
+        queryset = self._preselect_based_on_type(queryset, request, 'song')
+        queryset = self._preselect_based_on_type(queryset, request, 'members', prefetch=True)
+        return queryset
+
+    def to_fields(self, view, item, extra_fields=None, exclude_fields=None, order=None, icons=None, *args, **kwargs):
         if extra_fields is None: extra_fields = []
         if exclude_fields is None: exclude_fields = []
+        if icons is None: icons = {}
+        icons.update(ASSET_ICONS)
         exclude_fields += ['value', 'source_link']
         if not order:
             order = ASSET_ORDER
         if item.image:
             extra_fields.append(('image', {
                 'image': staticImageURL('language/ja.png'),
+                'link': item.image_url,
+                'link_text': string_concat(_('Japanese version'), ' - ', _('Image')),
                 'verbose_name': string_concat(_('Japanese version'), ' - ', _('Image')),
-                'value': item.image_original_url,
-                'type': 'image',
+                'value': item.image_thumbnail_url,
+                'type': 'image_link',
             }))
-        fields = super(AssetCollection, self).to_fields(view, item, *args, icons=ASSET_ICONS, images={
+        fields = super(AssetCollection, self).to_fields(view, item, *args, icons=icons, images={
             'image': staticImageURL('language/ja.png'),
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
@@ -2338,23 +2487,22 @@ class AssetCollection(MagiCollection):
         setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
         setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
         if item.source and item.source_link:
-            setSubField(fields,'source', key='type', value='link')
-            setSubField(fields,'source', key='value', value=item.source_link)
-            setSubField(fields,'source', key='icon', value='link')
-            setSubField(fields,'source', key='link_text', value=item.source)
+            setSubField(fields, 'source', key='type', value='link')
+            setSubField(fields, 'source', key='value', value=item.source_link)
+            setSubField(fields, 'source', key='icon', value='link')
+            setSubField(fields, 'source', key='link_text', value=item.source)
+        # Use correct translation for each asset in alt of image
+        for version_name, version in models.Account.VERSIONS.items():
+            setSubField(fields, u'{}image'.format(version['prefix']), key='image_text',
+                        value=item.names.get(models.VERSIONS_TO_LANGUAGES.get(version_name, None), item.name))
         return fields
 
     class ItemView(MagiCollection.ItemView):
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(AssetCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.prefetch_related(
-                Prefetch('members', to_attr='all_members'),
-            )
-            return queryset
-
-        def to_fields(self, item, extra_fields=None, *args, **kwargs):
+        def to_fields(self, item, extra_fields=None, preselected=None, *args, **kwargs):
             if not extra_fields: extra_fields = []
-            if len(item.all_members):
+            if not preselected: preselected = []
+            preselected += ['event', 'song']
+            if getattr(item, 'all_members', []):
                 extra_fields.append(('members', {
                     'icon': 'users',
                     'verbose_name': _('Members'),
@@ -2367,22 +2515,38 @@ class AssetCollection(MagiCollection):
                     } for member in item.all_members]
                 }))
             fields = super(AssetCollection.ItemView, self).to_fields(
-                item, *args, extra_fields=extra_fields, **kwargs)
+                item, *args, extra_fields=extra_fields, preselected=preselected, **kwargs)
             return fields
 
     class ListView(MagiCollection.ListView):
         before_template = 'include/galleryBackButtons'
         filter_form = forms.AssetFilterForm
         filter_cuteform = ASSET_CUTEFORM_LIST
+        per_line = 5
+        page_size = 25
+        item_padding = None
+        show_items_titles = True
+
+        def top_buttons(self, request, context):
+            buttons = super(AssetCollection.ListView, self).top_buttons(request, context)
+            if request.GET.get('i_type', None):
+                return OrderedDict([
+                    (key, value)
+                    for key, value in buttons.items()
+                    if (not key.startswith('add_')
+                        or key == u'add_{}'.format(
+                            models.Asset.get_reverse_i('type', int(request.GET['i_type'])),
+                        ))
+                ])
+            return buttons
 
         def extra_context(self, context):
             super(AssetCollection.ListView, self).extra_context(context)
-            type = context['request'].GET.get('i_type', None)
-            if type in models.Asset.TYPES:
-                per_line = models.Asset.TYPES.get(type, {}).get('per_line', self.per_line)
-                if context.get('per_line', None) != per_line:
-                    context['per_line'] = per_line
-                    context['col_size'] = int(math.ceil(12 / context['per_line']))
+            if 'i_type' in context['request'].GET:
+                if len(context['request'].GET) == 1:
+                    context['show_search_results'] = False
+                context['h1_page_title'] = models.Asset.get_verbose_i('type', int(context['request'].GET['i_type']))
+                context['page_title'] = u'{} | {}'.format(context['h1_page_title'], context['page_title'])
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -2449,6 +2613,8 @@ class CostumeCollection(MagiCollection):
     form_class = forms.CostumeForm
     filter_cuteform = COSTUME_CUTEFORM
 
+    share_image = justReturn('screenshots/costumes.png')
+
     def to_fields(self, view, item, extra_fields=None, exclude_fields=None, *args, **kwargs):
         extra_fields = extra_fields or []
         exclude_fields = exclude_fields or []
@@ -2483,6 +2649,19 @@ class CostumeCollection(MagiCollection):
                 })
             extra_fields.append(('costume', member_field_params))
 
+        if item.chibis:
+            extra_fields.append(('chibis', {
+                'icon': 'pictures',
+                'type': 'images_links',
+                'verbose_name': _('Chibi'),
+                'images': [{
+                    'value': chibi.image_url,
+                    'link': chibi.image_original_url,
+                    'link_text': u'{} - {}'.format(unicode(item), _('Chibi')),
+                    'verbose_name': _('Chibi'),
+                } for chibi in item.chibis],
+            }))
+
         fields = super(CostumeCollection, self).to_fields(view, item, extra_fields=extra_fields, exclude_fields=exclude_fields, *args, **kwargs)
         return fields
 
@@ -2502,6 +2681,18 @@ class CostumeCollection(MagiCollection):
         default_ordering = '-id'
         # not with 4 to a row
         show_relevant_fields_on_ordering = False
+
+        alt_views = MagiCollection.ListView.alt_views + [
+            ('chibis', { 'verbose_name': _('Chibi'), 'per_line': 2 }),
+        ]
+
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(CostumeCollection.ListView, self).get_queryset(queryset, parameters, request)
+            if parameters.get('view') == 'chibis':
+                return queryset.filter(owned_chibis__isnull=False).distinct().prefetch_related(
+                    Prefetch('owned_chibis', to_attr='chibis'))
+            else:
+                return queryset.filter(model_pkg__isnull=False).exclude(model_pkg='')
 
         def to_fields(self, item, *args, **kwargs):
             fields = super(CostumeCollection.ListView, self).to_fields(item, *args, **kwargs)
@@ -2539,7 +2730,8 @@ class CostumeCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(CostumeCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('card').select_related('member')
+            queryset = queryset.select_related('card', 'member').prefetch_related(
+                Prefetch('owned_chibis', to_attr='chibis'))
             return queryset
 
     class AddView(MagiCollection.AddView):

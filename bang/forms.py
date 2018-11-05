@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import division
 import datetime, os
 from django.conf import settings as django_settings
@@ -9,7 +10,17 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from magi.item_model import i_choices
 from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession, snakeToCamelCase, staticImageURL, filterEventsByStatus
-from magi.forms import MagiForm, AutoForm, HiddenModelChoiceField, MagiFiltersForm, MagiFilter, MultiImageField, AccountForm as _AccountForm
+from magi.forms import (
+    MagiForm,
+    AutoForm,
+    HiddenModelChoiceField,
+    MagiFiltersForm,
+    MagiFilter,
+    MultiImageField,
+    AccountForm as _AccountForm,
+    UserFilterForm as _UserFilterForm,
+    UserPreferencesForm as _UserPreferencesForm,
+)
 from magi.middleware.httpredirect import HttpRedirectException
 from bang import settings
 from bang.django_translated import t
@@ -42,19 +53,34 @@ def member_band_to_queryset(prefix=''):
 ############################################################
 # Users
 
-class FilterUsers(MagiFiltersForm):
-    search_fields = ('username', )
-    ordering_fields = (
-        ('username', t['Username']),
-        ('date_joined', _('Join Date')),
-    )
-
+class UserFilterForm(_UserFilterForm):
     favorited_card = forms.IntegerField(widget=forms.HiddenInput)
     favorited_card_filter = MagiFilter(selector='favorite_cards__card_id')
 
-    class Meta(MagiFiltersForm.Meta):
-        model = models.User
-        fields = ('search', 'ordering', 'reverse_order')
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
+        (id, full_name) for (id, full_name, image)
+        in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ], required=False)
+    member_filter = MagiFilter(selectors=['preferences__favorite_character{}'.format(i) for i in range(1, 4)])
+
+    def __init__(self, *args, **kwargs):
+        super(UserFilterForm, self).__init__(*args, **kwargs)
+        if 'member' in self.fields:
+            self.fields['member'].label = _('Favorite {thing}').format(thing=_('Member').lower())
+
+    class Meta(_UserFilterForm.Meta):
+        fields = ('search', 'member', 'ordering', 'reverse_order')
+
+class UserPreferencesForm(_UserPreferencesForm):
+    def __init__(self, *args, **kwargs):
+        super(UserPreferencesForm, self).__init__(*args, **kwargs)
+        if 'd_extra-i_favorite_band' in self.fields:
+            self.fields['d_extra-i_favorite_band'] = forms.ChoiceField(
+                required=False,
+                choices=BLANK_CHOICE_DASH + i_choices(models.Song.BAND_CHOICES[:-1]),
+                label=self.fields['d_extra-i_favorite_band'].label,
+                initial=self.fields['d_extra-i_favorite_band'].initial,
+            )
 
 ############################################################
 # Accounts
@@ -71,6 +97,10 @@ class AccountForm(_AccountForm):
 
     def __init__(self, *args, **kwargs):
         super(AccountForm, self).__init__(*args, **kwargs)
+        if self.is_reported:
+            for field in ['i_play_with', 'i_os']:
+                if field in self.fields:
+                    del(self.fields[field])
         if 'center' in self.fields:
             self.fields['center'].queryset = self.fields['center'].queryset.select_related('card').order_by('-card__release_date', '-card__id')
         if 'stargems_bought' in self.fields:
@@ -83,17 +113,6 @@ class AccountForm(_AccountForm):
         if commit:
             instance.save()
         return instance
-
-class AddAccountForm(AccountForm):
-    def __init__(self, *args, **kwargs):
-        super(AddAccountForm, self).__init__(*args, **kwargs)
-        if not self.data.get('screenshot') and 'screenshot' in self.fields and int(self.data.get('level', 0) or 0) < 200:
-            self.fields['screenshot'].widget = forms.HiddenInput()
-        if 'start_date' in self.fields:
-            del(self.fields['start_date'])
-
-    class Meta(AccountForm.Meta):
-        fields = ('nickname', 'i_version', 'level', 'friend_id', 'screenshot')
 
 class FilterAccounts(MagiFiltersForm):
     # TODO: these fields stopped working suddenly with error that nested lookup don't work - not sure why
@@ -108,7 +127,10 @@ class FilterAccounts(MagiFiltersForm):
         ('start_date', _('Start Date')),
     ]
 
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], required=False, label=_('Favorite Member'))
+    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
+        (id, full_name)
+        for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ], required=False)
     member_filter = MagiFilter(selectors=['owner__preferences__favorite_character{}'.format(i) for i in range(1, 4)])
 
     has_friend_id = forms.NullBooleanField(required=False, initial=None, label=_('Friend ID'))
@@ -119,6 +141,11 @@ class FilterAccounts(MagiFiltersForm):
 
     collected_card = forms.IntegerField(widget=forms.HiddenInput)
     collected_card_filter = MagiFilter(selector='cardscollectors__card_id')
+
+    def __init__(self, *args, **kwargs):
+        super(FilterAccounts, self).__init__(*args, **kwargs)
+        if 'member' in self.fields:
+            self.fields['member'].label = _('Favorite {thing}').format(thing=_('Member').lower())
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Account
@@ -158,6 +185,7 @@ class MemberFilterForm(MagiFiltersForm):
         ('japanese_name', string_concat(_('Name'), ' (', t['Japanese'], ')')),
         ('birthday', _('Birthday')),
         ('height', _('Height')),
+        ('color', _('Color')),
     ]
 
     school = forms.ChoiceField(label=_('School'), choices=BLANK_CHOICE_DASH + [(s, s) for s in getattr(django_settings, 'SCHOOLS', [])], initial=None)
@@ -170,48 +198,16 @@ class MemberFilterForm(MagiFiltersForm):
 # Card
 
 class CardForm(AutoForm):
-    chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
-
     def __init__(self, *args, **kwargs):
         super(CardForm, self).__init__(*args, **kwargs)
         self.previous_member_id = None if self.is_creating else self.instance.member_id
-        # Delete existing chibis
-        if not self.is_creating:
-            self.all_chibis = self.instance.chibis.all()
-            for imageObject in self.all_chibis:
-                self.fields[u'delete_chibi_{}'.format(imageObject.id)] = forms.BooleanField(
-                    label=mark_safe(u'Delete chibi <img src="{}" height="100" />'.format(imageObject.image_url)),
-                    initial=False, required=False,
-                )
 
     def save(self, commit=False):
         instance = super(CardForm, self).save(commit=False)
         if self.previous_member_id != instance.member_id:
             instance.update_cache('member')
         instance.save()
-        # Delete existing chibis
-        if not self.is_creating:
-            for imageObject in self.all_chibis:
-                field_name = u'delete_chibi_{}'.format(imageObject.id)
-                field = self.fields.get(field_name)
-                if field and self.cleaned_data[field_name]:
-                    instance.chibis.remove(imageObject)
-                    imageObject.delete()
-        # Upload new chibis
-        for image in self.cleaned_data['chibis']:
-            if isinstance(image, int):
-                continue
-            name, extension = os.path.splitext(image.name)
-            imageObject = models.Image.objects.create()
-            image = shrinkImageFromData(image.read(), image.name)
-            image.name = u'{name}-{attribute}-chibi.{extension}'.format(
-                name=tourldash(instance.member.name),
-                attribute=instance.english_attribute,
-                extension=extension,
-            )
-            imageObject.image.save(image.name, image)
-            instance.chibis.add(imageObject)
-        instance.force_cache_chibis()
+
         # members can't cameo in their own cards
         instance.cameo_members = filter(lambda x: x.id != instance.member_id, self.cleaned_data['cameo_members'])
         instance.update_cache('cameos')
@@ -300,9 +296,7 @@ class CardFilterForm(MagiFiltersForm):
     # View filter
 
     def _view_to_queryset(self, queryset, request, value):
-        if value == 'chibis':
-            return queryset.filter(_cache_chibis_ids__isnull=False).exclude(_cache_chibis_ids='')
-        elif value == 'art':
+        if value == 'art':
             return queryset.filter(art__isnull=False)
         elif value == 'transparent':
             return queryset.filter(transparent__isnull=False)
@@ -967,6 +961,13 @@ class ItemForm(AutoForm):
         fields = '__all__'
         save_owner_on_creation = True
 
+class ItemFilterForm(MagiFiltersForm):
+    search_fields = ('name', 'm_description', 'd_names', 'd_m_descriptions')
+
+    class Meta(MagiFiltersForm.Meta):
+        model = models.Item
+        fields = ('search', )
+
 ############################################################
 # Item form
 
@@ -1006,6 +1007,26 @@ def asset_type_to_form(_type):
                     del(self.fields[variable])
             if 'i_type' in self.fields:
                 del(self.fields['i_type'])
+            if 'value' in self.fields and _type == 'comic':
+                self.fields['value'] = forms.ChoiceField(label=_('Comics'), choices=(
+                    BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en']))
+            # Limit tags per type
+            if 'c_tags' in self.fields:
+                if _type == 'background':
+                    self.fields['c_tags'].choices = models.Asset.BACKGROUND_TAGS
+                elif _type == 'official':
+                    self.fields['c_tags'].choices = models.Asset.OFFICIAL_TAGS
+
+        def clean(self):
+            cleaned_data = super(_AssetForm, self).clean()
+
+            # Check that there is at least one image uploaded or already present
+            for version in models.Account.VERSIONS.values():
+                if (cleaned_data.get(u'{prefix}image'.format(prefix=version['prefix']), None)
+                    or (not self.is_creating
+                        and getattr(self.instance, u'{prefix}image'.format(prefix=version['prefix']), None))):
+                    return cleaned_data
+            raise forms.ValidationError('At least one image is required.')
 
         def save(self, commit=False):
             instance = super(_AssetForm, self).save(commit=False)
@@ -1022,15 +1043,39 @@ def asset_type_to_form(_type):
             save_owner_on_creation = True
     return _AssetForm
 
+ASSET_COMICS_VALUE_PER_LANGUAGE = {
+    'en': [('1', u'1-koma'), ('4', u'4-koma')],
+    'ja': [('1', u'一コマ'), ('4', u'4コマ')],
+    'kr': [('1', u'한 컷'), ('4', u'네 컷')],
+    'zh-hans': [('1', u'单格'), ('4', u'四格')],
+    'zh-hant': [('1', u'單格'), ('4', u'四格')],
+}
+
 class AssetFilterForm(MagiFiltersForm):
     search_fields = ('name', 'd_names', 'c_tags')
 
+    is_event = forms.NullBooleanField(label=_('Event'))
+    is_event_filter = MagiFilter(selector='event__isnull')
+
+    is_song = forms.NullBooleanField(label=_('Song'))
+    is_song_filter = MagiFilter(selector='song__isnull')
+
     def members_to_queryset(self, queryset, request, value):
         member = models.Member.objects.get(id=value)
-        return queryset.filter(Q(members=member) | Q(i_band=member.i_band))
+        return queryset.filter(Q(members=member) | Q(i_band=member.i_band)).distinct()
 
     members = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
     members_filter = MagiFilter(to_queryset=members_to_queryset)
+
+    def members_band_to_queryset(self, queryset, request, value):
+        if value.startswith('member-'):
+            return self.members_to_queryset(queryset, request, value[7:])
+        elif value.startswith('band-'):
+            return queryset.filter(Q(i_band=value[5:]) | Q(members__i_band=value[5:])).distinct()
+        return queryset
+
+    member_band = MEMBER_BAND_CHOICE_FIELD
+    member_band_filter = MagiFilter(to_queryset=members_band_to_queryset)
 
     def _i_version_to_queryset(self, queryset, request, value):
         prefix = models.Account.VERSIONS_PREFIXES.get(models.Account.get_reverse_i('version', int(value)))
@@ -1043,9 +1088,12 @@ class AssetFilterForm(MagiFiltersForm):
     i_version = forms.ChoiceField(label=_('Version'), choices=BLANK_CHOICE_DASH + i_choices(models.Account.VERSION_CHOICES))
     i_version_filter = MagiFilter(to_queryset=_i_version_to_queryset)
 
-    i_band_filter = MagiFilter(selectors=['i_band', 'members__i_band'])
+    i_band_filter = MagiFilter(selectors=['i_band', 'members__i_band'], distinct=True)
+
+    value = forms.ChoiceField(label=_('Comics'), choices=BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en'])
 
     event = forms.IntegerField(widget=forms.HiddenInput)
+    song = forms.IntegerField(widget=forms.HiddenInput)
 
     def __init__(self, *args, **kwargs):
         super(AssetFilterForm, self).__init__(*args, **kwargs)
@@ -1053,6 +1101,7 @@ class AssetFilterForm(MagiFiltersForm):
             type = models.Asset.get_reverse_i('type', int(self.request.GET.get('i_type', None)))
         except (KeyError, ValueError, TypeError):
             type = None
+        # Show only variables that match type
         if type in models.Asset.TYPES:
             for variable in models.Asset.VARIABLES:
                 if (variable in self.fields
@@ -1063,23 +1112,63 @@ class AssetFilterForm(MagiFiltersForm):
                     del(self.fields[variable])
             if 'i_type' in self.fields:
                 self.fields['i_type'].widget = forms.HiddenInput()
+        # Remove value filter except for comic
+        if 'value' in self.fields:
+            if type == 'comic':
+                self.fields['value'].choices = BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE.get(
+                    self.request.LANGUAGE_CODE,
+                    ASSET_COMICS_VALUE_PER_LANGUAGE['en'],
+                )
+            else:
+                del(self.fields['value'])
+        # Remove is event from fields if type can't be linked with events
+        if 'event' not in self.fields and 'is_event' in self.fields:
+            del(self.fields['is_event'])
+        # Only show is song filter for titles (not even official art)
+        if type and type != 'title' and 'is_song' in self.fields:
+            del(self.fields['is_song'])
+        # Replace band + member with member_band filter
+        if 'i_band' in self.fields and 'members' in self.fields:
+            del(self.fields['i_band'])
+            del(self.fields['members'])
+        else:
+            del(self.fields['member_band'])
+        # Remove help text of band
+        if 'i_band' in self.fields:
+            self.fields['i_band'].help_text = None
+        # Limit tags per type
+        if 'c_tags' in self.fields:
+            if type == 'background':
+                self.fields['c_tags'].choices = models.Asset.BACKGROUND_TAGS
+            elif type == 'official':
+                self.fields['c_tags'].choices = models.Asset.OFFICIAL_TAGS
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Asset
-        fields = ['search', 'i_type'] + [
-            v for v in models.Asset.VARIABLES if v not in ['name', 'value']
+        fields = ['search', 'i_type', 'member_band', 'is_event', 'is_song'] + [
+            v for v in models.Asset.VARIABLES if v not in ['name', 'source', 'source_link']
         ] + ['i_version']
 
 ############################################################
 # Costume form
 
 class CostumeForm(AutoForm):
+    chibis = MultiImageField(min_num=0, max_num=10, required=False, label='Add chibi images')
+
     def __init__(self, *args, **kwargs):
         super(CostumeForm, self).__init__(*args, **kwargs)
 
         if not self.is_creating:
             self.instance.previous_card = self.instance.card
             self.instance.previous_member = self.instance.member
+
+            # chibi delete fields
+            self.all_chibis = self.instance.owned_chibis.all()
+            for imageObject in self.all_chibis:
+                self.fields[u'delete_chibi_{}'.format(imageObject.id)] = forms.BooleanField(
+                    label=mark_safe(u'Delete chibi <img src="{}" height="100" />'.format(imageObject.image_url)),
+                    initial=False, required=False,
+                )
 
         q = Q(associated_costume__isnull=True)
         if self.instance.card:
@@ -1088,21 +1177,46 @@ class CostumeForm(AutoForm):
 
         self.fields['member'].help_text = 'If associating this costume with a card, you can leave this blank. I\'ll take the member from the card.'
 
+    def has_at_least_one_chibi(self, cleaned_data):
+        if cleaned_data.get('chibis'):
+            return True
+
+        if not self.is_creating:
+            survivors = set()
+            for image_obj in self.all_chibis:
+                field_name = u'delete_chibi_{}'.format(image_obj.id)
+                if not cleaned_data.get(field_name):
+                    survivors.add(image_obj.id)
+            if survivors:
+                return True
+
+        return False
+
+    def has_a_model(self, cleaned_data):
+        if not self.is_creating and self.instance.model_pkg:
+            return True
+
+        if cleaned_data.get('model_pkg'):
+            return True
+
     def clean(self):
         cleaned_data = super(CostumeForm, self).clean()
 
         if cleaned_data.get('i_costume_type') != models.Costume.get_i('costume_type', 'live'):
             cleaned_data['card'] = None
 
-        if not cleaned_data.get('card'):
-            if not cleaned_data.get('image'):
-                raise forms.ValidationError('Costumes without associated cards must have a preview image.')
-            if not cleaned_data.get('name'):
-                raise forms.ValidationError('Costumes without associated cards must have a name.')
-        else:
+        if not (self.has_a_model(cleaned_data) or self.has_at_least_one_chibi(cleaned_data)):
+            raise forms.ValidationError('A costume must have a model or chibis on it.')
+
+        if cleaned_data.get('card'):
             cleaned_data['member'] = cleaned_data['card'].member
             # We'll take the card's title, so set the Costume's name to none
             cleaned_data['name'] = None
+        else:
+            if not cleaned_data.get('image') and cleaned_data.get('model'):
+                raise forms.ValidationError('Costumes without associated cards must have a preview image.')
+            if not cleaned_data.get('name'):
+                raise forms.ValidationError('Costumes without associated cards must have a name.')
 
         return cleaned_data
 
@@ -1112,8 +1226,34 @@ class CostumeForm(AutoForm):
         if not self.is_creating and instance.member != self.instance.previous_member:
             self.instance.previous_member.force_cache_totals()
 
-        if commit:
-            instance.save()
+        instance.save()
+
+        # Delete existing chibis
+        if not self.is_creating:
+            for imageObject in self.all_chibis:
+                field_name = u'delete_chibi_{}'.format(imageObject.id)
+                field = self.fields.get(field_name)
+                if field and self.cleaned_data[field_name]:
+                    imageObject.delete()
+
+        # Upload new chibis
+        for image in self.cleaned_data['chibis']:
+            if isinstance(image, int):
+                continue
+
+            if instance.card:
+                use_attribute = instance.card.english_attribute
+            else:
+                use_attribute = 'cos' # ehhh
+            image.name = u'{name}-{attribute}-chibi'.format(
+                name=tourldash(instance.member.name),
+                attribute=use_attribute,
+            )
+
+            imageObject = models.Chibi()
+            imageObject.costume = instance
+            imageObject.image = image
+            imageObject.save()
 
         if instance.member:
             instance.member.force_cache_totals()
@@ -1155,7 +1295,7 @@ class CostumeFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Costume
-        fields = ('search', 'i_costume_type', 'member', 'i_band', 'i_rarity', 'version')
+        fields = ('view', 'search', 'i_costume_type', 'member', 'i_band', 'i_rarity', 'version')
 
 ############################################################
 # Single page form

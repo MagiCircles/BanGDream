@@ -1,6 +1,0 @@
-{% with event=item %}
-<a href="{{ event.item_url }}" data-ajax-url="{{ event.ajax_item_url}}" data-ajax-title="{{ event }}">
-  <img src="{{ event.rare_stamp_per_version }}" class="img-responsive">
-  {% if event.t_stamp_translation %}<p class="text-center padding20">{{ event.t_stamp_translation }}</p>{% endif %}
-</a>
-{% endwith %}

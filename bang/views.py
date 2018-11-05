@@ -2,12 +2,44 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.shortcuts import render, redirect
 from django.conf import settings as django_settings
-from magi.utils import getGlobalContext, ajaxContext, redirectWhenNotAuthenticated, cuteFormFieldsForContext, CuteFormTransform, CuteFormType, get_one_object_or_404
+from magi.utils import (
+    getGlobalContext,
+    ajaxContext,
+    redirectWhenNotAuthenticated,
+    cuteFormFieldsForContext,
+    CuteFormTransform,
+    CuteFormType,
+    get_one_object_or_404,
+    staticImageURL,
+)
 from magi.item_model import get_image_url_from_path
-from magi.views import indexExtraContext
+from magi.views import indexExtraContext, mapDefaultContext, settingsContext
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
 from bang import models
+
+############################################################
+# Default MagiCircles Views
+
+def map(request):
+    context = mapDefaultContext(request)
+    context['share_image'] = staticImageURL('screenshots/map.png')
+    return render(request, 'pages/map.html', context)
+
+def settings(request):
+    context = settingsContext(request)
+    cuteFormFieldsForContext({
+        'd_extra-i_favorite_band': {
+            'image_folder': 'band',
+            'to_cuteform': 'value',
+            'title': _('Band'),
+            'extra_settings': {
+                'modal': 'true',
+                'modal-text': 'true',
+            },
+        },
+    }, context, context['forms']['preferences'])
+    return render(request, 'pages/settings.html', context)
 
 ############################################################
 # Assets
@@ -24,17 +56,20 @@ def gallery(request):
             'title': details['translation'],
             'url': u'/assets/?i_type={}'.format(i_type),
             'icon': 'pictures',
-        } for i_type, details in enumerate(models.Asset.TYPES.values())
+            'image': staticImageURL(type, folder='gallery', extension='png'),
+        } for i_type, (type, details) in enumerate(models.Asset.TYPES.items())
     ] + [
         {
             'icon': 'present',
             'title': _('Area items'),
             'url': '/areas/',
+            'image': staticImageURL('area_items', folder='gallery', extension='png'),
         },
         {
             'icon': 'star',
             'title': _('Items'),
             'url': '/items/',
+            'image': staticImageURL('items', folder='gallery', extension='png'),
         },
     ]
 

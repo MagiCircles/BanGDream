@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime, pytz
+import datetime
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils import timezone
@@ -11,23 +11,38 @@ from magi.default_settings import (
     DEFAULT_JAVASCRIPT_TRANSLATED_TERMS,
     DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS,
     DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
+    DEFAULT_EXTRA_PREFERENCES,
+    DEFAULT_HOME_ACTIVITY_TABS,
 )
 from magi.utils import tourldash
+from bang.utils import bangGlobalContext, randomArtForCharacter
 from bang import models
-from bang.utils import bangGlobalContext
 
-STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
+############################################################
+# License, game and site settings
 
 SITE_NAME = 'Bandori Party'
-SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'
 SITE_IMAGE = 'share/bandori_party.png'
 SITE_LOGO = 'logo/bandori_party.png'
-SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
 
-LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
+GAME_NAME = string_concat(_('BanG Dream!'), ' ', _('Girls Band Party'))
+GAME_URL = 'https://bang-dream.bushimo.jp/'
+
+COLOR = '#E40046'
+
+############################################################
+# Images
+
+CORNER_POPUP_IMAGE = 'chibi_kanae.png'
+ABOUT_PHOTO = 'deby.jpg'
+EMPTY_IMAGE = 'stars_with_white.png'
+SITE_NAV_LOGO = 'star.png'
+
+############################################################
+# Settings per languages
 
 SITE_NAME_PER_LANGUAGE = {
-    'ja': u'バンドレリパーティー',
+    'ja': u'バンドリパーティー',
     'zh-hans': u'Bandori 派对',
     'zh-hant': u'Bandori 派對',
     'kr' : u'밴드리파티',
@@ -51,37 +66,52 @@ SITE_IMAGE_PER_LANGUAGE = {
     'ru': 'share/bandori_party_russian.png',
 }
 
-GAME_NAME = string_concat(_('BanG Dream!'), ' ', _('Girls Band Party'))
-GAME_URL = 'https://bang-dream.bushimo.jp/'
-
-DISQUS_SHORTNAME = 'bangdream'
-ACCOUNT_MODEL = models.Account
-COLOR = '#E40046'
-
-GET_GLOBAL_CONTEXT = bangGlobalContext
-
-GITHUB_REPOSITORY = ('SchoolIdolTomodachi', 'BanGDream')
+############################################################
+# Contact & Social
 
 CONTACT_EMAIL = 'contact@bandori.party'
 CONTACT_REDDIT = 'AmbiBambiii'
 CONTACT_FACEBOOK = 'BandoriParty'
+
 FEEDBACK_FORM = 'https://docs.google.com/forms/d/1lfd3x4TX6R1IYrZqhwPN_GqghCQpBLwNkkwro7uBAxI/viewform'
+GITHUB_REPOSITORY = ('SchoolIdolTomodachi', 'BanGDream')
 
 TWITTER_HANDLE = 'BandoriParty'
 HASHTAGS = [u'バンドリ', u'ガルパ']
 
+############################################################
+# Homepage
+
+RANDOM_ART_FOR_CHARACTER = randomArtForCharacter
+HOMEPAGE_BACKGROUND = 'bg_pattern.png'
+HOMEPAGE_ART_SIDE = 'left'
+HOMEPAGE_ART_POSITION = {
+    'position': 'center right',
+    'size': '150%',
+    'y': '40%',
+    'x': '100%',
+}
+HOMEPAGE_ART_GRADIENT = True
+
+HOME_ACTIVITY_TABS = DEFAULT_HOME_ACTIVITY_TABS.copy()
+if 'staffpicks' in HOME_ACTIVITY_TABS:
+    del(HOME_ACTIVITY_TABS['staffpicks'])
+HOME_ACTIVITY_TABS['top_this_week'] = {
+    'title': _('TOP'),
+    'icon': 'trophy',
+    'form_fields': {
+        'ordering': '_cache_total_likes,id',
+    },
+}
+
+############################################################
+# First steps
+
 FIRST_COLLECTION = 'collectiblecard'
 GET_STARTED_VIDEO = 'TqL9nSNouhw'
 
-ABOUT_PHOTO = 'deby.jpg'
-
-EMPTY_IMAGE = 'stars_with_white.png'
-
-SITE_NAV_LOGO = 'star.png'
-
-FAVORITE_CHARACTERS = django_settings.FAVORITE_CHARACTERS
-FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))
-FAVORITE_CHARACTER_NAME = _(u'{nth} Favorite Member')
+############################################################
+# Activities
 
 ACTIVITY_TAGS = [
     ('comedy', _('Comedy')),
@@ -119,6 +149,14 @@ ACTIVITY_TAGS = [
         'translation': _('Thank you Yurishii'),
         'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
     }),
+    ('thankyouakesaka', {
+        'translation': _('Thank you Ake-san'),
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 9, 25, tzinfo=timezone.utc),
+    }),
+    ('cosparty18', {
+        'translation': _('CosParty 2018'),
+        'has_permission_to_add': lambda r: datetime.datetime(2018, 10, 10, 0, tzinfo=timezone.utc) < timezone.now() < datetime.datetime(2018, 11, 15, tzinfo=timezone.utc),
+    }),
     ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
     ('swearing', _('Swearing')),
     ('nsfw', {
@@ -128,8 +166,17 @@ ACTIVITY_TAGS = [
     }),
 ]
 
-GLOBAL_OUTSIDE_PERMISSIONS = DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS
-GLOBAL_OUTSIDE_PERMISSIONS['Google+ Bandori Party group'] = 'https://plus.google.com/communities/118285892680258114918?sqinv=bUtZVFhDQ3BxNWlESTRQUEMwdFdjQTJ2UGc5czd3'
+############################################################
+# User preferences and profiles
+
+CUSTOM_PREFERENCES_FORM = True
+
+EXTRA_PREFERENCES = DEFAULT_EXTRA_PREFERENCES + [
+    ('i_favorite_band', lambda: _('Favorite {thing}').format(thing=_('Band'))),
+]
+
+FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))
+FAVORITE_CHARACTER_NAME = _('Member')
 
 USER_COLORS = [
     ('power', _('Power'), 'Power', '#FF2D54'),
@@ -138,7 +185,44 @@ USER_COLORS = [
     ('happy', _('Happy'), 'Happy', '#FF8400'),
 ]
 
+ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playedsong', 'item', 'areaitem']
+
+############################################################
+# Staff features
+
+GLOBAL_OUTSIDE_PERMISSIONS = DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS
+GLOBAL_OUTSIDE_PERMISSIONS['Google+ Bandori Party group'] = 'https://plus.google.com/communities/118285892680258114918?sqinv=bUtZVFhDQ3BxNWlESTRQUEMwdFdjQTJ2UGc5czd3'
+
+############################################################
+# Technical settings
+
+SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'
+SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
+
+GET_GLOBAL_CONTEXT = bangGlobalContext
+ACCOUNT_MODEL = models.Account
+
+DISQUS_SHORTNAME = 'bangdream'
 GOOGLE_ANALYTICS = 'UA-96550529-1'
+
+JAVASCRIPT_TRANSLATED_TERMS = DEFAULT_JAVASCRIPT_TRANSLATED_TERMS + [
+    u'Coming soon',
+    u'Open {thing}',
+]
+
+############################################################
+# From settings or generated_settings
+
+STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
+TOTAL_DONATORS = getattr(django_settings, 'TOTAL_DONATORS', None)
+LATEST_NEWS = getattr(django_settings, 'LATEST_NEWS', None)
+STAFF_CONFIGURATIONS = getattr(django_settings, 'STAFF_CONFIGURATIONS', None)
+HOMEPAGE_ARTS = getattr(django_settings, 'HOMEPAGE_ARTS', None)
+BACKGROUNDS = getattr(django_settings, 'BACKGROUNDS', None)
+FAVORITE_CHARACTERS = getattr(django_settings, 'FAVORITE_CHARACTERS', None)
+
+############################################################
+# Customize pages
 
 ENABLED_PAGES = DEFAULT_ENABLED_PAGES
 
@@ -147,7 +231,10 @@ ENABLED_PAGES['wiki'][1]['enabled'] = True
 ENABLED_PAGES['wiki'][0]['divider_before'] = True
 ENABLED_PAGES['wiki'][0]['navbar_link_list'] = 'girlsbandparty'
 
+ENABLED_PAGES['map']['custom'] = True
 ENABLED_PAGES['map']['navbar_link_list'] = 'community'
+
+ENABLED_PAGES['settings']['custom'] = True
 
 ENABLED_PAGES['cards_quickadd'] = {
     'title': string_concat(u'↳ ', _('Quick add')),
@@ -211,6 +298,9 @@ ENABLED_PAGES['add_rerun'] = {
     'redirect': '/rerun/add/',
 }
 
+############################################################
+# Customize nav bar
+
 ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),
@@ -232,14 +322,4 @@ ENABLED_NAVBAR_LISTS['community'] = {
 }
 ENABLED_NAVBAR_LISTS['more']['order'] = ENABLED_NAVBAR_LISTS['more']['order'] + ['donate']
 
-ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playedsong', 'item', 'areaitem']
-
 NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community'] + DEFAULT_NAVBAR_ORDERING
-
-TOTAL_DONATORS = django_settings.TOTAL_DONATORS
-LATEST_NEWS = django_settings.LATEST_NEWS
-STAFF_CONFIGURATIONS = django_settings.STAFF_CONFIGURATIONS
-
-JAVASCRIPT_TRANSLATED_TERMS = DEFAULT_JAVASCRIPT_TRANSLATED_TERMS + [
-    u'Coming soon',
-]

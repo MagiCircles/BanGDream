@@ -1171,7 +1171,13 @@ EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
         'modal-text': 'true',
     },
 }
+
 EVENT_LIST_ITEM_CUTEFORM['status'] = {
+    'type': CuteFormType.HTML,
+}
+
+EVENT_LIST_ITEM_CUTEFORM['i_boost_stat'] = {
+    'to_cuteform': lambda k, v: list(v)[0],
     'type': CuteFormType.HTML,
 }
 
@@ -1201,10 +1207,7 @@ class EventCollection(MagiCollection):
 
     def to_fields(self, view, item, *args, **kwargs):
         fields = super(EventCollection, self).to_fields(view, item, *args, icons=EVENT_ICONS, images={
-            'boost_attribute': u'{static_url}img/i_attribute/{value}.png'.format(
-                static_url=RAW_CONTEXT['static_url'],
-                value=item.i_boost_attribute,
-            ),
+            'boost_attribute': staticImageURL(item.i_attribute, folder='i_attribute', extension='png'),
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
@@ -1234,7 +1237,6 @@ class EventCollection(MagiCollection):
         per_line = 2
         default_ordering = '-start_date'
         ajax_callback = 'loadEventInList'
-
         filter_form = forms.EventFilterForm
         show_collect_button = {
             'eventparticipation': False,
@@ -1293,10 +1295,8 @@ class EventCollection(MagiCollection):
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
-                            'value': mark_safe(u'<span class="fontx1-5 countdown" data-date="{date}" data-format="{sentence}"></h4>').format(
-                                date=torfc2822(end_date if status == 'current' else start_date),
-                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),
-                            ),
+                            'value': mark_safe(toCountDown(date=torfc2822(end_date if status=='current' else start_date),
+                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'), classes="fontx1-5")),
                             'icon': 'times',
                             'type': 'html',
                         }),
@@ -1441,7 +1441,7 @@ class EventCollection(MagiCollection):
 
             if request:
                 request.fields_per_version = fields_per_version.keys()
-            new_order += [_o for _l in orders_per_versions.values() for _o in _l] + EVENT_ITEM_FIELDS_AFTER + order
+            new_order += [_o for _l in orders_per_versions.values() for _o in _l] + EVENT_ITEM_FIELDS_ORDER_AFTER + order
 
             fields = super(EventCollection.ItemView, self).to_fields(
                 item, *args, order=new_order, extra_fields=extra_fields, exclude_fields=exclude_fields,
@@ -1593,10 +1593,7 @@ class GachaCollection(MagiCollection):
         fields = super(GachaCollection, self).to_fields(view, item, *args, icons=GACHA_ICONS, images={
             'name': staticImageURL('gacha.png'),
             'japanese_name': staticImageURL('gacha.png'),
-            'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
-                static_url=RAW_CONTEXT['static_url'],
-                value=item.i_attribute,
-            ),
+            'attribute': staticImageURL(item.i_attribute, folder='i_attribute', extension='png'),
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
@@ -1658,10 +1655,8 @@ class GachaCollection(MagiCollection):
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
-                            'value': mark_safe(toCountDown(
-                                date=end_date if status == 'current' else start_date,
-                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'),
-                            )),
+                            'value': mark_safe(toCountDown(date=torfc2822(end_date if status=='current' else start_date),
+                                sentence=_('{time} left') if status == 'current' else _('Starts in {time}'), classes="fontx1-5")),
                             'icon': 'times',
                             'type': 'html',
                         }),

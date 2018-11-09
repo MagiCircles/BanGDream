@@ -2239,7 +2239,7 @@ class AreaCollection(MagiCollection):
 ############################################################
 # Collectible area items Collection
 
-_AREAS_IMAGES = { area['id']: area['image'] for area in django_settings.AREAS }
+_AREAS_IMAGES = { area['id']: area['image'] for area in getattr(django_settings, 'AREAS', []) }
 
 COLLECTIBLEAREAITEM_ICON = {
     'level': 'scoreup',

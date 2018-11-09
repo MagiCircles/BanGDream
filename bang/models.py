@@ -1223,7 +1223,7 @@ class Song(MagiModel):
     UNLOCK_CHOICES = [(_name, _info['translation']) for _name, _info in UNLOCK.items()]
     i_unlock = models.PositiveIntegerField(_('How to unlock?'), choices=i_choices(UNLOCK_CHOICES))
 
-    c_unlock_variables = models.CharField(max_length=100, null=True)
+    c_unlock_variables = models.CharField(_('How to unlock?'), max_length=100, null=True)
     unlock_variables_keys = property(getInfoFromChoices('unlock', UNLOCK, 'variables'))
     unlock_template = property(getInfoFromChoices('unlock', UNLOCK, 'template'))
     @property
@@ -1608,7 +1608,7 @@ class AreaItem(MagiModel):
         ('technique', _('Technique')),
         ('visual', _('Visual')),
     )
-    i_stat = models.PositiveIntegerField('Statistics', choices=i_choices(STAT_CHOICES), null=True)
+    i_stat = models.PositiveIntegerField(_('Statistics'), choices=i_choices(STAT_CHOICES), null=True)
 
     depends_on_life = models.PositiveIntegerField(null=True)
     life = property(lambda _s: _s.depends_on_life)
@@ -1937,9 +1937,9 @@ class Costume(MagiModel):
 
     # Basically whatever you want. If there's a card associated with a model, we'll use the
     # card's title instead.
-    name = models.CharField(_('Name'), max_length=250, null=True)
+    name = models.CharField(_('Title'), max_length=250, null=True)
     NAMES_CHOICES = ALL_ALT_LANGUAGES
-    d_names = models.TextField(_('Name'), null=True)
+    d_names = models.TextField(_('Title'), null=True)
 
     @property
     def t_name(self):

@@ -2540,7 +2540,7 @@ class AssetCollection(MagiCollection):
 
         def extra_context(self, context):
             super(AssetCollection.ListView, self).extra_context(context)
-            if 'i_type' in context['request'].GET:
+            if context['request'].GET.get('i_type'):
                 if len(context['request'].GET) == 1:
                     context['show_search_results'] = False
                 context['h1_page_title'] = models.Asset.get_verbose_i('type', int(context['request'].GET['i_type']))

@@ -117,8 +117,13 @@ class AccountForm(_AccountForm):
 class FilterAccounts(MagiFiltersForm):
     # TODO: these fields stopped working suddenly with error that nested lookup don't work - not sure why
     # 'owner__preferences__description', 'owner__preferences__location'
-    search_fields = ['owner__username', 'owner__links__value']
+    search_fields = ['owner__username', 'nickname', 'owner__links__value']
     search_fields_exact = ['owner__email']
+    search_fields_labels = {
+        'owner__username': _('Username'),
+        'owner__links__value': _('Links'),
+        'owner__email': _('Email'),
+    }
 
     ordering_fields = [
         ('level', _('Level')),
@@ -177,6 +182,10 @@ class MemberForm(AutoForm):
 
 class MemberFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name', 'school', 'CV', 'romaji_CV', 'classroom', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description']
+    search_fields_labels = {
+        'name': _('Name'),
+        'CV': '',
+    }
 
     ordering_fields = [
         ('id', _('Band')),
@@ -227,6 +236,9 @@ def to_translate_card_form_class(cls):
 
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_j_member', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
+    search_fields_labels = {
+        '_cache_j_member': _('Member'),
+    }
     ordering_fields = [
         ('release_date,id', _('Release date')),
         ('id', _('ID')),
@@ -340,8 +352,6 @@ def to_CollectibleCardForm(cls):
 
 def to_CollectibleCardFilterForm(cls):
     class _CollectibleCardFilterForm(cls.ListView.filter_form):
-        search_fields = [u'card__{}'.format(_o) for _o in CardFilterForm.search_fields]
-        ordering_fields = [(u'card__{}'.format(_o), _t) for _o, _t in CardFilterForm.ordering_fields]
         def skill_filter_to_queryset(self, queryset, request, value):
             if not value: return queryset
             if value == '1': return queryset.filter(card__i_skill_type=value) # Score up
@@ -359,10 +369,6 @@ def to_CollectibleCardFilterForm(cls):
         i_skill_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH
                                                + models.Card.SKILL_TYPE_CHOICES, label=_('Skill'))
         i_skill_type_filter = MagiFilter(to_queryset=skill_filter_to_queryset)
-
-        class Meta(cls.ListView.filter_form.Meta):
-            pass
-            fields = ('search', 'member_band', 'i_rarity', 'i_attribute', 'i_skill_type', 'ordering', 'reverse_order', 'view')
     return _CollectibleCardFilterForm
 
 ############################################################
@@ -517,7 +523,6 @@ def to_EventParticipationForm(cls):
 
 def to_EventParticipationFilterForm(cls):
     class _EventParticipationFilterForm(cls.ListView.filter_form):
-        search_fields = [u'event__{}'.format(_o) for _o in EventFilterForm.search_fields]
         ordering_fields = [
             ('id', _('Creation')),
             ('ranking', _('Ranking')),
@@ -785,11 +790,10 @@ def to_PlayedSongForm(cls):
 
 def to_PlayedSongFilterForm(cls):
     class _PlayedSongFilterForm(cls.ListView.filter_form):
-        search_fields = [u'song__{}'.format(_o) for _o in SongFilterForm.search_fields]
         ordering_fields = [
             ('id', _('Creation')),
             ('score', _('Score')),
-        ] + [(u'song__{}'.format(_o), _t) for _o, _t in SongFilterForm.ordering_fields]
+        ] + cls.ListView.filter_form.ordering_fields
 
         i_version = forms.ChoiceField(label=_('Version'), choices=BLANK_CHOICE_DASH + i_choices(models.Account.VERSION_CHOICES))
         i_version_filter = MagiFilter(selector='account__i_version')
@@ -866,7 +870,11 @@ def to_translate_song_form_class(cls):
     return _TranslateSongForm
 
 class SongFilterForm(MagiFiltersForm):
-    search_fields = ['japanese_name', 'romaji_name', 'name', 'special_band', 'composer', 'lyricist', 'arranger', 'c_unlock_variables']
+    search_fields = ['japanese_name', 'romaji_name', 'name', 'special_band', 'composer', 'lyricist', 'arranger']
+    search_fields_labels = {
+        'romaji_name': _('Title'),
+        'name': '', 'special_band': '',
+    }
     ordering_fields = [
         ('release_date', _('Release date')),
         ('japanese_name', _('Title')),
@@ -929,8 +937,12 @@ def areaitem_type_to_form(type):
             save_owner_on_creation = True
     return _AreaItemForm
 
-class AreaItemFilters(MagiFiltersForm):
+class AreaItemFilterForm(MagiFiltersForm):
     search_fields = ['area__name', 'area__d_names', 'name', 'd_names', 'instrument', 'd_instruments']
+    search_fields_labels = {
+        'area__name': _('Area'),
+        'area__d_names': '',
+    }
 
     i_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [('instrument', _('Instrument'))] + [
         (i, d['translation']) for i, (k, d) in enumerate(models.AreaItem.TYPES.items())
@@ -1267,7 +1279,15 @@ class CostumeFilterForm(MagiFiltersForm):
     # since only the 25 main girls get real Member entries.
     ID_OF_MISC_MEMBERS = 0
 
-    search_fields = ['name', 'd_names', 'card__japanese_name', 'card__name', 'member__name', 'member__japanese_name']
+    search_fields = [
+        'name', 'd_names', 'card__japanese_name', 'card__name',
+        'member__name', 'member__japanese_name', 'member__d_names',
+    ]
+    search_fields_labels = {
+        'card__japanese_name': '', 'card__name': '',
+        'member__japanese_name': '', 'member__d_names': '',
+        'member__name': _('Member'),
+    }
 
     i_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), label=_('Band'), required=False)
     i_band_filter = MagiFilter(selector='member__i_band')

@@ -973,6 +973,9 @@ class AreaItemFilterForm(MagiFiltersForm):
         'area__name': _('Area'),
         'area__d_names': '',
     }
+    merge_fields = [
+        memberBandMergeFields(),
+    ]
 
     i_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [('instrument', _('Instrument'))] + [
         (i, d['translation']) for i, (k, d) in enumerate(models.AreaItem.TYPES.items())

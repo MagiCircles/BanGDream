@@ -221,6 +221,17 @@ def generate_settings():
     print 'Get schools'
     schools = models.Member.objects.filter(school__isnull=False).values_list('school', flat=True).distinct()
 
+    print 'Get areas'
+    areas = [
+        {
+            'id': area.id,
+            'image': area.image_url,
+            'name': area.name,
+            'd_names': area.names,
+        }
+        for area in models.Area.objects.all()
+    ]
+
     print 'Save generated settings'
 
     generateSettings({
@@ -233,6 +244,7 @@ def generate_settings():
         'BACKGROUNDS': backgrounds,
         'MAX_STATS': stats,
         'SCHOOLS': schools,
+        'AREAS': areas,
     })
 
 class Command(BaseCommand):

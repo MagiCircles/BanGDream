@@ -40,7 +40,13 @@ from magi.forms import get_account_simple_form
 from bang.constants import LIVE2D_JS_FILES
 from magi import settings
 from bang.django_translated import t
-from bang.utils import rarity_to_stars_images, generateDifficulty, add_rerun_buttons, add_rerun_fields
+from bang.utils import (
+    rarity_to_stars_images,
+    generateDifficulty,
+    add_rerun_buttons,
+    add_rerun_fields,
+    memberBandMergeCuteForm,
+)
 from bang import models, forms
 
 ############################################################
@@ -407,12 +413,15 @@ def to_FavoriteCardCollection(cls):
         def plural_title(self):
             return _('Favorite {things}').format(things=_('Cards').lower())
 
+        filter_cuteform = CardCollection.ListView.filter_cuteform.copy()
+
         class ListView(cls.ListView):
             item_template = 'cardItem'
             per_line = 2
             default_ordering = '-id'
             ajax_pagination_callback = 'loadCardInList'
             show_item_buttons = True
+            filter_form = forms.to_CollectibleCardFilterForm(cls)
 
         class AddView(cls.AddView):
             unique_per_owner = True
@@ -2230,18 +2239,30 @@ class AreaCollection(MagiCollection):
 ############################################################
 # Collectible area items Collection
 
+_AREAS_IMAGES = { area['id']: area['image'] for area in django_settings.AREAS }
+
 COLLECTIBLEAREAITEM_ICON = {
     'level': 'scoreup',
 }
+
+COLLECTIBLEAREAITEM_CUTEFORM = {
+    'area': {
+        'to_cuteform': lambda k, v: _AREAS_IMAGES[k],
+    },
+    'i_attribute': {},
+}
+memberBandMergeCuteForm(COLLECTIBLEAREAITEM_CUTEFORM)
 
 def to_CollectibleAreaItemCollection(cls):
     class _CollectibleAreaItemCollection(cls):
         title = _('Area item')
         plural_title = _('Area items')
         form_class = forms.to_CollectibleAreaItemForm(cls)
+        filter_cuteform = COLLECTIBLEAREAITEM_CUTEFORM
 
         class ListView(cls.ListView):
             item_template = 'collectibleitemItem'
+            filter_form = forms.to_CollectibleAreaItemFilterForm(cls)
 
         class ItemView(cls.ItemView):
             def to_fields(self, item, extra_fields=None, *args, **kwargs):
@@ -2271,6 +2292,9 @@ def to_CollectibleAreaItemCollection(cls):
 # Area items Collection
 
 AREA_ITEM_CUTEFORM = {
+    'area': {
+        'to_cuteform': lambda k, v: _AREAS_IMAGES[k],
+    },
     'member': {
         'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
         'extra_settings': {
@@ -2289,6 +2313,7 @@ AREA_ITEM_CUTEFORM = {
         },
     },
 }
+memberBandMergeCuteForm(AREA_ITEM_CUTEFORM)
 
 class AreaItemCollection(MagiCollection):
     title = _('Area item')
@@ -2316,7 +2341,7 @@ class AreaItemCollection(MagiCollection):
         return to_CollectibleAreaItemCollection(cls)
 
     class ListView(MagiCollection.ListView):
-        filter_form = forms.AreaItemFilters
+        filter_form = forms.AreaItemFilterForm
         ajax_item_popover = True
         before_template = 'include/galleryBackButtons'
         item_template = custom_item_template

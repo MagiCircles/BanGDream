@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 import datetime, os
+from collections import OrderedDict
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -9,7 +10,17 @@ from django.db.models import Q
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django import forms
 from magi.item_model import i_choices
-from magi.utils import join_data, shrinkImageFromData, randomString, tourldash, PastOnlyValidator, getAccountIdsFromSession, snakeToCamelCase, staticImageURL, filterEventsByStatus
+from magi.utils import (
+    join_data,
+    shrinkImageFromData,
+    randomString,
+    tourldash,
+    PastOnlyValidator,
+    getAccountIdsFromSession,
+    snakeToCamelCase,
+    staticImageURL,
+    filterEventsByStatus,
+)
 from magi.forms import (
     MagiForm,
     AutoForm,
@@ -22,7 +33,7 @@ from magi.forms import (
     UserPreferencesForm as _UserPreferencesForm,
 )
 from magi.middleware.httpredirect import HttpRedirectException
-from bang import settings
+from magi import settings
 from bang.django_translated import t
 from bang import models
 
@@ -49,6 +60,25 @@ def member_band_to_queryset(prefix=''):
             return queryset.filter(**{ u'{}member__i_band'.format(prefix): value[5:] })
         return queryset
     return _member_band_to_queryset
+
+_MEMBERS_CHOICES = [
+    (_id, _full_name)
+    for (_id, _full_name, _image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+]
+
+def memberBandMergeFields(selector_prefix=''):
+    return OrderedDict([
+        ('member', {
+            'label': _('Member'),
+            'choices': _MEMBERS_CHOICES,
+            'filter': MagiFilter(selector='{}member'.format(selector_prefix)),
+        }),
+        ('i_band', {
+            'label': _('Band'),
+            'choices': i_choices(models.AreaItem.BAND_CHOICES),
+            'filter': MagiFilter(selector='{}i_band'.format(selector_prefix)),
+        }),
+    ])
 
 ############################################################
 # Users
@@ -953,13 +983,69 @@ class AreaItemFilterForm(MagiFiltersForm):
         models.AreaItem.get_i('type', 'instrument_per_band'),
     ]) if value == 'instrument' else queryset.filter(i_type=value))
 
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+    area = forms.ChoiceField(label=_('Area'))
 
-    area = forms.IntegerField(widget=forms.HiddenInput)
+    def __init__(self, *args, **kwargs):
+        super(AreaItemFilterForm, self).__init__(*args, **kwargs)
+        if 'area' in self.fields:
+            self.fields['area'].choices = BLANK_CHOICE_DASH + [
+                (area['id'], area['d_names'].get(self.request.LANGUAGE_CODE, area['name']))
+                for area in django_settings.AREAS
+            ]
 
     class Meta(MagiFiltersForm.Meta):
         model = models.AreaItem
-        fields = ('search', 'i_type', 'i_band', 'member', 'i_attribute', 'i_stat', 'area')
+        fields = ('search', 'area', 'i_type', 'i_attribute', 'i_stat')
+
+############################################################
+# Collectible Area Item form
+
+def to_CollectibleAreaItemForm(cls):
+    class _CollectibleAreaItemForm(cls.form_class):
+        level = forms.IntegerField(required=True, label=_('Level'), validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5),
+        ], initial=1)
+
+        def __init__(self, *args, **kwargs):
+            super(_CollectibleAreaItemForm, self).__init__(*args, **kwargs)
+            _type = self.collectible_variables.get('type')
+            if _type and _type == 'instrument_per_band' and 'level' in self.fields:
+                self.fields['level'].validators = [
+                    MinValueValidator(1),
+                    MaxValueValidator(6),
+                ]
+
+    return _CollectibleAreaItemForm
+
+def to_CollectibleAreaItemFilterForm(cls):
+    class _CollectibleAreaItemFilterForm(cls.ListView.filter_form):
+        merge_fields = [
+            memberBandMergeFields(selector_prefix='areaitem__'),
+        ]
+
+        area = forms.ChoiceField(label=_('Area'))
+        area_filter = MagiFilter(selector='areaitem__area')
+
+        i_attribute = forms.ChoiceField(label=_('Attribute'), choices=BLANK_CHOICE_DASH
+                                        + models.AreaItem.ATTRIBUTE_CHOICES)
+        i_attribute_filter = MagiFilter(selector='areaitem__i_attribute')
+
+        i_stat = forms.ChoiceField(label=_('Statistics'), choices=BLANK_CHOICE_DASH
+                                        + i_choices(models.AreaItem.STAT_CHOICES))
+        i_stat_filter = MagiFilter(selector='areaitem__i_stat')
+
+        def __init__(self, *args, **kwargs):
+            super(_CollectibleAreaItemFilterForm, self).__init__(*args, **kwargs)
+            if 'area' in self.fields:
+                self.fields['area'].choices = BLANK_CHOICE_DASH + [
+                    (area['id'], area['d_names'].get(self.request.LANGUAGE_CODE, area['name']))
+                     for area in django_settings.AREAS
+                ]
+
+        class Meta(cls.ListView.filter_form.Meta):
+            fields = ('search', 'area', 'i_attribute', 'i_stat')
+    return _CollectibleAreaItemFilterForm
 
 ############################################################
 # Item form
@@ -976,27 +1062,6 @@ class ItemFilterForm(MagiFiltersForm):
     class Meta(MagiFiltersForm.Meta):
         model = models.Item
         fields = ('search', )
-
-############################################################
-# Item form
-
-def to_CollectibleAreaItemForm(cls):
-    class _CollectibleAreaItemForm(cls.form_class):
-        level = forms.IntegerField(required=False, label=_('Level'), validators=[
-            MinValueValidator(1),
-            MaxValueValidator(5),
-        ])
-
-        def __init__(self, *args, **kwargs):
-            super(_CollectibleAreaItemForm, self).__init__(*args, **kwargs)
-            _type = self.collectible_variables.get('type')
-            if _type and _type == 'instrument_per_band' and 'level' in self.fields:
-                self.fields['level'].validators = [
-                    MinValueValidator(1),
-                    MaxValueValidator(6),
-                ]
-
-    return _CollectibleAreaItemForm
 
 ############################################################
 # Asset form

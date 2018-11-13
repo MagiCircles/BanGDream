@@ -282,7 +282,6 @@ class ActivityCollection(_ActivityCollection):
 
 MEMBERS_ICONS = {
     'name': 'id',
-    'japanese_name': 'id',
     'band': 'rock',
     'school': 'school',
     'school_year': 'education',
@@ -619,7 +618,7 @@ CARDS_ICONS.update({
 CARDS_ORDER = [
     'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'is_original',
     'release_date',
-    'japanese_skill_name', 'skill_type', 'japanese_skill',
+    'skill_name', 'skill_type', 'japanese_skill',
     'gacha', 'images', 'arts', 'transparents', 'chibis', 'associated_costume'
 ]
 
@@ -630,7 +629,7 @@ CARDS_STATISTICS_ORDER = [
 ]
 
 CARDS_EXCLUDE = [
-    'name', 'japanese_name', 'skill_name', 'i_side_skill_type',
+    'name', 'i_side_skill_type', 'skill_name',
     'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
 ] + CARDS_STATS_FIELDS + [
     'i_skill_note_type', 'skill_stamina', 'skill_duration',
@@ -702,6 +701,7 @@ class CardCollection(MagiCollection):
         def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
+            language = get_language()
             # Add id field
             extra_fields.append(('id', {
                 'verbose_name': _(u'ID'),
@@ -709,23 +709,39 @@ class CardCollection(MagiCollection):
                 'value': item.id,
                 'icon': 'id',
             }))
+
             # Add title field
-            title = item.japanese_name if item.japanese_name else (item.name if item.name and get_language() != 'ja' else None)
-            value = item.t_name if item.t_name and get_language() != 'ja' and unicode(title) != unicode(item.t_name) else None
-            if title or value:
-                extra_fields.append(('card_name', {
-                    'verbose_name': _('Title'),
-                    'type': 'title_text' if title and value else 'text',
+            title = item.names.get(
+                language, item.japanese_name
+                if language in settings.LANGUAGES_CANT_SPEAK_ENGLISH else item.name)
+            value = item.japanese_name
+            extra_fields.append(('card_name', {
+                'verbose_name': _('Title'),
+                'icon': 'id',
+                'type': 'title_text' if unicode(title) != unicode(value) else 'text',
+                'title': title,
+                'value': value,
+            }))
+
+            # Add skill name
+            if item.t_skill_name or item.japanese_skill_name:
+                title = item.skill_names.get(
+                    language, item.japanese_skill_name
+                    if language in settings.LANGUAGES_CANT_SPEAK_ENGLISH else item.skill_name)
+                value = item.japanese_skill_name
+                extra_fields.append(('skill_name', {
+                    'verbose_name': _('Skill name'),
+                    'icon': 'skill',
+                    'type': 'title_text' if unicode(title) != unicode(value) else 'text',
                     'title': title,
-                    'value': value or title,
-                    'icon': 'id',
+                    'value': value,
                 }))
 
             # Add skill details
             if item.i_skill_type:
                 extra_fields.append(('japanese_skill', {
                     'verbose_name': _('Skill'),
-                    'verbose_name_subtitle': t['Japanese'] if get_language() != 'ja' else None,
+                    'verbose_name_subtitle': t['Japanese'] if language != 'ja' else None,
                     'icon': item.skill_icon,
                     'type': 'title_text',
                     'title': mark_safe(u'{} <span class="text-muted">({})</span>'.format(item.japanese_skill_type, item.japanese_side_skill_type)
@@ -827,7 +843,7 @@ class CardCollection(MagiCollection):
             if exclude_fields == 1:
                 exclude_fields = []
             else:
-                exclude_fields += CARDS_EXCLUDE + (['versions', 'i_skill_type'] if get_language() == 'ja' else [])
+                exclude_fields += CARDS_EXCLUDE + (['versions', 'i_skill_type'] if language == 'ja' else [])
             exclude_fields += ['show_art_on_homepage', 'show_trained_art_on_homepage']
             # Order
             if order is None:
@@ -835,13 +851,6 @@ class CardCollection(MagiCollection):
 
             fields = super(CardCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             # Modify existing fields
-            # skill name
-            setSubField(fields, 'japanese_skill_name', key='verbose_name', value=_('Skill name'))
-            setSubField(fields, 'japanese_skill_name', key='icon', value='skill')
-            if item.skill_name and get_language() != 'ja' and unicode(item.japanese_skill_name) != unicode(item.t_skill_name):
-                setSubField(fields, 'japanese_skill_name', key='type', value='title_text')
-                setSubField(fields, 'japanese_skill_name', key='title', value=item.japanese_skill_name)
-                setSubField(fields, 'japanese_skill_name', key='value', value=item.t_skill_name)
             # skill deTails
             setSubField(fields, 'skill_type', key='type', value='title_text')
             setSubField(fields, 'skill_type', key='title',
@@ -1939,7 +1948,6 @@ _song_cuteform = {
 }
 
 SONG_ICONS = {
-    'japanese_name': 'song',
     'name': 'translate',
     'romaji_name': 'song',
     'special_band': 'rock',
@@ -1952,6 +1960,8 @@ SONG_ICONS = {
     'versions': 'world',
     'played': 'contest',
 }
+
+SONG_ITEM_FIELDS_ORDER = ['song_name']
 
 class SongCollection(MagiCollection):
     queryset = models.Song.objects.all()
@@ -1999,12 +2009,6 @@ class SongCollection(MagiCollection):
             if fieldName in fields:
                 del(fields[fieldName])
 
-        setSubField(fields, 'japanese_name', key='verbose_name', value=_('Song'))
-        setSubField(fields, 'japanese_name', key='type', value='title_text')
-        setSubField(fields, 'japanese_name', key='title', value=item.japanese_name)
-        setSubField(fields, 'japanese_name', key='value', value=
-                    u'({})'.format(_('Cover') if item.is_cover else _('Original')))
-
         setSubField(fields, 'length', key='value', value=lambda f: item.length_in_minutes)
         setSubField(fields, 'unlock', key='value', value=item.unlock_sentence)
 
@@ -2047,8 +2051,30 @@ class SongCollection(MagiCollection):
             queryset = queryset.select_related('event')
             return queryset
 
-        def to_fields(self, item, *args, **kwargs):
-            fields = super(SongCollection.ItemView, self).to_fields(item, *args, **kwargs)
+        def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
+            if extra_fields is None: extra_fields = []
+            if exclude_fields is None: exclude_fields = []
+            if order is None: order = []
+            order = SONG_ITEM_FIELDS_ORDER + order
+            exclude_fields += ['name']
+            language = get_language()
+
+            # Add title field
+            title = item.japanese_name
+            value = item.names.get(
+                language, item.japanese_name
+                if language in settings.LANGUAGES_CANT_SPEAK_ENGLISH else item.name) or title
+            extra_fields.append(('song_name', {
+                'verbose_name': _('Song'),
+                'verbose_name_subtitle': _('Cover') if item.is_cover else _('Original'),
+                'icon': 'id',
+                'type': 'title_text' if unicode(title) != unicode(value) else 'text',
+                'title': title,
+                'value': value,
+            }))
+
+            fields = super(SongCollection.ItemView, self).to_fields(
+                item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             for difficulty, verbose_name in models.Song.DIFFICULTIES:
                 diff_value = ''
                 diff = getattr(item, u'{}_difficulty'.format(difficulty), None)

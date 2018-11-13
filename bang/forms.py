@@ -258,12 +258,6 @@ class CardForm(AutoForm):
         optional_fields = ('cameo_members',)
         save_owner_on_creation = True
 
-def to_translate_card_form_class(cls):
-    class _TranslateCardForm(cls):
-        class Meta(cls.Meta):
-            fields = ['name', 'japanese_name', 'skill_name', 'japanese_skill_name'] + cls.Meta.fields
-    return _TranslateCardForm
-
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_j_member', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
     search_fields_labels = {
@@ -489,12 +483,6 @@ class EventForm(AutoForm):
         optional_fields = ('boost_members',)
         save_owner_on_creation = True
 
-def to_translate_event_form_class(cls):
-    class _TranslateEventForm(cls):
-        class Meta(cls.Meta):
-            fields = ['name', 'japanese_name'] + cls.Meta.fields
-    return _TranslateEventForm
-
 class EventFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name']
     ordering_fields = [
@@ -642,12 +630,6 @@ class GachaForm(AutoForm):
         fields = '__all__'
         optional_fields = ('cards',)
         save_owner_on_creation = True
-
-def to_translate_gacha_form_class(cls):
-    class _TranslateGachaForm(cls):
-        class Meta(cls.Meta):
-            fields = ['name', 'japanese_name'] + cls.Meta.fields
-    return _TranslateGachaForm
 
 class GachaFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name']
@@ -896,7 +878,7 @@ def unlock_to_form(unlock):
 def to_translate_song_form_class(cls):
     class _TranslateSongForm(cls):
         class Meta(cls.Meta):
-            fields = ['name', 'japanese_name', 'romaji_name'] + cls.Meta.fields
+            fields = ['romaji_name'] + cls.Meta.fields
     return _TranslateSongForm
 
 class SongFilterForm(MagiFiltersForm):

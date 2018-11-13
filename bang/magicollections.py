@@ -1039,10 +1039,6 @@ class CardCollection(MagiCollection):
             super(CardCollection.EditView, self).extra_context(context)
             self.collection._extra_context_for_form(context)
 
-        def to_translate_form_class(self):
-            super(CardCollection.EditView, self).to_translate_form_class()
-            self._translate_form_class = forms.to_translate_card_form_class(self._translate_form_class)
-
 ############################################################
 # Event Participation Collection
 
@@ -1509,10 +1505,6 @@ class EventCollection(MagiCollection):
         filter_cuteform = EVENT_CUTEFORM
         allow_delete = True
 
-        def to_translate_form_class(self):
-            super(EventCollection.EditView, self).to_translate_form_class()
-            self._translate_form_class = forms.to_translate_event_form_class(self._translate_form_class)
-
         def after_save(self, request, instance, type=None):
             instance = super(EventCollection.EditView, self).after_save(request, instance, type=type)
             return self.collection._after_save(request, instance)
@@ -1748,10 +1740,6 @@ class GachaCollection(MagiCollection):
 
         def after_save(self, request, instance):
             return self.collection._after_save(request, instance)
-
-        def to_translate_form_class(self):
-            super(GachaCollection.EditView, self).to_translate_form_class()
-            self._translate_form_class = forms.to_translate_gacha_form_class(self._translate_form_class)
 
 ############################################################
 # Rerun gacha event

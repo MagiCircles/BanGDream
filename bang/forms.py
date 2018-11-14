@@ -150,7 +150,7 @@ class FilterAccounts(MagiFiltersForm):
     search_fields = ['owner__username', 'nickname', 'owner__links__value']
     search_fields_exact = ['owner__email']
     search_fields_labels = {
-        'owner__username': _('Username'),
+        'owner__username': t['Username'],
         'owner__links__value': _('Links'),
         'owner__email': _('Email'),
     }

@@ -713,29 +713,26 @@ class CardCollection(MagiCollection):
                 'icon': 'id',
             }))
 
-            # Add title field
-            title = item.names.get(
-                language, item.japanese_name
-                if language in settings.LANGUAGES_CANT_SPEAK_ENGLISH else item.name)
-            value = item.japanese_name
-            extra_fields.append(('card_name', {
-                'verbose_name': _('Title'),
-                'icon': 'id',
-                'type': 'title_text' if unicode(title) != unicode(value) else 'text',
-                'title': title,
-                'value': value,
-            }))
+            #Add Title
+            title=item.names.get(language, item.name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
+            value = item.japanese_name if item.japanese_name != None else item.name
+            if value != None:
+                extra_fields.append(('card_name', {
+                    'verbose_name': _('Title'),
+                    'icon': 'id',
+                    'type': 'title_text' if title not in [value, None] else 'text',
+                    'title': title,
+                    'value': value,
+                }))
 
-            # Add skill name
-            if item.t_skill_name or item.japanese_skill_name:
-                title = item.skill_names.get(
-                    language, item.japanese_skill_name
-                    if language in settings.LANGUAGES_CANT_SPEAK_ENGLISH else item.skill_name)
-                value = item.japanese_skill_name
+            #Add Skill Name
+            title=item.skill_names.get(language, item.skill_name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
+            value = item.japanese_skill_name if item.japanese_skill_name != None else item.skill_name
+            if value != None:
                 extra_fields.append(('skill_name', {
                     'verbose_name': _('Skill name'),
                     'icon': 'skill',
-                    'type': 'title_text' if unicode(title) != unicode(value) else 'text',
+                    'type': 'title_text' if title not in [value, None] else 'text',
                     'title': title,
                     'value': value,
                 }))

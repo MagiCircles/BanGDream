@@ -72,11 +72,14 @@ class UserCollection(_UserCollection):
         def get_meta_links(self, user, *args, **kwargs):
             first_links, meta_links, links = super(UserCollection.ItemView, self).get_meta_links(user, *args, **kwargs)
             if user.preferences.extra.get('i_favorite_band', None):
+                i_band = user.preferences.extra.get('i_favorite_band')
+                print i_band
                 band = models.Song.get_reverse_i('band', int(user.preferences.extra['i_favorite_band']))
                 meta_links.insert(0, AttrDict({
                     't_type': _('Favorite {thing}').format(thing=_('Band')),
                     'value': band,
                     'image_url': staticImageURL(band, folder='mini_band',  extension='png'),
+                    'url': '/members/?i_band={}'.format(i_band) if int(i_band) < 5 else '/songs/?i_band={}'.format(i_band),
                 }))
             return (first_links, meta_links, links)
 
@@ -1610,11 +1613,13 @@ class GachaCollection(MagiCollection):
             'korean_image': staticImageURL('language/kr.png'),
         }, exclude_fields=exclude_fields, **kwargs)
         if get_language() == 'ja' or unicode(item.t_name) == unicode(item.japanese_name):
-            setSubField(fields, 'name', key='value', value=item.japanese_name)
+            setSubField(fields, 'name', key='value', value=_('{} Gacha').format(
+                item.japanese_name[:-3] if item.japanese_name.endswith(u'ガチャ') else item.japanese_name))
         else:
             setSubField(fields, 'name', key='type', value='title_text')
-            setSubField(fields, 'name', key='title', value=item.t_name)
-            setSubField(fields, 'name', key='value', value=item.japanese_name)
+            setSubField(fields, 'name', key='title', value=_('{} Gacha').format(item.t_name))
+            setSubField(fields, 'name', key='value', value=(
+                item.japanese_name[:-3] if item.japanese_name.endswith(u'ガチャ') else item.japanese_name)+u'ガチャ')
 
         for version, version_details in models.Gacha.VERSIONS.items():
             setSubField(

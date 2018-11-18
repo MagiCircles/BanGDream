@@ -928,6 +928,13 @@ class Event(MagiModel):
         'KR': ((6, 0), (13, 0)),
     }
     FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'leaderboard', 'rerun']
+
+    MAX_RANK_WITHOUT_SS = {
+        'JP': 10000,
+        'EN': 1000,
+        'TW': 100,
+        'KR': 1000,
+    }
     # Assets (stamps, titles) are added dynamically to the js variable because multiple can be present
 
     VERSIONS = Account.VERSIONS
@@ -1386,7 +1393,7 @@ class Gacha(MagiModel):
     korean_status = property(lambda _s: _s.get_status(version='KR'))
 
     def __unicode__(self):
-        return self.t_name
+        return _('{} Gacha').format(self.t_name)
 
 ############################################################
 # Rerun gacha event

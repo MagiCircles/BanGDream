@@ -534,6 +534,27 @@ def to_EventParticipationForm(cls):
                     if field in self.fields:
                         del(self.fields[field])
 
+        def clean(self):
+            cleaned_data = super(_EventParticipationForm, self).clean()
+
+            version = getattr(cleaned_data.get('account', None), 'version', 'EN') if self.is_creating else getattr(self.instance.account, 'version', 'EN')
+            screenshot = cleaned_data.get('screenshot', '') if self.is_creating else getattr(self.instance, 'screenshot', '')
+            is_playground = getattr(cleaned_data.get('account', None), 'is_playground', False) if self.is_creating else getattr(self.instance.account, 'is_playground', False)
+            print (cleaned_data.get('ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version] if self.is_creating else getattr(self.instance, 'ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version])
+            print getattr(self.instance, 'ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version]
+            print getattr(self.instance, 'ranking', 0)
+            print models.Event.MAX_RANK_WITHOUT_SS[version]
+            if is_playground==False and screenshot=='':
+                if (cleaned_data.get('ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version] if self.is_creating else getattr(self.instance, 'ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version]):
+                    print 'fueesuccess'
+            # Validation Error ANGERY
+                    raise forms.ValidationError(_('{thing} under {number}').format(thing=_('A {thing1} is required for a {thing2}').format(
+                        thing1=_('Screenshot'), thing2=_('Ranking')), number=models.Event.MAX_RANK_WITHOUT_SS[version]))
+            print 'fueeeck'
+            return cleaned_data
+
+        #Note: Check if ranking exists first AND skip all if playground, since they are obv F A K E
+
         class Meta(cls.form_class.Meta):
             optional_fields = ('score', 'ranking', 'song_score', 'song_ranking')
 
@@ -1111,7 +1132,8 @@ ASSET_COMICS_VALUE_PER_LANGUAGE = {
 }
 
 class AssetFilterForm(MagiFiltersForm):
-    search_fields = ('name', 'd_names', 'c_tags')
+    search_fields = ('name', 'd_names', 'c_tags', 'source', 'source_link')
+    search_fields_labels = {'source_link': ''}
 
     is_event = forms.NullBooleanField(label=_('Event'))
     is_event_filter = MagiFilter(selector='event__isnull')
@@ -1183,8 +1205,8 @@ class AssetFilterForm(MagiFiltersForm):
         # Remove is event from fields if type can't be linked with events
         if 'event' not in self.fields and 'is_event' in self.fields:
             del(self.fields['is_event'])
-        # Only show is song filter for titles (not even official art)
-        if type and type != 'title' and 'is_song' in self.fields:
+        # Only show is song filter for titles+official art
+        if type and type not in ['title', 'official'] and 'is_song' in self.fields:
             del(self.fields['is_song'])
         # Replace band + member with member_band filter
         if 'i_band' in self.fields and 'members' in self.fields:

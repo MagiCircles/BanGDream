@@ -537,20 +537,16 @@ def to_EventParticipationForm(cls):
         def clean(self):
             cleaned_data = super(_EventParticipationForm, self).clean()
 
-            version = getattr(cleaned_data.get('account', None), 'version', 'EN') if self.is_creating else getattr(self.instance.account, 'version', 'EN')
-            screenshot = cleaned_data.get('screenshot', '') if self.is_creating else getattr(self.instance, 'screenshot', '')
-            is_playground = getattr(cleaned_data.get('account', None), 'is_playground', False) if self.is_creating else getattr(self.instance.account, 'is_playground', False)
-            print (cleaned_data.get('ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version] if self.is_creating else getattr(self.instance, 'ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version])
-            print getattr(self.instance, 'ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version]
-            print getattr(self.instance, 'ranking', 0)
-            print models.Event.MAX_RANK_WITHOUT_SS[version]
-            if is_playground==False and screenshot=='':
-                if (cleaned_data.get('ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version] if self.is_creating else getattr(self.instance, 'ranking', 0) <= models.Event.MAX_RANK_WITHOUT_SS[version]):
-                    print 'fueesuccess'
-            # Validation Error ANGERY
+            # Variables to simplify conditionals
+            version = getattr(cleaned_data.get('account', None), 'version', 'EN')
+            screenshot = cleaned_data.get('screenshot', None)
+            is_playground = getattr(cleaned_data.get('account', None), 'is_playground', False)
+            
+            # If Rank is under X, Require Screenshot
+            if is_playground==False and screenshot==None and cleaned_data.get('ranking') != None:
+                if cleaned_data.get('ranking') <= models.Event.MAX_RANK_WITHOUT_SS[version]:
                     raise forms.ValidationError(_('{thing} under {number}').format(thing=_('A {thing1} is required for a {thing2}').format(
-                        thing1=_('Screenshot'), thing2=_('Ranking')), number=models.Event.MAX_RANK_WITHOUT_SS[version]))
-            print 'fueeeck'
+                        thing1=_('Screenshot').lower(), thing2=_('Ranking').lower()), number=models.Event.MAX_RANK_WITHOUT_SS[version]+1))
             return cleaned_data
 
         #Note: Check if ranking exists first AND skip all if playground, since they are obv F A K E

@@ -579,8 +579,9 @@ CARD_CUTEFORM = {
         'transform': CuteFormTransform.Flaticon,
         'to_cuteform': lambda k, v: CardCollection._origin_to_cuteform[k],
     },
-    'is_limited': {
-        'type': CuteFormType.YesNo,
+    'gacha_type': {
+        'transform': CuteFormTransform.Flaticon,
+        'to_cuteform': lambda k, v: GachaCollection._gacha_type_to_cuteform[k],
     },
 }
 

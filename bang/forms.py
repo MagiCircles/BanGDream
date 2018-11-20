@@ -282,6 +282,14 @@ class CardFilterForm(MagiFiltersForm):
         ('_overall_trained_max', string_concat(_('Overall'), ' (', _('Trained'), ')')),
     ]
 
+    def __init__(self, *args, **kwargs):
+        super(CardFilterForm, self).__init__(*args, **kwargs)
+        if 'gacha_type' in self.fields:
+            self.fields['gacha_type'].choices = [
+                (k, models.DREAMFES_PER_LANGUAGE.get(get_language(), v) if k == 'dreamfes' else v)
+                for k, v in self.fields['gacha_type'].choices
+            ]
+
     # Skill filter
 
     def skill_filter_to_queryset(self, queryset, request, value):
@@ -326,8 +334,17 @@ class CardFilterForm(MagiFiltersForm):
     ])
     origin_filter = MagiFilter(to_queryset=_origin_to_queryset)
 
-    is_limited = forms.NullBooleanField(initial=None, required=False, label=_('Limited'))
-    is_limited_filter = MagiFilter(selector='gachas__limited', distinct=True)
+    def _gacha_type_to_queryset(self, queryset, request, value):
+        if value == 'permanent':
+            return queryset.filter(gachas__limited=False, gachas__dreamfes=False)
+        elif value == 'limited':
+            return queryset.filter(gachas__limited=True)
+        elif value == 'dreamfes':
+            return queryset.filter(gachas__dreamfes=True)
+        return queryset
+
+    gacha_type = forms.ChoiceField(label=_(u'Gacha type'), choices=BLANK_CHOICE_DASH + models.Gacha.GACHA_TYPES)
+    gacha_type_filter = MagiFilter(to_queryset=_gacha_type_to_queryset)
 
     # View filter
 
@@ -347,7 +364,7 @@ class CardFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
-        fields = ('view', 'search', 'member_band', 'member_includes_cameos', 'origin', 'is_limited', 'i_rarity', 'i_attribute', 'i_skill_type', 'version', 'ordering', 'reverse_order', 'member')
+        fields = ('view', 'search', 'member_band', 'member_includes_cameos', 'origin', 'gacha_type', 'i_rarity', 'i_attribute', 'i_skill_type', 'version', 'ordering', 'reverse_order', 'member')
         hidden_foreign_keys = ('member',)
 
 ############################################################
@@ -651,11 +668,7 @@ class GachaFilterForm(MagiFiltersForm):
             return queryset.filter(dreamfes=True)
         return queryset
 
-    gacha_type = forms.ChoiceField(label=_(u'Gacha type'), choices=BLANK_CHOICE_DASH + [
-        ('permanent', _(u'Permanent')),
-        ('limited', _(u'Limited')),
-        ('dreamfes', 'Dream festival'),
-    ])
+    gacha_type = forms.ChoiceField(label=_(u'Gacha type'), choices=BLANK_CHOICE_DASH + models.Gacha.GACHA_TYPES)
     gacha_type_filter = MagiFilter(to_queryset=_gacha_type_to_queryset)
 
     featured_member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))

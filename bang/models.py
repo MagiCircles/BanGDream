@@ -377,7 +377,7 @@ class Card(MagiModel):
             'template': _(u'For the next {duration} seconds, score of all notes boosted by +{percentage}%'),
             'special_templates': {
                 'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
-                'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%'),
+                'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%'),
             },
             'special_variables': {
                 'perfect_only': ['duration', 'percentage'],
@@ -388,7 +388,7 @@ class Card(MagiModel):
                 'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
                 'based_on_stamina': u'{duration}秒間スコアが{percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{alt_percentage}%UPする',
             },
-
+            
             # Side skill
             'side_variables': ['duration', 'percentage'],
             'side_template': _(u'and boosts score of all notes by {percentage}% for the next {duration} seconds'),
@@ -403,7 +403,19 @@ class Card(MagiModel):
             # Main skill
             'variables': ['stamina'],
             'template': _(u'Restores life by {stamina}'),
+            'special_templates': {
+                'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
+                'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}'),
+            },
+            'special_variables': {
+                'perfect_only': ['duration', 'percentage'],
+                'based_on_stamina': ['stamina', 'duration', 'percentage', 'alt_stamina'],
+            },
             'japanese_template': u'ライフが{stamina}回復し',
+            'special_japanese_templates': {
+                'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
+                'based_on_stamina': u'発動時に自分のライフが{stamina}以上の場合は、{duration}秒間スコアが{percentage}%UPする。ライフが{stamina}未満の場合は、ライフが{alt_stamina}回復する',
+            },
 
             # Side skill
             'side_variables': ['stamina'],
@@ -429,8 +441,8 @@ class Card(MagiModel):
     ])
 
     SKILL_SPECIAL_CHOICES = (
-        ('perfect_only', 'Boost score limited to perfect notes'),
-        ('based_on_stamina', 'Boost score based on stamina'),
+        ('perfect_only', 'Based off PERFECT notes'),
+        ('based_on_stamina', 'Scoreup based on stamina'),
     )
 
     ALL_VARIABLES = { item: True for sublist in [ _info['variables'] + _info['side_variables'] + [ii for sl in [_i for _i in _info.get('special_variables', {}).values()] for ii in sl] for _info in SKILL_TYPES.values() ] for item in sublist }.keys()
@@ -540,6 +552,7 @@ class Card(MagiModel):
     )
     i_skill_note_type = models.PositiveIntegerField('{note_type}', choices=i_choices(SKILL_NOTE_TYPE_CHOICES), null=True)
     skill_stamina = models.PositiveIntegerField('{stamina}', null=True)
+    skill_alt_stamina = models.PositiveIntegerField('{alt_stamina}', null=True)
     skill_duration = models.PositiveIntegerField('{duration}', null=True, help_text='in seconds')
     skill_percentage = models.FloatField('{percentage}', null=True, help_text='0-100')
     skill_alt_percentage = models.FloatField('{alt_percentage}', null=True, help_text='0-100')

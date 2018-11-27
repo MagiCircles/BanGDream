@@ -632,7 +632,7 @@ CARDS_EXCLUDE = [
     'name', 'i_side_skill_type', 'skill_name',
     'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
 ] + CARDS_STATS_FIELDS + [
-    'i_skill_note_type', 'skill_stamina', 'skill_duration',
+    'i_skill_note_type', 'skill_stamina', 'skill_alt_stamina', 'skill_duration',
     'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
 ]
 

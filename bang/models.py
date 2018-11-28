@@ -1548,7 +1548,7 @@ class AreaItem(MagiModel):
     NAMES_CHOICES = ALL_ALT_LANGUAGES
     d_names = models.TextField(_('Title'), null=True)
 
-    area = models.ForeignKey(Area, verbose_name=_('Area'), null=True, on_delete=models.SET_NULL)
+    area = models.ForeignKey(Area, verbose_name=_('Location'), null=True, on_delete=models.SET_NULL)
     
     TYPE_CHOICES=[
         ('studio', _('Studio')),
@@ -1562,7 +1562,7 @@ class AreaItem(MagiModel):
         ('garden', _('Garden')),
         ('special', _('Specials Menu')),
     ]
-    i_type = models.PositiveIntegerField(_('Type'), choices=i_choices(TYPE_CHOICES), null=True)
+    i_type = models.PositiveIntegerField(_('Area'), choices=i_choices(TYPE_CHOICES), null=True)
     
     INSTRUMENT_CHOICES=[
         ('mic', _('Mic')),
@@ -1585,7 +1585,7 @@ class AreaItem(MagiModel):
         ('technique', _('Technique')),
         ('visual', _('Visual')),
     )
-    i_stat = models.PositiveIntegerField(_('Stat'), choices=i_choices(STAT_CHOICES), null=True)
+    i_boost_stat = models.PositiveIntegerField(_('Stat'), choices=i_choices(STAT_CHOICES), null=True)
 
     values=models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
     lifes=models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
@@ -1597,17 +1597,17 @@ class AreaItem(MagiModel):
     @property
     def formatted_name(self):
         formatted_name=''
-        if self.member != None:
+        if unicode(self.member) != u'None':
             if self.type in ['studio', 'poster', 'entrance']:
                 if self.type == 'studio' and self.instrument not in [None, 'mic']:
-                    formatted_name+=unicode(_('{name}\'s').format(name=self.member.first_name))
+                    formatted_name+=unicode(_('{name}\'s').format(name=unicode(self.member.first_name)))
                 else:
                     formatted_name+=unicode(self.member.t_band)
         if self.t_name:
             formatted_name +=' ' + unicode(self.t_name)
         if self.instrument not in ['other', None]:
             formatted_name+=' ' + unicode(self.t_instrument)
-        return formatted_name
+        return formatted_name or ''
 
     @property
     def affected(self):
@@ -1622,17 +1622,17 @@ class AreaItem(MagiModel):
 
     @property
     def stat(self):
-        if self.i_stat is not None:
-            return unicode(self.t_stat).lower()
+        if self.i_boost_stat is not None:
+            return unicode(self.t_boost_stat).lower()
         return unicode(_('All')).lower()
 
     def formatted_description(self, level=1):
-        value = self.values.split()
+        value = self.values.split() if self.values != None else ''
         if level-1 > len(value)-1:
             value='???'
         else:
             value=value[level-1]
-        life = self.lifes.split()
+        life = self.lifes.split() if self.lifes != None else ''
         if level-1 > len(life)-1:
             life='???'
         else:

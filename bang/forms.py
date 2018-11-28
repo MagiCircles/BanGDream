@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 import datetime, os
+from collections import OrderedDict
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -904,24 +905,32 @@ class AreaForm(AutoForm):
 ############################################################
 # AreaItem form
 
-class AreaItemForm(AutoForm):
+class AreaItemForm(AutoForm):       
     class Meta(AutoForm.Meta):
         model = models.AreaItem
         fields = '__all__'
         save_owner_on_creation = True
 
-class AreaItemFilter(MagiFiltersForm):
-    search_fields = ['area__name', 'area__d_names', 'name', 'd_names', 'about', 'd_abouts']
+class AreaItemFilterForm(MagiFiltersForm):
+    search_fields = ['name', 'd_names', 'about', 'd_abouts']
+
+    def __init__(self, *args, **kwargs):
+        super(AreaItemFilterForm, self).__init__(*args, **kwargs)
+        if 'area' in self.fields:
+            self.fields['area'].choices = BLANK_CHOICE_DASH + [
+                (area['id'], area['d_names'].get(self.request.LANGUAGE_CODE, area['name']))
+                for area in django_settings.AREAS
+            ]
+
+    area = forms.ChoiceField(label=_('Location'))
 
     band = forms.ChoiceField(label=_('Band'), choices=BLANK_CHOICE_DASH + [(i, band)
         for i, band in i_choices(models.Member.BAND_CHOICES)], initial=None)
     band_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(member__i_band=value))
 
-    area = forms.IntegerField(widget=forms.HiddenInput)
-
     class Meta(MagiFiltersForm.Meta):
         model = models.AreaItem
-        fields = ('search', 'i_type', 'i_instrument', 'band', 'i_attribute', 'i_stat', 'area')
+        fields = ('search', 'area', 'i_type', 'i_instrument', 'band', 'i_attribute', 'i_boost_stat')
 
 ############################################################
 # Item form
@@ -944,10 +953,10 @@ class ItemFilterForm(MagiFiltersForm):
 
 def to_CollectibleAreaItemForm(cls):
     class _CollectibleAreaItemForm(cls.form_class):
-        level = forms.IntegerField(required=False, label=_('Level'), validators=[
+        level = forms.IntegerField(required=True, label=_('Level'), validators=[
             MinValueValidator(1),
             MaxValueValidator(5),
-        ])
+        ], initial=1)
 
         def __init__(self, *args, **kwargs):
             super(_CollectibleAreaItemForm, self).__init__(*args, **kwargs)
@@ -959,6 +968,36 @@ def to_CollectibleAreaItemForm(cls):
                 ]
 
     return _CollectibleAreaItemForm
+
+def to_CollectibleAreaItemFilterForm(cls):
+    class _CollectibleAreaItemFilterForm(cls.ListView.filter_form):        
+        area = forms.ChoiceField(label=_('Location'))
+        area_filter = MagiFilter(selector='areaitem__area')
+
+        i_type = forms.ChoiceField(label=_('Area'), choices=BLANK_CHOICE_DASH + i_choices(models.AreaItem.TYPE_CHOICES))
+        i_type_filter = MagiFilter(selector='areaitem__i_type')
+
+        i_instrument = forms.ChoiceField(label=_('Instrument'), choices=BLANK_CHOICE_DASH + i_choices(models.AreaItem.INSTRUMENT_CHOICES))
+        i_instrument_filter = MagiFilter(selector='areaitem__i_instrument')
+        
+        i_attribute = forms.ChoiceField(label=_('Attribute'), choices=BLANK_CHOICE_DASH + models.AreaItem.ATTRIBUTE_CHOICES)
+        i_attribute_filter = MagiFilter(selector='areaitem__i_attribute')
+        
+        i_boost_stat = forms.ChoiceField(label=_('Stat'), choices=BLANK_CHOICE_DASH + i_choices(models.AreaItem.STAT_CHOICES))
+        i_boost_stat_filter = MagiFilter(selector='areaitem__i_boost_stat')
+        
+        def __init__(self, *args, **kwargs):
+            super(_CollectibleAreaItemFilterForm, self).__init__(*args, **kwargs)
+            if 'area' in self.fields:
+                self.fields['area'].choices = BLANK_CHOICE_DASH + [
+                    (area['id'], area['d_names'].get(self.request.LANGUAGE_CODE, area['name']))
+                     for area in django_settings.AREAS
+                ]
+                
+        class Meta(cls.ListView.filter_form.Meta):
+            fields = ('search', 'area', 'i_type', 'i_instrument', 'i_attribute', 'i_boost_stat')
+            
+    return _CollectibleAreaItemFilterForm
 
 ############################################################
 # Asset form

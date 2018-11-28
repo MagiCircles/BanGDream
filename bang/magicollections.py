@@ -32,6 +32,7 @@ from magi.utils import (
     toCountDown,
     translationURL,
     AttrDict,
+    mergedFieldCuteForm,
 )
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
@@ -2200,8 +2201,8 @@ class ItemCollection(MagiCollection):
 # Areas Collection
 
 class AreaCollection(MagiCollection):
-    title = _('Area')
-    plural_title = _('Areas')
+    title = _('Location')
+    plural_title = _('Locations')
     queryset = models.Area.objects.all()
     translated_fields = ('name', )
     icon = 'world'
@@ -2236,6 +2237,28 @@ class AreaCollection(MagiCollection):
 ############################################################
 # Collectible area items Collection
 
+_AREAS_IMAGES = { area['id']: area['image'] for area in getattr(django_settings, 'AREAS', []) }
+
+AREA_ITEM_CUTEFORM = {
+    'area': {
+        'to_cuteform': lambda k, v: _AREAS_IMAGES[k],
+    },
+    'band': {
+        'image_folder': 'band',
+        'to_cuteform': 'value',
+        'title': _('Band'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+    'i_attribute': {},
+    'i_boost_stat': {
+        'type': CuteFormType.HTML,
+        'to_cuteform': lambda k, v: v[0],
+    },
+}
+
 COLLECTIBLEAREAITEM_ICON = {
     'level': 'scoreup',
 }
@@ -2245,9 +2268,11 @@ def to_CollectibleAreaItemCollection(cls):
         title = _('Area item')
         plural_title = _('Area items')
         form_class = forms.to_CollectibleAreaItemForm(cls)
+        filter_cuteform = AREA_ITEM_CUTEFORM
 
         class ListView(cls.ListView):
             item_template = 'collectibleitemItem'
+            filter_form = forms.to_CollectibleAreaItemFilterForm(cls)
 
         class ItemView(cls.ItemView):
             def to_fields(self, item, extra_fields=None, *args, **kwargs):
@@ -2282,19 +2307,6 @@ def to_CollectibleAreaItemCollection(cls):
 ############################################################
 # Area items Collection
 
-AREA_ITEM_CUTEFORM = {
-    'i_attribute': {},
-    'band': {
-        'image_folder': 'band',
-        'to_cuteform': 'value',
-        'title': _('Band'),
-        'extra_settings': {
-            'modal': 'true',
-            'modal-text': 'true',
-        },
-    },
-}
-
 class AreaItemCollection(MagiCollection):
     title = _('Area item')
     plural_title = _('Area items')
@@ -2313,7 +2325,7 @@ class AreaItemCollection(MagiCollection):
         return to_CollectibleAreaItemCollection(cls)
 
     class ListView(MagiCollection.ListView):
-        filter_form = forms.AreaItemFilter
+        filter_form = forms.AreaItemFilterForm
         ajax_item_popover = True
         before_template = 'include/galleryBackButtons'
         item_template = custom_item_template

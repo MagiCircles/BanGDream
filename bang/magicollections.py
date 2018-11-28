@@ -1177,7 +1177,7 @@ EVENT_LIST_ITEM_CUTEFORM['status'] = {
 }
 
 EVENT_LIST_ITEM_CUTEFORM['i_boost_stat'] = {
-    'to_cuteform': lambda k, v: list(v)[0],
+    'to_cuteform': lambda k, v: v[0],
     'type': CuteFormType.HTML,
 }
 

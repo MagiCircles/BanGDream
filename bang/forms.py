@@ -454,6 +454,9 @@ class EventForm(AutoForm):
 
     def save(self, commit=False):
         instance = super(EventForm, self).save(commit=False)
+        # None Event Stat Boost if not a Song Ranking Type
+        if instance.type not in models.Event.SONG_RANKING_TYPES:
+            instance.i_boost_stat = None
         # Set the right time for each version
         for version, times in instance.TIMES_PER_VERSIONS.items():
             version_details = instance.VERSIONS[version]
@@ -515,7 +518,7 @@ class EventFilterForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Event
-        fields = ('view', 'search', 'i_type', 'boost_members', 'i_boost_attribute', 'version', 'status', 'ordering', 'reverse_order')
+        fields = ('view', 'search', 'i_type', 'boost_members', 'i_boost_stat', 'i_boost_attribute', 'version', 'status', 'ordering', 'reverse_order')
 
 ############################################################
 # Event participations form

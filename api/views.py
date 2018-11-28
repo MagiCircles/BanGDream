@@ -242,6 +242,7 @@ class EventSerializer(MagiSerializer):
     taiwanese_image = ImageField(required=False)
     korean_image = ImageField(required=False)
     i_boost_attribute = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.ATTRIBUTES.items() }, required=False)
+    i_boost_stat = IField(models.Event, 'boost_stat', required=False)
 
     class Meta:
         model = models.Event
@@ -253,7 +254,7 @@ class EventSerializer(MagiSerializer):
             'taiwanese_image', 'taiwanese_start_date', 'taiwanese_end_date',
             'korean_image', 'korean_start_date', 'korean_end_date',
             'main_card', 'secondary_card',
-            'i_boost_attribute', 'boost_members',
+            'i_boost_attribute', 'i_boost_stat', 'boost_members',
         )
 
 class EventViewSet(viewsets.ModelViewSet):

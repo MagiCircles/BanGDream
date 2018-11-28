@@ -154,8 +154,9 @@ def add_rerun_fields(view, item, request):
                 'type': 'html',
                 'value': u'<p>{}</p>'.format(u'</p><p>'.join([
                     unicode(x) for x in [
-                        toCountDown(rerun.start_date, _('Starts in {time}')) if rerun.status == 'future' else None,
-                        toCountDown(rerun.end_date, _('{time} left')) if rerun.status == 'current' else None,
+                        toCountDown(date=rerun.end_date if rerun.status == 'current' else rerun.start_date,
+                            sentence=_('{time} left') if rerun.status == 'current' else _('Starts in {time}'),
+                            classes=['fontx1-5']),
                         u'<strong>{}</strong>'.format(_('Beginning')) if rerun.start_date else None,
                         toTimeZoneDateTime(rerun.start_date, [rerun.version_timezone, 'Local time'], ago=True),
                         u'<strong>{}</strong>'.format(_('End')) if rerun.end_date else None,

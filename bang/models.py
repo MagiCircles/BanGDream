@@ -184,12 +184,6 @@ class Member(MagiModel):
             return self.t_name.split(' ')[-1]
         return self.t_name.split(' ')[0]
 
-    @property
-    def t_name(self):
-        if get_language() == 'ja':
-            return self.japanese_name
-        return self.names.get(get_language(), self.name)
-
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('i'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('i'))
     _original_square_image = models.ImageField(null=True, upload_to=uploadTiny('i/m'))
@@ -361,12 +355,6 @@ class Card(MagiModel):
     d_names = models.TextField(_('Title'), null=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, null=True)
 
-    @property
-    def t_name(self):
-        if get_language() == 'ja':
-            return self.japanese_name or self.name
-        return self.names.get(get_language(), self.name or self.japanese_name)
-
     VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
@@ -389,7 +377,7 @@ class Card(MagiModel):
             'template': _(u'For the next {duration} seconds, score of all notes boosted by +{percentage}%'),
             'special_templates': {
                 'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
-                'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise, score boosted by +{alt_percentage}%'),
+                'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%'),
             },
             'special_variables': {
                 'perfect_only': ['duration', 'percentage'],
@@ -400,7 +388,7 @@ class Card(MagiModel):
                 'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
                 'based_on_stamina': u'{duration}秒間スコアが{percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{alt_percentage}%UPする',
             },
-
+            
             # Side skill
             'side_variables': ['duration', 'percentage'],
             'side_template': _(u'and boosts score of all notes by {percentage}% for the next {duration} seconds'),
@@ -415,7 +403,19 @@ class Card(MagiModel):
             # Main skill
             'variables': ['stamina'],
             'template': _(u'Restores life by {stamina}'),
+            'special_templates': {
+                'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
+                'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}'),
+            },
+            'special_variables': {
+                'perfect_only': ['duration', 'percentage'],
+                'based_on_stamina': ['stamina', 'duration', 'percentage', 'alt_stamina'],
+            },
             'japanese_template': u'ライフが{stamina}回復し',
+            'special_japanese_templates': {
+                'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
+                'based_on_stamina': u'発動時に自分のライフが{stamina}以上の場合は、{duration}秒間スコアが{percentage}%UPする。ライフが{stamina}未満の場合は、ライフが{alt_stamina}回復する',
+            },
 
             # Side skill
             'side_variables': ['stamina'],
@@ -441,8 +441,8 @@ class Card(MagiModel):
     ])
 
     SKILL_SPECIAL_CHOICES = (
-        ('perfect_only', 'Boost score limited to perfect notes'),
-        ('based_on_stamina', 'Boost score based on stamina'),
+        ('perfect_only', 'Based off PERFECT notes'),
+        ('based_on_stamina', 'Scoreup based on stamina'),
     )
 
     ALL_VARIABLES = { item: True for sublist in [ _info['variables'] + _info['side_variables'] + [ii for sl in [_i for _i in _info.get('special_variables', {}).values()] for ii in sl] for _info in SKILL_TYPES.values() ] for item in sublist }.keys()
@@ -464,12 +464,6 @@ class Card(MagiModel):
     japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
     SKILL_NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_skill_names = models.TextField(_('Skill name'), null=True)
-
-    @property
-    def t_skill_name(self):
-        if get_language() == 'ja':
-            return self.japanese_skill_name
-        return self.skill_names.get(get_language(), self.skill_name)
 
     SKILL_TYPE_WITHOUT_I_CHOICES = True
     SKILL_TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in SKILL_TYPES.items()]
@@ -558,6 +552,7 @@ class Card(MagiModel):
     )
     i_skill_note_type = models.PositiveIntegerField('{note_type}', choices=i_choices(SKILL_NOTE_TYPE_CHOICES), null=True)
     skill_stamina = models.PositiveIntegerField('{stamina}', null=True)
+    skill_alt_stamina = models.PositiveIntegerField('{alt_stamina}', null=True)
     skill_duration = models.PositiveIntegerField('{duration}', null=True, help_text='in seconds')
     skill_percentage = models.FloatField('{percentage}', null=True, help_text='0-100')
     skill_alt_percentage = models.FloatField('{alt_percentage}', null=True, help_text='0-100')
@@ -919,17 +914,12 @@ class Event(MagiModel):
     NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_names = models.TextField(_('Title'), null=True)
 
-    @property
-    def t_name(self):
-        if get_language() == 'ja':
-            return self.japanese_name
-        return self.names.get(get_language(), self.name)
-
     TYPE_CHOICES = (
         ('normal', _('Normal')),
         ('challenge_live', _('Challenge Live')),
         ('vs_live', _('VS Live')),
         ('live_trial', _('Live Trial')),
+        ('mission_live', _('Mission Live')),
     )
     i_type = models.PositiveIntegerField(_('Event type'), choices=i_choices(TYPE_CHOICES), default=0)
 
@@ -1146,12 +1136,6 @@ class Song(MagiModel):
     NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_names = models.TextField(_('Title'), null=True)
 
-    @property
-    def t_name(self):
-        if get_language() == 'ja':
-            return self.japanese_name
-        return self.names.get(get_language(), self.name)
-
     VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
@@ -1223,7 +1207,7 @@ class Song(MagiModel):
     UNLOCK_CHOICES = [(_name, _info['translation']) for _name, _info in UNLOCK.items()]
     i_unlock = models.PositiveIntegerField(_('How to unlock?'), choices=i_choices(UNLOCK_CHOICES))
 
-    c_unlock_variables = models.CharField(max_length=100, null=True)
+    c_unlock_variables = models.CharField(_('How to unlock?'), max_length=100, null=True)
     unlock_variables_keys = property(getInfoFromChoices('unlock', UNLOCK, 'variables'))
     unlock_template = property(getInfoFromChoices('unlock', UNLOCK, 'template'))
     @property
@@ -1356,12 +1340,6 @@ class Gacha(MagiModel):
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
     NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_names = models.TextField(_('Title'), null=True)
-
-    @property
-    def t_name(self):
-        if get_language() == 'ja':
-            return self.japanese_name
-        return self.names.get(get_language(), self.name)
 
     limited = models.BooleanField(_('Limited'), default=False)
     dreamfes = models.BooleanField(default=False)
@@ -1924,9 +1902,9 @@ class Costume(MagiModel):
 
     # Basically whatever you want. If there's a card associated with a model, we'll use the
     # card's title instead.
-    name = models.CharField(_('Name'), max_length=250, null=True)
+    name = models.CharField(_('Title'), max_length=250, null=True)
     NAMES_CHOICES = ALL_ALT_LANGUAGES
-    d_names = models.TextField(_('Name'), null=True)
+    d_names = models.TextField(_('Title'), null=True)
 
     @property
     def t_name(self):
@@ -1934,7 +1912,7 @@ class Costume(MagiModel):
         # The form will make sure self.name is null.
         if self.card:
             return self.card.t_name or self.card.japanese_name
-        return self.names.get(get_language(), self.name)
+        return MagiModel.t_name.fget(self)
 
     _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('cos/z'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'), null=True)

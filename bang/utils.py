@@ -1,9 +1,18 @@
 import random
+from collections import OrderedDict
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _, get_language
+from django.utils.translation import ugettext_lazy as _, get_language, string_concat
 from django.db.models import Q
 from magi.default_settings import RAW_CONTEXT
-from magi.utils import globalContext, toTimeZoneDateTime, toCountDown, staticImageURL
+from magi.utils import (
+    globalContext,
+    toTimeZoneDateTime,
+    toCountDown,
+    staticImageURL,
+    FAVORITE_CHARACTERS_NAMES,
+    FAVORITE_CHARACTERS_IMAGES,
+    mergedFieldCuteForm,
+)
 from bang import models
 #from bang.model_choices import TRAINABLE_RARITIES
 
@@ -90,6 +99,18 @@ def randomArtForCharacter(character_id):
         ) if trained else (card.art_2x_url or card.art_original_url),
         'about_url': card.item_url,
     }
+
+def memberBandMergeCuteForm(cuteform):
+    mergedFieldCuteForm(cuteform, {
+        'title': string_concat(_('Member'), '/', _('Band')),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    }, OrderedDict ([
+        ('member', lambda k, v: FAVORITE_CHARACTERS_IMAGES[int(k)]),
+        ('i_band', lambda k, v: staticImageURL(v, folder='band', extension='png')),
+    ]))
 
 def rarity_to_stars_images(rarity):
     return u'<img src="{static_url}img/star_{un}trained.png" alt="star">'.format(

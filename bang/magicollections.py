@@ -713,9 +713,9 @@ class CardCollection(MagiCollection):
             }))
 
             #Add Title
-            title=item.names.get(language, item.name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
-            value = item.japanese_name if item.japanese_name != None else item.name
-            if value != None:
+            title = item.names.get(language, item.name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
+            value = item.japanese_name if item.japanese_name is not None else item.name
+            if value is not None:
                 extra_fields.append(('card_name', {
                     'verbose_name': _('Title'),
                     'icon': 'id',
@@ -725,9 +725,9 @@ class CardCollection(MagiCollection):
                 }))
 
             #Add Skill Name
-            title=item.skill_names.get(language, item.skill_name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
-            value = item.japanese_skill_name if item.japanese_skill_name != None else item.skill_name
-            if value != None:
+            title = item.skill_names.get(language, item.skill_name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
+            value = item.japanese_skill_name if item.japanese_skill_name is not None else item.skill_name
+            if value is not None:
                 extra_fields.append(('skill_name', {
                     'verbose_name': _('Skill name'),
                     'icon': 'skill',
@@ -1609,13 +1609,11 @@ class GachaCollection(MagiCollection):
             'korean_image': staticImageURL('language/kr.png'),
         }, exclude_fields=exclude_fields, **kwargs)
         if get_language() == 'ja' or unicode(item.t_name) == unicode(item.japanese_name):
-            setSubField(fields, 'name', key='value', value=_('{} Gacha').format(
-                item.japanese_name[:-3] if item.japanese_name.endswith(u'ガチャ') else item.japanese_name))
+            setSubField(fields, 'name', key='value', value=_('{} Gacha').format(item.japanese_name))
         else:
             setSubField(fields, 'name', key='type', value='title_text')
             setSubField(fields, 'name', key='title', value=_('{} Gacha').format(item.t_name))
-            setSubField(fields, 'name', key='value', value=(
-                item.japanese_name[:-3] if item.japanese_name.endswith(u'ガチャ') else item.japanese_name)+u'ガチャ')
+            setSubField(fields, 'name', key='value', value=(item.japanese_name)+u'ガチャ')
 
         for version, version_details in models.Gacha.VERSIONS.items():
             setSubField(

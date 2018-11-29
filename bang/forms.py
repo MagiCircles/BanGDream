@@ -600,6 +600,9 @@ class GachaForm(AutoForm):
         if 'c_versions' in self.fields:
             del(self.fields['c_versions'])
 
+    def clean_japanese_name(self):
+        return self.cleaned_data.get('japanese_name')[:-3] if self.cleaned_data.get('japanese_name').endswith(u'ガチャ') else self.cleaned_data.get('japanese_name')
+
     def save(self, commit=False):
         instance = super(GachaForm, self).save(commit=False)
         # Set the right time for each version

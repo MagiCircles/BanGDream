@@ -543,10 +543,10 @@ def to_EventParticipationForm(cls):
             is_playground = getattr(cleaned_data.get('account', None), 'is_playground', False)
             
             # If Rank is under X, Require Screenshot
-            if is_playground==False and screenshot==None and cleaned_data.get('ranking') != None:
+            if is_playground == False and screenshot == None and cleaned_data.get('ranking') != None:
                 if cleaned_data.get('ranking') <= models.Event.MAX_RANK_WITHOUT_SS[version]:
                     raise forms.ValidationError(_('{thing} under {number}').format(thing=_('A {thing1} is required for a {thing2}').format(
-                        thing1=_('Screenshot').lower(), thing2=_('Ranking').lower()), number=models.Event.MAX_RANK_WITHOUT_SS[version]+1))
+                        thing1=_('Screenshot').lower(), thing2=_('Ranking').lower()), number=models.Event.MAX_RANK_WITHOUT_SS[version] + 1))
             return cleaned_data
 
         #Note: Check if ranking exists first AND skip all if playground, since they are obv F A K E
@@ -1128,8 +1128,7 @@ ASSET_COMICS_VALUE_PER_LANGUAGE = {
 }
 
 class AssetFilterForm(MagiFiltersForm):
-    search_fields = ('name', 'd_names', 'c_tags', 'source', 'source_link')
-    search_fields_labels = {'source_link': ''}
+    search_fields = ('name', 'd_names', 'c_tags')
 
     is_event = forms.NullBooleanField(label=_('Event'))
     is_event_filter = MagiFilter(selector='event__isnull')

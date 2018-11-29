@@ -601,7 +601,8 @@ class GachaForm(AutoForm):
             del(self.fields['c_versions'])
 
     def clean_japanese_name(self):
-        return self.cleaned_data.get('japanese_name')[:-3] if self.cleaned_data.get('japanese_name').endswith(u'ガチャ') else self.cleaned_data.get('japanese_name')
+        _name = self.cleaned_data.get('japanese_name')
+        return _name[:-3] if _name.endswith(u'ガチャ') else _name
 
     def save(self, commit=False):
         instance = super(GachaForm, self).save(commit=False)

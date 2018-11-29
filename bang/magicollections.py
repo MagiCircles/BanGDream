@@ -714,7 +714,7 @@ class CardCollection(MagiCollection):
 
             #Add Title
             title = item.names.get(language, item.name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
-            value = item.japanese_name if item.japanese_name is not None else item.name
+            value = item.japanese_name or item.name
             if value is not None:
                 extra_fields.append(('card_name', {
                     'verbose_name': _('Title'),
@@ -726,7 +726,7 @@ class CardCollection(MagiCollection):
 
             #Add Skill Name
             title = item.skill_names.get(language, item.skill_name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
-            value = item.japanese_skill_name if item.japanese_skill_name is not None else item.skill_name
+            value = item.japanese_skill_name or item.skill_name
             if value is not None:
                 extra_fields.append(('skill_name', {
                     'verbose_name': _('Skill name'),
@@ -1613,7 +1613,7 @@ class GachaCollection(MagiCollection):
         else:
             setSubField(fields, 'name', key='type', value='title_text')
             setSubField(fields, 'name', key='title', value=_('{} Gacha').format(item.t_name))
-            setSubField(fields, 'name', key='value', value=(item.japanese_name)+u'ガチャ')
+            setSubField(fields, 'name', key='value', value=item.japanese_name + u'ガチャ')
 
         for version, version_details in models.Gacha.VERSIONS.items():
             setSubField(

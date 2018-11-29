@@ -2330,7 +2330,7 @@ def to_CollectibleAreaItemCollection(cls):
         class AddView(cls.AddView):
             unique_per_owner = True
             add_to_collection_variables = cls.AddView.add_to_collection_variables + [
-                'type',
+                'max_level',
             ]
 
     return _CollectibleAreaItemCollection

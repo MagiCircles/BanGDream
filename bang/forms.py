@@ -979,11 +979,11 @@ def to_CollectibleAreaItemForm(cls):
 
         def __init__(self, *args, **kwargs):
             super(_CollectibleAreaItemForm, self).__init__(*args, **kwargs)
-            _type = self.collectible_variables.get('type')
-            if _type == 'studio' and 'level' in self.fields:
+            _max_level = int(self.collectible_variables.get('max_level'))
+            if 'level' in self.fields:
                 self.fields['level'].validators = [
                     MinValueValidator(1),
-                    MaxValueValidator(6),
+                    MaxValueValidator(_max_level),
                 ]
 
     return _CollectibleAreaItemForm

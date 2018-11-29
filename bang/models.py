@@ -1392,6 +1392,12 @@ class Gacha(MagiModel):
     }
     FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'rerun']
 
+    GACHA_TYPES = [
+        ('permanent', _(u'Permanent')),
+        ('limited', _(u'Limited')),
+        ('dreamfes', 'Dream festival'),
+    ]
+
     VERSIONS = Account.VERSIONS
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')

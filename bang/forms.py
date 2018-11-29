@@ -549,7 +549,7 @@ def to_EventParticipationForm(cls):
                         thing1=_('Screenshot').lower(), thing2=_('Ranking').lower()), number=models.Event.MAX_RANK_WITHOUT_SS[version] + 1))
             return cleaned_data
 
-        #Note: Check if ranking exists first AND skip all if playground, since they are obv F A K E
+        #Note: Check if ranking exists first and skips if playground to avoid unncessary checks
 
         class Meta(cls.form_class.Meta):
             optional_fields = ('score', 'ranking', 'song_score', 'song_ranking')

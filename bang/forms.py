@@ -1200,8 +1200,8 @@ class AssetFilterForm(MagiFiltersForm):
         # Remove is event from fields if type can't be linked with events
         if 'event' not in self.fields and 'is_event' in self.fields:
             del(self.fields['is_event'])
-        # Only show is song filter for titles+official art
-        if type and type not in ['title', 'official'] and 'is_song' in self.fields:
+        # Only show is song filter for titles (not even official art)
+        if type and type != 'title' and 'is_song' in self.fields:
             del(self.fields['is_song'])
         # Replace band + member with member_band filter
         if 'i_band' in self.fields and 'members' in self.fields:

@@ -128,7 +128,14 @@ def generate_settings():
             })
         translation_activate(old_lang)
 
+    # User Profile Backgrounds
     print 'Get the backgrounds'
+    background_choices = models.Asset.objects.filter(
+        i_type=models.Asset.get_i('type', 'background'))
+    background_choices |= models.Asset.objects.filter(
+        i_type=models.Asset.get_i('type', 'official'),
+        c_tags__contains='login')
+    
     backgrounds = [
         {
             'id': background.id,
@@ -136,11 +143,7 @@ def generate_settings():
             'image': background.top_image,
             'name': background.name,
             'd_names': background.names,
-        }
-        for background in models.Asset.objects.filter(
-                i_type=models.Asset.get_i('type', 'background'),
-        ) if background.top_image
-    ]
+        } for background in background_choices if background.top_image]
 
     print 'Get the characters'
     all_members = models.Member.objects.all().order_by('id')

@@ -72,11 +72,13 @@ class UserCollection(_UserCollection):
         def get_meta_links(self, user, *args, **kwargs):
             first_links, meta_links, links = super(UserCollection.ItemView, self).get_meta_links(user, *args, **kwargs)
             if user.preferences.extra.get('i_favorite_band', None):
+                i_band = user.preferences.extra.get('i_favorite_band')
                 band = models.Song.get_reverse_i('band', int(user.preferences.extra['i_favorite_band']))
                 meta_links.insert(0, AttrDict({
                     't_type': _('Favorite {thing}').format(thing=_('Band')),
                     'value': band,
                     'image_url': staticImageURL(band, folder='mini_band',  extension='png'),
+                    'url': '/members/?i_band={}'.format(i_band) if int(i_band) < 5 else '/songs/?i_band={}'.format(i_band),
                 }))
             return (first_links, meta_links, links)
 
@@ -711,29 +713,26 @@ class CardCollection(MagiCollection):
                 'icon': 'id',
             }))
 
-            # Add title field
-            title = item.names.get(
-                language, item.japanese_name
-                if language in settings.LANGUAGES_CANT_SPEAK_ENGLISH else item.name)
-            value = item.japanese_name
-            extra_fields.append(('card_name', {
-                'verbose_name': _('Title'),
-                'icon': 'id',
-                'type': 'title_text' if unicode(title) != unicode(value) else 'text',
-                'title': title,
-                'value': value,
-            }))
+            #Add Title
+            title = item.names.get(language, item.name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
+            value = item.japanese_name or item.name
+            if value is not None:
+                extra_fields.append(('card_name', {
+                    'verbose_name': _('Title'),
+                    'icon': 'id',
+                    'type': 'title_text' if title not in [value, None] else 'text',
+                    'title': title,
+                    'value': value,
+                }))
 
-            # Add skill name
-            if item.t_skill_name or item.japanese_skill_name:
-                title = item.skill_names.get(
-                    language, item.japanese_skill_name
-                    if language in settings.LANGUAGES_CANT_SPEAK_ENGLISH else item.skill_name)
-                value = item.japanese_skill_name
+            #Add Skill Name
+            title = item.skill_names.get(language, item.skill_name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
+            value = item.japanese_skill_name or item.skill_name
+            if value is not None:
                 extra_fields.append(('skill_name', {
                     'verbose_name': _('Skill name'),
                     'icon': 'skill',
-                    'type': 'title_text' if unicode(title) != unicode(value) else 'text',
+                    'type': 'title_text' if title not in [value, None] else 'text',
                     'title': title,
                     'value': value,
                 }))
@@ -1613,11 +1612,11 @@ class GachaCollection(MagiCollection):
             'korean_image': staticImageURL('language/kr.png'),
         }, exclude_fields=exclude_fields, **kwargs)
         if get_language() == 'ja' or unicode(item.t_name) == unicode(item.japanese_name):
-            setSubField(fields, 'name', key='value', value=item.japanese_name)
+            setSubField(fields, 'name', key='value', value=_('{} Gacha').format(item.japanese_name))
         else:
             setSubField(fields, 'name', key='type', value='title_text')
-            setSubField(fields, 'name', key='title', value=item.t_name)
-            setSubField(fields, 'name', key='value', value=item.japanese_name)
+            setSubField(fields, 'name', key='title', value=_('{} Gacha').format(item.t_name))
+            setSubField(fields, 'name', key='value', value=item.japanese_name + u'ガチャ')
 
         for version, version_details in models.Gacha.VERSIONS.items():
             setSubField(

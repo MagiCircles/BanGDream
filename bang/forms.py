@@ -637,6 +637,10 @@ class GachaForm(AutoForm):
         if 'c_versions' in self.fields:
             del(self.fields['c_versions'])
 
+    def clean_japanese_name(self):
+        _name = self.cleaned_data.get('japanese_name')
+        return _name[:-3] if _name.endswith(u'ガチャ') else _name
+
     def save(self, commit=False):
         instance = super(GachaForm, self).save(commit=False)
         # Set the right time for each version
@@ -1144,7 +1148,8 @@ ASSET_COMICS_VALUE_PER_LANGUAGE = {
 }
 
 class AssetFilterForm(MagiFiltersForm):
-    search_fields = ('name', 'd_names', 'c_tags')
+    search_fields = ('name', 'd_names', 'c_tags', 'source', 'source_link')
+    search_fields_labels = {'source_link': ''}
 
     is_event = forms.NullBooleanField(label=_('Event'))
     is_event_filter = MagiFilter(selector='event__isnull')
@@ -1216,8 +1221,8 @@ class AssetFilterForm(MagiFiltersForm):
         # Remove is event from fields if type can't be linked with events
         if 'event' not in self.fields and 'is_event' in self.fields:
             del(self.fields['is_event'])
-        # Only show is song filter for titles (not even official art)
-        if type and type != 'title' and 'is_song' in self.fields:
+        # Only show is song filter for titles+official art
+        if type and type not in ['title', 'official'] and 'is_song' in self.fields:
             del(self.fields['is_song'])
         # Replace band + member with member_band filter
         if 'i_band' in self.fields and 'members' in self.fields:

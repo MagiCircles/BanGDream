@@ -1617,16 +1617,16 @@ class AreaItem(MagiModel):
     def formatted_description(self, level=1):
         value = self.values.split() if self.values != None else ' '
         if level > len(value):
-            value='???'
+            value = '???'
         else:
-            value=value[level-1]
+            value = value[level-1]
         if self.is_percent:
-            value=value+'%'
+            value = value+'%'
         life = self.lifes.split() if self.lifes != None else ' '
         if level > len(life):
-            life='???'
+            life = '???'
         else:
-            life=life[level-1]
+            life = life[level-1]
         if self.lifes:
             if self.affected:
                 return _('Restores life by {life} and {affected} members get a {value} boost on {stat} Stats').format(

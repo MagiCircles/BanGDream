@@ -329,18 +329,32 @@ class AreaItemSerializer(MagiSerializer):
     image = ImageField()
     i_type = IField(models.AreaItem, 'type', required=False)
     i_instrument = IField(models.AreaItem, 'instrument', required=False)
-    i_attribute = IField(models.AreaItem, 'attribute', required=False)
-    i_stat = IField(models.AreaItem, 'stat', required=False)
+    i_attribute = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.ATTRIBUTES.items() }, required=False)
+    i_boost_stat = IField(models.AreaItem, 'stat', required=False)
 
     class Meta:
         model = models.AreaItem
-        fields = ('id', 'name', 'image', 'area', 'i_type', 'i_instrument', 'member', 'i_attribute', 'i_stat', 'values', 'lifes', 'about')
+        fields = ('id', 'image', 'formatted_name', 'area', 'i_type', 'i_instrument',
+            'i_band', 'i_attribute', 'i_boost_stat', 'max_level', 'value_list', 'is_percent', 'life_list', 'about'
+        )
         save_owner_on_creation = True
+
+class AreaItemSerializerForEditing(CardSerializer):
+    i_skill_special = IField(models.Card, 'skill_special', required=False)
+    i_skill_note_type = IField(models.Card, 'skill_note_type', required=False)
+
+    class Meta(CardSerializer.Meta):
+        fields = AreaItemSerializer.Meta.fields + ('member', 'values', 'lifes')
 
 class AreaItemViewSet(viewsets.ModelViewSet):
     queryset = models.AreaItem.objects.all()
     serializer_class = AreaItemSerializer
     permission_classes = (api_permissions.IsStaffOrReadOnly, )
+
+    def get_serializer_class(self):
+        if self.request.method not in permissions.SAFE_METHODS:
+            return AreaItemSerializerForEditing
+        return AreaItemSerializer
 
 ############################################################
 # Asset

@@ -1566,12 +1566,26 @@ class AreaItem(MagiModel):
     i_boost_stat = models.PositiveIntegerField(_('Stat'), choices=i_choices(STAT_CHOICES), null=True)
 
     max_level = models.PositiveIntegerField(_('Max Level'), default=5)
+    
     values = models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
+    is_percent = models.BooleanField('Values are %?', default=True)
     lifes  =models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
     
     about = models.TextField(_('About'), null=True)
     ABOUTS_CHOICES = ALL_ALT_LANGUAGES
     d_abouts = models.TextField(_('About'), null=True)
+
+    @property
+    def value_list(self):
+        return list(int(i) for i in self.values.split())
+
+    @property
+    def life_list(self):
+        return list(int(i) for i in self.lifes.split())
+
+    @property
+    def i_band(self):
+        return self.member.band
 
     @property
     def formatted_name(self):
@@ -1591,20 +1605,14 @@ class AreaItem(MagiModel):
 
     @property
     def affected(self):
-        string = ''
-        if self.i_attribute != None:
-            string += unicode(self.t_attribute)
-        if self.member != None:
-            if string != '':
-                string +=' '
-            string += self.member.t_band
-        return string if string != '' else None
+        return _('{attribute} {band}').format(attribute=self.t_attribute or '', 
+            band=self.member.t_band if self.member else '').strip()
 
     @property
     def stat(self):
         if self.i_boost_stat is not None:
-            return unicode(self.t_boost_stat).lower()
-        return unicode(_('All')).lower()
+            return unicode(self.t_boost_stat)
+        return unicode(_('All'))
 
     def formatted_description(self, level=1):
         value = self.values.split() if self.values != None else ' '
@@ -1612,21 +1620,23 @@ class AreaItem(MagiModel):
             value='???'
         else:
             value=value[level-1]
+        if self.is_percent:
+            value=value+'%'
         life = self.lifes.split() if self.lifes != None else ' '
         if level > len(life):
             life='???'
         else:
             life=life[level-1]
-        if self.lifes != None:
-            if self.affected != None:
+        if self.lifes:
+            if self.affected:
                 return _('Restores life by {life} and {affected} members get a {value} boost on {stat} Stats').format(
                     life=life, affected=self.affected, value=value, stat=self.stat)
             return _('Restores life by {life} and {value} boost on {stat} Stats').format(
                 life=life, value=value, stat=self.stat)
-        elif self.affected != None:
+        elif self.affected:
             return _('{affected} members get a {value} boost on {stat} Stats').format(
                 affected=self.affected, value=value, stat=self.stat)
-        elif self.values != None:
+        elif self.values:
             return _('{value} boost on {stat} Stats').format(value=value, stat=self.stat)
         return u''                 
 

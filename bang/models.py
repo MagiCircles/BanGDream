@@ -1577,11 +1577,11 @@ class AreaItem(MagiModel):
 
     @property
     def value_list(self):
-        return list(int(i) for i in self.values.split())
+        return list(float(i) for i in self.values.split())
 
     @property
     def life_list(self):
-        return list(int(i) for i in self.lifes.split())
+        return list(float(i) for i in self.lifes.split())
 
     @property
     def i_band(self):

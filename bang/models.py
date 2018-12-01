@@ -1528,7 +1528,7 @@ class AreaItem(MagiModel):
 
     area = models.ForeignKey(Area, verbose_name=_('Location'), null=True, on_delete=models.SET_NULL)
     
-    TYPE_CHOICES=[
+    TYPE_CHOICES = [
         ('studio', _('Studio')),
         ('poster', _('Poster')),
         ('counter', _('Counter')),
@@ -1542,7 +1542,7 @@ class AreaItem(MagiModel):
     ]
     i_type = models.PositiveIntegerField(_('Area'), choices=i_choices(TYPE_CHOICES), null=True)
     
-    INSTRUMENT_CHOICES=[
+    INSTRUMENT_CHOICES = [
         ('mic', _('Mic')),
         ('guitar', _('Guitar')),
         ('bass', _('Bass')),
@@ -1552,7 +1552,7 @@ class AreaItem(MagiModel):
     i_instrument = models.PositiveIntegerField(_('Instrument'), choices=i_choices(INSTRUMENT_CHOICES), null=True)
 
     member = models.ForeignKey(Member, verbose_name=_('Member'), related_name='area_items',
-        help_text='Unless instrument, just choose member in affected band', null=True, on_delete=models.SET_NULL,)
+        help_text='Unless instrument, just choose member in affected band', null=True, on_delete=models.SET_NULL)
 
     ATTRIBUTE_CHOICES = Card.ATTRIBUTE_CHOICES
     ATTRIBUTE_WITHOUT_I_CHOICES = True
@@ -1569,7 +1569,7 @@ class AreaItem(MagiModel):
     
     values = models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
     is_percent = models.BooleanField('Values are %?', default=True)
-    lifes  =models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
+    lifes = models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
     
     about = models.TextField(_('About'), null=True)
     ABOUTS_CHOICES = ALL_ALT_LANGUAGES

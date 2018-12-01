@@ -2347,6 +2347,7 @@ class AreaItemCollection(MagiCollection):
     navbar_link = False
     multipart = True
     filter_cuteform = AREA_ITEM_CUTEFORM
+    form_class = forms.AreaItemForm
     reportable = False
 
     collectible = models.CollectibleAreaItem
@@ -2371,7 +2372,7 @@ class AreaItemCollection(MagiCollection):
 
         def to_fields(self, item, *args, **kwargs):
             fields = []
-            if item.type != None:
+            if item.type:
                fields += [('type', {
                     'verbose_name': _('Area'),
                     'value': item.t_type if item.instrument == None else string_concat(item.t_type, ' (', item.t_instrument, ')'),
@@ -2383,7 +2384,7 @@ class AreaItemCollection(MagiCollection):
                 'type': 'long_text',
                 'icon': 'fountain',
             })]
-            if item.about != None:
+            if item.about:
                 fields += [('about', {
                     'verbose_name': _('About'),
                     'value': item.t_about,

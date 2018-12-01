@@ -316,6 +316,7 @@ class ItemSerializer(MagiSerializer):
     class Meta:
         model = models.Item
         fields = ('id', 'name', 'image', 'i_type', 'm_description')
+        save_owner_on_creation = True
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = models.Item.objects.all()
@@ -327,6 +328,7 @@ class ItemViewSet(viewsets.ModelViewSet):
 
 class AreaItemSerializer(MagiSerializer):
     image = ImageField()
+    name = serializers.CharField(source='formatted_name')
     i_type = IField(models.AreaItem, 'type', required=False)
     i_instrument = IField(models.AreaItem, 'instrument', required=False)
     i_attribute = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.ATTRIBUTES.items() }, required=False)
@@ -334,16 +336,15 @@ class AreaItemSerializer(MagiSerializer):
 
     class Meta:
         model = models.AreaItem
-        fields = ('id', 'image', 'formatted_name', 'area', 'i_type', 'i_instrument',
+        fields = ('id', 'image', 'name', 'area', 'i_type', 'i_instrument',
             'i_band', 'i_attribute', 'i_boost_stat', 'max_level', 'value_list', 'is_percent', 'life_list', 'about'
         )
         save_owner_on_creation = True
 
-class AreaItemSerializerForEditing(CardSerializer):
-    i_skill_special = IField(models.Card, 'skill_special', required=False)
-    i_skill_note_type = IField(models.Card, 'skill_note_type', required=False)
+class AreaItemSerializerForEditing(AreaItemSerializer):
+    name = serializers.CharField(required=False)
 
-    class Meta(CardSerializer.Meta):
+    class Meta(AreaItemSerializer.Meta):
         fields = AreaItemSerializer.Meta.fields + ('member', 'values', 'lifes')
 
 class AreaItemViewSet(viewsets.ModelViewSet):
@@ -370,7 +371,7 @@ class AssetSerializer(MagiSerializer):
     
     class Meta:
         model = models.Asset
-        save_owner_on_creation=True
+        save_owner_on_creation = True
         many_to_many_fields = ('members',)
         fields = ('id', 'i_type', 'image', 'english_image', 'taiwanese_image', 'korean_image',
             'name', 'i_band', 'members', 'c_tags', 'event', 'value', 'source', 'source_link', 'song')

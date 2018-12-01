@@ -161,7 +161,10 @@ class Account(BaseAccount):
 
     def update_cache_leaderboards(self):
         self._cache_leaderboards_last_update = timezone.now()
-        self._cache_leaderboard = type(self).objects.filter(level__gt=self.level, i_version=self.i_version).values('level').distinct().count() + 1
+        if self.is_hidden_from_leaderboard or self.is_playground:
+            self._cache_leaderboard = None
+        else:
+            self._cache_leaderboard = type(self).objects.filter(level__gt=self.level, i_version=self.i_version).values('level').distinct().count() + 1
 
 ############################################################
 # Members

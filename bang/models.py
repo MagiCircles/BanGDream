@@ -164,7 +164,8 @@ class Account(BaseAccount):
         if self.is_hidden_from_leaderboard or self.is_playground:
             self._cache_leaderboard = None
         else:
-            self._cache_leaderboard = type(self).objects.filter(level__gt=self.level, i_version=self.i_version).values('level').distinct().count() + 1
+            self._cache_leaderboard = type(self).objects.filter(level__gt=self.level, i_version=self.i_version).exclude(
+                Q(is_hidden_from_leaderboard=True) | Q(is_playground=True)).values('level').distinct().count() + 1
 
 ############################################################
 # Members

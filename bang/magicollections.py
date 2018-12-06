@@ -2142,19 +2142,19 @@ def to_CollectibleItemCollection(cls):
         class ItemView(cls.ItemView):
             def to_fields(self, item, extra_fields=None, *args, **kwargs):
                 if extra_fields is None: extra_fields = []
-                if item.item.i_type != None:
+                if item.item.i_type:
                     extra_fields.append(('type', {
                         'verbose_name': _('Type'),
                         'value': item.item.t_type,
                         'icon': 'category',
-                    },))
+                    }))
                 extra_fields.append((
                     'item_details', {
                         'verbose_name': item.item.t_name,
                         'value': (False, item.item.t_m_description if item.item.m_description else ''),
                         'type': 'markdown',
                         'icon': 'present',
-                    },))
+                    }))
                 fields = super(_CollectibleItemCollection.ItemView, self).to_fields(
                     item, *args, icons=COLLECTIBLEITEM_ICON,
                     extra_fields=extra_fields, **kwargs)
@@ -2207,7 +2207,6 @@ class ItemCollection(MagiCollection):
                 only_fields = ['i_type', 'm_description']
             fields = super(ItemCollection.ItemView, self).to_fields(item, *args,
                 only_fields=only_fields, icons={'type': 'category', 'description': 'present',}, **kwargs)
-##            setSubField(fields, 'description', key='image', value=item.image_url)
             setSubField(fields, 'description', key='verbose_name', value=unicode(item))
             return fields
 
@@ -2308,10 +2307,10 @@ def to_CollectibleAreaItemCollection(cls):
         class ItemView(cls.ItemView):
             def to_fields(self, item, extra_fields=None, *args, **kwargs):
                 if extra_fields is None: extra_fields = []
-                if item.areaitem.type != None:
+                if item.areaitem.type:
                     extra_fields.append(('type', {
                         'verbose_name': _('Area'),
-                        'value': item.areaitem.t_type if item.areaitem.instrument == None else string_concat(item.areaitem.t_type, ' (', item.areaitem.t_instrument, ')'),
+                        'value': item.areaitem.t_type if not item.areaitem.instrument else string_concat(item.areaitem.t_type, ' (', item.areaitem.t_instrument, ')'),
                         'icon': 'pinpoint',
                     }))
                 extra_fields.append((
@@ -2375,7 +2374,7 @@ class AreaItemCollection(MagiCollection):
             if item.type:
                fields += [('type', {
                     'verbose_name': _('Area'),
-                    'value': item.t_type if item.instrument == None else string_concat(item.t_type, ' (', item.t_instrument, ')'),
+                    'value': item.t_type if not item.instrument else string_concat(item.t_type, ' (', item.t_instrument, ')'),
                     'icon': 'pinpoint',
                 })]
             fields += [('item_details', {

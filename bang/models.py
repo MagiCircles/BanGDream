@@ -1459,7 +1459,7 @@ class Item(MagiModel):
     NAMES_CHOICES = ALL_ALT_LANGUAGES
     d_names = models.TextField(_('Title'), null=True)
 
-    TYPE_CHOICES=[
+    TYPE_CHOICES = [
         ('main', _('Main')),
         ('boost', _('Live Boost')),
         ('ticket', _('Studio Ticket')),
@@ -1590,17 +1590,15 @@ class AreaItem(MagiModel):
     @property
     def formatted_name(self):
         formatted_name=''
-        if self.member:
-            if self.type in ['studio', 'poster', 'entrance']:
-                if self.instrument is not 'mic':
-                    if self.instrument:
-                        formatted_name+=unicode(_('{name}\'s').format(name=unicode(self.member.first_name)))
-                    else:
-                        formatted_name+=unicode(self.member.t_band)
+        if self.member and self.type in ['studio', 'poster', 'entrance'] and self.instrument != 'mic':
+            if self.instrument:
+                formatted_name += unicode(_('{name}\'s').format(name=unicode(self.member.first_name)))
+            else:
+                formatted_name += unicode(self.member.t_band)
         if self.t_name:
-            formatted_name +=' ' + unicode(self.t_name)
+            formatted_name += ' ' + unicode(self.t_name)
         if self.instrument not in ['other', None]:
-            formatted_name+=' ' + unicode(self.t_instrument)
+            formatted_name += ' ' + unicode(self.t_instrument)
         return formatted_name
 
     @property
@@ -1615,15 +1613,15 @@ class AreaItem(MagiModel):
         return unicode(_('All'))
 
     def formatted_description(self, level=1):
-        value = self.values.split() if self.values != None else ' '
-        if level > len(value):
+        value = self.value_list if self.values else ' '
+        if not self.values or level > len(value):
             value = '???'
         else:
             value = value[level-1]
         if self.is_percent:
-            value = value+'%'
-        life = self.lifes.split() if self.lifes != None else ' '
-        if level > len(life):
+            value = value + '%'
+        life = self.life_list if self.lifes else ' '
+        if not self.lifes or level > len(life):
             life = '???'
         else:
             life = life[level-1]
@@ -1636,9 +1634,7 @@ class AreaItem(MagiModel):
         elif self.affected:
             return _('{affected} members get a {value} boost on {stat} Stats').format(
                 affected=self.affected, value=value, stat=self.stat)
-        elif self.values:
-            return _('{value} boost on {stat} Stats').format(value=value, stat=self.stat)
-        return u''                 
+        return _('{value} boost on {stat} Stats').format(value=value, stat=self.stat)              
 
     def __unicode__(self):
         return self.formatted_name

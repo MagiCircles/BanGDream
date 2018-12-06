@@ -918,7 +918,7 @@ class Event(MagiModel):
         ('normal', _('Normal')),
         ('challenge_live', _('Challenge Live')),
         ('vs_live', _('VS Live')),
-        ('live_trial', _('Live Trial')),
+        ('live_goals', _('Live Goals')),
         ('mission_live', _('Mission Live')),
     )
     i_type = models.PositiveIntegerField(_('Event type'), choices=i_choices(TYPE_CHOICES), default=0)
@@ -928,7 +928,7 @@ class Event(MagiModel):
         'vs_live',
     ]
     TRIAL_MASTER_TYPES = [
-        'live_trial',
+        'live_goals',
     ]
 
     start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)

@@ -1577,11 +1577,11 @@ class AreaItem(MagiModel):
 
     @property
     def value_list(self):
-        return list(float(i) for i in self.values.split())
+        return None if not self.values else list(float(i) for i in self.values.split())
 
     @property
     def life_list(self):
-        return list(float(i) for i in self.lifes.split())
+        return None if not self.lifes else list(float(i) for i in self.lifes.split())
 
     @property
     def i_band(self):
@@ -1613,19 +1613,17 @@ class AreaItem(MagiModel):
         return unicode(_('All'))
 
     def formatted_description(self, level=1):
-        value = self.value_list if self.values else ' '
-        if not self.values or level > len(value):
+        if level > len(self.value_list or ''):
             value = '???'
         else:
-            value = value[level-1]
+            value = self.value_list[level-1]
         if self.is_percent:
-            value = value + '%'
-        life = self.life_list if self.lifes else ' '
-        if not self.lifes or level > len(life):
+            value = string_concat(value, '%')
+        if level > len(self.life_list or ''):
             life = '???'
         else:
-            life = life[level-1]
-        if self.lifes:
+            life = self.life_list[level-1]
+        if self.life_list:
             if self.affected:
                 return _('Restores life by {life} and {affected} members get a {value} boost on {stat} Stats').format(
                     life=life, affected=self.affected, value=value, stat=self.stat)

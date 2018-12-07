@@ -306,3 +306,78 @@ class CostumeViewSet(viewsets.ModelViewSet):
         if self.request.method not in permissions.SAFE_METHODS:
             return CostumeSerializerForEditing
         return CostumeSerializer
+
+############################################################
+# Item
+
+class ItemSerializer(MagiSerializer):
+    image = ImageField()
+    i_type = IField(models.Item, 'type', required=False)
+
+    class Meta:
+        model = models.Item
+        fields = ('id', 'name', 'image', 'i_type', 'm_description')
+        save_owner_on_creation = True
+
+class ItemViewSet(viewsets.ModelViewSet):
+    queryset = models.Item.objects.all()
+    serializer_class = ItemSerializer
+    permission_classes = (api_permissions.IsStaffOrReadOnly, )
+
+############################################################
+# AreaItem
+
+class AreaItemSerializer(MagiSerializer):
+    image = ImageField()
+    name = serializers.CharField(source='formatted_name')
+    i_type = IField(models.AreaItem, 'type', required=False)
+    i_instrument = IField(models.AreaItem, 'instrument', required=False)
+    i_attribute = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.ATTRIBUTES.items() }, required=False)
+    i_boost_stat = IField(models.AreaItem, 'stat', required=False)
+
+    class Meta:
+        model = models.AreaItem
+        fields = ('id', 'image', 'name', 'area', 'i_type', 'i_instrument',
+            'i_band', 'i_attribute', 'i_boost_stat', 'max_level', 'value_list', 'is_percent', 'life_list', 'about'
+        )
+        save_owner_on_creation = True
+
+class AreaItemSerializerForEditing(AreaItemSerializer):
+    name = serializers.CharField(required=False)
+
+    class Meta(AreaItemSerializer.Meta):
+        fields = AreaItemSerializer.Meta.fields + ('member', 'values', 'lifes')
+
+class AreaItemViewSet(viewsets.ModelViewSet):
+    queryset = models.AreaItem.objects.all()
+    serializer_class = AreaItemSerializer
+    permission_classes = (api_permissions.IsStaffOrReadOnly, )
+
+    def get_serializer_class(self):
+        if self.request.method not in permissions.SAFE_METHODS:
+            return AreaItemSerializerForEditing
+        return AreaItemSerializer
+
+############################################################
+# Asset
+
+class AssetSerializer(MagiSerializer):
+    image = ImageField(required=False)
+    english_image = ImageField(required=False)
+    taiwanese_image = ImageField(required=False)
+    korean_image = ImageField(required=False)
+    i_type = IField(models.Asset, 'type', required=True)
+    i_band = IField(models.Asset, 'band', required=False)
+    c_tags = CField(models.Asset, 'tags', required=False)
+    
+    class Meta:
+        model = models.Asset
+        save_owner_on_creation = True
+        many_to_many_fields = ('members',)
+        fields = ('id', 'i_type', 'image', 'english_image', 'taiwanese_image', 'korean_image',
+            'name', 'i_band', 'members', 'c_tags', 'event', 'value', 'source', 'source_link', 'song')
+
+class AssetViewSet(viewsets.ModelViewSet):
+    queryset = models.Asset.objects.all().prefetch_related('members')
+    serializer_class = AssetSerializer
+    permission_classes = (api_permissions.IsStaffOrReadOnly, )

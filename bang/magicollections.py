@@ -32,6 +32,7 @@ from magi.utils import (
     toCountDown,
     translationURL,
     AttrDict,
+    mergedFieldCuteForm,
 )
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
@@ -2144,14 +2145,19 @@ def to_CollectibleItemCollection(cls):
         class ItemView(cls.ItemView):
             def to_fields(self, item, extra_fields=None, *args, **kwargs):
                 if extra_fields is None: extra_fields = []
+                if item.item.i_type:
+                    extra_fields.append(('type', {
+                        'verbose_name': _('Type'),
+                        'value': item.item.t_type,
+                        'icon': 'category',
+                    }))
                 extra_fields.append((
                     'item_details', {
                         'verbose_name': item.item.t_name,
                         'value': (False, item.item.t_m_description if item.item.m_description else ''),
                         'type': 'markdown',
-                        'image': item.item.image_url,
-                    },
-                ))
+                        'icon': 'present',
+                    }))
                 fields = super(_CollectibleItemCollection.ItemView, self).to_fields(
                     item, *args, icons=COLLECTIBLEITEM_ICON,
                     extra_fields=extra_fields, **kwargs)
@@ -2170,7 +2176,7 @@ class ItemCollection(MagiCollection):
     plural_title = _('Items')
     queryset = models.Item.objects.all()
     translated_fields = ('name', 'm_description', )
-    icon = 'star'
+    icon = 'archive'
     navbar_link = False
     multipart = True
     form_class = forms.ItemForm
@@ -2201,9 +2207,9 @@ class ItemCollection(MagiCollection):
 
         def to_fields(self, item, only_fields=None, *args, **kwargs):
             if not only_fields:
-                only_fields = ['m_description']
-            fields = super(ItemCollection.ItemView, self).to_fields(item, *args, only_fields=only_fields, **kwargs)
-            setSubField(fields, 'description', key='image', value=item.image_url)
+                only_fields = ['i_type', 'm_description']
+            fields = super(ItemCollection.ItemView, self).to_fields(item, *args,
+                only_fields=only_fields, icons={'type': 'category', 'description': 'present',}, **kwargs)
             setSubField(fields, 'description', key='verbose_name', value=unicode(item))
             return fields
 
@@ -2220,8 +2226,8 @@ class ItemCollection(MagiCollection):
 # Areas Collection
 
 class AreaCollection(MagiCollection):
-    title = _('Area')
-    plural_title = _('Areas')
+    title = _('Location')
+    plural_title = _('Locations')
     queryset = models.Area.objects.all()
     translated_fields = ('name', )
     icon = 'world'
@@ -2258,6 +2264,26 @@ class AreaCollection(MagiCollection):
 
 _AREAS_IMAGES = { area['id']: area['image'] for area in getattr(django_settings, 'AREAS', []) }
 
+AREA_ITEM_CUTEFORM = {
+    'area': {
+        'to_cuteform': lambda k, v: _AREAS_IMAGES[k],
+    },
+    'band': {
+        'image_folder': 'band',
+        'to_cuteform': 'value',
+        'title': _('Band'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
+        },
+    },
+    'i_attribute': {},
+    'i_boost_stat': {
+        'type': CuteFormType.HTML,
+        'to_cuteform': lambda k, v: v[0],
+    },
+}
+
 COLLECTIBLEAREAITEM_ICON = {
     'level': 'scoreup',
 }
@@ -2275,7 +2301,7 @@ def to_CollectibleAreaItemCollection(cls):
         title = _('Area item')
         plural_title = _('Area items')
         form_class = forms.to_CollectibleAreaItemForm(cls)
-        filter_cuteform = COLLECTIBLEAREAITEM_CUTEFORM
+        filter_cuteform = AREA_ITEM_CUTEFORM
 
         class ListView(cls.ListView):
             item_template = 'collectibleitemItem'
@@ -2284,12 +2310,18 @@ def to_CollectibleAreaItemCollection(cls):
         class ItemView(cls.ItemView):
             def to_fields(self, item, extra_fields=None, *args, **kwargs):
                 if extra_fields is None: extra_fields = []
+                if item.areaitem.type:
+                    extra_fields.append(('type', {
+                        'verbose_name': _('Area'),
+                        'value': item.areaitem.t_type if not item.areaitem.instrument else string_concat(item.areaitem.t_type, ' (', item.areaitem.t_instrument, ')'),
+                        'icon': 'pinpoint',
+                    }))
                 extra_fields.append((
                     'item_details', {
                         'verbose_name': item.formatted_name,
                         'value': item.formatted_description,
                         'type': 'long_text',
-                        'icon': 'present',
+                        'icon': 'fountain',
                     },
                 ))
                 fields = super(_CollectibleAreaItemCollection.ItemView, self).to_fields(
@@ -2300,7 +2332,7 @@ def to_CollectibleAreaItemCollection(cls):
         class AddView(cls.AddView):
             unique_per_owner = True
             add_to_collection_variables = cls.AddView.add_to_collection_variables + [
-                'type',
+                'max_level',
             ]
 
     return _CollectibleAreaItemCollection
@@ -2308,48 +2340,17 @@ def to_CollectibleAreaItemCollection(cls):
 ############################################################
 # Area items Collection
 
-AREA_ITEM_CUTEFORM = {
-    'area': {
-        'to_cuteform': lambda k, v: _AREAS_IMAGES[k],
-    },
-    'member': {
-        'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
-        'extra_settings': {
-            'modal': 'true',
-            'modal-text': 'true',
-        },
-    },
-    'i_attribute': {},
-    'i_band': {
-        'image_folder': 'band',
-        'to_cuteform': 'value',
-        'title': _('Band'),
-        'extra_settings': {
-            'modal': 'true',
-            'modal-text': 'true',
-        },
-    },
-}
-memberBandMergeCuteForm(AREA_ITEM_CUTEFORM)
-
 class AreaItemCollection(MagiCollection):
     title = _('Area item')
     plural_title = _('Area items')
     queryset = models.AreaItem.objects.all()
-    translated_fields = ('name', 'instrument', )
-    icon = 'present'
+    translated_fields = ('name', 'about')
+    icon = 'town'
     navbar_link = False
     multipart = True
     filter_cuteform = AREA_ITEM_CUTEFORM
+    form_class = forms.AreaItemForm
     reportable = False
-
-    types = {
-        _type: {
-            'title': _info['translation'],
-            'form_class': forms.areaitem_type_to_form(_type),
-        }
-        for _type, _info in models.AreaItem.TYPES.items()
-    }
 
     collectible = models.CollectibleAreaItem
 
@@ -2369,16 +2370,31 @@ class AreaItemCollection(MagiCollection):
 
     class ItemView(MagiCollection.ItemView):
         comments_enabled = False
+        share_enabled = False
 
         def to_fields(self, item, *args, **kwargs):
-            return OrderedDict([
-                ('area_item', {
-                    'verbose_name': item.formatted_name,
-                    'value': item.formatted_description,
+            fields = []
+            if item.type:
+               fields += [('type', {
+                    'verbose_name': _('Area'),
+                    'value': item.t_type if not item.instrument else string_concat(item.t_type, ' (', item.t_instrument, ')'),
+                    'icon': 'pinpoint',
+                })]
+            fields += [('item_details', {
+                'verbose_name': item.formatted_name,
+                'value': item.formatted_description,
+                'type': 'long_text',
+                'icon': 'fountain',
+            })]
+            if item.about:
+                fields += [('about', {
+                    'verbose_name': _('About'),
+                    'value': item.t_about,
                     'type': 'long_text',
-                    'icon': 'present',
-                }),
-            ])
+                    'icon': 'author',
+                })]
+            fields = OrderedDict(fields)
+            return fields
 
     class AddView(MagiCollection.AddView):
         staff_required = True

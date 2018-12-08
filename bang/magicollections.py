@@ -47,6 +47,8 @@ from bang.utils import (
     add_rerun_buttons,
     add_rerun_fields,
     memberBandMergeCuteForm,
+    customImageLink,
+    bandField,
 )
 from bang import models, forms
 
@@ -2465,10 +2467,9 @@ ASSET_CUTEFORM_LIST['members'] = {
 
 ASSET_ORDER = ['name', 'type'] + [
     u'{}image'.format(_v['prefix']) for _v in models.Account.VERSIONS.values()
-]
+] + ['i_band', 'members', 'song', 'event', 'c_tags', 'source']
 
 ASSET_ICONS = {
-    'band': 'rock',
     'name': 'album',
     'type': 'category',
     'tags': 'hashtag',
@@ -2522,35 +2523,46 @@ class AssetCollection(MagiCollection):
         exclude_fields += ['value', 'source_link']
         if not order:
             order = ASSET_ORDER
-        if item.image:
-            extra_fields.append(('image', {
-                'image': staticImageURL('language/ja.png'),
-                'link': item.image_url,
-                'link_text': string_concat(_('Japanese version'), ' - ', _('Image')),
-                'verbose_name': string_concat(_('Japanese version'), ' - ', _('Image')),
-                'value': item.image_thumbnail_url,
-                'type': 'image_link',
-            }))
+            
+        for _version, _info in models.Account.VERSIONS.items():
+            if getattr(item, '{}image'.format(_info['prefix'])):
+                extra_fields.append(('{}image'.format(_info['prefix']), {
+                    'image': staticImageURL('language/{}.png'.format(_info['image'])),
+                    'link': getattr(item, '{}image_url'.format(_info['prefix'])),
+                    'link_text': string_concat(_('Image'), ' (', _info['translation'], ')'),
+                    'verbose_name': _('Image'),
+                    'verbose_name_subtitle': _info['translation'],
+                    'value': getattr(item, '{}image_thumbnail_url'.format(_info['prefix'])),
+                    'type': 'image_link',
+                }))
+            
+        for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
+            if getattr(item, _field):
+                 extra_fields.append(customImageLink(getattr(item, _field), _tl, _field, _field))
+
+        if item.band:
+            extra_fields.append(bandField(item.band, item.i_band, 'band'))
+
+        if item.name:
+            exclude_fields += ['type']
+            
         fields = super(AssetCollection, self).to_fields(view, item, *args, icons=icons, images={
             'image': staticImageURL('language/ja.png'),
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
         }, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
-        setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
-        setSubField(fields, 'band', key='link', value=lambda f: u'/members/?i_band={}'.format(item.i_band))
-        setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))
-        setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
-        setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
+        
         if item.source and item.source_link:
             setSubField(fields, 'source', key='type', value='link')
             setSubField(fields, 'source', key='value', value=item.source_link)
             setSubField(fields, 'source', key='icon', value='link')
             setSubField(fields, 'source', key='link_text', value=item.source)
+
         # Use correct translation for each asset in alt of image
         for version_name, version in models.Account.VERSIONS.items():
             setSubField(fields, u'{}image'.format(version['prefix']), key='image_text',
-                        value=item.names.get(models.VERSIONS_TO_LANGUAGES.get(version_name, None), item.name))
+                value=item.names.get(models.VERSIONS_TO_LANGUAGES.get(version_name, None), item.name))
         return fields
 
     class ItemView(MagiCollection.ItemView):

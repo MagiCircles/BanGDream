@@ -322,26 +322,26 @@ class MemberCollection(MagiCollection):
 
     share_image = justReturn('screenshots/members.png')
 
-    def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
+    def to_fields(self, view, item, extra_fields=None, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
+        if extra_fields is None: extra_fields = []
         exclude_fields += ['japanese_name']
         if item.school is not None:
-            exclude_fields.append('classroom')
+            exclude_fields.append('classroom')            
         fields = super(MemberCollection, self).to_fields(view, item, *args, icons=MEMBERS_ICONS, images={
-            'astrological_sign': '{}img/i_astrological_sign/{}.png'.format(RAW_CONTEXT['static_url'], item.i_astrological_sign),
-        }, exclude_fields=exclude_fields, **kwargs)
+            'astrological_sign': staticImageURL(item.i_astrological_sign, folder='i_astrological_sign', extension='png'),
+        }, extra_fields=extra_fields, exclude_fields=exclude_fields, **kwargs)
+        
         if 'square_image' in fields:
             del(fields['square_image'])
+            
+        fields['band'] = bandField(item.band, item.i_band)
+        
         if item.classroom is not None and item.school is not None:
             setSubField(fields, 'school', key='type', value='text_annotation')
             setSubField(fields, 'school', key='annotation', value= item.classroom)
         setSubField(fields, 'birthday', key='type', value='text')
         setSubField(fields, 'birthday', key='value', value=lambda f: date_format(item.birthday, format='MONTH_DAY_FORMAT', use_l10n=True))
-        setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
-        setSubField(fields, 'band', key='link', value=lambda f: u'/members/?i_band={}'.format(item.i_band))
-        setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))
-        setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
-        setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
         setSubField(fields, 'height', key='value', value=u'{} cm'.format(item.height))
         setSubField(fields, 'description', key='type', value='long_text')
 
@@ -1153,31 +1153,31 @@ EVENT_ICONS = {
 }
 
 EVENT_CUTEFORM = {
-        'main_card': {
-            'to_cuteform': lambda k, v: v.image_url,
-            'title': _('Card'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
+    'main_card': {
+        'to_cuteform': lambda k, v: v.image_url,
+        'title': _('Card'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
         },
-        'secondary_card': {
-            'to_cuteform': lambda k, v: v.image_url,
-            'title': _('Card'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
+    },
+    'secondary_card': {
+        'to_cuteform': lambda k, v: v.image_url,
+        'title': _('Card'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
         },
-        'i_boost_attribute': {
-            'image_folder': 'i_attribute',
-        },
-        'version': {
-            'to_cuteform': lambda k, v: CardCollection._version_images[k],
-            'image_folder': 'language',
-            'transform': CuteFormTransform.ImagePath,
-        },
-    }
+    },
+    'i_boost_attribute': {
+        'image_folder': 'i_attribute',
+    },
+    'version': {
+        'to_cuteform': lambda k, v: CardCollection._version_images[k],
+        'image_folder': 'language',
+        'transform': CuteFormTransform.ImagePath,
+    },
+}
 
 EVENT_LIST_ITEM_CUTEFORM = EVENT_CUTEFORM.copy()
 EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
@@ -2470,12 +2470,8 @@ ASSET_ORDER = ['name', 'type'] + [
 ] + ['i_band', 'members', 'song', 'event', 'c_tags', 'source']
 
 ASSET_ICONS = {
-    'name': 'album',
-    'type': 'category',
-    'tags': 'hashtag',
-    'source': 'about',
-    'event': 'event',
-    'song': 'song',
+    'name': 'album', 'type': 'category', 'source': 'about',
+    'event': 'event', 'song': 'song',
 }
 
 class AssetCollection(MagiCollection):
@@ -2520,10 +2516,11 @@ class AssetCollection(MagiCollection):
         if exclude_fields is None: exclude_fields = []
         if icons is None: icons = {}
         icons.update(ASSET_ICONS)
-        exclude_fields += ['value', 'source_link']
+        exclude_fields += ['c_tags', 'value', 'source_link']
         if not order:
             order = ASSET_ORDER
-            
+
+        # Images
         for _version, _info in models.Account.VERSIONS.items():
             if getattr(item, '{}image'.format(_info['prefix'])):
                 extra_fields.append(('{}image'.format(_info['prefix']), {
@@ -2535,16 +2532,11 @@ class AssetCollection(MagiCollection):
                     'value': getattr(item, '{}image_thumbnail_url'.format(_info['prefix'])),
                     'type': 'image_link',
                 }))
-            
+
+        # Song + Event
         for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
             if getattr(item, _field):
-                 extra_fields.append(customImageLink(getattr(item, _field), _tl, _field, _field))
-
-        if item.band:
-            extra_fields.append(bandField(item.band, item.i_band, 'band'))
-
-        if item.name:
-            exclude_fields += ['type']
+                 extra_fields.append((_field, customImageLink(getattr(item, _field), _tl, _field)))
             
         fields = super(AssetCollection, self).to_fields(view, item, *args, icons=icons, images={
             'image': staticImageURL('language/ja.png'),
@@ -2552,12 +2544,29 @@ class AssetCollection(MagiCollection):
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
         }, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
+
+        if item.band:
+            fields['band'] = bandField(item.band, item.i_band)
+
+        for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
+            if getattr(item, _field):
+                 fields[_field] = customImageLink(getattr(item, _field), _tl, _field)
+            
         
         if item.source and item.source_link:
             setSubField(fields, 'source', key='type', value='link')
             setSubField(fields, 'source', key='value', value=item.source_link)
             setSubField(fields, 'source', key='icon', value='link')
             setSubField(fields, 'source', key='link_text', value=item.source)
+
+        if item.c_tags is not None:
+            asset_tags = '<div class="text-muted">'
+            for tag, _tl in models.Asset.TAGS_CHOICES:
+                if tag in item.c_tags and tag not in asset_tags:
+                    asset_tags += '<a class="a-nodifference" href="/assets/?c_tags={}" data-ajax-url="/ajax/assets/?c_tags={}">#{}</a> '.format(tag, tag, unicode(_tl))
+            asset_tags += '</div>'
+            setSubField(fields, 'type', key='type', value='html')
+            setSubField(fields, 'type', key='value', value=mark_safe(string_concat(item.t_type, '<br />', asset_tags)))
 
         # Use correct translation for each asset in alt of image
         for version_name, version in models.Account.VERSIONS.items():

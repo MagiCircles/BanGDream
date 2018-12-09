@@ -137,17 +137,17 @@ def bandField(band, i):
     }  
 
 # For Event, Gacha, Song
-def customImageLink(item, tl, icon):
+def subtitledImageLink(item, tl, icon, sub=None):
     return {
         'image' if '.png' in icon else 'icon': icon,
         'verbose_name': tl,
-        'verbose_name_subtitle': unicode(item),
+        'verbose_name_subtitle': sub or unicode(item),
         'value': item.image_url,
         'type': 'image_link',
         'link': item.item_url,
         'ajax_link': item.ajax_item_url,
-        'link_text': unicode(item),
-    }  
+        'link_text': sub or unicode(item),
+    }
 
 def add_rerun_buttons(view, buttons, request, item):
     if request.user.is_authenticated() and request.user.hasPermission('manage_main_items'):

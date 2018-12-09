@@ -47,7 +47,7 @@ from bang.utils import (
     add_rerun_buttons,
     add_rerun_fields,
     memberBandMergeCuteForm,
-    customImageLink,
+    subtitledImageLink,
     bandField,
 )
 from bang import models, forms
@@ -753,27 +753,9 @@ class CardCollection(MagiCollection):
                 }))
             # Add gacha and events
             for cached_event in (item.cached_events or []):
-                extra_fields.append((u'event-{}'.format(cached_event), {
-                    'verbose_name': u'{}: {}'.format(
-                        _('Event'), cached_event.unicode),
-                    'icon': 'event',
-                    'value': cached_event.image_url,
-                    'type': 'image_link',
-                    'link': cached_event.item_url,
-                    'ajax_link': cached_event.ajax_item_url,
-                    'link_text': cached_event.t_name,
-                }))
+                extra_fields.append((u'event-{}'.format(cached_event.id), subtitledImageLink(cached_event, _('Event'), 'event', sub=cached_event.unicode)))
             for cached_gacha in (item.cached_gachas or []):
-                extra_fields.append((u'gacha-{}'.format(cached_gacha.id), {
-                    'image': staticImageURL('gacha.png'),
-                    'verbose_name': u'{}: {}'.format(
-                        _('Gacha'), cached_gacha.unicode),
-                    'value': cached_gacha.image_url,
-                    'type': 'image_link',
-                    'link': cached_gacha.item_url,
-                    'ajax_link': cached_gacha.ajax_item_url,
-                    'link_text': cached_gacha.t_name,
-                }))
+                extra_fields.append((u'gacha-{}'.format(cached_gacha.id), subtitledImageLink(cached_gacha, _('Gacha'), staticImageURL('gacha.png'), sub=cached_gacha.unicode)))
             # Add images fields
             for image, verbose_name in [('image', _('Icon')), ('art', _('Art')), ('transparent', _('Transparent'))]:
                 if getattr(item, image):
@@ -1329,18 +1311,7 @@ class EventCollection(MagiCollection):
             }))
             if len(item.all_gachas):
                 for gacha in item.all_gachas:
-                    extra_fields.append((u'gacha-{}'.format(gacha.id), {
-                        'image': staticImageURL('gacha.png'),
-                        'verbose_name': u'{}: {}'.format(
-                            _('Gacha'),
-                            unicode(gacha),
-                        ),
-                        'value': gacha.image_url,
-                        'type': 'image_link',
-                        'link': gacha.item_url,
-                        'ajax_link': gacha.ajax_item_url,
-                        'link_text': unicode(gacha),
-                    }))
+                    extra_fields.append((u'gacha-{}'.format(gacha.id),  subtitledImageLink(gacha, _('Gacha'), staticImageURL('gacha.png'))))
             if len(item.all_members):
                 extra_fields.append(('boost_members', {
                     'icon': 'users',
@@ -1367,18 +1338,7 @@ class EventCollection(MagiCollection):
                 }))
             if len(item.all_gifted_songs):
                 for song in item.all_gifted_songs:
-                    extra_fields.append(('song-{}'.format(song.id), {
-                        'icon': 'song',
-                        'verbose_name': u'{}: {}'.format(
-                            _('Gift song'),
-                            unicode(song),
-                        ),
-                        'value': song.image_url,
-                        'type': 'image_link',
-                        'link': song.item_url,
-                        'ajax_link': song.ajax_item_url,
-                        'link_text': unicode(song),
-                    }))
+                    extra_fields.append(('song-{}'.format(song.id), subtitledImageLink(song, _('Gift song'), 'song')))                   
             if len(item.all_assets):
                 for asset in item.all_assets:
                     for version_name, version in models.Account.VERSIONS.items():
@@ -1631,13 +1591,9 @@ class GachaCollection(MagiCollection):
                 key='timezones', value=[version_details['timezone'], 'Local time'],
             )
 
-        setSubField(fields, 'event', key='type', value='image_link')
-        setSubField(fields, 'event', key='verbose_name', value=u'{}: {}'.format(
-            _('Event'),
-            unicode(item.event),
-        ))
-        setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
-        setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
+        if item.event:
+            fields['event'] = subtitledImageLink(item.event, _('Event'), 'event')
+            
         return fields
 
     class ItemView(MagiCollection.ItemView):
@@ -2028,9 +1984,9 @@ class SongCollection(MagiCollection):
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='type', value='html')
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='value', value=mark_safe(u'{}<br />'.format(generateDifficulty(diff))))
 
-        setSubField(fields, 'event', key='type', value='image_link')
-        setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
-        setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
+        if item.event:
+            fields['event'] = subtitledImageLink(item.event, _('Event'), 'event')
+        
         return fields
 
     class ListView(MagiCollection.ListView):
@@ -2467,7 +2423,7 @@ ASSET_CUTEFORM_LIST['members'] = {
 
 ASSET_ORDER = ['name', 'type'] + [
     u'{}image'.format(_v['prefix']) for _v in models.Account.VERSIONS.values()
-] + ['i_band', 'members', 'song', 'event', 'c_tags', 'source']
+] + ['i_band', 'members', 'event', 'song', 'source']
 
 ASSET_ICONS = {
     'name': 'album', 'type': 'category', 'source': 'about',
@@ -2536,7 +2492,7 @@ class AssetCollection(MagiCollection):
         # Song + Event
         for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
             if getattr(item, _field):
-                 extra_fields.append((_field, customImageLink(getattr(item, _field), _tl, _field)))
+                 extra_fields.append((_field, subtitledImageLink(getattr(item, _field), _tl, _field)))
             
         fields = super(AssetCollection, self).to_fields(view, item, *args, icons=icons, images={
             'image': staticImageURL('language/ja.png'),
@@ -2550,8 +2506,7 @@ class AssetCollection(MagiCollection):
 
         for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
             if getattr(item, _field):
-                 fields[_field] = customImageLink(getattr(item, _field), _tl, _field)
-            
+                 fields[_field] = subtitledImageLink(getattr(item, _field), _tl, _field)           
         
         if item.source and item.source_link:
             setSubField(fields, 'source', key='type', value='link')

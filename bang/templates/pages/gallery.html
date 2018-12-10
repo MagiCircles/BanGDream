@@ -3,26 +3,18 @@
 <div class="container">
   <h1 class="padding50 text-center">{{ page_title }}</h1>
   <div class="text-center">
-    {% if LANGUAGE_CODE == 'en' %}
     <div class="row">
       {% for category in categories %}
-      <div class="col-md-4">
-        <a href="{{ category.url }}" class="padding20">
-          <img src="{{ category.image }}" alt="{{ category.title }}" class="img-responsive" />
+      <div class="col-md-3">
+        <a href="{{ category.url }}" class="a-nodifference">
+          <img src="{{ category.image }}" alt="{{ category.title }}" class="img-responsive" style="padding:10px;" />
+	  {% if LANGUAGE_CODE != 'en' %}
+            <b style="font-size:x-large;">{{ category.title }}</b>
+          {% endif %}
         </a>
       </div>
       {% endfor %}
     </div>
-    {% else %}
-    {% for category in categories %}
-    <div class="padding20" style="display: inline-block;">
-      <a href="{{ category.url }}" class="btn btn-main btn-xl">
-        <i class="flaticon-{{ category.icon }}"></i>
-        {{ category.title }}
-      </a>
-    </div>
-    {% endfor %}
-    {% endif %}
   </div>
 </div>
 {% endblock %}

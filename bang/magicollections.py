@@ -1041,8 +1041,8 @@ EVENT_PARTICIPATIONS_ICONS = {
     'ranking': 'trophy',
     'song_score': 'song',
     'song_ranking': 'trophy',
-    'is_trial_master_completed': 'achievement',
-    'is_trial_master_ex_completed': 'achievement',
+    'is_goal_master': 'achievement',
+    'is_ex_goal_master': 'achievement',
     'screenshot': 'screenshot',
 }
 
@@ -1070,8 +1070,8 @@ def to_EventParticipationCollection(cls):
                 'image_folder': 'language',
                 'transform': CuteFormTransform.ImagePath,
             },
-            'is_trial_master_completed': { 'type': CuteFormType.YesNo, },
-            'is_trial_master_ex_completed': { 'type': CuteFormType.YesNo, },
+            'is_goal_master': { 'type': CuteFormType.YesNo, },
+            'is_ex_goal_master': { 'type': CuteFormType.YesNo, },
         }
 
         def to_fields(self, view, item, *args, **kwargs):

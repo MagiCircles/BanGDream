@@ -1042,8 +1042,8 @@ class EventParticipation(AccountAsOwnerModel):
     song_score = models.PositiveIntegerField(_('Song score'), null=True)
     song_ranking = models.PositiveIntegerField(_('Song ranking'), null=True)
 
-    is_trial_master_completed = models.NullBooleanField(_('Trial master completed'))
-    is_trial_master_ex_completed = models.NullBooleanField(_('Trial master EX completed'))
+    is_goal_master = models.NullBooleanField(_('Goal Master'))
+    is_ex_goal_master = models.NullBooleanField(_('EX Goal Master'))
 
     _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('event_screenshot'))
     screenshot = models.ImageField(_('Screenshot'), upload_to=uploadItem('event_screenshot'), null=True)

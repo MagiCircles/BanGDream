@@ -550,7 +550,7 @@ def to_EventParticipationForm(cls):
                     if field in self.fields:
                         del(self.fields[field])
             if models.Event.get_reverse_i('type', i_type) not in models.Event.TRIAL_MASTER_TYPES:
-                for field in ['is_trial_master_completed', 'is_trial_master_ex_completed']:
+                for field in ['is_goal_master', 'is_ex_goal_master']:
                     if field in self.fields:
                         del(self.fields[field])
 

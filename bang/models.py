@@ -922,7 +922,7 @@ class Event(MagiModel):
         ('normal', _('Normal')),
         ('challenge_live', _('Challenge Live')),
         ('vs_live', _('VS Live')),
-        ('live_trial', _('Live Trial')),
+        ('live_goals', _('Live Goals')),
         ('mission_live', _('Mission Live')),
     )
     i_type = models.PositiveIntegerField(_('Event type'), choices=i_choices(TYPE_CHOICES), default=0)
@@ -932,7 +932,7 @@ class Event(MagiModel):
         'vs_live',
     ]
     TRIAL_MASTER_TYPES = [
-        'live_trial',
+        'live_goals',
     ]
 
     start_date = models.DateTimeField(string_concat(_('Japanese version'), ' - ', _('Beginning')), null=True)
@@ -1046,8 +1046,8 @@ class EventParticipation(AccountAsOwnerModel):
     song_score = models.PositiveIntegerField(_('Song score'), null=True)
     song_ranking = models.PositiveIntegerField(_('Song ranking'), null=True)
 
-    is_trial_master_completed = models.NullBooleanField(_('Trial master completed'))
-    is_trial_master_ex_completed = models.NullBooleanField(_('Trial master EX completed'))
+    is_goal_master = models.NullBooleanField(_('Goal Master'))
+    is_ex_goal_master = models.NullBooleanField(_('EX Goal Master'))
 
     _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('event_screenshot'))
     screenshot = models.ImageField(_('Screenshot'), upload_to=uploadItem('event_screenshot'), null=True)

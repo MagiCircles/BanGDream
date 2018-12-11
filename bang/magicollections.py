@@ -2518,7 +2518,7 @@ class AssetCollection(MagiCollection):
             asset_tags = '<div class="text-muted">'
             for tag, _tl in models.Asset.TAGS_CHOICES:
                 if tag in item.c_tags and tag not in asset_tags:
-                    asset_tags += '<a class="a-nodifference" href="/assets/?c_tags={}" data-ajax-url="/ajax/assets/?c_tags={}">#{}</a> '.format(tag, tag, unicode(_tl))
+                    asset_tags += u'<a class="a-nodifference" href="/assets/?c_tags={}" data-ajax-url="/ajax/assets/?c_tags={}">#{}</a> '.format(tag, tag, unicode(_tl))
             asset_tags += '</div>'
             setSubField(fields, 'type', key='type', value='html')
             setSubField(fields, 'type', key='value', value=mark_safe(string_concat(item.t_type, '<br />', asset_tags)))

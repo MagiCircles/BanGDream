@@ -142,7 +142,7 @@ def subtitledImageLink(item, tl, icon, sub=None):
         'image' if '.png' in icon else 'icon': icon,
         'verbose_name': tl,
         'verbose_name_subtitle': sub or unicode(item),
-        'value': item.image_url,
+        'value': getattr(item, '{}image_url'.format(models.Account.VERSIONS[models.LANGUAGES_TO_VERSIONS[get_language()]]['prefix']), None) or item.image_url,
         'type': 'image_link',
         'link': item.item_url,
         'ajax_link': item.ajax_item_url,

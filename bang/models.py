@@ -931,7 +931,7 @@ class Event(MagiModel):
         'challenge_live',
         'vs_live',
     ]
-    TRIAL_MASTER_TYPES = [
+    GOAL_MASTER_TYPES = [
         'live_goals',
     ]
 
@@ -1074,20 +1074,20 @@ class EventParticipation(AccountAsOwnerModel):
                 'verbose_name': _('Song ranking'),
                 'value': self.song_ranking,
             }),
-            ('is_trial_master_completed', {
+            ('is_goal_master', {
                 'icon': 'achievement',
-                'verbose_name': _('Trial master completed'),
-                'value': self.is_trial_master_completed,
+                'verbose_name': _('Goal Master'),
+                'value': self.is_goal_master,
             }),
-            ('is_trial_master_ex_completed', {
+            ('is_ex_goal_master', {
                 'icon': 'achievement',
-                'verbose_name': _('Trial master EX completed'),
-                'value': self.is_trial_master_ex_completed,
+                'verbose_name': _('EX Goal Master'),
+                'value': self.is_ex_goal_master,
             }),
         ] if v['value'] and not (
             (k in ['song_score', 'song_ranking'] and self.event.type not in Event.SONG_RANKING_TYPES)
-            and (k in ['is_trial_master_completed', 'is_trial_master_ex_completed']
-                 and self.event.type not in Event.TRIAL_MASTER_TYPES)
+            and (k in ['is_goal_master', 'is_ex_goal_master']
+                 and self.event.type not in Event.GOAL_MASTER_TYPES)
         )]
 
     def to_cache_account(self):

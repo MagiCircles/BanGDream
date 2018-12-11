@@ -549,7 +549,7 @@ def to_EventParticipationForm(cls):
                 for field in ['song_score', 'song_ranking']:
                     if field in self.fields:
                         del(self.fields[field])
-            if models.Event.get_reverse_i('type', i_type) not in models.Event.TRIAL_MASTER_TYPES:
+            if models.Event.get_reverse_i('type', i_type) not in models.Event.GOAL_MASTER_TYPES:
                 for field in ['is_goal_master', 'is_ex_goal_master']:
                     if field in self.fields:
                         del(self.fields[field])

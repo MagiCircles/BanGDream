@@ -2280,7 +2280,12 @@ AREA_ITEM_CUTEFORM = {
     'i_attribute': {},
     'i_boost_stat': {
         'type': CuteFormType.HTML,
-        'to_cuteform': lambda k, v: v[0],
+        'to_cuteform': lambda k, v: mark_safe(
+            u'<span data-toggle="tooltip" title="{}">{}</div>'.format(
+                v,
+                v[0],
+            ),
+        ),
     },
 }
 

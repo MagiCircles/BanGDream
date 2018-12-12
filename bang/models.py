@@ -1632,7 +1632,7 @@ class AreaItem(MagiModel):
 
     @property
     def affected(self):
-        if self.t_attribute and self.member.t_band:
+        if self.t_attribute and self.member:
             return u'{} / {}'.format(self.t_attribute, self.member.t_band)
         elif self.t_attribute:
             return self.t_attribute

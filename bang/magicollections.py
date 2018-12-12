@@ -2070,7 +2070,7 @@ class SongCollection(MagiCollection):
                 if language in settings.LANGUAGES_CANT_SPEAK_ENGLISH else item.name) or title
             extra_fields.append(('song_name', {
                 'verbose_name': _('Song'),
-                'verbose_name_subtitle': _('Cover') if item.is_cover else _('Original'),
+                'verbose_name_subtitle': _('Cover song') if item.is_cover else _('Original song'),
                 'icon': 'id',
                 'type': 'title_text' if unicode(title) != unicode(value) else 'text',
                 'title': title,

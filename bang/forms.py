@@ -327,7 +327,7 @@ class CardFilterForm(MagiFiltersForm):
         return queryset
 
     origin = forms.ChoiceField(label=_(u'Origin'), choices=BLANK_CHOICE_DASH + [
-        ('is_original', _(u'Original')),
+        ('is_original', _(u'Original card')),
         ('is_event', _(u'Event')),
         ('is_gacha', _(u'Gacha')),
         ('is_promo', _(u'Promo')),
@@ -561,12 +561,14 @@ def to_EventParticipationForm(cls):
             version = getattr(cleaned_data.get('account', None), 'version', 'EN')
             screenshot = cleaned_data.get('screenshot', None)
             is_playground = getattr(cleaned_data.get('account', None), 'is_playground', False)
-            
+
             # If Rank is under X, Require Screenshot
             if is_playground == False and screenshot == None and cleaned_data.get('ranking') != None:
                 if cleaned_data.get('ranking') <= models.Event.MAX_RANK_WITHOUT_SS[version]:
-                    raise forms.ValidationError(_('{thing} under {number}').format(thing=_('A {thing1} is required for a {thing2}').format(
-                        thing1=_('Screenshot').lower(), thing2=_('Ranking').lower()), number=models.Event.MAX_RANK_WITHOUT_SS[version] + 1))
+                    raise forms.ValidationError(
+                        message=_('Please provide a screenshot to prove your ranking.'),
+                        code='ranking_proof_screenshot',
+                    )
             return cleaned_data
 
         #Note: Check if ranking exists first and skips if playground to avoid unncessary checks
@@ -939,7 +941,7 @@ class SongFilterForm(MagiFiltersForm):
         ('special_difficulty', string_concat(_('Special'), ' - ', _('Difficulty'))),
     ]
 
-    is_cover = forms.NullBooleanField(initial=None, required=False, label=_('Cover'))
+    is_cover = forms.NullBooleanField(initial=None, required=False, label=_('Cover song'))
     is_cover_filter = MagiFilter(selector='is_cover')
 
     version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
@@ -961,7 +963,7 @@ class AreaForm(AutoForm):
 ############################################################
 # AreaItem form
 
-class AreaItemForm(AutoForm):       
+class AreaItemForm(AutoForm):
     class Meta(AutoForm.Meta):
         model = models.AreaItem
         fields = '__all__'
@@ -1026,7 +1028,7 @@ def to_CollectibleAreaItemForm(cls):
     return _CollectibleAreaItemForm
 
 def to_CollectibleAreaItemFilterForm(cls):
-    class _CollectibleAreaItemFilterForm(cls.ListView.filter_form):        
+    class _CollectibleAreaItemFilterForm(cls.ListView.filter_form):
         area = forms.ChoiceField(label=_('Location'))
         area_filter = MagiFilter(selector='areaitem__area')
 
@@ -1035,13 +1037,13 @@ def to_CollectibleAreaItemFilterForm(cls):
 
         i_instrument = forms.ChoiceField(label=_('Instrument'), choices=BLANK_CHOICE_DASH + i_choices(models.AreaItem.INSTRUMENT_CHOICES))
         i_instrument_filter = MagiFilter(selector='areaitem__i_instrument')
-        
+
         i_attribute = forms.ChoiceField(label=_('Attribute'), choices=BLANK_CHOICE_DASH + models.AreaItem.ATTRIBUTE_CHOICES)
         i_attribute_filter = MagiFilter(selector='areaitem__i_attribute')
-        
-        i_boost_stat = forms.ChoiceField(label=_('Stat'), choices=BLANK_CHOICE_DASH + i_choices(models.AreaItem.STAT_CHOICES))
+
+        i_boost_stat = forms.ChoiceField(label=_('Statistic'), choices=BLANK_CHOICE_DASH + i_choices(models.AreaItem.STAT_CHOICES))
         i_boost_stat_filter = MagiFilter(selector='areaitem__i_boost_stat')
-        
+
         def __init__(self, *args, **kwargs):
             super(_CollectibleAreaItemFilterForm, self).__init__(*args, **kwargs)
             if 'area' in self.fields:
@@ -1049,10 +1051,10 @@ def to_CollectibleAreaItemFilterForm(cls):
                     (area['id'], area['d_names'].get(self.request.LANGUAGE_CODE, area['name']))
                      for area in django_settings.AREAS
                 ]
-                
+
         class Meta(cls.ListView.filter_form.Meta):
             fields = ('search', 'area', 'i_type', 'i_instrument', 'i_attribute', 'i_boost_stat')
-            
+
     return _CollectibleAreaItemFilterForm
 
 ############################################################

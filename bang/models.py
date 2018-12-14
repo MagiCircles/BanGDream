@@ -212,7 +212,7 @@ class Member(MagiModel):
         ('Second', _('Second')),
         ('Third', _('Junior Third')),
     )
-    i_school_year = models.PositiveIntegerField(_('School Year'), choices=i_choices(SCHOOL_YEAR_CHOICES), null=True)
+    i_school_year = models.PositiveIntegerField(_('School year'), choices=i_choices(SCHOOL_YEAR_CHOICES), null=True)
 
     classroom = models.CharField(_('Classroom'), max_length = 10, null=True)
 
@@ -392,7 +392,7 @@ class Card(MagiModel):
                 'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
                 'based_on_stamina': u'{duration}秒間スコアが{percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{alt_percentage}%UPする',
             },
-            
+
             # Side skill
             'side_variables': ['duration', 'percentage'],
             'side_template': _(u'and boosts score of all notes by {percentage}% for the next {duration} seconds'),
@@ -824,7 +824,7 @@ class CollectibleCard(AccountAsOwnerModel):
     card = models.ForeignKey(Card, verbose_name=_('Card'), related_name='collectedcards')
     trained = models.BooleanField(_('Trained'), default=False)
     prefer_untrained = models.BooleanField(_('Prefer untrained card image'), default=False)
-    max_leveled = models.NullBooleanField(_('Max Leveled'))
+    max_leveled = models.NullBooleanField(_('Max level'))
     first_episode = models.NullBooleanField(_('{nth} episode').format(nth=_('1st')))
     memorial_episode = models.NullBooleanField(_('Memorial episode'))
     skill_level = models.PositiveIntegerField(_('Skill level'), null=True, blank=True, validators=[
@@ -993,7 +993,7 @@ class Event(MagiModel):
         ('technique', _('Technique')),
         ('visual', _('Visual')),
     )
-    i_boost_stat = models.PositiveIntegerField(_('Boost stat'), choices=i_choices(BOOST_STAT_CHOICES), null=True)
+    i_boost_stat = models.PositiveIntegerField(_('Boost statistic'), choices=i_choices(BOOST_STAT_CHOICES), null=True)
 
     boost_members = models.ManyToManyField(Member, related_name='boost_in_events', verbose_name=_('Boost members'))
 
@@ -1485,8 +1485,8 @@ class Item(MagiModel):
 
     TYPE_CHOICES = [
         ('main', _('Main')),
-        ('boost', _('Live Boost')),
-        ('ticket', _('Studio Ticket')),
+        ('boost', _('Live boost')),
+        ('ticket', _('Studio ticket')),
         ('other', _('Other')),
     ]
     i_type = models.PositiveIntegerField(_('Type'), choices=i_choices(TYPE_CHOICES), null=True)
@@ -1507,7 +1507,7 @@ class CollectibleItem(AccountAsOwnerModel):
     account = models.ForeignKey(Account, verbose_name=_('Account'), related_name='items')
     item = models.ForeignKey(Item, verbose_name=_('Item'), related_name='collectedby')
     quantity = models.PositiveIntegerField(_('Quantity'), default=1)
-                                             
+
     image = property(lambda _s: _s.item.image)
     image_url = property(lambda _s: _s.item.image_url)
     http_image_url = property(lambda _s: _s.item.http_image_url)
@@ -1551,21 +1551,21 @@ class AreaItem(MagiModel):
     d_names = models.TextField(_('Title'), null=True)
 
     area = models.ForeignKey(Area, verbose_name=_('Location'), null=True, on_delete=models.SET_NULL)
-    
+
     TYPE_CHOICES = [
         ('studio', _('Studio')),
         ('poster', _('Poster')),
         ('counter', _('Counter')),
-        ('minitable', _('Mini Table')),
-        ('magazine', _('Magazine Rack')),
+        ('minitable', _('Mini table')),
+        ('magazine', _('Magazine rack')),
         ('entrance', _('Entrance')),
         ('sign', _('Sign')),
         ('plaza', _('Plaza')),
         ('garden', _('Garden')),
-        ('special', _('Specials Menu')),
+        ('special', _('Specials menu')),
     ]
     i_type = models.PositiveIntegerField(_('Area'), choices=i_choices(TYPE_CHOICES), null=True)
-    
+
     INSTRUMENT_CHOICES = [
         ('mic', _('Mic')),
         ('guitar', _('Guitar')),
@@ -1587,14 +1587,14 @@ class AreaItem(MagiModel):
         ('technique', _('Technique')),
         ('visual', _('Visual')),
     )
-    i_boost_stat = models.PositiveIntegerField(_('Stat'), choices=i_choices(STAT_CHOICES), null=True)
+    i_boost_stat = models.PositiveIntegerField(_('Statistic'), choices=i_choices(STAT_CHOICES), null=True)
 
-    max_level = models.PositiveIntegerField(_('Max Level'), default=5)
-    
+    max_level = models.PositiveIntegerField(_('Max level'), default=5)
+
     values = models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
     is_percent = models.BooleanField('Values are %?', default=True)
     lifes = models.CharField(max_length=100, null=True, help_text='Seperate with spaces in ascending order')
-    
+
     about = models.TextField(_('About'), null=True)
     ABOUTS_CHOICES = ALL_ALT_LANGUAGES
     d_abouts = models.TextField(_('About'), null=True)
@@ -1613,22 +1613,32 @@ class AreaItem(MagiModel):
 
     @property
     def formatted_name(self):
-        formatted_name=''
-        if self.member and self.type in ['studio', 'poster', 'entrance'] and self.instrument != 'mic':
-            if self.instrument:
-                formatted_name += unicode(_('{name}\'s').format(name=unicode(self.member.first_name)))
-            else:
-                formatted_name += unicode(self.member.t_band)
-        if self.t_name:
-            formatted_name += ' ' + unicode(self.t_name)
-        if self.instrument not in ['other', None]:
-            formatted_name += ' ' + unicode(self.t_instrument)
-        return formatted_name
+        # Mics with names (ex: "Idol Mic")
+        if self.instrument == 'mic' and self.t_name:
+            return _('{name} {thing}').format(name=self.t_name, thing=_('Mic'))
+        # Other instruments (ex: "Michelle's keyboard")
+        elif self.instrument == 'other' and self.member and self.t_name:
+            return _('{name}\'s {thing}').format(name=self.member.first_name, thing=self.t_name)
+        # Member's instruments (ex: "Hina's Guitar")
+        elif self.instrument and self.member:
+            return _('{name}\'s {thing}').format(name=self.member.first_name, thing=self.t_instrument)
+        # Flyers, posters, etc (ex: "Afterglow Poster")
+        elif self.member and self.t_name:
+            return _('{name} {thing}').format(name=self.member.t_band, thing=self.t_name)
+        # Other (ex: "Fountain")
+        elif self.t_name:
+            return self.t_name
+        return _('Area item')
 
     @property
     def affected(self):
-        return _('{attribute} {band}').format(attribute=self.t_attribute or '', 
-            band=self.member.t_band if self.member else '').strip()
+        if self.t_attribute and self.member:
+            return u'{} / {}'.format(self.t_attribute, self.member.t_band)
+        elif self.t_attribute:
+            return self.t_attribute
+        elif self.member:
+            return self.member.t_band
+        return _('All')
 
     @property
     def stat(self):
@@ -1648,15 +1658,10 @@ class AreaItem(MagiModel):
         else:
             life = self.life_list[level-1]
         if self.life_list:
-            if self.affected:
-                return _('Restores life by {life} and {affected} members get a {value} boost on {stat} Stats').format(
-                    life=life, affected=self.affected, value=value, stat=self.stat)
-            return _('Restores life by {life} and {value} boost on {stat} Stats').format(
-                life=life, value=value, stat=self.stat)
-        elif self.affected:
-            return _('{affected} members get a {value} boost on {stat} Stats').format(
-                affected=self.affected, value=value, stat=self.stat)
-        return _('{value} boost on {stat} Stats').format(value=value, stat=self.stat)              
+            return _('Restores life by {life} and {affected} members get a {value} boost on {stat} statistics').format(
+                life=life, affected=self.affected, value=value, stat=self.stat)
+        return _('{affected} members get a {value} boost on {stat} statistics').format(
+            affected=self.affected, value=value, stat=self.stat)
 
     def __unicode__(self):
         return self.formatted_name
@@ -1843,7 +1848,7 @@ class Asset(MagiModel):
         ('login', _('Login')),
         ('twitter', 'Twitter'),
         ('bluray', 'Blu-ray'),
-        ('cd', _('CD cover')),
+        ('cd', _('Album cover')),
         ('collab', _('Collab')),
         ('dengeki', _('Dengeki G\'s magazine')),
         ('seasonal', _('Seasonal')),

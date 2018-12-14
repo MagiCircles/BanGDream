@@ -36,21 +36,22 @@
   <div class="card-statistics">
     <div class="btn-group" data-toggle="buttons" data-control-tabs="card-{{ card.id }}">
       {% for status, localized in card.statuses %}
-      <label class="btn btn-{{ card.english_attribute }}{% if status == 'max' %} active{% endif %}" style="width: {% if card.trainable %}33.333333333%{% else %}50%{% endif %}" data-open-tab="card-{{ card.id }}-{{ status }}">
+      <label class="btn btn-link attribute-{{ card.english_attribute }}{% if status == 'max' %} active{% endif %}" style="width: {% if card.trainable %}33.333333333%{% else %}50%{% endif %}" data-open-tab="card-{{ card.id }}-{{ status }}">
 	<input type="radio"{% if status == 'max' %} checked{% endif %}> {{ localized }}
       </label>
       {% endfor %}
     </div>
+    <hr>
     <div class="tab-content" data-tabs="card-{{ card.id }}">
       {% for status, stats in card.stats_percent %}
       <div class="tab-pane{% if status == 'max' %} active{% endif %}" data-tab="card-{{ card.id }}-{{ status }}">
 	{% for field, localized, value, max, percent in stats %}
 	<div class="row">
-	  <div class="col-xs-4">{{ localized }}</div>
+	  <div class="col-xs-4"><span class="stat-label-{% if field == 'overall' %}{{ card.english_attribute }}{% else %}{{ field }}{% endif %}">{{ localized }}</span></div>
 	  <div class="col-xs-2 text-right">{{ value }}</div>
 	  <div class="col-xs-6">
 	    <div class="progress">
-	      <div class="progress-bar progress-bar-{{ card.english_attribute }} progress-bar-rarity-{{ card.i_rarity }} progress-bar-striped"
+	      <div class="progress-bar progress-bar-{% if field == 'overall' %}{{ card.english_attribute }}-light{% else %}{{ field }}{% endif %} progress-bar-rarity-{{ card.i_rarity }} progress-bar-striped"
 		   role="progressbar"
 		   style="width: {% localize off %}{{ percent }}{% endlocalize %}%;">
 	      </div>

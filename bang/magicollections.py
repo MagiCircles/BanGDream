@@ -1167,6 +1167,11 @@ EVENT_CUTEFORM = {
                 'modal-text': 'true',
             },
         },
+        'i_boost_stat': {
+            'type': CuteFormType.HTML,
+            'to_cuteform': lambda k, v: mark_safe(
+                u'<span data-toggle="tooltip" title="{}">{}</div>'.format(v, v[0])),
+        },
         'i_boost_attribute': {
             'image_folder': 'i_attribute',
         },
@@ -1188,11 +1193,6 @@ EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
 }
 
 EVENT_LIST_ITEM_CUTEFORM['status'] = {
-    'type': CuteFormType.HTML,
-}
-
-EVENT_LIST_ITEM_CUTEFORM['i_boost_stat'] = {
-    'to_cuteform': lambda k, v: v[0],
     'type': CuteFormType.HTML,
 }
 

@@ -2511,7 +2511,10 @@ class AssetCollection(MagiCollection):
 
         for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
             if getattr(item, _field):
-                 fields[_field] = subtitledImageLink(getattr(item, _field), _tl, _field)           
+                 fields[_field] = subtitledImageLink(getattr(item, _field), _tl, _field)
+
+        if item.type is 'title' and item.value:
+            setSubField(fields, 'name', key='value', value=string_concat(item.t_name, ' ', item.value))
         
         if item.source and item.source_link:
             setSubField(fields, 'source', key='type', value='link')

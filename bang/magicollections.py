@@ -1427,7 +1427,7 @@ class EventCollection(MagiCollection):
                 item, *args, order=new_order, extra_fields=extra_fields, exclude_fields=exclude_fields,
                 request=request, **kwargs)
 
-            setSubField(fields, 'name', key='type', value='text' if get_language() == 'ja' else 'title_text')
+            setSubField(fields, 'name', key='type', value='text' if item.t_name == item.japanese_name else 'title_text')
             setSubField(fields, 'name', key='title', value=item.t_name)
             setSubField(fields, 'name', key='value', value=item.japanese_name)
 

@@ -334,8 +334,9 @@ class MemberCollection(MagiCollection):
         
         if 'square_image' in fields:
             del(fields['square_image'])
-            
-        fields['band'] = bandField(item.band, item.i_band)
+
+        if 'band' in fields:
+            fields['band'] = bandField(item.band, item.i_band)
         
         if item.classroom is not None and item.school is not None:
             setSubField(fields, 'school', key='type', value='text_annotation')
@@ -1591,7 +1592,7 @@ class GachaCollection(MagiCollection):
                 key='timezones', value=[version_details['timezone'], 'Local time'],
             )
 
-        if item.event:
+        if 'event' in fields:
             fields['event'] = subtitledImageLink(item.event, _('Event'), 'event')
             
         return fields
@@ -1984,7 +1985,7 @@ class SongCollection(MagiCollection):
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='type', value='html')
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='value', value=mark_safe(u'{}<br />'.format(generateDifficulty(diff))))
 
-        if item.event:
+        if 'event' in fields:
             fields['event'] = subtitledImageLink(item.event, _('Event'), 'event')
         
         return fields
@@ -2506,11 +2507,11 @@ class AssetCollection(MagiCollection):
             'korean_image': staticImageURL('language/kr.png'),
         }, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
 
-        if item.band:
+        if 'band' in fields:
             fields['band'] = bandField(item.band, item.i_band)
 
         for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
-            if getattr(item, _field):
+            if _field in fields:
                  fields[_field] = subtitledImageLink(getattr(item, _field), _tl, _field)
 
         if item.type is 'title' and item.value:

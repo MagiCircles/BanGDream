@@ -127,7 +127,7 @@ def generateDifficulty(difficulty):
 
 def bandField(band, i):
     return {
-        'image': staticImageURL('mini_band/{}.png'.format(band)),
+        'image': staticImageURL('mini_band_icon/{}.png'.format(band)),
         'verbose_name': _('Band'),
         'type': 'image_link',
         'link': u'/members/?i_band={}'.format(i),

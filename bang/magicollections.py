@@ -5,6 +5,7 @@ from collections import OrderedDict
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import date_format
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.db.models import Prefetch, Q
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -2527,10 +2528,10 @@ class AssetCollection(MagiCollection):
             asset_tags = '<div class="text-muted">'
             for tag, _tl in models.Asset.TAGS_CHOICES:
                 if tag in item.c_tags and tag not in asset_tags:
-                    asset_tags += u'<a class="a-nodifference" href="/assets/?c_tags={}" data-ajax-url="/ajax/assets/?c_tags={}">#{}</a> '.format(tag, tag, unicode(_tl))
+                    asset_tags += format_html(u'<a class="a-nodifference" href="/assets/?c_tags={}" data-ajax-url="/ajax/assets/?c_tags={}">#{}</a> ', tag, tag, unicode(_tl))
             asset_tags += '</div>'
             setSubField(fields, 'type', key='type', value='html')
-            setSubField(fields, 'type', key='value', value=mark_safe(string_concat(item.t_type, '<br />', asset_tags)))
+            setSubField(fields, 'type', key='value', value=format_html('{}<br />{}', mark_safe(item.t_type), mark_safe(asset_tags)))
 
         # Use correct translation for each asset in alt of image
         for version_name, version in models.Account.VERSIONS.items():

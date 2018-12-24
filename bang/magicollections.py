@@ -1159,7 +1159,7 @@ EVENT_CUTEFORM = {
      'i_boost_stat': {
         'type': CuteFormType.HTML,
         'to_cuteform': lambda k, v: format_html(
-            u'<span data-toggle="tooltip" title="{}">{}</div>', mark_safe(v), v[0]),
+            u'<span data-toggle="tooltip" title="{}">{}</div>', unicode(v), v[0]),
     },
     'version': {
         'to_cuteform': lambda k, v: CardCollection._version_images[k],
@@ -2241,7 +2241,7 @@ AREA_ITEM_CUTEFORM = {
     'i_boost_stat': {
         'type': CuteFormType.HTML,
         'to_cuteform': lambda k, v: format_html(
-            u'<span data-toggle="tooltip" title="{}">{}</div>', mark_safe(v), v[0]),
+            u'<span data-toggle="tooltip" title="{}">{}</div>', unicode(v), v[0]),
     },
 }
 

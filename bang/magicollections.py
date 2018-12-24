@@ -1158,8 +1158,8 @@ EVENT_CUTEFORM = {
     },
      'i_boost_stat': {
         'type': CuteFormType.HTML,
-        'to_cuteform': lambda k, v: mark_safe(
-            u'<span data-toggle="tooltip" title="{}">{}</div>'.format(v, v[0])),
+        'to_cuteform': lambda k, v: format_html(
+            u'<span data-toggle="tooltip" title="{}">{}</div>', mark_safe(v), v[0]),
     },
     'version': {
         'to_cuteform': lambda k, v: CardCollection._version_images[k],
@@ -2240,12 +2240,8 @@ AREA_ITEM_CUTEFORM = {
     'i_attribute': {},
     'i_boost_stat': {
         'type': CuteFormType.HTML,
-        'to_cuteform': lambda k, v: mark_safe(
-            u'<span data-toggle="tooltip" title="{}">{}</div>'.format(
-                v,
-                v[0],
-            ),
-        ),
+        'to_cuteform': lambda k, v: format_html(
+            u'<span data-toggle="tooltip" title="{}">{}</div>', mark_safe(v), v[0]),
     },
 }
 
@@ -2531,7 +2527,7 @@ class AssetCollection(MagiCollection):
                     asset_tags += format_html(u'<a class="a-nodifference" href="/assets/?c_tags={}" data-ajax-url="/ajax/assets/?c_tags={}">#{}</a> ', tag, tag, unicode(_tl))
             asset_tags += '</div>'
             setSubField(fields, 'type', key='type', value='html')
-            setSubField(fields, 'type', key='value', value=format_html('{}<br />{}', mark_safe(item.t_type), mark_safe(asset_tags)))
+            setSubField(fields, 'type', key='value', value=format_html('{}<br />{}', unicode(item.t_type), mark_safe(asset_tags)))
 
         # Use correct translation for each asset in alt of image
         for version_name, version in models.Account.VERSIONS.items():

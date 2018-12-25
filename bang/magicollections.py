@@ -5,6 +5,7 @@ from collections import OrderedDict
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat, get_language
 from django.utils.formats import date_format
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.db.models import Prefetch, Q
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -47,6 +48,8 @@ from bang.utils import (
     add_rerun_buttons,
     add_rerun_fields,
     memberBandMergeCuteForm,
+    subtitledImageLink,
+    bandField,
 )
 from bang import models, forms
 
@@ -320,26 +323,27 @@ class MemberCollection(MagiCollection):
 
     share_image = justReturn('screenshots/members.png')
 
-    def to_fields(self, view, item, exclude_fields=None, *args, **kwargs):
+    def to_fields(self, view, item, extra_fields=None, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
+        if extra_fields is None: extra_fields = []
         exclude_fields += ['japanese_name']
         if item.school is not None:
-            exclude_fields.append('classroom')
+            exclude_fields.append('classroom')            
         fields = super(MemberCollection, self).to_fields(view, item, *args, icons=MEMBERS_ICONS, images={
-            'astrological_sign': '{}img/i_astrological_sign/{}.png'.format(RAW_CONTEXT['static_url'], item.i_astrological_sign),
-        }, exclude_fields=exclude_fields, **kwargs)
+            'astrological_sign': staticImageURL(item.i_astrological_sign, folder='i_astrological_sign', extension='png'),
+        }, extra_fields=extra_fields, exclude_fields=exclude_fields, **kwargs)
+        
         if 'square_image' in fields:
             del(fields['square_image'])
+
+        if 'band' in fields:
+            fields['band'] = bandField(item.band, item.i_band)
+        
         if item.classroom is not None and item.school is not None:
             setSubField(fields, 'school', key='type', value='text_annotation')
             setSubField(fields, 'school', key='annotation', value= item.classroom)
         setSubField(fields, 'birthday', key='type', value='text')
         setSubField(fields, 'birthday', key='value', value=lambda f: date_format(item.birthday, format='MONTH_DAY_FORMAT', use_l10n=True))
-        setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
-        setSubField(fields, 'band', key='link', value=lambda f: u'/members/?i_band={}'.format(item.i_band))
-        setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))
-        setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
-        setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
         setSubField(fields, 'height', key='value', value=u'{} cm'.format(item.height))
         setSubField(fields, 'description', key='type', value='long_text')
 
@@ -751,27 +755,9 @@ class CardCollection(MagiCollection):
                 }))
             # Add gacha and events
             for cached_event in (item.cached_events or []):
-                extra_fields.append((u'event-{}'.format(cached_event), {
-                    'verbose_name': u'{}: {}'.format(
-                        _('Event'), cached_event.unicode),
-                    'icon': 'event',
-                    'value': cached_event.image_url,
-                    'type': 'image_link',
-                    'link': cached_event.item_url,
-                    'ajax_link': cached_event.ajax_item_url,
-                    'link_text': cached_event.t_name,
-                }))
+                extra_fields.append((u'event-{}'.format(cached_event.id), subtitledImageLink(cached_event, _('Event'), 'event', sub=cached_event.unicode)))
             for cached_gacha in (item.cached_gachas or []):
-                extra_fields.append((u'gacha-{}'.format(cached_gacha.id), {
-                    'image': staticImageURL('gacha.png'),
-                    'verbose_name': u'{}: {}'.format(
-                        _('Gacha'), cached_gacha.unicode),
-                    'value': cached_gacha.image_url,
-                    'type': 'image_link',
-                    'link': cached_gacha.item_url,
-                    'ajax_link': cached_gacha.ajax_item_url,
-                    'link_text': cached_gacha.t_name,
-                }))
+                extra_fields.append((u'gacha-{}'.format(cached_gacha.id), subtitledImageLink(cached_gacha, _('Gacha'), staticImageURL('gacha.png'), sub=cached_gacha.unicode)))
             # Add images fields
             for image, verbose_name in [('image', _('Icon')), ('art', _('Art')), ('transparent', _('Transparent'))]:
                 if getattr(item, image):
@@ -1151,36 +1137,36 @@ EVENT_ICONS = {
 }
 
 EVENT_CUTEFORM = {
-        'main_card': {
-            'to_cuteform': lambda k, v: v.image_url,
-            'title': _('Card'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
+    'main_card': {
+        'to_cuteform': lambda k, v: v.image_url,
+        'title': _('Card'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
         },
-        'secondary_card': {
-            'to_cuteform': lambda k, v: v.image_url,
-            'title': _('Card'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
+    },
+    'secondary_card': {
+        'to_cuteform': lambda k, v: v.image_url,
+        'title': _('Card'),
+        'extra_settings': {
+            'modal': 'true',
+            'modal-text': 'true',
         },
-        'i_boost_stat': {
-            'type': CuteFormType.HTML,
-            'to_cuteform': lambda k, v: mark_safe(
-                u'<span data-toggle="tooltip" title="{}">{}</div>'.format(v, v[0])),
-        },
-        'i_boost_attribute': {
-            'image_folder': 'i_attribute',
-        },
-        'version': {
-            'to_cuteform': lambda k, v: CardCollection._version_images[k],
-            'image_folder': 'language',
-            'transform': CuteFormTransform.ImagePath,
-        },
-    }
+    },
+    'i_boost_attribute': {
+        'image_folder': 'i_attribute',
+    },
+     'i_boost_stat': {
+        'type': CuteFormType.HTML,
+        'to_cuteform': lambda k, v: format_html(
+            u'<span data-toggle="tooltip" title="{}">{}</div>', unicode(v), v[0]),
+    },
+    'version': {
+        'to_cuteform': lambda k, v: CardCollection._version_images[k],
+        'image_folder': 'language',
+        'transform': CuteFormTransform.ImagePath,
+    },
+}
 
 EVENT_LIST_ITEM_CUTEFORM = EVENT_CUTEFORM.copy()
 EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
@@ -1327,18 +1313,7 @@ class EventCollection(MagiCollection):
             }))
             if len(item.all_gachas):
                 for gacha in item.all_gachas:
-                    extra_fields.append((u'gacha-{}'.format(gacha.id), {
-                        'image': staticImageURL('gacha.png'),
-                        'verbose_name': u'{}: {}'.format(
-                            _('Gacha'),
-                            unicode(gacha),
-                        ),
-                        'value': gacha.image_url,
-                        'type': 'image_link',
-                        'link': gacha.item_url,
-                        'ajax_link': gacha.ajax_item_url,
-                        'link_text': unicode(gacha),
-                    }))
+                    extra_fields.append((u'gacha-{}'.format(gacha.id),  subtitledImageLink(gacha, _('Gacha'), staticImageURL('gacha.png'))))
             if len(item.all_members):
                 extra_fields.append(('boost_members', {
                     'icon': 'users',
@@ -1365,18 +1340,7 @@ class EventCollection(MagiCollection):
                 }))
             if len(item.all_gifted_songs):
                 for song in item.all_gifted_songs:
-                    extra_fields.append(('song-{}'.format(song.id), {
-                        'icon': 'song',
-                        'verbose_name': u'{}: {}'.format(
-                            _('Gift song'),
-                            unicode(song),
-                        ),
-                        'value': song.image_url,
-                        'type': 'image_link',
-                        'link': song.item_url,
-                        'ajax_link': song.ajax_item_url,
-                        'link_text': unicode(song),
-                    }))
+                    extra_fields.append(('song-{}'.format(song.id), subtitledImageLink(song, _('Gift song'), 'song')))                   
             if len(item.all_assets):
                 for asset in item.all_assets:
                     for version_name, version in models.Account.VERSIONS.items():
@@ -1465,7 +1429,7 @@ class EventCollection(MagiCollection):
                 item, *args, order=new_order, extra_fields=extra_fields, exclude_fields=exclude_fields,
                 request=request, **kwargs)
 
-            setSubField(fields, 'name', key='type', value='text' if get_language() == 'ja' else 'title_text')
+            setSubField(fields, 'name', key='type', value='text' if item.t_name == item.japanese_name else 'title_text')
             setSubField(fields, 'name', key='title', value=item.t_name)
             setSubField(fields, 'name', key='value', value=item.japanese_name)
 
@@ -1629,13 +1593,9 @@ class GachaCollection(MagiCollection):
                 key='timezones', value=[version_details['timezone'], 'Local time'],
             )
 
-        setSubField(fields, 'event', key='type', value='image_link')
-        setSubField(fields, 'event', key='verbose_name', value=u'{}: {}'.format(
-            _('Event'),
-            unicode(item.event),
-        ))
-        setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
-        setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
+        if 'event' in fields:
+            fields['event'] = subtitledImageLink(item.event, _('Event'), 'event')
+            
         return fields
 
     class ItemView(MagiCollection.ItemView):
@@ -2026,9 +1986,9 @@ class SongCollection(MagiCollection):
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='type', value='html')
                 setSubField(fields, u'{}_difficulty'.format(difficulty), key='value', value=mark_safe(u'{}<br />'.format(generateDifficulty(diff))))
 
-        setSubField(fields, 'event', key='type', value='image_link')
-        setSubField(fields, 'event', key='value', value=lambda f: item.event.image_url)
-        setSubField(fields, 'event', key='link_text', value=lambda f: item.event.japanese_name if get_language() == 'ja' else item.event.name)
+        if 'event' in fields:
+            fields['event'] = subtitledImageLink(item.event, _('Event'), 'event')
+        
         return fields
 
     class ListView(MagiCollection.ListView):
@@ -2280,12 +2240,8 @@ AREA_ITEM_CUTEFORM = {
     'i_attribute': {},
     'i_boost_stat': {
         'type': CuteFormType.HTML,
-        'to_cuteform': lambda k, v: mark_safe(
-            u'<span data-toggle="tooltip" title="{}">{}</div>'.format(
-                v,
-                v[0],
-            ),
-        ),
+        'to_cuteform': lambda k, v: format_html(
+            u'<span data-toggle="tooltip" title="{}">{}</div>', unicode(v), v[0]),
     },
 }
 
@@ -2470,16 +2426,11 @@ ASSET_CUTEFORM_LIST['members'] = {
 
 ASSET_ORDER = ['name', 'type'] + [
     u'{}image'.format(_v['prefix']) for _v in models.Account.VERSIONS.values()
-]
+] + ['i_band', 'members', 'event', 'song', 'source']
 
 ASSET_ICONS = {
-    'band': 'rock',
-    'name': 'album',
-    'type': 'category',
-    'tags': 'hashtag',
-    'source': 'about',
-    'event': 'event',
-    'song': 'song',
+    'name': 'album', 'type': 'category', 'source': 'about',
+    'event': 'event', 'song': 'song',
 }
 
 class AssetCollection(MagiCollection):
@@ -2524,38 +2475,64 @@ class AssetCollection(MagiCollection):
         if exclude_fields is None: exclude_fields = []
         if icons is None: icons = {}
         icons.update(ASSET_ICONS)
-        exclude_fields += ['value', 'source_link']
+        exclude_fields += ['c_tags', 'value', 'source_link']
         if not order:
             order = ASSET_ORDER
-        if item.image:
-            extra_fields.append(('image', {
-                'image': staticImageURL('language/ja.png'),
-                'link': item.image_url,
-                'link_text': string_concat(_('Japanese version'), ' - ', _('Image')),
-                'verbose_name': string_concat(_('Japanese version'), ' - ', _('Image')),
-                'value': item.image_thumbnail_url,
-                'type': 'image_link',
-            }))
+
+        # Images
+        for _version, _info in models.Account.VERSIONS.items():
+            if getattr(item, '{}image'.format(_info['prefix'])):
+                extra_fields.append(('{}image'.format(_info['prefix']), {
+                    'image': staticImageURL('language/{}.png'.format(_info['image'])),
+                    'link': getattr(item, '{}image_url'.format(_info['prefix'])),
+                    'link_text': string_concat(_('Image'), ' (', _info['translation'], ')'),
+                    'verbose_name': _('Image'),
+                    'verbose_name_subtitle': _info['translation'],
+                    'value': getattr(item, '{}image_thumbnail_url'.format(_info['prefix'])),
+                    'type': 'image_link',
+                }))
+
+        # Song + Event
+        for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
+            if getattr(item, _field):
+                 extra_fields.append((_field, subtitledImageLink(getattr(item, _field), _tl, _field)))
+            
         fields = super(AssetCollection, self).to_fields(view, item, *args, icons=icons, images={
             'image': staticImageURL('language/ja.png'),
             'english_image': staticImageURL('language/world.png'),
             'taiwanese_image': staticImageURL('language/zh-hant.png'),
             'korean_image': staticImageURL('language/kr.png'),
         }, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
-        setSubField(fields, 'band', key='type', value=lambda f: 'image_link')
-        setSubField(fields, 'band', key='link', value=lambda f: u'/members/?i_band={}'.format(item.i_band))
-        setSubField(fields, 'band', key='ajax_link', value=lambda f: u'/ajax/members/?i_band={}&ajax_modal_only'.format(item.i_band))
-        setSubField(fields, 'band', key='link_text', value=lambda f: item.band)
-        setSubField(fields, 'band', key='value', value=lambda f: '{}img/band/{}.png'.format(RAW_CONTEXT['static_url'], item.band))
+
+        if 'band' in fields:
+            fields['band'] = bandField(item.band, item.i_band)
+
+        for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
+            if _field in fields:
+                 fields[_field] = subtitledImageLink(getattr(item, _field), _tl, _field)
+
+        if item.type is 'title' and item.value:
+            setSubField(fields, 'name', key='value', value=string_concat(item.t_name, ' ', item.value))
+        
         if item.source and item.source_link:
             setSubField(fields, 'source', key='type', value='link')
             setSubField(fields, 'source', key='value', value=item.source_link)
             setSubField(fields, 'source', key='icon', value='link')
             setSubField(fields, 'source', key='link_text', value=item.source)
+
+        if item.c_tags is not None:
+            asset_tags = '<div class="text-muted">'
+            for tag, _tl in models.Asset.TAGS_CHOICES:
+                if tag in item.c_tags and tag not in asset_tags:
+                    asset_tags += format_html(u'<a class="a-nodifference" href="/assets/?c_tags={}" data-ajax-url="/ajax/assets/?c_tags={}">#{}</a> ', tag, tag, unicode(_tl))
+            asset_tags += '</div>'
+            setSubField(fields, 'type', key='type', value='html')
+            setSubField(fields, 'type', key='value', value=format_html('{}<br />{}', unicode(item.t_type), mark_safe(asset_tags)))
+
         # Use correct translation for each asset in alt of image
         for version_name, version in models.Account.VERSIONS.items():
             setSubField(fields, u'{}image'.format(version['prefix']), key='image_text',
-                        value=item.names.get(models.VERSIONS_TO_LANGUAGES.get(version_name, None), item.name))
+                value=item.names.get(models.VERSIONS_TO_LANGUAGES.get(version_name, None), item.name))
         return fields
 
     class ItemView(MagiCollection.ItemView):

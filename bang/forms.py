@@ -816,12 +816,8 @@ class RerunForm(AutoForm):
         version_details = instance.VERSIONS[instance.version]
         times = next(model for item, model in models.Rerun.ITEMS_MODELS.items()
                     if getattr(instance, item, None)).TIMES_PER_VERSIONS[instance.version]
-        for field_name, time in zip(('start_date', 'end_date'), times):
-            field_name = u'{prefix}{field_name}'.format(
-                prefix=version_details['prefix'],
-                field_name=field_name,
-            )
-            setattr(instance, field_name, getattr(instance, field_name).replace(hour=time[0], minute=time[1]))
+        instance.start_date = instance.start_date.replace(hour=times[0][0], minute=times[0][1])
+        instance.end_date = instance.end_date.replace(hour=times[1][0], minute=times[1][1])
         if commit:
             instance.save()
         return instance

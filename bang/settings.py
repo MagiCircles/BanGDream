@@ -279,13 +279,8 @@ ENABLED_PAGES['gallery'] = [
     {
         'title': _('Gallery'),
         'icon': 'pictures',
-        'navbar_link': False,
-        #'navbar_link_list': 'girlsbandparty',
-    },
-    {
-        'title': _('Gallery'),
-        'icon': 'pictures',
-        'ajax': True,
+        'navbar_link_list': 'bangdream',
+        'check_permissions': lambda r: timezone.now() > datetime.datetime(2018, 12, 25, 00, tzinfo=timezone.utc)
     },
 ]
 
@@ -305,7 +300,7 @@ ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),
     'image': 'BanGDream',
-    'order': ['member_list', 'song_list'],
+    'order': ['member_list', 'song_list', 'gallery'],
 }
 ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
     'title': _('Girls Band Party'),

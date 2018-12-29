@@ -125,6 +125,30 @@ def generateDifficulty(difficulty):
         small_images=(u'<img src="{}" class="song-small-note">'.format(note_image) * (difficulty % 5)),
     )
 
+def bandField(band, i):
+    return {
+        'image': staticImageURL('mini_band_icon/{}.png'.format(band)),
+        'verbose_name': _('Band'),
+        'type': 'image_link',
+        'link': u'/members/?i_band={}'.format(i),
+        'ajax_link': u'/ajax/members/?i_band={}&ajax_modal_only'.format(i),
+        'link_text': band,
+        'value': staticImageURL('band/{}.png'.format(band)),
+    }  
+
+# For Event, Gacha, Song
+def subtitledImageLink(item, tl, icon, sub=None):
+    return {
+        'image' if '.png' in icon else 'icon': icon,
+        'verbose_name': tl,
+        'verbose_name_subtitle': sub or unicode(item),
+        'value': getattr(item, '{}image_url'.format(models.Account.VERSIONS[models.LANGUAGES_TO_VERSIONS[get_language()]]['prefix']), None) or item.image_url,
+        'type': 'image_link',
+        'link': item.item_url,
+        'ajax_link': item.ajax_item_url,
+        'link_text': sub or unicode(item),
+    }
+
 def add_rerun_buttons(view, buttons, request, item):
     if request.user.is_authenticated() and request.user.hasPermission('manage_main_items'):
         for version in item.versions:

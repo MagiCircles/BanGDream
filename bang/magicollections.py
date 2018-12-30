@@ -755,9 +755,9 @@ class CardCollection(MagiCollection):
                 }))
             # Add gacha and events
             for cached_event in (item.cached_events or []):
-                extra_fields.append((u'event-{}'.format(cached_event.id), subtitledImageLink(cached_event, _('Event'), icon='event', sub=cached_event.unicode)))
+                extra_fields.append((u'event-{}'.format(cached_event.id), subtitledImageLink(cached_event, _('Event'), icon='event', subtitle=cached_event.unicode)))
             for cached_gacha in (item.cached_gachas or []):
-                extra_fields.append((u'gacha-{}'.format(cached_gacha.id), subtitledImageLink(cached_gacha, _('Gacha'), image=staticImageURL('gacha.png'), sub=cached_gacha.unicode)))
+                extra_fields.append((u'gacha-{}'.format(cached_gacha.id), subtitledImageLink(cached_gacha, _('Gacha'), image=staticImageURL('gacha.png'), subtitle=cached_gacha.unicode)))
             # Add images fields
             for image, verbose_name in [('image', _('Icon')), ('art', _('Art')), ('transparent', _('Transparent'))]:
                 if getattr(item, image):

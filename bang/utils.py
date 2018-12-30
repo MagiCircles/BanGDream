@@ -134,19 +134,22 @@ def bandField(band, i):
         'ajax_link': u'/ajax/members/?i_band={}&ajax_modal_only'.format(i),
         'link_text': band,
         'value': staticImageURL('band/{}.png'.format(band)),
-    }  
+    }
 
 # For Event, Gacha, Song
-def subtitledImageLink(item, tl, icon, sub=None):
+def subtitledImageLink(item, verbose_name, icon=None, image=None, subtitle=None):
     return {
-        'image' if '.png' in icon else 'icon': icon,
-        'verbose_name': tl,
-        'verbose_name_subtitle': sub or unicode(item),
-        'value': getattr(item, '{}image_url'.format(models.Account.VERSIONS[models.LANGUAGES_TO_VERSIONS[get_language()]]['prefix']), None) or item.image_url,
+        'image': image,
+        'icon': icon,
+        'verbose_name': verbose_name,
+        'verbose_name_subtitle': subtitle or unicode(item),
+        'value': (getattr(item, '{}image_url'.format(
+            models.Account.VERSIONS[models.LANGUAGES_TO_VERSIONS[get_language()]]['prefix'],
+        ), None) or item.image_url),
         'type': 'image_link',
         'link': item.item_url,
         'ajax_link': item.ajax_item_url,
-        'link_text': sub or unicode(item),
+        'link_text': subtitle or unicode(item),
     }
 
 def add_rerun_buttons(view, buttons, request, item):

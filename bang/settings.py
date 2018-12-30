@@ -280,7 +280,7 @@ ENABLED_PAGES['gallery'] = [
         'title': _('Gallery'),
         'icon': 'pictures',
         'navbar_link_list': 'bangdream',
-        'check_permissions': lambda r: timezone.now() > datetime.datetime(2018, 12, 25, 00, tzinfo=timezone.utc)
+        'check_permissions': lambda r: timezone.now() > datetime.datetime(2018, 12, 31, 15, tzinfo=timezone.utc)
     },
 ]
 

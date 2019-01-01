@@ -175,14 +175,6 @@ class AccountCollection(_AccountCollection):
         setSubField(fields, 'stargems_bought', key='annotation', value=_(u'~{}円 spent (~${})').format(spent_yen, spent_dollars))
         return fields
 
-    def get_profile_account_tabs(self, request, context, *args, **kwargs):
-        tabs = super(AccountCollection, self).get_profile_account_tabs(request, context, *args, **kwargs)
-        if not request.user.is_staff:
-            for collection_name, collection in context['collectible_collections']['account'].items():
-                if collection_name in ['collectibleitem', 'collectibleareaitem']:
-                    tabs[collection_name]['callback'] = 'function loadAccountComingSoon(tab_name, user_id, account_id, onDone) { onDone(\'<div class="alert alert-info text-center"><i class="flaticon-idolized"></i> \' + gettext(\'Coming soon\') + \' <i class="flaticon-idolized"></i></div>\'); }'
-        return tabs
-
     share_image = justReturn('screenshots/leaderboard.png')
 
     class ListView(_AccountCollection.ListView):
@@ -1313,7 +1305,7 @@ class EventCollection(MagiCollection):
             }))
             if len(item.all_gachas):
                 for gacha in item.all_gachas:
-                    extra_fields.append((u'gacha-{}'.format(gacha.id),  subtitledImageLink(gacha, _('Gacha'), staticImageURL('gacha.png'))))
+                    extra_fields.append((u'gacha-{}'.format(gacha.id),  subtitledImageLink(gacha, _('Gacha'), image=staticImageURL('gacha.png'))))
             if len(item.all_members):
                 extra_fields.append(('boost_members', {
                     'icon': 'users',

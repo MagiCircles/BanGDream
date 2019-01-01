@@ -1519,6 +1519,7 @@ class GachaCollection(MagiCollection):
     form_class = forms.GachaForm
     multipart = True
     navbar_link_list = 'girlsbandparty'
+    navbar_link_list_divider_after = True
     reportable = False
     blockable = False
     translated_fields = ('name', )
@@ -2137,7 +2138,7 @@ class ItemCollection(MagiCollection):
     queryset = models.Item.objects.all()
     translated_fields = ('name', 'm_description', )
     icon = 'archive'
-    navbar_link = False
+    navbar_link_list = 'girlsbandparty'
     multipart = True
     form_class = forms.ItemForm
     collectible = models.CollectibleItem
@@ -2307,7 +2308,7 @@ class AreaItemCollection(MagiCollection):
     queryset = models.AreaItem.objects.all()
     translated_fields = ('name', 'about')
     icon = 'town'
-    navbar_link = False
+    navbar_link_list = 'girlsbandparty'
     multipart = True
     filter_cuteform = AREA_ITEM_CUTEFORM
     form_class = forms.AreaItemForm
@@ -2653,6 +2654,7 @@ class CostumeCollection(MagiCollection):
     blockable = False
     translated_fields = ('name',)
     navbar_link_list = 'girlsbandparty'
+    navbar_link_list_divider_after = True
     form_class = forms.CostumeForm
     filter_cuteform = COSTUME_CUTEFORM
 

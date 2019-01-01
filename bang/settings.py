@@ -280,7 +280,11 @@ ENABLED_PAGES['gallery'] = [
         'title': _('Gallery'),
         'icon': 'pictures',
         'navbar_link_list': 'bangdream',
-        'check_permissions': lambda r: timezone.now() > datetime.datetime(2018, 12, 31, 15, tzinfo=timezone.utc)
+    },
+    {
+        'title': _('Gallery'),
+        'icon': 'pictures',
+        'navbar_link_list': 'girlsbandparty',
     },
 ]
 
@@ -306,7 +310,9 @@ ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
     'title': _('Girls Band Party'),
     'image': 'GirlsBandParty',
     'order': [
-        'card_list', 'cards_quickadd', 'event_list', 'gacha_list', 'costume_list',
+        'card_list', 'cards_quickadd', 'costume_list',
+        'event_list', 'gacha_list',
+        'item_list', 'areaitem_list',
         'wiki', 'gallery', 'teambuilder',
     ],
 }

@@ -382,15 +382,18 @@ class Card(MagiModel):
             'special_templates': {
                 'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
                 'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%'),
+                'based_on_accuracy': _(u'For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%'),
             },
             'special_variables': {
                 'perfect_only': ['duration', 'percentage'],
                 'based_on_stamina': ['duration', 'stamina', 'percentage', 'alt_percentage'],
+                'based_on_accuracy': ['duration', 'note_type', 'percentage', 'alt_percentage'],
             },
             'japanese_template': u'{duration}スコアが{percentage}％UPする',
             'special_japanese_templates': {
                 'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
                 'based_on_stamina': u'{duration}秒間スコアが{percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{alt_percentage}%UPする',
+                'based_on_accuracy': u'{duration}秒間スコアが{alt_percentage}％UP、{note_type}以下を出すまではスコアが{percentage}％UPする',
             },
 
             # Side skill
@@ -447,6 +450,7 @@ class Card(MagiModel):
     SKILL_SPECIAL_CHOICES = (
         ('perfect_only', 'Based off PERFECT notes'),
         ('based_on_stamina', 'Scoreup based on stamina'),
+        ('based_on_accuracy', 'Better scoreup if you can hit perfects'),
     )
 
     ALL_VARIABLES = { item: True for sublist in [ _info['variables'] + _info['side_variables'] + [ii for sl in [_i for _i in _info.get('special_variables', {}).values()] for ii in sl] for _info in SKILL_TYPES.values() ] for item in sublist }.keys()

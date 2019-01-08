@@ -454,13 +454,30 @@ class Card(MagiModel):
         'skill': { _skill_type: _info['variables'] for _skill_type, _info in SKILL_TYPES.items() },
         'side_skill': { _skill_type: _info['side_variables'] for _skill_type, _info in SKILL_TYPES.items() },
     }
-    SPECIAL_CASES_VARIABLES = { _skill_type: { _i: _v for _i, _v in enumerate(_info['special_variables'].values()) } for _skill_type, _info in SKILL_TYPES.items() if 'special_variables' in _info }
+
+    # This function is called once to set the static SPECIAL_CASES_VARIABLES.
+    # It's written like this because we can't access SKILL_SPECIAL_CHOICES from the inner dict comp
+    # (I don't know why).
+    def make_SPECIAL_CASES_VARIABLES(SKILL_TYPES, SKILL_SPECIAL_CHOICES):
+        return {
+            _skill_type: {
+                _i: _info['special_variables'][_k] for _i, _k in enumerate([pair[0] for pair in SKILL_SPECIAL_CHOICES]) if _k in _info['special_variables']
+            } for _skill_type, _info in SKILL_TYPES.items() if 'special_variables' in _info
+        }
+    SPECIAL_CASES_VARIABLES = make_SPECIAL_CASES_VARIABLES(SKILL_TYPES, SKILL_SPECIAL_CHOICES)
 
     TEMPLATE_PER_SKILL_TYPES = {
         'skill': { _skill_type: unicode(_info['template']) for _skill_type, _info in SKILL_TYPES.items() },
         'side_skill': { _skill_type: unicode(_info['side_template']) for _skill_type, _info in SKILL_TYPES.items() },
     }
-    SPECIAL_CASES_TEMPLATE = { _skill_type: { _i: unicode(_v) for _i, _v in enumerate(_info['special_templates'].values()) } for _skill_type, _info in SKILL_TYPES.items() if 'special_templates' in _info }
+
+    def make_SPECIAL_CASES_TEMPLATE(SKILL_TYPES, SKILL_SPECIAL_CHOICES):
+        return {
+            _skill_type: {
+                _i: unicode(_info['special_templates'][_k]) for _i, _k in enumerate([_c[0] for _c in SKILL_SPECIAL_CHOICES]) if _k in _info['special_templates']
+            } for _skill_type, _info in SKILL_TYPES.items() if 'special_templates' in _info
+        }
+    SPECIAL_CASES_TEMPLATE = make_SPECIAL_CASES_TEMPLATE(SKILL_TYPES, SKILL_SPECIAL_CHOICES)
 
     # Main skill
 

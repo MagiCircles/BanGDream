@@ -392,7 +392,7 @@ class Card(MagiModel):
             'japanese_template': u'{duration}スコアが{percentage}％UPする',
             'special_japanese_templates': {
                 'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
-                'based_on_stamina': u'{duration}秒間スコアが{percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{alt_percentage}%UPする',
+                'based_on_stamina': u'{duration}秒間スコアが{alt_percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{percentage}%UPする',
                 'based_on_accuracy': u'{duration}秒間スコアが{alt_percentage}％UP、{note_type}以下を出すまではスコアが{percentage}％UPする',
             },
 

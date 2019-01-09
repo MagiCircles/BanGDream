@@ -241,6 +241,17 @@ class CardForm(AutoForm):
         super(CardForm, self).__init__(*args, **kwargs)
         self.previous_member_id = None if self.is_creating else self.instance.member_id
 
+    def clean(self):
+        cleaned_data = super(CardForm, self).clean()
+        special = cleaned_data.get('i_skill_special')
+        if special:
+            skill_type = cleaned_data.get('i_skill_type')
+            special_key = models.Card.SKILL_SPECIAL_CHOICES[special][0]
+            if special_key not in models.Card.SKILL_TYPES[skill_type].get('special_templates', {}):
+                raise forms.ValidationError('Skill special case is not valid for the card\'s skill type.')
+
+        return cleaned_data
+
     def save(self, commit=False):
         instance = super(CardForm, self).save(commit=False)
         if self.previous_member_id != instance.member_id:

@@ -135,7 +135,7 @@ def generate_settings():
     background_choices |= models.Asset.objects.filter(
         i_type=models.Asset.get_i('type', 'official'),
         c_tags__contains='login')
-    
+
     backgrounds = [
         {
             'id': background.id,
@@ -155,9 +155,8 @@ def generate_settings():
 
     print 'Get homepage cards'
     cards = models.Card.objects.exclude(
-        Q(art__isnull=True) | Q(art=''),
-    ).exclude(
-        i_rarity=1,
+        (Q(art__isnull=True) | Q(art=''))
+        & (Q(transparent__isnull=True) | Q(transparent='')),
     ).exclude(
         show_art_on_homepage=False,
         show_trained_art_on_homepage=False,
@@ -177,19 +176,34 @@ def generate_settings():
     else:
         filtered_cards = cards[:10]
     homepage_arts = []
+    position = { 'size': 'cover', 'x': 'center', 'y': 'center' }
     for c in filtered_cards:
         if c.show_art_on_homepage:
-            homepage_arts.append({
-                'url': c.art_url,
-                'hd_url': c.art_2x_url or c.art_original_url,
-                'about_url': c.item_url,
-            })
+            if c.art and c.trainable:
+                homepage_arts.append({
+                    'url': c.art_url,
+                    'hd_url': c.art_2x_url or c.art_original_url,
+                    'about_url': c.item_url,
+                })
+            else:
+                homepage_arts.append({
+                    'foreground_url': c.transparent_url,
+                    'about_url': c.item_url,
+                    'position': position,
+                })
         if c.art_trained and c.show_trained_art_on_homepage:
-            homepage_arts.append({
-                'url': c.art_trained_url,
-                'hd_url': c.art_trained_2x_url or c.art_trained_original_url,
-                'about_url': c.item_url,
-            })
+            if c.art_trained and c.trainable:
+                homepage_arts.append({
+                    'url': c.art_trained_url,
+                    'hd_url': c.art_trained_2x_url or c.art_trained_original_url,
+                    'about_url': c.item_url,
+                })
+            else:
+                homepage_arts.append({
+                    'foreground_url': c.transparent_trained_url,
+                    'about_url': c.item_url,
+                    'position': position,
+                })
     if not homepage_arts:
         homepage_arts = [{
             'url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',

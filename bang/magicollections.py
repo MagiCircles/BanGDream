@@ -866,14 +866,18 @@ class CardCollection(MagiCollection):
         def buttons_per_item(self, request, context, item):
             buttons = super(CardCollection.ItemView, self).buttons_per_item(request, context, item)
             if request.user.is_authenticated() and request.user.hasPermission('manage_main_items'):
-                for field in ['art', 'art_trained']:
+                for field in ['art', 'art_trained'] if item.trainable else ['transparent', 'transparent_trained']:
                     if getattr(item, field):
                         buttons[u'preview_{}'.format(field)] = {
                             'classes': self.item_buttons_classes + ['staff-only'],
                             'show': True,
-                            'url': u'/?preview={}'.format(
-                                getattr(item, u'{}_2x_url'.format(field))
-                                or getattr(item, u'{}_original_url'.format(field))
+                            'url': (
+                                u'/?foreground_preview={}'.format(
+                                    getattr(item, u'{}_url'.format(field)))
+                                if not item.trainable or (not item.art and not item.art_trained)
+                                else u'/?preview={}'.format(
+                                        getattr(item, u'{}_2x_url'.format(field))
+                                        or getattr(item, u'{}_original_url'.format(field)))
                             ),
                             'icon': 'link',
                             'title': u'Preview {} on homepage'.format(field.replace('_', ' ')),

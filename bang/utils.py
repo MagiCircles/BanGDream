@@ -79,13 +79,28 @@ def randomArtForCharacter(character_id):
     try:
         card = models.Card.objects.filter(
             member_id=character_id,
-        ).exclude(Q(art__isnull=True) | Q(art='')).exclude(i_rarity=1).exclude(
-            show_art_on_homepage=False, show_trained_art_on_homepage=False,
+        ).exclude(
+            (Q(art__isnull=True) | Q(art=''))
+            & (Q(transparent__isnull=True) | Q(transparent='')),
+        ).exclude(
+            show_art_on_homepage=False,
+            show_trained_art_on_homepage=False,
         ).order_by('?')[0]
     except IndexError:
         return {
             'url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
             'hd_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
+        }
+    if not card.trainable or (not card.art and not card.art_trained):
+        trained = random.choice([v for v, s in [
+            (False, card.show_art_on_homepage and card.transparent_url),
+            (True, card.show_trained_art_on_homepage and card.transparent_trained_url),
+        ] if s
+        ])
+        return {
+            'foreground_url': card.transparent_trained_url if trained else card.transparent_url,
+            'about_url': card.item_url,
+            'position': { 'size': 'cover', 'x': 'center', 'y': 'center' },
         }
     trained = random.choice([v for v, s in [
         (False, card.show_art_on_homepage and card.art_url),

@@ -445,6 +445,22 @@ class Card(MagiModel):
             'side_template': _(u'and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds'),
             'side_japanese_template': u'{duration}秒間{note_type}以上がすべてPERFECTになる',
         }),
+        (4, {
+            'translation': _(u'Life guard'),
+            'english': 'Life guard',
+            'japanese_translation': u'ライフ減少無効',
+            'icon': 'fingers',
+
+            # Main skill
+            'variables': [],
+            'template': _(u'BAD/MISS notes do not cause damage'),
+            'japanese_template': u'BAD以下でもライフが減少しなくなり',
+
+            # Side skill
+            'side_variables': ['duration'],
+            'side_template': _(u'and BAD/MISS notes do not cause damage for the next {duration} seconds'),
+            'side_japanese_template': u'{duration}秒間BAD以下でもライフが減少しなくなり',
+        }),
     ])
 
     SKILL_SPECIAL_CHOICES = (

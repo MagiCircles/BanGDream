@@ -132,9 +132,6 @@ def generate_settings():
     print 'Get the backgrounds'
     background_choices = models.Asset.objects.filter(
         i_type=models.Asset.get_i('type', 'background'))
-    background_choices |= models.Asset.objects.filter(
-        i_type=models.Asset.get_i('type', 'official'),
-        c_tags__contains='login')
 
     backgrounds = [
         {

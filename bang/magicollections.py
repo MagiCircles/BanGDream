@@ -1028,6 +1028,68 @@ class CardCollection(MagiCollection):
             self.collection._extra_context_for_form(context)
 
 ############################################################
+# Skill Collection
+
+class SkillCollection(MagiCollection):
+    queryset = models.Skill.objects.all()
+    title = _('Skill')
+    plural_title = 'Skills'
+    icon = 'ticket'
+    form_class = forms.SkillForm
+    multipart = True
+    reportable = False
+    blockable = False
+    translated_fields = ('details', )
+    navbar_link_list = 'staff'
+    permissions_required = ['manage_main_items']
+
+##    filter_cuteform = {
+##        'i_skill_type': {
+##            'transform': CuteFormTransform.Flaticon,
+##            'to_cuteform': lambda _k, _v: SKILL_TYPE_ICONS[models.Skill.get_reverse_i('skill_type', _k)],
+##        },
+##    }
+    
+    def to_fields(self, view, item, *args, **kwargs):        
+        fields = super(SkillCollection, self).to_fields(view, item, *args, icons={'name':'ticket', 'type':'category', 'details':'author'}, **kwargs)
+        return fields
+
+    class ItemView(MagiCollection.ItemView):
+        def to_fields(self, item, extra_fields=None, *args, **kwargs):
+            if extra_fields is None: extra_fields = []
+            for prefix, subtitle in [('japanese_', t['Japanese']), ('traditional_chinese_', 'Taiwanese'), ('korean_', _('Korean'))]:
+                if getattr(item, '{}details'.format(prefix), None):
+                    extra_fields.append(('{}details'.format(prefix), {
+                    'verbose_name': _('Details'),
+                    'verbose_name_subtitle': subtitle,
+                    'icon': 'author',
+                    'value': getattr(item, '{}details'.format(prefix), None),
+                }))
+            fields = super(SkillCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, **kwargs)
+            # Makes sure details displays English value even when using other languages
+            setSubField(fields, 'details', key='value', value=item.details)
+            setSubField(fields, 'details', key='verbose_name_subtitle', value=_('English'))
+            print models.Skill.skill_type_keys
+            print models.Skill.skill_type_words
+            return fields
+                    
+    class ListView(MagiCollection.ListView):
+##        item_template = custom_item_template
+        filter_form = forms.SkillFilterForm
+        per_line = 6
+        page_size = 30
+        default_ordering = 'name'
+
+    class AddView(MagiCollection.AddView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+
+    class EditView(MagiCollection.EditView):
+        staff_required = True
+        permissions_required = ['manage_main_items']
+        allow_delete = True
+
+############################################################
 # Event Participation Collection
 
 EVENT_PARTICIPATIONS_ICONS = {

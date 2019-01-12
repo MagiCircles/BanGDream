@@ -413,6 +413,22 @@ def to_CollectibleCardFilterForm(cls):
     return _CollectibleCardFilterForm
 
 ############################################################
+# Skill
+
+class SkillForm(AutoForm):
+    class Meta:
+        model = models.Skill
+        save_owner_on_creation = True
+        fields = '__all__'
+
+class SkillFilterForm(MagiFiltersForm):
+    search_fields = ['name', 'details', 'japanese_details']
+
+    class Meta:
+        model = models.Skill
+        fields = ('search', 'i_type', )
+
+############################################################
 # Event
 
 class EventForm(AutoForm):

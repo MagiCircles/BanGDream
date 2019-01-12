@@ -5,6 +5,7 @@ from collections import OrderedDict
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy, string_concat, get_language
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.db.models import Q
 from django.db import models
@@ -311,6 +312,46 @@ class Member(MagiModel):
 
     def __unicode__(self):
         return unicode(self.t_name)
+
+############################################################
+# Skill
+
+class Skill(MagiModel):
+    collection_name = 'skill'
+    owner = models.ForeignKey(User, related_name='added_skills', null=True)
+    name = models.CharField(_('Nickname'), max_length=100, help_text='Helps distinguish skills for staff', unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    def skill_type_keys(self):
+        keys_list = []
+        for key in django_settings.STAFF_CONFIGURATIONS.get('skill_types').split(','):
+            keys_list += key.strip()
+        return keys_list
+
+    def skill_type_words(self, lang='en'):
+        words_list = []
+        for word in [django_settings.STAFF_CONFIGURATIONS['skill_types_translations'][lang] or django.settings.STAFF_CONFIGURATIONS['skill_types_translations']['en']]:
+            words_list += word.strip()        
+        return words_list
+
+    def skill_types(self, lang='en'):
+        skill_types = []
+        for i in len(self.skill_type_keys):
+            skill_types.append((self.skill_type_keys[i], self.skill_type_words(lang)[i] or ''))
+        return skill_types
+
+    SKILL_VARIABLES = ('{note_type}', '{stamina}', '{alt_stamina}', '{duration}', '{percentage}', '{alt_percentage}')
+
+    i_type =  models.PositiveIntegerField(_('Type'), choices=i_choices(['a','b']), null=True)
+
+    details = models.TextField(_('Details'), help_text='Optional Variables: {}'.format(SKILL_VARIABLES), null=True)
+    japanese_details = models.TextField(string_concat(_('Details'), ' (', t['Japanese'], ')'), null=True)
+    traditional_chinese_details = models.TextField(string_concat(_('Details'), ' (', _('Taiwanese'), ')'), null=True)
+    korean_details = models.TextField(string_concat(_('Details'), ' (', _('Korean'), ')'), null=True)
+    DETAILSS_CHOICES = [ l for l in django_settings.LANGUAGES if l[0] not in ['en', 'ja', 'zh-hant', 'kr'] ]
+    d_detailss = models.TextField(_('Details'), null=True)
 
 ############################################################
 # Card

@@ -1043,15 +1043,17 @@ class SkillCollection(MagiCollection):
     navbar_link_list = 'staff'
     permissions_required = ['manage_main_items']
 
-##    filter_cuteform = {
-##        'i_skill_type': {
-##            'transform': CuteFormTransform.Flaticon,
-##            'to_cuteform': lambda _k, _v: SKILL_TYPE_ICONS[models.Skill.get_reverse_i('skill_type', _k)],
-##        },
-##    }
+    _type_icons = [c.strip() for c in django_settings.STAFF_CONFIGURATIONS.get('skill_icons').split(',')]
+
+    filter_cuteform = {
+        'i_type': {
+            'transform': CuteFormTransform.Flaticon,
+            'to_cuteform': lambda _k, _v: SkillCollection._type_icons[_k],
+        },
+    }
     
     def to_fields(self, view, item, *args, **kwargs):        
-        fields = super(SkillCollection, self).to_fields(view, item, *args, icons={'name':'ticket', 'type':'category', 'details':'author'}, **kwargs)
+        fields = super(SkillCollection, self).to_fields(view, item, *args, icons={'name':'id', 'type':'category', 'details':'author'}, **kwargs)
         return fields
 
     class ItemView(MagiCollection.ItemView):
@@ -1069,13 +1071,11 @@ class SkillCollection(MagiCollection):
             # Makes sure details displays English value even when using other languages
             setSubField(fields, 'details', key='value', value=item.details)
             setSubField(fields, 'details', key='verbose_name_subtitle', value=_('English'))
-            print models.Skill.skill_type_keys
-            print models.Skill.skill_type_words
             return fields
                     
     class ListView(MagiCollection.ListView):
-##        item_template = custom_item_template
         filter_form = forms.SkillFilterForm
+        ajax_item_popover = True
         per_line = 6
         page_size = 30
         default_ordering = 'name'

@@ -324,27 +324,16 @@ class Skill(MagiModel):
     def __unicode__(self):
         return self.name
 
-    def skill_type_keys(self):
-        keys_list = []
-        for key in django_settings.STAFF_CONFIGURATIONS.get('skill_types').split(','):
-            keys_list += key.strip()
-        return keys_list
-
-    def skill_type_words(self, lang='en'):
-        words_list = []
-        for word in [django_settings.STAFF_CONFIGURATIONS['skill_types_translations'][lang] or django.settings.STAFF_CONFIGURATIONS['skill_types_translations']['en']]:
-            words_list += word.strip()        
-        return words_list
-
-    def skill_types(self, lang='en'):
-        skill_types = []
-        for i in len(self.skill_type_keys):
-            skill_types.append((self.skill_type_keys[i], self.skill_type_words(lang)[i] or ''))
-        return skill_types
-
     SKILL_VARIABLES = ('{note_type}', '{stamina}', '{alt_stamina}', '{duration}', '{percentage}', '{alt_percentage}')
 
-    i_type =  models.PositiveIntegerField(_('Type'), choices=i_choices(['a','b']), null=True)
+    def skill_types(lang='en'):
+        _keys = [key.strip() for key in django_settings.STAFF_CONFIGURATIONS.get('skill_types').split(',')]
+        _words = [word.strip() for word in django_settings.STAFF_CONFIGURATIONS['skill_types_translations'].get(lang, 'en').split(',')]
+        while len(_words) < len(_keys):
+            _words[len(_words)] = '???'
+        return zip(_keys, _words)
+
+    i_type =  models.PositiveIntegerField(_('Type'), choices=i_choices(skill_types()), null=True)
 
     details = models.TextField(_('Details'), help_text='Optional Variables: {}'.format(SKILL_VARIABLES), null=True)
     japanese_details = models.TextField(string_concat(_('Details'), ' (', t['Japanese'], ')'), null=True)

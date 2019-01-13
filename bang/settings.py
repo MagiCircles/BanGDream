@@ -275,18 +275,11 @@ ENABLED_PAGES['teambuilder'] = {
     #'navbar_link_list': 'girlsbandparty',
 }
 
-ENABLED_PAGES['gallery'] = [
-    {
+ENABLED_PAGES['gallery'] = {
         'title': _('Gallery'),
         'icon': 'pictures',
         'navbar_link_list': 'bangdream',
-    },
-    {
-        'title': _('Gallery'),
-        'icon': 'pictures',
-        'navbar_link_list': 'girlsbandparty',
-    },
-]
+    }
 
 ENABLED_PAGES['add_rerun'] = {
     'title': u'Add {} rerun dates'.format(u'/'.join(models.Rerun.ITEMS)),

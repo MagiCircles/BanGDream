@@ -422,7 +422,7 @@ class SkillForm(AutoForm):
         fields = '__all__'
 
 class SkillFilterForm(MagiFiltersForm):
-    search_fields = ['name', 'details', 'japanese_details']
+    search_fields = ['name', 'details', 'japanese_details', 'traditional_chinese_details', 'korean_details']
 
     class Meta:
         model = models.Skill

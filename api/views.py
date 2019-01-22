@@ -156,8 +156,6 @@ class MemberIDViewSet(viewsets.ModelViewSet):
 
 class CardSerializer(MagiSerializer):
     i_attribute = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.ATTRIBUTES.items() })
-    i_skill_type = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.SKILL_TYPES.items() }, required=False)
-    i_side_skill_type = IFieldManualChoices({ _value: _a['english'] for _value, _a in models.Card.SKILL_TYPES.items() }, required=False)
     image = ImageField(required=False)
     image_trained = ImageField(required=False)
     art = ImageField(required=False)
@@ -187,9 +185,7 @@ class CardSerializer(MagiSerializer):
             'id', 'member', 'i_rarity', 'i_attribute', 'name', 'japanese_name', 'release_date',
             'is_promo', 'is_original',
             'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
-            'skill_name', 'japanese_skill_name', 'i_skill_type', 'i_side_skill_type',
-            # Not editable
-            'skill_template', 'skill_variables', 'side_skill_template', 'side_skill_variables', 'full_skill',
+            'skill_name', 'japanese_skill_name',
             # / Not editable
             'performance_min', 'performance_max', 'performance_trained_max',
             'technique_min', 'technique_max', 'technique_trained_max',
@@ -197,12 +193,10 @@ class CardSerializer(MagiSerializer):
         )
 
 class CardSerializerForEditing(CardSerializer):
-    i_skill_special = IField(models.Card, 'skill_special', required=False)
     i_skill_note_type = IField(models.Card, 'skill_note_type', required=False)
 
     class Meta(CardSerializer.Meta):
         fields = CardSerializer.Meta.fields + (
-            'i_skill_special',
             'i_skill_note_type', 'skill_stamina', 'skill_alt_stamina', 'skill_duration', 'skill_percentage', 'skill_alt_percentage',
         )
 

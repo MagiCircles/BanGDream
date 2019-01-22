@@ -493,18 +493,6 @@ def to_CollectibleCardCollection(cls):
                 })
                 for stat, verbose_name, value, _max, _percentage in stats
             ]
-            # Add skill
-            if item.card.skill_type:
-                extra_fields.append(('skill', {
-                    'title': mark_safe(u'{} <span class="text-muted">({})</span>'.format(
-                        item.card.t_skill_type.replace(' ', u'\u00A0'),
-                        item.card.t_side_skill_type.replace(' ', u'\u00A0')))
-                    if item.card.i_side_skill_type else item.card.t_skill_type,
-                    'verbose_name': _('Skill'),
-                    'icon': item.card.skill_icon,
-                    'value': item.full_skill,
-                    'type': 'title_text',
-                }))
 
             fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons=COLLECTIBLE_CARDS_ICONS, order=order, exclude_fields=exclude_fields, extra_fields=extra_fields, **kwargs)
             setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
@@ -553,10 +541,6 @@ CARD_CUTEFORM = {
     'trainable': {
         'type': CuteFormType.OnlyNone,
     },
-    'i_skill_type': {
-        'to_cuteform': lambda k, v: CardCollection._skill_icons[k],
-        'transform': CuteFormTransform.Flaticon,
-    },
     'member_band': {
         'to_cuteform': lambda k, v: (
             FAVORITE_CHARACTERS_IMAGES[int(k[7:])]
@@ -581,6 +565,10 @@ CARD_CUTEFORM = {
     'gacha_type': {
         'transform': CuteFormTransform.Flaticon,
         'to_cuteform': lambda k, v: GachaCollection._gacha_type_to_cuteform[k],
+    },
+    'skill_type': {
+        'transform': CuteFormTransform.Flaticon,
+        'to_cuteform': lambda k, v: CardCollection._skill_type_to_cuteform[k],
     },
 }
 
@@ -617,23 +605,21 @@ CARDS_ICONS.update({
 
 CARDS_ORDER = [
     'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'is_original',
-    'release_date',
-    'skill_name', 'skill_type', 'japanese_skill',
-    'gacha', 'images', 'arts', 'transparents', 'chibis', 'associated_costume'
+    'release_date', 'skill', 'gacha', 'images', 'arts', 'transparents', 'chibis', 'associated_costume'
 ]
 
 CARDS_STATISTICS_ORDER = [
     'image', 'image_trained',
 ] + CARDS_STATS_FIELDS + [
-    'skill_type',
+    'skill',
 ]
 
 CARDS_EXCLUDE = [
-    'name', 'i_side_skill_type', 'skill_name',
+    'name', 'skill_name',
     'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
 ] + CARDS_STATS_FIELDS + [
     'i_skill_note_type', 'skill_stamina', 'skill_alt_stamina', 'skill_duration',
-    'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
+    'skill_percentage', 'skill_alt_percentage',
 ]
 
 class CardCollection(MagiCollection):
@@ -642,7 +628,6 @@ class CardCollection(MagiCollection):
     plural_title = _('Cards')
     icon = 'deck'
     navbar_link_list = 'girlsbandparty'
-
     form_class = forms.CardForm
     reportable = False
     blockable = False
@@ -651,7 +636,6 @@ class CardCollection(MagiCollection):
         'collectiblecard': False,
     }
 
-    _skill_icons = { _i: _c['icon'] for _i, _c in models.Card.SKILL_TYPES.items() }
     _version_images = { _vn: _v['image'] for _vn, _v in models.Account.VERSIONS.items() }
     _origin_to_cuteform = {
         'is_original': 'deck',
@@ -659,6 +643,10 @@ class CardCollection(MagiCollection):
         'is_gacha': 'scout-box',
         'is_event': 'event',
     }
+    _skill_type_to_cuteform = { _vn.strip(): _v.strip() for _vn, _v in zip(
+        django_settings.STAFF_CONFIGURATIONS.get('skill_types').split(','), django_settings.STAFF_CONFIGURATIONS.get('skill_icons').split(',')
+    )}
+
     collectible = [
         models.CollectibleCard,
         models.FavoriteCard,
@@ -674,10 +662,7 @@ class CardCollection(MagiCollection):
 
     def to_fields(self, view, item, *args, **kwargs):
         fields = super(CardCollection, self).to_fields(view, item, *args, icons=CARDS_ICONS, images={
-            'attribute': u'{static_url}img/i_attribute/{value}.png'.format(
-                static_url=RAW_CONTEXT['static_url'],
-                value=item.i_attribute,
-            ),
+            'attribute': staticImageURL(item.i_attribute, folder='i_attribute', extension='png'),
         }, **kwargs)
         setSubField(fields, 'rarity', key='type', value='html')
         setSubField(fields, 'rarity', key='value', value=lambda f: rarity_to_stars_images(item.i_rarity))
@@ -710,41 +695,49 @@ class CardCollection(MagiCollection):
                 'icon': 'id',
             }))
 
-            #Add Title
-            title = item.names.get(language, item.name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
-            value = item.japanese_name or item.name
-            if value is not None:
+            # Add Title
+            if models.versioned_t(item):
+                value = item.japanese_name or models.versioned_t(item)
+                print item.t_name
                 extra_fields.append(('card_name', {
                     'verbose_name': _('Title'),
                     'icon': 'id',
-                    'type': 'title_text' if title not in [value, None] else 'text',
-                    'title': title,
+                    'type': 'title_text' if item.t_name not in [value, None] else 'text',
+                    'title':  item.t_name,
                     'value': value,
                 }))
 
-            #Add Skill Name
-            title = item.skill_names.get(language, item.skill_name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
-            value = item.japanese_skill_name or item.skill_name
-            if value is not None:
-                extra_fields.append(('skill_name', {
-                    'verbose_name': _('Skill name'),
-                    'icon': 'skill',
-                    'type': 'title_text' if title not in [value, None] else 'text',
-                    'title': title,
-                    'value': value,
-                }))
+            # Skill Name
+            title = item.t_skill_name or (models.versioned_t(item, field='skill_name') if models.versioned_t(item, field='skill_name') else None)
+            value = title
+            icon = 'ticket'
+            subtitle = ''
+            
+            # If Skill
+            if item.skill:
+                value = item.skill.t_details or (models.versioned_t(item.skill, field='details') or value)
+                if value:
+                    # Replace variables in skill details with values
+                    for variable in models.Skill.SKILL_VARIABLES:
+                        og = value    
+                        var = getattr(item, 'skill_{}'.format(variable)) or '???'
+                        value = og.replace('{'+variable+'}', str(var))
+                # If Skill has a type    
+                if item.skill.type:
+                    icon = SkillCollection._type_icons[item.skill.i_type] or icon
+                    subtitle = models.skill_types(lang=get_language())[item.skill.i_type][1] or subtitle
 
-            # Add skill details
-            if item.i_skill_type:
-                extra_fields.append(('japanese_skill', {
+            # Add Skill if Skill or Skill name
+            if value or title:
+                extra_fields.append(('skill', {
                     'verbose_name': _('Skill'),
-                    'verbose_name_subtitle': t['Japanese'] if language != 'ja' else None,
-                    'icon': item.skill_icon,
-                    'type': 'title_text',
-                    'title': mark_safe(u'{} <span class="text-muted">({})</span>'.format(item.japanese_skill_type, item.japanese_side_skill_type)
-                                       if item.i_side_skill_type else item.japanese_skill_type),
-                    'value': item.japanese_full_skill,
+                    'verbose_name_subtitle': subtitle,
+                    'icon': icon,
+                    'type': 'title_text' if title not in [value, None] else 'text',
+                    'title': title or '',
+                    'value': value or '???',
                 }))
+
             # Add gacha and events
             for cached_event in (item.cached_events or []):
                 extra_fields.append((u'event-{}'.format(cached_event.id), subtitledImageLink(cached_event, _('Event'), icon='event', subtitle=cached_event.unicode)))
@@ -822,7 +815,7 @@ class CardCollection(MagiCollection):
             if exclude_fields == 1:
                 exclude_fields = []
             else:
-                exclude_fields += CARDS_EXCLUDE + (['versions', 'i_skill_type'] if language == 'ja' else [])
+                exclude_fields += CARDS_EXCLUDE
             exclude_fields += ['show_art_on_homepage', 'show_trained_art_on_homepage']
             # Order
             if order is None:
@@ -830,13 +823,6 @@ class CardCollection(MagiCollection):
 
             fields = super(CardCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             # Modify existing fields
-            # skill deTails
-            setSubField(fields, 'skill_type', key='type', value='title_text')
-            setSubField(fields, 'skill_type', key='title',
-                        value=lambda k: mark_safe(u'{} <span class="text-muted">({})</span>'.format(item.t_skill_type, item.t_side_skill_type)
-                        if item.i_side_skill_type else item.t_skill_type))
-            setSubField(fields, 'skill_type', key='value', value=item.full_skill)
-            setSubField(fields, 'skill_type', key='icon', value=lambda k: item.skill_icon)
             # Totals
             setSubField(fields, 'favorited', key='link', value=u'/users/?favorited_card={}'.format(item.id))
             setSubField(fields, 'favorited', key='ajax_link', value=u'/ajax/users/?favorited_card={}&ajax_modal_only'.format(item.id))
@@ -994,38 +980,19 @@ class CardCollection(MagiCollection):
                 for suffix, verbose_name in [
                         ('min', _('Min')), ('max', _('Max')),
                         ('trained_max', _('Trained')),
-                ]] + [('skill_type', '')]
-
-    def _extra_context_for_form(self, context):
-        if 'js_variables' not in context:
-            context['js_variables'] = {}
-        context['js_variables']['all_variables'] = jsv(models.Card.ALL_VARIABLES)
-        context['js_variables']['variables_per_skill_type'] = jsv(models.Card.VARIABLES_PER_SKILL_TYPES)
-        context['js_variables']['special_cases_variables'] = jsv(models.Card.SPECIAL_CASES_VARIABLES)
-        context['js_variables']['template_per_skill_type'] = jsv(models.Card.TEMPLATE_PER_SKILL_TYPES)
-        context['js_variables']['special_cases_template'] = jsv(models.Card.SPECIAL_CASES_TEMPLATE)
+                ]] + [('skill', '')]
 
     class AddView(MagiCollection.AddView):
         staff_required = True
         permissions_required = ['manage_main_items']
         multipart = True
-        ajax_callback = 'loadCardForm'
-
-        def extra_context(self, context):
-            super(CardCollection.AddView, self).extra_context(context)
-            self.collection._extra_context_for_form(context)
 
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
         multipart = True
-        ajax_callback = 'loadCardForm'
         allow_delete = True
         filter_cuteform = CARD_CUTEFORM_EDIT
-
-        def extra_context(self, context):
-            super(CardCollection.EditView, self).extra_context(context)
-            self.collection._extra_context_for_form(context)
 
 ############################################################
 # Skill Collection

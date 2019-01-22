@@ -289,14 +289,8 @@ class CardFilterForm(MagiFiltersForm):
                 (k, models.DREAMFES_PER_LANGUAGE.get(get_language(), v) if k == 'dreamfes' else v)
                 for k, v in self.fields['gacha_type'].choices
             ]
-
-    # Skill filter
-
-    def skill_filter_to_queryset(self, queryset, request, value):
-        if not value: return queryset
-        if value == '1': return queryset.filter(i_skill_type=value) # Score up
-        return queryset.filter(Q(i_skill_type=value) | Q(i_side_skill_type=value))
-    i_skill_type_filter = MagiFilter(to_queryset=skill_filter_to_queryset)
+        if 'skill_type' in self.fields:
+            self.fields['skill_type'].choices = BLANK_CHOICE_DASH + models.skill_types(lang=get_language())
 
     # Member + band filter
 
@@ -362,9 +356,19 @@ class CardFilterForm(MagiFiltersForm):
     version = forms.ChoiceField(label=_(u'Server availability'), choices=BLANK_CHOICE_DASH + models.Account.VERSION_CHOICES)
     version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
 
+    def _skill_type_to_queryset(self, queryset, request, value):
+        for skill, word in models.skill_types():
+            # work on this
+            if value == skill:
+                return queryset.filter(skill__type=skill)
+        return queryset
+
+    skill_type = forms.ChoiceField(label=_(u'Skill'), choices=BLANK_CHOICE_DASH + models.skill_types())
+    skill_type_filter = MagiFilter(to_queryset=_skill_type_to_queryset)
+
     class Meta(MagiFiltersForm.Meta):
         model = models.Card
-        fields = ('view', 'search', 'member_band', 'member_includes_cameos', 'origin', 'gacha_type', 'i_rarity', 'i_attribute', 'i_skill_type', 'version', 'ordering', 'reverse_order', 'member')
+        fields = ('view', 'search', 'member_band', 'member_includes_cameos', 'origin', 'gacha_type', 'i_rarity', 'i_attribute', 'skill_type', 'version', 'ordering', 'reverse_order', 'member')
         hidden_foreign_keys = ('member',)
 
 ############################################################
@@ -393,10 +397,6 @@ def to_CollectibleCardForm(cls):
 
 def to_CollectibleCardFilterForm(cls):
     class _CollectibleCardFilterForm(cls.ListView.filter_form):
-        def skill_filter_to_queryset(self, queryset, request, value):
-            if not value: return queryset
-            if value == '1': return queryset.filter(card__i_skill_type=value) # Score up
-            return queryset.filter(Q(card__i_skill_type=value) | Q(card__i_side_skill_type=value))
 
         member_band = MEMBER_BAND_CHOICE_FIELD
         member_band_filter = MagiFilter(to_queryset=member_band_to_queryset(prefix='card__'))
@@ -407,9 +407,6 @@ def to_CollectibleCardFilterForm(cls):
         i_attribute = forms.ChoiceField(choices=BLANK_CHOICE_DASH + list(models.Card.ATTRIBUTE_CHOICES), label=_('Attribute'))
         i_attribute_filter = MagiFilter(selector='card__i_attribute')
 
-        i_skill_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH
-                                               + models.Card.SKILL_TYPE_CHOICES, label=_('Skill'))
-        i_skill_type_filter = MagiFilter(to_queryset=skill_filter_to_queryset)
     return _CollectibleCardFilterForm
 
 ############################################################
@@ -1398,9 +1395,6 @@ class TeamBuilderForm(MagiFiltersForm):
     i_attribute = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.Card.ATTRIBUTE_CHOICES, label=_('Attribute'), required=False)
     i_attribute_filter = MagiFilter(noop=True)
 
-    i_skill_type = forms.ChoiceField(choices=BLANK_CHOICE_DASH + models.Card.SKILL_TYPE_CHOICES, label=_('Skill'), required=False)
-    i_skill_type_filter = MagiFilter(noop=True)
-
     perfect_accuracy = forms.IntegerField(label=_('How often do you hit PERFECT notes?'), widget=forms.NumberInput(attrs={
         'type':'range', 'step': '10', 'data-show-value': 'true', 'data-show-value-suffix': '%',
     }), initial=80, required=False)
@@ -1437,5 +1431,5 @@ class TeamBuilderForm(MagiFiltersForm):
 
     class Meta(MagiFiltersForm.Meta):
         model = models.CollectibleCard
-        fields = ('account', 'i_band', 'i_attribute', 'i_skill_type')
+        fields = ('account', 'i_band', 'i_attribute')
         all_optional = False

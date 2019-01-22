@@ -382,15 +382,18 @@ class Card(MagiModel):
             'special_templates': {
                 'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
                 'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%'),
+                'based_on_accuracy': _(u'For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%'),
             },
             'special_variables': {
                 'perfect_only': ['duration', 'percentage'],
                 'based_on_stamina': ['duration', 'stamina', 'percentage', 'alt_percentage'],
+                'based_on_accuracy': ['duration', 'note_type', 'percentage', 'alt_percentage'],
             },
             'japanese_template': u'{duration}スコアが{percentage}％UPする',
             'special_japanese_templates': {
                 'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
-                'based_on_stamina': u'{duration}秒間スコアが{percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{alt_percentage}%UPする',
+                'based_on_stamina': u'{duration}秒間スコアが{alt_percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{percentage}%UPする',
+                'based_on_accuracy': u'{duration}秒間スコアが{alt_percentage}％UP、{note_type}以下を出すまではスコアが{percentage}％UPする',
             },
 
             # Side skill
@@ -442,11 +445,28 @@ class Card(MagiModel):
             'side_template': _(u'and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds'),
             'side_japanese_template': u'{duration}秒間{note_type}以上がすべてPERFECTになる',
         }),
+        (4, {
+            'translation': _(u'Life guard'),
+            'english': 'Life guard',
+            'japanese_translation': u'ライフ減少無効',
+            'icon': 'fingers',
+
+            # Main skill
+            'variables': [],
+            'template': _(u'BAD/MISS notes do not cause damage'),
+            'japanese_template': u'BAD以下でもライフが減少しなくなり',
+
+            # Side skill
+            'side_variables': ['duration'],
+            'side_template': _(u'and BAD/MISS notes do not cause damage for the next {duration} seconds'),
+            'side_japanese_template': u'{duration}秒間BAD以下でもライフが減少しなくなり',
+        }),
     ])
 
     SKILL_SPECIAL_CHOICES = (
         ('perfect_only', 'Based off PERFECT notes'),
         ('based_on_stamina', 'Scoreup based on stamina'),
+        ('based_on_accuracy', 'Better scoreup if you can hit perfects'),
     )
 
     ALL_VARIABLES = { item: True for sublist in [ _info['variables'] + _info['side_variables'] + [ii for sl in [_i for _i in _info.get('special_variables', {}).values()] for ii in sl] for _info in SKILL_TYPES.values() ] for item in sublist }.keys()
@@ -454,13 +474,30 @@ class Card(MagiModel):
         'skill': { _skill_type: _info['variables'] for _skill_type, _info in SKILL_TYPES.items() },
         'side_skill': { _skill_type: _info['side_variables'] for _skill_type, _info in SKILL_TYPES.items() },
     }
-    SPECIAL_CASES_VARIABLES = { _skill_type: { _i: _v for _i, _v in enumerate(_info['special_variables'].values()) } for _skill_type, _info in SKILL_TYPES.items() if 'special_variables' in _info }
+
+    # This function is called once to set the static SPECIAL_CASES_VARIABLES.
+    # It's written like this because we can't access SKILL_SPECIAL_CHOICES from the inner dict comp
+    # (I don't know why).
+    def make_SPECIAL_CASES_VARIABLES(SKILL_TYPES, SKILL_SPECIAL_CHOICES):
+        return {
+            _skill_type: {
+                _i: _info['special_variables'][_k] for _i, _k in enumerate([pair[0] for pair in SKILL_SPECIAL_CHOICES]) if _k in _info['special_variables']
+            } for _skill_type, _info in SKILL_TYPES.items() if 'special_variables' in _info
+        }
+    SPECIAL_CASES_VARIABLES = make_SPECIAL_CASES_VARIABLES(SKILL_TYPES, SKILL_SPECIAL_CHOICES)
 
     TEMPLATE_PER_SKILL_TYPES = {
         'skill': { _skill_type: unicode(_info['template']) for _skill_type, _info in SKILL_TYPES.items() },
         'side_skill': { _skill_type: unicode(_info['side_template']) for _skill_type, _info in SKILL_TYPES.items() },
     }
-    SPECIAL_CASES_TEMPLATE = { _skill_type: { _i: unicode(_v) for _i, _v in enumerate(_info['special_templates'].values()) } for _skill_type, _info in SKILL_TYPES.items() if 'special_templates' in _info }
+
+    def make_SPECIAL_CASES_TEMPLATE(SKILL_TYPES, SKILL_SPECIAL_CHOICES):
+        return {
+            _skill_type: {
+                _i: unicode(_info['special_templates'][_k]) for _i, _k in enumerate([_c[0] for _c in SKILL_SPECIAL_CHOICES]) if _k in _info['special_templates']
+            } for _skill_type, _info in SKILL_TYPES.items() if 'special_templates' in _info
+        }
+    SPECIAL_CASES_TEMPLATE = make_SPECIAL_CASES_TEMPLATE(SKILL_TYPES, SKILL_SPECIAL_CHOICES)
 
     # Main skill
 

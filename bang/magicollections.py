@@ -493,6 +493,16 @@ def to_CollectibleCardCollection(cls):
                 })
                 for stat, verbose_name, value, _max, _percentage in stats
             ]
+            if item.card.skill:
+                extra_fields.append(('skill', {
+                    'verbose_name': _('Skill'),
+                    'verbose_name_subtitle': item.card.skill.t_type or '',
+                    'verbose_name': _('Skill'),
+                    'icon': SkillCollection._type_icons[item.card.skill.i_type] or 'ticket',
+                    'value': item.full_skill(text=item.card.skill.t_details or (models.versioned_t(
+                        item.card.skill, field='details', order=[('', 'en'), ('japanese_', 'ja'), ('korean_', 'kr'), ('traditional_chinese_', 'zh-hant')],
+                        replace=True))),
+                }))         
 
             fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons=COLLECTIBLE_CARDS_ICONS, order=order, exclude_fields=exclude_fields, extra_fields=extra_fields, **kwargs)
             setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
@@ -687,6 +697,7 @@ class CardCollection(MagiCollection):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             language = get_language()
+            
             # Add id field
             extra_fields.append(('id', {
                 'verbose_name': _(u'ID'),
@@ -698,7 +709,6 @@ class CardCollection(MagiCollection):
             # Add Title
             if models.versioned_t(item):
                 value = item.japanese_name or models.versioned_t(item)
-                print item.t_name
                 extra_fields.append(('card_name', {
                     'verbose_name': _('Title'),
                     'icon': 'id',
@@ -715,13 +725,12 @@ class CardCollection(MagiCollection):
             
             # If Skill
             if item.skill:
-                value = item.skill.t_details or (models.versioned_t(item.skill, field='details') or value)
+                value = item.skill.t_details or (models.versioned_t(
+                    item.skill, field='details', order=[('', 'en'), ('japanese_', 'ja'), ('korean_', 'kr'), ('traditional_chinese_', 'zh-hant')],
+                ) or value)
                 if value:
-                    # Replace variables in skill details with values
-                    for variable in models.Skill.SKILL_VARIABLES:
-                        og = value    
-                        var = getattr(item, 'skill_{}'.format(variable)) or '???'
-                        value = og.replace('{'+variable+'}', str(var))
+                    # Insert variables into skill
+                    value = item.full_skill(text=value, replace=True)
                 # If Skill has a type    
                 if item.skill.type:
                     icon = SkillCollection._type_icons[item.skill.i_type] or icon
@@ -733,9 +742,10 @@ class CardCollection(MagiCollection):
                     'verbose_name': _('Skill'),
                     'verbose_name_subtitle': subtitle,
                     'icon': icon,
-                    'type': 'title_text' if title not in [value, None] else 'text',
-                    'title': title or '',
+                    'type': 'title_text' if title not in [value, None] else 'text_annotation',
+                    'title': format_html(u'{} {}', title, mark_safe(u'<small class="text-muted">({})</small>'.format(_('Level {level}').format(level=1)))) if (title and value) else (title or ''),
                     'value': value or '???',
+                    'annotation': _('Level {level}').format(level=1)
                 }))
 
             # Add gacha and events

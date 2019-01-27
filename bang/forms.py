@@ -357,11 +357,8 @@ class CardFilterForm(MagiFiltersForm):
     version_filter = MagiFilter(to_queryset=lambda form, queryset, request, value: queryset.filter(c_versions__contains=value))
 
     def _skill_type_to_queryset(self, queryset, request, value):
-        for skill, word in models.skill_types():
-            # work on this
-            if value == skill:
-                return queryset.filter(skill__type=skill)
-        return queryset
+        query = [i for i, skill in enumerate(models.skill_types()) if value == skill[0]][0]
+        return queryset.filter(skill__i_type=query) if isinstance(query, int) else queryset
 
     skill_type = forms.ChoiceField(label=_(u'Skill'), choices=BLANK_CHOICE_DASH + models.skill_types())
     skill_type_filter = MagiFilter(to_queryset=_skill_type_to_queryset)

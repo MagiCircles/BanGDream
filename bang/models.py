@@ -42,8 +42,6 @@ ALL_ALT_LANGUAGES = [ l for l in django_settings.LANGUAGES if l[0] != 'en' ]
 ALL_ALT_LANGUAGES_KEYS = [ l[0] for l in django_settings.LANGUAGES if l[0] != 'en' ]
 ALT_LANGUAGES_EXCEPT_JP = [ l for l in django_settings.LANGUAGES if l[0] not in ['en', 'ja'] ]
 ALT_LANGUAGES_EXCEPT_JP_KEYS = [ l[0] for l in django_settings.LANGUAGES if l[0] not in ['en', 'ja'] ]
-LANGUAGES_WITHOUT_VERSIONS= [ l for l in django_settings.LANGUAGES if l[0] not in ['en', 'ja', 'zh-hant', 'kr'] ]
-LANGUAGES_WITHOUT_VERSIONS_KEYS = [ l[0] for l in django_settings.LANGUAGES if l[0] in ['en', 'ja', 'zh-hant', 'kr'] ]
 
 LANGUAGES_TO_VERSIONS = {
     'en': 'EN',
@@ -76,8 +74,7 @@ DREAMFES_PER_LANGUAGE = {
     'zh-hant': u'夢幻祭典轉蛋',
 }
 
-def versioned_t(item, field='name', checked=True):
-    order = ([('japanese_', 'ja'), ('', 'en')] if get_language() in LANGUAGES_DIFFERENT_CHARSET_KEYS else [('', 'en'), ('japanese_', 'ja')]) + [('korean_', 'kr'), ('traditional_chinese_', 'zh-hant')]
+def versioned_t(item, field='name', checked=True, order=[('', 'en'), ('japanese_', 'ja')]):
     for version, language in order:
         if getattr(item, '{}{}'.format(version, field)) and (checked or get_language() == language):
             return getattr(item, '{}{}'.format(version, field))
@@ -344,7 +341,7 @@ class Skill(MagiModel):
     def __unicode__(self):
         return self.name
 
-    i_type =  models.PositiveIntegerField(_('Type'), choices=choices(skill_types()), null=True)
+    i_type =  models.PositiveIntegerField(_('Type'), choices=i_choices(skill_types()), null=True)
 
     SKILL_VARIABLES = ('note_type', 'stamina', 'alt_stamina', 'duration', 'percentage', 'alt_percentage')
     
@@ -352,12 +349,14 @@ class Skill(MagiModel):
     japanese_details = models.TextField(string_concat(_('Details'), ' (', t['Japanese'], ')'), null=True)
     traditional_chinese_details = models.TextField(string_concat(_('Details'), ' (', _('Taiwanese'), ')'), null=True)
     korean_details = models.TextField(string_concat(_('Details'), ' (', _('Korean'), ')'), null=True)
-    DETAILSS_CHOICES = LANGUAGES_WITHOUT_VERSIONS
+    DETAILSS_CHOICES = [ l for l in django_settings.LANGUAGES if l[0] not in ['en', 'ja', 'zh-hant', 'kr'] ]
     d_detailss = models.TextField(_('Details'), null=True)
 
     @property
     def t_details(self):
-        return versioned_t(self, field='details', checked=False) or self.detailss.get(get_language())
+        return versioned_t(self, field='details', checked=False, order=[
+            ('', 'en'), ('japanese_', 'ja'), ('korean_', 'kr'), ('traditional_chinese_', 'zh-hant')
+        ]) or self.detailss.get(get_language())
 
 ############################################################
 # Card
@@ -403,9 +402,7 @@ class Card(MagiModel):
 
     name = models.CharField(_('Title'), max_length=100, null=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, null=True)
-    traditional_chinese_name = models.CharField(string_concat(_('Title'), ' (', _('Taiwanese'), ')'), max_length=100, null=True)
-    korean_name = models.CharField(string_concat(_('Title'), ' (', _('Korean'), ')'), max_length=100, null=True)
-    NAMES_CHOICES = LANGUAGES_WITHOUT_VERSIONS
+    NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_names = models.TextField(_('Title'), null=True)
 
     @property
@@ -423,9 +420,7 @@ class Card(MagiModel):
     # Skill Name
     skill_name = models.CharField('Skill name', max_length=100, null=True)
     japanese_skill_name = models.CharField(string_concat('Skill name (', t['Japanese'], ')'), max_length=100, null=True)
-    traditional_chinese_skill_name = models.CharField(string_concat('Skill name (', _('Taiwanese'), ')'), max_length=100, null=True)
-    korean_skill_name = models.CharField(string_concat('Skill name (', _('Korean'), ')'), max_length=100, null=True)
-    SKILL_NAMES_CHOICES = LANGUAGES_WITHOUT_VERSIONS
+    SKILL_NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_skill_names = models.TextField('Skill name', null=True)
 
     @property
@@ -449,6 +444,31 @@ class Card(MagiModel):
     skill_duration = models.PositiveIntegerField('{duration}', null=True, help_text='in seconds')
     skill_percentage = models.FloatField('{percentage}', null=True)
     skill_alt_percentage = models.FloatField('{alt_percentage}', null=True)
+
+    @property
+    def skill_variables(self):
+        return { key: getattr(self, u'skill_{}'.format(key)) for key in Skill.SKILL_VARIABLES if getattr(self, u'skill_{}'.format(key)) }
+
+    @property
+    def skill_type(self):
+        return self.skill.i_type
+
+    @property
+    def skill_templates(self):
+        return { key: getattr(self.skill, u'{}details'.format(version)) for key, version in [
+            ('english', ''), ('japanese', 'japanese_'), ('korean', 'korean_'), ('taiwanese', 'traditional_chinese_')
+            ] if getattr(self.skill, u'{}details'.format(version)) }
+
+    def full_skill(self, text=None, duration=None, replace=False):
+        text = text or self.skill.details
+        for variable in Skill.SKILL_VARIABLES:
+            og = text
+            if duration and variable == 'duration':
+                var = duration
+            else:
+                var = getattr(self, 'skill_{}'.format(variable)) or ('???' if replace else None)
+            text = og.replace('{'+variable+'}', str(var))
+        return text
 
     # Images
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('c'))
@@ -753,6 +773,10 @@ class CollectibleCard(AccountAsOwnerModel):
     def color(self):
         return self.card.english_attribute
 
+    def full_skill(self, text=None, replace=False):
+        text = text or self.card.skill.details
+        return self.card.full_skill(text=text, duration=self.card.skill_duration + (((self.skill_level or 1)-1)*.5), replace=replace)
+
     def __unicode__(self):
         if self.id:
             return unicode(self.card)
@@ -994,7 +1018,7 @@ class EventParticipation(AccountAsOwnerModel):
 ############################################################
 # Song
 
-claMagiModel):
+class Song(MagiModel):
     collection_name = 'song'
 
     DIFFICULTY_VALIDATORS = [

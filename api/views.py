@@ -185,8 +185,9 @@ class CardSerializer(MagiSerializer):
             'id', 'member', 'i_rarity', 'i_attribute', 'name', 'japanese_name', 'release_date',
             'is_promo', 'is_original',
             'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
-            'skill_name', 'japanese_skill_name',
-            # / Not editable
+            'skill_name', 'japanese_skill_name', 'skill',
+            # Not editable
+            'skill_type', 'skill_variables', 'skill_templates', 'full_skill',
             'performance_min', 'performance_max', 'performance_trained_max',
             'technique_min', 'technique_max', 'technique_trained_max',
             'visual_min', 'visual_max', 'visual_trained_max', 'cameo_members'
@@ -224,6 +225,20 @@ class CardIDViewSet(viewsets.ModelViewSet):
         r = super(CardIDViewSet, self).list(request)
         r.data = [card['id'] for card in r.data]
         return r
+
+############################################################
+# Skill
+
+class SkillSerializer(MagiSerializer):
+    class Meta:
+        model = models.Skill
+        fields = ('id', 'name', 'i_type', 'details', 'japanese_details', 'traditional_chinese_details', 'korean_details')
+        save_owner_on_creation = True
+
+class SkillViewSet(viewsets.ModelViewSet):
+    queryset = models.Skill.objects.all()
+    serializer_class = SkillSerializer
+    permission_classes = (api_permissions.IsStaffOrSelf, )
 
 ############################################################
 # Event

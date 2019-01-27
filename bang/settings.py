@@ -276,10 +276,10 @@ ENABLED_PAGES['teambuilder'] = {
 }
 
 ENABLED_PAGES['gallery'] = {
-        'title': _('Gallery'),
-        'icon': 'pictures',
-        'navbar_link_list': 'bangdream',
-    }
+    'title': _('Gallery'),
+    'icon': 'pictures',
+    'navbar_link_list': 'bangdream',
+}
 
 ENABLED_PAGES['add_rerun'] = {
     'title': u'Add {} rerun dates'.format(u'/'.join(models.Rerun.ITEMS)),

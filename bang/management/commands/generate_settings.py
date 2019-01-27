@@ -235,9 +235,6 @@ def generate_settings():
         for area in models.Area.objects.all()
     ]
 
-    print 'Checking stuffs'
-    print staff_configurations['skill_types_translations']['en']
-
     print 'Save generated settings'
 
     generateSettings({

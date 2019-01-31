@@ -920,7 +920,7 @@ msgstr "Ver atividades só no teu idioma?"
 
 #: magi/models.py:881
 msgid "Check out {username}'s activity on {site}: {activity}"
-msgstr "Verifica a atividade de {username} bo {site}: {activity}"
+msgstr "Verifica a atividade de {username} no {site}: {activity}"
 
 #: magi/settings.py:76
 msgid "Join the community!"
@@ -1985,7 +1985,7 @@ msgstr "Contagem decrescente"
 
 #: sukutomo/magicollections.py:395 sukutomo/magicollections.py:612
 msgid "{time} left"
-msgstr "{tempo} restante."
+msgstr "{time} restante."
 
 #: sukutomo/magicollections.py:395 sukutomo/magicollections.py:612
 msgid "Starts in {time}"
@@ -2174,7 +2174,7 @@ msgstr "Deves usar formatação Markdown."
 #. Adding to your card Kotori
 #: magi/magicollections.py:334
 msgid "Adding to your {thing} {name}"
-msgstr "A adicionar ao teu {thing} {name}"
+msgstr "A adicionar a {thing} {name}"
 
 #: magi/magicollections.py:444
 msgid "Add to your {thing}"
@@ -2398,7 +2398,7 @@ msgstr "Personagens"
 #: bang/forms.py:99 bang/forms.py:183 bang/magicollections.py:79
 #: bang/magicollections.py:412 bang/settings.py:175
 msgid "Favorite {thing}"
-msgstr "{thing} favoritas"
+msgstr "{thing} favorita"
 
 #: bang/forms.py:270 bang/magicollections.py:416 bang/models.py:783
 msgid "Favorite {things}"
@@ -3388,7 +3388,7 @@ msgstr "Presente da Fortuna"
 
 #: cpro/model_choices.py:339
 msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}% when there are only {idol_type} idols on the team."
-msgstr "Aumenta {leader_skill_type} de todos os ídolos em {leader_skill_percent}% quando há apenas ídolos {idol_type} na equipa."
+msgstr "Aumenta {leader_skill_type} de todos os ídolos {idol_type} em {leader_skill_percent}% quando há apenas ídolos {idol_type} na equipa."
 
 #: cpro/model_choices.py:342
 msgid "Raises {leader_skill_type} of all idols by {leader_skill_percent}% when there are {all_types} idols on the team."
@@ -3537,7 +3537,7 @@ msgstr "Foco"
 
 #: cpro/model_choices.py:227
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus for {skill_duration} seconds"
-msgstr "A cada {trigger_value} segundos, há {trigger_chance}% de chance de notas Perfeitas receberem {skill_value}% de bónus de pontuação, e de ganhar um bónus de combo extra de {skill_value}% durante {skill_duration} segundos"
+msgstr "A cada {trigger_value} segundos, há {trigger_chance}% de chance de notas Perfeitas receberem {skill_value}% de bónus de pontuação, e de ganhar um bónus de combo extra de {skill_value2}% durante {skill_duration} segundos"
 
 #: bang/models.py:924
 msgid "VS Live"
@@ -3711,11 +3711,11 @@ msgstr "Lugares"
 
 #: bang/models.py:384
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%"
-msgstr "Durante"
+msgstr "Durante os próximos {duration} segundos, se a vida estiver a {stamina} ou mais, a pontuação é aumentada em +{percentage}%, caso contrário aumenta a pontuação em +{alt_percentage}%"
 
 #: bang/models.py:412
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}"
-msgstr "Durante os próximos {duration} segundos, se a vida estiver a {stamina} ou mais, a pontuação é aumentada em +{percentagem}%, caso contrário recupera a vido por {alt_stamina}"
+msgstr "Durante os próximos {duration} segundos, se a vida estiver a {stamina} ou mais, a pontuação é aumentada em +{percentage}%, caso contrário recupera a vido por {alt_stamina}"
 
 #. Name of a type of events in BanG Dream!
 #: bang/models.py:925

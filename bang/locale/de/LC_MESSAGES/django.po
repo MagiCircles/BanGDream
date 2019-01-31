@@ -565,7 +565,7 @@ msgstr "der Firma, die {game} besitzt"
 
 #: magi/views_collections.py:448
 msgid "Make sure the {thing} you're about to add doesn't already exist."
-msgstr "Stelle sicher das {thing} das du hinzufügen möchtest nicht bereits existiert."
+msgstr "Stelle sicher, dass das {thing} das du hinzufügen möchtest nicht bereits existiert."
 
 #: stardustrun/collections_settings.py:79 stardustrun/forms.py:125
 #: stardustrun/models.py:52 stardustrun/templates/items/pokemonItem.html:65
@@ -3711,17 +3711,17 @@ msgstr "Shop"
 
 #: magi/forms.py:1796 magi/models.py:166
 msgid "Always post activities in {language}"
-msgstr "Aktivitäten in {language} posten"
+msgstr "Poste Aktivitäten immer auf {language}"
 
 #. Name of the gacha followed by "Gacha". For example if the name of the gacha is "The pretty butterfly" then it will show up as "The pretty butterfly Gacha". If it doesn't sound good in your language, feel free to change the formatting. For example, if you enter "Gacha: {}", it will show up as "Gacha: The pretty butterfly".
 #: bang/magicollections.py:1616 bang/magicollections.py:1619
 #: bang/models.py:1426
 msgid "{} Gacha"
-msgstr ""
+msgstr "{}-Gacha"
 
 #: sukutomo/models.py:412
 msgid "Locations"
-msgstr ""
+msgstr "Orte"
 
 #: bang/models.py:384
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%"
@@ -3729,12 +3729,12 @@ msgstr "Für die nächsten {duration} Sekunden wird Dein Score um +{percentage}%
 
 #: bang/models.py:412
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}"
-msgstr ""
+msgstr "Für die nächsten {duration} Sekunden wird dein Score um +{percentage}% erhöht, wenn deine Leben {stamina} entsprechen oder überschreiten, andernfalls werden {alt_stamina} Leben regeneriert"
 
 #. Name of a type of events in BanG Dream!
 #: bang/models.py:925
 msgid "Live Goals"
-msgstr ""
+msgstr "Live Goals"
 
 #. Name of an achievement you can get after finishing an event in BanG Dream!
 #: bang/models.py:1049
@@ -3783,23 +3783,23 @@ msgstr ""
 
 #: bang/models.py:1570 bang/models.py:1618
 msgid "Mic"
-msgstr ""
+msgstr "Mikrofon"
 
 #: bang/models.py:1571
 msgid "Guitar"
-msgstr ""
+msgstr "Gitarre"
 
 #: bang/models.py:1572
 msgid "Bass"
-msgstr ""
+msgstr "Bass"
 
 #: bang/models.py:1573
 msgid "Drums"
-msgstr ""
+msgstr "Schlagzeug"
 
 #: sukutomo/models.py:408
 msgid "Hits"
-msgstr ""
+msgstr "Treffer"
 
 #: sukutomo/models.py:409 sukutomo/models.py:415
 msgid "Daily rotation"
@@ -3809,12 +3809,12 @@ msgstr ""
 #: sukutomo/magicollections.py:389 sukutomo/models.py:410
 #: sukutomo/models.py:417 sukutomo/models.py:418
 msgid "B-Side"
-msgstr ""
+msgstr "B-Seite"
 
 #: sukutomo/magicollections.py:433 sukutomo/magicollections.py:439
 #: sukutomo/models.py:449
 msgid "with SWIPE notes"
-msgstr ""
+msgstr "mit SWIPE-Noten"
 
 #: sukutomo/models.py:508 sukutomo/models.py:838
 msgid "Details"
@@ -3901,7 +3901,7 @@ msgstr ""
 
 #: bang/forms.py:569
 msgid "Please provide a screenshot to prove your ranking."
-msgstr ""
+msgstr "Bitte lade einen Screenshot hoch, um deine Platzierung zu beweisen."
 
 #: bang/forms.py:1044 bang/models.py:1590
 msgid "Statistic"
@@ -3922,11 +3922,11 @@ msgstr ""
 
 #: bang/models.py:1488
 msgid "Live boost"
-msgstr ""
+msgstr "Live Boost"
 
 #: bang/models.py:1489
 msgid "Studio ticket"
-msgstr ""
+msgstr "Studioticket"
 
 #. Examples:
 #. Idol Mic

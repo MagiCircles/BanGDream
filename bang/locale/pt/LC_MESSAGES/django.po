@@ -1906,9 +1906,8 @@ msgid "{month} Donator"
 msgstr "Doador de {month}"
 
 #: magi/models.py:1236
-#, fuzzy
 msgid "{donation_platform} supporter of {site_name} who donated to help cover the server costs"
-msgstr "{donation_platform} supporter de {site_name} que doou para ajudar a pagar custos de server"
+msgstr "apoiador {donation_platform} de {site_name} que doou para ajudar a manter o servidor"
 
 #: magi/raw.py:7
 msgid "lovely"
@@ -1985,7 +1984,7 @@ msgstr "Contagem decrescente"
 
 #: sukutomo/magicollections.py:395 sukutomo/magicollections.py:612
 msgid "{time} left"
-msgstr "{time} restante."
+msgstr "{time} restante"
 
 #: sukutomo/magicollections.py:395 sukutomo/magicollections.py:612
 msgid "Starts in {time}"
@@ -2501,7 +2500,7 @@ msgstr "Carta promo"
 
 #: bang/models.py:381
 msgid "For the next {duration} seconds, score of all notes boosted by +{percentage}%"
-msgstr "Durante os próximos {duration} segundos, a pontuação de todas as notas aumenta +{percentage}%"
+msgstr "Nos próximos {duration} segundos, o score das notas aumenta {percentage}%"
 
 #: bang/models.py:398
 msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
@@ -3388,19 +3387,19 @@ msgstr "Presente da Fortuna"
 
 #: cpro/model_choices.py:339
 msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}% when there are only {idol_type} idols on the team."
-msgstr "Aumenta {leader_skill_type} de todos os ídolos {idol_type} em {leader_skill_percent}% quando há apenas ídolos {idol_type} na equipa."
+msgstr "Aumenta {leader_skill_type} de todas as idols {idol_type} em {leader_skill_percent}% quando só há idols {idol_type} na equipa."
 
 #: cpro/model_choices.py:342
 msgid "Raises {leader_skill_type} of all idols by {leader_skill_percent}% when there are {all_types} idols on the team."
-msgstr "Aumenta {leader_skill_type} de todos os ídolos em {leader_skill_percent}% quando há ídolos {all_types} na equipa."
+msgstr "Aumenta {leader_skill_type} de todas as idols em {leader_skill_percent}% quando há ídolos {all_types} na equipa."
 
 #: cpro/model_choices.py:354
 msgid "Increases fan gain by {leader_skill_percent}% when you finish a live."
-msgstr "Aumenta o número de fãs ganhos por {leader_skill_percent}% quando terminas um live."
+msgstr "Aumenta o número de fãs ganhos por {leader_skill_percent}% quando acabas um live."
 
 #: cpro/model_choices.py:355
 msgid "Gives extra rewards when you finish a live."
-msgstr "Dá recompensas extra quando terminas um live."
+msgstr "Dá recompensas extra quando acabas um live."
 
 #: cpro/model_choices.py:371 cpro/model_choices.py:376
 #: cpro/model_choices.py:377 cpro/model_choices.py:378
@@ -3409,7 +3408,7 @@ msgstr "Atração {type}"
 
 #: cpro/model_choices.py:381
 msgid "Skill probability"
-msgstr "Probabilidade de Proeza"
+msgstr "Probabilidade da Skill"
 
 #: bang/forms.py:529 bang/forms.py:712
 msgid "Status"
@@ -3521,7 +3520,7 @@ msgstr "Não mostrar isto outra vez"
 
 #: magi/utils.py:333
 msgid "Your email address is invalid."
-msgstr "O teu endereço de email está inválido."
+msgstr "O teu endereço de email é inválido."
 
 #: magi/utils.py:334
 msgid "Some features might not work properly."
@@ -3537,7 +3536,7 @@ msgstr "Foco"
 
 #: cpro/model_choices.py:227
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus for {skill_duration} seconds"
-msgstr "A cada {trigger_value} segundos, há {trigger_chance}% de chance de notas Perfeitas receberem {skill_value}% de bónus de pontuação, e de ganhar um bónus de combo extra de {skill_value2}% durante {skill_duration} segundos"
+msgstr "A cada {trigger_value} segundos, há {trigger_chance}% de chance das notas Perfect terem um bónus de {skill_value}% de score, e de ganhar um bónus de combo extra de {skill_value2}% durante {skill_duration} segundos"
 
 #: bang/models.py:924
 msgid "VS Live"
@@ -3593,7 +3592,7 @@ msgstr "CosParty 2018"
 
 #: magi/models.py:1171
 msgid "This is {month}'s badge. It's limited to this month only, and only our donators can get it. It's not too late! If you donate now, it will appear on your profile."
-msgstr "Esta é a medalha de {month}. É limitada a este mês apenas, e apenas os nossos doadores a podem ter. Não é muito tarde! Se doares agora, vai aparecer no teu perfil."
+msgstr "Esta é a medalha de {month}. É limitada a este mês e apenas os nossos doadores a podem ter. Não é muito tarde! Se doares agora, vai aparecer no teu perfil."
 
 #: bang/models.py:1767
 msgid "Background"
@@ -3609,7 +3608,7 @@ msgstr "Personagem"
 
 #: bang/magicollections.py:263 bang/magicollections.py:267 bang/settings.py:100
 msgid "TOP"
-msgstr "TOPO"
+msgstr "TOP"
 
 #: bang/models.py:926
 msgid "Mission Live"
@@ -3665,19 +3664,19 @@ msgstr "Feitos por Fãs"
 
 #: sukutomo/settings.py:491
 msgid "Commissions"
-msgstr "Comissão"
+msgstr "Comissões"
 
 #: sukutomo/settings.py:494
 msgid "Cosplays"
-msgstr "Cosplaya"
+msgstr "Cosplays"
 
 #: sukutomo/settings.py:495
 msgid "Fanarts"
-msgstr "Fanart"
+msgstr "Fanarts"
 
 #: sukutomo/settings.py:496
 msgid "Fan edits"
-msgstr "Edição por fãs"
+msgstr "Edições de fãs"
 
 #: sukutomo/settings.py:497
 msgid "Fan fictions"
@@ -3711,16 +3710,16 @@ msgstr "Lugares"
 
 #: bang/models.py:384
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%"
-msgstr "Durante os próximos {duration} segundos, se a vida estiver a {stamina} ou mais, a pontuação é aumentada em +{percentage}%, caso contrário aumenta a pontuação em +{alt_percentage}%"
+msgstr "Nos próximos {duration} segundos, se tiver no mínimo {stamina} de vida, o score aumenta {percentage}%, aumenta apenas {alt_percentage}%"
 
 #: bang/models.py:412
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}"
-msgstr "Durante os próximos {duration} segundos, se a vida estiver a {stamina} ou mais, a pontuação é aumentada em +{percentage}%, caso contrário recupera a vido por {alt_stamina}"
+msgstr "Nos próximos {duration} segundos, se tiver no mínimo {stamina} de vida, o score aumenta {percentage}%, senão ganha {alt_stamina} de vida"
 
 #. Name of a type of events in BanG Dream!
 #: bang/models.py:925
 msgid "Live Goals"
-msgstr "Ensaio ao Vivo"
+msgstr "Objetivos do Live"
 
 #. Name of an achievement you can get after finishing an event in BanG Dream!
 #: bang/models.py:1049
@@ -3796,7 +3795,7 @@ msgstr "Rotação diária"
 #: sukutomo/magicollections.py:389 sukutomo/models.py:410
 #: sukutomo/models.py:417 sukutomo/models.py:418
 msgid "B-Side"
-msgstr "Lado B"
+msgstr "B-Side"
 
 #: sukutomo/magicollections.py:433 sukutomo/magicollections.py:439
 #: sukutomo/models.py:449
@@ -3817,15 +3816,15 @@ msgstr "x combo"
 
 #: sukutomo/models.py:658
 msgid "Angel"
-msgstr "Anjo"
+msgstr "Angel"
 
 #: sukutomo/models.py:663
 msgid "Empress"
-msgstr "Imperatriz"
+msgstr "Empress"
 
 #: sukutomo/models.py:668
 msgid "Star"
-msgstr "Estrela"
+msgstr "Star"
 
 #: sukutomo/models.py:672
 msgid "Heart"
@@ -3888,7 +3887,7 @@ msgstr "Menu de especiais"
 
 #: bang/forms.py:569
 msgid "Please provide a screenshot to prove your ranking."
-msgstr "Por favor providencia uma captura de ecrã para comprovar a tua classficação"
+msgstr "Por favor mostra um screenshot para provar o teu ranking"
 
 #: bang/forms.py:1044 bang/models.py:1590
 msgid "Statistic"
@@ -3935,11 +3934,11 @@ msgstr "Capa de CD"
 
 #: bang/models.py:1661
 msgid "Restores life by {life} and {affected} members get a {value} boost on {stat} statistics"
-msgstr "Membros {affected} obtém +{value} pontos de {stat} se a vida estiver acima de {life}"
+msgstr "Ganha {life} de vida e membros {affected} obtêm +{value} pontos de {stat}"
 
 #: bang/models.py:1663
 msgid "{affected} members get a {value} boost on {stat} statistics"
-msgstr "Membros {affected} obtém +{value} pontos de {stat}"
+msgstr "Membros {affected} obtêm +{value} pontos de {stat}"
 
 #: sukutomo/models.py:500
 msgid "Timing boost"
@@ -3951,11 +3950,11 @@ msgstr "Tipo de habilidade"
 
 #: sukutomo/models.py:699
 msgid "{attribute} points up by +{number}% of {other_attribute}"
-msgstr "Pontos de {attribute} aumentam em +{number}% de {other_attribute}"
+msgstr "Pontos {attribute} aumentam {number}% de {other_attribute}"
 
 #: sukutomo/models.py:706
 msgid "{attribute} points up by +{number}%"
-msgstr "Pontos de {attribute} aumentam em +{number}%"
+msgstr "Pontos {attribute} aumentam {number}%"
 
 #: sukutomo/magicollections.py:887 sukutomo/models.py:686
 msgid "Leader skill"
@@ -3967,7 +3966,7 @@ msgstr "Efeito de estatística"
 
 #: sukutomo/models.py:711
 msgid "{group} members points up by +{number}%"
-msgstr "Pontos de membros {group} aumentam em +{number}%"
+msgstr "Pontos de membros {group} aumentam {number}%"
 
 #: sukutomo/models.py:722
 msgid "Boost group"

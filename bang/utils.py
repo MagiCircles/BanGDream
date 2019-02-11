@@ -159,7 +159,7 @@ def subtitledImageLink(item, verbose_name, icon=None, image=None, subtitle=None)
         'verbose_name': verbose_name,
         'verbose_name_subtitle': subtitle or unicode(item),
         'value': (getattr(item, '{}image_url'.format(
-            models.Account.VERSIONS[models.LANGUAGES_TO_VERSIONS[get_language()]]['prefix'],
+            models.Account.VERSIONS[models.LANGUAGES_TO_VERSIONS.get(get_language(), 'EN')]['prefix'],
         ), None) or item.image_url),
         'type': 'image_link',
         'link': item.item_url,

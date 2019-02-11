@@ -54,7 +54,9 @@ LANGUAGES_TO_VERSIONS = {
     'ja': 'JP',
     'kr': 'KR',
     'id': 'EN',
+    'vi': 'EN',
     'zh-hant': 'TW',
+    'pt': 'EN',
     'pt-br': 'EN',
     'tr': 'EN',
 }

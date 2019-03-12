@@ -1,21 +1,19 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django.core.management.base import BaseCommand, CommandError
-from django.db.models import Q, Count
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import get_language, activate as translation_activate, ugettext_lazy as _
-from django.utils.formats import date_format
-from django.core.exceptions import ObjectDoesNotExist
-from django.conf import settings as django_settings
 from magi import urls # needed to load static_url
 from magi.tools import (
     generateSettings,
     totalDonatorsThisMonth,
     getStaffConfigurations,
     latestDonationMonth,
+    getCharactersBirthdays,
+    getUsersBirthdaysToday,
 )
-from magi.utils import birthdays_within, staticImageURL
-from magi import models as magi_models
+from magi.utils import staticImageURL
 from bang import models
 
 def generate_settings():
@@ -33,82 +31,25 @@ def generate_settings():
     now = timezone.now()
     old_lang = get_language()
 
-
     # Birthdays
 
-    # Make sure all members use the same year as birthdate
-    for member in models.Member.objects.filter(birthday__isnull=False).order_by('birthday'):
-        member.birthday = member.birthday.replace(year=2015)
-        member.save()
+    def get_name_image_url_from_character(character):
+        card = models.Card.objects.filter(member=character).filter(
+            show_art_on_homepage=True).order_by('-i_rarity', '-release_date')[0]
+        return character.first_name, card.art_original_url, character.item_url
 
-    for member in  models.Member.objects.filter(
-            birthdays_within(days_after=12, days_before=1, field_name='birthday')
-    ).order_by('birthday'):
-        card = models.Card.objects.filter(member=member).filter(show_art_on_homepage=True).order_by('-i_rarity', '-release_date')[0]
-        t_titles = {}
-        for lang, _verbose in django_settings.LANGUAGES:
-            translation_activate(lang)
-            t_titles[lang] = u'{}, {}! {}'.format(
-                _('Happy Birthday'),
-                member.first_name,
-                date_format(member.birthday, format='MONTH_DAY_FORMAT', use_l10n=True),
-            )
-        translation_activate(old_lang)
-        latest_news.append({
-            't_titles': t_titles,
-            'background': card.art_original_url,
-            'url': member.item_url,
-            'hide_title': False,
-            'ajax': False,
-            'css_classes': 'birthday',
-        })
+    latest_news = getCharactersBirthdays(
+        models.Member.objects.all(),
+        get_name_image_url_from_character,
+        latest_news=latest_news,
+    )
 
     # Users birthdays
-    max_usernames = 4
-    users = list(magi_models.User.objects.filter(
-        preferences__birthdate__day=now.day,
-        preferences__birthdate__month=now.month,
-    ).extra(select={
-        'total_followers': '(SELECT COUNT(*) FROM {table}_following WHERE user_id = auth_user.id)'.format(
-            table=magi_models.UserPreferences._meta.db_table,
-        ),
-        'total_following': '(SELECT COUNT(*) FROM {table}_following WHERE userpreferences_id = (SELECT id FROM {table} WHERE user_id = auth_user.id))'.format(
-            table=magi_models.UserPreferences._meta.db_table,
-        ),
-    }).annotate(
-        total_activities=Count('activities'),
-        total_accounts=Count('accounts'),
-    ).order_by(
-        '-total_followers',
-        '-total_following',
-        '-total_activities',
-        '-total_accounts',
-    ))
-    if users:
-        usernames = u'{}{}'.format(
-            u', '.join([user.username for user in users[:max_usernames]]),
-            u' + {}'.format(len(users[max_usernames:])) if users[max_usernames:] else '',
-        )
-        t_titles = {}
-        for lang, _verbose in django_settings.LANGUAGES:
-            translation_activate(lang)
-            t_titles[lang] = u'{} 🎂🎉 {}'.format(
-                _('Happy Birthday'),
-                usernames,
-            )
-        translation_activate(old_lang)
-        latest_news.append({
-            't_titles': t_titles,
-            'image': staticImageURL('happy_birthday.png'),
-            'url': (
-                users[0].item_url
-                if len(users) == 1
-                else u'/users/?ids={}'.format(u','.join([unicode(user.id) for user in users]))
-            ),
-            'hide_title': False,
-            'css_classes': 'birthday font0-5',
-        })
-
+    latest_news = getUsersBirthdaysToday(
+        staticImageURL('happy_birthday.png'),
+        latest_news=latest_news,
+        max_usernames=4,
+    )
 
     # Events & Gachas
 

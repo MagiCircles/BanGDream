@@ -275,18 +275,18 @@ ENABLED_PAGES['teambuilder'] = {
     #'navbar_link_list': 'girlsbandparty',
 }
 
-ENABLED_PAGES['gallery'] = [
-    {
-        'title': _('Gallery'),
-        'icon': 'pictures',
-        'navbar_link_list': 'bangdream',
-    },
-    {
-        'title': _('Gallery'),
-        'icon': 'pictures',
-        'navbar_link_list': 'girlsbandparty',
-    },
-]
+ENABLED_PAGES['gallery'] = {
+    'title': _('Gallery'),
+    'icon': 'pictures',
+    'navbar_link_list': 'girlsbandparty',
+}
+
+ENABLED_PAGES['officialart'] = {
+    'title': _('Official art'),
+    'icon': 'pictures',
+    'navbar_link_list': 'bangdream',
+    'redirect': '/officialart/',
+}
 
 ENABLED_PAGES['add_rerun'] = {
     'title': u'Add {} rerun dates'.format(u'/'.join(models.Rerun.ITEMS)),
@@ -304,7 +304,7 @@ ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),
     'image': 'BanGDream',
-    'order': ['member_list', 'song_list', 'gallery'],
+    'order': ['member_list', 'officialart', 'song_list'],
 }
 ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
     'title': _('Girls Band Party'),

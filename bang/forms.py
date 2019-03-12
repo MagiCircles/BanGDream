@@ -1177,6 +1177,11 @@ class AssetFilterForm(MagiFiltersForm):
             type = models.Asset.get_reverse_i('type', int(self.request.GET.get('i_type', None)))
         except (KeyError, ValueError, TypeError):
             type = None
+        # /officialart/ shortcut
+        if '/officialart' in self.request.path:
+            type = 'official'
+            if 'i_type' in self.fields:
+                self.fields['i_type'].initial = models.Asset.get_i('type', 'official')
         # Show only variables that match type
         if type in models.Asset.TYPES:
             for variable in models.Asset.VARIABLES:

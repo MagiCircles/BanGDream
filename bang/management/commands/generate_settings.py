@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django.core.management.base import BaseCommand, CommandError
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.utils import timezone
 from django.utils.translation import get_language, activate as translation_activate, ugettext_lazy as _
 from django.utils.formats import date_format
@@ -64,15 +64,26 @@ def generate_settings():
         })
 
     # Users birthdays
-    max_usernames = 5
+    max_usernames = 4
     users = list(magi_models.User.objects.filter(
         preferences__birthdate__day=now.day,
         preferences__birthdate__month=now.month,
     ).extra(select={
-        'total_followers': 'SELECT COUNT(*) FROM {table}_following WHERE user_id = auth_user.id'.format(
+        'total_followers': '(SELECT COUNT(*) FROM {table}_following WHERE user_id = auth_user.id)'.format(
             table=magi_models.UserPreferences._meta.db_table,
         ),
-    }).order_by('-total_followers'))
+        'total_following': '(SELECT COUNT(*) FROM {table}_following WHERE userpreferences_id = (SELECT id FROM {table} WHERE user_id = auth_user.id))'.format(
+            table=magi_models.UserPreferences._meta.db_table,
+        ),
+    }).annotate(
+        total_activities=Count('activities'),
+        total_accounts=Count('accounts'),
+    ).order_by(
+        '-total_followers',
+        '-total_following',
+        '-total_activities',
+        '-total_accounts',
+    ))
     if users:
         usernames = u'{}{}'.format(
             u', '.join([user.username for user in users[:max_usernames]]),

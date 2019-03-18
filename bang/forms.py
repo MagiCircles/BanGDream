@@ -198,6 +198,8 @@ class MemberForm(AutoForm):
 
     def save(self, commit=False):
         instance = super(MemberForm, self).save(commit=False)
+        # Make sure all members use the same year as birthdate
+        instance.birthday = instance.birthday.replace(year=2015)
         # Invalidate cards cache
         if not self.is_creating:
             models.Card.objects.filter(member_id=instance.id).update(_cache_member_last_update=None)
@@ -219,7 +221,7 @@ class MemberFilterForm(MagiFiltersForm):
 
     ordering_fields = [
         ('id', _('Band')),
-        ('_cache_total_fans', _('Popularity')),
+        ('_cache_total_fans', _('Most popular')),
         ('name', _('Name')),
         ('japanese_name', string_concat(_('Name'), ' (', t['Japanese'], ')')),
         ('birthday', _('Birthday')),
@@ -277,8 +279,8 @@ class CardFilterForm(MagiFiltersForm):
     ordering_fields = [
         ('release_date,id', _('Release date')),
         ('id', _('ID')),
-        ('_cache_total_collectedcards', lambda: string_concat(_('Popularity'), ' (', _('Collected {things}').format(things=_('Cards').lower()), ')')),
-        ('_cache_total_favorited', lambda: string_concat(_('Popularity'), ' (', _('Favorite {things}').format(things=_('Cards').lower()), ')')),
+        ('_cache_total_collectedcards', lambda: string_concat(_('Most popular'), ' (', _('Collected {things}').format(things=_('Cards').lower()), ')')),
+        ('_cache_total_favorited', lambda: string_concat(_('Most popular'), ' (', _('Favorite {things}').format(things=_('Cards').lower()), ')')),
         ('member__name', string_concat(_('Member'), ' - ', _('Name'))),
         ('member__japanese_name', string_concat(_('Member'), ' - ', _('Name'), ' (', t['Japanese'], ')')),
         ('i_rarity', _('Rarity')),
@@ -523,7 +525,7 @@ class EventFilterForm(MagiFiltersForm):
         ('english_start_date', string_concat(_('Date'), ' (', _('English version'), ')')),
         ('taiwanese_start_date', string_concat(_('Date'), ' (', _('Taiwanese version'), ')')),
         ('korean_start_date', string_concat(_('Date'), ' (', _('Korean version'), ')')),
-        ('_cache_total_participations', string_concat(_('Popularity'), ' (', _('Participated events'), ')')),
+        ('_cache_total_participations', string_concat(_('Most popular'), ' (', _('Participated events'), ')')),
         ('name', _('Title')),
         ('japanese_name', string_concat(_('Title'), ' (', t['Japanese'], ')')),
     ]
@@ -938,7 +940,7 @@ class SongFilterForm(MagiFiltersForm):
     ordering_fields = [
         ('release_date', _('Release date')),
         ('japanese_name', _('Title')),
-        ('_cache_total_played', string_concat(_('Popularity'), ' (', _('Played songs'), ')')),
+        ('_cache_total_played', string_concat(_('Most popular'), ' (', _('Played songs'), ')')),
         ('romaji_name', string_concat(_('Title'), ' (', _('Romaji'), ')')),
         ('length', _('Length')),
         ('bpm', _('BPM')),
@@ -1179,6 +1181,11 @@ class AssetFilterForm(MagiFiltersForm):
             type = models.Asset.get_reverse_i('type', int(self.request.GET.get('i_type', None)))
         except (KeyError, ValueError, TypeError):
             type = None
+        # /officialart/ shortcut
+        if '/officialart' in self.request.path:
+            type = 'official'
+            if 'i_type' in self.fields:
+                self.fields['i_type'].initial = models.Asset.get_i('type', 'official')
         # Show only variables that match type
         if type in models.Asset.TYPES:
             for variable in models.Asset.VARIABLES:

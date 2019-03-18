@@ -2566,6 +2566,9 @@ class AssetCollection(MagiCollection):
         page_size = 25
         item_padding = None
         show_items_titles = True
+        shortcut_urls = [
+            'officialart',
+        ]
 
         def top_buttons(self, request, context):
             buttons = super(AssetCollection.ListView, self).top_buttons(request, context)
@@ -2582,10 +2585,15 @@ class AssetCollection(MagiCollection):
 
         def extra_context(self, context):
             super(AssetCollection.ListView, self).extra_context(context)
+            i_type = None
             if context['request'].GET.get('i_type'):
                 if len(context['request'].GET) == 1:
                     context['show_search_results'] = False
-                context['h1_page_title'] = models.Asset.get_verbose_i('type', int(context['request'].GET['i_type']))
+                i_type = int(context['request'].GET['i_type'])
+            elif '/officialart' in context['request'].path:
+                i_type = models.Asset.get_i('type', 'official')
+            if i_type:
+                context['h1_page_title'] = models.Asset.get_verbose_i('type', i_type)
                 context['page_title'] = u'{} | {}'.format(context['h1_page_title'], context['page_title'])
 
     class AddView(MagiCollection.AddView):

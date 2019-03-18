@@ -980,7 +980,7 @@ class Event(MagiModel):
     TIMES_PER_VERSIONS = {
         'JP': ((6, 0), (11, 59)),
         'EN': ((1, 0), (6, 59)),
-        'TW': ((7, 0), (13, 59)),
+        'TW': ((7, 0), (12, 59)),
         'KR': ((6, 0), (13, 0)),
     }
     FIELDS_PER_VERSION = ['image', 'countdown', 'start_date', 'end_date', 'leaderboard', 'rerun']

@@ -2011,8 +2011,7 @@ class SongCollection(MagiCollection):
             queryset = super(SongCollection.ItemView, self).get_queryset(queryset, parameters, request)
             queryset = queryset.select_related('event').prefetch_related(
                 Prefetch('assets', queryset=models.Asset.objects.select_related(
-                    # 'song').order_by('i_type'), to_attr('all_assets'),
-                    'song').filter(i_type='5'), to_attr='all_assets'),
+                    'song').filter(c_tags__contains='cd'), to_attr='all_assets'),
                 )
             return queryset
 
@@ -2072,6 +2071,7 @@ class SongCollection(MagiCollection):
                     'icon': 'id',
                 }
 
+            # Link to Official Art with #Album cover
             if len(item.all_assets):
                 fields['song_alt_covers'] = {
                     'verbose_name': string_concat(_('Album cover'), ' (', _('Other'), ')'),

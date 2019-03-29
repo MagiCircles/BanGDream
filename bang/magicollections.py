@@ -2009,14 +2009,16 @@ class SongCollection(MagiCollection):
 
         def get_queryset(self, queryset, parameters, request):
             queryset = super(SongCollection.ItemView, self).get_queryset(queryset, parameters, request)
-            queryset = queryset.select_related('event')
+            queryset = queryset.select_related('event').prefetch_related(
+                Prefetch('assets', queryset=models.Asset.objects.select_related(
+                    'song').filter(c_tags__contains='cd'), to_attr='all_assets'),
+                )
             return queryset
 
         def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
-            order = SONG_ITEM_FIELDS_ORDER + order
             exclude_fields += ['name']
             language = get_language()
 
@@ -2034,6 +2036,7 @@ class SongCollection(MagiCollection):
                 'value': value,
             }))
 
+            order = SONG_ITEM_FIELDS_ORDER + order
             fields = super(SongCollection.ItemView, self).to_fields(
                 item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
             for difficulty, verbose_name in models.Song.DIFFICULTIES:
@@ -2067,6 +2070,21 @@ class SongCollection(MagiCollection):
                     'value': mark_safe(u'<div class="songwriters-details">{}</div>'.format(details)),
                     'icon': 'id',
                 }
+
+            # Link to Official Art with #Album cover
+            if len(item.all_assets):
+                fields['song_alt_covers'] = {
+                    'verbose_name': string_concat(_('Album cover'), ' (', _('Other'), ')'),
+                    'icon': 'pictures',
+                    'type': 'images_links',
+                    'images': [{
+                        'value': asset.image_url,
+                        'link': asset.item_url,
+                        'ajax_link': asset.ajax_item_url,
+                        'link_text': unicode(asset),
+                    } for asset in item.all_assets],
+                }
+                
             return fields
 
     class AddView(MagiCollection.AddView):

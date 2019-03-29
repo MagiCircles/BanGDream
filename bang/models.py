@@ -1284,7 +1284,7 @@ class Song(MagiModel):
     @property
     def unlock_sentence(self):
         return unicode(self.unlock_template).format(**{
-            k: self.unlock_variables_transform.get(k, lambda s, v: v)(self, v)
+            k: (self.unlock_variables_transform or {}).get(k, lambda s, v: v)(self, v)
             for k, v in zip(self.unlock_variables_keys, self.unlock_variables)
         })
 

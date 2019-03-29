@@ -406,6 +406,8 @@ def to_CollectibleCardForm(cls):
 
 def to_CollectibleCardFilterForm(cls):
     class _CollectibleCardFilterForm(cls.ListView.filter_form):
+        ordering_fields = [('card__i_rarity,trained,card__release_date', _('Default'))] + cls.ListView.filter_form.ordering_fields
+        
         def skill_filter_to_queryset(self, queryset, request, value):
             if not value: return queryset
             if value == '1': return queryset.filter(card__i_skill_type=value) # Score up

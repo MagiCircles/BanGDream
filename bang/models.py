@@ -1254,6 +1254,19 @@ class Song(MagiModel):
             'template': _('Event gift'),
             'variables': [],
         }),
+        ('level', {
+            'translation': _('Level'),
+            'template': _('Level {level}'),
+            'variables': ['level'],
+        }),
+        ('level_band', {
+            'translation': string_concat(_('Level'), ' / ', _('Band')),
+            'template': string_concat('{band} - ', _('Level {level}')),
+            'variables': ['level', 'band'],
+            'variables_transform': {
+                'band': lambda _s, _v: Member.get_verbose_i('band', int(_v)),
+            },
+        }),
         ('other', {
             'translation': _('Other'),
             'template': '{how_to_unlock}',
@@ -1266,10 +1279,14 @@ class Song(MagiModel):
 
     c_unlock_variables = models.CharField(_('How to unlock?'), max_length=100, null=True)
     unlock_variables_keys = property(getInfoFromChoices('unlock', UNLOCK, 'variables'))
+    unlock_variables_transform = property(getInfoFromChoices('unlock', UNLOCK, 'variables_transform'))
     unlock_template = property(getInfoFromChoices('unlock', UNLOCK, 'template'))
     @property
     def unlock_sentence(self):
-        return unicode(self.unlock_template).format(**dict(zip(self.unlock_variables_keys, self.unlock_variables)))
+        return unicode(self.unlock_template).format(**{
+            k: self.unlock_variables_transform.get(k, lambda s, v: v)(self, v)
+            for k, v in zip(self.unlock_variables_keys, self.unlock_variables)
+        })
 
     event = models.ForeignKey(Event, verbose_name=_('Event'), related_name='gift_songs', null=True, on_delete=models.SET_NULL)
 

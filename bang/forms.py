@@ -909,6 +909,12 @@ def unlock_to_form(unlock):
                 )
             if unlock != 'event' and 'event' in self.fields:
                 del(self.fields['event'])
+            if 'band' in self.fields:
+                self.fields['band'] = forms.ChoiceField(
+                    choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES),
+                    help_text=self.fields['band'].help_text,
+                    initial=self.fields['band'].initial,
+                )
 
         def save(self, commit=False):
             instance = super(_UnlockSongForm, self).save(commit=False)

@@ -82,7 +82,7 @@ HASHTAGS = [u'バンドリ', u'ガルパ']
 ############################################################
 # Homepage
 
-RANDOM_ART_FOR_CHARACTER = randomArtForCharacter
+#RANDOM_ART_FOR_CHARACTER = randomArtForCharacter
 HOMEPAGE_BACKGROUND = 'bg_pattern.png'
 HOMEPAGE_ART_SIDE = 'left'
 HOMEPAGE_ART_POSITION = {
@@ -295,6 +295,10 @@ ENABLED_PAGES['add_rerun'] = {
     'icon': 'date',
     'navbar_link_list': 'staff',
     'redirect': '/rerun/add/',
+}
+
+ENABLED_PAGES['endaprilfool'] = {
+    'ajax': True,
 }
 
 ############################################################

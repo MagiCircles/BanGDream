@@ -158,6 +158,9 @@ def generate_settings():
             'url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
             'hd_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
         }]
+    homepage_arts = [{
+        'url': 'https://i.imgur.com/bWZv8ku.png',
+    }]
 
     print 'Get max stats'
     stats = {

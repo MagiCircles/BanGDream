@@ -181,3 +181,36 @@ def teambuilder(request):
 
     context['filter_form'] = form
     return render(request, 'pages/teambuilder.html', context)
+
+############################################################
+# April fools
+
+from django.views.decorators.csrf import csrf_exempt
+from magi import models as magi_models
+from django.http import JsonResponse
+from django.core.exceptions import PermissionDenied
+
+def endaprilfool(request):
+    context = ajaxContext(request)
+    if not request.user.is_authenticated():
+        raise PermissionDenied()
+    name = 'April Fools 2019 Knight'
+    description = 'You freed Kanae from RAISE A SUILEN before their party ended!'
+    existing_badge = magi_models.Badge.objects.filter(name=name, user=request.user).count()
+    rank = None
+    if existing_badge:
+        return JsonResponse({})
+    already_got = magi_models.Badge.objects.filter(name=name).count()
+    if already_got < 3:
+        rank = 3 - already_got
+    magi_models.Badge.objects.create(
+        owner_id=1, user=request.user,
+        name=name, description=description,
+        image='u/badges/15April-Fools-2019-Knight-E7MPPt.png',
+        rank=rank,
+        show_on_profile=True,
+        show_on_top_profile=False,
+    )
+    return JsonResponse({
+        'already_got': already_got,
+    })

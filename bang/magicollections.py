@@ -2073,16 +2073,25 @@ class SongCollection(MagiCollection):
 
             # Link to Official Art with #Album cover
             if len(item.all_assets):
+
+                # Create list of Album covers with every version showing
+                _song_alt_covers = []
+                for _version, _info in models.Account.VERSIONS.items():
+                    for asset in item.all_assets:
+                        if getattr(asset, '{}image_url'.format(_info['prefix']), None):
+                            _song_alt_covers += [{
+                                'value':  getattr(asset, '{}image_url'.format(_info['prefix'])),
+                                'link':  getattr(asset, '{}image_url'.format(_info['prefix'])),
+                                'link_text': unicode(asset),
+                            }]
+
+                # Create field
+                # Note: song_ prefix is for css minimizing song cover size
                 fields['song_alt_covers'] = {
                     'verbose_name': string_concat(_('Album cover'), ' (', _('Other'), ')'),
                     'icon': 'pictures',
                     'type': 'images_links',
-                    'images': [{
-                        'value': asset.image_url,
-                        'link': asset.item_url,
-                        'ajax_link': asset.ajax_item_url,
-                        'link_text': unicode(asset),
-                    } for asset in item.all_assets],
+                    'images': _song_alt_covers,
                 }
                 
             return fields

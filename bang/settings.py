@@ -236,13 +236,6 @@ ENABLED_PAGES['map']['navbar_link_list'] = 'community'
 
 ENABLED_PAGES['settings']['custom'] = True
 
-ENABLED_PAGES['cards_quickadd'] = {
-    'title': string_concat(u'↳ ', _('Quick add')),
-    'navbar_link_list': 'girlsbandparty',
-    'redirect': '/cards/?view=icons',
-    'authentication_required': True,
-}
-
 ENABLED_PAGES['discord'] = {
     'title': 'Discord',
     'icon': 'chat',

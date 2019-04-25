@@ -910,9 +910,6 @@ class CardCollection(MagiCollection):
                     'skill_type',
                 ],
             }),
-            ('art', { 'verbose_name': _('Art') }),
-            ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
-            ('transparent', { 'verbose_name': _('Transparent') }),
         ]
 
         def get_queryset(self, queryset, parameters, request):
@@ -2753,7 +2750,11 @@ class CostumeCollection(MagiCollection):
         show_relevant_fields_on_ordering = False
 
         alt_views = MagiCollection.ListView.alt_views + [
-            ('chibis', { 'verbose_name': _('Chibi'), 'per_line': 2 }),
+            ('chibis', {
+                'verbose_name': _('Chibis'),
+                'per_line': 2,
+                'icon': 'chibi',
+            }),
         ]
 
         def get_queryset(self, queryset, parameters, request):

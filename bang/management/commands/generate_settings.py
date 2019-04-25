@@ -99,12 +99,13 @@ def generate_settings():
     favorite_characters = [(
         member.pk,
         member.name,
-	    member.square_image_url,
+	member.square_image_url,
     ) for member in all_members]
 
     print 'Get homepage cards'
     cards = models.Card.objects.exclude(
         (Q(art__isnull=True) | Q(art=''))
+        & (Q(art_trained__isnull=True) | Q(art_trained=''))
         & (Q(transparent__isnull=True) | Q(transparent='')),
     ).exclude(
         show_art_on_homepage=False,
@@ -127,27 +128,29 @@ def generate_settings():
     homepage_arts = []
     position = { 'size': 'cover', 'x': 'center', 'y': 'center' }
     for c in filtered_cards:
+        # Normal
         if c.show_art_on_homepage:
-            if c.art and c.trainable:
+            if c.trainable and c.art:
                 homepage_arts.append({
                     'url': c.art_url,
                     'hd_url': c.art_2x_url or c.art_original_url,
                     'about_url': c.item_url,
                 })
-            else:
+            elif c.transparent:
                 homepage_arts.append({
                     'foreground_url': c.transparent_url,
                     'about_url': c.item_url,
                     'position': position,
                 })
-        if c.art_trained and c.show_trained_art_on_homepage:
-            if c.art_trained and c.trainable:
+        # Trained
+        if c.trainable and c.show_trained_art_on_homepage:
+            if c.trainable and c.art_trained:
                 homepage_arts.append({
                     'url': c.art_trained_url,
                     'hd_url': c.art_trained_2x_url or c.art_trained_original_url,
                     'about_url': c.item_url,
                 })
-            else:
+            elif c.transparent_trained:
                 homepage_arts.append({
                     'foreground_url': c.transparent_trained_url,
                     'about_url': c.item_url,

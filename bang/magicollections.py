@@ -2583,7 +2583,7 @@ class AssetCollection(MagiCollection):
         per_line = 5
         page_size = 25
         item_padding = None
-        show_items_titles = True
+        show_items_names = True
         shortcut_urls = [
             _type['shortcut_url']
             for _type in models.Asset.TYPES.values()

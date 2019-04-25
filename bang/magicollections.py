@@ -2585,7 +2585,8 @@ class AssetCollection(MagiCollection):
         item_padding = None
         show_items_titles = True
         shortcut_urls = [
-            'officialart',
+            _type['shortcut_url']
+            for _type in models.Asset.TYPES.values()
         ]
 
         def top_buttons(self, request, context):
@@ -2608,9 +2609,11 @@ class AssetCollection(MagiCollection):
                 if len(context['request'].GET) == 1:
                     context['show_search_results'] = False
                 i_type = int(context['request'].GET['i_type'])
-            elif '/officialart' in context['request'].path:
-                i_type = models.Asset.get_i('type', 'official')
-            if i_type:
+            else:
+                for type, type_details in models.Asset.TYPES.items():
+                    if u'/{}'.format(type_details['shortcut_url']) in context['request'].path:
+                        i_type = models.Asset.get_i('type', type)
+            if i_type is not None:
                 context['h1_page_title'] = models.Asset.get_verbose_i('type', i_type)
                 context['page_title'] = u'{} | {}'.format(context['h1_page_title'], context['page_title'])
 

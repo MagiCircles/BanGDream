@@ -407,7 +407,7 @@ def to_CollectibleCardForm(cls):
 def to_CollectibleCardFilterForm(cls):
     class _CollectibleCardFilterForm(cls.ListView.filter_form):
         ordering_fields = [('card__i_rarity,trained,card__release_date', _('Default'))] + cls.ListView.filter_form.ordering_fields
-        
+
         def skill_filter_to_queryset(self, queryset, request, value):
             if not value: return queryset
             if value == '1': return queryset.filter(card__i_skill_type=value) # Score up
@@ -1187,11 +1187,12 @@ class AssetFilterForm(MagiFiltersForm):
             type = models.Asset.get_reverse_i('type', int(self.request.GET.get('i_type', None)))
         except (KeyError, ValueError, TypeError):
             type = None
-        # /officialart/ shortcut
-        if '/officialart' in self.request.path:
-            type = 'official'
-            if 'i_type' in self.fields:
-                self.fields['i_type'].initial = models.Asset.get_i('type', 'official')
+        # Types shortcuts
+        for type_name, type_details in models.Asset.TYPES.items():
+            if u'/{}'.format(type_details['shortcut_url']) in self.request.path:
+                type = type_name
+                if 'i_type' in self.fields:
+                    self.fields['i_type'].initial = models.Asset.get_i('type', type_name)
         # Show only variables that match type
         if type in models.Asset.TYPES:
             for variable in models.Asset.VARIABLES:

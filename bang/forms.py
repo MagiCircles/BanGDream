@@ -1204,6 +1204,11 @@ class AssetFilterForm(MagiFiltersForm):
                     del(self.fields[variable])
             if 'i_type' in self.fields:
                 self.fields['i_type'].widget = forms.HiddenInput()
+        # Initial version for comics based on user language
+        if 'i_version' in self.fields and type == 'comic':
+            version = models.LANGUAGES_TO_VERSIONS.get(self.request.LANGUAGE_CODE, None)
+            if version:
+                self.fields['i_version'].initial = models.Account.get_i('version', version)
         # Remove value filter except for comic
         if 'value' in self.fields:
             if type == 'comic':

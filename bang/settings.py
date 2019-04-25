@@ -286,6 +286,14 @@ ENABLED_PAGES['officialart'] = {
     'icon': 'pictures',
     'navbar_link_list': 'bangdream',
     'redirect': '/officialart/',
+    'divider_before': True,
+}
+
+ENABLED_PAGES['comics'] = {
+    'title': _('Comics'),
+    'icon': 'album',
+    'navbar_link_list': 'bangdream',
+    'redirect': '/comics/',
 }
 
 ENABLED_PAGES['add_rerun'] = {
@@ -304,7 +312,7 @@ ENABLED_NAVBAR_LISTS = DEFAULT_ENABLED_NAVBAR_LISTS
 ENABLED_NAVBAR_LISTS['bangdream'] = {
     'title': _('BanG Dream!'),
     'image': 'BanGDream',
-    'order': ['member_list', 'officialart', 'song_list'],
+    'order': ['member_list', 'song_list', 'officialart', 'comics'],
 }
 ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
     'title': _('Girls Band Party'),

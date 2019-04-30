@@ -174,6 +174,7 @@ HOMEPAGE_CHARACTERS = [
     '//i.bandori.party/u/c/transparent/502Kasumi-Toyama-Power-9P9UPK.png',
     '//i.bandori.party/u/c/transparent/506Tae-Hanazono-Happy-ZDY0kx.png',
 ]
+IS_CHARACTER_BIRTHDAY = False
 
 TOTAL_DONATORS = 2
 

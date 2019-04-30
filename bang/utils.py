@@ -1,5 +1,6 @@
 import random
 from collections import OrderedDict
+from django.conf import settings as django_settings
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, get_language, string_concat
 from django.db.models import Q
@@ -76,6 +77,8 @@ def bangGlobalContext(request):
     return context
 
 def randomArtForCharacter(character_id):
+    if django_settings.IS_CHARACTER_BIRTHDAY:
+        return None
     try:
         card = models.Card.objects.filter(
             member_id=character_id,
@@ -87,10 +90,7 @@ def randomArtForCharacter(character_id):
             show_trained_art_on_homepage=False,
         ).order_by('?')[0]
     except IndexError:
-        return {
-            'url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
-            'hd_url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-WV6jFP.png',
-        }
+        return None
     if not card.trainable or (not card.art and not card.art_trained):
         trained = random.choice([v for v, s in [
             (False, card.show_art_on_homepage and card.transparent_url),

@@ -13,7 +13,10 @@ from magi.tools import (
     getCharactersBirthdays,
     getUsersBirthdaysToday,
 )
-from magi.utils import staticImageURL
+from magi.utils import (
+    staticImageURL,
+    birthdays_within,
+)
 from bang import models
 
 def generate_settings():
@@ -111,20 +114,32 @@ def generate_settings():
         show_art_on_homepage=False,
         show_trained_art_on_homepage=False,
     ).order_by('-release_date')
-    condition = Q()
-    for event in events_with_cards:
-        if event._meta.model.__name__ == 'Gacha':
-            condition |= Q(gachas=event)
-        else:
-            condition |= Q(secondary_card_event=event)
-            condition |= Q(main_card_event=event)
-    ten_days_ago = now - datetime.timedelta(days=10)
-    condition |= Q(is_promo=True, release_date__gte=ten_days_ago)
-    filtered_cards = cards.filter(condition)
+
+    is_character_birthday = False
+    birthday_today_members_id = models.Member.objects.filter(
+        birthdays_within(days_after=1, days_before=1)).values_list(
+            'id', flat=True)
+    if birthday_today_members_id:
+        filtered_cards = cards.filter(member_id__in=birthday_today_members_id)[:20]
+        is_character_birthday = True
+    else:
+        condition = Q()
+        for event in events_with_cards:
+            if event._meta.model.__name__ == 'Gacha':
+                condition |= Q(gachas=event)
+            else:
+                condition |= Q(secondary_card_event=event)
+                condition |= Q(main_card_event=event)
+        ten_days_ago = now - datetime.timedelta(days=10)
+        condition |= Q(is_promo=True, release_date__gte=ten_days_ago)
+        filtered_cards = cards.filter(condition)
+
     if filtered_cards:
         filtered_cards = filtered_cards[:20]
     else:
         filtered_cards = cards[:10]
+        is_character_birthday = False
+
     homepage_arts = []
     position = { 'size': 'cover', 'x': 'center', 'y': 'center' }
     for c in filtered_cards:
@@ -208,6 +223,7 @@ def generate_settings():
         'TOTAL_DONATORS': total_donators,
         'DONATION_MONTH': donation_month,
         'HOMEPAGE_ARTS': homepage_arts,
+        'IS_CHARACTER_BIRTHDAY': is_character_birthday,
         'STAFF_CONFIGURATIONS': staff_configurations,
         'FAVORITE_CHARACTERS': favorite_characters,
         'BACKGROUNDS': backgrounds,

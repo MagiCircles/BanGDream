@@ -60,7 +60,8 @@ from bang import models, forms
 # User Collection
 
 class UserCollection(_UserCollection):
-    filter_cuteform = {
+    filter_cuteform = _UserCollection.filter_cuteform.copy()
+    filter_cuteform.update({
         'member': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
             'title': _('Member'),
@@ -69,7 +70,7 @@ class UserCollection(_UserCollection):
                 'modal-text': 'true',
             },
         },
-    }
+    })
 
     class ItemView(_UserCollection.ItemView):
 
@@ -109,7 +110,8 @@ class AccountCollection(_AccountCollection):
     _colors_images = [_c[0] for _c in settings.USER_COLORS]
     _version_images = [_c['image'] for _c in models.Account.VERSIONS.values()]
     _play_with_icons = [_c['icon'] for _c in models.Account.PLAY_WITH.values()]
-    filter_cuteform = {
+    filter_cuteform = _AccountCollection.filter_cuteform.copy()
+    filter_cuteform.update({
         'member': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
             'title': _('Member'),
@@ -147,7 +149,7 @@ class AccountCollection(_AccountCollection):
             'to_cuteform': lambda k, v: models.Account.OS_CHOICES[k].lower(),
             'transform': CuteFormTransform.FlaticonWithText,
         },
-    }
+    })
 
     @property
     def report_edit_templates(self):
@@ -178,7 +180,7 @@ class AccountCollection(_AccountCollection):
     share_image = justReturn('screenshots/leaderboard.png')
 
     class ListView(_AccountCollection.ListView):
-        filter_form = forms.FilterAccounts
+        filter_form = forms.AccountFilterForm
         default_ordering = '-level'
 
         def buttons_per_item(self, request, context, item):

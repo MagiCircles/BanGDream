@@ -268,7 +268,7 @@ class Member(MagiModel):
 
     reverse_related = (
         ('cards', 'cards', _('Cards')),
-        ('fans', 'users', _('Fans')),
+        ('fans', 'users', _('Fans'), 'favorite_character'),
         ('costumes', 'costumes', _('Costumes')),
     )
 

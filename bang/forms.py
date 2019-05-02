@@ -29,6 +29,7 @@ from magi.forms import (
     MagiFilter,
     MultiImageField,
     AccountForm as _AccountForm,
+    AccountFilterForm as _AccountFilterForm,
     UserFilterForm as _UserFilterForm,
     UserPreferencesForm as _UserPreferencesForm,
 )
@@ -87,20 +88,6 @@ class UserFilterForm(_UserFilterForm):
     favorited_card = forms.IntegerField(widget=forms.HiddenInput)
     favorited_card_filter = MagiFilter(selector='favorite_cards__card_id')
 
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
-        (id, full_name) for (id, full_name, image)
-        in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
-    ], required=False)
-    member_filter = MagiFilter(selectors=['preferences__favorite_character{}'.format(i) for i in range(1, 4)])
-
-    def __init__(self, *args, **kwargs):
-        super(UserFilterForm, self).__init__(*args, **kwargs)
-        if 'member' in self.fields:
-            self.fields['member'].label = _('Favorite {thing}').format(thing=_('Member').lower())
-
-    class Meta(_UserFilterForm.Meta):
-        fields = ('search', 'member', 'ordering', 'reverse_order')
-
 class UserPreferencesForm(_UserPreferencesForm):
     def __init__(self, *args, **kwargs):
         super(UserPreferencesForm, self).__init__(*args, **kwargs)
@@ -144,47 +131,12 @@ class AccountForm(_AccountForm):
             instance.save()
         return instance
 
-class FilterAccounts(MagiFiltersForm):
-    # TODO: these fields stopped working suddenly with error that nested lookup don't work - not sure why
-    # 'owner__preferences__description', 'owner__preferences__location'
-    search_fields = ['owner__username', 'nickname', 'owner__links__value']
-    search_fields_exact = ['owner__email']
-    search_fields_labels = {
-        'owner__username': t['Username'],
-        'owner__links__value': _('Links'),
-        'owner__email': _('Email'),
-    }
-
-    ordering_fields = [
-        ('level', _('Level')),
-        ('owner__username', t['Username']),
-        ('creation', _('Join Date')),
-        ('start_date', _('Start Date')),
-    ]
-
-    member = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
-        (id, full_name)
-        for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
-    ], required=False)
-    member_filter = MagiFilter(selectors=['owner__preferences__favorite_character{}'.format(i) for i in range(1, 4)])
-
-    has_friend_id = forms.NullBooleanField(required=False, initial=None, label=_('Friend ID'))
-    has_friend_id_filter = MagiFilter(selector='friend_id__isnull')
-
-    i_color = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(c[0], c[1]) for c in settings.USER_COLORS], required=False, label=_('Color'))
-    i_color_filter = MagiFilter(selector='owner__preferences__color')
-
+class AccountFilterForm(_AccountFilterForm):
     collected_card = forms.IntegerField(widget=forms.HiddenInput)
     collected_card_filter = MagiFilter(selector='cardscollectors__card_id')
 
-    def __init__(self, *args, **kwargs):
-        super(FilterAccounts, self).__init__(*args, **kwargs)
-        if 'member' in self.fields:
-            self.fields['member'].label = _('Favorite {thing}').format(thing=_('Member').lower())
-
-    class Meta(MagiFiltersForm.Meta):
-        model = models.Account
-        fields = ('search', 'friend_id', 'i_version', 'i_color', 'member', 'has_friend_id')
+    class Meta(_AccountFilterForm.Meta):
+        fields = ('search', 'has_friend_id', 'friend_id', 'i_version', 'color', 'favorite_character')
 
 ############################################################
 # Member

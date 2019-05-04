@@ -389,6 +389,21 @@ class MemberCollection(MagiCollection):
         page_size = 25
         default_ordering = 'id'
 
+        def ordering_fields(self, item, only_fields=None, *args, **kwargs):
+            fields = super(MemberCollection.ListView, self).ordering_fields(item, *args, only_fields=only_fields, **kwargs)
+            if 'japanese_name' in only_fields:
+                value = item.japanese_name
+                annotation = item.name if get_language() == 'ja' or item.name == item.t_name else mark_safe(u'<br>'.join([item.t_name, item.name]))
+                fields['japanese_name'] = {
+                    'verbose_name': _('Name'),
+                    'verbose_name_subtitle': t['Japanese'],
+                    'icon': 'id',
+                    'type': 'text_annotation',
+                    'value': value,
+                    'annotation': annotation,
+                }
+            return fields
+
     class AddView(MagiCollection.AddView):
         staff_required = True
         permissions_required = ['manage_main_items']

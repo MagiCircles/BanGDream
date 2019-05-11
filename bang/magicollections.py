@@ -2078,7 +2078,7 @@ class SongCollection(MagiCollection):
                 for _version, info in models.Account.VERSIONS.items():
                     for asset in item.all_assets:
                         if getattr(asset, '{}image_url'.format(info['prefix']), None):
-                            _song_alt_covers += [{
+                            song_alt_covers += [{
                                 'value':  getattr(asset, '{}image_url'.format(info['prefix'])),
                                 'link':  getattr(asset, '{}image_url'.format(info['prefix'])),
                                 'link_text': unicode(asset),

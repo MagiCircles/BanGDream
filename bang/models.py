@@ -941,7 +941,14 @@ def _event_gacha_top_image(item, image_name='image'):
     # Otherwise, return banner that makes more sense for the language the users uses
     if not image and get_language() in LANGUAGES_TO_VERSIONS:
         image = getattr(item, u'{}{}_url'.format(Account.VERSIONS_PREFIXES[LANGUAGES_TO_VERSIONS[get_language()]], image_name))
-    return image or getattr(item, u'{}_url'.format(image_name)) or staticImageURL('stars.png')
+    # Otherwise, fallback to first image that exists
+    if not image:
+        for version in Account.VERSIONS.values():
+            image = getattr(item, u'{}{}_url'.format(version['prefix'], image_name))
+            if image:
+                break
+    # Return image or default banner
+    return image or staticImageURL('bannercomingsoon.png')
 
 class Event(MagiModel):
     collection_name = 'event'
@@ -949,7 +956,7 @@ class Event(MagiModel):
     owner = models.ForeignKey(User, related_name='added_events')
 
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('e'))
-    image = models.ImageField(_('Image'), upload_to=uploadItem('e'))
+    image = models.ImageField(_('Image'), upload_to=uploadItem('e'), null=True)
     top_image = property(_event_gacha_top_image)
 
     name = models.CharField(_('Title'), max_length=100, unique=True)
@@ -1407,7 +1414,7 @@ class Gacha(MagiModel):
     owner = models.ForeignKey(User, related_name='added_gacha')
 
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('g'))
-    image = models.ImageField(_('Image'), upload_to=uploadItem('g'))
+    image = models.ImageField(_('Image'), upload_to=uploadItem('g'), null=True)
     top_image = property(_event_gacha_top_image)
 
     name = models.CharField(_('Title'), max_length=100, unique=True)

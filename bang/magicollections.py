@@ -60,7 +60,8 @@ from bang import models, forms
 # User Collection
 
 class UserCollection(_UserCollection):
-    filter_cuteform = {
+    filter_cuteform = _UserCollection.filter_cuteform.copy()
+    filter_cuteform.update({
         'member': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
             'title': _('Member'),
@@ -69,7 +70,7 @@ class UserCollection(_UserCollection):
                 'modal-text': 'true',
             },
         },
-    }
+    })
 
     class ItemView(_UserCollection.ItemView):
 
@@ -109,7 +110,8 @@ class AccountCollection(_AccountCollection):
     _colors_images = [_c[0] for _c in settings.USER_COLORS]
     _version_images = [_c['image'] for _c in models.Account.VERSIONS.values()]
     _play_with_icons = [_c['icon'] for _c in models.Account.PLAY_WITH.values()]
-    filter_cuteform = {
+    filter_cuteform = _AccountCollection.filter_cuteform.copy()
+    filter_cuteform.update({
         'member': {
             'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
             'title': _('Member'),
@@ -147,7 +149,7 @@ class AccountCollection(_AccountCollection):
             'to_cuteform': lambda k, v: models.Account.OS_CHOICES[k].lower(),
             'transform': CuteFormTransform.FlaticonWithText,
         },
-    }
+    })
 
     @property
     def report_edit_templates(self):
@@ -178,7 +180,7 @@ class AccountCollection(_AccountCollection):
     share_image = justReturn('screenshots/leaderboard.png')
 
     class ListView(_AccountCollection.ListView):
-        filter_form = forms.FilterAccounts
+        filter_form = forms.AccountFilterForm
         default_ordering = '-level'
 
         def buttons_per_item(self, request, context, item):
@@ -910,9 +912,6 @@ class CardCollection(MagiCollection):
                     'skill_type',
                 ],
             }),
-            ('art', { 'verbose_name': _('Art') }),
-            ('art_trained', { 'verbose_name': string_concat(_('Art'), ' (', _('Trained'), ')') }),
-            ('transparent', { 'verbose_name': _('Transparent') }),
         ]
 
         def get_queryset(self, queryset, parameters, request):
@@ -2592,9 +2591,10 @@ class AssetCollection(MagiCollection):
         per_line = 5
         page_size = 25
         item_padding = None
-        show_items_titles = True
+        show_items_names = True
         shortcut_urls = [
-            'officialart',
+            _type['shortcut_url']
+            for _type in models.Asset.TYPES.values()
         ]
 
         def top_buttons(self, request, context):
@@ -2617,9 +2617,11 @@ class AssetCollection(MagiCollection):
                 if len(context['request'].GET) == 1:
                     context['show_search_results'] = False
                 i_type = int(context['request'].GET['i_type'])
-            elif '/officialart' in context['request'].path:
-                i_type = models.Asset.get_i('type', 'official')
-            if i_type:
+            else:
+                for type, type_details in models.Asset.TYPES.items():
+                    if u'/{}'.format(type_details['shortcut_url']) in context['request'].path:
+                        i_type = models.Asset.get_i('type', type)
+            if i_type is not None:
                 context['h1_page_title'] = models.Asset.get_verbose_i('type', i_type)
                 context['page_title'] = u'{} | {}'.format(context['h1_page_title'], context['page_title'])
 
@@ -2759,7 +2761,11 @@ class CostumeCollection(MagiCollection):
         show_relevant_fields_on_ordering = False
 
         alt_views = MagiCollection.ListView.alt_views + [
-            ('chibis', { 'verbose_name': _('Chibi'), 'per_line': 2 }),
+            ('chibis', {
+                'verbose_name': _('Chibis'),
+                'per_line': 2,
+                'icon': 'chibi',
+            }),
         ]
 
         def get_queryset(self, queryset, parameters, request):

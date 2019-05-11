@@ -13,7 +13,10 @@ from magi.tools import (
     getCharactersBirthdays,
     getUsersBirthdaysToday,
 )
-from magi.utils import staticImageURL
+from magi.utils import (
+    staticImageURL,
+    birthdays_within,
+)
 from bang import models
 
 def generate_settings():
@@ -99,55 +102,70 @@ def generate_settings():
     favorite_characters = [(
         member.pk,
         member.name,
-	    member.square_image_url,
+	member.square_image_url,
     ) for member in all_members]
 
     print 'Get homepage cards'
     cards = models.Card.objects.exclude(
         (Q(art__isnull=True) | Q(art=''))
+        & (Q(art_trained__isnull=True) | Q(art_trained=''))
         & (Q(transparent__isnull=True) | Q(transparent='')),
     ).exclude(
         show_art_on_homepage=False,
         show_trained_art_on_homepage=False,
     ).order_by('-release_date')
-    condition = Q()
-    for event in events_with_cards:
-        if event._meta.model.__name__ == 'Gacha':
-            condition |= Q(gachas=event)
-        else:
-            condition |= Q(secondary_card_event=event)
-            condition |= Q(main_card_event=event)
-    ten_days_ago = now - datetime.timedelta(days=10)
-    condition |= Q(is_promo=True, release_date__gte=ten_days_ago)
-    filtered_cards = cards.filter(condition)
+
+    is_character_birthday = False
+    birthday_today_members_id = models.Member.objects.filter(
+        birthdays_within(days_after=1, days_before=1)).values_list(
+            'id', flat=True)
+    if birthday_today_members_id:
+        filtered_cards = cards.filter(member_id__in=birthday_today_members_id)[:20]
+        is_character_birthday = True
+    else:
+        condition = Q()
+        for event in events_with_cards:
+            if event._meta.model.__name__ == 'Gacha':
+                condition |= Q(gachas=event)
+            else:
+                condition |= Q(secondary_card_event=event)
+                condition |= Q(main_card_event=event)
+        ten_days_ago = now - datetime.timedelta(days=10)
+        condition |= Q(is_promo=True, release_date__gte=ten_days_ago)
+        filtered_cards = cards.filter(condition)
+
     if filtered_cards:
         filtered_cards = filtered_cards[:20]
     else:
         filtered_cards = cards[:10]
+        is_character_birthday = False
+
     homepage_arts = []
     position = { 'size': 'cover', 'x': 'center', 'y': 'center' }
     for c in filtered_cards:
+        # Normal
         if c.show_art_on_homepage:
-            if c.art and c.trainable:
+            if c.trainable and c.art:
                 homepage_arts.append({
                     'url': c.art_url,
                     'hd_url': c.art_2x_url or c.art_original_url,
                     'about_url': c.item_url,
                 })
-            else:
+            elif c.transparent:
                 homepage_arts.append({
                     'foreground_url': c.transparent_url,
                     'about_url': c.item_url,
                     'position': position,
                 })
-        if c.art_trained and c.show_trained_art_on_homepage:
-            if c.art_trained and c.trainable:
+        # Trained
+        if c.trainable and c.show_trained_art_on_homepage:
+            if c.trainable and c.art_trained:
                 homepage_arts.append({
                     'url': c.art_trained_url,
                     'hd_url': c.art_trained_2x_url or c.art_trained_original_url,
                     'about_url': c.item_url,
                 })
-            else:
+            elif c.transparent_trained:
                 homepage_arts.append({
                     'foreground_url': c.transparent_trained_url,
                     'about_url': c.item_url,
@@ -205,6 +223,7 @@ def generate_settings():
         'TOTAL_DONATORS': total_donators,
         'DONATION_MONTH': donation_month,
         'HOMEPAGE_ARTS': homepage_arts,
+        'IS_CHARACTER_BIRTHDAY': is_character_birthday,
         'STAFF_CONFIGURATIONS': staff_configurations,
         'FAVORITE_CHARACTERS': favorite_characters,
         'BACKGROUNDS': backgrounds,

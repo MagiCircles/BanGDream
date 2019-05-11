@@ -268,7 +268,7 @@ class Member(MagiModel):
 
     reverse_related = (
         ('cards', 'cards', _('Cards')),
-        ('fans', 'users', _('Fans')),
+        ('fans', 'users', _('Fans'), 'favorite_character'),
         ('costumes', 'costumes', _('Costumes')),
     )
 
@@ -1815,6 +1815,7 @@ class Asset(MagiModel):
             'translation': _('Comics'),
             'variables': ['name', 'i_band', 'members', 'value'],
             'to_unicode': lambda _a: _a.t_name or _('Comics'),
+            'shortcut_url': 'comics',
         }),
         ('background', {
             'translation': _('Backgrounds'),
@@ -1823,6 +1824,7 @@ class Asset(MagiModel):
                 _a.t_name or _('Background'),
                 u' ({})'.format(_a.band) if _a.band else '',
             ),
+            'shortcut_url': 'backgrounds',
         }),
         ('stamp', {
             'translation': _('Stamps'),
@@ -1833,6 +1835,7 @@ class Asset(MagiModel):
                 name=((_a.t_name if not _a.event else u'“{name}”'.format(name=_a.t_name))
                       if _a.name else (_('Stamps') if not _a.event else _('Rare stamp'))),
             ),
+            'shortcut_url': 'stamps',
         }),
         ('title', {
             'translation': _('Titles'),
@@ -1849,11 +1852,13 @@ class Asset(MagiModel):
                         _a.value if _a.value else ''),
                 ) if _a.name or _a.value else '',
             ),
+            'shortcut_url': 'titles',
         }),
         ('interface', {
             'translation': _('Interface'),
             'variables': ['name'],
             'to_unicode': lambda _a: _a.t_name or _('Interface'),
+            'shortcut_url': 'interfaceassets',
         }),
         ('official', {
             'translation': _('Official art'),
@@ -1865,6 +1870,7 @@ class Asset(MagiModel):
                 or u', '.join([member.t_name for member in getattr(_a, 'all_members', [])])
                 or _('Official art')
             ),
+            'shortcut_url': 'officialart',
         }),
     ])
     TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in TYPES.items()]

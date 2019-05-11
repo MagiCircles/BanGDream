@@ -2075,13 +2075,13 @@ class SongCollection(MagiCollection):
             if len(item.all_assets):
 
                 # Create list of Album covers with every version showing
-                _song_alt_covers = []
-                for _version, _info in models.Account.VERSIONS.items():
+                song_alt_covers = []
+                for _version, info in models.Account.VERSIONS.items():
                     for asset in item.all_assets:
-                        if getattr(asset, '{}image_url'.format(_info['prefix']), None):
+                        if getattr(asset, '{}image_url'.format(info['prefix']), None):
                             _song_alt_covers += [{
-                                'value':  getattr(asset, '{}image_url'.format(_info['prefix'])),
-                                'link':  getattr(asset, '{}image_url'.format(_info['prefix'])),
+                                'value':  getattr(asset, '{}image_url'.format(info['prefix'])),
+                                'link':  getattr(asset, '{}image_url'.format(info['prefix'])),
                                 'link_text': unicode(asset),
                             }]
 
@@ -2091,7 +2091,7 @@ class SongCollection(MagiCollection):
                     'verbose_name': string_concat(_('Album cover'), ' (', _('Other'), ')'),
                     'icon': 'pictures',
                     'type': 'images_links',
-                    'images': _song_alt_covers,
+                    'images': song_alt_covers,
                 }
                 
             return fields

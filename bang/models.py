@@ -266,6 +266,9 @@ class Member(MagiModel):
     DESCRIPTIONS_CHOICES = ALL_ALT_LANGUAGES
     d_descriptions = models.TextField(_('Description'), null=True)
 
+    ############################################################
+    # Reverse relations
+
     reverse_related = [
         {
             'field_name': 'cards',
@@ -339,6 +342,19 @@ class Member(MagiModel):
     @property
     def stamps(self):
         return self._asset_queryset('stamp')
+
+    ############################################################
+    # Cache total
+
+    _cache_total_fans_days = 1
+    _cache_total_fans_last_update = models.DateTimeField(null=True)
+    _cache_total_fans = models.PositiveIntegerField(null=True)
+
+    def to_cache_total_fans(self):
+        return self.fans.count()
+
+    ############################################################
+    # Unicode
 
     def __unicode__(self):
         return unicode(self.t_name)

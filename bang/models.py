@@ -333,7 +333,7 @@ class Member(MagiModel):
                 u'{}image__isnull'.format(Account.VERSIONS[version]['prefix']): False,
             }).exclude(**{
                 u'{}image'.format(Account.VERSIONS[version]['prefix']): '',
-            })
+            }).distinct()
         return queryset
 
     @property

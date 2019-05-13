@@ -1300,10 +1300,13 @@ class EventCollection(MagiCollection):
             fields_per_version = {}
 
             for version in models.Account.VERSIONS.values():
+                start_date = getattr(item, u'{}start_date'.format(version['prefix']))
+                end_date = getattr(item, u'{}end_date'.format(version['prefix']))
+                image = getattr(item, u'{}image'.format(version['prefix']))
+
+                ## Create Countdowns for Events that are active
                 status = getattr(item, u'{}status'.format(version['prefix']))
                 if status and status != 'ended':
-                    start_date = getattr(item, u'{}start_date'.format(version['prefix']))
-                    end_date = getattr(item, u'{}end_date'.format(version['prefix']))
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
@@ -1315,13 +1318,22 @@ class EventCollection(MagiCollection):
                             'icon': 'times',
                             'type': 'html',
                         }),
-                    ]
-            extra_fields.append(('image', {
-                'image': staticImageURL('language/ja.png'),
-                'verbose_name': _('Japanese version'),
-                'type': 'image',
-                'value': item.image_url,
-            }))
+                    ]      
+                ## Create image fields with placeholders when needed
+                if not image and (start_date or end_date):
+                    extra_fields.append(('{}image'.format(version['prefix']), {
+                        'image': staticImageURL(version['image'], folder='language', extension='png'),
+                        'type': 'html',
+                        'value': u'<hr>',
+                    }))
+                    
+            # Add Image
+            if item.image:
+                extra_fields.append(('image', {
+                    'image': staticImageURL('language/ja.png'),
+                    'type': 'image',
+                    'value': item.image_url,
+                }))
             if len(item.all_gachas):
                 for gacha in item.all_gachas:
                     extra_fields.append((u'gacha-{}'.format(gacha.id),  subtitledImageLink(gacha, _('Gacha'), image=staticImageURL('gacha.png'))))
@@ -1633,11 +1645,15 @@ class GachaCollection(MagiCollection):
             if exclude_fields is None: exclude_fields = []
             if order is None: order = []
             order = GACHA_ITEM_FIELDS_ORDER + order
+
             for version in models.Account.VERSIONS.values():
+                start_date = getattr(item, u'{}start_date'.format(version['prefix']))
+                end_date = getattr(item, u'{}end_date'.format(version['prefix']))
+                image = getattr(item, u'{}image'.format(version['prefix']))
+
+                ## Create Countdowns for Gachas that are active
                 status = getattr(item, u'{}status'.format(version['prefix']))
                 if status and status != 'ended':
-                    start_date = getattr(item, u'{}start_date'.format(version['prefix']))
-                    end_date = getattr(item, u'{}end_date'.format(version['prefix']))
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),
@@ -1649,13 +1665,22 @@ class GachaCollection(MagiCollection):
                             'icon': 'times',
                             'type': 'html',
                         }),
-                    ]
-            extra_fields.append(('image', {
-                'image': staticImageURL('language/ja.png'),
-                'verbose_name': _('Japanese version'),
-                'type': 'image',
-                'value': item.image_url,
-            }))
+                    ]     
+                ## Create image fields with placeholders when needed
+                if not image and (start_date or end_date):
+                    extra_fields.append(('{}image'.format(version['prefix']), {
+                        'image': staticImageURL(version['image'], folder='language', extension='png'),
+                        'type': 'html',
+                        'value': u'<hr>',
+                    }))
+
+            # Add Image
+            if item.image:
+                extra_fields.append(('image', {
+                    'image': staticImageURL('language/ja.png'),
+                    'type': 'image',
+                    'value': item.image_url,
+                }))
             exclude_fields += ['japanese_name', 'c_versions']
             if len(item.all_cards):
                 extra_fields.append(('cards', {
@@ -1670,14 +1695,6 @@ class GachaCollection(MagiCollection):
                     } for card in item.all_cards],
                 }))
             extra_fields += add_rerun_fields(self, item, request)
-            for version in models.Account.VERSIONS.values():
-                if not getattr(item, u'{}image'.format(version['prefix'])) and getattr(item, u'{}start_date'.format(version['prefix'])):
-                    extra_fields.append(('{}image'.format(version['prefix']), {
-                        'image': staticImageURL(version['image'], folder='language', extension='png'),
-                        'verbose_name': version['translation'],
-                        'type': 'html',
-                        'value': u'<hr>',
-                    }))
             fields = super(GachaCollection.ItemView, self).to_fields(
                 item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order,
                 request=request, **kwargs)

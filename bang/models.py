@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _, pgettext_lazy, string_c
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 from django.utils.safestring import mark_safe
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from django.db import models
 from django.conf import settings as django_settings
 from magi.models import User, uploadItem
@@ -314,7 +314,7 @@ class Member(MagiModel):
             Q(preferences__favorite_character1=self.id)
             | Q(preferences__favorite_character2=self.id)
             | Q(preferences__favorite_character3=self.id)
-        ).order_by('-id')
+        ).select_related('preferences').order_by('-id')
 
     def _asset_queryset(self, type):
         return Asset.objects.filter(
@@ -325,7 +325,9 @@ class Member(MagiModel):
 
     @property
     def officialarts(self):
-        return self._asset_queryset('official')
+        return self._asset_queryset('official').select_related('song').prefetch_related(
+            Prefetch('members', to_attr='all_members'),
+        )
 
     @property
     def comics(self):
@@ -341,7 +343,7 @@ class Member(MagiModel):
 
     @property
     def stamps(self):
-        return self._asset_queryset('stamp')
+        return self._asset_queryset('stamp').select_related('event')
 
     ############################################################
     # Cache total

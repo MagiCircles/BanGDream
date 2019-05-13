@@ -390,7 +390,8 @@ class MemberCollection(MagiCollection):
             queryset = super(MemberCollection.ItemView, self).get_queryset(queryset, parameters, request)
             queryset = queryset.prefetch_related(
                 Prefetch('cards', queryset=models.Card.objects.order_by('-release_date')),
-                Prefetch('associated_costume', queryset=models.Costume.objects.order_by('-id')),
+                Prefetch('associated_costume', queryset=models.Costume.objects.order_by(
+                    '-id').select_related('card', 'member')),
             )
             return queryset
 
@@ -1318,7 +1319,7 @@ class EventCollection(MagiCollection):
                             'icon': 'times',
                             'type': 'html',
                         }),
-                    ]      
+                    ]
                 ## Create image fields with placeholders when needed
                 if not image and (start_date or end_date):
                     extra_fields.append(('{}image'.format(version['prefix']), {
@@ -1326,7 +1327,7 @@ class EventCollection(MagiCollection):
                         'type': 'html',
                         'value': u'<hr>',
                     }))
-                    
+
             # Add Image
             if item.image:
                 extra_fields.append(('image', {
@@ -1665,7 +1666,7 @@ class GachaCollection(MagiCollection):
                             'icon': 'times',
                             'type': 'html',
                         }),
-                    ]     
+                    ]
                 ## Create image fields with placeholders when needed
                 if not image and (start_date or end_date):
                     extra_fields.append(('{}image'.format(version['prefix']), {
@@ -2125,7 +2126,7 @@ class SongCollection(MagiCollection):
                     'type': 'images_links',
                     'images': song_alt_covers,
                 }
-                
+
             return fields
 
     class AddView(MagiCollection.AddView):

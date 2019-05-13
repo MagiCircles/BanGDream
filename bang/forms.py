@@ -1102,7 +1102,9 @@ class AssetFilterForm(MagiFiltersForm):
         member = models.Member.objects.get(id=value)
         return queryset.filter(Q(members=member) | Q(i_band=member.i_band)).distinct()
 
-    members = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [(id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])], initial=None, label=_('Member'))
+    members = forms.ChoiceField(choices=BLANK_CHOICE_DASH + [
+        (id, full_name) for (id, full_name, image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ], initial=None, label=_('Member'))
     members_filter = MagiFilter(to_queryset=members_to_queryset)
 
     def members_band_to_queryset(self, queryset, request, value):
@@ -1178,8 +1180,8 @@ class AssetFilterForm(MagiFiltersForm):
             del(self.fields['is_song'])
         # Replace band + member with member_band filter
         if 'i_band' in self.fields and 'members' in self.fields:
-            del(self.fields['i_band'])
-            del(self.fields['members'])
+            self.fields['i_band'].widget = self.fields['i_band'].hidden_widget()
+            self.fields['members'].widget = self.fields['members'].hidden_widget()
         else:
             del(self.fields['member_band'])
         # Remove help text of band

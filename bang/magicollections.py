@@ -298,7 +298,9 @@ MEMBERS_ICONS = {
     'description': 'id',
     'cards': 'album',
     'fans': 'heart',
-    'costumes': 'dress',
+    'associated_costume': 'dress',
+    'officialarts': 'pictures',
+    'comics': 'album',
 }
 
 class MemberCollection(MagiCollection):
@@ -325,6 +327,7 @@ class MemberCollection(MagiCollection):
             exclude_fields.append('classroom')
         fields = super(MemberCollection, self).to_fields(view, item, *args, icons=MEMBERS_ICONS, images={
             'astrological_sign': staticImageURL(item.i_astrological_sign, folder='i_astrological_sign', extension='png'),
+            'stamps': staticImageURL('stamp.png'),
         }, extra_fields=extra_fields, exclude_fields=exclude_fields, **kwargs)
 
         if 'square_image' in fields:
@@ -357,13 +360,6 @@ class MemberCollection(MagiCollection):
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))
             if 'romaji_CV' in fields:
                 del(fields['romaji_CV'])
-        if 'description' in fields and get_language() == 'en':
-            fields['source'] = {
-                'verbose_name': _('Source'),
-                'link_text': 'BanGDreaming Tumblr',
-                'type': 'link',
-                'value': 'https://bangdreaming.tumblr.com/chara',
-            }
         return fields
 
     filter_cuteform = {
@@ -388,6 +384,26 @@ class MemberCollection(MagiCollection):
         per_line = 5
         page_size = 25
         default_ordering = 'id'
+
+    class ItemView(MagiCollection.ItemView):
+        def get_queryset(self, queryset, parameters, request):
+            queryset = super(MemberCollection.ItemView, self).get_queryset(queryset, parameters, request)
+            queryset = queryset.prefetch_related(
+                Prefetch('cards', queryset=models.Card.objects.order_by('-release_date')),
+                Prefetch('associated_costume', queryset=models.Costume.objects.order_by('-id')),
+            )
+            return queryset
+
+        def to_fields(self, item, prefetched_together=None, *args, **kwargs):
+            if prefetched_together is None: prefetched_together = []
+            prefetched_together += [
+                'cards', 'associated_costume',
+                'officialarts', 'comics', 'stamps',
+                'fans',
+            ]
+            fields = super(MemberCollection.ItemView, self).to_fields(
+                item, prefetched_together=prefetched_together, *args, **kwargs)
+            return fields
 
     class AddView(MagiCollection.AddView):
         staff_required = True

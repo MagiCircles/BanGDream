@@ -266,50 +266,79 @@ class Member(MagiModel):
     DESCRIPTIONS_CHOICES = ALL_ALT_LANGUAGES
     d_descriptions = models.TextField(_('Description'), null=True)
 
-    reverse_related = (
-        ('cards', 'cards', _('Cards')),
-        ('fans', 'users', _('Fans'), 'favorite_character'),
-        ('costumes', 'costumes', _('Costumes')),
-    )
+    reverse_related = [
+        {
+            'field_name': 'cards',
+            'verbose_name': _('Cards'),
+        },
+        {
+            'field_name': 'associated_costume',
+            'url': 'costumes',
+            'verbose_name': _('Costumes'),
+        },
+        {
+            'field_name': 'officialarts',
+            'url': 'officialart',
+            'verbose_name': _('Gallery'),
+            'plural_verbose_name': _('Assets'),
+            'filter_field_name': 'members',
+        },
+        {
+            'field_name': 'comics',
+            'url': 'comics',
+            'verbose_name': _('Comics'),
+            'filter_field_name': 'members',
+        },
+        {
+            'field_name': 'stamps',
+            'url': 'stamps',
+            'verbose_name': _('Stamps'),
+            'filter_field_name': 'members',
+        },
+        {
+            'field_name': 'fans',
+            'url': 'users',
+            'verbose_name': _('Fans'),
+            'filter_field_name': 'favorite_character',
+            'max_per_line': 8,
+            'allow_ajax_per_item': False,
+        },
+    ]
 
-    # Cache totals
-    _cache_totals_days = 1
-    _cache_totals_last_update = models.DateTimeField(null=True)
-    _cache_total_fans = models.PositiveIntegerField(null=True)
-    _cache_total_cards = models.PositiveIntegerField(null=True)
-    _cache_total_costumes = models.PositiveIntegerField(null=True)
-
-    def update_cache_totals(self):
-        self._cache_totals_last_update = timezone.now()
-        self._cache_total_fans = User.objects.filter(
+    @property
+    def fans(self):
+        return User.objects.filter(
             Q(preferences__favorite_character1=self.id)
             | Q(preferences__favorite_character2=self.id)
             | Q(preferences__favorite_character3=self.id)
-        ).count()
-        self._cache_total_cards = Card.objects.filter(member=self).count()
-        self._cache_total_costumes = Costume.objects.filter(member=self).count()
+        ).order_by('-id')
 
-    def force_cache_totals(self):
-        self.update_cache_totals()
-        self.save()
-
-    @property
-    def cached_total_fans(self):
-        if not self._cache_totals_last_update or self._cache_totals_last_update < timezone.now() - datetime.timedelta(hours=self._cache_totals_days):
-            self.force_cache_totals()
-        return self._cache_total_fans
+    def _asset_queryset(self, type):
+        return Asset.objects.filter(
+            Q(members=self) | Q(i_band=self.i_band),
+        ).filter(
+            i_type=Asset.get_i('type', type),
+        ).order_by('-id')
 
     @property
-    def cached_total_cards(self):
-        if not self._cache_totals_last_update or self._cache_totals_last_update < timezone.now() - datetime.timedelta(hours=self._cache_totals_days):
-            self.force_cache_totals()
-        return self._cache_total_cards
+    def officialarts(self):
+        return self._asset_queryset('official')
 
     @property
-    def cached_total_costumes(self):
-        if not self._cache_totals_last_update or self._cache_totals_last_update < timezone.now() - datetime.timedelta(hours=self._cache_totals_days):
-            self.force_cache_totals()
-        return self._cache_total_costumes
+    def comics(self):
+        queryset = self._asset_queryset('comic')
+        version = LANGUAGES_TO_VERSIONS.get(get_language(), None)
+        if version:
+            queryset = queryset.filter(**{
+                u'{}image__isnull'.format(Account.VERSIONS[version]['prefix']): False,
+            }).exclude(**{
+                u'{}image'.format(Account.VERSIONS[version]['prefix']): '',
+            })
+        return queryset
+
+    @property
+    def stamps(self):
+        return self._asset_queryset('stamp')
 
     def __unicode__(self):
         return unicode(self.t_name)

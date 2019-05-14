@@ -132,6 +132,16 @@ class AccountForm(_AccountForm):
         return instance
 
 class AccountFilterForm(_AccountFilterForm):
+    presets = OrderedDict([
+        (_version, {
+            'verbose_name': _version_details['translation'],
+            'fields': {
+                'i_version': models.Account.get_i('version', _version),
+            },
+            'image': u'language/{}.png'.format(_version_details['image']),
+        }) for _version, _version_details in models.Account.VERSIONS.items()
+    ])
+
     collected_card = forms.IntegerField(widget=forms.HiddenInput)
     collected_card_filter = MagiFilter(selector='cardscollectors__card_id')
 
@@ -246,6 +256,40 @@ class CardFilterForm(MagiFiltersForm):
         ('_overall_max', _('Overall')),
         ('_overall_trained_max', string_concat(_('Overall'), ' (', _('Trained'), ')')),
     ]
+
+    presets = OrderedDict([
+        ('{}-stars'.format(_rarity), {
+            'verbose_name': _verbose_name,
+            'fields': {
+                'i_rarity': _rarity,
+            },
+            'image': 'star_trained.png' if _rarity in models.Card.TRAINABLE_RARITIES else 'star_untrained.png',
+        }) for _rarity, _verbose_name in dict(models.Card.RARITY_CHOICES).items()
+    ] + [
+        (_attribute['english'], {
+            'verbose_name': _attribute['translation'],
+            'fields': {
+                'i_attribute': _i,
+            },
+            'image': u'i_attribute/{}.png'.format(_i),
+        }) for _i, _attribute in models.Card.ATTRIBUTES.items()
+    ] + [
+        (_band_name, {
+            'verbose_name': _band_name,
+            'fields': {
+                'member_band': u'band-{}'.format(_i_band),
+            },
+            'image': u'mini_band/{}.png'.format(_band_name),
+        }) for _i_band, _band_name in i_choices(models.Member.BAND_CHOICES)
+    ] + [
+        (_name, {
+            'verbose_name': _name,
+            'fields': {
+                'member_band': u'member-{}'.format(_id),
+            },
+            'image': _image,
+        }) for (_id, _name, _image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ])
 
     def __init__(self, *args, **kwargs):
         super(CardFilterForm, self).__init__(*args, **kwargs)
@@ -910,6 +954,17 @@ class SongFilterForm(MagiFiltersForm):
         ('special_difficulty', string_concat(_('Special'), ' - ', _('Difficulty'))),
     ]
 
+    presets = OrderedDict([
+        (_band_name, {
+            'verbose_name': _band_name,
+            'fields': {
+                'i_band': _i_band,
+            },
+            'image': u'mini_band/{}.png'.format(_band_name),
+        }) for _i_band, _band_name in i_choices(models.Song.BAND_CHOICES)
+        if _band_name != 'Special Band'
+    ])
+
     is_cover = forms.NullBooleanField(initial=None, required=False, label=_('Cover song'))
     is_cover_filter = MagiFilter(selector='is_cover')
 
@@ -1091,6 +1146,24 @@ ASSET_COMICS_VALUE_PER_LANGUAGE = {
 class AssetFilterForm(MagiFiltersForm):
     search_fields = ('name', 'd_names', 'c_tags', 'source', 'source_link')
     search_fields_labels = {'source_link': ''}
+
+    presets = OrderedDict([
+        (_band_name, {
+            'verbose_name': _band_name,
+            'fields': {
+                'member_band': u'band-{}'.format(_i_band),
+            },
+            'image': u'mini_band/{}.png'.format(_band_name),
+        }) for _i_band, _band_name in i_choices(models.Asset.BAND_CHOICES)
+    ] + [
+        (_name, {
+            'verbose_name': _name,
+            'fields': {
+                'member_band': u'member-{}'.format(_id),
+            },
+            'image': _image,
+        }) for (_id, _name, _image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ])
 
     is_event = forms.NullBooleanField(label=_('Event'))
     is_event_filter = MagiFilter(selector='event__isnull')
@@ -1330,6 +1403,32 @@ class CostumeFilterForm(MagiFiltersForm):
         'member__japanese_name': '', 'member__d_names': '',
         'member__name': _('Member'),
     }
+
+    presets = OrderedDict([
+        ('{}-stars'.format(_rarity), {
+            'verbose_name': _verbose_name,
+            'fields': {
+                'i_rarity': _rarity,
+            },
+            'image': 'star_trained.png' if _rarity in models.Card.TRAINABLE_RARITIES else 'star_untrained.png',
+        }) for _rarity, _verbose_name in dict(models.Card.RARITY_CHOICES).items()
+    ] + [
+        (_band_name, {
+            'verbose_name': _band_name,
+            'fields': {
+                'i_band': _i_band,
+            },
+            'image': u'mini_band/{}.png'.format(_band_name),
+        }) for _i_band, _band_name in i_choices(models.Member.BAND_CHOICES)
+    ] + [
+        (_name, {
+            'verbose_name': _name,
+            'fields': {
+                'member': _id,
+            },
+            'image': _image,
+        }) for (_id, _name, _image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+    ])
 
     i_band = forms.ChoiceField(choices=BLANK_CHOICE_DASH + i_choices(models.Member.BAND_CHOICES), label=_('Band'), required=False)
     i_band_filter = MagiFilter(selector='member__i_band')

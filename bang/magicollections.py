@@ -717,10 +717,12 @@ class CardCollection(MagiCollection):
             queryset = super(CardCollection.ItemView, self).get_queryset(queryset, parameters, request)
             return queryset.select_related('associated_costume')
 
-        def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, *args, **kwargs):
+        def to_fields(self, item, extra_fields=None, exclude_fields=None,
+                      order=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
             if exclude_fields is None: exclude_fields = []
             language = get_language()
+
             # Add id field
             extra_fields.append(('id', {
                 'verbose_name': _(u'ID'),
@@ -729,7 +731,7 @@ class CardCollection(MagiCollection):
                 'icon': 'id',
             }))
 
-            #Add Title
+            # Add Title
             title = item.names.get(language, item.name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
             value = item.japanese_name or item.name
             if value is not None:
@@ -741,7 +743,7 @@ class CardCollection(MagiCollection):
                     'value': value,
                 }))
 
-            #Add Skill Name
+            # Add Skill Name
             title = item.skill_names.get(language, item.skill_name if language not in settings.LANGUAGES_CANT_SPEAK_ENGLISH else None)
             value = item.japanese_skill_name or item.skill_name
             if value is not None:
@@ -847,7 +849,9 @@ class CardCollection(MagiCollection):
             if order is None:
                 order = CARDS_ORDER
 
-            fields = super(CardCollection.ItemView, self).to_fields(item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields, order=order, **kwargs)
+            fields = super(CardCollection.ItemView, self).to_fields(
+                item, *args, extra_fields=extra_fields, exclude_fields=exclude_fields,
+                order=order, **kwargs)
             # Modify existing fields
             # skill deTails
             setSubField(fields, 'skill_type', key='type', value='title_text')

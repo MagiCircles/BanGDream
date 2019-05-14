@@ -863,12 +863,17 @@ class Card(MagiModel):
         d['unicode'] = d['japanese_name'] if get_language() == 'ja' else d['name']
         return d
 
-    # Cache totals
+
+    ############################################################
+    # Reverse relations
 
     reverse_related = (
         ('favorited', 'favoritecards', lambda: _('Favorite {things}').format(things=_('Cards').lower())),
         ('collectedcards', 'collectiblecards', lambda: _('Collected {things}').format(things=_('Cards').lower())),
     )
+
+    ############################################################
+    # Cache totals
 
     _cache_total_favorited_days = 1
     _cache_total_favorited_last_update = models.DateTimeField(null=True)

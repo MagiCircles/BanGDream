@@ -2811,7 +2811,6 @@ class CostumeCollection(MagiCollection):
             ('chibis', {
                 'verbose_name': _('Chibis'),
                 'per_line': 2,
-                'icon': 'chibi',
             }),
         ]
 

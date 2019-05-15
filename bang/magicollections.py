@@ -34,6 +34,7 @@ from magi.utils import (
     translationURL,
     AttrDict,
     mergedFieldCuteForm,
+    tourldash,
 )
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
@@ -404,6 +405,27 @@ class MemberCollection(MagiCollection):
             ]
             fields = super(MemberCollection.ItemView, self).to_fields(
                 item, prefetched_together=prefetched_together, *args, **kwargs)
+
+            # Use presets URLs for SEO
+            for field_name, preset in [
+                    (u'cards', item.name),
+                    (u'associated_costume', item.name),
+                    (u'officialarts', u'officialart-{}'.format(item.name)),
+                    (u'comics', u'comic-{}'.format(item.name)),
+                    (u'stamps', u'stamp-{}'.format(item.name)),
+            ]:
+                if field_name in fields:
+                    and_more = fields[field_name].get('and_more')
+                    if and_more:
+                        and_more['link'] = u'/{}/{}/'.format(
+                            and_more['link'].split('/')[1],
+                            tourldash(preset),
+                        )
+                        and_more['ajax_link'] = u'/ajax/{}/{}/?ajax_modal_only'.format(
+                            and_more['ajax_link'].split('/')[2],
+                            tourldash(preset),
+                        )
+
             return fields
 
     class AddView(MagiCollection.AddView):
@@ -2630,38 +2652,25 @@ class AssetCollection(MagiCollection):
         page_size = 25
         item_padding = None
         show_items_names = True
-        shortcut_urls = [
-            _type['shortcut_url']
-            for _type in models.Asset.TYPES.values()
-        ]
 
         def top_buttons(self, request, context):
             buttons = super(AssetCollection.ListView, self).top_buttons(request, context)
-            if request.GET.get('i_type', None):
+            if request.GET.get('i_type', None) or context.get('preset', None):
                 return OrderedDict([
                     (key, value)
                     for key, value in buttons.items()
                     if (not key.startswith('add_')
                         or key == u'add_{}'.format(
-                            models.Asset.get_reverse_i('type', int(request.GET['i_type'])),
+                            models.Asset.get_reverse_i('type', int(request.GET.get('i_type', None)))
+                            if request.GET.get('i_type', None)
+                            else context['preset'],
                         ))
                 ])
             return buttons
 
         def extra_context(self, context):
             super(AssetCollection.ListView, self).extra_context(context)
-            i_type = None
-            if context['request'].GET.get('i_type'):
-                if len(context['request'].GET) == 1:
-                    context['show_search_results'] = False
-                i_type = int(context['request'].GET['i_type'])
-            else:
-                for type, type_details in models.Asset.TYPES.items():
-                    if u'/{}'.format(type_details['shortcut_url']) in context['request'].path:
-                        i_type = models.Asset.get_i('type', type)
-            if i_type is not None:
-                context['h1_page_title'] = models.Asset.get_verbose_i('type', i_type)
-                context['page_title'] = u'{} | {}'.format(context['h1_page_title'], context['page_title'])
+            context['show_title'] = False
 
     class AddView(MagiCollection.AddView):
         staff_required = True

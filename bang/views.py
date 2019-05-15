@@ -54,7 +54,7 @@ def gallery(request):
     context['categories'] = [
         {
             'title': details['translation'],
-            'url': u'/{}/'.format(details['shortcut_url']),
+            'url': u'/assets/{}/'.format(type),
             'icon': 'pictures',
             'image': staticImageURL(type, folder='gallery', extension='png'),
         } for i_type, (type, details) in enumerate(models.Asset.TYPES.items())

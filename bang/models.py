@@ -281,20 +281,20 @@ class Member(MagiModel):
         },
         {
             'field_name': 'officialarts',
-            'url': 'officialart',
+            'url': 'assets',
             'verbose_name': _('Gallery'),
             'plural_verbose_name': _('Assets'),
             'filter_field_name': 'members',
         },
         {
             'field_name': 'comics',
-            'url': 'comics',
+            'url': 'assets',
             'verbose_name': _('Comics'),
             'filter_field_name': 'members',
         },
         {
             'field_name': 'stamps',
-            'url': 'stamps',
+            'url': 'assets',
             'verbose_name': _('Stamps'),
             'filter_field_name': 'members',
         },
@@ -325,7 +325,7 @@ class Member(MagiModel):
 
     @property
     def officialarts(self):
-        return self._asset_queryset('official').select_related('song').prefetch_related(
+        return self._asset_queryset('officialart').select_related('song').prefetch_related(
             Prefetch('members', to_attr='all_members'),
         )
 
@@ -1875,10 +1875,12 @@ class Asset(MagiModel):
             'variables': ['name', 'i_band', 'members', 'value'],
             'to_unicode': lambda _a: _a.t_name or _('Comics'),
             'shortcut_url': 'comics',
+            'icon': 'album',
         }),
         ('background', {
             'translation': _('Backgrounds'),
             'variables': ['name', 'i_band', 'c_tags'],
+            'icon': 'pictures',
             'to_unicode': lambda _a: u'{}{}'.format(
                 _a.t_name or _('Background'),
                 u' ({})'.format(_a.band) if _a.band else '',
@@ -1899,6 +1901,7 @@ class Asset(MagiModel):
         ('title', {
             'translation': _('Titles'),
             'variables': ['name', 'event', 'song', 'value'],
+            'icon': 'list',
             'to_unicode': lambda _a: u'{event}{song}{name}'.format(
                 event=_a.event if _a.event else '',
                 song=u'{dash}{song}'.format(
@@ -1918,10 +1921,12 @@ class Asset(MagiModel):
             'variables': ['name'],
             'to_unicode': lambda _a: _a.t_name or _('Interface'),
             'shortcut_url': 'interfaceassets',
+            'icon': 'icons-list',
         }),
-        ('official', {
+        ('officialart', {
             'translation': _('Official art'),
             'variables': ['name', 'i_band', 'members', 'song', 'c_tags', 'source', 'source_link'],
+            'icon': 'pictures',
             'to_unicode': lambda _a: (
                 _a.t_name
                 or _a.song
@@ -1929,6 +1934,7 @@ class Asset(MagiModel):
                 or u', '.join([member.t_name for member in getattr(_a, 'all_members', [])])
                 or _('Official art')
             ),
+            'navbar_link_list': 'bangdream',
             'shortcut_url': 'officialart',
         }),
     ])

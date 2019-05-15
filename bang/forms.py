@@ -1106,7 +1106,7 @@ def asset_type_to_form(_type):
             if 'c_tags' in self.fields:
                 if _type == 'background':
                     self.fields['c_tags'].choices = models.Asset.BACKGROUND_TAGS
-                elif _type == 'official':
+                elif _type == 'officialart':
                     self.fields['c_tags'].choices = models.Asset.OFFICIAL_TAGS
 
         def clean(self):
@@ -1143,26 +1143,48 @@ ASSET_COMICS_VALUE_PER_LANGUAGE = {
     'zh-hant': [('1', u'單格'), ('4', u'四格')],
 }
 
+def _get_asset_preset_label(type, things):
+    return lambda: _('All {type} {things}').format(
+        type=type, things=things.lower(),
+    )
 class AssetFilterForm(MagiFiltersForm):
     search_fields = ('name', 'd_names', 'c_tags', 'source', 'source_link')
     search_fields_labels = {'source_link': ''}
 
+    show_presets_in_navbar = False
     presets = OrderedDict([
-        (_band_name, {
+        (u'{}-{}'.format(_type, _band_name), {
             'verbose_name': _band_name,
+            'label': _get_asset_preset_label(_band_name, _type_details['translation']),
             'fields': {
+                'i_type': models.Asset.get_i('type', _type),
                 'member_band': u'band-{}'.format(_i_band),
             },
             'image': u'mini_band/{}.png'.format(_band_name),
         }) for _i_band, _band_name in i_choices(models.Asset.BAND_CHOICES)
+        for _type, _type_details in models.Asset.TYPES.items()
+        if 'i_band' in _type_details['variables']
     ] + [
-        (_name, {
+        (u'{}-{}'.format(_type, _name), {
             'verbose_name': _name,
+            'label': _get_asset_preset_label(_name, _type_details['translation']),
             'fields': {
+                'i_type': models.Asset.get_i('type', _type),
                 'member_band': u'member-{}'.format(_id),
             },
             'image': _image,
         }) for (_id, _name, _image) in getattr(django_settings, 'FAVORITE_CHARACTERS', [])
+        for _type, _type_details in models.Asset.TYPES.items()
+        if 'members' in _type_details['variables']
+    ] + [
+        (_type, {
+            'label': _type_details['translation'],
+            'fields': {
+                'i_type': models.Asset.get_i('type', _type),
+            },
+            'image': _type_details.get('image', None),
+            'icon': _type_details.get('icon', None),
+        }) for _type, _type_details in models.Asset.TYPES.items()
     ])
 
     is_event = forms.NullBooleanField(label=_('Event'))
@@ -1210,35 +1232,33 @@ class AssetFilterForm(MagiFiltersForm):
 
     def __init__(self, *args, **kwargs):
         super(AssetFilterForm, self).__init__(*args, **kwargs)
+        # Get type from request or preset
         try:
-            type = models.Asset.get_reverse_i('type', int(self.request.GET.get('i_type', None)))
+            self.selected_type = models.Asset.get_reverse_i('type', int(self.request.GET.get('i_type', None)))
         except (KeyError, ValueError, TypeError):
-            type = None
-        # Types shortcuts
-        for type_name, type_details in models.Asset.TYPES.items():
-            if u'/{}'.format(type_details['shortcut_url']) in self.request.path:
-                type = type_name
-                if 'i_type' in self.fields:
-                    self.fields['i_type'].initial = models.Asset.get_i('type', type_name)
+            self.selected_type = self.preset.split('-')[0] if self.preset else None
+        # Make sure the form always uses presets URLs
+        if self.selected_type:
+            self.action = self.collection.get_list_url(preset=self.selected_type)
         # Show only variables that match type
-        if type in models.Asset.TYPES:
+        if self.selected_type in models.Asset.TYPES:
             for variable in models.Asset.VARIABLES:
                 if (variable in self.fields
                     and variable not in (
-                        models.Asset.TYPES[type]['variables']
-                        + (['i_band'] if 'members' in models.Asset.TYPES[type]['variables'] else [])
+                        models.Asset.TYPES[self.selected_type]['variables']
+                        + (['i_band'] if 'members' in models.Asset.TYPES[self.selected_type]['variables'] else [])
                     )):
                     del(self.fields[variable])
             if 'i_type' in self.fields:
                 self.fields['i_type'].widget = forms.HiddenInput()
         # Initial version for comics based on user language
-        if 'i_version' in self.fields and type == 'comic':
+        if 'i_version' in self.fields and self.selected_type == 'comic':
             version = models.LANGUAGES_TO_VERSIONS.get(self.request.LANGUAGE_CODE, None)
             if version:
                 self.fields['i_version'].initial = models.Account.get_i('version', version)
         # Remove value filter except for comic
         if 'value' in self.fields:
-            if type == 'comic':
+            if self.selected_type == 'comic':
                 self.fields['value'].choices = BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE.get(
                     self.request.LANGUAGE_CODE,
                     ASSET_COMICS_VALUE_PER_LANGUAGE['en'],
@@ -1249,7 +1269,7 @@ class AssetFilterForm(MagiFiltersForm):
         if 'event' not in self.fields and 'is_event' in self.fields:
             del(self.fields['is_event'])
         # Only show is song filter for titles+official art
-        if type and type not in ['title', 'official'] and 'is_song' in self.fields:
+        if self.selected_type and self.selected_type not in ['title', 'officialart'] and 'is_song' in self.fields:
             del(self.fields['is_song'])
         # Replace band + member with member_band filter
         if 'i_band' in self.fields and 'members' in self.fields:
@@ -1262,10 +1282,17 @@ class AssetFilterForm(MagiFiltersForm):
             self.fields['i_band'].help_text = None
         # Limit tags per type
         if 'c_tags' in self.fields:
-            if type == 'background':
+            if self.selected_type == 'background':
                 self.fields['c_tags'].choices = models.Asset.BACKGROUND_TAGS
-            elif type == 'official':
+            elif self.selected_type == 'officialart':
                 self.fields['c_tags'].choices = models.Asset.OFFICIAL_TAGS
+
+    @property
+    def extra_buttons(self):
+        buttons = MagiFiltersForm.extra_buttons.fget(self)
+        if 'clear' in buttons and self.selected_type:
+            buttons['clear']['url'] = self.collection.get_list_url(preset=self.selected_type)
+        return buttons
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Asset

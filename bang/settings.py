@@ -278,7 +278,7 @@ ENABLED_PAGES['officialart'] = {
     'title': _('Official art'),
     'icon': 'pictures',
     'navbar_link_list': 'bangdream',
-    'redirect': '/officialart/',
+    'redirect': '/assets/officialart/',
     'divider_before': True,
 }
 
@@ -286,7 +286,7 @@ ENABLED_PAGES['comics'] = {
     'title': _('Comics'),
     'icon': 'album',
     'navbar_link_list': 'bangdream',
-    'redirect': '/comics/',
+    'redirect': '/assets/comic/',
 }
 
 ENABLED_PAGES['add_rerun'] = {

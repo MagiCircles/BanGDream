@@ -1874,7 +1874,6 @@ class Asset(MagiModel):
             'translation': _('Comics'),
             'variables': ['name', 'i_band', 'members', 'value'],
             'to_unicode': lambda _a: _a.t_name or _('Comics'),
-            'shortcut_url': 'comics',
             'icon': 'album',
         }),
         ('background', {
@@ -1885,7 +1884,6 @@ class Asset(MagiModel):
                 _a.t_name or _('Background'),
                 u' ({})'.format(_a.band) if _a.band else '',
             ),
-            'shortcut_url': 'backgrounds',
         }),
         ('stamp', {
             'translation': _('Stamps'),
@@ -1896,7 +1894,6 @@ class Asset(MagiModel):
                 name=((_a.t_name if not _a.event else u'“{name}”'.format(name=_a.t_name))
                       if _a.name else (_('Stamps') if not _a.event else _('Rare stamp'))),
             ),
-            'shortcut_url': 'stamps',
         }),
         ('title', {
             'translation': _('Titles'),
@@ -1914,13 +1911,11 @@ class Asset(MagiModel):
                         _a.value if _a.value else ''),
                 ) if _a.name or _a.value else '',
             ),
-            'shortcut_url': 'titles',
         }),
         ('interface', {
             'translation': _('Interface'),
             'variables': ['name'],
             'to_unicode': lambda _a: _a.t_name or _('Interface'),
-            'shortcut_url': 'interfaceassets',
             'icon': 'icons-list',
         }),
         ('officialart', {
@@ -1935,7 +1930,6 @@ class Asset(MagiModel):
                 or _('Official art')
             ),
             'navbar_link_list': 'bangdream',
-            'shortcut_url': 'officialart',
         }),
     ])
     TYPE_CHOICES = [(_name, _info['translation']) for _name, _info in TYPES.items()]

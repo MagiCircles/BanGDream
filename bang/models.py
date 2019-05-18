@@ -156,8 +156,8 @@ class Account(BaseAccount):
     device = models.CharField(_('Device'), help_text=_('The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ...'), max_length=150, null=True)
     stargems_bought = models.PositiveIntegerField(null=True)
 
-    _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('account_screenshot'))
     screenshot = models.ImageField(_('Screenshot'), help_text=_('In-game profile screenshot'), upload_to=uploadItem('account_screenshot'), null=True)
+    _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('account_screenshot'))
     level_on_screenshot_upload = models.PositiveIntegerField(null=True)
     is_hidden_from_leaderboard = models.BooleanField('Hide from leaderboard', default=False, db_index=True)
 
@@ -190,10 +190,10 @@ class Member(MagiModel):
             return self.t_name.split(' ')[-1]
         return self.t_name.split(' ')[0]
 
-    _original_image = models.ImageField(null=True, upload_to=uploadTiny('i'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('i'))
-    _original_square_image = models.ImageField(null=True, upload_to=uploadTiny('i/m'))
+    _original_image = models.ImageField(null=True, upload_to=uploadTiny('i'))
     square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
+    _original_square_image = models.ImageField(null=True, upload_to=uploadTiny('i/m'))
 
     BAND_CHOICES = (
         'Poppin\'Party',
@@ -648,10 +648,10 @@ class Card(MagiModel):
     skill_alt_percentage = models.FloatField('{alt_percentage}', null=True, help_text='0-100')
 
     # Images
-    _original_image = models.ImageField(null=True, upload_to=uploadTiny('c'))
     image = models.ImageField(_('Icon'), upload_to=uploadItem('c'), null=True)
-    _original_image_trained = models.ImageField(null=True, upload_to=uploadTiny('c/a'))
+    _original_image = models.ImageField(null=True, upload_to=uploadTiny('c'))
     image_trained = models.ImageField(string_concat(_('Icon'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/a'), null=True)
+    _original_image_trained = models.ImageField(null=True, upload_to=uploadTiny('c/a'))
 
     tinypng_settings = {
         'art': {
@@ -664,25 +664,25 @@ class Card(MagiModel):
         },
     }
 
+    art = models.ImageField(_('Art'), upload_to=uploadItem('c/art'), null=True)
     _original_art = models.ImageField(null=True, upload_to=uploadTiny('c/art'))
     _tthumbnail_art = models.ImageField(null=True, upload_to=uploadTthumb('c/art'))
     _2x_art = models.ImageField(null=True, upload_to=upload2x('c/art'))
-    art = models.ImageField(_('Art'), upload_to=uploadItem('c/art'), null=True)
     show_art_on_homepage = models.BooleanField(default=True)
 
+    art_trained = models.ImageField(string_concat(_('Art'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/art/a'), null=True)
     _original_art_trained = models.ImageField(null=True, upload_to=uploadTiny('c/art/a'))
     _tthumbnail_art_trained = models.ImageField(null=True, upload_to=uploadTthumb('c/art/a'))
     _2x_art_trained = models.ImageField(null=True, upload_to=upload2x('c/art/a'))
-    art_trained = models.ImageField(string_concat(_('Art'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/art/a'), null=True)
     show_trained_art_on_homepage = models.BooleanField(default=True)
 
+    transparent = models.ImageField(_('Transparent'), upload_to=uploadItem('c/transparent'), null=True)
     _tthumbnail_transparent = models.ImageField(null=True, upload_to=uploadTthumb('c/transparent'))
     _2x_transparent = models.ImageField(null=True, upload_to=upload2x('c/transparent'))
-    transparent = models.ImageField(_('Transparent'), upload_to=uploadItem('c/transparent'), null=True)
 
+    transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
     _tthumbnail_transparent_trained = models.ImageField(null=True, upload_to=uploadTthumb('c/transparent/a'))
     _2x_transparent_trained = models.ImageField(null=True, upload_to=upload2x('c/transparent/a'))
-    transparent_trained = models.ImageField(string_concat(_('Transparent'), ' (', _('Trained'), ')'), upload_to=uploadItem('c/transparent/a'), null=True)
 
     # Statistics
     performance_min = models.PositiveIntegerField(string_concat(_('Performance'), ' (', _('Minimum'), ')'), default=0)
@@ -1007,8 +1007,8 @@ class Event(MagiModel):
 
     owner = models.ForeignKey(User, related_name='added_events')
 
-    _original_image = models.ImageField(null=True, upload_to=uploadTiny('e'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('e'), null=True)
+    _original_image = models.ImageField(null=True, upload_to=uploadTiny('e'))
     top_image = property(_event_gacha_top_image)
 
     name = models.CharField(_('Title'), max_length=100, unique=True)
@@ -1056,18 +1056,18 @@ class Event(MagiModel):
     VERSIONS_CHOICES = Account.VERSION_CHOICES
     c_versions = models.TextField(_('Server availability'), blank=True, null=True, default='"JP"')
 
-    _original_english_image = models.ImageField(null=True, upload_to=uploadTiny('e/e'))
     english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('e/e'), null=True)
+    _original_english_image = models.ImageField(null=True, upload_to=uploadTiny('e/e'))
     english_start_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('Beginning')), null=True)
     english_end_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('End')), null=True)
 
-    _original_taiwanese_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
+    _original_taiwanese_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     taiwanese_start_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('Beginning')), null=True)
     taiwanese_end_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('End')), null=True)
 
-    _original_korean_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('e/t'),  null=True)
+    _original_korean_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
     korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
 
@@ -1147,8 +1147,8 @@ class EventParticipation(AccountAsOwnerModel):
     is_goal_master = models.NullBooleanField(_('Goal Master'))
     is_ex_goal_master = models.NullBooleanField(_('EX Goal Master'))
 
-    _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('event_screenshot'))
     screenshot = models.ImageField(_('Screenshot'), upload_to=uploadItem('event_screenshot'), null=True)
+    _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('event_screenshot'))
 
     @property
     def ranking_image_url(self):
@@ -1236,8 +1236,8 @@ class Song(MagiModel):
     ]
 
     owner = models.ForeignKey(User, related_name='added_songs')
-    _original_image = models.ImageField(null=True, upload_to=uploadTiny('s'))
     image = models.ImageField('Album cover', upload_to=uploadItem('s'))
+    _original_image = models.ImageField(null=True, upload_to=uploadTiny('s'))
 
     BAND_CHOICES = list(Member.BAND_CHOICES) + ['Glitter*Green', 'Special Band']
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES))
@@ -1417,8 +1417,8 @@ class PlayedSong(AccountAsOwnerModel):
     full_combo = models.NullBooleanField(_('Full combo'))
     all_perfect = models.NullBooleanField(_('All perfect'))
 
-    _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('song_screenshot'))
     screenshot = models.ImageField(_('Screenshot'), upload_to=uploadItem('song_screenshot'), null=True)
+    _thumbnail_screenshot = models.ImageField(null=True, upload_to=uploadThumb('song_screenshot'))
 
     @property
     def image(self):
@@ -1465,8 +1465,8 @@ class Gacha(MagiModel):
 
     owner = models.ForeignKey(User, related_name='added_gacha')
 
-    _original_image = models.ImageField(null=True, upload_to=uploadTiny('g'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('g'), null=True)
+    _original_image = models.ImageField(null=True, upload_to=uploadTiny('g'))
     top_image = property(_event_gacha_top_image)
 
     name = models.CharField(_('Title'), max_length=100, unique=True)
@@ -1480,18 +1480,18 @@ class Gacha(MagiModel):
     start_date = models.DateTimeField(_('Beginning'), null=True)
     end_date = models.DateTimeField(_('End'), null=True)
 
-    _original_english_image = models.ImageField(null=True, upload_to=uploadTiny('e/e'))
     english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('e/e'), null=True)
+    _original_english_image = models.ImageField(null=True, upload_to=uploadTiny('e/e'))
     english_start_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('Beginning')), null=True)
     english_end_date = models.DateTimeField(string_concat(_('English version'), ' - ', _('End')), null=True)
 
-    _original_taiwanese_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('e/t'), null=True)
+    _original_taiwanese_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     taiwanese_start_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('Beginning')), null=True)
     taiwanese_end_date = models.DateTimeField(string_concat(_('Taiwanese version'), ' - ', _('End')), null=True)
 
-    _original_korean_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('e/t'), null=True)
+    _original_korean_image = models.ImageField(null=True, upload_to=uploadTiny('e/t'))
     korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
     korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
 
@@ -1591,8 +1591,8 @@ class Item(MagiModel):
     collection_name = 'item'
     owner = models.ForeignKey(User, related_name='added_items')
 
-    _original_image = models.ImageField(null=True, upload_to=uploadTiny('items'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('items'))
+    _original_image = models.ImageField(null=True, upload_to=uploadTiny('items'))
 
     name = models.CharField(_('Title'), max_length=100, null=True, help_text='plural')
     NAMES_CHOICES = ALL_ALT_LANGUAGES
@@ -1644,8 +1644,8 @@ class Area(MagiModel):
 
     owner = models.ForeignKey(User, related_name='added_areas')
 
-    _original_image = models.ImageField(null=True, upload_to=uploadTiny('areas'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('areas'))
+    _original_image = models.ImageField(null=True, upload_to=uploadTiny('areas'))
 
     name = models.CharField(_('Title'), max_length=100)
     NAMES_CHOICES = ALL_ALT_LANGUAGES
@@ -1658,8 +1658,8 @@ class AreaItem(MagiModel):
     collection_name = 'areaitem'
     owner = models.ForeignKey(User, related_name='added_area_items')
 
-    _original_image = models.ImageField(null=True, upload_to=uploadTiny('areas/items'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('areas/items'))
+    _original_image = models.ImageField(null=True, upload_to=uploadTiny('areas/items'))
 
     name = models.CharField(_('Title'), max_length=100, null=True)
     NAMES_CHOICES = ALL_ALT_LANGUAGES
@@ -1817,17 +1817,17 @@ class Asset(MagiModel):
 
     owner = models.ForeignKey(User, related_name='added_assets')
 
-    _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('asset'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('asset'), null=True)
+    _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('asset'))
 
-    _tthumbnail_english_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/e'))
     english_image = models.ImageField(string_concat(_('English version'), ' - ', _('Image')), upload_to=uploadItem('asset/e'), null=True)
+    _tthumbnail_english_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/e'))
 
-    _tthumbnail_taiwanese_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/t'))
     taiwanese_image = models.ImageField(string_concat(_('Taiwanese version'), ' - ', _('Image')), upload_to=uploadItem('asset/t'),  null=True)
+    _tthumbnail_taiwanese_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/t'))
 
-    _tthumbnail_korean_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/k'))
     korean_image = models.ImageField(string_concat(_('Korean version'), ' - ', _('Image')), upload_to=uploadItem('asset/k'),  null=True)
+    _tthumbnail_korean_image = models.ImageField(null=True, upload_to=uploadTthumb('asset/k'))
 
     def _get_top_image(self, thumbnail):
         show_image_version = 'EN'
@@ -2031,8 +2031,8 @@ class Asset(MagiModel):
 # Costume
 
 class Chibi(BaseMagiModel):
-    _original_image = models.ImageField(upload_to=uploadTiny('cos/chibi'), null=True)
     image = models.ImageField(upload_to=uploadItem('cos/chibi'))
+    _original_image = models.ImageField(upload_to=uploadTiny('cos/chibi'), null=True)
     costume = models.ForeignKey('Costume', verbose_name=_('Costume'), related_name='owned_chibis', on_delete=models.CASCADE)
 
     tinypng_settings = {
@@ -2072,8 +2072,8 @@ class Costume(MagiModel):
             return self.card.t_name or self.card.japanese_name
         return MagiModel.t_name.fget(self)
 
-    _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('cos/z'))
     image = models.ImageField(_('Image'), upload_to=uploadItem('cos/p'), null=True)
+    _tthumbnail_image = models.ImageField(null=True, upload_to=uploadTthumb('cos/z'))
     model_pkg = models.FileField(pgettext_lazy('BanPa model viewer', 'Model'), upload_to=uploadItem('cos/z'), null=True)
 
     @property

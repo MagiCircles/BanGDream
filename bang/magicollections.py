@@ -81,10 +81,16 @@ class UserCollection(_UserCollection):
                 i_band = user.preferences.extra.get('i_favorite_band')
                 band = models.Song.get_reverse_i('band', int(user.preferences.extra['i_favorite_band']))
                 meta_links.insert(0, AttrDict({
-                    't_type': _('Favorite {thing}').format(thing=_('Band')),
+                    'name': 'i_favorite_band',
+                    'verbose_name': _('Favorite {thing}').format(thing=_('Band').lower()),
                     'value': band,
-                    'image_url': staticImageURL(band, folder='mini_band',  extension='png'),
-                    'url': '/members/?i_band={}'.format(i_band) if int(i_band) < 5 else '/songs/?i_band={}'.format(i_band),
+                    'raw_value': i_band,
+                    'image': staticImageURL(band, folder='mini_band',  extension='png'),
+                    'url': (
+                        u'/members/{}/'.format(tourldash(band))
+                        if band in models.Member.BAND_CHOICES
+                        else '/songs/{}/'.format(tourldash(band))
+                    ),
                 }))
             return (first_links, meta_links, links)
 

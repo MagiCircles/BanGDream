@@ -172,7 +172,7 @@ ACTIVITY_TAGS = [
 CUSTOM_PREFERENCES_FORM = True
 
 EXTRA_PREFERENCES = DEFAULT_EXTRA_PREFERENCES + [
-    ('i_favorite_band', lambda: _('Favorite {thing}').format(thing=_('Band'))),
+    ('i_favorite_band', lambda: _('Favorite {thing}').format(thing=_('Band').lower())),
 ]
 
 FAVORITE_CHARACTER_TO_URL = lambda link: '/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))

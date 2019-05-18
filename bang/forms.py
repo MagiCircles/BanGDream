@@ -98,6 +98,13 @@ class UserPreferencesForm(_UserPreferencesForm):
                 label=self.fields['d_extra-i_favorite_band'].label,
                 initial=self.fields['d_extra-i_favorite_band'].initial,
             )
+        self.reorder_fields([
+            'm_description', 'location',
+            'd_extra-i_favorite_band',
+        ] + [
+            'favorite_character{}'.format(nth)
+            for nth in range(1, 4)
+        ])
 
 ############################################################
 # Accounts

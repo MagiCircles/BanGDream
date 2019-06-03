@@ -437,12 +437,10 @@ class MemberCollection(MagiCollection):
     class AddView(MagiCollection.AddView):
         staff_required = True
         permissions_required = ['manage_main_items']
-        multipart = True
 
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
-        multipart = True
         allow_delete = True
 
 ############################################################
@@ -1060,7 +1058,6 @@ class CardCollection(MagiCollection):
     class AddView(MagiCollection.AddView):
         staff_required = True
         permissions_required = ['manage_main_items']
-        multipart = True
         ajax_callback = 'loadCardForm'
 
         def extra_context(self, context):
@@ -1070,7 +1067,6 @@ class CardCollection(MagiCollection):
     class EditView(MagiCollection.EditView):
         staff_required = True
         permissions_required = ['manage_main_items']
-        multipart = True
         ajax_callback = 'loadCardForm'
         allow_delete = True
         filter_cuteform = CARD_CUTEFORM_EDIT
@@ -1097,7 +1093,6 @@ def to_EventParticipationCollection(cls):
         title = _('Participated event')
         plural_title = _('Participated events')
         collectible_tab_name = _('Events')
-        multipart = True
         show_edit_button_superuser_only = True
         form_class = forms.to_EventParticipationForm(cls)
         reportable = True
@@ -1232,7 +1227,6 @@ class EventCollection(MagiCollection):
     plural_title = _('Events')
     icon = 'event'
     form_class = forms.EventForm
-    multipart = True
     reportable = False
     blockable = False
     translated_fields = ('name', )
@@ -1573,7 +1567,6 @@ class GachaCollection(MagiCollection):
     title = _('Gacha')
     plural_title = _('Gacha')
     form_class = forms.GachaForm
-    multipart = True
     navbar_link_list = 'girlsbandparty'
     navbar_link_list_divider_after = True
     reportable = False
@@ -1865,7 +1858,6 @@ def to_PlayedSongCollection(cls):
         title = _('Played song')
         plural_title = _('Played songs')
         collectible_tab_name = _('Songs')
-        multipart = True
         form_class = forms.to_PlayedSongForm(cls)
         show_edit_button_superuser_only = True
         reportable = True
@@ -1993,7 +1985,6 @@ class SongCollection(MagiCollection):
     queryset = models.Song.objects.all()
     title = _('Song')
     plural_title = _('Songs')
-    multipart = True
     icon = 'song'
     reportable = False
     blockable = False
@@ -2227,7 +2218,6 @@ class ItemCollection(MagiCollection):
     translated_fields = ('name', 'm_description', )
     icon = 'archive'
     navbar_link_list = 'girlsbandparty'
-    multipart = True
     form_class = forms.ItemForm
     collectible = models.CollectibleItem
     reportable = False
@@ -2281,7 +2271,6 @@ class AreaCollection(MagiCollection):
     translated_fields = ('name', )
     icon = 'world'
     navbar_link = False
-    multipart = True
     form_class = forms.AreaForm
     reportable = False
 
@@ -2397,7 +2386,6 @@ class AreaItemCollection(MagiCollection):
     translated_fields = ('name', 'about')
     icon = 'town'
     navbar_link_list = 'girlsbandparty'
-    multipart = True
     filter_cuteform = AREA_ITEM_CUTEFORM
     form_class = forms.AreaItemForm
     reportable = False
@@ -2529,7 +2517,6 @@ class AssetCollection(MagiCollection):
     translated_fields = ('name', )
     icon = 'pictures'
     navbar_link = False
-    multipart = True
     filter_cuteform = ASSET_CUTEFORM
     form_class = forms.AssetForm
     reportable = False
@@ -2734,7 +2721,6 @@ class CostumeCollection(MagiCollection):
     queryset = models.Costume.objects.select_related('card', 'member')
     title = _('Costume')
     plural_title = _('Costumes')
-    multipart = True
     icon = 'dress'
     reportable = False
     blockable = False

@@ -24,6 +24,7 @@ from bang import models
 SITE_NAME = 'Bandori Party'
 SITE_IMAGE = 'share/bandori_party.png'
 SITE_LOGO = 'logo/bandori_party.png'
+SITE_LOGO = 'logo/bandori_party_pride.png'
 
 GAME_NAME = string_concat(_('BanG Dream!'), ' ', _('Girls Band Party'))
 GAME_URL = 'https://bang-dream.bushimo.jp/'
@@ -36,7 +37,7 @@ COLOR = '#E40046'
 CORNER_POPUP_IMAGE = 'chibi_kanae.png'
 ABOUT_PHOTO = 'deby.jpg'
 EMPTY_IMAGE = 'stars_with_white.png'
-SITE_NAV_LOGO = 'star.png'
+SITE_NAV_LOGO = 'pride_star.png'
 
 ############################################################
 # Settings per languages
@@ -136,6 +137,10 @@ ACTIVITY_TAGS = [
     ('communityevent', {
         'translation': _('Community event'),
         'has_permission_to_add': lambda r: r.user.hasPermission('post_community_event_activities'),
+    }),
+    ('pridemonth', {
+        'translation': u'PrideMonth🏳️‍🌈',
+        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2019, 7, 2, 0, tzinfo=timezone.utc),
     }),
     ('petiteidolstudiosummer', {
         'translation': 'PetiteIdolStudioSummer',

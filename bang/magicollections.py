@@ -482,20 +482,6 @@ def to_FavoriteCardCollection(cls):
 ############################################################
 # Collectible Card Collection
 
-COLLECTIBLE_CARDS_ICONS = {
-    'trained': 'idolized',
-    'max_leveled': 'max-level',
-    'first_episode': 'play',
-    'memorial_episode': 'play',
-    'skill_level': 'skill',
-}
-
-COLLECTIBLE_CARDS_ORDER = [
-    'card', 'trained', 'max_leveled',
-    'performance', 'technique', 'visual', 'overall',
-    'first_episode', 'memorial_episode', 'skill_level',
-]
-
 def to_CollectibleCardCollection(cls):
     class _CollectibleCardCollection(cls):
         title = _('Card')
@@ -515,11 +501,26 @@ def to_CollectibleCardCollection(cls):
             },
         })
 
-        def to_fields(self, view, item, order=None, exclude_fields=None, extra_fields=None, *args, **kwargs):
+
+        fields_icons = {
+            'trained': 'idolized',
+            'max_leveled': 'max-level',
+            'first_episode': 'play',
+            'memorial_episode': 'play',
+            'skill_level': 'skill',
+            'card': 'deck',
+        }
+
+        fields_order = [
+            'card', 'trained', 'max_leveled',
+            'performance', 'technique', 'visual', 'overall',
+            'first_episode', 'memorial_episode', 'skill_level',
+        ]
+
+
+        def to_fields(self, view, item, exclude_fields=None, extra_fields=None, *args, **kwargs):
             if exclude_fields is None: exclude_fields = []
             if extra_fields is None: extra_fields = []
-            if order is None:
-                order = COLLECTIBLE_CARDS_ORDER
             exclude_fields.append('prefer_untrained')
             if item.card.i_rarity not in models.Card.TRAINABLE_RARITIES:
                 exclude_fields.append('trained')
@@ -551,7 +552,8 @@ def to_CollectibleCardCollection(cls):
                     'type': 'title_text',
                 }))
 
-            fields = super(_CollectibleCardCollection, self).to_fields(view, item, *args, icons=COLLECTIBLE_CARDS_ICONS, order=order, exclude_fields=exclude_fields, extra_fields=extra_fields, **kwargs)
+            fields = super(_CollectibleCardCollection, self).to_fields(
+                view, item, *args, exclude_fields=exclude_fields, extra_fields=extra_fields, **kwargs)
             setSubField(fields, 'card', key='value', value=u'#{}'.format(item.card.id))
             setSubField(fields, 'first_episode', key='verbose_name', value=_('{nth} episode').format(nth=_('1st')))
             return fields
@@ -1078,16 +1080,6 @@ class CardCollection(MagiCollection):
 ############################################################
 # Event Participation Collection
 
-EVENT_PARTICIPATIONS_ICONS = {
-    'score': 'scoreup',
-    'ranking': 'trophy',
-    'song_score': 'song',
-    'song_ranking': 'trophy',
-    'is_goal_master': 'achievement',
-    'is_ex_goal_master': 'achievement',
-    'screenshot': 'screenshot',
-}
-
 def to_EventParticipationCollection(cls):
     class _EventParticipationCollection(cls):
         title = _('Participated event')
@@ -1115,8 +1107,16 @@ def to_EventParticipationCollection(cls):
             'is_ex_goal_master': { 'type': CuteFormType.YesNo, },
         }
 
-        def to_fields(self, view, item, *args, **kwargs):
-            return super(_EventParticipationCollection, self).to_fields(view, item, *args, icons=EVENT_PARTICIPATIONS_ICONS, **kwargs)
+        fields_icons = {
+            'score': 'scoreup',
+            'ranking': 'trophy',
+            'song_score': 'song',
+            'song_ranking': 'trophy',
+            'is_goal_master': 'achievement',
+            'is_ex_goal_master': 'achievement',
+            'screenshot': 'screenshot',
+            'event': 'event',
+        }
 
         class AddView(cls.AddView):
             unique_per_owner = True
@@ -1827,13 +1827,6 @@ class RerunCollection(MagiCollection):
 ############################################################
 # Played songs Collection
 
-PLAYED_SONGS_ICONS = {
-    'score': 'scoreup',
-    'full_combo': 'combo',
-    'all_perfect': 'combo',
-    'screenshot': 'screenshot',
-}
-
 def to_PlayedSongCollection(cls):
     _filter_cuteform = dict(_song_cuteform.items() + [
         ('full_combo', {
@@ -1869,17 +1862,21 @@ def to_PlayedSongCollection(cls):
 
         filter_cuteform = _filter_cuteform
 
-        def to_fields(self, view, item, *args, **kwargs):
-            fields = super(_PlayedSongCollection, self).to_fields(view, item, *args, icons=PLAYED_SONGS_ICONS, images={
-                'difficulty': item.difficulty_image_url,
-            }, **kwargs)
-            setSubField(fields, 'difficulty', key='value', value=item.t_difficulty)
-            return fields
+        fields_icons = {
+            'score': 'scoreup',
+            'full_combo': 'combo',
+            'all_perfect': 'combo',
+            'screenshot': 'screenshot',
+            'song': 'song',
+        }
+
+        fields_images = {
+            'difficulty': lambda _i: _i.difficulty_image_url,
+        }
 
         class ListView(cls.ListView):
             default_ordering = 'song__expert_difficulty,song_id,-i_difficulty'
             filter_form = forms.to_PlayedSongFilterForm(cls)
-            item_template = 'default_item_table_view'
             display_style = 'table'
             display_style_table_fields = ['image', 'difficulty', 'score', 'full_combo', 'all_perfect', 'screenshot']
             show_item_buttons = True
@@ -2170,14 +2167,15 @@ class SongCollection(MagiCollection):
 ############################################################
 # Collectible items Collection
 
-COLLECTIBLEITEM_ICON = {
-    'quantity': 'scoreup',
-}
-
 def to_CollectibleItemCollection(cls):
     class _CollectibleItemCollection(cls):
         title = _('Item')
         plural_title = _('Items')
+
+        fields_icons = {
+            'quantity': 'scoreup',
+            'item': 'archive',
+        }
 
         class ListView(cls.ListView):
             item_template = 'collectibleitemItem'
@@ -2199,8 +2197,7 @@ def to_CollectibleItemCollection(cls):
                         'icon': 'present',
                     }))
                 fields = super(_CollectibleItemCollection.ItemView, self).to_fields(
-                    item, *args, icons=COLLECTIBLEITEM_ICON,
-                    extra_fields=extra_fields, **kwargs)
+                    item, *args, extra_fields=extra_fields, **kwargs)
                 return fields
 
         class AddView(cls.AddView):
@@ -2218,7 +2215,6 @@ class ItemCollection(MagiCollection):
     translated_fields = ('name', 'm_description', )
     icon = 'archive'
     navbar_link_list = 'girlsbandparty'
-    form_class = forms.ItemForm
     collectible = models.CollectibleItem
     reportable = False
 
@@ -2271,7 +2267,6 @@ class AreaCollection(MagiCollection):
     translated_fields = ('name', )
     icon = 'world'
     navbar_link = False
-    form_class = forms.AreaForm
     reportable = False
 
     class ListView(MagiCollection.ListView):
@@ -2323,10 +2318,6 @@ AREA_ITEM_CUTEFORM = {
     },
 }
 
-COLLECTIBLEAREAITEM_ICON = {
-    'level': 'scoreup',
-}
-
 COLLECTIBLEAREAITEM_CUTEFORM = {
     'area': {
         'to_cuteform': lambda k, v: _AREAS_IMAGES[k],
@@ -2342,6 +2333,11 @@ def to_CollectibleAreaItemCollection(cls):
         form_class = forms.to_CollectibleAreaItemForm(cls)
         filter_cuteform = AREA_ITEM_CUTEFORM
 
+        fields_icons = {
+            'level': 'scoreup',
+            'areaitem': 'town',
+        }
+
         class ListView(cls.ListView):
             item_template = 'collectibleitemItem'
             filter_form = forms.to_CollectibleAreaItemFilterForm(cls)
@@ -2352,7 +2348,9 @@ def to_CollectibleAreaItemCollection(cls):
                 if item.areaitem.type:
                     extra_fields.append(('type', {
                         'verbose_name': _('Area'),
-                        'value': item.areaitem.t_type if not item.areaitem.instrument else string_concat(item.areaitem.t_type, ' (', item.areaitem.t_instrument, ')'),
+                        'value': (
+                            item.areaitem.t_type if not item.areaitem.instrument
+                            else string_concat(item.areaitem.t_type, ' (', item.areaitem.t_instrument, ')')),
                         'icon': 'pinpoint',
                     }))
                 extra_fields.append((
@@ -2364,8 +2362,7 @@ def to_CollectibleAreaItemCollection(cls):
                     },
                 ))
                 fields = super(_CollectibleAreaItemCollection.ItemView, self).to_fields(
-                    item, *args, icons=COLLECTIBLEAREAITEM_ICON,
-                    extra_fields=extra_fields, **kwargs)
+                    item, *args, extra_fields=extra_fields, **kwargs)
                 return fields
 
         class AddView(cls.AddView):
@@ -2387,7 +2384,6 @@ class AreaItemCollection(MagiCollection):
     icon = 'town'
     navbar_link_list = 'girlsbandparty'
     filter_cuteform = AREA_ITEM_CUTEFORM
-    form_class = forms.AreaItemForm
     reportable = False
 
     collectible = models.CollectibleAreaItem
@@ -2518,7 +2514,6 @@ class AssetCollection(MagiCollection):
     icon = 'pictures'
     navbar_link = False
     filter_cuteform = ASSET_CUTEFORM
-    form_class = forms.AssetForm
     reportable = False
 
     types = {

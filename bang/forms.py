@@ -179,7 +179,6 @@ class MemberForm(AutoForm):
     class Meta(AutoForm.Meta):
         model = models.Member
         fields = '__all__'
-        save_owner_on_creation = True
 
 class MemberFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name', 'school', 'CV', 'romaji_CV', 'classroom', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description']
@@ -238,7 +237,6 @@ class CardForm(AutoForm):
         model = models.Card
         fields = '__all__'
         optional_fields = ('cameo_members',)
-        save_owner_on_creation = True
 
 class CardFilterForm(MagiFiltersForm):
     search_fields = ['_cache_j_member', 'name', 'japanese_name', 'skill_name', 'japanese_skill_name']
@@ -519,7 +517,6 @@ class EventForm(AutoForm):
         model = models.Event
         fields = '__all__'
         optional_fields = ('boost_members',)
-        save_owner_on_creation = True
 
 class EventFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name']
@@ -690,7 +687,6 @@ class GachaForm(AutoForm):
         model = models.Gacha
         fields = '__all__'
         optional_fields = ('cards',)
-        save_owner_on_creation = True
 
 class GachaFilterForm(MagiFiltersForm):
     search_fields = ['name', 'japanese_name']
@@ -895,7 +891,6 @@ class _SongForm(AutoForm):
     class Meta(AutoForm.Meta):
         model = models.Song
         fields = '__all__'
-        save_owner_on_creation = True
 
 def unlock_to_form(unlock):
     class _UnlockSongForm(_SongForm):
@@ -983,22 +978,7 @@ class SongFilterForm(MagiFiltersForm):
         fields = ('search', 'i_band', 'i_unlock', 'is_cover', 'version', 'ordering', 'reverse_order')
 
 ############################################################
-# Area form
-
-class AreaForm(AutoForm):
-    class Meta(AutoForm.Meta):
-        model = models.Area
-        fields = '__all__'
-        save_owner_on_creation = True
-
-############################################################
 # AreaItem form
-
-class AreaItemForm(AutoForm):
-    class Meta(AutoForm.Meta):
-        model = models.AreaItem
-        fields = '__all__'
-        save_owner_on_creation = True
 
 class AreaItemFilterForm(MagiFiltersForm):
     search_fields = ['name', 'd_names', 'about', 'd_abouts']
@@ -1023,12 +1003,6 @@ class AreaItemFilterForm(MagiFiltersForm):
 
 ############################################################
 # Item form
-
-class ItemForm(AutoForm):
-    class Meta(AutoForm.Meta):
-        model = models.Item
-        fields = '__all__'
-        save_owner_on_creation = True
 
 class ItemFilterForm(MagiFiltersForm):
     search_fields = ('name', 'm_description', 'd_names', 'd_m_descriptions')
@@ -1091,12 +1065,6 @@ def to_CollectibleAreaItemFilterForm(cls):
 ############################################################
 # Asset form
 
-class AssetForm(AutoForm):
-    class Meta(AutoForm.Meta):
-        model = models.Asset
-        fields = '__all__'
-        save_owner_on_creation = True
-
 def asset_type_to_form(_type):
     class _AssetForm(AutoForm):
         def __init__(self, *args, **kwargs):
@@ -1139,7 +1107,6 @@ def asset_type_to_form(_type):
         class Meta(AutoForm.Meta):
             model = models.Asset
             fields = '__all__'
-            save_owner_on_creation = True
     return _AssetForm
 
 ASSET_COMICS_VALUE_PER_LANGUAGE = {
@@ -1421,7 +1388,6 @@ class CostumeForm(AutoForm):
     class Meta(AutoForm.Meta):
         model = models.Costume
         fields = '__all__'
-        save_owner_on_creation = True
 
 class CostumeFilterForm(MagiFiltersForm):
     # Encompasses people like the dads, chispa... etc.

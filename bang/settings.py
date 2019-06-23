@@ -162,7 +162,7 @@ ACTIVITY_TAGS = [
         'translation': _('CosParty 2018'),
         'has_permission_to_add': lambda r: datetime.datetime(2018, 10, 10, 0, tzinfo=timezone.utc) < timezone.now() < datetime.datetime(2018, 11, 15, tzinfo=timezone.utc),
     }),
-    ('unrelated',  (_('Not about %(game)s') % { 'game': _('BanG Dream!') })),
+    ('unrelated', lambda: _('Not about {thing}').format(thing=_('BanG Dream!'))),
     ('swearing', _('Swearing')),
     ('nsfw', {
         'translation': _('NSFW'),

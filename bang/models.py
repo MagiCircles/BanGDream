@@ -1897,7 +1897,7 @@ class Asset(MagiModel):
         }),
         ('title', {
             'translation': _('Titles'),
-            'variables': ['name', 'event', 'song', 'value'],
+            'variables': ['name', 'members', 'event', 'song', 'value'],
             'icon': 'list',
             'to_unicode': lambda _a: u'{event}{song}{name}'.format(
                 event=_a.event if _a.event else '',

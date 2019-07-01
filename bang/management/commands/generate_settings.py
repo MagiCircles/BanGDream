@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import datetime, random
+import datetime
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
 from django.utils import timezone
@@ -142,14 +142,10 @@ def generate_settings():
 
     homepage_arts = []
     position = { 'size': 'cover', 'x': 'center', 'y': 'center' }
-    pride_backgrounds = [
-        staticImageURL(u'pride{}.png'.format(i))
-        for i in range(1, 6)
-    ]
     for c in filtered_cards:
         # Normal
         if c.show_art_on_homepage:
-            if c.trainable and c.art and False:
+            if c.trainable and c.art:
                 homepage_arts.append({
                     'url': c.art_url,
                     'hd_url': c.art_2x_url or c.art_original_url,
@@ -157,15 +153,13 @@ def generate_settings():
                 })
             elif c.transparent:
                 homepage_arts.append({
-                    'url': random.choice(pride_backgrounds),
                     'foreground_url': c.transparent_url,
-                    'side': ['left', 'right'],
                     'about_url': c.item_url,
                     'position': position,
                 })
         # Trained
         if c.trainable and c.show_trained_art_on_homepage:
-            if c.trainable and c.art_trained and False:
+            if c.trainable and c.art_trained:
                 homepage_arts.append({
                     'url': c.art_trained_url,
                     'hd_url': c.art_trained_2x_url or c.art_trained_original_url,
@@ -173,9 +167,7 @@ def generate_settings():
                 })
             elif c.transparent_trained:
                 homepage_arts.append({
-                    'url': random.choice(pride_backgrounds),
                     'foreground_url': c.transparent_trained_url,
-                    'side': ['left', 'right'],
                     'about_url': c.item_url,
                     'position': position,
                 })

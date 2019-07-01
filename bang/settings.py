@@ -24,7 +24,6 @@ from bang import models
 SITE_NAME = 'Bandori Party'
 SITE_IMAGE = 'share/bandori_party.png'
 SITE_LOGO = 'logo/bandori_party.png'
-SITE_LOGO = 'logo/bandori_party_pride.png'
 
 GAME_NAME = string_concat(_('BanG Dream!'), ' ', _('Girls Band Party'))
 GAME_URL = 'https://bang-dream.bushimo.jp/'
@@ -37,7 +36,7 @@ COLOR = '#E40046'
 CORNER_POPUP_IMAGE = 'chibi_kanae.png'
 ABOUT_PHOTO = 'deby.jpg'
 EMPTY_IMAGE = 'stars_with_white.png'
-SITE_NAV_LOGO = 'pride_star.png'
+SITE_NAV_LOGO = 'star.png'
 
 ############################################################
 # Settings per languages
@@ -73,6 +72,7 @@ SITE_IMAGE_PER_LANGUAGE = {
 CONTACT_EMAIL = 'contact@bandori.party'
 CONTACT_REDDIT = 'AmbiBambiii'
 CONTACT_FACEBOOK = 'BandoriParty'
+CONTACT_DISCORD = 'https://discord.gg/8wrXKX3'
 
 FEEDBACK_FORM = 'https://docs.google.com/forms/d/1lfd3x4TX6R1IYrZqhwPN_GqghCQpBLwNkkwro7uBAxI/viewform'
 GITHUB_REPOSITORY = ('SchoolIdolTomodachi', 'BanGDream')

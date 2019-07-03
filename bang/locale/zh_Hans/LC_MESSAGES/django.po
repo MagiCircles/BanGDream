@@ -26,7 +26,7 @@ msgstr "排行榜"
 
 #: magi/magicollections.py:1886
 msgid "Create your account to join the community and be in the leaderboard!"
-msgstr "注册帐号来加入社区和排行榜吧！"
+msgstr "注册一个帐号来加入我们的社区和排行榜吧！"
 
 #: starlight/models.py:1404 starlight/models.py:1406
 msgid "Profile"
@@ -2484,10 +2484,9 @@ msgstr "永久"
 msgid "Played song"
 msgstr "完成歌曲"
 
-#. There must be a measure word after numbers in Chinese Grammar.So I made it "X people played songs."
 #: bang/forms.py:952 bang/magicollections.py:1859 bang/models.py:1365
 msgid "Played songs"
-msgstr "人完成了歌曲"
+msgstr "完成歌曲"
 
 #: starlight/magicollections.py:625
 msgid "Song"
@@ -2754,10 +2753,9 @@ msgstr "偶像制作人"
 msgid "Ultimate Idol Devotee"
 msgstr "终极偶像粉丝"
 
-#. There must be a measure word after numbers in Chinese Grammar.So I made it "X people collected {things}."
 #: starlight/models.py:1547 starlight/models.py:1689
 msgid "Collected {things}"
-msgstr "人收集了{things}"
+msgstr "已经收集{things}"
 
 #: bang/models.py:432 bang/models.py:463
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%"
@@ -2816,9 +2814,10 @@ msgstr "用户支持"
 msgid "Moderator"
 msgstr "版主"
 
+#. A term which describes moderaters.
 #: magi/default_settings.py:204
 msgid "Active"
-msgstr "活跃"
+msgstr "常驻"
 
 #: magi/default_settings.py:217
 msgid "Submitted {total} reports"
@@ -3083,6 +3082,7 @@ msgstr "（带背景）"
 msgid "All perfect"
 msgstr "全PERFECT"
 
+#. a tag for Endou Yurika
 #: bang/settings.py:155
 msgid "Thank you Yurishii"
 msgstr "有利息，谢谢你"
@@ -3146,11 +3146,11 @@ msgstr "区域道具"
 
 #: bang/magicollections.py:2514
 msgid "Asset"
-msgstr "性质"
+msgstr "资产"
 
 #: bang/magicollections.py:2515 bang/magicollections.py:2609 bang/models.py:286
 msgid "Assets"
-msgstr "性质"
+msgstr "资产"
 
 #: bang/magicollections.py:2723 bang/models.py:280
 msgid "Costumes"
@@ -3475,10 +3475,11 @@ msgstr "漫画"
 msgid "Question"
 msgstr "问题"
 
+#. A term describes a tag on activities.
 #: starlight/settings.py:244
 #, fuzzy
 msgid "Swearing"
-msgstr "发誓"
+msgstr "立个flag"
 
 #: magi/default_settings.py:26
 #, fuzzy
@@ -3592,6 +3593,7 @@ msgstr "电击G's magazine"
 msgid "Seasonal"
 msgstr "季节和节日"
 
+#. a tag for Akesaka Satomi
 #: bang/settings.py:159
 msgid "Thank you Ake-san"
 msgstr "小明，谢谢你"
@@ -3638,11 +3640,10 @@ msgstr "此处展示了{month}的徽章。此徽章限定为本月获取，并�
 msgid "Background"
 msgstr "背景"
 
-#. There must be a measure word after numbers in Chinese Grammar.If anything goes wrong please correct.
 #: starlight/magicollections.py:95 starlight/settings.py:164
 #: starlight/settings.py:166 starlight/settings.py:168 starlight/views.py:47
 msgid "{nth} Favorite {thing}"
-msgstr "{nth}人喜爱了{thing}"
+msgstr "{nth}喜爱{thing}"
 
 #: magi/models.py:308
 msgid "Character"

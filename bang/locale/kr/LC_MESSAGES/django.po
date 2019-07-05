@@ -20,7 +20,7 @@ msgstr "계정"
 
 #: bang/magicollections.py:1136 bang/magicollections.py:1462
 #: bang/magicollections.py:1465 bang/magicollections.py:1469
-#: bang/magicollections.py:1896
+#: bang/magicollections.py:1893
 msgid "Leaderboard"
 msgstr "리더보드"
 
@@ -28,7 +28,7 @@ msgstr "리더보드"
 msgid "Create your account to join the community and be in the leaderboard!"
 msgstr "새로운 계정을 만들어 커뮤니티에 참가하고 순위표에 올라가 보세요!"
 
-#: starlight/models.py:1404 starlight/models.py:1406
+#: starlight/models.py:1436 starlight/models.py:1439
 msgid "Profile"
 msgstr "프로필"
 
@@ -40,7 +40,7 @@ msgstr "플레이어"
 msgid "Activity"
 msgstr "활동"
 
-#: magi/default_settings.py:761 magi/forms.py:1650 magi/magicollections.py:2660
+#: magi/default_settings.py:766 magi/forms.py:1726 magi/magicollections.py:2660
 msgid "Activities"
 msgstr "활동"
 
@@ -48,14 +48,14 @@ msgstr "활동"
 msgid "Share your adventures!"
 msgstr "당신의 이야기를 함께 나눠요!"
 
-#: magi/magicollections.py:2965
+#: magi/magicollections.py:2967
 #: magi/management/commands/cron_notifications.py:35
 #: magi/templates/emails/notification.html:5
 #: magi/templates/emails/notification.html:6
 msgid "Notification"
 msgstr "알림"
 
-#: magi/magicollections.py:2966
+#: magi/magicollections.py:2968
 msgid "Notifications"
 msgstr "알림"
 
@@ -63,22 +63,22 @@ msgstr "알림"
 msgid "Login"
 msgstr "로그인"
 
-#: magi/default_settings.py:438 magi/templates/pages/login.html:8
+#: magi/default_settings.py:449 magi/templates/pages/login.html:8
 #: magi/templates/pages/signup.html:4 magi/templates/pages/signup.html.py:6
 msgid "Sign Up"
 msgstr "가입"
 
-#: magi/default_settings.py:454 magi/magicollections.py:2145
+#: magi/default_settings.py:465 magi/magicollections.py:2145
 #: magi/templates/items/profile.html:33 magi/templates/pages/settings.html:8
-#: magi/utils.py:341 magi/views.py:406 magi/views.py:409 magi/views.py:671
+#: magi/utils.py:342 magi/views.py:415 magi/views.py:418 magi/views.py:680
 msgid "Settings"
 msgstr "설정"
 
-#: magi/default_settings.py:462
+#: magi/default_settings.py:473
 msgid "Logout"
 msgstr "로그아웃"
 
-#: bang/magicollections.py:2429 bang/models.py:1713 bang/models.py:1715
+#: bang/magicollections.py:2425 bang/models.py:1713 bang/models.py:1715
 msgid "About"
 msgstr "상세"
 
@@ -92,30 +92,30 @@ msgid "Map"
 msgstr "지도"
 
 #. Link to the help pages that look like a wiki and help people use the site.
-#: magi/default_settings.py:502 magi/default_settings.py:508
-#: magi/templates/pages/about.html:388 magi/views.py:631
+#: magi/default_settings.py:522 magi/default_settings.py:528
+#: magi/templates/pages/about.html:388 magi/views.py:640
 msgid "Help"
 msgstr "도움말"
 
 #. The favorite color of the user. Will be used to personalize their profile.
-#: starlight/models.py:561
+#: starlight/models.py:570
 msgid "Color"
 msgstr "색"
 
 #. This is about the favorite characters the user specified in their preferences.
-#: starlight/forms.py:104
+#: starlight/forms.py:137
 msgid "All your favorites must be unique"
 msgstr "좋아하는 캐릭터는 중복 불가입니다."
 
-#: magi/forms.py:1978
+#: magi/forms.py:2054
 msgid "Old Password"
 msgstr "현재 비밀번호"
 
-#: magi/forms.py:1979
+#: magi/forms.py:2055
 msgid "New Password"
 msgstr "새 비밀번호"
 
-#: magi/forms.py:1980
+#: magi/forms.py:2056
 msgid "New Password Again"
 msgstr "새 비밀번호 확인"
 
@@ -178,15 +178,15 @@ msgid "When someone follows you."
 msgstr "누군가 나를 팔로잉 할 때"
 
 #. Personal description you can write on your profile. Similar to twitter's "bio".
-#: starlight/models.py:364 starlight/models.py:366 starlight/models.py:467
-#: starlight/models.py:469 starlight/models.py:601 starlight/models.py:603
-#: starlight/models.py:888 starlight/models.py:890 starlight/models.py:892
-#: starlight/models.py:1408 starlight/models.py:1410
+#: starlight/models.py:373 starlight/models.py:376 starlight/models.py:481
+#: starlight/models.py:483 starlight/models.py:615 starlight/models.py:617
+#: starlight/models.py:918 starlight/models.py:920 starlight/models.py:923
+#: starlight/models.py:1441 starlight/models.py:1444
 msgid "Description"
 msgstr "설명"
 
 #. Your translation must be gender neutral. Example 1er/ère
-#: bang/forms.py:394 bang/magicollections.py:556 bang/models.py:919
+#: bang/forms.py:392 bang/magicollections.py:558 bang/models.py:919
 msgid "1st"
 msgstr "제일"
 
@@ -205,7 +205,7 @@ msgid "Birthdate"
 msgstr "생일"
 
 #. Will do a google maps search and put people on the map. Can be replaced by something like "Your city" or "Address".
-#: sukutomo/forms.py:295
+#: sukutomo/models.py:589
 msgid "Location"
 msgstr "위치"
 
@@ -218,7 +218,7 @@ msgid "It might take up to 24 hours to update your location on the map."
 msgstr "변경한 위치가 지도에 반영되기까지 최대 24시간이 걸릴 수 있습니다."
 
 #. For links. Select your platform before adding a link. Can be Facebook/Twitter/Reddit, etc.
-#: starlight/models.py:432 starlight/models.py:434
+#: starlight/models.py:444 starlight/models.py:447
 msgid "Platform"
 msgstr "플랫폼"
 
@@ -232,7 +232,7 @@ msgid "Write your username only, no URL."
 msgstr "URL이 아니라 사용자 이름/ID만 적어주세요."
 
 #. For links.
-#: magi/forms.py:2124
+#: magi/forms.py:2200
 msgid "How often do you tweet/stream/post about {}?"
 msgstr "얼마나 자주 {} 에 대해 트윗/방송/포스팅 하나요?"
 
@@ -319,7 +319,7 @@ msgid "Followers"
 msgstr "팔로워"
 
 #. Feel free to use Twitter's word in your language.
-#: magi/default_settings.py:404 magi/forms.py:2445
+#: magi/default_settings.py:415 magi/forms.py:2521
 #: magi/templates/items/profile.html:46 magi/templates/items/profile.html:48
 msgid "Following"
 msgstr "팔로잉"
@@ -351,7 +351,7 @@ msgstr "아이콘 크레딧"
 msgid "Staff members"
 msgstr "운영진"
 
-#: starlight/magicollections.py:541 starlight/models.py:709
+#: starlight/magicollections.py:585 starlight/models.py:723
 #, fuzzy
 msgid "Staff"
 msgstr "스태프"
@@ -398,7 +398,7 @@ msgstr "시작하기"
 msgid "If you're a developer and you would like to get the data of the game in a convenient format, we provide a public REST API to get the game data, our users datacards, and more!"
 msgstr "당신이 개발자이며 게임 데이터를 편리한 형식으로 제공받고자 한다면, 공개 REST API를 이용하여 게임 데이터, 사용자 데이터 카드 및 더 많은 데이터를 제공해 드릴 수 있습니다."
 
-#: magi/magicollections.py:3245 magi/templates/include/donate.html:59
+#: magi/magicollections.py:3247 magi/templates/include/donate.html:59
 msgid "Donators"
 msgstr "기부자"
 
@@ -410,16 +410,16 @@ msgstr "위키"
 msgid "Forgot password?"
 msgstr "비밀번호를 잊으셨습니까?"
 
-#: magi/forms.py:1975
+#: magi/forms.py:2051
 msgid "Change your password"
 msgstr "비밀번호 바꾸기"
 
-#: magi/forms.py:1623
+#: magi/forms.py:1699
 msgid "Emails"
 msgstr "이메일 수신 설정"
 
 #. 계정 설정 중 외부 사이트 연결 설정 부분의 설명입니다
-#: starlight/magicollections.py:406
+#: starlight/magicollections.py:427
 msgid "Links"
 msgstr "링크"
 
@@ -440,7 +440,7 @@ msgstr "Gravatar 사용법이 궁금합니다"
 msgid "Change Avatar"
 msgstr "아바타 변경"
 
-#: magi/default_settings.py:757 magi/magicollections.py:1783
+#: magi/default_settings.py:762 magi/magicollections.py:1783
 #: magi/templates/pages/settings.html:29
 msgid "Accounts"
 msgstr "계정"
@@ -459,15 +459,15 @@ msgstr "{objects} 검색 결과 {total}개:"
 msgid "Become a contributor to help us fill the database"
 msgstr "공헌자가 되어 데이터베이스 작성을 도와주세요"
 
-#: magi/views.py:736 magi/views_collections.py:692
+#: magi/views.py:745 magi/views_collections.py:692
 msgid "You can't cancel this action afterwards."
 msgstr "이 동작은 지금 취소할 수 없습니다."
 
-#: starlight/magicollections.py:405
+#: starlight/magicollections.py:426
 msgid "Link"
 msgstr "링크"
 
-#: magi/forms.py:2171 magi/forms.py:2205
+#: magi/forms.py:2247 magi/forms.py:2281
 msgid "Confirm"
 msgstr "확인"
 
@@ -475,23 +475,23 @@ msgstr "확인"
 msgid "Tags"
 msgstr "태그"
 
-#: magi/forms.py:2047 magi/forms.py:2160 magi/magicollections.py:2297
+#: magi/forms.py:2123 magi/forms.py:2236 magi/magicollections.py:2297
 #: magi/models.py:139 magi/models.py:590 magi/models.py:820
 #: magi/templates/base.html:127 magi/templates/items/activityItem.html:41
 msgid "Language"
 msgstr "언어"
 
-#: starlight/models.py:369 starlight/models.py:371 starlight/models.py:733
-#: starlight/models.py:735 starlight/models.py:1412 starlight/models.py:1414
+#: starlight/models.py:381 starlight/models.py:383 starlight/models.py:748
+#: starlight/models.py:750 starlight/models.py:1446 starlight/models.py:1449
 msgid "Message"
 msgstr "메시지"
 
-#: starlight/models.py:330 starlight/models.py:461 starlight/models.py:516
-#: starlight/models.py:902 starlight/models.py:1060
+#: starlight/models.py:339 starlight/models.py:475 starlight/models.py:524
+#: starlight/models.py:933 starlight/models.py:1092
 msgid "Image"
 msgstr "이미지"
 
-#: magi/forms.py:2451 magi/templates/items/activityItem.html:103
+#: magi/forms.py:2527 magi/templates/items/activityItem.html:103
 #: magi/templates/items/activityItem.html:105
 msgid "Liked"
 msgstr "좋아요"
@@ -501,7 +501,7 @@ msgstr "좋아요"
 msgid "Like"
 msgstr "좋아요 하기"
 
-#: sukutomo/magicollections.py:979
+#: sukutomo/magicollections.py:896
 msgid "Images"
 msgstr "이미지"
 
@@ -523,28 +523,28 @@ msgstr "결과"
 msgid "Reported by:"
 msgstr "제보한 사람:"
 
-#: magi/views.py:805 magi/views.py:840
+#: magi/views.py:814 magi/views.py:849
 msgid "This {thing} you reported has been reviewed by a moderator and {verb}. Thank you so much for your help!"
 msgstr ""
 
-#: magi/views.py:545 magi/views.py:805 magi/views.py:816 magi/views.py:821
-#: magi/views.py:851
+#: magi/views.py:554 magi/views.py:814 magi/views.py:825 magi/views.py:830
+#: magi/views.py:860
 msgid "edited"
 msgstr "수정됨"
 
-#: magi/views.py:810 magi/views.py:845
+#: magi/views.py:819 magi/views.py:854
 msgid "Thank you for reporting this {thing}"
 msgstr "{thing}을/를 신고해 주셔서 감사합니다."
 
-#: magi/views.py:539 magi/views.py:816 magi/views.py:851
+#: magi/views.py:548 magi/views.py:825 magi/views.py:860
 msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
 msgstr "{thing}이/가 신고되었습니다. 관리자가 검토 후 {verb} 조치를 취할 것입니다."
 
-#: magi/views.py:821 magi/views.py:856
+#: magi/views.py:830 magi/views.py:865
 msgid "Your {thing} has been {verb}"
 msgstr "당신의 {thing}은/는 {verb} 처리되었습니다."
 
-#: magi/views.py:548 magi/views.py:840 magi/views.py:856
+#: magi/views.py:557 magi/views.py:849 magi/views.py:865
 msgid "deleted"
 msgstr "삭제됨"
 
@@ -558,11 +558,11 @@ msgstr "안녕하세요"
 msgid "The {game} Database & Community"
 msgstr "The {game} 데이터베이스 & 커뮤니티"
 
-#: magi/views.py:306
+#: magi/views.py:309
 msgid "{site} is not a representative and is not associated with {game}. Its logos and images are Trademarks of {company}."
 msgstr "{site}은/는 {game}의 대표 사이트나 연관 사이트가 아닙니다. 로고와 이미지는 {company}의 등록 상표입니다."
 
-#: magi/views.py:308
+#: magi/views.py:311
 msgid "the company that owns {game}"
 msgstr "{game}을 보유중인 회사"
 
@@ -614,7 +614,7 @@ msgid "Medals"
 msgstr "메달들"
 
 #. 데레스테 시작시 고른 아이돌
-#: sukutomo/models.py:208
+#: sukutomo/models.py:212
 msgid "Starter"
 msgstr "시작 아이돌"
 
@@ -622,12 +622,12 @@ msgstr "시작 아이돌"
 msgid "This date cannot be in the future."
 msgstr "현재보다 뒤의 날짜로 설정할 수 없습니다."
 
-#: bang/forms.py:113 bang/forms.py:1045 bang/models.py:1317 bang/models.py:1322
+#: bang/forms.py:113 bang/forms.py:1019 bang/models.py:1317 bang/models.py:1322
 #: bang/models.py:1792
 msgid "Level"
 msgstr "레벨"
 
-#: sukutomo/forms.py:77
+#: sukutomo/forms.py:78
 msgid "Start Date"
 msgstr "게임 시작일"
 
@@ -641,7 +641,7 @@ msgstr "사이트 가입일"
 msgid "Alphabetical"
 msgstr "알파벳 순서"
 
-#: sukutomo/forms.py:292 sukutomo/magicollections.py:449
+#: stardustrun/forms.py:118 stardustrun/models.py:50
 msgid "Available"
 msgstr "가능"
 
@@ -739,7 +739,7 @@ msgstr "비행"
 msgid "Ground"
 msgstr "땅"
 
-#: starlight/models.py:1393
+#: starlight/models.py:1425
 msgid "Poison"
 msgstr "독"
 
@@ -767,11 +767,11 @@ msgstr "물"
 msgid "Fire"
 msgstr "불"
 
-#: starlight/models.py:1365
+#: starlight/models.py:1397
 msgid "Normal"
 msgstr "일반"
 
-#: sukutomo/models.py:466
+#: sukutomo/models.py:484
 msgid "Nickname"
 msgstr "별명"
 
@@ -793,8 +793,8 @@ msgstr ""
 msgid "CP"
 msgstr ""
 
-#: starlight/models.py:1105 starlight/models.py:1111 starlight/models.py:1117
-#: starlight/models.py:1125
+#: starlight/models.py:1137 starlight/models.py:1143 starlight/models.py:1149
+#: starlight/models.py:1157
 msgid "HP"
 msgstr "HP"
 
@@ -803,7 +803,7 @@ msgstr "HP"
 msgid "Weight"
 msgstr "몸무게"
 
-#: starlight/forms.py:264 starlight/models.py:353
+#: starlight/forms.py:310 starlight/models.py:362
 msgid "Height"
 msgstr "키"
 
@@ -919,10 +919,6 @@ msgstr ""
 msgid "You have {} of them in you collection. Delete them before changing this."
 msgstr ""
 
-#: magi/default_settings.py:489
-msgid "About the game"
-msgstr ""
-
 #: magi/models.py:212
 msgid "View activities in your language only?"
 msgstr "현재 설정한 언어로 기재된 활동만 볼까요?"
@@ -948,11 +944,11 @@ msgstr "다른 사용자를 팔로우하여 그들의 활동을 확인하세요!
 msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
 msgstr "를 위해 총 %(total_donators)s 명이 기부해 주었습니다. 목표치: %(adjective)s"
 
-#: starlight/settings.py:311 starlight/settings.py:328
+#: starlight/settings.py:320 starlight/settings.py:339
 msgid "About {thing}"
 msgstr "{thing}란?"
 
-#: sukutomo/models.py:151
+#: sukutomo/models.py:155
 msgid "All"
 msgstr "공통"
 
@@ -977,11 +973,11 @@ msgstr ""
 msgid "Pokémon you've seen"
 msgstr ""
 
-#: starlight/models.py:1366
+#: starlight/models.py:1398
 msgid "Special"
 msgstr "특수"
 
-#: starlight/models.py:1368
+#: starlight/models.py:1400
 msgid "Damage"
 msgstr "대미지"
 
@@ -1078,13 +1074,13 @@ msgstr ""
 msgid "seconds"
 msgstr "초"
 
-#: starlight/forms.py:111
+#: starlight/forms.py:144
 #, fuzzy
 msgid "Creation"
 msgstr "생성"
 
-#: bang/forms.py:193 bang/forms.py:251 bang/forms.py:252 bang/forms.py:531
-#: bang/forms.py:952
+#: bang/forms.py:192 bang/forms.py:249 bang/forms.py:250 bang/forms.py:528
+#: bang/forms.py:947
 msgid "Most popular"
 msgstr ""
 
@@ -1107,7 +1103,7 @@ msgstr "정렬"
 msgid "View all"
 msgstr "모두 보기"
 
-#: sukutomo/magicollections.py:257
+#: sukutomo/magicollections.py:231
 msgid "{age} years old"
 msgstr "{age}세"
 
@@ -1119,17 +1115,17 @@ msgstr "제 카드 컬렉션을 확인해 보세요!"
 msgid "The game didn't even exist at that time."
 msgstr "이 게임은 그 날짜에는 아직 출시되지도 않았습니다!"
 
-#: starlight/forms.py:523 starlight/models.py:881
+#: starlight/forms.py:579 starlight/models.py:910
 msgid "Type"
 msgstr "타입"
 
 #. 계정 소개의 센터/리더 아이돌. 리더로 번역했습니다.
-#: starlight/magicollections.py:254 starlight/models.py:221
-#: starlight/models.py:1374
+#: starlight/magicollections.py:260 starlight/models.py:221
+#: starlight/models.py:1406
 msgid "Center"
 msgstr "중앙"
 
-#: starlight/models.py:1034 starlight/models.py:1781
+#: starlight/models.py:1066 starlight/models.py:1817
 msgid "Rarity"
 msgstr "레어도"
 
@@ -1145,47 +1141,45 @@ msgstr "프로듀서 랭크"
 msgid "Reverse Order"
 msgstr "역순"
 
-#: sukutomo/models.py:219
+#: sukutomo/models.py:223
 msgid "Accept friend requests"
 msgstr "친구요청 허용"
 
-#: starlight/forms.py:261 starlight/forms.py:341 starlight/models.py:325
-#: starlight/models.py:327 starlight/models.py:457 starlight/models.py:459
-#: starlight/models.py:510 starlight/models.py:512 starlight/models.py:717
-#: starlight/models.py:719
+#: starlight/forms.py:306 starlight/forms.py:307 starlight/forms.py:387
+#: starlight/forms.py:388 starlight/models.py:332 starlight/models.py:335
+#: starlight/models.py:470 starlight/models.py:473 starlight/models.py:517
+#: starlight/models.py:520 starlight/models.py:731 starlight/models.py:734
 msgid "Name"
 msgstr "이름"
 
-#: starlight/forms.py:263
+#: starlight/forms.py:309
 msgid "Age"
 msgstr "나이"
 
-#: starlight/forms.py:262 starlight/forms.py:342 starlight/models.py:334
-#: starlight/models.py:552 starlight/settings.py:224
+#: starlight/forms.py:308 starlight/forms.py:389 starlight/models.py:343
+#: starlight/models.py:561 starlight/settings.py:233
 msgid "Birthday"
 msgstr "생일"
 
-#: sukutomo/forms.py:118 sukutomo/models.py:412 sukutomo/models.py:418
+#: sukutomo/forms.py:135 sukutomo/models.py:422 sukutomo/models.py:428
 msgid "Bust"
 msgstr "가슴둘레"
 
-#: sukutomo/forms.py:119 sukutomo/models.py:413 sukutomo/models.py:419
+#: sukutomo/forms.py:136 sukutomo/models.py:423 sukutomo/models.py:429
 msgid "Waist"
 msgstr "허리둘레"
 
-#: sukutomo/forms.py:120 sukutomo/models.py:414 sukutomo/models.py:420
+#: sukutomo/forms.py:137 sukutomo/models.py:424 sukutomo/models.py:430
 msgid "Hips"
 msgstr "엉덩이둘레"
 
-#: sukutomo/forms.py:240 sukutomo/models.py:557 sukutomo/models.py:761
-#: sukutomo/models.py:770 sukutomo/models.py:783 sukutomo/models.py:792
-#: sukutomo/models.py:801
+#: sukutomo/models.py:597 sukutomo/models.py:829 sukutomo/models.py:838
+#: sukutomo/models.py:851 sukutomo/models.py:860 sukutomo/models.py:869
 msgid "Beginning"
 msgstr "시작"
 
-#: sukutomo/forms.py:241 sukutomo/models.py:558 sukutomo/models.py:762
-#: sukutomo/models.py:771 sukutomo/models.py:784 sukutomo/models.py:793
-#: sukutomo/models.py:802
+#: sukutomo/models.py:598 sukutomo/models.py:830 sukutomo/models.py:839
+#: sukutomo/models.py:852 sukutomo/models.py:861 sukutomo/models.py:870
 msgid "End"
 msgstr "종료"
 
@@ -1199,12 +1193,12 @@ msgstr "순위보상 {}단계 포인트"
 msgid "T{} rank"
 msgstr "순위보상 {}단계 등수"
 
-#: starlight/magicollections.py:1183 starlight/models.py:875
-#: starlight/models.py:1043 starlight/models.py:1288
+#: starlight/magicollections.py:1234 starlight/models.py:904
+#: starlight/models.py:1075 starlight/models.py:1320
 msgid "Event"
 msgstr "이벤트"
 
-#: starlight/models.py:1042 starlight/models.py:1282
+#: starlight/models.py:1074 starlight/models.py:1314
 msgid "Limited"
 msgstr "한정"
 
@@ -1218,7 +1212,7 @@ msgstr "한정"
 msgid "Awakened"
 msgstr "특훈 완료"
 
-#: starlight/models.py:1076
+#: starlight/models.py:1108
 msgid "Art"
 msgstr "일러스트"
 
@@ -1227,8 +1221,8 @@ msgstr "일러스트"
 msgid "Release Date"
 msgstr "배포일"
 
-#: starlight/forms.py:197 starlight/forms.py:199 starlight/models.py:216
-#: starlight/models.py:982
+#: starlight/forms.py:230 starlight/forms.py:232 starlight/models.py:216
+#: starlight/models.py:1013
 msgid "ID"
 msgstr "ID"
 
@@ -1244,14 +1238,14 @@ msgstr "보컬"
 msgid "Dance"
 msgstr "댄스"
 
-#: bang/forms.py:261 bang/forms.py:262 bang/magicollections.py:1035
+#: bang/forms.py:259 bang/forms.py:260 bang/magicollections.py:1037
 #: bang/models.py:694 bang/models.py:695 bang/models.py:696 bang/models.py:761
 #: bang/models.py:1092 bang/models.py:1703
 msgid "Visual"
 msgstr "비쥬얼"
 
-#: sukutomo/forms.py:401 sukutomo/magicollections.py:1308
-#: sukutomo/models.py:658 sukutomo/models.py:1053
+#: sukutomo/forms.py:429 sukutomo/magicollections.py:1221
+#: sukutomo/models.py:726 sukutomo/models.py:1120
 msgid "Skill"
 msgstr "특기"
 
@@ -1280,8 +1274,8 @@ msgstr "아이돌마스터"
 msgid "Cute"
 msgstr "큐트"
 
-#: sukutomo/forms.py:383 sukutomo/models.py:150 sukutomo/models.py:1299
-#: sukutomo/models.py:1300 sukutomo/models.py:1301
+#: sukutomo/forms.py:411 sukutomo/models.py:154 sukutomo/models.py:1366
+#: sukutomo/models.py:1367 sukutomo/models.py:1368
 msgid "Cool"
 msgstr "쿨"
 
@@ -1350,7 +1344,7 @@ msgid "Taurus"
 msgstr "황소자리"
 
 #. 이벤트 종류 설명
-#: sukutomo/models.py:700
+#: sukutomo/models.py:768
 msgid "Token"
 msgstr "재화 수집"
 
@@ -1395,7 +1389,7 @@ msgstr "퍼펙트 서포트 (SSR)"
 msgid "Combo Lock"
 msgstr "콤보 서포트"
 
-#: starlight/models.py:1391
+#: starlight/models.py:1423
 msgid "Healer"
 msgstr "힐러"
 
@@ -1482,7 +1476,7 @@ msgstr "메이크업"
 msgid "Step"
 msgstr "스텝"
 
-#: sukutomo/models.py:1108
+#: sukutomo/models.py:1175
 msgid "Energy"
 msgstr "에너지"
 
@@ -1502,23 +1496,23 @@ msgstr "샤이니"
 msgid "Tricolor"
 msgstr "트리콜로르"
 
-#: sukutomo/models.py:233
+#: sukutomo/models.py:237
 msgid "Thumbs"
 msgstr "엄지"
 
-#: sukutomo/models.py:237
+#: sukutomo/models.py:241
 msgid "All fingers"
 msgstr "모든 손가락"
 
-#: sukutomo/models.py:241
+#: sukutomo/models.py:245
 msgid "Index fingers"
 msgstr "검지"
 
-#: sukutomo/models.py:245
+#: sukutomo/models.py:249
 msgid "One hand"
 msgstr "한손"
 
-#: starlight/forms.py:415 starlight/forms.py:603
+#: starlight/forms.py:471 starlight/forms.py:659
 msgid "Other"
 msgstr "기타"
 
@@ -1538,8 +1532,8 @@ msgstr "별자리"
 msgid "Hometown"
 msgstr "고향"
 
-#: starlight/models.py:360 starlight/models.py:362 starlight/models.py:593
-#: starlight/models.py:595
+#: starlight/models.py:369 starlight/models.py:371 starlight/models.py:606
+#: starlight/models.py:608
 msgid "Hobbies"
 msgstr "취미"
 
@@ -1565,7 +1559,7 @@ msgid "Device"
 msgstr "디바이스"
 
 #. 데레스테 플레이시 선호하는 손가락 타입
-#: sukutomo/models.py:255
+#: sukutomo/models.py:259
 msgid "Play with"
 msgstr "플레이 스타일"
 
@@ -1573,27 +1567,27 @@ msgstr "플레이 스타일"
 msgid "Operating System"
 msgstr "운영체제"
 
-#: sukutomo/forms.py:224 sukutomo/forms.py:372 sukutomo/forms.py:411
-#: sukutomo/forms.py:433 sukutomo/magicollections.py:190
-#: sukutomo/magicollections.py:590 sukutomo/magicollections.py:895
-#: sukutomo/magicollections.py:920 sukutomo/models.py:962
-#: sukutomo/settings.py:383
+#: sukutomo/forms.py:240 sukutomo/forms.py:400 sukutomo/forms.py:439
+#: sukutomo/forms.py:461 sukutomo/magicollections.py:127
+#: sukutomo/magicollections.py:278 sukutomo/magicollections.py:515
+#: sukutomo/magicollections.py:812 sukutomo/magicollections.py:837
+#: sukutomo/models.py:1030 sukutomo/settings.py:383
 msgid "Idol"
 msgstr "아이돌"
 
-#: starlight/forms.py:365 starlight/forms.py:366 starlight/models.py:762
-#: starlight/models.py:764 starlight/models.py:766 starlight/models.py:883
-#: starlight/models.py:884 starlight/models.py:886 starlight/models.py:994
-#: starlight/models.py:996
+#: starlight/forms.py:421 starlight/forms.py:422 starlight/models.py:777
+#: starlight/models.py:780 starlight/models.py:782 starlight/models.py:912
+#: starlight/models.py:913 starlight/models.py:916 starlight/models.py:1025
+#: starlight/models.py:1028
 msgid "Title"
 msgstr "제목"
 
-#: starlight/models.py:1419
+#: starlight/models.py:1454
 #, fuzzy
 msgid "Transparent"
 msgstr "투명 일러스트"
 
-#: starlight/models.py:1069
+#: starlight/models.py:1101
 msgid "Icon"
 msgstr "아이콘"
 
@@ -1603,28 +1597,28 @@ msgstr "아이콘"
 msgid "Puchi"
 msgstr "푸치"
 
-#: sukutomo/models.py:1291 sukutomo/models.py:1295 sukutomo/models.py:1299
-#: sukutomo/models.py:1303
+#: sukutomo/models.py:1358 sukutomo/models.py:1362 sukutomo/models.py:1366
+#: sukutomo/models.py:1370
 msgid "Minimum"
 msgstr "최소"
 
-#: sukutomo/models.py:1292 sukutomo/models.py:1293 sukutomo/models.py:1296
-#: sukutomo/models.py:1297 sukutomo/models.py:1300 sukutomo/models.py:1301
+#: sukutomo/models.py:1359 sukutomo/models.py:1360 sukutomo/models.py:1363
+#: sukutomo/models.py:1364 sukutomo/models.py:1367 sukutomo/models.py:1368
 msgid "Maximum"
 msgstr "최대"
 
 #. 아이돌 어필치의 총 합
-#: bang/forms.py:263 bang/forms.py:264 bang/magicollections.py:992
-#: bang/magicollections.py:999 bang/magicollections.py:1036 bang/models.py:762
+#: bang/forms.py:261 bang/forms.py:262 bang/magicollections.py:994
+#: bang/magicollections.py:1001 bang/magicollections.py:1038 bang/models.py:762
 msgid "Overall"
 msgstr "총합"
 
-#: cpro/models.py:758 cpro/templates/items/ownedcardItem.html:9
+#: starlight/models.py:1812
 #, fuzzy
 msgid "Max bonded"
 msgstr "친애도MAX"
 
-#: cpro/models.py:759 cpro/templates/items/ownedcardItem.html:8
+#: starlight/models.py:1764
 msgid "Max leveled"
 msgstr "레벨MAX"
 
@@ -1641,18 +1635,18 @@ msgstr "특기 레벨"
 msgid "Obtained Date"
 msgstr "카드 취득 일자"
 
-#: starlight/magicollections.py:937 starlight/magicollections.py:938
-#: starlight/models.py:636 starlight/models.py:1547 starlight/settings.py:207
+#: starlight/magicollections.py:988 starlight/magicollections.py:989
+#: starlight/models.py:650 starlight/models.py:1582 starlight/settings.py:216
 msgid "Cards"
 msgstr "카드"
 
-#: starlight/magicollections.py:1184 starlight/settings.py:201
-#: starlight/settings.py:210
+#: starlight/magicollections.py:1235 starlight/settings.py:210
+#: starlight/settings.py:219
 msgid "Events"
 msgstr "이벤트"
 
-#: starlight/magicollections.py:626 starlight/models.py:390
-#: starlight/settings.py:214
+#: starlight/magicollections.py:670 starlight/models.py:402
+#: starlight/settings.py:223
 msgid "Songs"
 msgstr "음악"
 
@@ -1673,7 +1667,7 @@ msgid "Live"
 msgstr "라이브"
 
 #. 액티비티 분류 태그
-#: starlight/settings.py:222
+#: starlight/settings.py:231
 msgid "Comedy"
 msgstr "유머"
 
@@ -1681,29 +1675,29 @@ msgstr "유머"
 msgid "Room Decoration"
 msgstr "방 꾸미기"
 
-#: starlight/settings.py:221
+#: starlight/settings.py:230
 msgid "Introduce yourself"
 msgstr "자기소개"
 
-#: sukutomo/magicollections.py:191
+#: sukutomo/magicollections.py:128
 msgid "Idols"
 msgstr "아이돌"
 
-#: starlight/settings.py:225
+#: starlight/settings.py:234
 msgid "Cosplay"
 msgstr "코스프레"
 
-#: starlight/magicollections.py:576 starlight/models.py:708
-#: starlight/models.py:709 starlight/settings.py:194
+#: starlight/magicollections.py:620 starlight/models.py:722
+#: starlight/models.py:723 starlight/settings.py:203
 msgid "Anime"
 msgstr "애니"
 
-#: starlight/magicollections.py:217 starlight/settings.py:229
-#: starlight/settings.py:425
+#: starlight/magicollections.py:220 starlight/settings.py:238
+#: starlight/settings.py:438
 msgid "Community"
 msgstr "커뮤니티"
 
-#: starlight/magicollections.py:936 starlight/models.py:1774
+#: starlight/magicollections.py:987 starlight/models.py:1810
 msgid "Card"
 msgstr "카드"
 
@@ -1778,15 +1772,15 @@ msgstr "이 카드를 좋아하는 카드에서 제외합니다."
 msgid "Add this card to your favorites"
 msgstr "이 카드를 좋아하는 카드에 추가합니다."
 
-#: starlight/models.py:394 starlight/models.py:641
+#: starlight/models.py:406 starlight/models.py:655
 msgid "Fans"
 msgstr "팬"
 
-#: magi/forms.py:2445 magi/forms.py:2451 magi/utils.py:459
+#: magi/forms.py:2521 magi/forms.py:2527 magi/utils.py:460
 msgid "Only"
 msgstr "오직"
 
-#: starlight/magicollections.py:1061
+#: starlight/magicollections.py:1112
 #, fuzzy
 msgid "None"
 msgstr "없음"
@@ -1815,12 +1809,12 @@ msgstr "%(idol)s 은(는) %(total_results)s 개 이벤트에 참가했습니다.
 msgid "%(total_results)s producers scouted %(own_card)s"
 msgstr "%(total_results)s 명의 프로듀서가 %(own_card)s 카드를 스카웃 하였습니다."
 
-#: magi/magicollections.py:3037 magi/magicollections.py:3147
+#: magi/magicollections.py:3039 magi/magicollections.py:3149
 #: magi/models.py:1217
 msgid "Badge"
 msgstr "배지"
 
-#: magi/default_settings.py:766 magi/magicollections.py:3038
+#: magi/default_settings.py:771 magi/magicollections.py:3040
 msgid "Badges"
 msgstr "배지"
 
@@ -1867,7 +1861,7 @@ msgstr "좋아함"
 msgid "Fan made"
 msgstr "2차 창작물"
 
-#: starlight/settings.py:228
+#: starlight/settings.py:237
 msgid "Merchandise"
 msgstr "상품"
 
@@ -1892,39 +1886,39 @@ msgstr "공유"
 msgid "Local time"
 msgstr ""
 
-#: sukutomo/magicollections.py:701 sukutomo/magicollections.py:782
+#: sukutomo/magicollections.py:623 sukutomo/magicollections.py:704
 msgid "Open {thing}"
 msgstr ""
 
 #. Not sure where this will be used, but I assumed it will be used for filtering cards. If it's in a different context, let me know~
-#: magi/forms.py:818
+#: magi/forms.py:899
 msgid "Reverse order"
 msgstr "역순"
 
-#: magi/forms.py:2539 magi/models.py:1098
+#: magi/forms.py:2615 magi/models.py:1098
 #: magi/templates/items/reportItem.html:29
 msgid "Reason"
 msgstr ""
 
-#: magi/item_model.py:690 magi/magicollections.py:1181
+#: magi/item_model.py:699 magi/magicollections.py:1181
 #: magi/magicollections.py:1229
 msgid "Edit {thing}"
 msgstr "{thing} 편집하기"
 
-#: magi/item_model.py:693 magi/magicollections.py:1103 magi/views.py:420
+#: magi/item_model.py:702 magi/magicollections.py:1103 magi/views.py:429
 msgid "Delete {thing}"
 msgstr "{thing} 지우기"
 
-#: magi/item_model.py:696 magi/models.py:92
+#: magi/item_model.py:705 magi/models.py:92
 msgid "Report {thing}"
 msgstr "{thing} 신고하기"
 
-#: magi/forms.py:2119 magi/magicollections.py:1225 magi/views.py:419
-#: magi/views.py:506
+#: magi/forms.py:2195 magi/magicollections.py:1225 magi/views.py:428
+#: magi/views.py:515
 msgid "Add {thing}"
 msgstr ""
 
-#: magi/magicollections.py:3225
+#: magi/magicollections.py:3227
 msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
 msgstr ""
 
@@ -1993,7 +1987,7 @@ msgstr "이 곳을 눌러 이메일 알림을 끌 수 있습니다."
 
 #: magi/templates/emails/report.html:21
 #: magi/templates/items/activityItem.html:89
-#: magi/templates/pages/settings.html:107 magi/utils.py:1449
+#: magi/templates/pages/settings.html:107 magi/utils.py:1455
 msgid "Translate from %(from_language)s to %(to_language)s"
 msgstr "%(from_language)s에서 %(to_language)s로 번역됨"
 
@@ -2001,7 +1995,7 @@ msgstr "%(from_language)s에서 %(to_language)s로 번역됨"
 msgid "follows you"
 msgstr "당신을 팔로우합니다"
 
-#: magi/views.py:400 magi/views.py:1130
+#: magi/views.py:409 magi/views.py:1139
 msgid "Successfully edited!"
 msgstr "성공적으로 수정됨!"
 
@@ -2009,66 +2003,65 @@ msgstr "성공적으로 수정됨!"
 msgid "The game didn't even existed at that time."
 msgstr ""
 
-#: sukutomo/magicollections.py:422 sukutomo/magicollections.py:424
-#: sukutomo/magicollections.py:741
+#: sukutomo/magicollections.py:663
 msgid "Countdown"
 msgstr "카운트다운"
 
-#: sukutomo/magicollections.py:430 sukutomo/magicollections.py:747
+#: sukutomo/magicollections.py:669
 msgid "{time} left"
 msgstr "{time} 남음"
 
-#: sukutomo/magicollections.py:430 sukutomo/magicollections.py:747
+#: sukutomo/magicollections.py:669
 msgid "Starts in {time}"
 msgstr "{time}후 시작"
 
-#: bang/forms.py:52 bang/forms.py:73 bang/forms.py:246 bang/forms.py:253
-#: bang/forms.py:254 bang/forms.py:718 bang/forms.py:1209 bang/forms.py:1438
-#: bang/forms.py:1485 bang/magicollections.py:68 bang/magicollections.py:124
-#: bang/magicollections.py:315 bang/magicollections.py:611
-#: bang/magicollections.py:635 bang/magicollections.py:2465
-#: bang/magicollections.py:2694 bang/models.py:372 bang/models.py:1693
+#: bang/forms.py:52 bang/forms.py:73 bang/forms.py:244 bang/forms.py:251
+#: bang/forms.py:252 bang/forms.py:714 bang/forms.py:1176 bang/forms.py:1404
+#: bang/forms.py:1451 bang/magicollections.py:68 bang/magicollections.py:124
+#: bang/magicollections.py:315 bang/magicollections.py:613
+#: bang/magicollections.py:637 bang/magicollections.py:2461
+#: bang/magicollections.py:2689 bang/models.py:372 bang/models.py:1693
 #: bang/models.py:2098 bang/settings.py:185 bang/utils.py:120
 msgid "Member"
 msgstr "멤버"
 
-#: bang/forms.py:52 bang/forms.py:78 bang/forms.py:192 bang/forms.py:1016
-#: bang/forms.py:1467 bang/forms.py:1498 bang/magicollections.py:85
-#: bang/magicollections.py:376 bang/magicollections.py:611
-#: bang/magicollections.py:1947 bang/magicollections.py:2312
-#: bang/magicollections.py:2453 bang/magicollections.py:2465
-#: bang/magicollections.py:2703 bang/models.py:205 bang/models.py:1243
+#: bang/forms.py:52 bang/forms.py:78 bang/forms.py:191 bang/forms.py:996
+#: bang/forms.py:1433 bang/forms.py:1464 bang/magicollections.py:85
+#: bang/magicollections.py:376 bang/magicollections.py:613
+#: bang/magicollections.py:1944 bang/magicollections.py:2307
+#: bang/magicollections.py:2449 bang/magicollections.py:2461
+#: bang/magicollections.py:2698 bang/models.py:205 bang/models.py:1243
 #: bang/models.py:1245 bang/models.py:1247 bang/models.py:1322
 #: bang/models.py:1948 bang/settings.py:181 bang/utils.py:120 bang/utils.py:146
 #: bang/views.py:35
 msgid "Band"
 msgstr "밴드"
 
-#: sukutomo/models.py:310 sukutomo/models.py:536 sukutomo/models.py:1001
+#: sukutomo/models.py:318 sukutomo/models.py:567 sukutomo/models.py:1069
 msgid "Attribute"
 msgstr "속성"
 
-#: bang/forms.py:257 bang/forms.py:258 bang/magicollections.py:1033
+#: bang/forms.py:255 bang/forms.py:256 bang/magicollections.py:1035
 #: bang/models.py:688 bang/models.py:689 bang/models.py:690 bang/models.py:759
 #: bang/models.py:1090 bang/models.py:1701
 msgid "Performance"
 msgstr "퍼포먼스"
 
 #. Not an exact translation - however, based on what I've seen on the site so far (Icon [trained], Illustration [trained]), I feel like this translation would fit better (means 'after training').
-#: bang/forms.py:258 bang/forms.py:260 bang/forms.py:262 bang/forms.py:264
-#: bang/magicollections.py:999 bang/magicollections.py:1046 bang/models.py:653
+#: bang/forms.py:256 bang/forms.py:258 bang/forms.py:260 bang/forms.py:262
+#: bang/magicollections.py:1001 bang/magicollections.py:1048 bang/models.py:653
 #: bang/models.py:673 bang/models.py:683 bang/models.py:690 bang/models.py:693
 #: bang/models.py:696 bang/models.py:916
 msgid "Trained"
 msgstr "특훈 후"
 
-#: bang/forms.py:259 bang/forms.py:260 bang/magicollections.py:1034
+#: bang/forms.py:257 bang/forms.py:258 bang/magicollections.py:1036
 #: bang/models.py:691 bang/models.py:692 bang/models.py:693 bang/models.py:760
 #: bang/models.py:1091 bang/models.py:1702
 msgid "Technique"
 msgstr "테크닉"
 
-#: bang/magicollections.py:316 bang/magicollections.py:2627 bang/models.py:1950
+#: bang/magicollections.py:316 bang/magicollections.py:2622 bang/models.py:1950
 msgid "Members"
 msgstr "멤버들"
 
@@ -2082,13 +2075,13 @@ msgid "Second"
 msgstr "2학년"
 
 #. Translated as in (translated)/(pronunciation), as the elements on SIT are set to how the element is pronounced, not the literal translation.
-#: sukutomo/models.py:1112
+#: sukutomo/models.py:1179
 msgid "Power"
 msgstr "파워풀"
 
 #. Translated as in (translated)/(pronunciation), as the elements on SIT are set to how the element is pronounced, not the literal translation.
-#: sukutomo/forms.py:382 sukutomo/models.py:149 sukutomo/models.py:1295
-#: sukutomo/models.py:1296 sukutomo/models.py:1297
+#: sukutomo/forms.py:410 sukutomo/models.py:153 sukutomo/models.py:1362
+#: sukutomo/models.py:1363 sukutomo/models.py:1364
 msgid "Pure"
 msgstr "퓨어"
 
@@ -2098,12 +2091,12 @@ msgid "Happy"
 msgstr "해피"
 
 #. Same situation with the attributes (power, pure, happy) - don't know which would fit better between literal translation and pronunciated version. The part in the bracket is the 'score' part of 'Score Up', use whichever one seems better.
-#: sukutomo/models.py:633
+#: sukutomo/models.py:701
 msgid "Score up"
 msgstr "스코어 업"
 
 #. I personally feel that HP would fit better (despite the statement being 'Life Recovery'), since the translation that I used (second part of brackets) literally means 'lives', as in lives in Mario games, and I'm assuming this is for Bandori/other games with health bars...
-#: sukutomo/models.py:641
+#: sukutomo/models.py:709
 msgid "Life recovery"
 msgstr "라이프 회복"
 
@@ -2112,21 +2105,21 @@ msgstr "라이프 회복"
 msgid "Perfect lock"
 msgstr "판정강화"
 
-#: starlight/forms.py:267 starlight/forms.py:340 starlight/forms.py:521
-#: starlight/magicollections.py:428 starlight/models.py:537
-#: starlight/utils.py:170
+#: starlight/forms.py:313 starlight/forms.py:386 starlight/forms.py:577
+#: starlight/magicollections.py:449 starlight/models.py:545
+#: starlight/utils.py:178
 msgid "School"
 msgstr "학교"
 
-#: starlight/models.py:577 starlight/models.py:579
+#: starlight/models.py:586 starlight/models.py:589
 msgid "Liked food"
 msgstr "좋아하는 음식"
 
-#: starlight/models.py:581 starlight/models.py:583
+#: starlight/models.py:591 starlight/models.py:594
 msgid "Disliked food"
 msgstr "싫어하는 음식"
 
-#: starlight/models.py:1139 starlight/models.py:1141
+#: starlight/models.py:1171 starlight/models.py:1173
 msgid "Level {level}"
 msgstr "레벨 {level}"
 
@@ -2148,7 +2141,7 @@ msgstr "분"
 msgid "Source"
 msgstr "원본"
 
-#: bang/forms.py:1069 bang/models.py:257 bang/models.py:259 bang/models.py:1691
+#: bang/forms.py:1043 bang/models.py:257 bang/models.py:259 bang/models.py:1691
 msgid "Instrument"
 msgstr "악기"
 
@@ -2156,12 +2149,12 @@ msgstr "악기"
 msgid "Collected {thing}"
 msgstr "수집한 {thing}"
 
-#: bang/magicollections.py:777 bang/models.py:553 bang/models.py:554
+#: bang/magicollections.py:779 bang/models.py:553 bang/models.py:554
 #: bang/models.py:556
 msgid "Skill name"
 msgstr "스킬 이름"
 
-#: bang/forms.py:394 bang/magicollections.py:556 bang/models.py:919
+#: bang/forms.py:392 bang/magicollections.py:558 bang/models.py:919
 msgid "{nth} episode"
 msgstr "{nth}번째 에피소드"
 
@@ -2181,32 +2174,32 @@ msgstr ""
 msgid "Start date"
 msgstr "게임 시작일"
 
-#: magi/abstract_models.py:134 magi/forms.py:1728 magi/models.py:150
+#: magi/abstract_models.py:134 magi/forms.py:1804 magi/models.py:150
 #: magi/models.py:171
 msgid "Default tab"
 msgstr "기본 텝"
 
-#: magi/forms.py:1496 magi/views.py:302
+#: magi/forms.py:1572 magi/views.py:305
 msgid "Email"
 msgstr ""
 
-#: magi/forms.py:468 magi/forms.py:477 magi/forms.py:486
+#: magi/forms.py:494 magi/forms.py:503 magi/forms.py:512
 msgid "You've added a lot of {things}, lately. Try to wait a little bit before adding more."
 msgstr ""
 
-#: magi/forms.py:493
+#: magi/forms.py:519
 msgid "You already have {total} {things}. You can only add up to {max} {things}."
 msgstr ""
 
-#: magi/forms.py:820
+#: magi/forms.py:901
 msgid "View"
 msgstr ""
 
-#: magi/forms.py:1440
+#: magi/forms.py:1516
 msgid "Please provide an updated screenshot of your in-game profile to prove your level."
 msgstr ""
 
-#: magi/utils.py:1306 magi/utils.py:1310
+#: magi/utils.py:1312 magi/utils.py:1316
 msgid "You may use Markdown formatting."
 msgstr ""
 
@@ -2264,19 +2257,19 @@ msgstr ""
 msgid "The staff team is available on:"
 msgstr ""
 
-#: magi/utils.py:484
+#: magi/utils.py:485
 msgid "Select {}"
 msgstr "{} 선택하기"
 
-#: magi/utils.py:1095
+#: magi/utils.py:1096
 msgid "This date has to be in the future."
 msgstr ""
 
-#: magi/views.py:400 magi/views.py:1136
+#: magi/views.py:409 magi/views.py:1145
 msgid "Successfully added!"
 msgstr "성공적으로 추가되었습니다!"
 
-#: magi/views.py:1142
+#: magi/views.py:1151
 msgid "Successfully deleted!"
 msgstr "성공적으로 삭제되었습니다!"
 
@@ -2337,90 +2330,90 @@ msgstr ""
 msgid "Star gems"
 msgstr "스타"
 
-#: starlight/forms.py:194 starlight/forms.py:199
+#: starlight/forms.py:227 starlight/forms.py:232
 msgid "Friend ID"
 msgstr "친구 ID"
 
-#: sukutomo/models.py:886 sukutomo/models.py:1005 sukutomo/models.py:1336
+#: sukutomo/models.py:954 sukutomo/models.py:1073 sukutomo/models.py:1403
 msgid "Promo"
 msgstr "프로모"
 
-#: starlight/forms.py:364 starlight/forms.py:493 starlight/models.py:774
-#: starlight/models.py:985 starlight/models.py:990
+#: starlight/forms.py:420 starlight/forms.py:549 starlight/models.py:790
+#: starlight/models.py:1016 starlight/models.py:1021
 msgid "Release date"
 msgstr "출시일"
 
-#: bang/forms.py:345
+#: bang/forms.py:343
 msgid "Origin"
 msgstr ""
 
-#: starlight/settings.py:208
+#: starlight/settings.py:217
 msgid "Gacha"
 msgstr "가챠"
 
-#: sukutomo/forms.py:217 sukutomo/forms.py:298 sukutomo/forms.py:386
-#: sukutomo/models.py:545 sukutomo/models.py:722 sukutomo/models.py:1016
+#: sukutomo/forms.py:233 sukutomo/forms.py:414 sukutomo/models.py:570
+#: sukutomo/models.py:790 sukutomo/models.py:1084
 msgid "Server availability"
 msgstr ""
 
-#: bang/forms.py:440 bang/forms.py:441 bang/forms.py:528 bang/forms.py:631
-#: bang/forms.py:632 bang/forms.py:699 bang/models.py:94 bang/models.py:1059
+#: bang/forms.py:438 bang/forms.py:439 bang/forms.py:525 bang/forms.py:628
+#: bang/forms.py:629 bang/forms.py:695 bang/models.py:94 bang/models.py:1059
 #: bang/models.py:1061 bang/models.py:1062 bang/models.py:1483
 #: bang/models.py:1485 bang/models.py:1486 bang/models.py:1823
 msgid "English version"
 msgstr "영어 버전"
 
-#: sukutomo/forms.py:211 sukutomo/models.py:61 sukutomo/models.py:782
-#: sukutomo/models.py:783 sukutomo/models.py:784 sukutomo/models.py:787
+#: sukutomo/forms.py:227 sukutomo/models.py:65 sukutomo/models.py:850
+#: sukutomo/models.py:851 sukutomo/models.py:852 sukutomo/models.py:855
 msgid "Taiwanese version"
 msgstr "대만 버전"
 
-#: sukutomo/forms.py:212 sukutomo/models.py:49 sukutomo/models.py:791
-#: sukutomo/models.py:792 sukutomo/models.py:793 sukutomo/models.py:796
+#: sukutomo/forms.py:228 sukutomo/models.py:53 sukutomo/models.py:859
+#: sukutomo/models.py:860 sukutomo/models.py:861 sukutomo/models.py:864
 msgid "Korean version"
 msgstr "한국 버전"
 
-#: sukutomo/forms.py:209 sukutomo/forms.py:210 sukutomo/forms.py:211
-#: sukutomo/forms.py:212 sukutomo/forms.py:213
+#: sukutomo/forms.py:225 sukutomo/forms.py:226 sukutomo/forms.py:227
+#: sukutomo/forms.py:228 sukutomo/forms.py:229
 msgid "Date"
 msgstr "날짜"
 
-#: starlight/models.py:82 starlight/models.py:985
+#: starlight/models.py:82 starlight/models.py:1016
 msgid "Japanese version"
 msgstr "일본 서버"
 
-#: starlight/forms.py:366 starlight/models.py:766 starlight/models.py:798
+#: starlight/forms.py:422 starlight/models.py:782 starlight/models.py:826
 msgid "Romaji"
 msgstr "로마자"
 
-#: starlight/forms.py:367 starlight/models.py:772
+#: starlight/forms.py:423 starlight/models.py:788
 msgid "Length"
 msgstr "길이"
 
-#: starlight/forms.py:368
+#: starlight/forms.py:424
 msgid "BPM"
 msgstr "BPM"
 
 #. Don't know the context for this, please clarify
-#: bang/forms.py:956 bang/forms.py:957 bang/models.py:1227 bang/models.py:1278
+#: bang/forms.py:951 bang/forms.py:952 bang/models.py:1227 bang/models.py:1278
 #: bang/models.py:1279 bang/models.py:1408
 msgid "Hard"
 msgstr "HARD"
 
 #. If this refers to note count in a song, then "노트 개수" would be the correct translation.
-#: sukutomo/forms.py:284 sukutomo/forms.py:286 sukutomo/models.py:582
-#: sukutomo/models.py:584 sukutomo/models.py:586 sukutomo/models.py:588
-#: sukutomo/models.py:590
+#: sukutomo/forms.py:539 sukutomo/forms.py:541 sukutomo/models.py:633
+#: sukutomo/models.py:636 sukutomo/models.py:639 sukutomo/models.py:642
+#: sukutomo/models.py:645
 msgid "Notes"
 msgstr "노트 개수"
 
-#: sukutomo/forms.py:283 sukutomo/forms.py:285 sukutomo/models.py:583
-#: sukutomo/models.py:585 sukutomo/models.py:587 sukutomo/models.py:589
-#: sukutomo/models.py:591
+#: sukutomo/forms.py:538 sukutomo/forms.py:540 sukutomo/models.py:634
+#: sukutomo/models.py:637 sukutomo/models.py:640 sukutomo/models.py:643
+#: sukutomo/models.py:646
 msgid "Difficulty"
 msgstr "난이도"
 
-#: bang/forms.py:958 bang/forms.py:959 bang/models.py:1228 bang/models.py:1280
+#: bang/forms.py:953 bang/forms.py:954 bang/models.py:1228 bang/models.py:1280
 #: bang/models.py:1281 bang/models.py:1409
 msgid "Expert"
 msgstr "EXPERT"
@@ -2434,49 +2427,49 @@ msgstr "~₩{} 소비"
 msgid "Characters"
 msgstr "캐릭터"
 
-#: starlight/forms.py:59
+#: starlight/forms.py:92
 #, fuzzy
 msgid "Favorite {thing}"
 msgstr "좋아하는 {thing}"
 
-#: bang/forms.py:252 bang/magicollections.py:457 bang/models.py:871
+#: bang/forms.py:250 bang/magicollections.py:457 bang/models.py:871
 #, fuzzy
 msgid "Favorite {things}"
 msgstr "좋아하는 {things}"
 
 #. changed TL based on the assumption that this refers to live chibis (not chibis as in "child")
-#: bang/magicollections.py:839 bang/magicollections.py:843
-#: bang/magicollections.py:844 bang/magicollections.py:2773
-#: bang/magicollections.py:2777 bang/magicollections.py:2778
+#: bang/magicollections.py:841 bang/magicollections.py:845
+#: bang/magicollections.py:846 bang/magicollections.py:2768
+#: bang/magicollections.py:2772 bang/magicollections.py:2773
 msgid "Chibi"
 msgstr "치비"
 
-#: starlight/magicollections.py:845
+#: starlight/magicollections.py:896
 msgid "Icons"
 msgstr "아이콘"
 
-#: starlight/magicollections.py:845
+#: starlight/magicollections.py:896
 #, fuzzy
 msgid "Quick add"
 msgstr "빠른 추가"
 
-#: starlight/magicollections.py:892
+#: starlight/magicollections.py:943
 msgid "Statistics"
 msgstr "스테이터스"
 
-#: bang/magicollections.py:1045
+#: bang/magicollections.py:1047
 msgid "Min"
 msgstr ""
 
-#: bang/magicollections.py:1045
+#: bang/magicollections.py:1047
 msgid "Max"
 msgstr ""
 
-#: bang/magicollections.py:1093
+#: bang/magicollections.py:1085
 msgid "Participated event"
 msgstr ""
 
-#: bang/forms.py:531 bang/magicollections.py:1094 bang/models.py:1117
+#: bang/forms.py:528 bang/magicollections.py:1086 bang/models.py:1117
 msgid "Participated events"
 msgstr ""
 
@@ -2488,36 +2481,36 @@ msgstr "보너스 멤버"
 msgid "Gift song"
 msgstr "추가곡"
 
-#: bang/forms.py:362 bang/forms.py:715 bang/magicollections.py:1727
+#: bang/forms.py:360 bang/forms.py:711 bang/magicollections.py:1727
 msgid "Gacha type"
 msgstr "가챠 타입"
 
-#: starlight/models.py:1275
+#: starlight/models.py:1307
 #, fuzzy
 msgid "Permanent"
 msgstr "영구"
 
-#: bang/magicollections.py:1858
+#: bang/magicollections.py:1851
 msgid "Played song"
 msgstr ""
 
-#: bang/forms.py:952 bang/magicollections.py:1859 bang/models.py:1365
+#: bang/forms.py:947 bang/magicollections.py:1852 bang/models.py:1365
 msgid "Played songs"
 msgstr ""
 
-#: starlight/magicollections.py:625
+#: starlight/magicollections.py:669
 msgid "Song"
 msgstr "음악"
 
-#: bang/magicollections.py:2104
+#: bang/magicollections.py:2101
 msgid "{} notes"
 msgstr "{} 노트"
 
-#: sukutomo/magicollections.py:411
+#: bang/magicollections.py:2121
 msgid "Songwriters"
 msgstr "작곡가"
 
-#: starlight/forms.py:512 starlight/models.py:209
+#: starlight/forms.py:568 starlight/models.py:209
 msgid "Version"
 msgstr "버전"
 
@@ -2577,24 +2570,24 @@ msgstr "스킬 레벨"
 msgid "Challenge Live"
 msgstr "도전 라이브"
 
-#: sukutomo/models.py:719
+#: sukutomo/models.py:787
 msgid "Event type"
 msgstr "이벤트 타입"
 
-#: bang/forms.py:604 bang/forms.py:860 bang/models.py:1141 bang/models.py:1162
+#: bang/forms.py:601 bang/forms.py:856 bang/models.py:1141 bang/models.py:1162
 #: bang/models.py:1416 bang/models.py:1440
 msgid "Score"
 msgstr "스코어"
 
-#: bang/forms.py:603 bang/models.py:1142
+#: bang/forms.py:600 bang/models.py:1142
 msgid "Ranking"
 msgstr "랭킹"
 
-#: bang/forms.py:605 bang/models.py:1144 bang/models.py:1167
+#: bang/forms.py:602 bang/models.py:1144 bang/models.py:1167
 msgid "Song score"
 msgstr "노래 스코어"
 
-#: bang/forms.py:606 bang/models.py:1145 bang/models.py:1172
+#: bang/forms.py:603 bang/models.py:1145 bang/models.py:1172
 msgid "Song ranking"
 msgstr "노래 랭킹"
 
@@ -2603,15 +2596,15 @@ msgstr "노래 랭킹"
 msgid "Easy"
 msgstr "EASY"
 
-#: starlight/models.py:783 starlight/models.py:785
+#: starlight/models.py:799 starlight/models.py:802
 msgid "Composer"
 msgstr "작곡"
 
-#: starlight/models.py:787 starlight/models.py:789
+#: starlight/models.py:804 starlight/models.py:807
 msgid "Lyricist"
 msgstr "작사"
 
-#: starlight/models.py:791 starlight/models.py:793
+#: starlight/models.py:809 starlight/models.py:812
 msgid "Arranger"
 msgstr "편곡"
 
@@ -2620,7 +2613,7 @@ msgid "Translation"
 msgstr "번역"
 
 #. is this preview for music or image?
-#: starlight/models.py:771
+#: starlight/models.py:787
 msgid "Preview"
 msgstr "미리듣기"
 
@@ -2628,7 +2621,7 @@ msgstr "미리듣기"
 msgid "Cover song"
 msgstr "커버곡"
 
-#: starlight/models.py:773
+#: starlight/models.py:789
 msgid "Beats per minute"
 msgstr "BPM"
 
@@ -2669,12 +2662,12 @@ msgid "Full combo"
 msgstr "풀 콤보"
 
 #. Name of a license, so it's unlikely you need to translate unless your language uses a different set of characters (Chinese, Japanese, Korean, Russian, etc.)
-#: bang/settings.py:30 bang/settings.py:166 bang/settings.py:312
+#: bang/settings.py:29 bang/settings.py:166 bang/settings.py:312
 msgid "BanG Dream!"
 msgstr "뱅드림!"
 
 #. Name of a license, so it's unlikely you need to translate unless your language uses a different set of characters (Chinese, Japanese, Korean, Russian, etc.)
-#: bang/settings.py:30 bang/settings.py:317
+#: bang/settings.py:29 bang/settings.py:317
 msgid "Girls Band Party"
 msgstr "걸즈 밴드 파티!"
 
@@ -2682,7 +2675,7 @@ msgstr "걸즈 밴드 파티!"
 msgid "Team builder"
 msgstr ""
 
-#: sukutomo/models.py:217
+#: sukutomo/models.py:221
 msgid "You can find your friend id by going to the \"Friends\" section from the home, then \"ID Search\". Players will be able to send you friend requests or messages using this number."
 msgstr "친구ID는 메인에있는 \"친구\"에 들어가서 \"ID찾기\"를 눌러. 플레이어는 이 ID로 친구신청을 보내거나 메세지를 보낼수 있어. "
 
@@ -2690,61 +2683,61 @@ msgstr "친구ID는 메인에있는 \"친구\"에 들어가서 \"ID찾기\"를 �
 msgid "Should your friend ID be visible to other players?"
 msgstr "친구 ID를 다른 플레이어에게 공개하시겠습니까?"
 
-#: sukutomo/models.py:221
+#: sukutomo/models.py:225
 msgid "Love gems"
 msgstr "러브카스톤"
 
-#: sukutomo/models.py:221 sukutomo/models.py:222 sukutomo/models.py:223
-#: sukutomo/models.py:224 sukutomo/models.py:225
+#: sukutomo/models.py:225 sukutomo/models.py:226 sukutomo/models.py:227
+#: sukutomo/models.py:228 sukutomo/models.py:229
 msgid "Number of {} you currently have in your account."
 msgstr ""
 
-#: sukutomo/models.py:221 sukutomo/models.py:222 sukutomo/models.py:223
-#: sukutomo/models.py:224 sukutomo/models.py:225
+#: sukutomo/models.py:225 sukutomo/models.py:226 sukutomo/models.py:227
+#: sukutomo/models.py:228 sukutomo/models.py:229
 msgid "This field is completely optional, it's here to help you manage your accounts."
 msgstr ""
 
-#: sukutomo/models.py:222
+#: sukutomo/models.py:226
 msgid "Friend Points"
 msgstr "우정포인트"
 
-#: sukutomo/models.py:226
+#: sukutomo/models.py:230
 msgid "Total love gems bought"
 msgstr "구매한 러브카스톤의 합계"
 
-#: sukutomo/models.py:226
+#: sukutomo/models.py:230
 msgid "You can calculate that number in \"Other\" then \"Purchase History\"."
 msgstr ""
 
-#: sukutomo/models.py:227
+#: sukutomo/models.py:231
 msgid "Should your items be visible to other players?"
 msgstr ""
 
-#: sukutomo/forms.py:381 sukutomo/models.py:148 sukutomo/models.py:1291
-#: sukutomo/models.py:1292 sukutomo/models.py:1293
+#: sukutomo/forms.py:409 sukutomo/models.py:152 sukutomo/models.py:1358
+#: sukutomo/models.py:1359 sukutomo/models.py:1360
 msgid "Smile"
 msgstr "웃음"
 
-#: sukutomo/forms.py:113 sukutomo/forms.py:134 sukutomo/forms.py:221
-#: sukutomo/forms.py:421 sukutomo/forms.py:433 sukutomo/magicollections.py:159
-#: sukutomo/magicollections.py:177 sukutomo/magicollections.py:372
-#: sukutomo/magicollections.py:590 sukutomo/magicollections.py:895
-#: sukutomo/magicollections.py:1361 sukutomo/models.py:327
-#: sukutomo/models.py:539 sukutomo/models.py:895 sukutomo/models.py:1164
-#: sukutomo/models.py:1402
+#: sukutomo/forms.py:130 sukutomo/forms.py:151 sukutomo/forms.py:237
+#: sukutomo/forms.py:449 sukutomo/forms.py:461 sukutomo/magicollections.py:143
+#: sukutomo/magicollections.py:161 sukutomo/magicollections.py:278
+#: sukutomo/magicollections.py:515 sukutomo/magicollections.py:812
+#: sukutomo/magicollections.py:1262 sukutomo/models.py:336
+#: sukutomo/models.py:530 sukutomo/models.py:963 sukutomo/models.py:1231
+#: sukutomo/models.py:1469
 msgid "Unit"
 msgstr "모둠"
 
-#: sukutomo/forms.py:134 sukutomo/forms.py:424 sukutomo/forms.py:433
-#: sukutomo/magicollections.py:177 sukutomo/magicollections.py:349
-#: sukutomo/magicollections.py:895 sukutomo/magicollections.py:912
-#: sukutomo/magicollections.py:1361 sukutomo/models.py:349
-#: sukutomo/models.py:542 sukutomo/models.py:899 sukutomo/models.py:1172
-#: sukutomo/models.py:1415
+#: sukutomo/forms.py:151 sukutomo/forms.py:452 sukutomo/forms.py:461
+#: sukutomo/magicollections.py:161 sukutomo/magicollections.py:278
+#: sukutomo/magicollections.py:812 sukutomo/magicollections.py:829
+#: sukutomo/magicollections.py:1262 sukutomo/models.py:358
+#: sukutomo/models.py:533 sukutomo/models.py:967 sukutomo/models.py:1239
+#: sukutomo/models.py:1482
 msgid "Subunit"
 msgstr ""
 
-#: starlight/models.py:341 starlight/models.py:557
+#: starlight/models.py:350 starlight/models.py:566
 msgid "Astrological sign"
 msgstr "별자리"
 
@@ -2769,7 +2762,7 @@ msgstr "아이돌 프로듀서"
 msgid "Ultimate Idol Devotee"
 msgstr "최고의 아이돌 애호가"
 
-#: starlight/models.py:1547 starlight/models.py:1689
+#: starlight/models.py:1582 starlight/models.py:1725
 msgid "Collected {things}"
 msgstr ""
 
@@ -2787,7 +2780,7 @@ msgid "Boost attribute"
 msgstr "부스트 속성"
 
 #. If this refers to event boost, "캐릭터 보너스" is official terminology, if this refers to area item boost, then leave as is (since no official terminology that would translate well)
-#: bang/forms.py:536 bang/magicollections.py:1213 bang/models.py:1096
+#: bang/forms.py:533 bang/magicollections.py:1213 bang/models.py:1096
 msgid "Boost members"
 msgstr "부스트 맴버"
 
@@ -2815,7 +2808,7 @@ msgstr ""
 msgid "Posted {total} news"
 msgstr ""
 
-#: sukutomo/models.py:473
+#: sukutomo/models.py:491
 msgid "Twitter"
 msgstr ""
 
@@ -2824,7 +2817,7 @@ msgid "External communication"
 msgstr ""
 
 #. this term could translate into many meaning, could you make sure what's it support for?
-#: starlight/models.py:1396
+#: starlight/models.py:1428
 msgid "Support"
 msgstr "지원"
 
@@ -2881,15 +2874,15 @@ msgstr "개발자"
 msgid "System administrator"
 msgstr ""
 
-#: magi/forms.py:1695 magi/magicollections.py:2903
+#: magi/forms.py:1771 magi/magicollections.py:2903
 msgid "You are not allowed to see activities with the tag \"{tag}\"."
 msgstr ""
 
-#: starlight/models.py:804 starlight/models.py:806
+#: starlight/models.py:832 starlight/models.py:835
 msgid "Translations"
 msgstr "번역"
 
-#: magi/magicollections.py:2106 magi/magicollections.py:3484 magi/views.py:678
+#: magi/magicollections.py:2106 magi/magicollections.py:3486 magi/views.py:687
 msgid "Block {username}"
 msgstr ""
 
@@ -2901,7 +2894,7 @@ msgstr ""
 msgid "Display your birthdate year"
 msgstr ""
 
-#: starlight/models.py:1399
+#: starlight/models.py:1431
 msgid "Roles"
 msgstr "역할"
 
@@ -2922,25 +2915,25 @@ msgstr "우리에 대해서"
 msgid "Pre-register"
 msgstr ""
 
-#: magi/forms.py:1707
+#: magi/forms.py:1783
 msgid "Security"
 msgstr ""
 
-#: magi/magicollections.py:3523 magi/views.py:523 magi/views.py:676
+#: magi/magicollections.py:3525 magi/views.py:532 magi/views.py:685
 #: magi/views_collections.py:93 magi/views_collections.py:514
 msgid "You blocked {username}."
 msgstr ""
 
-#: magi/magicollections.py:3524 magi/views.py:524 magi/views.py:678
+#: magi/magicollections.py:3526 magi/views.py:533 magi/views.py:687
 #: magi/views_collections.py:94 magi/views_collections.py:515
 msgid "Unblock {username}"
 msgstr ""
 
-#: magi/views.py:682
+#: magi/views.py:691
 msgid "Are you sure you want to block {username}? You will not be able to see any content created by {username}."
 msgstr ""
 
-#: magi/views.py:682
+#: magi/views.py:691
 msgid "Are you sure you want to unblock {username}?"
 msgstr ""
 
@@ -2948,89 +2941,89 @@ msgstr ""
 msgid "this user"
 msgstr ""
 
-#: bang/forms.py:329
+#: bang/forms.py:327
 msgid "Include cameos"
 msgstr "카메오 포함"
 
-#: bang/magicollections.py:823 bang/models.py:709
+#: bang/magicollections.py:825 bang/models.py:709
 msgid "Cameos"
 msgstr "카메오"
 
-#: bang/forms.py:346 bang/models.py:417
+#: bang/forms.py:344 bang/models.py:417
 #, fuzzy
 msgid "Original card"
 msgstr "오리지널"
 
-#: starlight/settings.py:238
+#: starlight/settings.py:247
 msgid "Community event"
 msgstr "커뮤니티 이벤트"
 
-#: bang/settings.py:166
+#: starlight/settings.py:250
 msgid "Not about {thing}"
 msgstr ""
 
-#: starlight/settings.py:249
+#: starlight/settings.py:258
 msgid "NSFW"
 msgstr "후방주의"
 
-#: starlight/settings.py:251
+#: starlight/settings.py:260
 msgid "You need to be over 18 years old."
 msgstr "만 18세 이상이여야 합니다."
 
-#: starlight/settings.py:251
+#: starlight/settings.py:260
 msgid "You can change your birthdate in your settings."
 msgstr "플레이어의 생일은 설정에서 변경할 수 있습니다."
 
-#: sukutomo/magicollections.py:237
+#: sukutomo/magicollections.py:215
 #, fuzzy
 msgid "Measurements"
 msgstr "기록"
 
-#: sukutomo/models.py:362
+#: sukutomo/models.py:371
 msgid "Chitose Bridge High School"
 msgstr ""
 
-#: sukutomo/models.py:363
+#: sukutomo/models.py:372
 msgid "Seiran High School"
 msgstr ""
 
-#: sukutomo/models.py:364
+#: sukutomo/models.py:373
 msgid "Shinonome Academy"
 msgstr ""
 
-#: sukutomo/models.py:365
+#: sukutomo/models.py:374
 msgid "Shion Girls' Academy"
 msgstr ""
 
-#: sukutomo/models.py:366
+#: sukutomo/models.py:375
 msgid "Touou Academy"
 msgstr ""
 
-#: sukutomo/models.py:367
+#: sukutomo/models.py:376
 msgid "Y.G. International Academy"
 msgstr ""
 
-#: sukutomo/models.py:361
+#: sukutomo/models.py:370
 msgid "Nijigasaki High School"
 msgstr ""
 
-#: sukutomo/models.py:360
+#: sukutomo/models.py:369
 msgid "Uranohoshi Girls' High School"
 msgstr ""
 
-#: sukutomo/models.py:359
+#: sukutomo/models.py:368
 msgid "Otonokizaka Academy"
 msgstr ""
 
-#: starlight/models.py:548
+#: starlight/models.py:557
 msgid "School year"
 msgstr "학년"
 
-#: starlight/models.py:351
+#: starlight/models.py:360
 msgid "Blood type"
 msgstr "혈액형"
 
-#: starlight/models.py:500 starlight/models.py:501 starlight/models.py:502
+#: starlight/utils.py:142 starlight/utils.py:143 starlight/utils.py:144
 msgid "{nth} year"
 msgstr "{nth}년"
 
@@ -3038,7 +3031,7 @@ msgstr "{nth}년"
 msgid "Contributors"
 msgstr ""
 
-#: bang/magicollections.py:860
+#: bang/magicollections.py:862
 msgid "View model"
 msgstr ""
 
@@ -3108,25 +3101,25 @@ msgid "Thank you Yurishii"
 msgstr ""
 
 #. Refers to the "hot feed" of activities on the homepage (don't translate literally!)
-#: magi/default_settings.py:389 magi/forms.py:2404
+#: magi/default_settings.py:400 magi/forms.py:2480
 msgid "Hot"
 msgstr ""
 
-#: bang/forms.py:1507
+#: bang/forms.py:1473
 msgid "How often do you hit PERFECT notes?"
 msgstr ""
 
-#: bang/forms.py:1515
+#: bang/forms.py:1481
 msgid "How often is your life above 900?"
 msgstr ""
 
-#: bang/magicollections.py:851 bang/magicollections.py:857
-#: bang/magicollections.py:2722 bang/magicollections.py:2754
+#: bang/magicollections.py:853 bang/magicollections.py:859
+#: bang/magicollections.py:2717 bang/magicollections.py:2749
 #: bang/models.py:2030
 msgid "Costume"
 msgstr ""
 
-#: bang/magicollections.py:2179 bang/magicollections.py:2215
+#: bang/magicollections.py:2172 bang/magicollections.py:2212
 #: bang/models.py:1623
 msgid "Item"
 msgstr ""
@@ -3135,7 +3128,7 @@ msgstr ""
 msgid "Items"
 msgstr "아이템들"
 
-#: bang/forms.py:1066 bang/magicollections.py:2354 bang/magicollections.py:2417
+#: bang/forms.py:1040 bang/magicollections.py:2350 bang/magicollections.py:2413
 #: bang/models.py:1682
 msgid "Area"
 msgstr ""
@@ -3144,33 +3137,33 @@ msgstr ""
 msgid "Areas"
 msgstr ""
 
-#: bang/magicollections.py:2285
+#: bang/magicollections.py:2280
 msgid "See all"
 msgstr ""
 
-#: bang/magicollections.py:2286 bang/models.py:285 bang/settings.py:278
+#: bang/magicollections.py:2281 bang/models.py:285 bang/settings.py:278
 #: bang/templates/include/galleryBackButtons.html:16 bang/views.py:52
 msgid "Gallery"
 msgstr "갤러리"
 
-#: bang/magicollections.py:2340 bang/magicollections.py:2383
+#: bang/magicollections.py:2331 bang/magicollections.py:2380
 #: bang/models.py:1746 bang/models.py:1791
 msgid "Area item"
 msgstr "에어리어 아이템"
 
-#: bang/magicollections.py:2341 bang/magicollections.py:2384 bang/views.py:64
+#: bang/magicollections.py:2332 bang/magicollections.py:2381 bang/views.py:64
 msgid "Area items"
 msgstr ""
 
-#: bang/magicollections.py:2514
+#: bang/magicollections.py:2510
 msgid "Asset"
 msgstr ""
 
-#: bang/magicollections.py:2515 bang/magicollections.py:2609 bang/models.py:286
+#: bang/magicollections.py:2511 bang/magicollections.py:2604 bang/models.py:286
 msgid "Assets"
 msgstr ""
 
-#: bang/magicollections.py:2723 bang/models.py:280
+#: bang/magicollections.py:2718 bang/models.py:280
 msgid "Costumes"
 msgstr "의상"
 
@@ -3182,7 +3175,7 @@ msgstr ""
 msgid "Poster"
 msgstr "포스터"
 
-#: starlight/magicollections.py:1207
+#: starlight/magicollections.py:1258
 msgid "Comics"
 msgstr "만화"
 
@@ -3230,44 +3223,44 @@ msgstr ""
 msgid "Change My Mind Challenge"
 msgstr ""
 
-#: starlight/models.py:88 starlight/models.py:990
+#: starlight/models.py:88 starlight/models.py:1021
 msgid "Worldwide version"
 msgstr "글로벌 서버"
 
-#: sukutomo/forms.py:213 sukutomo/models.py:55 sukutomo/models.py:800
-#: sukutomo/models.py:801 sukutomo/models.py:802 sukutomo/models.py:805
+#: sukutomo/forms.py:229 sukutomo/models.py:59 sukutomo/models.py:868
+#: sukutomo/models.py:869 sukutomo/models.py:870 sukutomo/models.py:873
 msgid "Chinese version"
 msgstr ""
 
-#: sukutomo/models.py:703
+#: sukutomo/models.py:771
 msgid "Score Match"
 msgstr ""
 
-#: sukutomo/models.py:706
+#: sukutomo/models.py:774
 msgid "Medley Festival"
 msgstr ""
 
-#: sukutomo/models.py:709
+#: sukutomo/models.py:777
 msgid "Challenge Festival"
 msgstr ""
 
-#: sukutomo/models.py:712
+#: sukutomo/models.py:780
 msgid "Adventure Stroll"
 msgstr ""
 
-#: sukutomo/models.py:715
+#: sukutomo/models.py:783
 msgid "Friendly Match"
 msgstr ""
 
-#: bang/magicollections.py:2232
+#: bang/magicollections.py:2228
 msgid "Edit your {thing}"
 msgstr ""
 
-#: magi/views.py:734
+#: magi/views.py:743
 msgid "If you delete this {thing} ({instance}), the following will automatically be deleted as well:"
 msgstr ""
 
-#: magi/views.py:735
+#: magi/views.py:744
 msgid "Are you sure you want to delete this {thing} ({instance})?"
 msgstr ""
 
@@ -3280,7 +3273,7 @@ msgid "Gym"
 msgstr "체육관"
 
 #: magi/magicollections.py:2433 magi/tools.py:120 magi/tools.py:156
-#: magi/utils.py:325
+#: magi/utils.py:326
 msgid "Happy Birthday"
 msgstr "생일 축하"
 
@@ -3308,12 +3301,12 @@ msgstr ""
 msgid "Unarchived"
 msgstr ""
 
-#: magi/default_settings.py:383 magi/forms.py:2437
+#: magi/default_settings.py:394 magi/forms.py:2513
 #: magi/templates/items/activityItem.html:14
 msgid "Popular"
 msgstr ""
 
-#: magi/default_settings.py:396
+#: magi/default_settings.py:407
 msgid "New"
 msgstr ""
 
@@ -3321,11 +3314,11 @@ msgstr ""
 msgid "Staff picks"
 msgstr ""
 
-#: magi/forms.py:1718
+#: magi/forms.py:1794
 msgid "Customize profile"
 msgstr ""
 
-#: magi/forms.py:2440
+#: magi/forms.py:2516
 msgid "Hide archived activities"
 msgstr ""
 
@@ -3350,7 +3343,7 @@ msgstr ""
 msgid "If you see anything that doesn't follow our rules, please help us by reporting it."
 msgstr ""
 
-#: magi/models.py:203 magi/views.py:506
+#: magi/models.py:203 magi/views.py:515
 msgid "Custom link"
 msgstr ""
 
@@ -3402,7 +3395,7 @@ msgstr "{trigger_value}초마다 {trigger_chance}% 확률로 {skill_duration}초
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that with all three types of idols on the team, you will gain an extra {skill_value2}% combo bonus, and Perfect notes will receive a {skill_value}% score bonus plus restore {skill_value3} life, for {skill_duration} seconds."
 msgstr "3 타입 아이돌이 모두 편성되어 있을 경우, {trigger_value}초마다 {trigger_chance}% 확률로 {skill_duration}초 동안, PERFECT 스코어가 {skill_value}% 상승/ 라이프 {skill_value3}회복, COMBO 보너스 {skill_value2}% 상승."
 
-#: sukutomo/models.py:1085
+#: sukutomo/models.py:1152
 msgid "Princess"
 msgstr "공주"
 
@@ -3443,24 +3436,24 @@ msgstr ""
 msgid "Skill probability"
 msgstr ""
 
-#: bang/forms.py:547 bang/forms.py:730
+#: bang/forms.py:544 bang/forms.py:726
 #, fuzzy
 msgid "Status"
 msgstr "등급"
 
-#: bang/forms.py:548 bang/forms.py:731
+#: bang/forms.py:545 bang/forms.py:727
 msgid "Past"
 msgstr "과거"
 
-#: bang/forms.py:549 bang/forms.py:732
+#: bang/forms.py:546 bang/forms.py:728
 msgid "Current"
 msgstr "현재"
 
-#: bang/forms.py:550 bang/forms.py:733
+#: bang/forms.py:547 bang/forms.py:729
 msgid "Future"
 msgstr "미래"
 
-#: starlight/settings.py:223
+#: starlight/settings.py:232
 msgid "Meme"
 msgstr "밈"
 
@@ -3468,15 +3461,15 @@ msgstr "밈"
 msgid "Scouting"
 msgstr "스카우팅"
 
-#: starlight/settings.py:195
+#: starlight/settings.py:204
 msgid "Manga"
 msgstr "만화"
 
-#: starlight/settings.py:230
+#: starlight/settings.py:239
 msgid "Question"
 msgstr "질문"
 
-#: starlight/settings.py:244
+#: starlight/settings.py:253
 #, fuzzy
 msgid "Swearing"
 msgstr "맹세"
@@ -3485,34 +3478,34 @@ msgstr "맹세"
 msgid "End of new messages"
 msgstr ""
 
-#: magi/magicollections.py:2089 magi/magicollections.py:3374
+#: magi/magicollections.py:2089 magi/magicollections.py:3376
 msgid "Private messages"
 msgstr ""
 
 #: magi/magicollections.py:2128 magi/magicollections.py:2443
-#: magi/magicollections.py:3385
+#: magi/magicollections.py:3387
 msgid "Send a message"
 msgstr "메세지 보내기"
 
-#: magi/magicollections.py:3373 magi/models.py:1035
+#: magi/magicollections.py:3375 magi/models.py:1035
 msgid "Private message"
 msgstr ""
 
-#: magi/magicollections.py:3382 magi/magicollections.py:3536
-#: magi/magicollections.py:3589 magi/magicollections.py:3590
+#: magi/magicollections.py:3384 magi/magicollections.py:3538
+#: magi/magicollections.py:3591 magi/magicollections.py:3592
 msgid "Inbox"
 msgstr "메일함"
 
-#: magi/forms.py:946 magi/magicollections.py:3536 magi/views.py:422
-#: magi/views.py:625 magi/views_collections.py:53
+#: magi/forms.py:1021 magi/magicollections.py:3538 magi/views.py:431
+#: magi/views.py:634 magi/views_collections.py:53
 msgid "Back to {page_name}"
 msgstr "{page_name} 돌아가기"
 
-#: magi/magicollections.py:3592
+#: magi/magicollections.py:3594
 msgid "You are not allowed to send private messages."
 msgstr ""
 
-#: magi/magicollections.py:3593
+#: magi/magicollections.py:3595
 msgid "Take some time to play around {site_name} to unlock this feature!"
 msgstr ""
 
@@ -3552,15 +3545,15 @@ msgstr ""
 msgid "Don't show this again"
 msgstr "다시 표시하지 않기"
 
-#: magi/utils.py:337
+#: magi/utils.py:338
 msgid "Your email address is invalid."
 msgstr "이메일이 잘못되었습니다."
 
-#: magi/utils.py:338
+#: magi/utils.py:339
 msgid "Some features might not work properly."
 msgstr "몇몇 기능이 제대로 작동하지 않을 수 있습니다."
 
-#: magi/views.py:626
+#: magi/views.py:635
 msgid "Wiki home"
 msgstr "위키 홈"
 
@@ -3584,7 +3577,7 @@ msgstr "콜라보"
 msgid "Dengeki G's magazine"
 msgstr "전격 G's magazine"
 
-#: starlight/models.py:1044 starlight/models.py:1294
+#: starlight/models.py:1076 starlight/models.py:1326
 #, fuzzy
 msgid "Seasonal"
 msgstr "계절 한정"
@@ -3634,8 +3627,8 @@ msgstr ""
 msgid "Background"
 msgstr "배경"
 
-#: starlight/magicollections.py:95 starlight/settings.py:164
-#: starlight/settings.py:166 starlight/settings.py:168 starlight/views.py:47
+#: starlight/magicollections.py:95 starlight/settings.py:166
+#: starlight/settings.py:168 starlight/settings.py:170 starlight/views.py:47
 msgid "{nth} Favorite {thing}"
 msgstr "{nth} 좋아하는 {thing}"
 
@@ -3679,7 +3672,7 @@ msgstr ""
 msgid "School Idol Memory"
 msgstr ""
 
-#: starlight/magicollections.py:316 starlight/settings.py:192
+#: starlight/magicollections.py:311 starlight/settings.py:201
 msgid "Voice actresses"
 msgstr "성우"
 
@@ -3727,7 +3720,7 @@ msgstr ""
 msgid "Shop"
 msgstr ""
 
-#: magi/forms.py:2349 magi/models.py:177
+#: magi/forms.py:2425 magi/models.py:177
 msgid "Always post activities in {language}"
 msgstr ""
 
@@ -3737,7 +3730,7 @@ msgstr ""
 msgid "{} Gacha"
 msgstr ""
 
-#: sukutomo/models.py:552
+#: bang/magicollections.py:2265
 msgid "Locations"
 msgstr ""
 
@@ -3815,76 +3808,73 @@ msgstr ""
 msgid "Drums"
 msgstr ""
 
-#: sukutomo/models.py:548
+#: sukutomo/models.py:585
 msgid "Hits"
 msgstr ""
 
-#: sukutomo/models.py:549 sukutomo/models.py:555
+#: sukutomo/models.py:586 sukutomo/models.py:594
 msgid "Daily rotation"
 msgstr ""
 
-#: sukutomo/forms.py:240 sukutomo/forms.py:241 sukutomo/magicollections.py:422
-#: sukutomo/magicollections.py:424 sukutomo/models.py:550
-#: sukutomo/models.py:557 sukutomo/models.py:558
+#: sukutomo/models.py:587 sukutomo/models.py:597 sukutomo/models.py:598
 msgid "B-Side"
 msgstr ""
 
-#: sukutomo/magicollections.py:468 sukutomo/magicollections.py:474
-#: sukutomo/models.py:592
+#: sukutomo/models.py:648
 msgid "with SWIPE notes"
 msgstr ""
 
-#: sukutomo/models.py:1372 sukutomo/models.py:1377
+#: sukutomo/models.py:1439 sukutomo/models.py:1444
 msgid "Details"
 msgstr ""
 
-#: sukutomo/models.py:1090
+#: sukutomo/models.py:1157
 msgid "Angel"
 msgstr ""
 
-#: sukutomo/models.py:1095
+#: sukutomo/models.py:1162
 msgid "Empress"
 msgstr ""
 
-#: sukutomo/models.py:1100
+#: sukutomo/models.py:1167
 msgid "Star"
 msgstr ""
 
-#: sukutomo/models.py:1104
+#: sukutomo/models.py:1171
 msgid "Heart"
 msgstr ""
 
-#: sukutomo/models.py:1207 sukutomo/models.py:1247 sukutomo/models.py:1271
-#: sukutomo/models.py:1279 sukutomo/models.py:1293 sukutomo/models.py:1297
-#: sukutomo/models.py:1301
+#: sukutomo/models.py:1274 sukutomo/models.py:1314 sukutomo/models.py:1338
+#: sukutomo/models.py:1346 sukutomo/models.py:1360 sukutomo/models.py:1364
+#: sukutomo/models.py:1368
 msgid "Idolized"
 msgstr ""
 
-#: sukutomo/magicollections.py:1376
+#: sukutomo/magicollections.py:1277
 msgid "Sets"
 msgstr ""
 
-#: sukutomo/magicollections.py:981
+#: sukutomo/magicollections.py:898
 msgid "Transparents"
 msgstr ""
 
-#: sukutomo/magicollections.py:1375 sukutomo/models.py:963
+#: sukutomo/magicollections.py:1276 sukutomo/models.py:1031
 msgid "Set"
 msgstr ""
 
-#: sukutomo/models.py:368
+#: sukutomo/models.py:377
 msgid "Hakodate Seisen Girls' Academy"
 msgstr ""
 
-#: sukutomo/models.py:369
+#: sukutomo/models.py:378
 msgid "UTX High School"
 msgstr "UTX 학원"
 
-#: sukutomo/models.py:476
+#: sukutomo/models.py:494
 msgid "Instagram"
 msgstr "인스타그램"
 
-#: starlight/models.py:389 starlight/models.py:726
+#: starlight/models.py:401 starlight/models.py:741
 msgid "Social media"
 msgstr "소셜 미디어"
 
@@ -3908,15 +3898,15 @@ msgstr ""
 msgid "Specials menu"
 msgstr ""
 
-#: bang/forms.py:587
+#: bang/forms.py:584
 msgid "Please provide a screenshot to prove your ranking."
 msgstr ""
 
-#: bang/forms.py:1075 bang/models.py:1705
+#: bang/forms.py:1049 bang/models.py:1705
 msgid "Statistic"
 msgstr ""
 
-#: bang/magicollections.py:2088
+#: bang/magicollections.py:2085
 #, fuzzy
 msgid "Original song"
 msgstr "오리지널"
@@ -3951,7 +3941,7 @@ msgstr ""
 msgid "{name}'s {thing}"
 msgstr "{name}의 {thing}"
 
-#: bang/magicollections.py:2147 bang/models.py:1972
+#: bang/magicollections.py:2144 bang/models.py:1972
 msgid "Album cover"
 msgstr "CD 커버"
 
@@ -3963,35 +3953,35 @@ msgstr ""
 msgid "{affected} members get a {value} boost on {stat} statistics"
 msgstr ""
 
-#: sukutomo/models.py:637
+#: sukutomo/models.py:705
 msgid "Timing boost"
 msgstr "판정강화"
 
-#: sukutomo/models.py:1137
+#: sukutomo/models.py:1204
 msgid "{attribute} points up by +{number}% of {other_attribute}"
 msgstr ""
 
-#: sukutomo/models.py:1144
+#: sukutomo/models.py:1211
 msgid "{attribute} points up by +{number}%"
 msgstr ""
 
-#: sukutomo/models.py:1118
+#: sukutomo/models.py:1185
 msgid "Leader skill"
 msgstr "리더 스킬"
 
-#: sukutomo/models.py:645
+#: sukutomo/models.py:713
 msgid "Statistic effect"
 msgstr ""
 
-#: sukutomo/models.py:1149
+#: sukutomo/models.py:1216
 msgid "{group} members points up by +{number}%"
 msgstr ""
 
-#: magi/magicollections.py:2995
+#: magi/magicollections.py:2997
 msgid "Mark all as read"
 msgstr "모두 읽은 상태로 표시"
 
-#: magi/magicollections.py:3015
+#: magi/magicollections.py:3017
 msgid "{total} notifications were marked as read."
 msgstr ""
 
@@ -4011,19 +4001,19 @@ msgstr ""
 msgid "and BAD/MISS notes do not cause damage for the next {duration} seconds"
 msgstr ""
 
-#: sukutomo/models.py:1189
+#: sukutomo/models.py:1256
 msgid "Boost"
 msgstr ""
 
-#: bang/forms.py:1154
+#: bang/forms.py:1121
 msgid "All {type} {things}"
 msgstr ""
 
-#: magi/forms.py:922
+#: magi/forms.py:997
 msgid "Random"
 msgstr ""
 
-#: magi/forms.py:935 magi/forms.py:941
+#: magi/forms.py:1010 magi/forms.py:1016
 msgid "Suggestions"
 msgstr ""
 
@@ -4031,97 +4021,97 @@ msgstr ""
 msgid "All the {things}! Search by {search_terms} and filter by {filters} to find all the details you need about the {things} from {game}."
 msgstr ""
 
-#: bang/forms.py:412
+#: bang/forms.py:410
 msgid "Default"
 msgstr ""
 
-#: bang/magicollections.py:2804
+#: bang/magicollections.py:2799
 msgid "Chibis"
 msgstr ""
 
-#: sukutomo/magicollections.py:692 sukutomo/magicollections.py:779
-#: sukutomo/models.py:777
+#: sukutomo/magicollections.py:614 sukutomo/magicollections.py:701
+#: sukutomo/models.py:845
 msgid "Merged with other event"
 msgstr ""
 
-#: sukutomo/magicollections.py:791 sukutomo/models.py:765
-#: sukutomo/models.py:774 sukutomo/models.py:787 sukutomo/models.py:796
-#: sukutomo/models.py:805
+#: sukutomo/magicollections.py:713 sukutomo/models.py:833
+#: sukutomo/models.py:842 sukutomo/models.py:855 sukutomo/models.py:864
+#: sukutomo/models.py:873
 msgid "Tiers"
 msgstr ""
 
-#: sukutomo/magicollections.py:1096
+#: sukutomo/magicollections.py:1010
 msgid "Can be sold for stickers?"
 msgstr ""
 
-#: sukutomo/magicollections.py:1160
+#: sukutomo/magicollections.py:1074
 msgid "Buy this card"
 msgstr ""
 
-#: sukutomo/models.py:208
+#: sukutomo/models.py:212
 msgid "The character that you selected when you started playing."
 msgstr "네가 게임을 시작할때 처음고른 캐릭터"
 
-#: starlight/magicollections.py:198 starlight/magicollections.py:217
+#: starlight/magicollections.py:200 starlight/magicollections.py:220
 msgid "Feed"
 msgstr "피드"
 
-#: starlight/forms.py:60 starlight/magicollections.py:72
-#: starlight/magicollections.py:96 starlight/magicollections.py:315
-#: starlight/magicollections.py:405 starlight/magicollections.py:406
-#: starlight/magicollections.py:599 starlight/models.py:428
-#: starlight/models.py:531 starlight/settings.py:165 starlight/settings.py:167
-#: starlight/settings.py:169 starlight/views.py:49
+#: starlight/forms.py:93 starlight/forms.py:388 starlight/magicollections.py:72
+#: starlight/magicollections.py:96 starlight/magicollections.py:310
+#: starlight/magicollections.py:426 starlight/magicollections.py:427
+#: starlight/magicollections.py:643 starlight/models.py:440
+#: starlight/models.py:539 starlight/settings.py:167 starlight/settings.py:169
+#: starlight/settings.py:171 starlight/views.py:49
 msgid "Voice actress"
 msgstr "성우"
 
-#: starlight/magicollections.py:318 starlight/magicollections.py:576
-#: starlight/magicollections.py:580 starlight/models.py:708
+#: starlight/magicollections.py:313 starlight/magicollections.py:620
+#: starlight/magicollections.py:624 starlight/models.py:722
 msgid "Cast"
 msgstr "출연자"
 
-#: starlight/magicollections.py:429
+#: starlight/magicollections.py:450
 msgid "Schools"
 msgstr "학교"
 
-#: starlight/forms.py:519 starlight/forms.py:568
-#: starlight/magicollections.py:457 starlight/models.py:388
-#: starlight/models.py:1355 starlight/settings.py:157 starlight/utils.py:161
-#: starlight/utils.py:170
+#: starlight/forms.py:307 starlight/forms.py:575 starlight/forms.py:624
+#: starlight/magicollections.py:478 starlight/models.py:400
+#: starlight/models.py:1387 starlight/settings.py:159 starlight/utils.py:169
+#: starlight/utils.py:178
 msgid "Stage girl"
 msgstr "무대소녀"
 
-#: starlight/magicollections.py:458 starlight/magicollections.py:938
-#: starlight/models.py:1579 starlight/models.py:1684 starlight/settings.py:191
+#: starlight/magicollections.py:479 starlight/magicollections.py:989
+#: starlight/models.py:1614 starlight/models.py:1720 starlight/settings.py:200
 msgid "Stage girls"
 msgstr "무대소녀"
 
-#: starlight/magicollections.py:628
+#: starlight/magicollections.py:672
 msgid "Discography"
 msgstr "음악"
 
-#: starlight/magicollections.py:1082 starlight/models.py:1807
+#: starlight/magicollections.py:1133 starlight/models.py:1843
 msgid "Memoir"
 msgstr "메모리얼"
 
-#: starlight/magicollections.py:1083 starlight/models.py:637
-#: starlight/models.py:1689
+#: starlight/magicollections.py:1134 starlight/models.py:651
+#: starlight/models.py:1725
 msgid "Memoirs"
 msgstr "메모리얼"
 
-#: starlight/magicollections.py:1194
+#: starlight/magicollections.py:1245
 msgid "Conversation"
 msgstr "대화"
 
-#: starlight/magicollections.py:1195
+#: starlight/magicollections.py:1246
 msgid "Conversations"
 msgstr "대화"
 
-#: starlight/magicollections.py:1197 starlight/settings.py:213
+#: starlight/magicollections.py:1248 starlight/settings.py:222
 msgid "My theater"
 msgstr "마이시어터"
 
-#: starlight/magicollections.py:1206
+#: starlight/magicollections.py:1257
 msgid "Comic"
 msgstr "만화"
 
@@ -4145,62 +4135,62 @@ msgstr "달"
 msgid "Dream"
 msgstr "꿈"
 
-#: starlight/models.py:356 starlight/models.py:358
+#: starlight/models.py:365 starlight/models.py:367
 msgid "Specialty"
 msgstr ""
 
-#: starlight/models.py:479
+#: starlight/models.py:493
 msgid "Students"
 msgstr "학생"
 
-#: starlight/models.py:564 starlight/models.py:568 starlight/models.py:571
-#: starlight/models.py:575
+#: starlight/models.py:573 starlight/models.py:577 starlight/models.py:580
+#: starlight/models.py:584
 msgid "Weapon"
 msgstr "무기"
 
-#: starlight/models.py:585 starlight/models.py:587
+#: starlight/models.py:596 starlight/models.py:599
 msgid "Likes"
 msgstr "좋아하는 것"
 
-#: starlight/models.py:589 starlight/models.py:591
+#: starlight/models.py:601 starlight/models.py:604
 msgid "Dislikes"
 msgstr "서투른 것"
 
-#: starlight/models.py:1375
+#: starlight/models.py:1407
 msgid "Front"
 msgstr "전열"
 
-#: starlight/models.py:1373
+#: starlight/models.py:1405
 msgid "Rear"
 msgstr "후열"
 
-#: starlight/models.py:1377
+#: starlight/models.py:1409
 msgid "Position"
 msgstr "포지션"
 
-#: starlight/settings.py:226
+#: starlight/settings.py:235
 msgid "Fanart"
 msgstr "팬아트"
 
-#: starlight/settings.py:227
+#: starlight/settings.py:236
 #, fuzzy
 msgid "Graphic edit"
 msgstr "그래픽 수정"
 
-#: starlight/settings.py:246
+#: starlight/settings.py:255
 #, fuzzy
 msgid "Questionable"
 msgstr "의문"
 
-#: starlight/forms.py:155 starlight/forms.py:166
+#: starlight/forms.py:188 starlight/forms.py:199
 #: starlight/magicollections.py:114 starlight/magicollections.py:115
-#: starlight/settings.py:234 starlight/settings.py:320
-#: starlight/settings.py:337
+#: starlight/settings.py:243 starlight/settings.py:330
+#: starlight/settings.py:349
 msgid "News"
 msgstr "뉴스"
 
-#: starlight/magicollections.py:628 starlight/models.py:798
-#: starlight/models.py:801 starlight/models.py:804 starlight/models.py:806
+#: starlight/magicollections.py:672 starlight/models.py:826
+#: starlight/models.py:829 starlight/models.py:832 starlight/models.py:835
 msgid "Lyrics"
 msgstr "가사"
 
@@ -4212,7 +4202,7 @@ msgstr ""
 msgid "β-tester"
 msgstr ""
 
-#: magi/forms.py:2052
+#: magi/forms.py:2128
 msgid "Users who can speak {language}"
 msgstr ""
 
@@ -4220,71 +4210,73 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: starlight/forms.py:190
+#: starlight/forms.py:223
 msgid "Skip"
 msgstr "스킵"
 
-#: starlight/forms.py:384 starlight/models.py:781 starlight/models.py:816
-#: starlight/utils.py:182
+#: starlight/forms.py:440 starlight/models.py:797 starlight/models.py:845
+#: starlight/utils.py:190
 msgid "Singers"
 msgstr "가수"
 
-#: starlight/forms.py:412 starlight/forms.py:573 starlight/forms.py:600
-#: starlight/models.py:921 starlight/models.py:922 starlight/models.py:924
-#: starlight/models.py:926
+#: starlight/forms.py:468 starlight/forms.py:629 starlight/forms.py:656
+#: starlight/models.py:952 starlight/models.py:953 starlight/models.py:955
+#: starlight/models.py:957
 #, fuzzy
 msgid "Target"
 msgstr "표적"
 
-#: starlight/forms.py:489 starlight/magicollections.py:698
-#: starlight/models.py:1103 starlight/models.py:1333
+#: starlight/forms.py:545 starlight/magicollections.py:749
+#: starlight/models.py:1135 starlight/models.py:1365
 msgid "Acts"
 msgstr "ACT"
 
-#: starlight/forms.py:494
+#: starlight/forms.py:550
 #, fuzzy
 msgid "Number"
 msgstr "숫자"
 
-#: starlight/forms.py:591 starlight/magicollections.py:1033
+#: starlight/forms.py:647 starlight/magicollections.py:1084
 msgid "Effective against"
 msgstr "상성"
 
-#: starlight/forms.py:594 starlight/magicollections.py:1034
+#: starlight/forms.py:650 starlight/magicollections.py:1085
 msgid "Less effective against"
 msgstr "역상성"
 
-#: starlight/forms.py:597
+#: starlight/forms.py:653
 #, fuzzy
 msgid "Hits more than once"
 msgstr "다중히트"
 
-#: starlight/magicollections.py:223
+#: starlight/magicollections.py:229
 msgid "Relive account"
 msgstr "스타리라 계정"
 
-#: starlight/magicollections.py:656
+#: starlight/magicollections.py:699
 msgid "Buy {thing}"
 msgstr "{thing} 구매"
 
-#: starlight/magicollections.py:656
+#: starlight/magicollections.py:699
 msgid "CD"
 msgstr "CD"
 
-#: starlight/magicollections.py:697
+#: starlight/magicollections.py:748
 msgid "Act"
 msgstr "ACT"
 
-#: starlight/magicollections.py:882
+#: starlight/magicollections.py:933
 msgid "Cost"
 msgstr "코스트"
 
-#: starlight/magicollections.py:911 starlight/models.py:1785
+#: starlight/forms.py:726 starlight/forms.py:762
+#: starlight/magicollections.py:962 starlight/models.py:1821
+#: starlight/models.py:1845
 msgid "Rank"
 msgstr "랭크"
 
-#: starlight/magicollections.py:989 starlight/models.py:722
-#: starlight/models.py:724
+#: starlight/magicollections.py:1040 starlight/models.py:737
+#: starlight/models.py:739
 msgid "Role"
 msgstr "역할"
 
@@ -4329,178 +4321,188 @@ msgstr "총 구매 스타젬"
 msgid "Check this box if this account doesn't exist in the game."
 msgstr "게임 내에 계정이 존재하지 않는다면 체크하세요."
 
-#: starlight/models.py:374 starlight/models.py:377 starlight/models.py:606
-#: starlight/models.py:609
+#: starlight/models.py:386 starlight/models.py:389 starlight/models.py:620
+#: starlight/models.py:623
 msgid "Video"
 msgstr "영상"
 
-#: starlight/models.py:542 starlight/models.py:545
+#: starlight/models.py:550 starlight/models.py:554
 msgid "Department"
 msgstr "학과"
 
-#: starlight/models.py:597 starlight/models.py:599
+#: starlight/models.py:610 starlight/models.py:613
 msgid "Introduction"
 msgstr "소개"
 
-#: starlight/models.py:710
+#: starlight/models.py:724
 msgid "General"
 msgstr ""
 
-#: starlight/models.py:711
+#: starlight/models.py:725
 msgid "Stage play"
 msgstr ""
 
-#: starlight/models.py:712
+#: starlight/models.py:726
 msgid "Additional"
 msgstr ""
 
-#: starlight/models.py:714
+#: starlight/models.py:728
 msgid "Category"
 msgstr "카테고리"
 
-#: starlight/models.py:855
+#: starlight/models.py:884
 msgid "Basic"
 msgstr ""
 
-#: starlight/models.py:860
+#: starlight/models.py:889
 msgid "Climax"
 msgstr "클라이맥스"
 
-#: starlight/models.py:865
+#: starlight/models.py:894
 msgid "Auto"
 msgstr "자동"
 
-#: starlight/models.py:870
+#: starlight/models.py:899
 msgid "Finishing"
 msgstr "피니시"
 
-#: starlight/models.py:895 starlight/models.py:899 starlight/models.py:1050
-#: starlight/models.py:1054
+#: starlight/models.py:926 starlight/models.py:930 starlight/models.py:1082
+#: starlight/models.py:1086
 msgid "Tips"
 msgstr "팁"
 
-#: starlight/models.py:911
+#: starlight/models.py:942
 msgid "Unlock at rank {rank}"
 msgstr "랭크 {rank}에 개방"
 
-#: starlight/models.py:914
+#: starlight/models.py:945
 msgid "Hits {number_of_times} times"
 msgstr "{number_of_times}번 공격"
 
-#: starlight/models.py:917
+#: starlight/models.py:948
 msgid "Front enemy"
 msgstr "전열 적"
 
-#: starlight/models.py:918
+#: starlight/models.py:949
 msgid "Front group of enemies"
 msgstr "전열그룹 적"
 
-#: starlight/models.py:919
+#: starlight/models.py:950
 msgid "All enemies"
 msgstr "모든 적"
 
-#: starlight/models.py:931
+#: starlight/models.py:962
 msgid "After full bound break"
 msgstr ""
 
-#: starlight/models.py:950
+#: starlight/models.py:981
 msgid "AP"
 msgstr "AP"
 
-#: starlight/models.py:1106 starlight/models.py:1112 starlight/models.py:1118
-#: starlight/models.py:1126
+#: starlight/models.py:1138 starlight/models.py:1144 starlight/models.py:1150
+#: starlight/models.py:1158
 msgid "ACT Power"
 msgstr "ACT 파워"
 
-#: starlight/models.py:1107 starlight/models.py:1113 starlight/models.py:1120
-#: starlight/models.py:1128
+#: starlight/models.py:1139 starlight/models.py:1145 starlight/models.py:1152
+#: starlight/models.py:1160
 msgid "Normal defense"
 msgstr "일반방어"
 
-#: starlight/models.py:1108 starlight/models.py:1114 starlight/models.py:1122
-#: starlight/models.py:1130
+#: starlight/models.py:1140 starlight/models.py:1146 starlight/models.py:1154
+#: starlight/models.py:1162
 msgid "Special defense"
 msgstr "특수방어"
 
-#: starlight/models.py:1109 starlight/models.py:1115 starlight/models.py:1123
-#: starlight/models.py:1131
+#: starlight/models.py:1141 starlight/models.py:1147 starlight/models.py:1155
+#: starlight/models.py:1163
 msgid "Agility"
 msgstr "민첩"
 
-#: starlight/models.py:1138
+#: starlight/models.py:1170
 msgid "Base"
 msgstr ""
 
-#: starlight/models.py:1358
+#: starlight/models.py:1390
 msgid "Element"
 msgstr "속성"
 
-#: starlight/models.py:1384
+#: starlight/models.py:1416
 msgid "Anti-tank"
 msgstr "안티탱크"
 
-#: starlight/models.py:1385
+#: starlight/models.py:1417
 msgid "Assassin"
 msgstr "암살"
 
-#: starlight/models.py:1386
+#: starlight/models.py:1418
 msgid "Attacker"
 msgstr "공격"
 
-#: starlight/models.py:1387
+#: starlight/models.py:1419
 msgid "Burn"
 msgstr "화상"
 
-#: starlight/models.py:1388
+#: starlight/models.py:1420
 msgid "Debuffer"
 msgstr "디버퍼"
 
-#: starlight/models.py:1389
+#: starlight/models.py:1421
 msgid "Defender"
 msgstr "방어"
 
-#: starlight/models.py:1390
+#: starlight/models.py:1422
 #, fuzzy
 msgid "Disabler"
 msgstr "무능화"
 
-#: starlight/models.py:1392
+#: starlight/models.py:1424
 msgid "Nuker"
 msgstr "누커"
 
-#: starlight/models.py:1394
+#: starlight/models.py:1426
 msgid "Special defender"
 msgstr "특수방어"
 
-#: starlight/models.py:1395
+#: starlight/models.py:1427
 msgid "Special defense tank"
 msgstr "특수방어 탱커"
 
-#: starlight/models.py:1397
+#: starlight/models.py:1429
 msgid "Tank"
 msgstr "탱커"
 
-#: starlight/models.py:1607 starlight/models.py:1654
+#: starlight/models.py:1642 starlight/models.py:1690
 msgid "Upgrade"
 msgstr "업그레이드"
 
-#: starlight/models.py:1608 starlight/models.py:1660
+#: starlight/models.py:1643 starlight/models.py:1696
 msgid "VS. Revue reward"
 msgstr "VS레뷰 보상"
 
-#: starlight/models.py:1610
+#: starlight/models.py:1645
 msgid "Selling price"
 msgstr "판매 가격"
 
-#: starlight/models.py:1615 starlight/models.py:1617
+#: starlight/models.py:1650 starlight/models.py:1653
 msgid "Explanation"
 msgstr "설명"
 
-#: starlight/settings.py:196
+#: starlight/settings.py:205
 msgid "Movie"
 msgstr "영상"
 
-#: starlight/settings.py:200
+#: starlight/settings.py:209
 msgid "Meetups"
+msgstr ""
+
+#: starlight/models.py:814 starlight/models.py:817
+msgid "Orchestral arrangement"
+msgstr ""
+
+#: starlight/settings.py:69
+msgid "\n"
+"Shoujo☆Kageki Revue Starlight (Lit. Girls☆Opera Revue Starlight) is a multi-media project produced by Bushiroad and Nelke Planning. It aims to link the world of anime and musicals together. Besides the anime series and the musical performances, the voice actresses also perform live concerts and various events for fans. The characters from the license also appear in 3 manga series and a mobile game called \"Relive\".\n"
+""
 msgstr ""
 

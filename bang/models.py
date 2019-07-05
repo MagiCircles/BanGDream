@@ -180,6 +180,7 @@ class Member(MagiModel):
     japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
 
     NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
+    NAME_SOURCE_LANGUAGES = ['ja']
     d_names = models.TextField(_('Name'), null=True)
 
     @property
@@ -404,6 +405,7 @@ class Card(MagiModel):
     english_attribute = property(getInfoFromChoices('attribute', ATTRIBUTES, 'english'))
 
     name = models.CharField(_('Title'), max_length=100, null=True)
+    NAME_SOURCE_LANGUAGES = ['ja']
     NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_names = models.TextField(_('Title'), null=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, null=True)
@@ -552,6 +554,7 @@ class Card(MagiModel):
 
     skill_name = models.CharField(_('Skill name'), max_length=100, null=True)
     japanese_skill_name = models.CharField(string_concat(_('Skill name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
+    SKILL_NAME_SOURCE_LANGUAGES = ['ja']
     SKILL_NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
     d_skill_names = models.TextField(_('Skill name'), null=True)
 
@@ -1014,6 +1017,7 @@ class Event(MagiModel):
     name = models.CharField(_('Title'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
     NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
+    NAME_SOURCE_LANGUAGES = ['ja']
     d_names = models.TextField(_('Title'), null=True)
 
     TYPE_CHOICES = (
@@ -1250,6 +1254,7 @@ class Song(MagiModel):
     romaji_name = models.CharField(string_concat(_('Title'), ' (', _('Romaji'), ')'), max_length=100, null=True)
     name = models.CharField(string_concat(_('Title'), ' (', _('Translation'), ')'), max_length=100, null=True)
     NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
+    NAME_SOURCE_LANGUAGES = ['ja']
     d_names = models.TextField(_('Title'), null=True)
 
     VERSIONS = Account.VERSIONS
@@ -1472,6 +1477,7 @@ class Gacha(MagiModel):
     name = models.CharField(_('Title'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Title'), ' (', t['Japanese'], ')'), max_length=100, unique=True)
     NAMES_CHOICES = ALT_LANGUAGES_EXCEPT_JP
+    NAME_SOURCE_LANGUAGES = ['ja']
     d_names = models.TextField(_('Title'), null=True)
 
     limited = models.BooleanField(_('Limited'), default=False)
@@ -1942,6 +1948,7 @@ class Asset(MagiModel):
 
     name = models.CharField(_('Title'), max_length=100, null=True)
     NAMES_CHOICES = ALL_ALT_LANGUAGES
+    NAME_SOURCE_LANGUAGES = ['ja']
     d_names = models.TextField(_('Title'), null=True)
 
     BAND_CHOICES = Member.BAND_CHOICES
@@ -2056,6 +2063,7 @@ class Costume(MagiModel):
     # card's title instead.
     name = models.CharField(_('Title'), max_length=250, null=True)
     NAMES_CHOICES = ALL_ALT_LANGUAGES
+    NAME_SOURCE_LANGUAGES = ['ja']
     d_names = models.TextField(_('Title'), null=True)
 
     @property

@@ -192,12 +192,12 @@ msgstr "Nhất"
 #. Your translation must be gender neutral. Example 1er/ère
 #: magi/default_settings.py:27
 msgid "2nd"
-msgstr "Nhì"
+msgstr "thứ hai"
 
 #. Your translation must be gender neutral. Example 1er/ère
 #: magi/default_settings.py:27
 msgid "3rd"
-msgstr "Ba"
+msgstr "thứ ba"
 
 #: magi/magicollections.py:2306 magi/models.py:148
 msgid "Birthdate"
@@ -833,7 +833,7 @@ msgstr "Pokémon GO là một trò chơi miễn phí, dựa trên địa điểm
 
 #: stardustrun/settings.py:38
 msgid "{nth} Favorite Pokémon"
-msgstr "{nth} Pokémon yêu thích"
+msgstr "Pokémon yêu thích {nth}"
 
 #: stardustrun/collections_settings.py:13 stardustrun/settings.py:55
 #: stardustrun/settings.py:106 stardustrun/settings.py:107
@@ -1634,7 +1634,7 @@ msgstr "Bài hát"
 
 #: cpro/settings.py:38
 msgid "{nth} Favorite Idol"
-msgstr "{nth} Idol yêu thích"
+msgstr "Idol yêu thích {nth}"
 
 #: cpro/settings.py:59
 msgid "Favorite Cards"
@@ -2042,7 +2042,7 @@ msgstr "Nhất"
 
 #: bang/models.py:214
 msgid "Second"
-msgstr "Hai"
+msgstr "Nhì"
 
 #: sukutomo/models.py:1179
 msgid "Power"
@@ -2118,7 +2118,7 @@ msgstr "Tên kĩ năng"
 
 #: bang/forms.py:392 bang/magicollections.py:558 bang/models.py:919
 msgid "{nth} episode"
-msgstr "{nth} tập"
+msgstr "tập {nth}"
 
 #: bang/models.py:920
 msgid "Memorial episode"
@@ -2624,7 +2624,7 @@ msgstr "BanG Dream!"
 #. Name of a license, so it's unlikely you need to translate unless your language uses a different set of characters (Chinese, Japanese, Korean, Russian, etc.)
 #: bang/settings.py:29 bang/settings.py:317
 msgid "Girls Band Party"
-msgstr "Girl Band Party"
+msgstr "Girls Band Party"
 
 #: bang/settings.py:271 bang/views.py:90 bang/views.py:91
 msgid "Team builder"
@@ -3578,7 +3578,7 @@ msgstr ""
 #: starlight/magicollections.py:95 starlight/settings.py:166
 #: starlight/settings.py:168 starlight/settings.py:170 starlight/views.py:47
 msgid "{nth} Favorite {thing}"
-msgstr "{nth} {thing} yêu thích"
+msgstr "{thing} yêu thích {nth}"
 
 #: magi/models.py:308
 msgid "Character"
@@ -4012,12 +4012,12 @@ msgstr "nuôi"
 #: starlight/models.py:539 starlight/settings.py:167 starlight/settings.py:169
 #: starlight/settings.py:171 starlight/views.py:49
 msgid "Voice actress"
-msgstr ""
+msgstr "Seiyuu"
 
 #: starlight/magicollections.py:313 starlight/magicollections.py:620
 #: starlight/magicollections.py:624 starlight/models.py:722
 msgid "Cast"
-msgstr ""
+msgstr "Diễn viên"
 
 #: starlight/magicollections.py:450
 msgid "Schools"
@@ -4028,61 +4028,61 @@ msgstr "Trường"
 #: starlight/models.py:1387 starlight/settings.py:159 starlight/utils.py:169
 #: starlight/utils.py:178
 msgid "Stage girl"
-msgstr ""
+msgstr "Butai Shoujo"
 
 #: starlight/magicollections.py:479 starlight/magicollections.py:989
 #: starlight/models.py:1614 starlight/models.py:1720 starlight/settings.py:200
 msgid "Stage girls"
-msgstr ""
+msgstr "những Butai Shoujo"
 
 #: starlight/magicollections.py:672
 msgid "Discography"
-msgstr ""
+msgstr "Bài hát"
 
 #: starlight/magicollections.py:1133 starlight/models.py:1843
 msgid "Memoir"
-msgstr ""
+msgstr "Memoir"
 
 #: starlight/magicollections.py:1134 starlight/models.py:651
 #: starlight/models.py:1725
 msgid "Memoirs"
-msgstr ""
+msgstr "Những memoir"
 
 #: starlight/magicollections.py:1245
 msgid "Conversation"
-msgstr ""
+msgstr "Đoạn hội thoại"
 
 #: starlight/magicollections.py:1246
 msgid "Conversations"
-msgstr ""
+msgstr "Những đoạn hội thoại"
 
 #: starlight/magicollections.py:1248 starlight/settings.py:222
 msgid "My theater"
-msgstr ""
+msgstr "Sân khấu của tôi"
 
 #: starlight/magicollections.py:1257
 msgid "Comic"
-msgstr ""
+msgstr "Truyện"
 
 #: starlight/models.py:107
 msgid "Flower"
-msgstr ""
+msgstr "Flower"
 
 #: starlight/models.py:115
 msgid "Wind"
-msgstr "gió"
+msgstr "Wind"
 
 #: starlight/models.py:131
 msgid "Cloud"
-msgstr ""
+msgstr "Cloud"
 
 #: starlight/models.py:139
 msgid "Moon"
-msgstr ""
+msgstr "Moon"
 
 #: starlight/models.py:155
 msgid "Dream"
-msgstr ""
+msgstr "Dream"
 
 #: starlight/models.py:365 starlight/models.py:367
 msgid "Specialty"
@@ -4090,12 +4090,12 @@ msgstr ""
 
 #: starlight/models.py:493
 msgid "Students"
-msgstr ""
+msgstr "Những học sinh"
 
 #: starlight/models.py:573 starlight/models.py:577 starlight/models.py:580
 #: starlight/models.py:584
 msgid "Weapon"
-msgstr ""
+msgstr "Vũ khí"
 
 #: starlight/models.py:596 starlight/models.py:599
 msgid "Likes"
@@ -4107,19 +4107,19 @@ msgstr "Không thích"
 
 #: starlight/models.py:1407
 msgid "Front"
-msgstr ""
+msgstr "hàng trước"
 
 #: starlight/models.py:1405
 msgid "Rear"
-msgstr ""
+msgstr "hàng sau"
 
 #: starlight/models.py:1409
 msgid "Position"
-msgstr ""
+msgstr "vị trí"
 
 #: starlight/settings.py:235
 msgid "Fanart"
-msgstr ""
+msgstr "Fan art"
 
 #: starlight/settings.py:236
 msgid "Graphic edit"
@@ -4134,20 +4134,20 @@ msgstr ""
 #: starlight/settings.py:243 starlight/settings.py:330
 #: starlight/settings.py:349
 msgid "News"
-msgstr ""
+msgstr "Tin tức"
 
 #: starlight/magicollections.py:672 starlight/models.py:826
 #: starlight/models.py:829 starlight/models.py:832 starlight/models.py:835
 msgid "Lyrics"
-msgstr ""
+msgstr "Lời bài hát"
 
 #: magi/default_settings.py:28
 msgid "Less"
-msgstr ""
+msgstr "Ít hơn"
 
 #: magi/default_settings.py:349
 msgid "β-tester"
-msgstr ""
+msgstr "β-tester"
 
 #: magi/forms.py:2128
 msgid "Users who can speak {language}"
@@ -4155,22 +4155,22 @@ msgstr ""
 
 #: magi/magicollections.py:2266
 msgid "Website"
-msgstr ""
+msgstr "Website"
 
 #: starlight/forms.py:223
 msgid "Skip"
-msgstr ""
+msgstr "Bỏ qua"
 
 #: starlight/forms.py:440 starlight/models.py:797 starlight/models.py:845
 #: starlight/utils.py:190
 msgid "Singers"
-msgstr ""
+msgstr "Ca sĩ"
 
 #: starlight/forms.py:468 starlight/forms.py:629 starlight/forms.py:656
 #: starlight/models.py:952 starlight/models.py:953 starlight/models.py:955
 #: starlight/models.py:957
 msgid "Target"
-msgstr ""
+msgstr "Mục tiêu"
 
 #: starlight/forms.py:545 starlight/magicollections.py:749
 #: starlight/models.py:1135 starlight/models.py:1365
@@ -4183,11 +4183,11 @@ msgstr ""
 
 #: starlight/forms.py:647 starlight/magicollections.py:1084
 msgid "Effective against"
-msgstr ""
+msgstr "hiệu quả hơn đối với"
 
 #: starlight/forms.py:650 starlight/magicollections.py:1085
 msgid "Less effective against"
-msgstr ""
+msgstr "ít hiệu quả hơn đối với"
 
 #: starlight/forms.py:653
 msgid "Hits more than once"
@@ -4195,34 +4195,34 @@ msgstr ""
 
 #: starlight/magicollections.py:229
 msgid "Relive account"
-msgstr ""
+msgstr "Tài khoản ReLive"
 
 #: starlight/magicollections.py:699
 msgid "Buy {thing}"
-msgstr ""
+msgstr "Mua {thing}"
 
 #: starlight/magicollections.py:699
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: starlight/magicollections.py:748
 msgid "Act"
-msgstr ""
+msgstr "Act"
 
 #: starlight/magicollections.py:933
 msgid "Cost"
-msgstr ""
+msgstr "Cost"
 
 #: starlight/forms.py:726 starlight/forms.py:762
 #: starlight/magicollections.py:962 starlight/models.py:1821
 #: starlight/models.py:1845
 msgid "Rank"
-msgstr ""
+msgstr "Rank"
 
 #: starlight/magicollections.py:1040 starlight/models.py:737
 #: starlight/models.py:739
 msgid "Role"
-msgstr ""
+msgstr "Luật"
 
 #: starlight/models.py:147
 msgid "Space"
@@ -4238,27 +4238,27 @@ msgstr ""
 
 #: starlight/models.py:250
 msgid "Play style"
-msgstr ""
+msgstr "Lối chơi"
 
 #: starlight/models.py:253
 msgid "Stage of dreams level"
-msgstr ""
+msgstr "Level trong Stage of Dream"
 
 #: starlight/models.py:265 starlight/models.py:266 starlight/models.py:267
 msgid "Platinum"
-msgstr ""
+msgstr "Platinum"
 
 #: starlight/models.py:268
 msgid "Legend"
-msgstr ""
+msgstr "Legend"
 
 #: starlight/models.py:272
 msgid "Vs. Revue rank"
-msgstr ""
+msgstr "Thứ hạng trong Vs. Revue"
 
 #: starlight/models.py:291
 msgid "Total stars bought"
-msgstr ""
+msgstr "Tổng số gems đã mua"
 
 #: starlight/models.py:295
 msgid "Check this box if this account doesn't exist in the game."
@@ -4267,15 +4267,15 @@ msgstr ""
 #: starlight/models.py:386 starlight/models.py:389 starlight/models.py:620
 #: starlight/models.py:623
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: starlight/models.py:550 starlight/models.py:554
 msgid "Department"
-msgstr ""
+msgstr "Khoa"
 
 #: starlight/models.py:610 starlight/models.py:613
 msgid "Introduction"
-msgstr ""
+msgstr "Giới thiệu"
 
 #: starlight/models.py:724
 msgid "General"
@@ -4299,7 +4299,7 @@ msgstr ""
 
 #: starlight/models.py:889
 msgid "Climax"
-msgstr ""
+msgstr "Climax"
 
 #: starlight/models.py:894
 msgid "Auto"
@@ -4312,11 +4312,11 @@ msgstr ""
 #: starlight/models.py:926 starlight/models.py:930 starlight/models.py:1082
 #: starlight/models.py:1086
 msgid "Tips"
-msgstr ""
+msgstr "Hướng dẫn"
 
 #: starlight/models.py:942
 msgid "Unlock at rank {rank}"
-msgstr ""
+msgstr "Mở khoá ở rank {rank}"
 
 #: starlight/models.py:945
 msgid "Hits {number_of_times} times"
@@ -4324,15 +4324,15 @@ msgstr ""
 
 #: starlight/models.py:948
 msgid "Front enemy"
-msgstr ""
+msgstr "Kẻ địch đằng trước"
 
 #: starlight/models.py:949
 msgid "Front group of enemies"
-msgstr ""
+msgstr "Nhóm kẻ địch hàng trước"
 
 #: starlight/models.py:950
 msgid "All enemies"
-msgstr ""
+msgstr "Toàn bộ kẻ địch"
 
 #: starlight/models.py:962
 msgid "After full bound break"
@@ -4420,7 +4420,7 @@ msgstr ""
 
 #: starlight/models.py:1643 starlight/models.py:1696
 msgid "VS. Revue reward"
-msgstr ""
+msgstr "Phần thưởng ở VS.Revue"
 
 #: starlight/models.py:1645
 msgid "Selling price"

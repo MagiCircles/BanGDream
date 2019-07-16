@@ -268,7 +268,7 @@ msgstr "Aunque amamos nuestro trabajo, no nos pagamos a nosotros mismos y no ten
 
 #: magi/templates/include/about_description.html:10
 msgid "The heartwarming support from the community keeps motivating us to do more! We love helping the community by providing as much information as we can about the game, while keeping the website easy to use, shiny and cute ^_^"
-msgstr "¡El apoyo de la comunidad es de lo más satisfactorio y nos anima a seguir adelante. Adoramos ayudar a la comunidad proporcionando toda la información que podemos sobre el juego, mientras trabajamos en una web sencilla de usar, brillante y bonita ^_^"
+msgstr "¡El apoyo de la comunidad es de lo más satisfactorio y nos anima a seguir adelante! Adoramos ayudar a la comunidad proporcionando toda la información que podemos sobre el juego, mientras trabajamos en una web sencilla de usar, brillante y bonita ^_^"
 
 #: magi/templates/include/about_description.html:12
 msgid "We don't know how far we will go with this, but one thing we know for sure is that we are having a lot of fun doing it and sharing this adventure with you."
@@ -934,7 +934,7 @@ msgstr "¡Empieza a seguir jugadores para ver sus actividades!"
 
 #: magi/templates/include/homePage.html:61
 msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
-msgstr "está fundado colectivamente por %(total_donators)s donantes %(adjective)"
+msgstr "está fundado colectivamente por %(total_donators) donantes %(adjective)"
 
 #: starlight/settings.py:320 starlight/settings.py:339
 msgid "About {thing}"
@@ -1597,7 +1597,6 @@ msgstr "Promedio"
 
 #. Afecto al maximo
 #: starlight/models.py:1812
-#, fuzzy
 msgid "Max bonded"
 msgstr "Vínculo al máximo"
 
@@ -2911,7 +2910,6 @@ msgid "Community event"
 msgstr "Evento de la comunidad"
 
 #: starlight/settings.py:250
-#, fuzzy
 msgid "Not about {thing}"
 msgstr "Ajeno a {thing}"
 
@@ -3909,11 +3907,11 @@ msgstr "Bonus de timing"
 
 #: sukutomo/models.py:1204
 msgid "{attribute} points up by +{number}% of {other_attribute}"
-msgstr ""
+msgstr "Puntos de atributo {attribute} aumentan un +{number}% del atributo {attribute} "
 
 #: sukutomo/models.py:1211
 msgid "{attribute} points up by +{number}%"
-msgstr ""
+msgstr "+{number}% puntos de atributo {attribute} "
 
 #: sukutomo/models.py:1185
 msgid "Leader skill"
@@ -3925,7 +3923,7 @@ msgstr "Efecto estadístico"
 
 #: sukutomo/models.py:1216
 msgid "{group} members points up by +{number}%"
-msgstr "{group} los puntos de los miembros aumentan +{number}%"
+msgstr "Los puntos de los miembros de {group} aumentan +{number}%"
 
 #: magi/magicollections.py:2997
 msgid "Mark all as read"
@@ -3937,7 +3935,7 @@ msgstr "{total} notificaciones fueron marcadas como leídas."
 
 #: bang/models.py:434
 msgid "For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr "Por los próximos {duration} segundos, aumenta el puntaje un +{percentage}% hasta que {note_type} sean tocadas, luego el puntaje aumenta +{alt_percentage}%"
+msgstr "Por los próximos {duration} segundos, aumenta la puntuación un +{percentage}% hasta que una {note_type} sea tocada, entonces la puntuación aumenta un +{alt_percentage}%"
 
 #: bang/models.py:498
 msgid "Life guard"
@@ -3949,7 +3947,7 @@ msgstr "Notas BAD/MISS no causan daño"
 
 #: bang/models.py:510
 msgid "and BAD/MISS notes do not cause damage for the next {duration} seconds"
-msgstr "y las notas BAD/MISS no causarán daño por los próximos {duration} segundos"
+msgstr "y las notas BAD/MISS no causan daño por los próximos {duration} segundos"
 
 #: sukutomo/models.py:1256
 msgid "Boost"
@@ -3957,7 +3955,7 @@ msgstr "Incremento"
 
 #: bang/forms.py:1121
 msgid "All {type} {things}"
-msgstr "Todos {type} {things}"
+msgstr "Todos/as los/las {things} {type}"
 
 #: magi/forms.py:997
 msgid "Random"
@@ -3970,7 +3968,7 @@ msgstr "Sugerencias"
 #. Since {things} can be a lot of stuff, I can't translate this without having a possible gender problem. Should I use masculine or feminine?
 #: magi/views_collections.py:364
 msgid "All the {things}! Search by {search_terms} and filter by {filters} to find all the details you need about the {things} from {game}."
-msgstr ""
+msgstr "¡Todas las {things}! Busca por {search_terms} y filtra por {filters} para encontrar todos los detalles que necesites acerca de las {things} de {game}."
 
 #: bang/forms.py:410
 msgid "Default"
@@ -4030,12 +4028,12 @@ msgstr "Escuelas"
 #: starlight/models.py:1387 starlight/settings.py:159 starlight/utils.py:169
 #: starlight/utils.py:178
 msgid "Stage girl"
-msgstr "Butai Shojo"
+msgstr "Chica de Escenario"
 
 #: starlight/magicollections.py:479 starlight/magicollections.py:989
 #: starlight/models.py:1614 starlight/models.py:1720 starlight/settings.py:200
 msgid "Stage girls"
-msgstr "Butai Shojos"
+msgstr "Chicas de Escenario"
 
 #: starlight/magicollections.py:672
 msgid "Discography"
@@ -4177,7 +4175,7 @@ msgstr "Objetivo"
 #: starlight/forms.py:545 starlight/magicollections.py:749
 #: starlight/models.py:1135 starlight/models.py:1365
 msgid "Acts"
-msgstr "Acciones"
+msgstr "Actos"
 
 #: starlight/forms.py:550
 msgid "Number"
@@ -4185,11 +4183,11 @@ msgstr "Número"
 
 #: starlight/forms.py:647 starlight/magicollections.py:1084
 msgid "Effective against"
-msgstr "Efectivo contra"
+msgstr "Efectiva contra"
 
 #: starlight/forms.py:650 starlight/magicollections.py:1085
 msgid "Less effective against"
-msgstr "Poco efectivo contra"
+msgstr "Menos efectivo contra"
 
 #: starlight/forms.py:653
 msgid "Hits more than once"
@@ -4256,7 +4254,7 @@ msgstr "Leyenda"
 
 #: starlight/models.py:272
 msgid "Vs. Revue rank"
-msgstr "Rank de VS. Revue"
+msgstr "Rango en VS. Revue"
 
 #: starlight/models.py:291
 msgid "Total stars bought"
@@ -4318,7 +4316,7 @@ msgstr "Consejos"
 
 #: starlight/models.py:942
 msgid "Unlock at rank {rank}"
-msgstr "Desbloquea en rango {rank}"
+msgstr "Desbloquea en el nivel {rank}"
 
 #: starlight/models.py:945
 msgid "Hits {number_of_times} times"
@@ -4338,7 +4336,7 @@ msgstr "Todos los enemigos"
 
 #: starlight/models.py:962
 msgid "After full bound break"
-msgstr "Despues de completar el Bound Break"
+msgstr "Después de completar el Bound Break"
 
 #: starlight/models.py:981
 msgid "AP"
@@ -4378,7 +4376,7 @@ msgstr "Antitanque"
 
 #: starlight/models.py:1417
 msgid "Assassin"
-msgstr "Asesino"
+msgstr "Asesina"
 
 #: starlight/models.py:1418
 msgid "Attacker"
@@ -4386,19 +4384,19 @@ msgstr "Atacante"
 
 #: starlight/models.py:1419
 msgid "Burn"
-msgstr "Quemar"
+msgstr "Quemadura"
 
 #: starlight/models.py:1420
 msgid "Debuffer"
-msgstr "Removedor de Buffs"
+msgstr "Debilitador"
 
 #: starlight/models.py:1421
 msgid "Defender"
-msgstr "Defensor"
+msgstr "Defensora"
 
 #: starlight/models.py:1422
 msgid "Disabler"
-msgstr "Deshabilitador"
+msgstr "Deshabilitadora"
 
 #: starlight/models.py:1424
 msgid "Nuker"
@@ -4406,7 +4404,7 @@ msgstr "Devastador"
 
 #: starlight/models.py:1426
 msgid "Special defender"
-msgstr "Defensor Especial"
+msgstr "Defensora Especial"
 
 #: starlight/models.py:1427
 msgid "Special defense tank"
@@ -4448,5 +4446,5 @@ msgstr "Arreglo orquestal"
 msgid "\n"
 "Shoujo☆Kageki Revue Starlight (Lit. Girls☆Opera Revue Starlight) is a multi-media project produced by Bushiroad and Nelke Planning. It aims to link the world of anime and musicals together. Besides the anime series and the musical performances, the voice actresses also perform live concerts and various events for fans. The characters from the license also appear in 3 manga series and a mobile game called \"Relive\".\n"
 ""
-msgstr "Shoujo☆Kageki Revue Starlight (Lit. Teatro Estelar, Chicas☆ de la Opera) es un proyecto multimedia producido por Bushiroad y Nelke Planning. Su objetivo es unir el mundo del anime y los musicales. Además del anime y actuaciones musicales, las actrices de voz también realizan conciertos en vivo y varios eventos para los fans. Los personajes de la franquicia también aparecen en tres series de mangas y un juego para móbiles llamado \"ReLive\"."
+msgstr "Shoujo☆Kageki Revue Starlight (Lit. Teatro Estelar, La Ópera☆De las Chicas) es un proyecto multimedia producido por Bushiroad y Nelke Planning. Su objetivo es unir el mundo del anime y los musicales. Además del anime y actuaciones musicales, las actrices de voz también realizan conciertos en vivo y varios eventos para los fans. Los personajes de la franquicia también aparecen en tres series de manga y un juego para dispositivos móviles llamado \"ReLive\"."
 

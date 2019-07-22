@@ -72,7 +72,7 @@ SITE_IMAGE_PER_LANGUAGE = {
 CONTACT_EMAIL = 'contact@bandori.party'
 CONTACT_REDDIT = 'AmbiBambiii'
 CONTACT_FACEBOOK = 'BandoriParty'
-CONTACT_DISCORD = 'https://discord.gg/8wrXKX3'
+CONTACT_DISCORD = 'https://discord.gg/njKRrAg'
 
 FEEDBACK_FORM = 'https://docs.google.com/forms/d/1lfd3x4TX6R1IYrZqhwPN_GqghCQpBLwNkkwro7uBAxI/viewform'
 GITHUB_REPOSITORY = ('SchoolIdolTomodachi', 'BanGDream')
@@ -245,7 +245,7 @@ ENABLED_PAGES['discord'] = {
     'title': 'Discord',
     'icon': 'chat',
     'navbar_link_list': 'community',
-    'redirect': 'https://discord.gg/8wrXKX3',
+    'redirect': 'https://discord.gg/njKRrAg',
     'new_tab': True,
     'check_permissions': lambda c: c['request'].LANGUAGE_CODE not in DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
 }

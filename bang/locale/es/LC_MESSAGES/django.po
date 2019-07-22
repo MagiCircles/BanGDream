@@ -117,7 +117,7 @@ msgstr "Nueva contraseña"
 
 #: magi/forms.py:2056
 msgid "New Password Again"
-msgstr "Escribe la nueva contraseña otra vez"
+msgstr "Repetir nueva contraseña"
 
 #: magi/models.py:181
 msgid "Player"
@@ -268,7 +268,7 @@ msgstr "Aunque amamos nuestro trabajo, no nos pagamos a nosotros mismos y no ten
 
 #: magi/templates/include/about_description.html:10
 msgid "The heartwarming support from the community keeps motivating us to do more! We love helping the community by providing as much information as we can about the game, while keeping the website easy to use, shiny and cute ^_^"
-msgstr "¡El apoyo de la comunidad es de lo más satisfactorio y nos anima a seguir adelante. Adoramos ayudar a la comunidad proporcionando toda la información que podemos sobre el juego, mientras trabajamos en una web sencilla de usar, brillante y bonita. ^_^"
+msgstr "¡El apoyo de la comunidad es de lo más satisfactorio y nos anima a seguir adelante! Adoramos ayudar a la comunidad proporcionando toda la información que podemos sobre el juego, mientras trabajamos en una web sencilla de usar, brillante y bonita ^_^"
 
 #: magi/templates/include/about_description.html:12
 msgid "We don't know how far we will go with this, but one thing we know for sure is that we are having a lot of fun doing it and sharing this adventure with you."
@@ -542,7 +542,7 @@ msgstr "Tu {thing} ha sido {verb}"
 
 #: magi/views.py:557 magi/views.py:849 magi/views.py:865
 msgid "deleted"
-msgstr "eliminado"
+msgstr "eliminado/a"
 
 #: magi/templates/emails/notification.html:8
 #: magi/templates/emails/notification.txt:1 magi/templates/emails/report.html:9
@@ -552,7 +552,7 @@ msgstr "Hola"
 
 #: magi/settings.py:106
 msgid "The {game} Database & Community"
-msgstr "La Base de Datos de {game} & Comunidad"
+msgstr "La Base de Datos & Comunidad de {game} "
 
 #: magi/views.py:309
 msgid "{site} is not a representative and is not associated with {game}. Its logos and images are Trademarks of {company}."
@@ -934,7 +934,7 @@ msgstr "¡Empieza a seguir jugadores para ver sus actividades!"
 
 #: magi/templates/include/homePage.html:61
 msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
-msgstr "está fundado colectivamente por %(total_donators)s donantes %(adjective)"
+msgstr "está fundado colectivamente por %(total_donators)s donantes %(adjective)s"
 
 #: starlight/settings.py:320 starlight/settings.py:339
 msgid "About {thing}"
@@ -1597,7 +1597,6 @@ msgstr "Promedio"
 
 #. Afecto al maximo
 #: starlight/models.py:1812
-#, fuzzy
 msgid "Max bonded"
 msgstr "Vínculo al máximo"
 
@@ -2911,7 +2910,6 @@ msgid "Community event"
 msgstr "Evento de la comunidad"
 
 #: starlight/settings.py:250
-#, fuzzy
 msgid "Not about {thing}"
 msgstr "Ajeno a {thing}"
 
@@ -3505,7 +3503,7 @@ msgstr "Algunas caracteristicas pueden no funcionar apropiadamente."
 
 #: magi/views.py:635
 msgid "Wiki home"
-msgstr "Casa wiki"
+msgstr "Wiki Home"
 
 #: cpro/model_choices.py:184
 msgid "Focus"
@@ -3909,11 +3907,11 @@ msgstr "Bonus de timing"
 
 #: sukutomo/models.py:1204
 msgid "{attribute} points up by +{number}% of {other_attribute}"
-msgstr ""
+msgstr "Puntos de atributo {attribute} aumentan un +{number}% del atributo {attribute} "
 
 #: sukutomo/models.py:1211
 msgid "{attribute} points up by +{number}%"
-msgstr ""
+msgstr "+{number}% puntos de atributo {attribute} "
 
 #: sukutomo/models.py:1185
 msgid "Leader skill"
@@ -3925,7 +3923,7 @@ msgstr "Efecto estadístico"
 
 #: sukutomo/models.py:1216
 msgid "{group} members points up by +{number}%"
-msgstr ""
+msgstr "Los puntos de los miembros de {group} aumentan +{number}%"
 
 #: magi/magicollections.py:2997
 msgid "Mark all as read"
@@ -3933,23 +3931,23 @@ msgstr "Marcar todas como leídas"
 
 #: magi/magicollections.py:3017
 msgid "{total} notifications were marked as read."
-msgstr ""
+msgstr "{total} notificaciones fueron marcadas como leídas."
 
 #: bang/models.py:434
 msgid "For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr "Por los próximos {duration} segundos, aumenta el puntaje un +{percentage}% hasta que {note_type} sean tocadas, luego el puntaje aumenta +{alt_percentage}%"
+msgstr "Por los próximos {duration} segundos, aumenta la puntuación un +{percentage}% hasta que una {note_type} sea tocada, entonces la puntuación aumenta un +{alt_percentage}%"
 
 #: bang/models.py:498
 msgid "Life guard"
-msgstr ""
+msgstr "Salvavidas"
 
 #: bang/models.py:505
 msgid "BAD/MISS notes do not cause damage"
-msgstr ""
+msgstr "Notas BAD/MISS no causan daño"
 
 #: bang/models.py:510
 msgid "and BAD/MISS notes do not cause damage for the next {duration} seconds"
-msgstr ""
+msgstr "y las notas BAD/MISS no causan daño por los próximos {duration} segundos"
 
 #: sukutomo/models.py:1256
 msgid "Boost"
@@ -3957,7 +3955,7 @@ msgstr "Incremento"
 
 #: bang/forms.py:1121
 msgid "All {type} {things}"
-msgstr ""
+msgstr "Todos/as los/las {things} {type}"
 
 #: magi/forms.py:997
 msgid "Random"
@@ -3970,7 +3968,7 @@ msgstr "Sugerencias"
 #. Since {things} can be a lot of stuff, I can't translate this without having a possible gender problem. Should I use masculine or feminine?
 #: magi/views_collections.py:364
 msgid "All the {things}! Search by {search_terms} and filter by {filters} to find all the details you need about the {things} from {game}."
-msgstr ""
+msgstr "¡Todas las {things}! Busca por {search_terms} y filtra por {filters} para encontrar todos los detalles que necesites acerca de las {things} de {game}."
 
 #: bang/forms.py:410
 msgid "Default"
@@ -4019,7 +4017,7 @@ msgstr "Actriz de voz"
 #: starlight/magicollections.py:313 starlight/magicollections.py:620
 #: starlight/magicollections.py:624 starlight/models.py:722
 msgid "Cast"
-msgstr "Casting"
+msgstr "Elenco"
 
 #: starlight/magicollections.py:450
 msgid "Schools"
@@ -4101,11 +4099,11 @@ msgstr "Arma"
 
 #: starlight/models.py:596 starlight/models.py:599
 msgid "Likes"
-msgstr "Gustos"
+msgstr "Lo que le gusta"
 
 #: starlight/models.py:601 starlight/models.py:604
 msgid "Dislikes"
-msgstr "Disgustos"
+msgstr "Lo que no le gusta"
 
 #: starlight/models.py:1407
 msgid "Front"
@@ -4113,7 +4111,7 @@ msgstr "Frente"
 
 #: starlight/models.py:1405
 msgid "Rear"
-msgstr "Atrás"
+msgstr "Posterior"
 
 #: starlight/models.py:1409
 msgid "Position"
@@ -4128,7 +4126,6 @@ msgid "Graphic edit"
 msgstr "Edición gráfica"
 
 #: starlight/settings.py:255
-#, fuzzy
 msgid "Questionable"
 msgstr "Cuestionable"
 
@@ -4150,7 +4147,7 @@ msgstr "Menos"
 
 #: magi/default_settings.py:349
 msgid "β-tester"
-msgstr ""
+msgstr "Beta tester"
 
 #: magi/forms.py:2128
 msgid "Users who can speak {language}"
@@ -4186,11 +4183,11 @@ msgstr "Número"
 
 #: starlight/forms.py:647 starlight/magicollections.py:1084
 msgid "Effective against"
-msgstr "Efectivo contra"
+msgstr "Efectiva contra"
 
 #: starlight/forms.py:650 starlight/magicollections.py:1085
 msgid "Less effective against"
-msgstr "Menos efectiva contra"
+msgstr "Menos efectivo contra"
 
 #: starlight/forms.py:653
 msgid "Hits more than once"
@@ -4245,7 +4242,7 @@ msgstr "Estilo de juego"
 
 #: starlight/models.py:253
 msgid "Stage of dreams level"
-msgstr "Nivel del Escenario de Ensueño"
+msgstr "Nivel del Stage of Dreams"
 
 #: starlight/models.py:265 starlight/models.py:266 starlight/models.py:267
 msgid "Platinum"
@@ -4257,7 +4254,7 @@ msgstr "Leyenda"
 
 #: starlight/models.py:272
 msgid "Vs. Revue rank"
-msgstr "Rango de VS. Revue"
+msgstr "Rango en VS. Revue"
 
 #: starlight/models.py:291
 msgid "Total stars bought"
@@ -4286,7 +4283,7 @@ msgstr "General"
 
 #: starlight/models.py:725
 msgid "Stage play"
-msgstr ""
+msgstr "Obra de teatro"
 
 #: starlight/models.py:726
 msgid "Additional"
@@ -4298,7 +4295,7 @@ msgstr "Categoría"
 
 #: starlight/models.py:884
 msgid "Basic"
-msgstr "Básico"
+msgstr "Básicos"
 
 #: starlight/models.py:889
 msgid "Climax"
@@ -4306,11 +4303,11 @@ msgstr "Clímax"
 
 #: starlight/models.py:894
 msgid "Auto"
-msgstr "Automático"
+msgstr "Auto"
 
 #: starlight/models.py:899
 msgid "Finishing"
-msgstr ""
+msgstr "Final"
 
 #: starlight/models.py:926 starlight/models.py:930 starlight/models.py:1082
 #: starlight/models.py:1086
@@ -4319,7 +4316,7 @@ msgstr "Consejos"
 
 #: starlight/models.py:942
 msgid "Unlock at rank {rank}"
-msgstr "Desbloquea en rango {rank}"
+msgstr "Desbloquea en el nivel {rank}"
 
 #: starlight/models.py:945
 msgid "Hits {number_of_times} times"
@@ -4327,11 +4324,11 @@ msgstr "Golpea {number_of_times} veces"
 
 #: starlight/models.py:948
 msgid "Front enemy"
-msgstr "Enemigo del frente"
+msgstr "Enemigo frontal"
 
 #: starlight/models.py:949
 msgid "Front group of enemies"
-msgstr "Grupo de enemigos del frente"
+msgstr "Grupo frontal de enemigos"
 
 #: starlight/models.py:950
 msgid "All enemies"
@@ -4339,16 +4336,16 @@ msgstr "Todos los enemigos"
 
 #: starlight/models.py:962
 msgid "After full bound break"
-msgstr ""
+msgstr "Después de completar el Bound Break"
 
 #: starlight/models.py:981
 msgid "AP"
-msgstr "Puntos de acción"
+msgstr "AP"
 
 #: starlight/models.py:1138 starlight/models.py:1144 starlight/models.py:1150
 #: starlight/models.py:1158
 msgid "ACT Power"
-msgstr "Poder Actoral"
+msgstr "ACT Power"
 
 #: starlight/models.py:1139 starlight/models.py:1145 starlight/models.py:1152
 #: starlight/models.py:1160
@@ -4379,7 +4376,7 @@ msgstr "Antitanque"
 
 #: starlight/models.py:1417
 msgid "Assassin"
-msgstr "Asesino"
+msgstr "Asesina"
 
 #: starlight/models.py:1418
 msgid "Attacker"
@@ -4387,31 +4384,31 @@ msgstr "Atacante"
 
 #: starlight/models.py:1419
 msgid "Burn"
-msgstr "Quemar"
+msgstr "Quemadura"
 
 #: starlight/models.py:1420
 msgid "Debuffer"
-msgstr ""
+msgstr "Debilitador"
 
 #: starlight/models.py:1421
 msgid "Defender"
-msgstr "Defensor"
+msgstr "Defensora"
 
 #: starlight/models.py:1422
 msgid "Disabler"
-msgstr "Deshabilitador"
+msgstr "Deshabilitadora"
 
 #: starlight/models.py:1424
 msgid "Nuker"
-msgstr ""
+msgstr "Devastador"
 
 #: starlight/models.py:1426
 msgid "Special defender"
-msgstr "Defensor Especial"
+msgstr "Defensora Especial"
 
 #: starlight/models.py:1427
 msgid "Special defense tank"
-msgstr "Tanque y Defensor Especial"
+msgstr "Tanque de Defensa Especial"
 
 #: starlight/models.py:1429
 msgid "Tank"
@@ -4439,15 +4436,15 @@ msgstr "Película"
 
 #: starlight/settings.py:209
 msgid "Meetups"
-msgstr ""
+msgstr "Reuniones"
 
 #: starlight/models.py:814 starlight/models.py:817
 msgid "Orchestral arrangement"
-msgstr ""
+msgstr "Arreglo orquestal"
 
 #: starlight/settings.py:69
 msgid "\n"
 "Shoujo☆Kageki Revue Starlight (Lit. Girls☆Opera Revue Starlight) is a multi-media project produced by Bushiroad and Nelke Planning. It aims to link the world of anime and musicals together. Besides the anime series and the musical performances, the voice actresses also perform live concerts and various events for fans. The characters from the license also appear in 3 manga series and a mobile game called \"Relive\".\n"
 ""
-msgstr "Shoujo☆Kageki Revue Starlight (Lit. Teatro Estelar, Chicas☆ de la Opera) es un proyecto multimedia producido por Bushiroad y Nelke Planning. Su objetivo es unir el mundo del anime y los musicales. Además del anime y actuaciones musicales, las actrices de voz también realizan conciertos en vivo y varios eventos para los fans. Los personajes de la franquicia también aparecen en tres series de mangas y un juego para móbiles llamado \"ReLive\"."
+msgstr "Shoujo☆Kageki Revue Starlight (Lit. Teatro Estelar, La Ópera☆De las Chicas) es un proyecto multimedia producido por Bushiroad y Nelke Planning. Su objetivo es unir el mundo del anime y los musicales. Además del anime y actuaciones musicales, las actrices de voz también realizan conciertos en vivo y varios eventos para los fans. Los personajes de la franquicia también aparecen en tres series de manga y un juego para dispositivos móviles llamado \"ReLive\"."
 

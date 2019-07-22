@@ -2519,11 +2519,11 @@ msgstr "特典卡片"
 
 #: bang/models.py:430
 msgid "For the next {duration} seconds, score of all notes boosted by +{percentage}%"
-msgstr "{duration}秒内　得分提升{percentage}%"
+msgstr "{duration}秒内 得分提升{percentage}%"
 
 #: bang/models.py:450
 msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
-msgstr "并且{duration}秒内　得分提升{percentage}%"
+msgstr "并且{duration}秒内 得分提升{percentage}%"
 
 #: bang/models.py:461
 msgid "Restores life by {stamina}"
@@ -2539,7 +2539,7 @@ msgstr "所有{note_type}变成PERFECT"
 
 #: bang/models.py:494
 msgid "and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds"
-msgstr "并且{duration}秒内　{note_type}变为PERFECT"
+msgstr "并且{duration}秒内 {note_type}变为PERFECT"
 
 #: bang/models.py:917
 msgid "Prefer untrained card image"
@@ -2752,7 +2752,7 @@ msgstr "已经收集{things}"
 
 #: bang/models.py:432 bang/models.py:463
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%"
-msgstr "{duration} 秒内　所有PERFECT的得分增加{percentage}%"
+msgstr "{duration} 秒内 所有PERFECT的得分增加{percentage}%"
 
 #: bang/magicollections.py:1436 bang/models.py:1895
 msgid "Rare stamp"
@@ -3760,11 +3760,11 @@ msgstr "位置"
 
 #: bang/models.py:433
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%"
-msgstr "{duration}秒内　若生命值高于{stamina}则得分提升{percentage}%　否则得分提升{alt_percentage}%"
+msgstr "{duration}秒内 若生命值高于{stamina}则得分提升{percentage}% 否则得分提升{alt_percentage}%"
 
 #: bang/models.py:464
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}"
-msgstr "{duration}秒内　若生命值高于{stamina}则得分提升{percentage}%　否则生命回复{alt_stamina}"
+msgstr "{duration}秒内 若生命值高于{stamina}则得分提升{percentage}% 否则生命回复{alt_stamina}"
 
 #. Name of a type of events in BanG Dream!
 #: bang/models.py:1023
@@ -3850,9 +3850,8 @@ msgid "B-Side"
 msgstr "B面"
 
 #: sukutomo/models.py:648
-#, fuzzy
 msgid "with SWIPE notes"
-msgstr "与SWIPE键一起"
+msgstr "与上滑键一起"
 
 #: sukutomo/models.py:1439 sukutomo/models.py:1444
 #, fuzzy
@@ -4038,7 +4037,7 @@ msgstr "{total}条通知已经标记为已读"
 #. Skill in BanG Dream!
 #: bang/models.py:434
 msgid "For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr "{duration}秒内　得分提升{percentage}%　直到出现{note_type}得分提升改为{alt_percentage}%"
+msgstr "{duration}秒内 得分提升{percentage}% 直到出现{note_type}得分提升改为{alt_percentage}%"
 
 #: bang/models.py:498
 msgid "Life guard"
@@ -4050,7 +4049,7 @@ msgstr "BAD/MISS不造成伤害"
 
 #: bang/models.py:510
 msgid "and BAD/MISS notes do not cause damage for the next {duration} seconds"
-msgstr "并且{duration}秒内　BAD/MISS不造成伤害"
+msgstr "并且{duration}秒内 BAD/MISS不造成伤害"
 
 #: sukutomo/models.py:1256
 #, fuzzy
@@ -4413,7 +4412,7 @@ msgstr "传奇"
 #: starlight/models.py:272
 #, fuzzy
 msgid "Vs. Revue rank"
-msgstr "Vs. Revue等级"
+msgstr "Vs. Revue排名"
 
 #: starlight/models.py:291
 #, fuzzy
@@ -4637,16 +4636,18 @@ msgid "Movie"
 msgstr "影片"
 
 #: starlight/settings.py:209
+#, fuzzy
 msgid "Meetups"
-msgstr ""
+msgstr "会面"
 
 #: starlight/models.py:814 starlight/models.py:817
+#, fuzzy
 msgid "Orchestral arrangement"
-msgstr ""
+msgstr "管弦乐布局"
 
 #: starlight/settings.py:69
 msgid "\n"
 "Shoujo☆Kageki Revue Starlight (Lit. Girls☆Opera Revue Starlight) is a multi-media project produced by Bushiroad and Nelke Planning. It aims to link the world of anime and musicals together. Besides the anime series and the musical performances, the voice actresses also perform live concerts and various events for fans. The characters from the license also appear in 3 manga series and a mobile game called \"Relive\".\n"
 ""
-msgstr ""
+msgstr "《少女☆歌剧 Revue Starlight》是一个由Bushiroad和Nelke Planning共同企划的跨媒体作品。该作品意欲将动画的世界与音乐剧串联起来。在系列动画作品及音乐表演之外，声优同样在音乐会现场和各类线下粉丝活动中进行表演。授权角色也在3个系列漫画及手机游戏中登场。"
 

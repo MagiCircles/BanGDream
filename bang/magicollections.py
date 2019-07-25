@@ -501,7 +501,6 @@ def to_CollectibleCardCollection(cls):
             },
         })
 
-
         fields_icons = {
             'trained': 'idolized',
             'max_leveled': 'max-level',
@@ -946,6 +945,8 @@ class CardCollection(MagiCollection):
         ajax_pagination_callback = 'loadCardInList'
         filter_cuteform = CARD_CUTEFORM
 
+        quick_add_view = 'icons'
+
         alt_views = MagiCollection.ListView.alt_views + [
             ('icons', { 'verbose_name': string_concat(_('Icons'), ' (', _('Quick add'), ')') }),
             ('statistics', {
@@ -1149,6 +1150,7 @@ def to_EventParticipationCollection(cls):
                 return queryset
 
             def extra_context(self, context):
+                super(_EventParticipationCollection.ListView, self).extra_context(context)
                 if context['view'] == 'leaderboard':
                     context['show_relevant_fields_on_ordering'] = False
 

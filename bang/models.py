@@ -1907,8 +1907,7 @@ class Asset(MagiModel):
                 name=u'{dash}{name}{value}'.format(
                     dash=u' - ' if _a.event or _a.song else '',
                     name=_a.t_name if _a.name else '',
-                    value=u' {value}'.format(value=_a.value) if _a.value and _a.name else (
-                        _a.value if _a.value else ''),
+                    value=_a.formatted_title_value,
                 ) if _a.name or _a.value else '',
             ),
         }),
@@ -2017,6 +2016,20 @@ class Asset(MagiModel):
                 self.request.GET['i_version'],
             )
         return item_url
+    
+    @property
+    def formatted_title_value(self):
+        if not self.value:
+            return ''
+        
+        fmt = u'{space}#{value}'
+        # Currently 1-3 get unique titles but we might as well make it 10.
+        if self.event and self.value >= 10:
+            # Both JP/EN/(TW?) use "top" literally so we don't need
+            # to localize this.
+            fmt = u'{space}TOP {value}'
+        return fmt.format(space=' ' if self.name else '',
+            value=self.value)
 
     def __unicode__(self):
         return unicode(self.to_unicode(self))

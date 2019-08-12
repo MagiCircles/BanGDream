@@ -729,11 +729,31 @@ class CardCollection(MagiCollection):
         setSubField(fields, 'rarity', key='value', value=lambda f: rarity_to_stars_images(item.i_rarity))
         return fields
 
-    def buttons_per_item(self, view, *args, **kwargs):
-        buttons = super(CardCollection, self).buttons_per_item(view, *args, **kwargs)
+    def buttons_per_item(self, view, request, context, item):
+        buttons = super(CardCollection, self).buttons_per_item(view, request, context, item)
         if 'favoritecard' in buttons:
             if view.view == 'list_view':
                 buttons['favoritecard']['icon'] = 'star'
+
+        if request.user.is_authenticated() and request.user.hasPermission('manage_main_items'):
+            for field in ['art', 'art_trained'] if item.trainable else ['transparent', 'transparent_trained']:
+                if getattr(item, field):
+                    buttons[u'preview_{}'.format(field)] = {
+                        'classes': self.item_buttons_classes + ['staff-only'],
+                        'show': True,
+                        'url': (
+                            u'/?foreground_preview={}'.format(
+                                getattr(item, u'{}_url'.format(field)))
+                            if not item.trainable or (not item.art and not item.art_trained)
+                            else u'/?preview={}'.format(
+                                    getattr(item, u'{}_2x_url'.format(field))
+                                    or getattr(item, u'{}_original_url'.format(field)))
+                        ),
+                        'icon': 'link',
+                        'title': u'Preview {} on homepage'.format(field.replace('_', ' ')),
+                        'has_permissions': True,
+                        'open_in_new_window': True,
+                    }
         return buttons
 
     class ItemView(MagiCollection.ItemView):
@@ -912,29 +932,6 @@ class CardCollection(MagiCollection):
             if not item.is_original and 'is_original' in fields:
                 del(fields['is_original'])
             return fields
-
-        def buttons_per_item(self, request, context, item):
-            buttons = super(CardCollection.ItemView, self).buttons_per_item(request, context, item)
-            if request.user.is_authenticated() and request.user.hasPermission('manage_main_items'):
-                for field in ['art', 'art_trained'] if item.trainable else ['transparent', 'transparent_trained']:
-                    if getattr(item, field):
-                        buttons[u'preview_{}'.format(field)] = {
-                            'classes': self.item_buttons_classes + ['staff-only'],
-                            'show': True,
-                            'url': (
-                                u'/?foreground_preview={}'.format(
-                                    getattr(item, u'{}_url'.format(field)))
-                                if not item.trainable or (not item.art and not item.art_trained)
-                                else u'/?preview={}'.format(
-                                        getattr(item, u'{}_2x_url'.format(field))
-                                        or getattr(item, u'{}_original_url'.format(field)))
-                            ),
-                            'icon': 'link',
-                            'title': u'Preview {} on homepage'.format(field.replace('_', ' ')),
-                            'has_permissions': True,
-                            'open_in_new_window': True,
-                        }
-            return buttons
 
     class ListView(MagiCollection.ListView):
         item_template = custom_item_template

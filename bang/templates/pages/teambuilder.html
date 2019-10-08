@@ -1,24 +1,9 @@
-{% extends "sidebar.html" %}
-{% load bootstrap %}
 {% load i18n %}
 {% load tools %}
-{% block sidebar %}
-<form class="form-horizontal" method="GET" id="teambuilder-form">
-  <div class="padded-inner-sidebar">
-    {{ filter_form|bootstrap }}
-    <br>
-  </div>
-  <div class="sticky-buttons"><button type="submit" name="build" class="btn btn-lg btn-secondary btn-block" data-form-loader="true">
-      <i class="flaticon-users"></i> {% t 'Build team' %}</button>
-  </div>
-</form>
-{% endblock %}
 
-{% block sidebar_content %}
-<h1 class="padding50 text-center">{{ page_title }}</h1>
 {% if hide_side_bar %}
 <form method="GET" class="container_form generic-form" id="teambuilder-form">
-  {% include "bootstrap_form_horizontal.html" with form=filter_form wrap=0 %}
+  {% include "bootstrap_form_horizontal/bootstrap_form_horizontal.html" with form=filter_form wrap=0 %}
   <div class="pull-right">
     <a href="/wiki/Team%20builder/" target="_blank" class="btn btn-link btn-lg">
       {{ learn_more_sentence }}
@@ -42,4 +27,3 @@
   </a>
 </div>
 {% endif %}
-{% endblock %}

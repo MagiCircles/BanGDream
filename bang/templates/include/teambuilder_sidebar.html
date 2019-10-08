@@ -1,0 +1,11 @@
+{% load bootstrap %}
+{% load tools %}
+<form class="form-horizontal" method="GET" id="teambuilder-form">
+  <div class="padded-inner-sidebar">
+    {{ filter_form|bootstrap }}
+    <br>
+  </div>
+  <div class="sticky-buttons"><button type="submit" name="build" class="btn btn-lg btn-secondary btn-block" data-form-loader="true">
+      <i class="flaticon-users"></i> {% t 'Build team' %}</button>
+  </div>
+</form>

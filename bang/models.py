@@ -1876,6 +1876,7 @@ class Asset(MagiModel):
     VARIABLES = ['name', 'i_band', 'members', 'c_tags', 'event', 'value', 'source', 'source_link', 'song']
 
     TYPES = OrderedDict([
+        # Keys can't contain a dash
         ('comic', {
             'translation': _('Comics'),
             'variables': ['name', 'i_band', 'members', 'value'],
@@ -2023,12 +2024,12 @@ class Asset(MagiModel):
                 self.request.GET['i_version'],
             )
         return item_url
-    
+
     @property
     def formatted_title_value(self):
         if not self.value:
             return ''
-        
+
         fmt = u'{space}#{value}'
         # Currently 1-3 get unique titles but we might as well make it 10.
         if self.event and self.value >= 10:

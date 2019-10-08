@@ -1125,7 +1125,6 @@ class AssetFilterForm(MagiFiltersForm):
     search_fields = ('name', 'd_names', 'c_tags', 'source', 'source_link')
     search_fields_labels = {'source_link': ''}
 
-    show_presets_in_navbar = False
     presets = OrderedDict([
         (u'{}-{}'.format(_type, _band_name), {
             'verbose_name': _band_name,

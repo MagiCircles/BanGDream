@@ -236,7 +236,7 @@ ENABLED_PAGES['wiki'][1]['enabled'] = True
 ENABLED_PAGES['wiki'][0]['divider_before'] = True
 ENABLED_PAGES['wiki'][0]['navbar_link_list'] = 'girlsbandparty'
 
-ENABLED_PAGES['map']['custom'] = True
+ENABLED_PAGES['map']['share_image'] = 'screenshots/map.png'
 ENABLED_PAGES['map']['navbar_link_list'] = 'community'
 
 ENABLED_PAGES['settings']['custom'] = True
@@ -270,6 +270,9 @@ ENABLED_PAGES['teambuilder'] = {
     'title': _('Team builder'),
     'icon': 'settings',
     'navbar_link': False,
+    'authentication_required': True,
+    'as_sidebar': True,
+    'show_title': True,
     #'navbar_link_list': 'girlsbandparty',
 }
 
@@ -277,10 +280,13 @@ ENABLED_PAGES['gallery'] = {
     'title': _('Gallery'),
     'icon': 'pictures',
     'navbar_link_list': 'girlsbandparty',
+    'page_description': lambda: u'{} - {}'.format(_('Gallery of {license} images').format(
+        license=unicode(GAME_NAME)), u', '.join(
+            [unicode(_d['translation']) for _d in models.Asset.TYPES.values()])),
 }
 
 ENABLED_PAGES['officialart'] = {
-    'title': _('Official art'),
+    'title': lambda _c: _('{things} list').format(things=_('Official art')),
     'icon': 'pictures',
     'navbar_link_list': 'bangdream',
     'redirect': '/assets/officialart/',
@@ -288,7 +294,7 @@ ENABLED_PAGES['officialart'] = {
 }
 
 ENABLED_PAGES['comics'] = {
-    'title': _('Comics'),
+    'title': lambda _c: _('{things} list').format(things=_('Comics')),
     'icon': 'album',
     'navbar_link_list': 'bangdream',
     'redirect': '/assets/comic/',
@@ -318,7 +324,7 @@ ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
     'order': [
         'card_list', 'cards_quickadd', 'costume_list',
         'event_list', 'gacha_list',
-        'item_list', 'areaitem_list',
+        'item_list', 'area_list',
         'wiki', 'gallery', 'teambuilder',
     ],
 }

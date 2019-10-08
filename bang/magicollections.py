@@ -29,7 +29,6 @@ from magi.utils import (
     custom_item_template,
     staticImageURL,
     justReturn,
-    jsv,
     toCountDown,
     translationURL,
     AttrDict,
@@ -314,7 +313,6 @@ class MemberCollection(MagiCollection):
     queryset = models.Member.objects.all()
     title = _('Member')
     plural_title = _('Members')
-    navbar_link_title = _('Characters')
     icon = 'idol'
     navbar_link_list = 'bangdream'
     translated_fields = ('name',  'school', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description', )
@@ -391,6 +389,9 @@ class MemberCollection(MagiCollection):
         per_line = 5
         page_size = 25
         default_ordering = 'id'
+
+        def get_page_title(self):
+            return _('{things} list').format(things=_('Characters'))
 
     class ItemView(MagiCollection.ItemView):
         def get_queryset(self, queryset, parameters, request):
@@ -1049,11 +1050,11 @@ class CardCollection(MagiCollection):
     def _extra_context_for_form(self, context):
         if 'js_variables' not in context:
             context['js_variables'] = {}
-        context['js_variables']['all_variables'] = jsv(models.Card.ALL_VARIABLES)
-        context['js_variables']['variables_per_skill_type'] = jsv(models.Card.VARIABLES_PER_SKILL_TYPES)
-        context['js_variables']['special_cases_variables'] = jsv(models.Card.SPECIAL_CASES_VARIABLES)
-        context['js_variables']['template_per_skill_type'] = jsv(models.Card.TEMPLATE_PER_SKILL_TYPES)
-        context['js_variables']['special_cases_template'] = jsv(models.Card.SPECIAL_CASES_TEMPLATE)
+        context['js_variables']['all_variables'] = models.Card.ALL_VARIABLES
+        context['js_variables']['variables_per_skill_type'] = models.Card.VARIABLES_PER_SKILL_TYPES
+        context['js_variables']['special_cases_variables'] = models.Card.SPECIAL_CASES_VARIABLES
+        context['js_variables']['template_per_skill_type'] = models.Card.TEMPLATE_PER_SKILL_TYPES
+        context['js_variables']['special_cases_template'] = models.Card.SPECIAL_CASES_TEMPLATE
 
     class AddView(MagiCollection.AddView):
         staff_required = True
@@ -1135,6 +1136,8 @@ def to_EventParticipationCollection(cls):
                     'template': 'eventParticipationLeaderboard',
                     'per_line': 1,
                     'full_width': True,
+                    'hide_in_filter': True,
+                    'hide_in_navbar': True,
                 }),
             ]
 
@@ -1299,15 +1302,15 @@ class EventCollection(MagiCollection):
         def extra_context(self, context):
             if 'js_variables' not in context:
                 context['js_variables'] = {}
-            context['js_variables']['versions_prefixes'] = jsv(models.Account.VERSIONS_PREFIXES)
+            context['js_variables']['versions_prefixes'] = models.Account.VERSIONS_PREFIXES
 
             if hasattr(context['request'], 'fields_per_version'):
-                context['js_variables']['fields_per_version'] = jsv(
+                context['js_variables']['fields_per_version'] = (
                     models.Event.FIELDS_PER_VERSION
                     + context['request'].fields_per_version
                 )
             else:
-                context['js_variables']['fields_per_version'] = jsv(models.Event.FIELDS_PER_VERSION)
+                context['js_variables']['fields_per_version'] = models.Event.FIELDS_PER_VERSION
 
         def to_fields(self, item, order=None, extra_fields=None, exclude_fields=None, request=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
@@ -1460,9 +1463,7 @@ class EventCollection(MagiCollection):
                         'icon': 'leaderboard',
                         'verbose_name': _('Leaderboard'),
                         'type': 'button',
-                        'link_text': mark_safe(u'<i class="flaticon-leaderboard"></i> {}'.format(
-                            _('Open {thing}').format(thing=_('Leaderboard').lower()),
-                        )),
+                        'link_text': _('Open {thing}').format(thing=_('Leaderboard').lower()),
                         'value': u'/eventparticipations/?event={}&view=leaderboard&ordering=ranking&i_version={}'.format(item.id, i_version),
                         'ajax_link': u'/ajax/eventparticipations/?event={}&view=leaderboard&ordering=ranking&i_version={}&ajax_modal_only'.format(item.id, i_version),
                         'title': u'{} - {}'.format(unicode(item), _('Leaderboard')),
@@ -1662,8 +1663,8 @@ class GachaCollection(MagiCollection):
         def extra_context(self, context):
             if 'js_variables' not in context:
                 context['js_variables'] = {}
-            context['js_variables']['versions_prefixes'] = jsv(models.Account.VERSIONS_PREFIXES)
-            context['js_variables']['fields_per_version'] = jsv(models.Gacha.FIELDS_PER_VERSION)
+            context['js_variables']['versions_prefixes'] = models.Account.VERSIONS_PREFIXES
+            context['js_variables']['fields_per_version'] = models.Gacha.FIELDS_PER_VERSION
 
         def to_fields(self, item, extra_fields=None, exclude_fields=None, order=None, request=None, *args, **kwargs):
             if extra_fields is None: extra_fields = []
@@ -1925,8 +1926,7 @@ def to_PlayedSongCollection(cls):
                 return []
 
             def extra_context(self, context):
-                if context['view'] == 'quick_edit':
-                    context['include_below_item'] = False
+                super(_PlayedSongCollection.ListView, self).extra_context(context)
                 if context['view'] == 'leaderboard':
                     context['include_below_item'] = False
                     context['show_relevant_fields_on_ordering'] = False
@@ -2227,8 +2227,15 @@ class ItemCollection(MagiCollection):
             buttons['collectibleitem']['title'] = _(u'Edit your {thing}').format(thing=unicode(item).lower())
         return buttons
 
+    def get_title_prefixes(self, request, context):
+        title_prefixes = super(ItemCollection, self).get_title_prefixes(request, context)
+        title_prefixes.append({
+            'title': _('Gallery'),
+            'url': '/gallery/',
+        })
+        return title_prefixes
+
     class ListView(MagiCollection.ListView):
-        before_template = 'include/galleryBackButtons'
         ajax_item_popover = True
         per_line = 4
         default_ordering = 'id'
@@ -2265,8 +2272,17 @@ class AreaCollection(MagiCollection):
     queryset = models.Area.objects.all()
     translated_fields = ('name', )
     icon = 'world'
-    navbar_link = False
+    navbar_link_list = 'girlsbandparty'
+    navbar_link_title = property(lambda _s: _('{things} list').format(things=_('Area items')))
     reportable = False
+
+    def get_title_prefixes(self, request, context):
+        title_prefixes = super(AreaCollection, self).get_title_prefixes(request, context)
+        title_prefixes.append({
+            'title': _('Gallery'),
+            'url': '/gallery/',
+        })
+        return title_prefixes
 
     class ListView(MagiCollection.ListView):
         before_template = 'include/beforeAreas'
@@ -2274,10 +2290,12 @@ class AreaCollection(MagiCollection):
         per_line = 3
         item_template = custom_item_template
 
+        def get_page_title(self):
+            return _('{things} list').format(things=_('Area items'))
+
         def extra_context(self, context):
             super(AreaCollection.ListView, self).extra_context(context)
-            context['area_items_sentence'] = _('See all')
-            context['gallery_sentence'] = _('Gallery')
+            context['area_items_sentence'] = _('View all')
 
     class ItemView(MagiCollection.ItemView):
         enabled = False
@@ -2381,7 +2399,7 @@ class AreaItemCollection(MagiCollection):
     queryset = models.AreaItem.objects.all()
     translated_fields = ('name', 'about')
     icon = 'town'
-    navbar_link_list = 'girlsbandparty'
+    navbar_link = False
     filter_cuteform = AREA_ITEM_CUTEFORM
     reportable = False
 
@@ -2391,11 +2409,33 @@ class AreaItemCollection(MagiCollection):
         cls = super(AreaItemCollection, self).collectible_to_class(model_class)
         return to_CollectibleAreaItemCollection(cls)
 
+    def get_title_prefixes(self, request, context):
+        title_prefixes = super(AreaItemCollection, self).get_title_prefixes(request, context)
+        title_prefixes += [
+            {
+                'title': _('Girls Band Party'),
+                'url': '/girlsbandparty/',
+            },
+            {
+                'title': _('Gallery'),
+                'url': '/gallery/',
+            },
+            {
+                'title': _('{things} list').format(things=_('Area items')),
+                'url': '/areas/',
+            },
+        ]
+        return title_prefixes
+
     class ListView(MagiCollection.ListView):
         filter_form = forms.AreaItemFilterForm
         ajax_item_popover = True
-        before_template = 'include/galleryBackButtons'
         item_template = custom_item_template
+
+        def get_h1_title(self, *args, **kwargs):
+            title_prefixes, h1 = super(AreaItemCollection.ListView, self).get_h1_title(*args, **kwargs)
+            h1['title'] = _('View all')
+            return title_prefixes, h1
 
         def extra_context(self, context):
             super(AreaItemCollection.ListView, self).extra_context(context)
@@ -2404,6 +2444,13 @@ class AreaItemCollection(MagiCollection):
     class ItemView(MagiCollection.ItemView):
         comments_enabled = False
         share_enabled = False
+
+        def get_h1_title(self, request, context, *args, **kwargs):
+            title_prefixes, h1 = super(AreaItemCollection.ItemView, self).get_h1_title(
+                request, context, *args, **kwargs)
+            # Avoid adding link to list of all items, encourage to go back to area list
+            title_prefixes = self.collection.get_title_prefixes(request, context)
+            return title_prefixes, h1
 
         def to_fields(self, item, *args, **kwargs):
             fields = []
@@ -2610,6 +2657,25 @@ class AssetCollection(MagiCollection):
                 value=item.names.get(models.VERSIONS_TO_LANGUAGES.get(version_name, None), item.name))
         return fields
 
+    def _get_title_prefixes_based_on_item_type(self, type=None):
+        if type in ['comic', 'officialart']:
+            return [
+                {
+                    'title': _('BanG Dream!'),
+                    'url': '/bangdream/',
+                },
+            ]
+        return [
+            {
+                'title': _('Girls Band Party'),
+                'url': '/girlsbandparty/',
+            },
+            {
+                'title': _('Gallery'),
+                'url': '/gallery/',
+            },
+        ]
+
     class ItemView(MagiCollection.ItemView):
         def to_fields(self, item, extra_fields=None, preselected=None, *args, **kwargs):
             if not extra_fields: extra_fields = []
@@ -2631,8 +2697,17 @@ class AssetCollection(MagiCollection):
                 item, *args, extra_fields=extra_fields, preselected=preselected, **kwargs)
             return fields
 
+        def get_h1_title(self, request, context, item):
+            _unused_title_prefixes, h1 = super(AssetCollection.ItemView, self).get_h1_title(
+                request, context, item)
+            title_prefixes = self.collection._get_title_prefixes_based_on_item_type(type=item.type)
+            title_prefixes.append({
+                'title': _('{things} list').format(things=item.t_type),
+                'url': self.collection.get_list_url(preset=item.type),
+            })
+            return title_prefixes, h1
+
     class ListView(MagiCollection.ListView):
-        before_template = 'include/galleryBackButtons'
         filter_form = forms.AssetFilterForm
         filter_cuteform = ASSET_CUTEFORM_LIST
         per_line = 5
@@ -2655,9 +2730,30 @@ class AssetCollection(MagiCollection):
                 ])
             return buttons
 
-        def extra_context(self, context):
-            super(AssetCollection.ListView, self).extra_context(context)
-            context['show_title'] = False
+        def get_h1_title(self, request, context, view=None, preset=None):
+            _unused_title_prefixes, h1 = super(AssetCollection.ListView, self).get_h1_title(
+                request, context, view=view, preset=preset)
+
+            preset = context['request'].GET.get('i_type', None) or preset
+
+            if preset:
+                type = preset.split('-')[0] if '-' in preset else preset
+                i_type = models.Asset.get_i('type', type)
+                title_prefixes = self.collection._get_title_prefixes_based_on_item_type(type)
+                type_title = _('{things} list').format(things=models.Asset.get_verbose_i('type', i_type))
+
+                if '-' in preset:
+                    title_prefixes.append({
+                        'title': type_title,
+                        'url': self.collection.get_list_url(preset=type),
+                    })
+                else:
+                    h1['title'] = type_title
+
+            else:
+                title_prefixes = self.collection._get_title_prefixes_based_on_item_type(type=None)
+
+            return title_prefixes, h1
 
     class AddView(MagiCollection.AddView):
         staff_required = True

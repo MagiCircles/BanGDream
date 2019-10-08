@@ -3,8 +3,6 @@ from django.utils.safestring import mark_safe
 from django.shortcuts import render, redirect
 from django.conf import settings as django_settings
 from magi.utils import (
-    getGlobalContext,
-    ajaxContext,
     redirectWhenNotAuthenticated,
     cuteFormFieldsForContext,
     CuteFormTransform,
@@ -13,7 +11,7 @@ from magi.utils import (
     staticImageURL,
 )
 from magi.item_model import get_image_url_from_path
-from magi.views import indexExtraContext, mapDefaultContext, settingsContext
+from magi.views import settings as magi_settings
 from bang.magicollections import CardCollection
 from bang.forms import TeamBuilderForm
 from bang import models
@@ -21,13 +19,8 @@ from bang import models
 ############################################################
 # Default MagiCircles Views
 
-def map(request):
-    context = mapDefaultContext(request)
-    context['share_image'] = staticImageURL('screenshots/map.png')
-    return render(request, 'pages/map.html', context)
-
-def settings(request):
-    context = settingsContext(request)
+def settings(request, context):
+    magi_settings(request, context)
     cuteFormFieldsForContext({
         'd_extra-i_favorite_band': {
             'image_folder': 'band',
@@ -39,18 +32,11 @@ def settings(request):
             },
         },
     }, context, context['forms']['preferences'])
-    return render(request, 'pages/settings.html', context)
 
 ############################################################
 # Assets
 
-def gallery(request):
-    ajax = request.path_info.startswith('/ajax/')
-    context = ajaxContext(request) if ajax else getGlobalContext(request)
-    context['ajax'] = ajax
-    context['extends'] = 'base.html' if not context['ajax'] else 'ajax.html'
-    context['page_title'] = _('Gallery')
-
+def gallery(request, context):
     context['categories'] = [
         {
             'title': details['translation'],
@@ -73,8 +59,6 @@ def gallery(request):
         },
     ]
 
-    return render(request, 'pages/gallery.html', context)
-
 ############################################################
 # Team builder
 
@@ -84,14 +68,9 @@ SKILL_TYPE_TO_MAIN_VALUE = {
     '3': '5 - i_skill_note_type', # perfect lock, BAD = 1, GOOD = 2, GREAT = 3
 }
 
-def teambuilder(request):
-    context = getGlobalContext(request)
-
-    redirectWhenNotAuthenticated(request, context, next_title=_('Team builder'))
-    context['page_title'] = _('Team builder')
+def teambuilder(request, context):
     context['side_bar_no_padding'] = True
     context['learn_more_sentence'] = _('Learn more')
-    context['no_container'] = True
     context['js_files'] = ['teambuilder']
 
     if len(request.GET) > 0:
@@ -154,6 +133,7 @@ def teambuilder(request):
                     break
 
             context['team'] = team
+            context['no_container'] = True
         else:
             context['hide_side_bar'] = True
     else:
@@ -180,4 +160,3 @@ def teambuilder(request):
     }, context, form=form, prefix='#teambuilder-form ')
 
     context['filter_form'] = form
-    return render(request, 'pages/teambuilder.html', context)

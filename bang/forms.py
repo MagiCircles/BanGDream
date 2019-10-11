@@ -1212,7 +1212,7 @@ class AssetFilterForm(MagiFiltersForm):
             self.selected_type = self.preset.split('-')[0] if self.preset else None
         # Make sure the form always uses presets URLs
         if self.selected_type:
-            self.action = self.collection.get_list_url(preset=self.selected_type)
+            self.action_url = self.collection.get_list_url(preset=self.selected_type)
         # Show only variables that match type
         if self.selected_type in models.Asset.TYPES:
             for variable in models.Asset.VARIABLES:

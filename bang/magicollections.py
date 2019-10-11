@@ -2734,7 +2734,9 @@ class AssetCollection(MagiCollection):
             _unused_title_prefixes, h1 = super(AssetCollection.ListView, self).get_h1_title(
                 request, context, view=view, preset=preset)
 
-            preset = context['request'].GET.get('i_type', None) or preset
+            i_type = context['request'].GET.get('i_type', None)
+            if i_type:
+                preset = models.Asset.get_reverse_i('type', int(i_type))
 
             if preset:
                 type = preset.split('-')[0] if '-' in preset else preset

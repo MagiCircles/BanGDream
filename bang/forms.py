@@ -1005,7 +1005,7 @@ class AreaItemFilterForm(MagiFiltersForm):
 # Item form
 
 class ItemFilterForm(MagiFiltersForm):
-    search_fields = ('name', 'm_description', 'd_names', 'd_m_descriptions')
+    search_fields = ['name', 'm_description', 'd_names', 'd_m_descriptions']
 
     class Meta(MagiFiltersForm.Meta):
         model = models.Item
@@ -1122,7 +1122,7 @@ def _get_asset_preset_label(type, things):
         type=type, things=things.lower(),
     )
 class AssetFilterForm(MagiFiltersForm):
-    search_fields = ('name', 'd_names', 'c_tags', 'source', 'source_link')
+    search_fields = ['name', 'd_names', 'c_tags', 'source', 'source_link']
     search_fields_labels = {'source_link': ''}
 
     presets = OrderedDict([

@@ -205,7 +205,7 @@ GLOBAL_OUTSIDE_PERMISSIONS['Google+ Bandori Party group'] = 'https://plus.google
 ############################################################
 # Technical settings
 
-SITE_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//bandori.party/'
+SITE_URL = 'http://localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else 'https://bandori.party/'
 SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
 
 GET_GLOBAL_CONTEXT = bangGlobalContext

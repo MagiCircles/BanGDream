@@ -10,7 +10,7 @@ from django.utils.safestring import mark_safe
 from django.db.models import Prefetch, Q
 from django.db.models.fields import BLANK_CHOICE_DASH
 from magi.magicollections import (
-    MagiCollection,
+    MainItemCollection,
     AccountCollection as _AccountCollection,
     ActivityCollection as _ActivityCollection,
     BadgeCollection as _BadgeCollection,
@@ -24,7 +24,6 @@ from magi.utils import (
     CuteFormType,
     CuteFormTransform,
     FAVORITE_CHARACTERS_IMAGES,
-    getMagiCollection,
     torfc2822,
     custom_item_template,
     staticImageURL,
@@ -309,7 +308,7 @@ MEMBERS_ICONS = {
     'comics': 'album',
 }
 
-class MemberCollection(MagiCollection):
+class MemberCollection(MainItemCollection):
     queryset = models.Member.objects.all()
     title = _('Member')
     plural_title = _('Members')
@@ -317,12 +316,7 @@ class MemberCollection(MagiCollection):
     navbar_link_list = 'bangdream'
     translated_fields = ('name',  'school', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description', )
 
-    reportable = False
-    blockable = False
-
     form_class = forms.MemberForm
-
-    share_image = justReturn('screenshots/members.png')
 
     def to_fields(self, view, item, extra_fields=None, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
@@ -383,7 +377,7 @@ class MemberCollection(MagiCollection):
         'i_astrological_sign': {},
     }
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         item_template = custom_item_template
         filter_form = forms.MemberFilterForm
         per_line = 5
@@ -393,7 +387,7 @@ class MemberCollection(MagiCollection):
         def get_page_title(self):
             return _('{things} list').format(things=_('Characters'))
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         def get_queryset(self, queryset, parameters, request):
             queryset = super(MemberCollection.ItemView, self).get_queryset(queryset, parameters, request)
             queryset = queryset.prefetch_related(
@@ -434,15 +428,6 @@ class MemberCollection(MagiCollection):
                         )
 
             return fields
-
-    class AddView(MagiCollection.AddView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-
-    class EditView(MagiCollection.EditView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-        allow_delete = True
 
 ############################################################
 # Favorite Card Collection
@@ -683,7 +668,7 @@ CARDS_EXCLUDE = [
     'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
 ]
 
-class CardCollection(MagiCollection):
+class CardCollection(MainItemCollection):
     queryset = models.Card.objects.all()
     title = _('Card')
     plural_title = _('Cards')
@@ -691,8 +676,6 @@ class CardCollection(MagiCollection):
     navbar_link_list = 'girlsbandparty'
 
     form_class = forms.CardForm
-    reportable = False
-    blockable = False
     translated_fields = ('name', 'skill_name', )
     show_collect_total = {
         'collectiblecard': False,
@@ -716,8 +699,6 @@ class CardCollection(MagiCollection):
         if model_class.collection_name == 'favoritecard':
             return to_FavoriteCardCollection(cls)
         return to_CollectibleCardCollection(cls)
-
-    share_image = justReturn('screenshots/cards.png')
 
     def to_fields(self, view, item, *args, **kwargs):
         fields = super(CardCollection, self).to_fields(view, item, *args, icons=CARDS_ICONS, images={
@@ -757,7 +738,7 @@ class CardCollection(MagiCollection):
                     }
         return buttons
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
 
@@ -934,7 +915,7 @@ class CardCollection(MagiCollection):
                 del(fields['is_original'])
             return fields
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         item_template = custom_item_template
         per_line = 2
         page_size = 12
@@ -945,7 +926,7 @@ class CardCollection(MagiCollection):
 
         quick_add_view = 'icons'
 
-        alt_views = MagiCollection.ListView.alt_views + [
+        alt_views = MainItemCollection.ListView.alt_views + [
             ('icons', { 'verbose_name': string_concat(_('Icons'), ' (', _('Quick add'), ')') }),
             ('statistics', {
                 'verbose_name': _('Statistics'),
@@ -1056,20 +1037,15 @@ class CardCollection(MagiCollection):
         context['js_variables']['template_per_skill_type'] = models.Card.TEMPLATE_PER_SKILL_TYPES
         context['js_variables']['special_cases_template'] = models.Card.SPECIAL_CASES_TEMPLATE
 
-    class AddView(MagiCollection.AddView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
+    class AddView(MainItemCollection.AddView):
         ajax_callback = 'loadCardForm'
 
         def extra_context(self, context):
             super(CardCollection.AddView, self).extra_context(context)
             self.collection._extra_context_for_form(context)
 
-    class EditView(MagiCollection.EditView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
+    class EditView(MainItemCollection.EditView):
         ajax_callback = 'loadCardForm'
-        allow_delete = True
         filter_cuteform = CARD_CUTEFORM_EDIT
 
         def extra_context(self, context):
@@ -1223,14 +1199,12 @@ EVENT_LIST_ITEM_CUTEFORM['status'] = {
     'type': CuteFormType.HTML,
 }
 
-class EventCollection(MagiCollection):
+class EventCollection(MainItemCollection):
     queryset = models.Event.objects.all()
     title = _('Event')
     plural_title = _('Events')
     icon = 'event'
     form_class = forms.EventForm
-    reportable = False
-    blockable = False
     translated_fields = ('name', )
     navbar_link_list = 'girlsbandparty'
 
@@ -1239,6 +1213,7 @@ class EventCollection(MagiCollection):
     collectible = models.EventParticipation
 
     share_image = justReturn('screenshots/events.png')
+    auto_share_image = False
 
     def collectible_to_class(self, model_class):
         cls = super(EventCollection, self).collectible_to_class(model_class)
@@ -1274,7 +1249,7 @@ class EventCollection(MagiCollection):
 
         return fields
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         per_line = 2
         default_ordering = '-start_date'
         ajax_callback = 'loadEventInList'
@@ -1283,7 +1258,7 @@ class EventCollection(MagiCollection):
             'eventparticipation': False,
         }
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         template = 'default'
         ajax_callback = 'loadEventGacha'
 
@@ -1515,9 +1490,7 @@ class EventCollection(MagiCollection):
             previous_secondary_card.force_update_cache('events')
         return instance
 
-    class AddView(MagiCollection.AddView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
+    class AddView(MainItemCollection.AddView):
         savem2m = True
         filter_cuteform = EVENT_CUTEFORM
         ajax_callback = 'loadEventForm'
@@ -1526,12 +1499,9 @@ class EventCollection(MagiCollection):
             instance = super(EventCollection.AddView, self).after_save(request, instance, type=type)
             return self.collection._after_save(request, instance)
 
-    class EditView(MagiCollection.EditView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
+    class EditView(MainItemCollection.EditView):
         savem2m = True
         filter_cuteform = EVENT_CUTEFORM
-        allow_delete = True
         ajax_callback = 'loadEventForm'
 
         def after_save(self, request, instance, type=None):
@@ -1561,7 +1531,7 @@ GACHA_ITEM_FIELDS_ORDER = [
  'attribute', 'cards',
 ]
 
-class GachaCollection(MagiCollection):
+class GachaCollection(MainItemCollection):
     queryset = models.Gacha.objects.all()
     icon = 'scout-box'
     title = _('Gacha')
@@ -1569,8 +1539,6 @@ class GachaCollection(MagiCollection):
     form_class = forms.GachaForm
     navbar_link_list = 'girlsbandparty'
     navbar_link_list_divider_after = True
-    reportable = False
-    blockable = False
     translated_fields = ('name', )
 
     _gacha_type_to_cuteform = {
@@ -1614,6 +1582,7 @@ class GachaCollection(MagiCollection):
     }
 
     share_image = justReturn('screenshots/gachas.png')
+    auto_share_image = False
 
     def to_fields(self, view, item, in_list=False, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
@@ -1648,7 +1617,7 @@ class GachaCollection(MagiCollection):
 
         return fields
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         template = 'default'
         ajax_callback = 'loadEventGacha'
 
@@ -1741,7 +1710,7 @@ class GachaCollection(MagiCollection):
             buttons = add_rerun_buttons(self, buttons, request, item)
             return buttons
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         default_ordering = '-start_date'
         per_line = 2
         filter_form = forms.GachaFilterForm
@@ -1752,19 +1721,14 @@ class GachaCollection(MagiCollection):
             card.force_update_cache('gachas')
         return instance
 
-    class AddView(MagiCollection.AddView):
+    class AddView(MainItemCollection.AddView):
         savem2m = True
-        staff_required = True
-        permissions_required = ['manage_main_items']
 
         def after_save(self, request, instance, type=None):
             return self.collection._after_save(request, instance)
 
-    class EditView(MagiCollection.EditView):
+    class EditView(MainItemCollection.EditView):
         savem2m = True
-        staff_required = True
-        permissions_required = ['manage_main_items']
-        allow_delete = True
 
         def after_save(self, request, instance):
             return self.collection._after_save(request, instance)
@@ -1780,18 +1744,16 @@ RERUN_CUTEFORM = {
     },
 }
 
-class RerunCollection(MagiCollection):
+class RerunCollection(MainItemCollection):
     queryset = models.Rerun.objects.all().select_related('event', 'gacha')
-    reportable = False
-    blockable = False
 
     filter_cuteform = RERUN_CUTEFORM
     form_class = forms.RerunForm
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         enabled = False
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         enabled = False
 
     def redirect_after_modification(self, request, item, ajax):
@@ -1803,20 +1765,15 @@ class RerunCollection(MagiCollection):
                 else (item.event.item_url if item.event
                       else '/'))
 
-    class AddView(MagiCollection.AddView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
+    class AddView(MainItemCollection.AddView):
         alert_duplicate = False
         back_to_list_button = False
 
         def redirect_after_add(self, *args, **kwargs):
             return self.collection.redirect_after_modification(*args, **kwargs)
 
-    class EditView(MagiCollection.EditView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
+    class EditView(MainItemCollection.EditView):
         back_to_list_button = False
-        allow_delete = True
 
         def redirect_after_edit(self, *args, **kwargs):
             return self.collection.redirect_after_modification(*args, **kwargs)
@@ -1920,7 +1877,7 @@ def to_PlayedSongCollection(cls):
 
             def table_fields_headers(self, fields, view=None):
                 if view is None:
-                    headers = MagiCollection.ListView.table_fields_headers(self, fields, view=view)
+                    headers = cls.__bases__[0].ListView.table_fields_headers(self, fields, view=view)
                     headers[0] = ('image', _('Image'))
                     return headers
                 return []
@@ -1977,13 +1934,11 @@ SONG_ICONS = {
 
 SONG_ITEM_FIELDS_ORDER = ['song_name']
 
-class SongCollection(MagiCollection):
+class SongCollection(MainItemCollection):
     queryset = models.Song.objects.all()
     title = _('Song')
     plural_title = _('Songs')
     icon = 'song'
-    reportable = False
-    blockable = False
     translated_fields = ('name', 'special_band')
     navbar_link_list = 'bangdream'
 
@@ -1998,8 +1953,6 @@ class SongCollection(MagiCollection):
     filter_cuteform = _song_cuteform
 
     collectible = models.PlayedSong
-
-    share_image = justReturn('screenshots/songs.png')
 
     def collectible_to_class(self, model_class):
         cls = super(SongCollection, self).collectible_to_class(model_class)
@@ -2040,7 +1993,7 @@ class SongCollection(MagiCollection):
 
         return fields
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         per_line = 3
         filter_form = forms.SongFilterForm
         default_ordering = '-release_date'
@@ -2054,7 +2007,7 @@ class SongCollection(MagiCollection):
             }),
         ])
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         template = 'default'
         top_illustration = 'include/songTopIllustration'
         ajax_callback = 'loadSongItem'
@@ -2148,16 +2101,11 @@ class SongCollection(MagiCollection):
 
             return fields
 
-    class AddView(MagiCollection.AddView):
-        staff_required = True
+    class AddView(MainItemCollection.AddView):
         ajax_callback = 'loadSongForm'
-        permissions_required = ['manage_main_items']
 
-    class EditView(MagiCollection.EditView):
-        staff_required = True
+    class EditView(MainItemCollection.EditView):
         ajax_callback = 'loadSongForm'
-        permissions_required = ['manage_main_items']
-        allow_delete = True
 
         def to_translate_form_class(self):
             super(SongCollection.EditView, self).to_translate_form_class()
@@ -2207,7 +2155,7 @@ def to_CollectibleItemCollection(cls):
 ############################################################
 # Items Collection
 
-class ItemCollection(MagiCollection):
+class ItemCollection(MainItemCollection):
     title = _('Item')
     plural_title = _('Items')
     queryset = models.Item.objects.all()
@@ -2215,7 +2163,6 @@ class ItemCollection(MagiCollection):
     icon = 'archive'
     navbar_link_list = 'girlsbandparty'
     collectible = models.CollectibleItem
-    reportable = False
 
     def collectible_to_class(self, model_class):
         cls = super(ItemCollection, self).collectible_to_class(model_class)
@@ -2235,14 +2182,14 @@ class ItemCollection(MagiCollection):
         })
         return title_prefixes
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         ajax_item_popover = True
         per_line = 4
         default_ordering = 'id'
         filter_form = forms.ItemFilterForm
         hide_sidebar = True
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         comments_enabled = False
         share_enabled = False
 
@@ -2254,19 +2201,10 @@ class ItemCollection(MagiCollection):
             setSubField(fields, 'description', key='verbose_name', value=unicode(item))
             return fields
 
-    class AddView(MagiCollection.AddView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-
-    class EditView(MagiCollection.EditView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-        allow_delete = True
-
 ############################################################
 # Areas Collection
 
-class AreaCollection(MagiCollection):
+class AreaCollection(MainItemCollection):
     title = _('Location')
     plural_title = _('Locations')
     queryset = models.Area.objects.all()
@@ -2274,7 +2212,6 @@ class AreaCollection(MagiCollection):
     icon = 'world'
     navbar_link_list = 'girlsbandparty'
     navbar_link_title = property(lambda _s: _('{things} list').format(things=_('Area items')))
-    reportable = False
 
     def get_title_prefixes(self, request, context):
         title_prefixes = super(AreaCollection, self).get_title_prefixes(request, context)
@@ -2284,7 +2221,7 @@ class AreaCollection(MagiCollection):
         })
         return title_prefixes
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         before_template = 'include/beforeAreas'
         after_template = 'include/afterAreas'
         per_line = 3
@@ -2297,17 +2234,8 @@ class AreaCollection(MagiCollection):
             super(AreaCollection.ListView, self).extra_context(context)
             context['area_items_sentence'] = _('View all')
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         enabled = False
-
-    class AddView(MagiCollection.AddView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-
-    class EditView(MagiCollection.EditView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-        allow_delete = True
 
 ############################################################
 # Collectible area items Collection
@@ -2393,7 +2321,7 @@ def to_CollectibleAreaItemCollection(cls):
 ############################################################
 # Area items Collection
 
-class AreaItemCollection(MagiCollection):
+class AreaItemCollection(MainItemCollection):
     title = _('Area item')
     plural_title = _('Area items')
     queryset = models.AreaItem.objects.all()
@@ -2401,7 +2329,6 @@ class AreaItemCollection(MagiCollection):
     icon = 'town'
     navbar_link = False
     filter_cuteform = AREA_ITEM_CUTEFORM
-    reportable = False
 
     collectible = models.CollectibleAreaItem
 
@@ -2427,7 +2354,7 @@ class AreaItemCollection(MagiCollection):
         ]
         return title_prefixes
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         filter_form = forms.AreaItemFilterForm
         ajax_item_popover = True
         item_template = custom_item_template
@@ -2441,7 +2368,7 @@ class AreaItemCollection(MagiCollection):
             super(AreaItemCollection.ListView, self).extra_context(context)
             context['level_1_sentence'] = _('Level {level}').format(level=1)
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         comments_enabled = False
         share_enabled = False
 
@@ -2475,15 +2402,6 @@ class AreaItemCollection(MagiCollection):
                 })]
             fields = OrderedDict(fields)
             return fields
-
-    class AddView(MagiCollection.AddView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-
-    class EditView(MagiCollection.EditView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-        allow_delete = True
 
 ############################################################
 # Assets Collection
@@ -2552,7 +2470,7 @@ ASSET_ICONS = {
     'event': 'event', 'song': 'song',
 }
 
-class AssetCollection(MagiCollection):
+class AssetCollection(MainItemCollection):
     title = _('Asset')
     plural_title = _('Assets')
     queryset = models.Asset.objects.all()
@@ -2560,7 +2478,6 @@ class AssetCollection(MagiCollection):
     icon = 'pictures'
     navbar_link = False
     filter_cuteform = ASSET_CUTEFORM
-    reportable = False
 
     types = {
         _type: {
@@ -2676,7 +2593,7 @@ class AssetCollection(MagiCollection):
             },
         ]
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         def to_fields(self, item, extra_fields=None, preselected=None, *args, **kwargs):
             if not extra_fields: extra_fields = []
             if not preselected: preselected = []
@@ -2707,7 +2624,7 @@ class AssetCollection(MagiCollection):
             })
             return title_prefixes, h1
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         filter_form = forms.AssetFilterForm
         filter_cuteform = ASSET_CUTEFORM_LIST
         per_line = 5
@@ -2757,15 +2674,10 @@ class AssetCollection(MagiCollection):
 
             return title_prefixes, h1
 
-    class AddView(MagiCollection.AddView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
+    class AddView(MainItemCollection.AddView):
         savem2m = True
 
-    class EditView(MagiCollection.EditView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-        allow_delete = True
+    class EditView(MainItemCollection.EditView):
         savem2m = True
 
 COSTUME_CUTEFORM = {
@@ -2809,20 +2721,16 @@ COSTUME_CUTEFORM = {
     },
 }
 
-class CostumeCollection(MagiCollection):
+class CostumeCollection(MainItemCollection):
     queryset = models.Costume.objects.select_related('card', 'member')
     title = _('Costume')
     plural_title = _('Costumes')
     icon = 'dress'
-    reportable = False
-    blockable = False
     translated_fields = ('name',)
     navbar_link_list = 'girlsbandparty'
     navbar_link_list_divider_after = True
     form_class = forms.CostumeForm
     filter_cuteform = COSTUME_CUTEFORM
-
-    share_image = justReturn('screenshots/costumes.png')
 
     def to_fields(self, view, item, extra_fields=None, exclude_fields=None, *args, **kwargs):
         extra_fields = extra_fields or []
@@ -2883,7 +2791,7 @@ class CostumeCollection(MagiCollection):
 
         return buttons
 
-    class ListView(MagiCollection.ListView):
+    class ListView(MainItemCollection.ListView):
         item_template = custom_item_template
         per_line = 4
         filter_form = forms.CostumeFilterForm
@@ -2891,7 +2799,7 @@ class CostumeCollection(MagiCollection):
         # not with 4 to a row
         show_relevant_fields_on_ordering = False
 
-        alt_views = MagiCollection.ListView.alt_views + [
+        alt_views = MainItemCollection.ListView.alt_views + [
             ('chibis', {
                 'verbose_name': _('Chibis'),
                 'per_line': 2,
@@ -2910,7 +2818,7 @@ class CostumeCollection(MagiCollection):
             fields = super(CostumeCollection.ListView, self).to_fields(item, *args, **kwargs)
             return fields
 
-    class ItemView(MagiCollection.ItemView):
+    class ItemView(MainItemCollection.ItemView):
         top_illustration = 'include/costumeTopIllustration'
         js_files = LIVE2D_JS_FILES
         ajax_callback = 'loadModelViewerAjax'
@@ -2945,12 +2853,3 @@ class CostumeCollection(MagiCollection):
             queryset = queryset.select_related('card', 'member').prefetch_related(
                 Prefetch('owned_chibis', to_attr='chibis'))
             return queryset
-
-    class AddView(MagiCollection.AddView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-
-    class EditView(MagiCollection.EditView):
-        staff_required = True
-        permissions_required = ['manage_main_items']
-        allow_delete = True

@@ -734,6 +734,10 @@ class Card(MagiModel):
     def max_level_trained(self):
         return self.MAX_LEVELS[self.i_rarity][1] if self.trainable else self.MAX_LEVELS[self.i_rarity]
 
+    @property
+    def share_image(self):
+        return self.art_trained or self.art
+
     # All Stats
 
     @property

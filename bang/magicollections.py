@@ -647,7 +647,7 @@ CARDS_ORDER = [
     'id', 'card_name', 'member', 'cameo_members', 'rarity', 'attribute', 'versions', 'is_promo', 'is_original',
     'release_date',
     'skill_name', 'skill_type', 'japanese_skill',
-    'gacha', 'images', 'arts', 'transparents', 'chibis', 'associated_costume'
+    'gacha', 'arts', 'transparents', 'chibis', 'associated_costume', 'images',
 ]
 
 CARDS_STATISTICS_ORDER = [

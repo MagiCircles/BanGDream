@@ -22,6 +22,7 @@ from bang import models
 # License, game and site settings
 
 SITE_NAME = 'Bandori Party'
+SITE_EMOJIS = [u'★', u'🎸', u'🤘']
 SITE_IMAGE = 'share/bandori_party.png'
 SITE_LOGO = 'logo/bandori_party.png'
 

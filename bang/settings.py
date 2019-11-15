@@ -30,6 +30,7 @@ GAME_NAME = string_concat(_('BanG Dream!'), ' ', _('Girls Band Party'))
 GAME_URL = 'https://bang-dream.bushimo.jp/'
 
 COLOR = '#E40046'
+SECONDARY_COLOR = '#F2B141'
 
 ############################################################
 # Images

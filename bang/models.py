@@ -27,6 +27,7 @@ from magi.utils import (
     uploadTiny,
     getEventStatus,
     ColorField,
+    filterRealCollectiblesPerAccount,
 )
 from bang.django_translated import t
 
@@ -894,7 +895,7 @@ class Card(MagiModel):
     _cache_total_collectedcards = models.PositiveIntegerField(null=True)
 
     def to_cache_total_collectedcards(self):
-        return self.collectedcards.all().count()
+        return filterRealCollectiblesPerAccount(self.collectedcards.all()).count()
 
     ########
 
@@ -1130,7 +1131,7 @@ class Event(MagiModel):
     _cache_total_participations = models.PositiveIntegerField(null=True)
 
     def to_cache_total_participations(self):
-        return self.participations.all().count()
+        return filterRealCollectiblesPerAccount(self.participations.all()).count()
 
     ########
 
@@ -1379,7 +1380,7 @@ class Song(MagiModel):
     _cache_total_played = models.PositiveIntegerField(null=True)
 
     def to_cache_total_played(self):
-        return self.playedby.all().count()
+        return filterRealCollectiblesPerAccount(self.playedby.all()).count()
 
     ########
 

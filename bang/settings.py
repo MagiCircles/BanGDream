@@ -13,6 +13,7 @@ from magi.default_settings import (
     DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
     DEFAULT_EXTRA_PREFERENCES,
     DEFAULT_HOME_ACTIVITY_TABS,
+    DEFAULT_SEASONS,
 )
 from magi.utils import tourldash
 from bang.utils import bangGlobalContext, randomArtForCharacter
@@ -342,3 +343,12 @@ ENABLED_NAVBAR_LISTS['community'] = {
 ENABLED_NAVBAR_LISTS['more']['order'] = ENABLED_NAVBAR_LISTS['more']['order'] + ['donate']
 
 NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community'] + DEFAULT_NAVBAR_ORDERING
+
+############################################################
+# Seasons
+
+SEASONS = DEFAULT_SEASONS.copy()
+
+SEASONS['christmas']['accent_color'] = SECONDARY_COLOR
+SEASONS['christmas']['site_logo'] = 'logo/bandori_party_christmas.png'
+SEASONS['christmas']['site_nav_logo'] = 'star_christmas.png'

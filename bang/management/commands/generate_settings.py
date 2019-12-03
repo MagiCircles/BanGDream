@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-import datetime
+import datetime, json
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
+from django.conf import settings as django_settings
 from django.utils import timezone
 from django.utils.translation import get_language, activate as translation_activate, ugettext_lazy as _
 from magi import urls # needed to load static_url
 from magi.tools import (
     generateSettings,
-    totalDonatorsThisMonth,
     getStaffConfigurations,
-    latestDonationMonth,
     getCharactersBirthdays,
     getUsersBirthdaysToday,
+    seasonalGeneratedSettings,
 )
 from magi.utils import (
     staticImageURL,
@@ -21,19 +21,20 @@ from bang import models
 
 def generate_settings():
 
-    print 'Get total donators'
-    total_donators = totalDonatorsThisMonth() or '\'\''
+    ############################################################
+    # MagiCircles
 
-    print 'Get latest donation month'
-    donation_month = latestDonationMonth(failsafe=True)
-
-    print 'Get staff configurations'
+    print 'Get staff configurations and latest news'
     staff_configurations, latest_news = getStaffConfigurations()
+
+    print 'Get seasonal settings'
+    seasonal_settings = seasonalGeneratedSettings(staff_configurations)
 
     print 'Get the latest news'
     now = timezone.now()
     old_lang = get_language()
 
+    ############################################################
     # Birthdays
 
     def get_name_image_url_from_character(character):
@@ -53,6 +54,9 @@ def generate_settings():
         latest_news=latest_news,
         max_usernames=4,
     )
+
+    ############################################################
+    # BanG Dream!
 
     # Events & Gachas
 
@@ -116,12 +120,15 @@ def generate_settings():
     ).order_by('-release_date')
 
     is_character_birthday = False
+    christmas_cards = django_settings.STAFF_CONFIGURATIONS.get('christmas_theme_cards', '').split(',')
     birthday_today_members_id = models.Member.objects.filter(
         birthdays_within(days_after=1, days_before=1)).values_list(
             'id', flat=True)
     if birthday_today_members_id:
         filtered_cards = cards.filter(member_id__in=birthday_today_members_id)[:20]
         is_character_birthday = True
+    elif len(christmas_cards) > 1 and 'christmas' in seasonal_settings:
+        filtered_cards = cards.filter(id__in=christmas_cards)
     else:
         condition = Q()
         for event in events_with_cards:
@@ -171,6 +178,10 @@ def generate_settings():
                     'about_url': c.item_url,
                     'position': position,
                 })
+    if 'christmas' in seasonal_settings and not birthday_today_members_id:
+        christmas_homepage_arts = django_settings.STAFF_CONFIGURATIONS.get('christmas_theme_arts', None)
+        if christmas_homepage_arts:
+            homepage_arts += json.loads(christmas_homepage_arts)
     if not homepage_arts:
         homepage_arts = [{
             'url': '//i.bandori.party/u/c/art/838Kasumi-Toyama-Happy-Colorful-Poppin-U7hhHG.png',
@@ -220,8 +231,6 @@ def generate_settings():
 
     generateSettings({
         'LATEST_NEWS': latest_news,
-        'TOTAL_DONATORS': total_donators,
-        'DONATION_MONTH': donation_month,
         'HOMEPAGE_ARTS': homepage_arts,
         'IS_CHARACTER_BIRTHDAY': is_character_birthday,
         'STAFF_CONFIGURATIONS': staff_configurations,

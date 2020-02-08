@@ -39,8 +39,11 @@ def generate_settings():
 
     def get_name_image_url_from_character(character):
         card = models.Card.objects.filter(member=character).filter(
-            show_art_on_homepage=True).order_by('-i_rarity', '-release_date')[0]
-        return character.first_name, card.art_original_url, character.item_url
+            show_art_on_homepage=True).order_by('-i_rarity', '-release_date')
+        if not card:
+            return None, None, None
+
+        return character.first_name, card[0].art_original_url, character.item_url
 
     latest_news = getCharactersBirthdays(
         models.Member.objects.all(),

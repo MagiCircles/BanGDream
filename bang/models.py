@@ -176,6 +176,7 @@ class Account(BaseAccount):
 class Member(MagiModel):
     collection_name = 'member'
 
+    id = models.PositiveIntegerField(_('ID'), unique=True, primary_key=True, db_index=True)
     owner = models.ForeignKey(User, related_name='added_members')
     name = models.CharField(string_concat(_('Name'), ' (', _('Romaji'), ')'), max_length=100, unique=True)
     japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
@@ -203,6 +204,8 @@ class Member(MagiModel):
         'Pastel*Palettes',
         'Roselia',
         'Hello, Happy World!',
+        'RAISE A SUILEN',
+        'Morfonica',
     )
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
     band_image = lambda _s: staticImageURL(_s.band, folder='band', extension='png')

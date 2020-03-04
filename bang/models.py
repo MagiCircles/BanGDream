@@ -19,7 +19,6 @@ from magi.utils import (
     join_data,
     uploadToKeepName,
     staticImageURL,
-    FAVORITE_CHARACTERS_NAMES,
     templateVariables,
     uploadTthumb,
     uploadThumb,
@@ -356,6 +355,19 @@ class Member(MagiModel):
 
     def to_cache_total_fans(self):
         return self.fans.count()
+
+    ############################################################
+    # Birthday banner, used when latest news are generated
+
+    @property
+    def birthday_banner_url(self):
+        try:
+            # Latest rarest card
+            return Card.objects.filter(member=self).filter(
+                show_art_on_homepage=True).order_by(
+                    '-i_rarity', '-release_date')[0].art_original_url
+        except IndexError:
+            return None
 
     ############################################################
     # Unicode

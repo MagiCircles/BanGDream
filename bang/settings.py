@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-import datetime
+import datetime, pytz
 from django.conf import settings as django_settings
 from django.utils.translation import ugettext_lazy as _, string_concat
 from django.utils import timezone
 
 from magi.default_settings import (
+    DEFAULT_ACTIVITY_TAGS,
     DEFAULT_ENABLED_NAVBAR_LISTS,
     DEFAULT_ENABLED_PAGES,
     DEFAULT_NAVBAR_ORDERING,
@@ -16,7 +17,12 @@ from magi.default_settings import (
     DEFAULT_SEASONS,
 )
 from magi.utils import tourldash
-from bang.utils import bangGlobalContext, randomArtForCharacter
+from bang.utils import (
+    bangGlobalContext,
+    randomArtForCharacter,
+    getBackgrounds,
+    getHomepageArts,
+)
 from bang import models
 
 ############################################################
@@ -32,6 +38,8 @@ GAME_URL = 'https://bang-dream.bushimo.jp/'
 
 COLOR = '#E40046'
 SECONDARY_COLOR = '#F2B141'
+
+LAUNCH_DATE = datetime.datetime(2017, 04, 9, 12, 0, 0, tzinfo=pytz.UTC)
 
 ############################################################
 # Images
@@ -86,8 +94,15 @@ HASHTAGS = [u'バンドリ', u'ガルパ']
 ############################################################
 # Homepage
 
-RANDOM_ART_FOR_CHARACTER = randomArtForCharacter
+DONATORS_GOAL = 950
+
 HOMEPAGE_BACKGROUND = 'bg_pattern.png'
+HOMEPAGE_ART_GRADIENT = True
+
+HOMEPAGE_ARTS = [{
+    'url': 'default_art.png',
+}]
+
 HOMEPAGE_ART_SIDE = 'left'
 HOMEPAGE_ART_POSITION = {
     'position': 'center right',
@@ -95,7 +110,12 @@ HOMEPAGE_ART_POSITION = {
     'y': '40%',
     'x': '100%',
 }
-HOMEPAGE_ART_GRADIENT = True
+
+USERS_BIRTHDAYS_BANNER = 'happy_birthday.png'
+
+GET_BACKGROUNDS = getBackgrounds
+GET_HOMEPAGE_ARTS = getHomepageArts
+RANDOM_ART_FOR_CHARACTER = randomArtForCharacter
 
 HOME_ACTIVITY_TABS = DEFAULT_HOME_ACTIVITY_TABS.copy()
 if 'staffpicks' in HOME_ACTIVITY_TABS:
@@ -118,65 +138,59 @@ GET_STARTED_VIDEO = 'TqL9nSNouhw'
 # Activities
 
 ACTIVITY_TAGS = [
-    ('comedy', _('Comedy')),
-    ('meme', _('Meme')),
+    # BanG Dream!
+    ('anime', lambda: u'{} / {} / {}'.format(
+        _('Anime'),
+        _('Manga'),
+        _('Movie'),
+    )),
+    ('members', _('Characters')),
+    # Girls Band Party
     ('cards', _('Cards')),
     ('scout', _('Scouting')),
-    ('event', _('Event')),
+    ('event', _('Events')),
     ('live', _('Songs')),
-    ('introduction', _('Introduce yourself')),
-    ('members', _('Characters')),
+    # Generic
     ('birthday', _('Birthday')),
-    ('anime', string_concat(_('Anime'), ' / ', _('Manga'))),
-    ('cosplay', _('Cosplay')),
-    ('fanart', _('Fan made')),
-    ('merch', _('Merchandise')),
-    ('community', _('Community')),
-    ('question', _('Question')),
-    ('staff', {
-        'translation': _('Staff picks'),
-        'has_permission_to_add': lambda r: r.user.is_staff,
-    }),
+
+    # Restricted
     ('communityevent', {
         'translation': _('Community event'),
         'has_permission_to_add': lambda r: r.user.hasPermission('post_community_event_activities'),
     }),
-    ('pridemonth', {
-        'translation': u'PrideMonth🏳️‍🌈',
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2019, 7, 2, 0, tzinfo=timezone.utc),
-    }),
+
+    # Events
     ('petiteidolstudiosummer', {
         'translation': 'PetiteIdolStudioSummer',
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 8, 5, 13, tzinfo=timezone.utc),
+        'start_date': datetime.datetime(2018, 8, 1, 13, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2018, 8, 31, 13, tzinfo=timezone.utc),
     }),
     ('changemymindchallenge', {
         'translation': _('Change My Mind Challenge'),
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 6, 3, tzinfo=timezone.utc),
+        'start_date': datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2018, 6, 3, tzinfo=timezone.utc),
     }),
     ('thankyouyurushii', {
         'translation': _('Thank you Yurishii'),
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
+        'start_date': datetime.datetime(2018, 5, 13, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2018, 5, 20, tzinfo=timezone.utc),
     }),
     ('thankyouakesaka', {
         'translation': _('Thank you Ake-san'),
-        'has_permission_to_add': lambda r: timezone.now() < datetime.datetime(2018, 9, 25, tzinfo=timezone.utc),
+        'start_date': datetime.datetime(2018, 9, 18, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2018, 9, 25, tzinfo=timezone.utc),
     }),
     ('cosparty18', {
         'translation': _('CosParty 2018'),
-        'has_permission_to_add': lambda r: datetime.datetime(2018, 10, 10, 0, tzinfo=timezone.utc) < timezone.now() < datetime.datetime(2018, 11, 15, tzinfo=timezone.utc),
+        'start_date': datetime.datetime(2018, 10, 10, 0, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2018, 11, 15, tzinfo=timezone.utc),
     }),
     ('bandorisnap', {
         'translation': 'Bandori SnaP!',
-        'has_permission_to_add': lambda r: datetime.datetime(2019, 10, 2, 13, tzinfo=timezone.utc) < timezone.now() < datetime.datetime(2019, 11, 10, tzinfo=timezone.utc),
+        'start_date': datetime.datetime(2019, 10, 2, 13, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2019, 11, 10, tzinfo=timezone.utc),
     }),
-    ('unrelated', lambda: _('Not about {thing}').format(thing=_('BanG Dream!'))),
-    ('swearing', _('Swearing')),
-    ('nsfw', {
-        'translation': _('NSFW'),
-        'hidden_by_default': True,
-        'has_permission_to_show': lambda r: u'{} {}'.format(_('You need to be over 18 years old.'), _('You can change your birthdate in your settings.') if not r.user.preferences.age else u'') if r.user.is_authenticated() and r.user.preferences.age < 18 else True,
-    }),
-]
+] + DEFAULT_ACTIVITY_TAGS
 
 ############################################################
 # User preferences and profiles
@@ -187,8 +201,7 @@ EXTRA_PREFERENCES = DEFAULT_EXTRA_PREFERENCES + [
     ('i_favorite_band', lambda: _('Favorite {thing}').format(thing=_('Band').lower())),
 ]
 
-FAVORITE_CHARACTER_TO_URL = lambda link: u'/member/{pk}/{name}/'.format(pk=link.raw_value, name=tourldash(link.value))
-FAVORITE_CHARACTER_NAME = _('Member')
+FAVORITE_CHARACTERS_MODEL = models.Member
 
 USER_COLORS = [
     ('power', _('Power'), 'Power', '#FF2D54'),
@@ -200,16 +213,10 @@ USER_COLORS = [
 ACCOUNT_TAB_ORDERING = ['about', 'collectiblecard', 'eventparticipation', 'playedsong', 'item', 'areaitem']
 
 ############################################################
-# Staff features
-
-GLOBAL_OUTSIDE_PERMISSIONS = DEFAULT_GLOBAL_OUTSIDE_PERMISSIONS
-GLOBAL_OUTSIDE_PERMISSIONS['Google+ Bandori Party group'] = 'https://plus.google.com/communities/118285892680258114918?sqinv=bUtZVFhDQ3BxNWlESTRQUEMwdFdjQTJ2UGc5czd3'
-
-############################################################
 # Technical settings
 
-SITE_URL = 'http://localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else 'https://bandori.party/'
-SITE_STATIC_URL = '//localhost:{}/'.format(django_settings.DEBUG_PORT) if django_settings.DEBUG else '//i.bandori.party/'
+SITE_URL = 'https://bandori.party/'
+SITE_STATIC_URL = '//i.bandori.party/'
 
 GET_GLOBAL_CONTEXT = bangGlobalContext
 ACCOUNT_MODEL = models.Account
@@ -221,17 +228,6 @@ JAVASCRIPT_TRANSLATED_TERMS = DEFAULT_JAVASCRIPT_TRANSLATED_TERMS + [
     u'Coming soon',
     u'Open {thing}',
 ]
-
-############################################################
-# From settings or generated_settings
-
-STATIC_FILES_VERSION = django_settings.STATIC_FILES_VERSION
-TOTAL_DONATORS = getattr(django_settings, 'TOTAL_DONATORS', None)
-LATEST_NEWS = getattr(django_settings, 'LATEST_NEWS', None)
-STAFF_CONFIGURATIONS = getattr(django_settings, 'STAFF_CONFIGURATIONS', None)
-HOMEPAGE_ARTS = getattr(django_settings, 'HOMEPAGE_ARTS', None)
-BACKGROUNDS = getattr(django_settings, 'BACKGROUNDS', None)
-FAVORITE_CHARACTERS = getattr(django_settings, 'FAVORITE_CHARACTERS', None)
 
 ############################################################
 # Customize pages
@@ -349,6 +345,10 @@ NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community
 
 SEASONS = DEFAULT_SEASONS.copy()
 
-SEASONS['christmas']['accent_color'] = SECONDARY_COLOR
-SEASONS['christmas']['site_logo'] = 'logo/bandori_party_christmas.png'
-SEASONS['christmas']['site_nav_logo'] = 'star_christmas.png'
+SEASONS['christmas'].update({
+    'accent_color': SECONDARY_COLOR,
+    'site_logo': 'logo/bandori_party_christmas.png',
+    'site_nav_logo': 'star_christmas.png',
+    'to_random_homepage_art': 'getRandomChristmasArt',
+    'to_random_homepage_background': 'getRandomChristmasBackground',
+})

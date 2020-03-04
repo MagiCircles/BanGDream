@@ -23,7 +23,6 @@ from magi.utils import (
     setSubField,
     CuteFormType,
     CuteFormTransform,
-    FAVORITE_CHARACTERS_IMAGES,
     torfc2822,
     custom_item_template,
     staticImageURL,
@@ -33,6 +32,7 @@ from magi.utils import (
     AttrDict,
     mergedFieldCuteForm,
     tourldash,
+    getCharacterImageFromPk,
 )
 from magi.default_settings import RAW_CONTEXT
 from magi.item_model import i_choices
@@ -59,18 +59,6 @@ from bang import models, forms
 # User Collection
 
 class UserCollection(_UserCollection):
-    filter_cuteform = _UserCollection.filter_cuteform.copy()
-    filter_cuteform.update({
-        'member': {
-            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
-            'title': _('Member'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
-        },
-    })
-
     class ItemView(_UserCollection.ItemView):
 
         def get_meta_links(self, user, *args, **kwargs):
@@ -113,14 +101,6 @@ class AccountCollection(_AccountCollection):
     _play_with_icons = [_c['icon'] for _c in models.Account.PLAY_WITH.values()]
     filter_cuteform = _AccountCollection.filter_cuteform.copy()
     filter_cuteform.update({
-        'member': {
-            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
-            'title': _('Member'),
-            'extra_settings': {
-                'modal': 'true',
-                'modal-text': 'true',
-            },
-        },
         'i_color': {
             'to_cuteform': lambda k, v: AccountCollection._colors_images.index(k) + 1,
             'image_folder': 'i_attribute',
@@ -587,7 +567,7 @@ CARD_CUTEFORM = {
     },
     'member_band': {
         'to_cuteform': lambda k, v: (
-            FAVORITE_CHARACTERS_IMAGES[int(k[7:])]
+            getCharacterImageFromPk(int(k[7:]))
             if k.startswith('member-')
             else staticImageURL(v, folder='band', extension='png')
         ),
@@ -614,7 +594,7 @@ CARD_CUTEFORM = {
 
 CARD_CUTEFORM_EDIT = CARD_CUTEFORM.copy()
 CARD_CUTEFORM_EDIT['member'] = {
-    'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+    'to_cuteform': lambda k, v: getCharacterImageFromPk(k),
     'title': _('Member'),
     'extra_settings': {
         'modal': 'true',
@@ -1183,7 +1163,7 @@ EVENT_CUTEFORM = {
 
 EVENT_LIST_ITEM_CUTEFORM = EVENT_CUTEFORM.copy()
 EVENT_LIST_ITEM_CUTEFORM['boost_members'] = {
-    'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+    'to_cuteform': lambda k, v: getCharacterImageFromPk(k),
     'title': _('Boost members'),
     'extra_settings': {
         'modal': 'true',
@@ -1545,7 +1525,7 @@ class GachaCollection(MainItemCollection):
 
     filter_cuteform = {
         'featured_member': {
-            'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+            'to_cuteform': lambda k, v: getCharacterImageFromPk(k),
             'extra_settings': {
                 'modal': 'true',
                 'modal-text': 'true',
@@ -2414,7 +2394,7 @@ ASSET_CUTEFORM = {
     },
     'member_band': {
         'to_cuteform': lambda k, v: (
-            FAVORITE_CHARACTERS_IMAGES[int(k[7:])]
+            getCharacterImageFromPk(int(k[7:]))
             if k.startswith('member-')
             else staticImageURL(v, folder='band', extension='png')
         ),
@@ -2450,7 +2430,7 @@ ASSET_CUTEFORM = {
 
 ASSET_CUTEFORM_LIST = ASSET_CUTEFORM.copy()
 ASSET_CUTEFORM_LIST['members'] = {
-    'to_cuteform': lambda k, v: FAVORITE_CHARACTERS_IMAGES[k],
+    'to_cuteform': lambda k, v: getCharacterImageFromPk(k),
     'extra_settings': {
         'modal': 'true',
         'modal-text': 'true',
@@ -2689,7 +2669,7 @@ COSTUME_CUTEFORM = {
         },
     },
     'member': {
-        'to_cuteform': lambda k, v: (FAVORITE_CHARACTERS_IMAGES[k] if k != forms.CostumeFilterForm.ID_OF_MISC_MEMBERS
+        'to_cuteform': lambda k, v: (getCharacterImageFromPk(k) if k != forms.CostumeFilterForm.ID_OF_MISC_MEMBERS
             else staticImageURL('i_misc_member.png')),
         'title': _('Member'),
         'extra_settings': {

@@ -12,6 +12,11 @@ class Command(BaseCommand):
             'value': '786,787,788,789,790,1058,1059,1060,1061,1307,1308,1309,1310,1311',
         })
         create({
+            'key': 'christmas_theme_backgrounds',
+            'verbose_key': 'Christmas theme: which backgrounds show up on the homepage?',
+            'value': '1204,818,817,838',
+        })
+        create({
             'key': 'christmas_theme_arts',
             'verbose_key': 'Christmas theme: extra images that show up on the homepage',
             'is_long': True,

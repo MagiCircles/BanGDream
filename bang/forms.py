@@ -38,6 +38,10 @@ from magi import settings
 from bang.django_translated import t
 from bang import models
 
+# TODO:
+# - Replace member_band utils with merge fields utils: https://github.com/MagiCircles/MagiCircles/wiki/MagiFiltersForm#merge-fields
+# - Replace getattr(django_settings, 'FAVORITE_CHARACTERS', []) with getCharactersChoices utils
+
 ############################################################
 # Form utils
 
@@ -151,9 +155,6 @@ class AccountFilterForm(_AccountFilterForm):
 
     collected_card = forms.IntegerField(widget=forms.HiddenInput)
     collected_card_filter = MagiFilter(selector='cardscollectors__card_id')
-
-    class Meta(_AccountFilterForm.Meta):
-        fields = ('search', 'has_friend_id', 'friend_id', 'i_version', 'color', 'favorite_character')
 
 ############################################################
 # Member

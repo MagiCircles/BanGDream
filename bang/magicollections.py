@@ -357,7 +357,7 @@ class MemberCollection(MainItemCollection):
         item_template = custom_item_template
         filter_form = forms.MemberFilterForm
         per_line = 5
-        page_size = 25
+        page_size = 35
         default_ordering = 'id'
 
         def get_page_title(self):

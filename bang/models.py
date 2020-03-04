@@ -195,6 +195,7 @@ class Member(MagiModel):
     _original_image = models.ImageField(null=True, upload_to=uploadTiny('i'))
     square_image = models.ImageField(_('Image'), upload_to=uploadItem('i/m'))
     _original_square_image = models.ImageField(null=True, upload_to=uploadTiny('i/m'))
+    image_for_favorite_character = property(lambda _s: _s.square_image_url)
 
     BAND_CHOICES = (
         'Poppin\'Party',

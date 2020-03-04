@@ -162,7 +162,6 @@ class AccountCollection(_AccountCollection):
 
     class ListView(_AccountCollection.ListView):
         filter_form = forms.AccountFilterForm
-        default_ordering = '-level'
 
         def buttons_per_item(self, request, context, item):
             buttons = super(AccountCollection.ListView, self).buttons_per_item(request, context, item)
@@ -358,7 +357,6 @@ class MemberCollection(MainItemCollection):
         filter_form = forms.MemberFilterForm
         per_line = 5
         page_size = 35
-        default_ordering = 'id'
 
         def get_page_title(self):
             return _('{things} list').format(things=_('Characters'))
@@ -423,7 +421,6 @@ def to_FavoriteCardCollection(cls):
         class ListView(cls.ListView):
             item_template = 'cardItem'
             per_line = 2
-            default_ordering = '-id'
             ajax_pagination_callback = 'loadCardInList'
             show_item_buttons = True
             filter_form = forms.to_CollectibleCardFilterForm(cls)
@@ -521,7 +518,6 @@ def to_CollectibleCardCollection(cls):
 
         class ListView(cls.ListView):
             col_break = 'xs'
-            default_ordering = '-card__i_rarity,-trained,-card__release_date'
             filter_form = forms.to_CollectibleCardFilterForm(cls)
 
             def get_queryset(self, queryset, parameters, request):
@@ -896,7 +892,6 @@ class CardCollection(MainItemCollection):
         per_line = 2
         page_size = 12
         filter_form = forms.CardFilterForm
-        default_ordering = '-release_date,-id'
         ajax_pagination_callback = 'loadCardInList'
         filter_cuteform = CARD_CUTEFORM
 
@@ -1077,7 +1072,6 @@ def to_EventParticipationCollection(cls):
 
         class ListView(cls.ListView):
             per_line = 3
-            default_ordering = '-event__start_date'
             filter_form = forms.to_EventParticipationFilterForm(cls)
             show_item_buttons_as_icons = True
             show_item_buttons_justified = False
@@ -1227,7 +1221,6 @@ class EventCollection(MainItemCollection):
 
     class ListView(MainItemCollection.ListView):
         per_line = 2
-        default_ordering = '-start_date'
         ajax_callback = 'loadEventInList'
         filter_form = forms.EventFilterForm
         show_collect_button = {
@@ -1687,7 +1680,6 @@ class GachaCollection(MainItemCollection):
             return buttons
 
     class ListView(MainItemCollection.ListView):
-        default_ordering = '-start_date'
         per_line = 2
         filter_form = forms.GachaFilterForm
         ajax_callback = 'loadGachaInList'
@@ -1808,7 +1800,6 @@ def to_PlayedSongCollection(cls):
         }
 
         class ListView(cls.ListView):
-            default_ordering = 'song__expert_difficulty,song_id,-i_difficulty'
             filter_form = forms.to_PlayedSongFilterForm(cls)
             display_style = 'table'
             display_style_table_fields = ['image', 'difficulty', 'score', 'full_combo', 'all_perfect', 'screenshot']
@@ -1972,7 +1963,6 @@ class SongCollection(MainItemCollection):
     class ListView(MainItemCollection.ListView):
         per_line = 3
         filter_form = forms.SongFilterForm
-        default_ordering = '-release_date'
         show_collect_button = {
             'playedsong': False,
         }
@@ -2161,7 +2151,6 @@ class ItemCollection(MainItemCollection):
     class ListView(MainItemCollection.ListView):
         ajax_item_popover = True
         per_line = 4
-        default_ordering = 'id'
         filter_form = forms.ItemFilterForm
         hide_sidebar = True
 
@@ -2771,7 +2760,6 @@ class CostumeCollection(MainItemCollection):
         item_template = custom_item_template
         per_line = 4
         filter_form = forms.CostumeFilterForm
-        default_ordering = '-id'
         # not with 4 to a row
         show_relevant_fields_on_ordering = False
 

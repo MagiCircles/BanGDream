@@ -378,6 +378,12 @@ class Member(MagiModel):
     def __unicode__(self):
         return unicode(self.t_name)
 
+    ############################################################
+    # Meta
+
+    class Meta:
+        ordering = ['id']
+
 ############################################################
 # Card
 
@@ -918,6 +924,9 @@ class Card(MagiModel):
     def card(self):
         return self
 
+    ############################################################
+    # Unicode
+
     def __unicode__(self):
         if self.id:
             return u'{rarity} {member_name} - {attribute}{name}'.format(
@@ -927,6 +936,12 @@ class Card(MagiModel):
                 name=u' - {}'.format(self.t_name) if self.t_name else '',
             )
         return u''
+
+    ############################################################
+    # Meta
+
+    class Meta:
+        ordering = ['-release_date', '-id']
 
 ############################################################
 # Collectible Cards
@@ -993,6 +1008,9 @@ class CollectibleCard(AccountAsOwnerModel):
             return unicode(self.card)
         return super(CollectibleCard, self).__unicode__()
 
+    class Meta:
+        ordering = ['-card__i_rarity', '-trained', '-card__release_date']
+
 class FavoriteCard(MagiModel):
     collection_name = 'favoritecard'
 
@@ -1001,6 +1019,7 @@ class FavoriteCard(MagiModel):
 
     class Meta:
         unique_together = (('owner', 'card'), )
+        ordering = ['-id']
 
 ############################################################
 # Events
@@ -1148,10 +1167,17 @@ class Event(MagiModel):
     def to_cache_total_participations(self):
         return filterRealCollectiblesPerAccount(self.participations.all()).count()
 
-    ########
+    ############################################################
+    # Unicode
 
     def __unicode__(self):
         return self.t_name
+
+    ############################################################
+    # Meta
+
+    class Meta:
+        ordering = ['-start_date']
 
 ############################################################
 # Collectible Event
@@ -1229,10 +1255,19 @@ class EventParticipation(AccountAsOwnerModel):
     def http_image_url(self):
         return getattr(self.event, u'http_{}image_url'.format(Account.VERSIONS_PREFIXES[self.cached_account.version])) or self.event.http_image_url
 
+    ############################################################
+    # Unicode
+
     def __unicode__(self):
         if self.id:
             return unicode(self.event)
         return super(EventParticipation, self).__unicode__()
+
+    ############################################################
+    # Meta
+
+    class Meta:
+        ordering = ['-event__start_date']
 
 ############################################################
 # Song
@@ -1397,7 +1432,8 @@ class Song(MagiModel):
     def to_cache_total_played(self):
         return filterRealCollectiblesPerAccount(self.playedby.all()).count()
 
-    ########
+    ############################################################
+    # Unicode
 
     def __unicode__(self):
         if get_language() == 'ja':
@@ -1417,6 +1453,12 @@ class Song(MagiModel):
                     self.t_name,
                 )
         return self.romaji_name
+
+    ############################################################
+    # Meta
+
+    class Meta:
+        ordering = ['-release_date']
 
 ############################################################
 # Collectible Song
@@ -1477,10 +1519,19 @@ class PlayedSong(AccountAsOwnerModel):
             }),
         ] if v['value']]
 
+    ############################################################
+    # Unicode
+
     def __unicode__(self):
         if self.id:
             return unicode(self.song)
         return super(PlayedSong, self).__unicode__()
+
+    ############################################################
+    # Meta
+
+    class Meta:
+        ordering = ['song__expert_difficulty', 'song_id', '-i_difficulty']
 
 ############################################################
 # Gacha
@@ -1563,8 +1614,18 @@ class Gacha(MagiModel):
     taiwanese_status = property(lambda _s: _s.get_status(version='TW'))
     korean_status = property(lambda _s: _s.get_status(version='KR'))
 
+    ############################################################
+    # Unicode
+
     def __unicode__(self):
         return _('{} Gacha').format(self.t_name)
+
+    ############################################################
+    # Meta
+
+    class Meta:
+        ordering = ['-start_date']
+
 
 ############################################################
 # Rerun gacha event
@@ -1638,6 +1699,9 @@ class Item(MagiModel):
 
     def __unicode__(self):
         return self.t_name
+
+    class Meta:
+        ordering = ['id']
 
 ############################################################
 # Collected item
@@ -2146,6 +2210,9 @@ class Costume(MagiModel):
             u'{} - '.format(self.member.t_name) if self.member_id else '',
             self.t_name,
         )
+
+    class Meta:
+        ordering = ['-id']
 
     # Cache chibis
 

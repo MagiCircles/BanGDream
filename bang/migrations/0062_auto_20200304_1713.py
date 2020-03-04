@@ -31,12 +31,6 @@ class Migration(migrations.Migration):
             preserve_default=True,
         ),
         migrations.AlterField(
-            model_name='member',
-            name='id',
-            field=models.PositiveIntegerField(unique=True, serialize=False, verbose_name='ID', primary_key=True, db_index=True),
-            preserve_default=True,
-        ),
-        migrations.AlterField(
             model_name='song',
             name='i_band',
             field=models.PositiveIntegerField(verbose_name='Band', choices=[(0, b"Poppin'Party"), (1, b'Afterglow'), (2, b'Pastel*Palettes'), (3, b'Roselia'), (4, b'Hello, Happy World!'), (5, b'RAISE A SUILEN'), (6, b'Morfonica'), (7, b'Glitter*Green'), (8, b'Special Band')]),

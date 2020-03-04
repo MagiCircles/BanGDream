@@ -174,7 +174,7 @@ def bangGlobalContext(request):
             )
     for popup_name, popup in context.get('corner_popups', {}).items():
         popup['image_overflow'] = True
-        if popup_name == 'happy_birthday':
+        if popup_name.startswith('happy_birthday'):
             popup['image'] = staticImageURL('birthday_kanae.png')
     return context
 

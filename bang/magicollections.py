@@ -1617,7 +1617,7 @@ class GachaCollection(MainItemCollection):
 
                 ## Create Countdowns for Gachas that are active
                 status = getattr(item, u'{}status'.format(version['prefix']))
-                if status and status != 'ended':
+                if status and status not in ['ended', 'invalid']:
                     extra_fields += [
                         (u'{}countdown'.format(version['prefix']), {
                             'verbose_name': _('Countdown'),

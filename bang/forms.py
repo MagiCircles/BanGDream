@@ -1284,9 +1284,6 @@ class CostumeForm(AutoForm):
         super(CostumeForm, self).__init__(*args, **kwargs)
 
         if not self.is_creating:
-            self.instance.previous_card = self.instance.card
-            self.instance.previous_member = self.instance.member
-
             # chibi delete fields
             self.all_chibis = self.instance.owned_chibis.all()
             for imageObject in self.all_chibis:
@@ -1348,9 +1345,6 @@ class CostumeForm(AutoForm):
     def save(self, commit=False):
         instance = super(CostumeForm, self).save(commit=False)
 
-        if not self.is_creating and instance.member != self.instance.previous_member:
-            self.instance.previous_member.force_cache_totals()
-
         instance.save()
 
         # Delete existing chibis
@@ -1379,9 +1373,6 @@ class CostumeForm(AutoForm):
             imageObject.costume = instance
             imageObject.image = image
             imageObject.save()
-
-        if instance.member:
-            instance.member.force_cache_totals()
 
         return instance
 

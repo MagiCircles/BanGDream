@@ -169,7 +169,8 @@ class MemberForm(AutoForm):
     def save(self, commit=False):
         instance = super(MemberForm, self).save(commit=False)
         # Make sure all members use the same year as birthdate
-        instance.birthday = instance.birthday.replace(year=2015)
+        if instance.birthday:
+            instance.birthday = instance.birthday.replace(year=2015)
         # Invalidate cards cache
         if not self.is_creating:
             models.Card.objects.filter(member_id=instance.id).update(_cache_member_last_update=None)

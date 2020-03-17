@@ -456,7 +456,7 @@ class Card(MagiModel):
                 'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
                 'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%'),
                 'based_on_accuracy': _(u'For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%'),
-                'perfect_only_influence': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{alt_percentage}% if your team consists of only {influence} members'),
+                'perfect_only_influence': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members'),
                 'based_on_accuracy_influence': _(u'For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%'),
             },
             'special_variables': {
@@ -471,8 +471,8 @@ class Card(MagiModel):
                 'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
                 'based_on_stamina': u'{duration}秒間スコアが{alt_percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{percentage}%UPする',
                 'based_on_accuracy': u'{duration}秒間スコアが{alt_percentage}％UP、{note_type}以下を出すまではスコアが{percentage}％ UPする',
-                'perfect_only_influence': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UP、 バンドが{influence}メンバーのみではスコアが{percentage}％ UPする',
-                'based_on_accuracy_influence': _(u'{duration}秒間スコアが{alt_percentage}％ UP、{note_type}以下を出すまではスコアが{percentage}％ UP (バンドが{influence}メンバーのみではスコアが{cond_percentage}％ UP)する'),
+                'perfect_only_influence': u'{duration}秒間 PERFECTのときのみ、スコアが{percentage}% UP。 発動者のバンド編成が{influence}のみの場合はPERFECTのときのみ、スコアが{cond_percentage}％ UP',
+                'based_on_accuracy_influence': u'{duration}秒間 スコアが{alt_percentage}％ UP、{note_type}以下を出すまではスコアが{percentage}％ UP 、発動者のバンド編成が{influence}のみの場合は{note_type}以下を出すまでスコアが{cond_percentage}% UP',
             },
 
             # Side skill
@@ -681,9 +681,9 @@ class Card(MagiModel):
     skill_alt_percentage = models.FloatField('{alt_percentage}', null=True, help_text='0-100')
     skill_cond_percentage = models.FloatField('{cond_percentage}', null=True, help_text='0-100')
 
-    SKILL_INFLUENCE_PIVOT = 500
+    SKILL_INFLUENCE_FIRST_BAND_ID = 501
     SKILL_INFLUENCE_CHOICES = OrderedDict(ATTRIBUTE_CHOICES + 
-        [(SKILL_INFLUENCE_PIVOT + i, band) for i, band in enumerate(Member.BAND_CHOICES)])
+        [(SKILL_INFLUENCE_FIRST_BAND_ID + i, band) for i, band in enumerate(Member.BAND_CHOICES)])
     SKILL_INFLUENCE_WITHOUT_I_CHOICES = True
     i_skill_influence = models.PositiveIntegerField('{influence}', null=True, choices=SKILL_INFLUENCE_CHOICES.iteritems())
 
@@ -691,7 +691,7 @@ class Card(MagiModel):
     def skill_influence(self):
         enum = self.SKILL_INFLUENCE_CHOICES.get(self.i_skill_influence)
         # Attribute names are translatable, band names are not.
-        if enum and self.i_skill_influence < self.SKILL_INFLUENCE_PIVOT:
+        if enum and self.i_skill_influence < self.SKILL_INFLUENCE_FIRST_BAND_ID:
             return _(enum)
         
         return enum

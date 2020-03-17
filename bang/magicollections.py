@@ -637,7 +637,7 @@ CARDS_EXCLUDE = [
     'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
 ] + CARDS_STATS_FIELDS + [
     'i_skill_note_type', 'skill_stamina', 'skill_alt_stamina', 'skill_duration',
-    'skill_percentage', 'skill_alt_percentage', 'i_skill_special',
+    'skill_percentage', 'skill_alt_percentage', 'i_skill_special', 'i_skill_influence', 'skill_cond_percentage',
 ]
 
 class CardCollection(MainItemCollection):

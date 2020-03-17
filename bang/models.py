@@ -456,17 +456,23 @@ class Card(MagiModel):
                 'perfect_only': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%'),
                 'based_on_stamina': _(u'For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%'),
                 'based_on_accuracy': _(u'For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%'),
+                'perfect_only_influence': _(u'For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members'),
+                'based_on_accuracy_influence': _(u'For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%'),
             },
             'special_variables': {
                 'perfect_only': ['duration', 'percentage'],
                 'based_on_stamina': ['duration', 'stamina', 'percentage', 'alt_percentage'],
                 'based_on_accuracy': ['duration', 'note_type', 'percentage', 'alt_percentage'],
+                'perfect_only_influence': ['duration', 'percentage', 'influence', 'alt_percentage'],
+                'based_on_accuracy_influence': ['duration', 'note_type', 'percentage', 'alt_percentage', 'influence', 'cond_percentage'],
             },
             'japanese_template': u'{duration}スコアが{percentage}％UPする',
             'special_japanese_templates': {
                 'perfect_only': u'{duration}秒間PERFECTのときのみ、スコアが{percentage}% UPする',
                 'based_on_stamina': u'{duration}秒間スコアが{alt_percentage}%UP、発動時に自分のライフが{stamina}以上の場合はスコアが{percentage}%UPする',
-                'based_on_accuracy': u'{duration}秒間スコアが{alt_percentage}％UP、{note_type}以下を出すまではスコアが{percentage}％UPする',
+                'based_on_accuracy': u'{duration}秒間スコアが{alt_percentage}％UP、{note_type}以下を出すまではスコアが{percentage}％ UPする',
+                'perfect_only_influence': u'{duration}秒間 PERFECTのときのみ、スコアが{percentage}% UP。 発動者のバンド編成が{influence}のみの場合はPERFECTのときのみ、スコアが{cond_percentage}％ UP',
+                'based_on_accuracy_influence': u'{duration}秒間 スコアが{alt_percentage}％ UP、{note_type}以下を出すまではスコアが{percentage}％ UP 、発動者のバンド編成が{influence}のみの場合は{note_type}以下を出すまでスコアが{cond_percentage}% UP',
             },
 
             # Side skill
@@ -540,6 +546,8 @@ class Card(MagiModel):
         ('perfect_only', 'Based off PERFECT notes'),
         ('based_on_stamina', 'Scoreup based on stamina'),
         ('based_on_accuracy', 'Better scoreup if you can hit perfects'),
+        ('perfect_only_influence', 'Based off perfects, but rewards full-band teams'),
+        ('based_on_accuracy_influence', 'Better scoreup if you can hit perfects, with a band/attribute influence'),
     )
 
     ALL_VARIABLES = { item: True for sublist in [ _info['variables'] + _info['side_variables'] + [ii for sl in [_i for _i in _info.get('special_variables', {}).values()] for ii in sl] for _info in SKILL_TYPES.values() ] for item in sublist }.keys()
@@ -671,6 +679,22 @@ class Card(MagiModel):
     skill_duration = models.PositiveIntegerField('{duration}', null=True, help_text='in seconds')
     skill_percentage = models.FloatField('{percentage}', null=True, help_text='0-100')
     skill_alt_percentage = models.FloatField('{alt_percentage}', null=True, help_text='0-100')
+    skill_cond_percentage = models.FloatField('{cond_percentage}', null=True, help_text='0-100')
+
+    SKILL_INFLUENCE_FIRST_BAND_ID = 501
+    SKILL_INFLUENCE_CHOICES = OrderedDict(ATTRIBUTE_CHOICES + 
+        [(SKILL_INFLUENCE_FIRST_BAND_ID + i, band) for i, band in enumerate(Member.BAND_CHOICES)])
+    SKILL_INFLUENCE_WITHOUT_I_CHOICES = True
+    i_skill_influence = models.PositiveIntegerField('{influence}', null=True, choices=SKILL_INFLUENCE_CHOICES.iteritems())
+
+    @property
+    def skill_influence(self):
+        enum = self.SKILL_INFLUENCE_CHOICES.get(self.i_skill_influence)
+        # Attribute names are translatable, band names are not.
+        if enum and self.i_skill_influence < self.SKILL_INFLUENCE_FIRST_BAND_ID:
+            return _(enum)
+        
+        return enum
 
     # Images
     image = models.ImageField(_('Icon'), upload_to=uploadItem('c'), null=True)

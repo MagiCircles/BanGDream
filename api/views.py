@@ -203,7 +203,8 @@ class CardSerializerForEditing(CardSerializer):
     class Meta(CardSerializer.Meta):
         fields = CardSerializer.Meta.fields + (
             'i_skill_special',
-            'i_skill_note_type', 'skill_stamina', 'skill_alt_stamina', 'skill_duration', 'skill_percentage', 'skill_alt_percentage',
+            'i_skill_note_type', 'skill_stamina', 'skill_alt_stamina', 'skill_duration', 'skill_percentage',
+            'skill_alt_percentage', 'skill_cond_percentage', 'i_skill_influence',
         )
 
 class CardViewSet(viewsets.ModelViewSet):
@@ -369,7 +370,7 @@ class AssetSerializer(MagiSerializer):
     i_type = IField(models.Asset, 'type', required=True)
     i_band = IField(models.Asset, 'band', required=False)
     c_tags = CField(models.Asset, 'tags', required=False)
-    
+
     class Meta:
         model = models.Asset
         save_owner_on_creation = True

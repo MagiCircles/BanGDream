@@ -160,6 +160,11 @@ ACTIVITY_TAGS = [
     }),
 
     # Events
+    ('BBSChallenge', {
+        'translation': 'BBSChallenge',
+        'start_date': datetime.datetime(2020, 03, 25, 10, 00, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2020, 04, 19, 10, 00, tzinfo=timezone.utc),
+    }),
     ('FanLettersForMyValentine', {
         'translation': 'FanLettersForMyValentine',
         'start_date': datetime.datetime(2020, 02, 10, 10, 00, tzinfo=timezone.utc),

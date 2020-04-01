@@ -362,3 +362,41 @@ SEASONS['christmas'].update({
     'to_random_homepage_art': 'getRandomChristmasArt',
     'to_random_homepage_background': 'getRandomChristmasBackground',
 })
+
+SEASONS['aprilfools']['js_variables']['aprilfools_configuration'].update({
+    'items': [
+        'https://i.imgur.com/WFn2yhC.png',
+        'https://i.imgur.com/OdbApc9.png',
+        'https://i.imgur.com/dWt8pdf.png',
+        'https://i.imgur.com/ffVlrnO.png',
+        'https://i.imgur.com/fkz2ol1.png',
+        'https://i.imgur.com/xupU31S.png',
+    ],
+    'itemSize': '35px',
+    'startImage': 'https://i.imgur.com/D3jdzSt.png',
+    'startBubbleText': '<h1>It\'s Baby Shark time!</h1>doo doo doo doo doo doo',
+    'startText': u'Baby Shark took over Bandori Party!<br>To celebrate April Fools, find all the baby shark hidden all around Bandori Party!<br><br>If you manage to finish before the end of April 1st, you\'ll earn a badge! 🏅',
+    'startButton': 'Find all the sharks!',
+    'endBubbleText': u'Congratulations 🎉<br>You found all the sharks! <img src="https://i.imgur.com/dWt8pdf.png"/>',
+    'endText': 'We hope you had fun!',
+    'endImage': 'https://i.imgur.com/D3jdzSt.png',
+})
+
+SEASONS['aprilfools']['js_variables']['aprilfools_configuration']['hiddenAfterDivs'] += [
+    ['[data-item="asset"] h3', 'You can download official images and other assets on BanPa~'],
+    ['body.current-gallery figure', 'Check out our gallery of images!'],
+    ['[data-item="gacha"] div', 'Have you checked gachas?'],
+    ['[data-item="event"] div', 'Have you checked events?'],
+    ['[data-item="song"] div', 'Have you checked the songs?'],
+    ['[data-item="item"] div', 'Have you checked the items?'],
+    ['[data-item="areaitem"] div', 'Have you checked the area items?'],
+    ['[data-item="area"] h5', 'The gallery includes areas! Nice~'],
+    ['[for="id_i_attribute"]', 'Look for cards by attribute!'],
+    ['[for="id_gacha_type"]', 'Try to filter for gacha cards!'],
+    ['.card-wrapper', 'Have you checked the cards?'],
+    ['.col-xs-2[data-item="card"] .icon-card', 'Try to quick add cards!'],
+    ['.area_see_all', 'The gallery includes areas! Yay~'],
+    ['[for="id_status"]', 'You can filter events by version!'],
+    ['[for="id_i_boost_stat"]', 'Try to filter events "Challenge Live"!'],
+]
+SEASONS['aprilfools']['extra']['badge_image'] = 'https://i.imgur.com/GvQ2sCT.png'

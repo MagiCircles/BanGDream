@@ -176,12 +176,20 @@ class Member(MagiModel):
     collection_name = 'member'
 
     owner = models.ForeignKey(User, related_name='added_members')
-    name = models.CharField(string_concat(_('Name'), ' (', _('Romaji'), ')'), max_length=100, unique=True)
-    japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100, null=True)
 
+    name = models.CharField(string_concat(_('Name')), max_length=100, unique=True)
     NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
     NAME_SOURCE_LANGUAGES = ['ja']
     d_names = models.TextField(_('Name'), null=True)
+
+    japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100)
+
+    alt_name = models.CharField(string_concat(_('Name'), ' (Offstage)'), max_length=100, null=True)
+    ALT_NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
+    ALT_NAME_SOURCE_LANGUAGES = ['ja']
+    d_alt_names = models.TextField('Offstage Name', null=True)
+
+    japanese_alt_name = models.CharField(string_concat(_('Name'), ' (Offstage - ', t['Japanese'], ')'), max_length=100, null=True)
 
     @property
     def first_name(self):

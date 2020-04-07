@@ -262,6 +262,7 @@ class ActivityCollection(_ActivityCollection):
 
 MEMBERS_ICONS = {
     'name': 'id',
+    'alt_name': 'id',
     'band': 'rock',
     'school': 'school',
     'school_year': 'education',
@@ -289,14 +290,14 @@ class MemberCollection(MainItemCollection):
     plural_title = _('Members')
     icon = 'idol'
     navbar_link_list = 'bangdream'
-    translated_fields = ('name',  'school', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description', )
+    translated_fields = ('name', 'alt_name', 'school', 'food_like', 'food_dislike', 'instrument', 'hobbies', 'description', )
 
     form_class = forms.MemberForm
 
     def to_fields(self, view, item, extra_fields=None, exclude_fields=None, *args, **kwargs):
         if exclude_fields is None: exclude_fields = []
         if extra_fields is None: extra_fields = []
-        exclude_fields += ['japanese_name']
+        exclude_fields += ['japanese_name', 'japanese_alt_name']
         if item.school is not None:
             exclude_fields.append('classroom')
         fields = super(MemberCollection, self).to_fields(view, item, *args, icons=MEMBERS_ICONS, images={
@@ -318,22 +319,42 @@ class MemberCollection(MainItemCollection):
         setSubField(fields, 'height', key='value', value=u'{} cm'.format(item.height))
         setSubField(fields, 'description', key='type', value='long_text')
 
+        # Member (Stage) Name
         setSubField(fields, 'name', key='type', value='text_annotation')
-        setSubField(fields, 'name', key='verbose_name', value=_('Name'))
         if get_language() == 'ja':
             setSubField(fields, 'name', key='value', value=item.japanese_name)
-            setSubField(fields, 'name', key='annotation', value=item.name)
+            if item.name != item.japanese_name:
+                setSubField(fields, 'name', key='annotation', value=item.name)
         elif item.t_name != item.name:
-            setSubField(fields, 'name', key='value', value=item.t_name)
-            setSubField(fields, 'name', key='annotation', value=mark_safe(u'<br>'.join([item.japanese_name, item.name])))
-        else:
-            setSubField(fields, 'name', key='value', value=item.t_name)
+            if item.name != item.japanese_name:
+                setSubField(fields, 'name', key='annotation', value=mark_safe(u'<br>'.join([item.japanese_name, item.name])))
+            else:
+                setSubField(fields, 'name', key='annotation', value=item.name)
+        elif item.name != item.japanese_name:
             setSubField(fields, 'name', key='annotation', value=item.japanese_name)
 
-        if get_language() == 'ja':
+        # Member Alt Name
+        setSubField(fields, 'alt_name', key='type', value='text_annotation')
+        setSubField(fields, 'alt_name', key='verbose_name', value=_('Name'))
+        if item.alt_name is not None:
+            setSubField(fields, 'name', key='verbose_name', value=string_concat(_('Name'), ' (', _('Stage'), ')'))
+            if get_language() == 'ja':
+                setSubField(fields, 'alt_name', key='value', value=item.japanese_alt_name)
+                if item.alt_name != item.japanese_alt_name:
+                    setSubField(fields, 'alt_name', key='annotation', value=item.alt_name)
+            elif item.t_alt_name != item.alt_name:
+                if item.japanese_alt_name != item.alt_name:
+                    setSubField(fields, 'alt_name', key='annotation', value=mark_safe(u'<br>'.join([item.japanese_alt_name, item.alt_name])))
+                else:
+                    setSubField(fields, 'alt_name', key='annotation', value=item.alt_name)
+            elif item.japanese_alt_name != item.alt_name:
+                setSubField(fields, 'alt_name', key='annotation', value=item.japanese_alt_name)
+            
+        if item.romaji_CV == item.CV or get_language() == 'ja':
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))
             if 'romaji_CV' in fields:
                 del(fields['romaji_CV'])
+                
         return fields
 
     filter_cuteform = {

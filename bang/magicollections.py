@@ -321,6 +321,7 @@ class MemberCollection(MainItemCollection):
 
         setSubField(fields, 'alt_name', key='verbose_name', value=_('Name'))
         if item.alt_name is not None:
+            setSubField(fields, 'name', key='icon', value='rock')
             setSubField(fields, 'name', key='verbose_name', value=string_concat(_('Name'), ' (', _('Stage'), ')'))
             
         if item.romaji_CV == item.CV or get_language() == 'ja':

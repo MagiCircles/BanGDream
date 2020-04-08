@@ -27,6 +27,7 @@ from magi.utils import (
     getEventStatus,
     ColorField,
     filterRealCollectiblesPerAccount,
+    listUnique,
 )
 from bang.django_translated import t
 
@@ -74,6 +75,29 @@ DREAMFES_PER_LANGUAGE = {
     'zh-hans': u'夢幻祭典轉蛋',
     'zh-hant': u'夢幻祭典轉蛋',
 }
+
+#Returns the list of displayable names from an item
+def displayNames(item, field_name='name'):
+    t_name = getattr(item, u't_{}'.format(field_name))
+    return listUnique([
+        name for name in [
+            unicode(t_name) if t_name else None,
+            getattr(item, field_name),
+            getattr(item, u'japanese_{}'.format(field_name)),
+        ] if name
+    ])
+
+def displayNameHTML(item, field_name='name', separator=u'<br>'):
+    names = displayNames(item, field_name=field_name)
+    if not names:
+        return ''
+    return mark_safe(u'<span>{}</span>{}'.format(
+        names[0],
+        u'{}<small class="text-muted">{}</small>'.format(
+            separator,
+            separator.join(names[1:])
+        ) if len(names) > 1 else '',
+    ))
 
 ############################################################
 # Account
@@ -183,6 +207,7 @@ class Member(MagiModel):
     d_names = models.TextField(_('Name'), null=True)
 
     japanese_name = models.CharField(string_concat(_('Name'), ' (', t['Japanese'], ')'), max_length=100)
+    display_name = property(displayNameHTML)
 
     alt_name = models.CharField(string_concat(_('Name'), ' (Offstage)'), max_length=100, null=True)
     ALT_NAMES_CHOICES = LANGUAGES_NEED_OWN_NAME
@@ -190,7 +215,7 @@ class Member(MagiModel):
     d_alt_names = models.TextField('Offstage Name', null=True)
 
     japanese_alt_name = models.CharField(string_concat(_('Name'), ' (Offstage - ', t['Japanese'], ')'), max_length=100, null=True)
-
+    display_alt_name = property(lambda _s: displayNameHTML(_s, field_name='alt_name'))
     @property
     def first_name(self):
         if get_language() == 'ja':
@@ -224,7 +249,9 @@ class Member(MagiModel):
     SCHOOL_YEAR_CHOICES = (
         ('First', _('First')),
         ('Second', _('Second')),
-        ('Third', _('Junior Third')),
+        ('Third', _('Third')),
+        ('JrThird', _('Junior Third')),
+        ('JrSecond', _('Junior Second')),
     )
     i_school_year = models.PositiveIntegerField(_('School year'), choices=i_choices(SCHOOL_YEAR_CHOICES), null=True)
 

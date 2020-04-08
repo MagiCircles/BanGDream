@@ -319,36 +319,9 @@ class MemberCollection(MainItemCollection):
         setSubField(fields, 'height', key='value', value=u'{} cm'.format(item.height))
         setSubField(fields, 'description', key='type', value='long_text')
 
-        # Member (Stage) Name
-        setSubField(fields, 'name', key='type', value='text_annotation')
-        if get_language() == 'ja':
-            setSubField(fields, 'name', key='value', value=item.japanese_name)
-            if item.name != item.japanese_name:
-                setSubField(fields, 'name', key='annotation', value=item.name)
-        elif item.t_name != item.name:
-            if item.name != item.japanese_name:
-                setSubField(fields, 'name', key='annotation', value=mark_safe(u'<br>'.join([item.japanese_name, item.name])))
-            else:
-                setSubField(fields, 'name', key='annotation', value=item.name)
-        elif item.name != item.japanese_name:
-            setSubField(fields, 'name', key='annotation', value=item.japanese_name)
-
-        # Member Alt Name
-        setSubField(fields, 'alt_name', key='type', value='text_annotation')
         setSubField(fields, 'alt_name', key='verbose_name', value=_('Name'))
         if item.alt_name is not None:
             setSubField(fields, 'name', key='verbose_name', value=string_concat(_('Name'), ' (', _('Stage'), ')'))
-            if get_language() == 'ja':
-                setSubField(fields, 'alt_name', key='value', value=item.japanese_alt_name)
-                if item.alt_name != item.japanese_alt_name:
-                    setSubField(fields, 'alt_name', key='annotation', value=item.alt_name)
-            elif item.t_alt_name != item.alt_name:
-                if item.japanese_alt_name != item.alt_name:
-                    setSubField(fields, 'alt_name', key='annotation', value=mark_safe(u'<br>'.join([item.japanese_alt_name, item.alt_name])))
-                else:
-                    setSubField(fields, 'alt_name', key='annotation', value=item.alt_name)
-            elif item.japanese_alt_name != item.alt_name:
-                setSubField(fields, 'alt_name', key='annotation', value=item.japanese_alt_name)
             
         if item.romaji_CV == item.CV or get_language() == 'ja':
             setSubField(fields, 'CV', key='verbose_name', value=_('CV'))

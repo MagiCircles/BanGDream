@@ -171,6 +171,8 @@ class MemberForm(AutoForm):
         # Make sure all members use the same year as birthdate
         if instance.birthday:
             instance.birthday = instance.birthday.replace(year=2015)
+        if instance.alt_name is not None and instance.japanese_alt_name is None:
+            instance.japanese_alt_name = instance.alt_name
         # Invalidate cards cache
         if not self.is_creating:
             models.Card.objects.filter(member_id=instance.id).update(_cache_member_last_update=None)

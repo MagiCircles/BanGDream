@@ -3,6 +3,7 @@ from django.utils.translation import activate as translation_activate, get_langu
 from magi import urls # needed to load static_url
 from magi.tools import (
     generateSettings,
+    listUnique,
 )
 from bang import models
 from bang.utils import (
@@ -15,7 +16,7 @@ def generate_settings():
     # BanG Dream!
 
     print 'Get schools'
-    schools = models.Member.objects.filter(school__isnull=False).values_list('school', flat=True).distinct()
+    schools = listUnique(models.Member.objects.filter(school__isnull=False).values_list('school', flat=True).distinct())
 
     print 'Get areas'
     areas = [

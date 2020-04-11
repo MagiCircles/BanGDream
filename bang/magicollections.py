@@ -1972,6 +1972,10 @@ class SongCollection(MainItemCollection):
             }),
         ])
 
+        def extra_context(self, context):
+            context['full_text'] = _('Full').upper()
+            return context
+
     class ItemView(MainItemCollection.ItemView):
         template = 'default'
         top_illustration = 'include/songTopIllustration'

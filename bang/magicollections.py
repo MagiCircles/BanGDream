@@ -1928,7 +1928,7 @@ class SongCollection(MainItemCollection):
         for fieldName in (
                 ((['japanese_name', 'romaji_name', 'name']
                  if get_language() == 'ja' else ['romaji_name']) if view.view == 'item_view' else [])
-                + ['band', 'unlock_variables', 'is_cover']
+                + ['band', 'unlock_variables', 'is_cover', 'is_full']
                 + [f for f, t in models.Song.SONGWRITERS_DETAILS]
                 + ((list(chain.from_iterable(
                     (u'{}_notes'.format(d), u'{}_difficulty'.format(d))
@@ -1956,6 +1956,7 @@ class SongCollection(MainItemCollection):
         return fields
 
     class ListView(MainItemCollection.ListView):
+        item_template = custom_item_template
         per_line = 3
         filter_form = forms.SongFilterForm
         show_collect_button = {
@@ -1964,7 +1965,10 @@ class SongCollection(MainItemCollection):
 
         filter_cuteform = dict(_song_cuteform.items() + [
             ('is_cover', {
-                'type': CuteFormType.OnlyNone,
+                'type': CuteFormType.YesNo,
+            }),
+            ('is_full', {
+                'type': CuteFormType.YesNo,
             }),
         ])
 

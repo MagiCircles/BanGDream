@@ -48,6 +48,7 @@ CORNER_POPUP_IMAGE = 'chibi_kanae.png'
 ABOUT_PHOTO = 'deby.jpg'
 EMPTY_IMAGE = 'stars_with_white.png'
 SITE_NAV_LOGO = 'star.png'
+SITE_LOGO_WHEN_LOGGED_IN = 'BandoriPartyLogoHorizontal.png'
 
 ############################################################
 # Settings per languages
@@ -107,7 +108,7 @@ HOMEPAGE_ART_SIDE = 'left'
 HOMEPAGE_ART_POSITION = {
     'position': 'center right',
     'size': '150%',
-    'y': '40%',
+    'y': '30%',
     'x': '100%',
 }
 

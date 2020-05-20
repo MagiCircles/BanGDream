@@ -356,6 +356,8 @@ NAVBAR_ORDERING = ['card_list', 'member_list', 'song_list', 'events', 'community
 
 SEASONS = DEFAULT_SEASONS.copy()
 
+# Christmas
+
 SEASONS['christmas'].update({
     'accent_color': SECONDARY_COLOR,
     'site_logo': 'logo/bandori_party_christmas.png',
@@ -363,6 +365,8 @@ SEASONS['christmas'].update({
     'to_random_homepage_art': 'getRandomChristmasArt',
     'to_random_homepage_background': 'getRandomChristmasBackground',
 })
+
+# April fools
 
 SEASONS['aprilfools']['js_variables']['aprilfools_configuration'].update({
     'items': [
@@ -401,3 +405,12 @@ SEASONS['aprilfools']['js_variables']['aprilfools_configuration']['hiddenAfterDi
     ['[for="id_i_boost_stat"]', 'Try to filter events "Challenge Live"!'],
 ]
 SEASONS['aprilfools']['extra']['badge_image'] = 'https://i.imgur.com/GvQ2sCT.png'
+
+# Pride month
+
+SEASONS['pride'].update({
+    'site_logo': 'bandori_party_pride.png',
+    'site_logo_when_logged_in': 'bandori_party_pride_horizontal.png',
+    'site_nav_logo': 'pride_star.png',
+    'to_random_homepage_background': 'getRandomPrideBackground',
+})

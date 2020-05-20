@@ -42,3 +42,8 @@ def getRandomChristmasBackground():
         ])
     except IndexError:
         return None
+
+def getRandomPrideBackground():
+    return {
+        'image': u'pride{}.png'.format(random.randint(1, 5)),
+    }

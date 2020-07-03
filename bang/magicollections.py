@@ -2476,21 +2476,31 @@ class AssetCollection(MainItemCollection):
         # Images
         for _version, _info in models.Account.VERSIONS.items():
             if getattr(item, '{}image'.format(_info['prefix'])):
-                extra_fields.append(('{}image'.format(_info['prefix']), {
-                    'image': staticImageURL('language/{}.png'.format(_info['image'])),
-                    'link': getattr(item, '{}image_url'.format(_info['prefix'])),
-                    'link_text': string_concat(_('Image'), ' (', _info['translation'], ')'),
-                    'verbose_name': _('Image'),
-                    'verbose_name_subtitle': _info['translation'],
-                    'value': getattr(item, '{}image_thumbnail_url'.format(_info['prefix'])),
-                    'type': 'image_link',
-                }))
+                # If official art is version-less, generate version-less style
+                if getattr(item, 'type')=='officialart' and getattr(item, 'value')==0:
+                    extra_fields.append(('{}image'.format(_info['prefix']), {
+                        'icon': 'download',
+                        'link': getattr(item, '{}image_url'.format(_info['prefix'])),
+                        'link_text': _('Image'),
+                        'verbose_name': _('Image'),
+                        'value': getattr(item, '{}image_thumbnail_url'.format(_info['prefix'])),
+                        'type': 'image_link',
+                    }))
+                else:
+                    extra_fields.append(('{}image'.format(_info['prefix']), {
+                        'image': staticImageURL('language/{}.png'.format(_info['image'])),
+                        'link': getattr(item, '{}image_url'.format(_info['prefix'])),
+                        'link_text': string_concat(_('Image'), ' (', _info['translation'], ')'),
+                        'verbose_name': _('Image'),
+                        'verbose_name_subtitle': _info['translation'],
+                        'value': getattr(item, '{}image_thumbnail_url'.format(_info['prefix'])),
+                        'type': 'image_link',
+                    }))
 
         # Song + Event
         for _field, _tl in [('song', _('Song')), ('event', _('Event'))]:
             if getattr(item, _field):
                  extra_fields.append((_field, subtitledImageLink(getattr(item, _field), _tl, _field)))
-
 
         fields = super(AssetCollection, self).to_fields(view, item, *args, icons=icons, images={
             'image': staticImageURL('language/ja.png'),

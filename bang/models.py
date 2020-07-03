@@ -2069,7 +2069,7 @@ class Asset(MagiModel):
         }),
         ('officialart', {
             'translation': _('Official art'),
-            'variables': ['name', 'i_band', 'members', 'song', 'c_tags', 'source', 'source_link'],
+            'variables': ['name', 'i_band', 'members', 'song', 'c_tags', 'source', 'source_link', 'value'],
             'icon': 'pictures',
             'to_unicode': lambda _a: (
                 _a.t_name

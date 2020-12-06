@@ -15,6 +15,7 @@ from magi.default_settings import (
     DEFAULT_EXTRA_PREFERENCES,
     DEFAULT_HOME_ACTIVITY_TABS,
     DEFAULT_SEASONS,
+    DEFAULT_GROUPS,
 )
 from magi.utils import tourldash
 from bang.utils import (
@@ -414,3 +415,21 @@ SEASONS['pride'].update({
     'site_nav_logo': 'pride_star.png',
     'to_random_homepage_background': 'getRandomPrideBackground',
 })
+
+############################################################
+# Groups
+
+GROUPS = DEFAULT_GROUPS
+
+_HDESIGN = dict(GROUPS)['design'].copy()
+_HDESIGN.update({
+    'translation': string_concat(_('Graphic designer'), ' - ', _('Manager')),
+    'requires_staff': True,
+    'permissions': [
+        'access_site_before_launch',
+        'beta_test_features',
+        'upload_custom_2x',
+        'upload_custom_thumbnails',
+    ],
+})
+GROUPS.append(('hdesign', _HDESIGN))

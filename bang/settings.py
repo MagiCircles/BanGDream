@@ -165,7 +165,7 @@ ACTIVITY_TAGS = [
     ('StockingStuffingParty', {
         'translation': 'StockingStuffingParty',
         'start_date': datetime.datetime(2020, 12, 12, 0, 0, 0, tzinfo=timezone.utc),
-        'start_date': datetime.datetime(2020, 12, 25, 0, 0, 0, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2020, 12, 25, 0, 0, 0, tzinfo=timezone.utc),
     }),
     ('BBSChallenge', {
         'translation': 'BBSChallenge',

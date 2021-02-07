@@ -498,7 +498,7 @@ class Card(MagiModel):
                 'perfect_only': ['duration', 'percentage'],
                 'based_on_stamina': ['duration', 'stamina', 'percentage', 'alt_percentage'],
                 'based_on_accuracy': ['duration', 'note_type', 'percentage', 'alt_percentage'],
-                'perfect_only_influence': ['duration', 'percentage', 'influence', 'alt_percentage'],
+                'perfect_only_influence': ['duration', 'percentage', 'influence', 'cond_percentage'],
                 'based_on_accuracy_influence': ['duration', 'note_type', 'percentage', 'alt_percentage', 'influence', 'cond_percentage'],
             },
             'japanese_template': u'{duration}スコアが{percentage}％UPする',

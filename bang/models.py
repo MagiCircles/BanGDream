@@ -1383,6 +1383,7 @@ class Song(MagiModel):
         return time.strftime('%M:%S', time.gmtime(self.length))
 
     is_cover = models.BooleanField(_('Cover song'), default=False)
+    is_full = models.BooleanField('FULL', default=False)
     bpm = models.PositiveIntegerField(_('Beats per minute'), null=True)
     release_date = models.DateField(_('Release date'), null=True)
 

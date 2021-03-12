@@ -1,0 +1,8 @@
+{% with song=item %}
+<a href="{{ song.item_url }}" data-ajax-url="{{ song.ajax_item_url}}" data-ajax-title="{{ song }}">
+  <img alt="{{ song }}" class="img-responsive song-image" src="{{ song.image_url }}">
+  {% if song.is_full %}
+  <span class="song-full">{{ full_text }}</span>
+  {% endif %}
+</a>
+{% endwith %}

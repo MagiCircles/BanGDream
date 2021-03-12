@@ -1081,9 +1081,17 @@ def asset_type_to_form(_type):
                     del(self.fields[variable])
             if 'i_type' in self.fields:
                 del(self.fields['i_type'])
-            if 'value' in self.fields and _type == 'comic':
-                self.fields['value'] = forms.ChoiceField(label=_('Comics'), choices=(
-                    BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en']))
+            if 'value' in self.fields:
+                if _type == 'comic':
+                    self.fields['value'] = forms.ChoiceField(label=_('Comics'), choices=(
+                        BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en']))
+                # For CN art, remove incorrect version styling next to images
+                elif _type == 'officialart':
+                    self.fields['value'] = forms.ChoiceField(label='Add Version to Images', 
+                        choices=([('1', 'Yes'), ('0', 'No')]),
+                        help_text="If the art doesn't belong to a server we track, select No.",
+                        initial='1'
+                    )
             # Limit tags per type
             if 'c_tags' in self.fields:
                 if _type == 'background':
@@ -1194,11 +1202,7 @@ class AssetFilterForm(MagiFiltersForm):
 
     def _i_version_to_queryset(self, queryset, request, value):
         prefix = models.Account.VERSIONS_PREFIXES.get(models.Account.get_reverse_i('version', int(value)))
-        return queryset.filter(**{
-            u'{}image__isnull'.format(prefix): False,
-        }).exclude(**{
-            u'{}image'.format(prefix): '',
-        })
+        return queryset.filter(**{u'{}image__isnull'.format(prefix): False}).exclude(**{u'{}image'.format(prefix): ''}).exclude(**{u'value': '0'})
 
     i_version = forms.ChoiceField(label=_('Version'), choices=BLANK_CHOICE_DASH + i_choices(models.Account.VERSION_CHOICES))
     i_version_filter = MagiFilter(to_queryset=_i_version_to_queryset)

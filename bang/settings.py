@@ -162,6 +162,11 @@ ACTIVITY_TAGS = [
     }),
 
     # Events
+    ('DaysofBanGDream', {
+        'translation': 'DaysofBanGDream!',
+        'start_date': datetime.datetime(2021, 3, 10, 0, 0, 0, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2021, 4, 11, 10, 0, 0, tzinfo=timezone.utc),
+    }),
     ('StockingStuffingParty', {
         'translation': 'StockingStuffingParty',
         'start_date': datetime.datetime(2020, 12, 12, 0, 0, 0, tzinfo=timezone.utc),

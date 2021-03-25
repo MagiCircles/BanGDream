@@ -284,6 +284,15 @@ ENABLED_PAGES['twitter'] = {
     'check_permissions': lambda c: c['request'].LANGUAGE_CODE not in DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
 }
 
+ENABLED_PAGES['instagram'] = {
+    'title': 'Instagram',
+    'icon': 'pictures',
+    'navbar_link_list': 'community',
+    'redirect': 'https://instagram.com/BandoriParty',
+    'new_tab': True,
+    'check_permissions': lambda c: c['request'].LANGUAGE_CODE not in DEFAULT_LANGUAGES_CANT_SPEAK_ENGLISH,
+}
+
 ENABLED_PAGES['donate'] = {
     'title': _('Donate'),
     'icon': 'heart',
@@ -356,7 +365,7 @@ ENABLED_NAVBAR_LISTS['girlsbandparty'] = {
 ENABLED_NAVBAR_LISTS['community'] = {
     'title': _('Community'),
     'icon': 'users',
-    'order': ['activity_list', 'account_list', 'map', 'donate_list', 'discord', 'twitter'],
+    'order': ['activity_list', 'account_list', 'map', 'donate_list', 'discord', 'twitter', 'instagram'],
 }
 ENABLED_NAVBAR_LISTS['more']['order'] = ENABLED_NAVBAR_LISTS['more']['order'] + ['donate']
 

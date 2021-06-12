@@ -4690,334 +4690,392 @@ msgstr "用户"
 #: magi/default_settings.py:944 magi/default_settings.py:950
 #: magi/default_settings.py:959 magi/default_settings.py:965 magi/utils.py:2640
 msgid "Advent calendar"
-msgstr ""
+msgstr "出现日历\n"
+""
 
 #: magi/forms.py:1782
 msgid "Optional"
-msgstr ""
+msgstr "可选项"
 
 #: magi/forms.py:2784
 msgid "{thing} required."
-msgstr ""
+msgstr "需要{thing}。"
 
 #: magi/forms.py:2820
 msgid "Past tags"
-msgstr ""
+msgstr "过去的标签\n"
+""
 
 #: magi/magicollections.py:1252
 msgid "Original"
-msgstr ""
+msgstr "原版的\n"
+""
 
 #: magi/magicollections.py:1256
 msgid "High quality"
-msgstr ""
+msgstr "高质量"
 
 #: magi/magicollections.py:2709
 msgid "Your inbox is only open to people you follow, and you're not following anyone."
-msgstr ""
+msgstr "您的收件箱仅向您关注的人开放，您没有关注任何人。\n"
+""
 
 #: magi/magicollections.py:3092
 msgid "Hey, look! I'm on {site}! Follow me ♥︎"
-msgstr ""
+msgstr "你看！我在{site}上！跟随我♥︎\n"
+""
 
 #: magi/magicollections.py:3817
 msgid "How to get badges?"
-msgstr ""
+msgstr "如何获得徽章？\n"
+""
 
 #: magi/magicollections.py:3818
 msgid "Collect them all!"
-msgstr ""
+msgstr "全部收集！\n"
+""
 
 #: magi/magicollections.py:4134
 msgid "Prizes"
-msgstr ""
+msgstr "奖品\n"
+""
 
 #: magi/magicollections.py:4350
 msgid "Your inbox is closed."
-msgstr ""
+msgstr "您的收件箱已关闭。\n"
+""
 
 #: magi/seasons.py:52
 msgid "Happy New Year!"
-msgstr ""
+msgstr "新年快乐！\n"
+""
 
 #: magi/seasons.py:57
 msgid "Happy Lunar New Year!"
-msgstr ""
+msgstr "农历新年快乐！\n"
+""
 
 #: magi/seasons.py:62
 msgid "Happy Valentine's Day!"
-msgstr ""
+msgstr "情人节快乐！\n"
+""
 
 #: magi/seasons.py:67
 msgid "Happy Leap Day!"
-msgstr ""
+msgstr "Le日快乐！\n"
+""
 
 #: magi/seasons.py:77
 msgid "Happy White Day!"
-msgstr ""
+msgstr "白色情人节快乐！\n"
+""
 
 #: magi/seasons.py:82
 msgid "Happy St Patrick's Day!"
-msgstr ""
+msgstr "快乐圣帕特里克节！\n"
+""
 
 #: magi/seasons.py:87
 msgid "Happy April Fool's Day!"
-msgstr ""
+msgstr "愚人节快乐！\n"
+""
 
 #: magi/seasons.py:92
 msgid "Happy Easter!"
-msgstr ""
+msgstr "复活节快乐！\n"
+""
 
 #: magi/seasons.py:97
 msgid "May the Fourth be with you!"
-msgstr ""
+msgstr "愿第四与你同在！\n"
+""
 
 #: magi/seasons.py:107
 msgid "Happy Pride Month!"
-msgstr ""
+msgstr "快乐骄傲月！\n"
+""
 
 #: magi/seasons.py:112
 msgid "Happy Thanksgiving!"
-msgstr ""
+msgstr "感恩节快乐！\n"
+""
 
 #: magi/seasons.py:117
 msgid "Happy Halloween!"
-msgstr ""
+msgstr "万圣节快乐！\n"
+""
 
 #: magi/seasons.py:132 magi/utils.py:2633 magi/views.py:1570
 msgid "Merry Christmas!"
-msgstr ""
+msgstr "圣诞节快乐！\n"
+""
 
 #: magi/settings.py:870
 msgid "Learn a few tips and tricks to help you easily use {site}."
-msgstr ""
+msgstr "了解一些提示和技巧，以帮助您轻松使用{site}。\n"
+""
 
 #: magi/settings.py:876
 msgid "Map of all {license} fans around the world."
-msgstr ""
+msgstr "全球所有{license}粉丝的地图。\n"
+""
 
 #: magi/templates/pages/about.html:467
 msgid "Credits"
-msgstr ""
+msgstr "学分"
 
 #: cpro/model_choices.py:109
 msgid "LIVE Carnival"
-msgstr ""
+msgstr "现场狂欢\n"
+""
 
 #: cpro/model_choices.py:187
 msgid "Hold"
-msgstr ""
+msgstr "保持\n"
+""
 
 #: cpro/model_choices.py:232
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and hold notes a {skill_value2}% score bonus in the next {skill_duration} seconds."
-msgstr ""
+msgstr "每{trigger_value}秒，Perfect笔记就有{trigger_chance}％的机会获得{skill_value}％的分数奖励，并在接下来的{skill_duration}秒内持有{skill_value2}％的分数奖励。\n"
+""
 
 #: bang/models.py:459
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members"
-msgstr ""
+msgstr "在接下来的{duration}秒内，如果您的团队仅由{influence}个成员组成，则PERFECT笔记的得分将增加+ {percentage}％，或+ {cond_percentage}％\n"
+""
 
 #: bang/models.py:460
 msgid "For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr ""
+msgstr "在接下来的{duration}秒内，分数将提高+ {percentage}％（如果您的团队仅由{influence}成员组成，则分数将提高+ {cond_percentage}％），直到命中{note_type}音符，然后分数就提高+ {alt_percentage} ％\n"
+""
 
 #: bang/settings.py:296
 msgid "Gallery of {license} images"
-msgstr ""
+msgstr "{license}图片库\n"
+""
 
 #: idolstory/forms.py:99
 msgid "Show {thing}"
-msgstr ""
+msgstr "显示{thing}\n"
+""
 
 #: idolstory/forms.py:99 idolstory/forms.py:100
 msgid "Guests"
-msgstr ""
+msgstr "来宾\n"
+""
 
 #: idolstory/forms.py:100
 msgid "Hide {thing}"
-msgstr ""
+msgstr "隐藏{thing}\n"
+""
 
 #: idolstory/forms.py:468 idolstory/forms.py:908
 msgid "All members"
-msgstr ""
+msgstr "所有成员\n"
+""
 
 #: idolstory/forms.py:648 idolstory/models.py:1533 idolstory/models.py:1562
 #: idolstory/models.py:1567 idolstory/models.py:1573 idolstory/models.py:1579
 msgid "Appeal"
-msgstr ""
+msgstr "上诉"
 
 #: idolstory/forms.py:649 idolstory/models.py:1537 idolstory/models.py:1563
 #: idolstory/models.py:1569 idolstory/models.py:1574 idolstory/models.py:1581
 msgid "Stamina"
-msgstr ""
+msgstr "耐力"
 
 #: idolstory/forms.py:817 idolstory/models.py:1392 idolstory/models.py:1804
 #: idolstory/models.py:2264
 msgid "Passive"
-msgstr ""
+msgstr "被动"
 
 #: idolstory/forms.py:818 idolstory/models.py:2269
 msgid "Limit break"
-msgstr ""
+msgstr "极限突破"
 
 #: idolstory/forms.py:864 idolstory/models.py:2372
 msgid "Episode"
-msgstr ""
+msgstr "插曲"
 
 #: idolstory/forms.py:868 idolstory/models.py:2204
 msgid "Chapter"
-msgstr ""
+msgstr "章节"
 
 #. A blog post
 #: starlight/models.py:1788
 msgid "Post"
-msgstr ""
+msgstr "贴文"
 
 #. Blog posts
 #: idolstory/magicollections.py:271
 msgid "Posts"
-msgstr ""
+msgstr "帖子"
 
 #: idolstory/magicollections.py:460
 msgid "Glowing"
-msgstr ""
+msgstr "发光的\n"
+""
 
 #: idolstory/magicollections.py:1077
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 #: idolstory/magicollections.py:1192
 msgid "Skills"
-msgstr ""
+msgstr "技能专长\n"
+""
 
 #: idolstory/magicollections.py:1326 idolstory/models.py:2442
 #: idolstory/models.py:2449
 msgid "Still"
-msgstr ""
+msgstr "仍然"
 
 #: idolstory/magicollections.py:1327 idolstory/models.py:961
 msgid "Stills"
-msgstr ""
+msgstr "剧照\n"
+""
 
 #: idolstory/magicollections.py:1421
 msgid "Story"
-msgstr ""
+msgstr "故事"
 
 #: idolstory/models.py:314
 msgid "Elegant"
-msgstr ""
+msgstr "优雅"
 
 #: idolstory/models.py:318
 msgid "Natural"
-msgstr ""
+msgstr "自然"
 
 #: idolstory/models.py:424 idolstory/models.py:429 idolstory/models.py:434
 #: idolstory/models.py:439 idolstory/models.py:444 idolstory/models.py:449
 #: idolstory/models.py:454
 msgid "Guest"
-msgstr ""
+msgstr "来宾"
 
 #: idolstory/models.py:454
 msgid "No attribute"
-msgstr ""
+msgstr "没有属性\n"
+""
 
 #: idolstory/models.py:604
 msgid "YouTube"
-msgstr ""
+msgstr "的YouTube\n"
+""
 
 #: idolstory/models.py:761
 msgid "Symbol"
-msgstr ""
+msgstr "符号"
 
 #: idolstory/models.py:921
 msgid "Lighstick color"
-msgstr ""
+msgstr "发光色\n"
+""
 
 #: idolstory/models.py:923 idolstory/models.py:926
 msgid "Call and response"
-msgstr ""
+msgstr "致电和回复\n"
+""
 
 #: idolstory/models.py:1029
 msgid "Game"
-msgstr ""
+msgstr "游戏"
 
 #: idolstory/models.py:1055
 msgid "Abstract"
-msgstr ""
+msgstr "抽象"
 
 #: idolstory/models.py:1056
 msgid "Blurry"
-msgstr ""
+msgstr "模糊的\n"
+""
 
 #: idolstory/models.py:1393 idolstory/models.py:1827
 msgid "Show"
-msgstr ""
+msgstr "显示\n"
+""
 
 #: idolstory/models.py:1482
 msgid "Guard"
-msgstr ""
+msgstr "守护\n"
+""
 
 #: idolstory/models.py:1483
 msgid "Voltage"
-msgstr ""
+msgstr "电压\n"
+""
 
 #: idolstory/models.py:1484
 msgid "SP"
-msgstr ""
+msgstr "SP"
 
 #: idolstory/models.py:1548 idolstory/models.py:1552
 msgid "Max trained"
-msgstr ""
+msgstr "训练有素的人\n"
+""
 
 #: idolstory/models.py:1658 idolstory/models.py:1787 idolstory/models.py:1817
 #: idolstory/models.py:1840
 msgid "Affects"
-msgstr ""
+msgstr "影响\n"
+""
 
 #: idolstory/models.py:2100
 msgid "Base statistics, without any traning."
-msgstr ""
+msgstr "基本统计信息，无任何变化。\n"
+""
 
 #: idolstory/models.py:2178
 msgid "Chapter {number}"
-msgstr ""
+msgstr "第{number}章\n"
+""
 
 #: idolstory/models.py:2234
 msgid "Episode {number}"
-msgstr ""
+msgstr "第{number}集\n"
+""
 
 #: idolstory/models.py:2255
 msgid "Outfit unlocked"
-msgstr ""
+msgstr "装备解锁\n"
+""
 
 #: idolstory/models.py:2256
 msgid "Story unlocked"
-msgstr ""
+msgstr "故事已解锁\n"
+""
 
 #: idolstory/settings.py:217
 msgid "{name}'s birthday party {year}"
-msgstr ""
+msgstr "{name}的生日聚会{year}\n"
+""
 
 #: idolstory/settings.py:256
 msgid "What's your Love Live! story?"
-msgstr ""
+msgstr "你的爱情生活是什么！故事？\n"
+""
 
 #: idolstory/settings.py:379
 msgid "How to install {app}?"
-msgstr ""
+msgstr "如何安装{app}？\n"
+""
 
 #: starlight/magicollections.py:1295
 msgid "Gachas"
-msgstr ""
+msgstr "加沙"
 
 #: magi/seasons.py:72
 msgid "Happy Pi Day!"
-msgstr ""
+msgstr "皮日快乐！\n"
+""
 
 #: magi/seasons.py:102
 msgid "Happy Cinco de Mayo!"
-msgstr ""
+msgstr "Cinco de Mayo大家好！\n"
+""
 
 #: idolstory/models.py:1464
 msgid "Ultra rare"
-msgstr ""
+msgstr "超稀有\n"
+""
 

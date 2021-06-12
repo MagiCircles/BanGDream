@@ -436,6 +436,7 @@ SEASONS['pride'].update({
     'site_logo': 'bandori_party_pride.png',
     'site_logo_when_logged_in': 'bandori_party_pride_horizontal.png',
     'site_nav_logo': 'pride_star.png',
+    'to_random_homepage_art': 'getRandomPrideArt',
     'to_random_homepage_background': 'getRandomPrideBackground',
 })
 

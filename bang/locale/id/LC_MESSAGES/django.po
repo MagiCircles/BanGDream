@@ -26,7 +26,7 @@ msgstr "Peringkat"
 
 #: magi/magicollections.py:2485
 msgid "Create your account to join the community and be in the leaderboard!"
-msgstr "Buat akunmu untuk bergabung dengan komunitas dan jadilah bagian dari papan peringkat!"
+msgstr "Buat akunmu untuk bergabung dengan komunitas dan jadilah bagian dalam papan peringkat!"
 
 #: starlight/models.py:1461 starlight/models.py:1464
 msgid "Profile"
@@ -106,7 +106,7 @@ msgstr "Warna"
 #. This is about the favorite characters the user specified in their preferences.
 #: magi/forms.py:2143
 msgid "All your favorites must be unique"
-msgstr "Anggota favorit yang kamu pilih haruslah berbeda satu sama lain"
+msgstr "Semua favorit-favorit Anda harus unik"
 
 #: magi/forms.py:2325
 msgid "Old Password"
@@ -189,17 +189,17 @@ msgstr "Deskripsi"
 #. Your translation must be gender neutral. Example 1er/ère
 #: bang/forms.py:394 bang/magicollections.py:516 bang/models.py:981
 msgid "1st"
-msgstr "#1"
+msgstr "Nomor 1"
 
 #. Your translation must be gender neutral. Example 1er/ère
 #: magi/default_settings.py:28
 msgid "2nd"
-msgstr "#2"
+msgstr "Nomor 2"
 
 #. Your translation must be gender neutral. Example 1er/ère
 #: magi/default_settings.py:28
 msgid "3rd"
-msgstr "#3"
+msgstr "Nomor 3"
 
 #: magi/magicollections.py:2898 magi/models.py:146
 msgid "Birthdate"
@@ -231,7 +231,7 @@ msgstr "Nama pengguna"
 #. For links.
 #: magi/models.py:486
 msgid "Write your username only, no URL."
-msgstr "Cukup tulis nama pengguna saja (bukan URL)."
+msgstr "Cukup tulis nama username Anda saja, tidak harus menulis URL."
 
 #. For links.
 #: magi/forms.py:2512
@@ -250,7 +250,8 @@ msgstr "Tidak ada hasil."
 #: magi/templates/emails/donation_footer.html:4
 #: magi/templates/include/donate.html:10 magi/templates/pages/settings.html:144
 msgid "This will help us cover the costs of the servers and allow us to keep it running for free and without ads."
-msgstr "Ini akan membantu kami menutupi pengeluaran server dan membuat kami bisa menjalankan situs ini tanpa pungutan biaya dan iklan."
+msgstr "Ini akan membantu kami menutupi pengeluaran server dan membiarkan kami menjalankan situs ini secara gratis dan \n"
+"tanpa iklan."
 
 #: stardustrun/templates/include/pokedex.html:39
 #, fuzzy
@@ -263,11 +264,11 @@ msgstr "Kami adalah Deby dan Engil; senang bertemu dengan kalian!"
 
 #: magi/templates/include/about_description.html:3
 msgid "We are two developers and casual players. We live in San Francisco, California. We come from the same computer science university and both work as software engineers in the same company we founded:"
-msgstr "Kami adalah dua orang pengembang dan pemain kasual. Kami tinggal di San Fransisco, California. Kami berasal dari jurusan ilmu komputer di universitas yang sama dan sama-sama bekerja sebagai pengembang perangkat lunak pada perusahaan yang kami buat:"
+msgstr "Kami adalah dua orang pengembang dan pemain kasual. Kami tinggal di San Francisco, California. Kami berasal dari jurusan ilmu komputer di universitas yang sama dan sama-sama bekerja sebagai pengembang perangkat lunak pada perusahaan yang kami buat:"
 
 #: magi/templates/include/about_description.html:6
 msgid "Though we love our job, we don't pay ourselves and don't have any income, so any donation helps a lot and is greatly appreciated."
-msgstr "Meskipun kami mencintai pekerjaan kami, kami tidak menggaji diri kami dan tidak memiliki pemasukan apapun, jadi sumbangan apapun yang masuk amat membantu dan sangat kami hargai."
+msgstr "Meskipun kami mencintai pekerjaan kami, kami tidak menggaji diri kami dan tidak memiliki pemasukan apapun, jadi sumbangan apapun yang masuk sangat membantu dan sangat kami hargai."
 
 #: magi/templates/include/about_description.html:10
 msgid "The heartwarming support from the community keeps motivating us to do more! We love helping the community by providing as much information as we can about the game, while keeping the website easy to use, shiny and cute ^_^"
@@ -2110,7 +2111,7 @@ msgstr "Instrumen"
 #: magi/magicollections.py:486
 #, fuzzy
 msgid "Collected {thing}"
-msgstr "Koleksi {thing}"
+msgstr "Telah Dikoleksi {thing}"
 
 #: idolstory/models.py:1772 idolstory/models.py:1775
 msgid "Skill name"
@@ -4196,7 +4197,7 @@ msgstr "Akun Relive"
 
 #: starlight/magicollections.py:718 starlight/magicollections.py:745
 msgid "Buy {thing}"
-msgstr "Beli {sesuatu}"
+msgstr "Beli {thing}"
 
 #: starlight/magicollections.py:718 starlight/magicollections.py:745
 msgid "CD"
@@ -4489,334 +4490,344 @@ msgstr "Pengguna"
 #: magi/default_settings.py:944 magi/default_settings.py:950
 #: magi/default_settings.py:959 magi/default_settings.py:965 magi/utils.py:2640
 msgid "Advent calendar"
-msgstr ""
+msgstr "Kalendar advent"
 
 #: magi/forms.py:1782
 msgid "Optional"
-msgstr ""
+msgstr "Opsional"
 
 #: magi/forms.py:2784
 msgid "{thing} required."
-msgstr ""
+msgstr "Perlu {thing}."
 
 #: magi/forms.py:2820
 msgid "Past tags"
-msgstr ""
+msgstr "Tags sebelumnya"
 
 #: magi/magicollections.py:1252
 msgid "Original"
-msgstr ""
+msgstr "Asli"
 
 #: magi/magicollections.py:1256
 msgid "High quality"
-msgstr ""
+msgstr "Kualitas tinggi"
 
 #: magi/magicollections.py:2709
 msgid "Your inbox is only open to people you follow, and you're not following anyone."
-msgstr ""
+msgstr "Kotak masukmu hanya terbuka untuk orang yang kamu ikuti, dan kamu tidak mengikuti siapapun."
 
 #: magi/magicollections.py:3092
 msgid "Hey, look! I'm on {site}! Follow me ♥︎"
-msgstr ""
+msgstr "Hei, lihat! Aku ada di {site}! Ikuti aku ♥︎"
 
 #: magi/magicollections.py:3817
 msgid "How to get badges?"
-msgstr ""
+msgstr "Bagaimana cara mendapat lencana?"
 
 #: magi/magicollections.py:3818
 msgid "Collect them all!"
-msgstr ""
+msgstr "Koleksi semuanya!"
 
 #: magi/magicollections.py:4134
 msgid "Prizes"
-msgstr ""
+msgstr "Hadiah"
 
 #: magi/magicollections.py:4350
 msgid "Your inbox is closed."
-msgstr ""
+msgstr "Kotak masukmu tertutup."
 
 #: magi/seasons.py:52
 msgid "Happy New Year!"
-msgstr ""
+msgstr "Selamat Tahun Baru!"
 
 #: magi/seasons.py:57
 msgid "Happy Lunar New Year!"
-msgstr ""
+msgstr "Selamat Tahun Baru Imlek!"
 
 #: magi/seasons.py:62
 msgid "Happy Valentine's Day!"
-msgstr ""
+msgstr "Selamat Hari Valentine!"
 
 #: magi/seasons.py:67
 msgid "Happy Leap Day!"
-msgstr ""
+msgstr "Selamat Hari Kabisat!"
 
 #: magi/seasons.py:77
 msgid "Happy White Day!"
-msgstr ""
+msgstr "Selamat Hari Putih!"
 
 #: magi/seasons.py:82
 msgid "Happy St Patrick's Day!"
-msgstr ""
+msgstr "Selamat Hari St Patrick!"
 
 #: magi/seasons.py:87
 msgid "Happy April Fool's Day!"
-msgstr ""
+msgstr "Selamat Hari April Fool's!"
 
 #: magi/seasons.py:92
 msgid "Happy Easter!"
-msgstr ""
+msgstr "Selamat Paskah!"
 
 #: magi/seasons.py:97
 msgid "May the Fourth be with you!"
-msgstr ""
+msgstr "Semoga yang Keempat bersamamu!\n"
+""
 
 #: magi/seasons.py:107
 msgid "Happy Pride Month!"
-msgstr ""
+msgstr "Selamat Bulan Kebanggaan!"
 
 #: magi/seasons.py:112
 msgid "Happy Thanksgiving!"
-msgstr ""
+msgstr "Selamat Pengucapan Syukur"
 
 #: magi/seasons.py:117
 msgid "Happy Halloween!"
-msgstr ""
+msgstr "Selamat Halloween!"
 
 #: magi/seasons.py:132 magi/utils.py:2633 magi/views.py:1570
 msgid "Merry Christmas!"
-msgstr ""
+msgstr "Selamat Natal!"
 
 #: magi/settings.py:870
 msgid "Learn a few tips and tricks to help you easily use {site}."
-msgstr ""
+msgstr "Pelajari sebagian tip dan trik untuk membantumu menggunakan {site}."
 
 #: magi/settings.py:876
+#, fuzzy
 msgid "Map of all {license} fans around the world."
-msgstr ""
+msgstr "Peta tentang semua penggemar {license} di sekitar dunia."
 
 #: magi/templates/pages/about.html:467
 msgid "Credits"
-msgstr ""
+msgstr "Kredit"
 
 #: cpro/model_choices.py:109
 msgid "LIVE Carnival"
-msgstr ""
+msgstr "Karnaval LANGSUNG\n"
+""
 
 #: cpro/model_choices.py:187
 msgid "Hold"
-msgstr ""
+msgstr "Tahan"
 
 #: cpro/model_choices.py:232
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and hold notes a {skill_value2}% score bonus in the next {skill_duration} seconds."
-msgstr ""
+msgstr "Untuk setiap {trigger_value} detik, ada kemungkinan {trigger_chance}% untuk not Perfect akan mendapat bonus skor {skill_value}%, dan not tahan bonus skor {skill_value2}% dalam {skill_duration} detik yang mendatang."
 
 #: bang/models.py:459
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members"
-msgstr ""
+msgstr "Untuk {duration} detik yang mendatang, skor not PERFECT ditingkatkan +{percentage}%, atau +{cond_percentage}% jika tim-mu terdiri atas hanya member {influence}"
 
 #: bang/models.py:460
+#, fuzzy
 msgid "For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr ""
+msgstr "Untuk {duration} detik yang mendatang, skor ditingkatkan +{percentage}% (+{cond_percentage}% jika tim-mu terdiri atas hanya member {influence}) sampai not {note_type} ditekan, lalu skor ditingkatkan +{alt_percentage}%"
 
 #: bang/settings.py:296
 msgid "Gallery of {license} images"
-msgstr ""
+msgstr "Galeri gambar {license}"
 
 #: idolstory/forms.py:99
 msgid "Show {thing}"
-msgstr ""
+msgstr "Tampilkan {thing}"
 
 #: idolstory/forms.py:99 idolstory/forms.py:100
 msgid "Guests"
-msgstr ""
+msgstr "Tamu"
 
 #: idolstory/forms.py:100
 msgid "Hide {thing}"
-msgstr ""
+msgstr "Sembunyikan {thing}"
 
 #: idolstory/forms.py:468 idolstory/forms.py:908
 msgid "All members"
-msgstr ""
+msgstr "Semua member"
 
 #: idolstory/forms.py:648 idolstory/models.py:1533 idolstory/models.py:1562
 #: idolstory/models.py:1567 idolstory/models.py:1573 idolstory/models.py:1579
 msgid "Appeal"
-msgstr ""
+msgstr "Appeal"
 
 #: idolstory/forms.py:649 idolstory/models.py:1537 idolstory/models.py:1563
 #: idolstory/models.py:1569 idolstory/models.py:1574 idolstory/models.py:1581
 msgid "Stamina"
-msgstr ""
+msgstr "Stamina"
 
 #: idolstory/forms.py:817 idolstory/models.py:1392 idolstory/models.py:1804
 #: idolstory/models.py:2264
 msgid "Passive"
-msgstr ""
+msgstr "Pasif"
 
 #: idolstory/forms.py:818 idolstory/models.py:2269
 msgid "Limit break"
-msgstr ""
+msgstr "Limit break"
 
 #: idolstory/forms.py:864 idolstory/models.py:2372
 msgid "Episode"
-msgstr ""
+msgstr "Episode"
 
 #: idolstory/forms.py:868 idolstory/models.py:2204
 msgid "Chapter"
-msgstr ""
+msgstr "Bab"
 
 #. A blog post
 #: starlight/models.py:1788
 msgid "Post"
-msgstr ""
+msgstr "Postingan"
 
 #. Blog posts
 #: idolstory/magicollections.py:271
 msgid "Posts"
-msgstr ""
+msgstr "Postingan"
 
 #: idolstory/magicollections.py:460
 msgid "Glowing"
-msgstr ""
+msgstr "Bersinar"
 
 #: idolstory/magicollections.py:1077
 msgid "Year"
-msgstr ""
+msgstr "Tahun"
 
 #: idolstory/magicollections.py:1192
 msgid "Skills"
-msgstr ""
+msgstr "Keterampilan"
 
 #: idolstory/magicollections.py:1326 idolstory/models.py:2442
 #: idolstory/models.py:2449
 msgid "Still"
-msgstr ""
+msgstr "Foto"
 
 #: idolstory/magicollections.py:1327 idolstory/models.py:961
 msgid "Stills"
-msgstr ""
+msgstr "Foto-foto"
 
 #: idolstory/magicollections.py:1421
 msgid "Story"
-msgstr ""
+msgstr "Cerita"
 
 #: idolstory/models.py:314
 msgid "Elegant"
-msgstr ""
+msgstr "Elegan"
 
 #: idolstory/models.py:318
 msgid "Natural"
-msgstr ""
+msgstr "Natural"
 
 #: idolstory/models.py:424 idolstory/models.py:429 idolstory/models.py:434
 #: idolstory/models.py:439 idolstory/models.py:444 idolstory/models.py:449
 #: idolstory/models.py:454
 msgid "Guest"
-msgstr ""
+msgstr "Tamu"
 
 #: idolstory/models.py:454
 msgid "No attribute"
-msgstr ""
+msgstr "Tidak beratribut"
 
 #: idolstory/models.py:604
 msgid "YouTube"
-msgstr ""
+msgstr "YouTube"
 
 #: idolstory/models.py:761
 msgid "Symbol"
-msgstr ""
+msgstr "Simbol"
 
 #: idolstory/models.py:921
 msgid "Lighstick color"
-msgstr ""
+msgstr "Warna lightstick"
 
 #: idolstory/models.py:923 idolstory/models.py:926
 msgid "Call and response"
-msgstr ""
+msgstr "Panggilan dan respons\n"
+""
 
 #: idolstory/models.py:1029
 msgid "Game"
-msgstr ""
+msgstr "Permainan\n"
+""
 
 #: idolstory/models.py:1055
 msgid "Abstract"
-msgstr ""
+msgstr "Abstrak"
 
 #: idolstory/models.py:1056
 msgid "Blurry"
-msgstr ""
+msgstr "Kabur"
 
 #: idolstory/models.py:1393 idolstory/models.py:1827
 msgid "Show"
-msgstr ""
+msgstr "Menunjukkan\n"
+""
 
 #: idolstory/models.py:1482
 msgid "Guard"
-msgstr ""
+msgstr "Guard"
 
 #: idolstory/models.py:1483
 msgid "Voltage"
-msgstr ""
+msgstr "Voltage"
 
 #: idolstory/models.py:1484
 msgid "SP"
-msgstr ""
+msgstr "SP"
 
 #: idolstory/models.py:1548 idolstory/models.py:1552
 msgid "Max trained"
-msgstr ""
+msgstr "Max trained"
 
 #: idolstory/models.py:1658 idolstory/models.py:1787 idolstory/models.py:1817
 #: idolstory/models.py:1840
 msgid "Affects"
-msgstr ""
+msgstr "Mempengaruhi"
 
 #: idolstory/models.py:2100
 msgid "Base statistics, without any traning."
-msgstr ""
+msgstr "Statistik dasar, tanpa pelatihan."
 
 #: idolstory/models.py:2178
 msgid "Chapter {number}"
-msgstr ""
+msgstr "Bab {number}"
 
 #: idolstory/models.py:2234
 msgid "Episode {number}"
-msgstr ""
+msgstr "Episode {number}"
 
 #: idolstory/models.py:2255
 msgid "Outfit unlocked"
-msgstr ""
+msgstr "Pakaian tidak dikunci\n"
+""
 
 #: idolstory/models.py:2256
 msgid "Story unlocked"
-msgstr ""
+msgstr "Cerita tidak terkunci\n"
+""
 
 #: idolstory/settings.py:217
 msgid "{name}'s birthday party {year}"
-msgstr ""
+msgstr "Pesta ulang tahun {name} {year}"
 
 #: idolstory/settings.py:256
 msgid "What's your Love Live! story?"
-msgstr ""
+msgstr "Apa cerita Love Live!-mu?"
 
 #: idolstory/settings.py:379
 msgid "How to install {app}?"
-msgstr ""
+msgstr "Bagaimana cara memasang {app}?"
 
 #: starlight/magicollections.py:1295
 msgid "Gachas"
-msgstr ""
+msgstr "Gacha"
 
 #: magi/seasons.py:72
 msgid "Happy Pi Day!"
-msgstr ""
+msgstr "Selamat Hari Pi!"
 
 #: magi/seasons.py:102
 msgid "Happy Cinco de Mayo!"
-msgstr ""
+msgstr "Selamat Cinco de Mayo!"
 
 #: idolstory/models.py:1464
 msgid "Ultra rare"
-msgstr ""
+msgstr "Ultra rare"
 

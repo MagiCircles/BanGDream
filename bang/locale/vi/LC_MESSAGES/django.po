@@ -126,12 +126,12 @@ msgstr "Người chơi"
 
 #: magi/models.py:180
 msgid "Super Player"
-msgstr "\n"
+msgstr "Siêu Người chơi\n"
 ""
 
 #: magi/models.py:181
 msgid "Extreme Player"
-msgstr "Extreme Player"
+msgstr "Người chơi cấp cao "
 
 #: magi/models.py:182
 msgid "Master Player"
@@ -139,7 +139,7 @@ msgstr "Người chơi bậc thầy"
 
 #: magi/models.py:183
 msgid "Ultimate Player"
-msgstr "Master Player"
+msgstr "Người chơi cao đẳng "
 
 #: magi/models.py:519
 msgid "Never"
@@ -528,7 +528,7 @@ msgstr "đã thay đổi"
 
 #: magi/views.py:965 magi/views.py:1000
 msgid "Thank you for reporting this {thing}"
-msgstr "Cảm ơn bạn đã báo cáo về {thing}"
+msgstr "Cảm ơn bạn đã báo cáo về {}"
 
 #: magi/views.py:680 magi/views.py:971 magi/views.py:1006
 msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
@@ -567,7 +567,7 @@ msgstr "Hãy chắc rằng {thing} mà bạn sắp thêm vào chưa tồn tại"
 #: stardustrun/collections_settings.py:79 stardustrun/forms.py:125
 #: stardustrun/models.py:52 stardustrun/templates/items/pokemonItem.html:65
 msgid "Hit Points"
-msgstr "HP"
+msgstr "HP "
 
 #: stardustrun/collections_settings.py:84 stardustrun/forms.py:126
 #: stardustrun/models.py:53 stardustrun/models.py:329
@@ -4497,334 +4497,386 @@ msgstr "Người dùng"
 #: magi/default_settings.py:944 magi/default_settings.py:950
 #: magi/default_settings.py:959 magi/default_settings.py:965 magi/utils.py:2640
 msgid "Advent calendar"
-msgstr ""
+msgstr "lịch phiêu lưu"
 
 #: magi/forms.py:1782
 msgid "Optional"
-msgstr ""
+msgstr "Không bắt buộc"
 
 #: magi/forms.py:2784
 msgid "{thing} required."
-msgstr ""
+msgstr "{điều} bắt buộc."
 
 #: magi/forms.py:2820
 msgid "Past tags"
-msgstr ""
+msgstr "Thẻ quá khứ"
 
 #: magi/magicollections.py:1252
 msgid "Original"
-msgstr ""
+msgstr "Nguyên"
 
 #: magi/magicollections.py:1256
 msgid "High quality"
-msgstr ""
+msgstr "Chất lượng cao"
 
 #: magi/magicollections.py:2709
 msgid "Your inbox is only open to people you follow, and you're not following anyone."
-msgstr ""
+msgstr "Hộp thư đến của bạn chỉ mở cho những người bạn theo dõi và bạn không theo dõi bất cứ ai."
 
 #: magi/magicollections.py:3092
 msgid "Hey, look! I'm on {site}! Follow me ♥︎"
-msgstr ""
+msgstr "Này, nhìn kìa! Tôi đang ở trên {trang web}! Theo tôi ♥"
 
 #: magi/magicollections.py:3817
 msgid "How to get badges?"
-msgstr ""
+msgstr "Làm sao để có huy hiệu?"
 
 #: magi/magicollections.py:3818
 msgid "Collect them all!"
-msgstr ""
+msgstr "Thu thập tất cả!"
 
 #: magi/magicollections.py:4134
 msgid "Prizes"
-msgstr ""
+msgstr "Giải thưởng"
 
 #: magi/magicollections.py:4350
 msgid "Your inbox is closed."
-msgstr ""
+msgstr "Hộp thư đến của bạn đã bị đóng."
 
 #: magi/seasons.py:52
 msgid "Happy New Year!"
-msgstr ""
+msgstr "Chúc mừng năm mới!"
 
 #: magi/seasons.py:57
 msgid "Happy Lunar New Year!"
-msgstr ""
+msgstr "Chúc mừng năm mới!"
 
 #: magi/seasons.py:62
 msgid "Happy Valentine's Day!"
-msgstr ""
+msgstr "Chúc mừng ngày lễ tình nhân !"
 
 #: magi/seasons.py:67
 msgid "Happy Leap Day!"
-msgstr ""
+msgstr "Chúc mừng ngày nhuận!"
 
 #: magi/seasons.py:77
 msgid "Happy White Day!"
-msgstr ""
+msgstr "Chúc mừng ngày trắng!"
 
 #: magi/seasons.py:82
 msgid "Happy St Patrick's Day!"
-msgstr ""
+msgstr "Chúc mừng ngày Thánh Patrick!\n"
+""
 
 #: magi/seasons.py:87
 msgid "Happy April Fool's Day!"
-msgstr ""
+msgstr "Ngày Cá tháng Tư!\n"
+""
 
 #: magi/seasons.py:92
 msgid "Happy Easter!"
-msgstr ""
+msgstr "Chúc mừng lễ Phục sinh!\n"
+""
 
 #: magi/seasons.py:97
 msgid "May the Fourth be with you!"
-msgstr ""
+msgstr "Có thể thứ tư được với bạn!\n"
+""
 
 #: magi/seasons.py:107
 msgid "Happy Pride Month!"
-msgstr ""
+msgstr "Chúc mừng tháng tự hào!\n"
+""
 
 #: magi/seasons.py:112
 msgid "Happy Thanksgiving!"
-msgstr ""
+msgstr "Lễ tạ ơn vui vẻ!\n"
+""
 
 #: magi/seasons.py:117
 msgid "Happy Halloween!"
-msgstr ""
+msgstr "Halloween vui vẻ!\n"
+""
 
 #: magi/seasons.py:132 magi/utils.py:2633 magi/views.py:1570
 msgid "Merry Christmas!"
-msgstr ""
+msgstr "Giáng sinh vui vẻ!\n"
+""
 
 #: magi/settings.py:870
 msgid "Learn a few tips and tricks to help you easily use {site}."
-msgstr ""
+msgstr "Tìm hiểu một số mẹo và thủ thuật để giúp bạn dễ dàng sử dụng {site}.\n"
+""
 
 #: magi/settings.py:876
 msgid "Map of all {license} fans around the world."
-msgstr ""
+msgstr "Bản đồ của tất cả người hâm mộ {giấy phép} trên toàn thế giới.\n"
+""
 
 #: magi/templates/pages/about.html:467
 msgid "Credits"
-msgstr ""
+msgstr "Tín dụng\n"
+""
 
 #: cpro/model_choices.py:109
 msgid "LIVE Carnival"
-msgstr ""
+msgstr "Carnival trực tiếp\n"
+""
 
 #: cpro/model_choices.py:187
 msgid "Hold"
-msgstr ""
+msgstr "Giữ\n"
+""
 
 #: cpro/model_choices.py:232
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and hold notes a {skill_value2}% score bonus in the next {skill_duration} seconds."
-msgstr ""
+msgstr "Cứ sau mỗi {trigger_value} giây, có {{trigger_chance}% cơ hội rằng các ghi chú hoàn hảo sẽ nhận được phần thưởng điểm {skill_value}% và ghi chú phần thưởng {skill_value2}% trong giây tiếp theo {skill_duration}.\n"
+""
 
 #: bang/models.py:459
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members"
-msgstr ""
+msgstr "Trong {thời lượng} giây tiếp theo, điểm số của các ghi chú PERFECT được tăng thêm + {phần trăm}% hoặc + {cond_percentage}% nếu nhóm của bạn chỉ bao gồm các thành viên {ảnh hưởng}\n"
+""
 
 #: bang/models.py:460
 msgid "For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr ""
+msgstr "Trong {thời gian} giây tiếp theo, điểm số được tăng thêm + {phần trăm}% (+ {cond_percentage}% nếu nhóm của bạn chỉ bao gồm {thành viên} ảnh hưởng) cho đến khi ghi chú {note_type}, sau đó điểm được tăng thêm + {alt_percentage} %\n"
+""
 
 #: bang/settings.py:296
 msgid "Gallery of {license} images"
-msgstr ""
+msgstr "Thư viện ảnh {giấy phép}\n"
+""
 
 #: idolstory/forms.py:99
 msgid "Show {thing}"
-msgstr ""
+msgstr "Hiện {thing}"
 
 #: idolstory/forms.py:99 idolstory/forms.py:100
 msgid "Guests"
-msgstr ""
+msgstr "Khách"
 
 #: idolstory/forms.py:100
 msgid "Hide {thing}"
-msgstr ""
+msgstr "Ẩn {thing}"
 
 #: idolstory/forms.py:468 idolstory/forms.py:908
 msgid "All members"
-msgstr ""
+msgstr "Tất cả thành viên\n"
+""
 
 #: idolstory/forms.py:648 idolstory/models.py:1533 idolstory/models.py:1562
 #: idolstory/models.py:1567 idolstory/models.py:1573 idolstory/models.py:1579
 msgid "Appeal"
-msgstr ""
+msgstr "Kháng cáo\n"
+""
 
 #: idolstory/forms.py:649 idolstory/models.py:1537 idolstory/models.py:1563
 #: idolstory/models.py:1569 idolstory/models.py:1574 idolstory/models.py:1581
 msgid "Stamina"
-msgstr ""
+msgstr "Sức chịu đựng\n"
+""
 
 #: idolstory/forms.py:817 idolstory/models.py:1392 idolstory/models.py:1804
 #: idolstory/models.py:2264
 msgid "Passive"
-msgstr ""
+msgstr "Bị động\n"
+""
 
 #: idolstory/forms.py:818 idolstory/models.py:2269
 msgid "Limit break"
-msgstr ""
+msgstr "Phá vỡ giới hạn\n"
+""
 
 #: idolstory/forms.py:864 idolstory/models.py:2372
 msgid "Episode"
-msgstr ""
+msgstr "Tập phim\n"
+""
 
 #: idolstory/forms.py:868 idolstory/models.py:2204
 msgid "Chapter"
-msgstr ""
+msgstr "Chương\n"
+""
 
 #. A blog post
 #: starlight/models.py:1788
 msgid "Post"
-msgstr ""
+msgstr "Bài đăng\n"
+""
 
 #. Blog posts
 #: idolstory/magicollections.py:271
 msgid "Posts"
-msgstr ""
+msgstr "Bài viết\n"
+""
 
 #: idolstory/magicollections.py:460
 msgid "Glowing"
-msgstr ""
+msgstr "Phát sáng\n"
+""
 
 #: idolstory/magicollections.py:1077
 msgid "Year"
-msgstr ""
+msgstr "Năm"
 
 #: idolstory/magicollections.py:1192
 msgid "Skills"
-msgstr ""
+msgstr "Kỹ năng\n"
+""
 
 #: idolstory/magicollections.py:1326 idolstory/models.py:2442
 #: idolstory/models.py:2449
 msgid "Still"
-msgstr ""
+msgstr "Vẫn\n"
+""
 
 #: idolstory/magicollections.py:1327 idolstory/models.py:961
 msgid "Stills"
-msgstr ""
+msgstr "Stills\n"
+""
 
 #: idolstory/magicollections.py:1421
 msgid "Story"
-msgstr ""
+msgstr "Câu chuyện\n"
+""
 
 #: idolstory/models.py:314
 msgid "Elegant"
-msgstr ""
+msgstr "Thanh lịch\n"
+""
 
 #: idolstory/models.py:318
 msgid "Natural"
-msgstr ""
+msgstr "Tự nhiên\n"
+""
 
 #: idolstory/models.py:424 idolstory/models.py:429 idolstory/models.py:434
 #: idolstory/models.py:439 idolstory/models.py:444 idolstory/models.py:449
 #: idolstory/models.py:454
 msgid "Guest"
-msgstr ""
+msgstr "Khách"
 
 #: idolstory/models.py:454
 msgid "No attribute"
-msgstr ""
+msgstr "Không có thuộc tính\n"
+""
 
 #: idolstory/models.py:604
 msgid "YouTube"
-msgstr ""
+msgstr "YouTube"
 
 #: idolstory/models.py:761
 msgid "Symbol"
-msgstr ""
+msgstr "Biểu tượng\n"
+""
 
 #: idolstory/models.py:921
 msgid "Lighstick color"
-msgstr ""
+msgstr "Lighstick màu\n"
+""
 
 #: idolstory/models.py:923 idolstory/models.py:926
 msgid "Call and response"
-msgstr ""
+msgstr "Lời gọi đáp"
 
 #: idolstory/models.py:1029
 msgid "Game"
-msgstr ""
+msgstr "Game"
 
 #: idolstory/models.py:1055
 msgid "Abstract"
-msgstr ""
+msgstr "trừu tượng\n"
+""
 
 #: idolstory/models.py:1056
 msgid "Blurry"
-msgstr ""
+msgstr "Làm mờ"
 
 #: idolstory/models.py:1393 idolstory/models.py:1827
 msgid "Show"
-msgstr ""
+msgstr "Chỉ\n"
+""
 
 #: idolstory/models.py:1482
 msgid "Guard"
-msgstr ""
+msgstr "Bảo vệ\n"
+""
 
 #: idolstory/models.py:1483
 msgid "Voltage"
-msgstr ""
+msgstr "Vôn\n"
+""
 
 #: idolstory/models.py:1484
 msgid "SP"
-msgstr ""
+msgstr "SP\n"
+""
 
 #: idolstory/models.py:1548 idolstory/models.py:1552
 msgid "Max trained"
-msgstr ""
+msgstr "Max được đào tạo\n"
+""
 
 #: idolstory/models.py:1658 idolstory/models.py:1787 idolstory/models.py:1817
 #: idolstory/models.py:1840
 msgid "Affects"
-msgstr ""
+msgstr "Ảnh hưởng\n"
+""
 
 #: idolstory/models.py:2100
 msgid "Base statistics, without any traning."
-msgstr ""
+msgstr "Thống kê cơ sở, mà không có bất kỳ traning.\n"
+""
 
 #: idolstory/models.py:2178
 msgid "Chapter {number}"
-msgstr ""
+msgstr "Chương {số}\n"
+""
 
 #: idolstory/models.py:2234
 msgid "Episode {number}"
-msgstr ""
+msgstr "Tập {số}\n"
+""
 
 #: idolstory/models.py:2255
 msgid "Outfit unlocked"
-msgstr ""
+msgstr "Trang phục mở khóa\n"
+""
 
 #: idolstory/models.py:2256
 msgid "Story unlocked"
-msgstr ""
+msgstr "Câu chuyện được mở khóa\n"
+""
 
 #: idolstory/settings.py:217
 msgid "{name}'s birthday party {year}"
-msgstr ""
+msgstr "Tiệc sinh nhật {name} năm {year}"
 
 #: idolstory/settings.py:256
 msgid "What's your Love Live! story?"
-msgstr ""
+msgstr "Tình yêu của bạn là gì! câu chuyện?\n"
+""
 
 #: idolstory/settings.py:379
 msgid "How to install {app}?"
-msgstr ""
+msgstr "Làm sao để cài đặt {app}?"
 
 #: starlight/magicollections.py:1295
 msgid "Gachas"
-msgstr ""
+msgstr "Gacha"
 
 #: magi/seasons.py:72
 msgid "Happy Pi Day!"
-msgstr ""
+msgstr "Chúc mừng ngày Pi!\n"
+""
 
 #: magi/seasons.py:102
 msgid "Happy Cinco de Mayo!"
-msgstr ""
+msgstr "Chúc mừng Cinco de Mayo!\n"
+""
 
 #: idolstory/models.py:1464
 msgid "Ultra rare"
-msgstr ""
+msgstr "Cực hiếm\n"
+""
 

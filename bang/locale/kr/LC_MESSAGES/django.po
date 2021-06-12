@@ -11,7 +11,7 @@ msgstr ""
 #. In the top bar of the site, when you're not connected. Will open a menu with login or sign up. Can be replaced with something else, like "Anonymous", "Visitor" or "Welcome".
 #: stardustrun/templates/include/empty_pokedex.html:5
 msgid "You"
-msgstr "손님"
+msgstr "게스트"
 
 #: bang/models.py:976 bang/models.py:1212 bang/models.py:1493
 #: bang/models.py:1736 bang/models.py:1904
@@ -26,7 +26,7 @@ msgstr "리더보드"
 
 #: magi/magicollections.py:2485
 msgid "Create your account to join the community and be in the leaderboard!"
-msgstr "새로운 계정을 만들어 커뮤니티에 참가하고 순위표에 올라가 보세요!"
+msgstr "새 계정을 만들어 커뮤니티에 참가하고 리더보드에 올라가 보세요!"
 
 #: starlight/models.py:1461 starlight/models.py:1464
 msgid "Profile"
@@ -47,7 +47,7 @@ msgstr "활동"
 
 #: magi/magicollections.py:3492
 msgid "Share your adventures!"
-msgstr "당신의 이야기를 함께 나눠요!"
+msgstr "여러분의 이야기를 들려주세요!"
 
 #: magi/magicollections.py:3659
 #: magi/management/commands/cron_notifications.py:35
@@ -67,7 +67,7 @@ msgstr "로그인"
 #: magi/default_settings.py:536 magi/forms.py:1900
 #: magi/templates/pages/login.html:6
 msgid "Sign Up"
-msgstr "가입"
+msgstr "회원가입"
 
 #: magi/default_settings.py:553 magi/magicollections.py:2710
 #: magi/magicollections.py:4351 magi/templates/items/profile.html:33
@@ -81,7 +81,7 @@ msgstr "로그아웃"
 
 #: bang/magicollections.py:2363 bang/models.py:1827 bang/models.py:1829
 msgid "About"
-msgstr "상세"
+msgstr "상세 정보"
 
 #: bang/settings.py:276
 msgid "Donate"
@@ -106,7 +106,7 @@ msgstr "색"
 #. This is about the favorite characters the user specified in their preferences.
 #: magi/forms.py:2143
 msgid "All your favorites must be unique"
-msgstr "좋아하는 캐릭터는 중복 불가입니다."
+msgstr "선호 캐릭터를 중복 선택할 수 없습니다"
 
 #: magi/forms.py:2325
 msgid "Old Password"
@@ -139,7 +139,7 @@ msgstr "마스터 플레이어"
 
 #: magi/models.py:183
 msgid "Ultimate Player"
-msgstr "완벽한 플레이어"
+msgstr "얼티밋 플레이어"
 
 #: magi/models.py:519
 msgid "Never"
@@ -155,28 +155,28 @@ msgstr "자주"
 
 #: magi/models.py:522
 msgid "Every single day"
-msgstr "매일매일"
+msgstr "매일"
 
 #. Example of replacement: "db0 liked your activity: I love going to the beach!" where db0 is the user who liked your activity and "I love going to the beach!" is the content of your activity.
 #: magi/models.py:1099 magi/models.py:1113
 msgid "{} liked your activity: {}."
-msgstr "{} 사용자가 다음 활동을 좋아합니다: {}"
+msgstr "{} 사용자가 다음 활동을 좋아합니다: {}."
 
 #. Make sure there's as many {} in your translation than in the original sentence.
 #. Example of replacement: "db0 just followed you." where db0 is the user who follows you.
 #: magi/models.py:1106
 msgid "{} just followed you."
-msgstr "{} (이)가 당신을 팔로잉합니다."
+msgstr "{} 이/가 당신을 팔로잉합니다."
 
 #. For the emails settings.
 #: magi/models.py:1100
 msgid "When someone likes your activity."
-msgstr "누군가 내 활동에 좋아요를 눌렀을 때"
+msgstr "누군가 내 활동에 좋아요를 눌렀을 때."
 
 #. For the emails settings.
 #: magi/models.py:1107
 msgid "When someone follows you."
-msgstr "누군가 나를 팔로잉 할 때"
+msgstr "누군가 나를 팔로잉 할 때."
 
 #. Personal description you can write on your profile. Similar to twitter's "bio".
 #: starlight/models.py:376 starlight/models.py:379 starlight/models.py:483
@@ -195,12 +195,12 @@ msgstr "제일"
 #. Your translation must be gender neutral. Example 1er/ère
 #: magi/default_settings.py:28
 msgid "2nd"
-msgstr "두 번째로"
+msgstr "둘째"
 
 #. Your translation must be gender neutral. Example 1er/ère
 #: magi/default_settings.py:28
 msgid "3rd"
-msgstr "세 번째로"
+msgstr "셋째"
 
 #: magi/magicollections.py:2898 magi/models.py:146
 msgid "Birthdate"
@@ -214,7 +214,7 @@ msgstr "위치"
 
 #: magi/models.py:149
 msgid "The city you live in."
-msgstr "살고 있는 곳을 적어주세요."
+msgstr "거주 도시를 적어주세요."
 
 #: magi/models.py:149
 msgid "It might take up to 24 hours to update your location on the map."
@@ -232,47 +232,46 @@ msgstr "사용자 이름/ID"
 #. For links.
 #: magi/models.py:486
 msgid "Write your username only, no URL."
-msgstr "URL이 아니라 사용자 이름/ID만 적어주세요."
+msgstr "URL이 아닌 사용자 이름/ID만 적어주세요."
 
 #. For links.
 #: magi/forms.py:2512
 msgid "How often do you tweet/stream/post about {}?"
-msgstr "얼마나 자주 {} 에 대해 트윗/방송/포스팅 하나요?"
+msgstr "{} 에 대해 얼마나 자주 트윗/방송/포스팅 하나요?"
 
 #: magi/templates/base.html:145
 msgid "Help us translate the site"
-msgstr "여러분의 언어로 사이트 번역을 도와주세요!"
+msgstr "사이트 번역을 도와주세요"
 
 #: magi/default_settings.py:23 magi/templates/collections/list_page.html:16
 #: magi/templates/items/profile.html:145
 msgid "No result."
-msgstr "결과가 없습니다."
+msgstr "검색 결과 없음."
 
 #: magi/templates/emails/donation_footer.html:4
 #: magi/templates/include/donate.html:10 magi/templates/pages/settings.html:144
 msgid "This will help us cover the costs of the servers and allow us to keep it running for free and without ads."
-msgstr "여러분이 적극적으로 기부를 해 주시면 광고 없이 서버를 유지하는데 큰 도움이 됩니다."
+msgstr "여러분의 적극적인 기부는 서버를 광고 없이 유지하는 데 도움이 됩니다."
 
 #: stardustrun/templates/include/pokedex.html:39
-#, fuzzy
 msgid "Apply changes"
 msgstr "변경사항 적용"
 
 #: magi/templates/include/about_description.html:2
 msgid "Nice to meet you, we are Deby and Engil!"
-msgstr "만나서 반갑습니다! 저희는 Deby와 Engil입니다"
+msgstr "만나서 반갑습니다, 저희는 Deby와 Engil입니다!"
 
 #: magi/templates/include/about_description.html:3
 msgid "We are two developers and casual players. We live in San Francisco, California. We come from the same computer science university and both work as software engineers in the same company we founded:"
-msgstr "우리 둘은 개발자이자 평범한 게임 플레이어입니다. 우리는 캘리포니아 샌프란시스코에 살고 있습니다. 우리는 같은 대학교의 컴퓨터공학과를 졸업하였으며, 저희가 설립한 회사에서 소프트웨어 공학자로 일하고 있습니다."
+msgstr "저희 둘은 개발자이자 평범한 플레이어입니다. 저희는 캘리포니아주, 샌프란시스코에서 살고 있습니다. 같은 대학교의 컴퓨터 공학과를 졸업했으며 저희가 설립한 회사에서 소프트웨어 엔지니어로 일하고 있습니다:"
 
 #: magi/templates/include/about_description.html:6
 msgid "Though we love our job, we don't pay ourselves and don't have any income, so any donation helps a lot and is greatly appreciated."
-msgstr "우리는 이 작업을 좋아합니다만, 우리 자신에게 급여를 지급하지도 않으며 별도 수입이 있는 것도 아닙니다. 따라서 적은 금액이더라도 기부는 사이트 운영에 정말 큰 도움이 됩니다."
+msgstr "우리는 이 작업을 좋아합니다만, 우리 자신에게 급여를 지급하지도 않으며 별도 수입이 있는 것도 아니기 때문에 적은 금액이더라도, 기부는 사이트 운영에 정말 큰 도움이 됩니다."
 
 #: magi/templates/include/about_description.html:10
 msgid "The heartwarming support from the community keeps motivating us to do more! We love helping the community by providing as much information as we can about the game, while keeping the website easy to use, shiny and cute ^_^"
-msgstr "커뮤니티의 따뜻한 지지를 받아 저희는 더 많은 일을 할 수 있는 의욕을 낼 수 있습니다. 저희는 게임에 대한 가능한 많은 정보를 제공하며, 웹사이트를 사용하기 쉽고 깔끔하며 귀엽게 ^_^ 유지하여 커뮤니티를 돕는 것을 좋아합니다."
+msgstr "커뮤니티의 따뜻한 지지를 받아 저희는 더 많은 일을 할 수 있는 의욕을 낼 수 있습니다! 저희는 게임에 대한 가능한 많은 정보를 제공하며, 웹사이트를 사용하기 쉽고 깔끔하며, 귀엽게 유지하여 커뮤니티를 돕는 것을 좋아합니다 ^_^"
 
 #: magi/templates/include/about_description.html:12
 msgid "We don't know how far we will go with this, but one thing we know for sure is that we are having a lot of fun doing it and sharing this adventure with you."
@@ -304,7 +303,7 @@ msgstr "댓글"
 #: cpro/templates/items/ownedcardItem.html:23
 #: cpro/templates/items/ownedcardItem.html:29
 msgid "Edit"
-msgstr "수정완료: "
+msgstr "수정"
 
 #. Feel free to use Twitter's word in your language.
 #: magi/templates/items/profile.html:27
@@ -346,18 +345,16 @@ msgid "Staff members"
 msgstr "운영진"
 
 #: starlight/magicollections.py:605 starlight/models.py:746
-#, fuzzy
 msgid "Staff"
 msgstr "스태프"
 
 #: magi/templates/base.html:122 magi/templates/pages/about.html:429
 msgid "Check out our other websites"
-msgstr "우리가 만든 다른 웹사이트도 확인해보세요"
+msgstr "저희의 다른 웹사이트도 확인해보세요"
 
 #: magi/templates/pages/about.html:489
-#, fuzzy
 msgid "Contribute"
-msgstr "기부하다"
+msgstr "기부하기"
 
 #: magi/templates/pages/about.html:489 magi/templates/pages/about.html:505
 msgid "Dev"
@@ -365,24 +362,24 @@ msgstr "개발자"
 
 #: magi/templates/pages/about.html:491
 msgid "Our project is open-source and open for contributions. We are more than happy to accept pull-requests on GitHub!"
-msgstr "이 프로젝트는 오픈소스이며 자유롭게 참가할 수 있습니다. GitHub에서 풀 리퀘스트를 받는다면 정말 행복할 것입니다."
+msgstr "이 프로젝트는 오픈소스이며 누구나 기여할 수 있습니다. GitHub에서 pull-request를 승인할 때 굉장히 기쁩니다!"
 
 #: magi/templates/pages/about.html:493
 msgid "The website has been made using"
-msgstr "본 웹사이트는 다음 툴을 사용하여 제작되었습니다:"
+msgstr "본 웹사이트는 다음 툴을 사용하여 제작되었습니다"
 
 #: magi/templates/pages/about.html:493
 msgid "so in Python 2. We also use"
-msgstr "따라서 Python 2를 사용합니다. 또한 웹사이트 프론트엔드 제작에 다음 툴을 사용합니다:"
+msgstr "그래서 Python 2를 사용합니다. 또한 다음 툴도 사용합니다:"
 
 #. A single sentence is split to three parts; due to Korean language syntax, this sentence should be merged to previous one.
 #: magi/templates/pages/about.html:493
 msgid "for the front-end of the website."
-msgstr " "
+msgstr "이 웹사이트의 프론트엔드를 위해 제작되었습니다."
 
 #: magi/templates/pages/about.html:495
 msgid "We accept all kind of contributions, from tools to help players, statistics pages, mini-games, or even little CSS changes. Don't be shy! If you need help getting started, just contact us and we will happily take the time to teach you the basics, no matter your level."
-msgstr "저희는 플레이어를 도와주는 도구에서부터 통계 페이지, 미니 게임, 내지는 사소한 CSS 변경까지 모든 종류의 참여를 받고 있습니다. 자신감을 가지세요! 참여를 시작하는데 도움이 필요하다면, 저희에게 연락하세요. 여러분의 수준에 맞추어 기꺼이 기본 지식을 가르쳐 드리겠습니다."
+msgstr "저희는 플레이어를 도와주는 도구, 통계 페이지, 미니 게임, 혹은, 사소한 CSS 변경까지 모든 종류의 참여를 받고 있습니다. 자신감을 가지세요! 참여를 시작하는데 도움이 필요하다면, 저희에게 연락하신다면 여러분의 수준에 맞추어 기꺼이 기본 지식을 가르쳐 드리겠습니다."
 
 #: cpro/templates/include/beforeCards.html:18
 msgid "Get Started"
@@ -390,12 +387,12 @@ msgstr "시작하기"
 
 #: magi/templates/pages/about.html:507
 msgid "If you're a developer and you would like to get the data of the game in a convenient format, we provide a public REST API to get the game data, our users datacards, and more!"
-msgstr "당신이 개발자이며 게임 데이터를 편리한 형식으로 제공받고자 한다면, 공개 REST API를 이용하여 게임 데이터, 사용자 데이터 카드 및 더 많은 데이터를 제공해 드릴 수 있습니다."
+msgstr "당신이 개발자이며 게임 데이터를 편리한 형식으로 제공받고자 한다면, 공개 REST API를 이용하여 게임 데이터, 사용자 데이터 카드, 더 많은 데이터를 제공해 드릴 수 있습니다!"
 
 #: magi/default_settings.py:392 magi/magicollections.py:3997
 #: magi/templates/include/donate.html:59
 msgid "Donators"
-msgstr "기부자"
+msgstr "후원자"
 
 #: starlight/views.py:19
 msgid "Wiki"
@@ -407,16 +404,16 @@ msgstr "비밀번호를 잊으셨습니까?"
 
 #: magi/forms.py:2322
 msgid "Change your password"
-msgstr "비밀번호 바꾸기"
+msgstr "비밀번호 변경"
 
 #: magi/forms.py:1935
 msgid "Emails"
-msgstr "이메일 수신 설정"
+msgstr "이메일 수신"
 
 #. 계정 설정 중 외부 사이트 연결 설정 부분의 설명입니다
 #: starlight/magicollections.py:446
 msgid "Links"
-msgstr "링크"
+msgstr "외부 링크"
 
 #: magi/templates/pages/settings.html:19 magi/templates/pages/settings.html:43
 msgid "Avatar"
@@ -429,7 +426,7 @@ msgstr "아바타 변경을 원하시면, 이 계정의 이메일과 같은 주�
 #. https://github.com/SchoolIdolTomodachi/SchoolIdolAPI/wiki/How-to-change-your-avatar%3F
 #: magi/templates/pages/settings.html:49
 msgid "F.A.Q."
-msgstr "Gravatar 사용법이 궁금합니다"
+msgstr "F.A.Q."
 
 #: magi/templates/pages/settings.html:50
 msgid "Change Avatar"
@@ -442,16 +439,16 @@ msgstr "계정"
 #. Make sure {object} also appears in your sentence. Will be replaced with the corresponding values.
 #: magi/views_collections.py:392
 msgid "1 {object} matches your search:"
-msgstr "{object} 검색 결과 1개:"
+msgstr "{object}에 대한 검색 결과 1개:"
 
 #. Make sure {total} and {object} also appear in your sentence. Will be replaced with the corresponding values.
 #: magi/views_collections.py:392
 msgid "{total} {objects} match your search:"
-msgstr "{objects} 검색 결과 {total}개:"
+msgstr "{objects}에 대한 검색 결과 {total}개:"
 
 #: magi/magicollections.py:1683
 msgid "Become a contributor to help us fill the database"
-msgstr "공헌자가 되어 데이터베이스 작성을 도와주세요"
+msgstr "기여자가 되어 데이터베이스 작성을 도와주세요"
 
 #: magi/views.py:892 magi/views_collections.py:833
 msgid "You can't cancel this action afterwards."
@@ -489,6 +486,7 @@ msgstr "이미지"
 
 #: magi/forms.py:2862 magi/templates/items/activityItem.html:106
 #: magi/templates/items/activityItem.html:108
+#, fuzzy
 msgid "Liked"
 msgstr "좋아요"
 
@@ -505,7 +503,7 @@ msgstr "이미지"
 #: magi/templates/emails/report.html:16 magi/templates/emails/report.txt:5
 #: magi/templates/pages/settings.html:98
 msgid "Staff Message:"
-msgstr "스탭 메세지:"
+msgstr "스태프 메세지:"
 
 #: magi/templates/emails/report.html:36 magi/templates/emails/report.txt:10
 #: magi/templates/pages/settings.html:116
@@ -514,15 +512,15 @@ msgstr "검토:"
 
 #: cpro/templates/accountsForProfile.html:48
 msgid "Report"
-msgstr "결과"
+msgstr "신고"
 
 #: magi/templates/items/reportItem.html:18
 msgid "Reported by:"
-msgstr "제보한 사람:"
+msgstr "신고한 사람:"
 
 #: magi/views.py:960 magi/views.py:995
 msgid "This {thing} you reported has been reviewed by a moderator and {verb}. Thank you so much for your help!"
-msgstr ""
+msgstr "귀하가 보고했던 {thing}이/가 중재자에 의해 {verb} 되었습니다. 도와주셔서 감사합니다!"
 
 #. Only used in the sentence "Your {thing} has been reported, and a moderator confirmed it should be {verb}." as the "verb"
 #: magi/views.py:686 magi/views.py:960 magi/views.py:971 magi/views.py:976
@@ -532,15 +530,15 @@ msgstr "수정됨"
 
 #: magi/views.py:965 magi/views.py:1000
 msgid "Thank you for reporting this {thing}"
-msgstr "{thing}을/를 신고해 주셔서 감사합니다."
+msgstr "{thing}을/를 신고해 주셔서 감사합니다"
 
 #: magi/views.py:680 magi/views.py:971 magi/views.py:1006
 msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
-msgstr "{thing}이/가 신고되었습니다. 관리자가 검토 후 {verb} 조치를 취할 것입니다."
+msgstr "{thing}이/가 신고되었으며,  관리자가 검토 후 {verb} 조치를 취할 것입니다."
 
 #: magi/views.py:976 magi/views.py:1011
 msgid "Your {thing} has been {verb}"
-msgstr "당신의 {thing}은/는 {verb} 처리되었습니다."
+msgstr "당신의 {thing}은/는 {verb} 되었습니다"
 
 #: magi/views.py:689 magi/views.py:995 magi/views.py:1011
 msgid "deleted"
@@ -550,11 +548,12 @@ msgstr "삭제됨"
 #: magi/templates/emails/notification.txt:1 magi/templates/emails/report.html:9
 #: magi/templates/emails/report.txt:1
 msgid "Hi"
-msgstr "안녕하세요"
+msgstr "안녕"
 
+#. The 표현 삭제
 #: magi/settings.py:139
 msgid "The {game} Database & Community"
-msgstr "The {game} 데이터베이스 & 커뮤니티"
+msgstr "{game} 데이터베이스 & 커뮤니티"
 
 #: magi/views.py:437
 msgid "{site} is not a representative and is not associated with {game}. Its logos and images are Trademarks of {company}."
@@ -566,10 +565,11 @@ msgstr "{game}을 보유중인 회사"
 
 #: magi/views_collections.py:711
 msgid "Make sure the {thing} you're about to add doesn't already exist."
-msgstr "추가하려는 {thing}이 이미 있지 않은지 주의해 주세요."
+msgstr "추가하려는 {thing}이/가 이미 있지 않은지 주의해 주세요."
 
 #: stardustrun/collections_settings.py:79 stardustrun/forms.py:125
 #: stardustrun/models.py:52 stardustrun/templates/items/pokemonItem.html:65
+#, fuzzy
 msgid "Hit Points"
 msgstr "히트"
 
@@ -601,7 +601,7 @@ msgstr "포획률"
 #: stardustrun/collections_settings.py:107 stardustrun/forms.py:129
 #: stardustrun/models.py:57 stardustrun/templates/items/pokemonItem.html:81
 msgid "Flee Rate"
-msgstr ""
+msgstr "도망률"
 
 #: stardustrun/collections_settings.py:14
 msgid "Pokédex"
@@ -609,17 +609,18 @@ msgstr "포켓몬 도감"
 
 #: stardustrun/collections_settings.py:15
 msgid "Medals"
-msgstr "메달들"
+msgstr "메달"
 
 #. 데레스테 시작시 고른 아이돌
 #: cpro/forms.py:72 cpro/forms.py:132 cpro/models.py:215
 #: cpro/templates/ajax/account_about.html:60
+#, fuzzy
 msgid "Starter"
 msgstr "시작 아이돌"
 
 #: cpro/forms.py:96 cpro/forms.py:343
 msgid "This date cannot be in the future."
-msgstr "현재보다 뒤의 날짜로 설정할 수 없습니다."
+msgstr "날짜 지정은 지금보다 미래로 할 수 없습니다."
 
 #: bang/forms.py:117 bang/forms.py:1021 bang/models.py:1401 bang/models.py:1406
 #: bang/models.py:1906
@@ -641,8 +642,9 @@ msgid "Alphabetical"
 msgstr "알파벳 순서"
 
 #: stardustrun/forms.py:118 stardustrun/models.py:50
+#, fuzzy
 msgid "Available"
-msgstr "가능"
+msgstr "사용 가능"
 
 #: stardustrun/forms.py:122 stardustrun/forms.py:268 stardustrun/models.py:46
 msgid "Pokémon number"
@@ -660,23 +662,26 @@ msgstr "진화까지 필요한 사탕의 수"
 #: stardustrun/forms.py:131 stardustrun/models.py:60
 #: stardustrun/templates/items/pokemonItem.html:89
 msgid "Egg Distance"
-msgstr ""
+msgstr "알 거리"
 
 #: stardustrun/forms.py:150 stardustrun/models.py:51
 msgid "Types"
 msgstr "속성"
 
 #: stardustrun/model_choices.py:8
+#, fuzzy
 msgid "Instinct"
-msgstr ""
+msgstr "본능"
 
 #: stardustrun/model_choices.py:9
+#, fuzzy
 msgid "Mystic"
-msgstr ""
+msgstr "신비"
 
 #: stardustrun/model_choices.py:10
+#, fuzzy
 msgid "Valor"
-msgstr ""
+msgstr "용기"
 
 #: stardustrun/model_choices.py:17
 msgid "Pokémon Trainer"
@@ -684,11 +689,12 @@ msgstr "포켓몬 트레이너"
 
 #: stardustrun/model_choices.py:18
 msgid "Super Pokémon Trainer"
-msgstr ""
+msgstr "슈퍼 포켓몬 트레이너"
 
 #: stardustrun/model_choices.py:19
+#, fuzzy
 msgid "Expert Pokémon Trainer"
-msgstr ""
+msgstr "전문가 포켓몬 트레이너"
 
 #: stardustrun/model_choices.py:20
 msgid "Pokémon Master"
@@ -696,7 +702,7 @@ msgstr "포켓몬 마스터"
 
 #: stardustrun/model_choices.py:21
 msgid "Ultimate Pokémon Master"
-msgstr ""
+msgstr "얼티밋 포켓몬 마스터"
 
 #: stardustrun/model_choices.py:42
 msgid "Fairy"
@@ -768,7 +774,7 @@ msgstr "불"
 
 #: starlight/models.py:1422
 msgid "Normal"
-msgstr "일반"
+msgstr "노말"
 
 #: idolstory/forms.py:311 idolstory/forms.py:312 idolstory/models.py:558
 #: idolstory/models.py:559 idolstory/models.py:562
@@ -781,17 +787,17 @@ msgstr "팀"
 
 #: stardustrun/models.py:198
 msgid "When you started playing with this account."
-msgstr ""
+msgstr "이 계정으로 게임을 시작했을 때."
 
 #: stardustrun/models.py:199 stardustrun/templates/accountsForProfile.html:53
 msgid "Bought Pokécoins"
-msgstr ""
+msgstr "구매한 Pokécoins"
 
 #: stardustrun/forms.py:210 stardustrun/forms.py:233 stardustrun/forms.py:266
 #: stardustrun/models.py:325
 #: stardustrun/templates/items/ownedpokemonItem.html:7
 msgid "CP"
-msgstr ""
+msgstr "CP"
 
 #: starlight/models.py:1162 starlight/models.py:1168 starlight/models.py:1174
 #: starlight/models.py:1182
@@ -810,7 +816,7 @@ msgstr "키"
 #: stardustrun/models.py:330 stardustrun/templates/items/attackItem.html:12
 #: stardustrun/templates/items/ownedpokemonItem.html:36
 msgid "Special Attack"
-msgstr "특수공격"
+msgstr "특수 공격"
 
 #: stardustrun/models.py:473
 #: stardustrun/templates/include/empty_pokedex.html:23
@@ -820,27 +826,27 @@ msgstr "특수공격"
 #: stardustrun/templates/include/pokedex.html:36
 #: stardustrun/templates/items/pokemonFullItem.html:134
 msgid "Candies"
-msgstr "사탕들"
+msgstr "사탕"
 
 #: stardustrun/models.py:474
 #: stardustrun/templates/include/empty_pokedex.html:15
 #: stardustrun/templates/include/pokedex.html:21
 msgid "Seen"
-msgstr ""
+msgstr "읽은"
 
 #: stardustrun/models.py:475
 #: stardustrun/templates/include/empty_pokedex.html:19
 #: stardustrun/templates/include/pokedex.html:25
 msgid "Caught"
-msgstr ""
+msgstr "잡은"
 
 #: stardustrun/settings.py:31
 msgid "Pokémon Go is a free-to-play, location-based augmented reality game developed and published by Niantic for iOS and Android devices."
-msgstr ""
+msgstr "Pokémon Go는 무료 게임이며, Niantic에서 위치 정보를 기반으로 하여 Android와 iOS에서 출시한 증강 현실 게임입니다."
 
 #: stardustrun/settings.py:38
 msgid "{nth} Favorite Pokémon"
-msgstr ""
+msgstr "{nth} 좋아하는 포켓몬"
 
 #: stardustrun/collections_settings.py:13 stardustrun/settings.py:55
 #: stardustrun/settings.py:106 stardustrun/settings.py:107
@@ -852,32 +858,31 @@ msgstr "포켓몬"
 #: stardustrun/settings.py:147
 #: stardustrun/templates/items/pokemonFullItem.html:48
 msgid "Attacks"
-msgstr ""
+msgstr "공격"
 
 #: idolstory/templates/pages/comingsoon.html:10
 msgid "Coming soon"
-msgstr "곧 추가됩니다!"
+msgstr "추가 예정"
 
 #: cpro/templates/include/advancedButton.html:3
 msgid "Simple"
-msgstr ""
+msgstr "심플"
 
 #: cpro/templates/include/advancedButton.html:5
-#, fuzzy
 msgid "Advanced"
 msgstr "후기의"
 
 #: stardustrun/templates/include/pokemonsBeforeTemplate.html:8
 msgid "Open Pokémon GO, tap the pokéball at the bottom and tap Pokédex"
-msgstr ""
+msgstr "Pokémon GO를 열고, 하단에 있는 포켓볼을 탭한 다음 Pokédex를 탭하세요"
 
 #: cpro/templates/include/afterCards.html:7
 msgid "Check out your own profile"
-msgstr ""
+msgstr "자신의 프로필을 확인하세요"
 
 #: cpro/templates/include/afterCards.html:11
 msgid "Customize it"
-msgstr ""
+msgstr "커스터마이즈"
 
 #: cpro/templates/include/afterCards.html:14
 msgid "Share it on:"
@@ -885,12 +890,12 @@ msgstr "공유하기:"
 
 #: stardustrun/templates/items/ownedpokemonItem.html:26
 msgid "More info"
-msgstr ""
+msgstr "더 많은 정보"
 
 #: stardustrun/templates/items/pokemonFullItem.html:42
 #: stardustrun/templates/items/pokemonFullItem.html:78
 msgid "Your Collection"
-msgstr ""
+msgstr "당신의 컬렉션"
 
 #: stardustrun/templates/items/pokemonFullItem.html:45
 #: stardustrun/templates/items/pokemonFullItem.html:114
@@ -899,25 +904,28 @@ msgstr "진화"
 
 #: stardustrun/templates/items/pokemonFullItem.html:51
 #: stardustrun/templates/pages/ajax_pokedex.html:9
+#, fuzzy
 msgid "Permalink"
 msgstr "퍼머링크"
 
 #: stardustrun/templates/items/pokemonFullItem.html:98
 #: stardustrun/templates/items/pokemonItem.html:31
 msgid "Click to add %(pokemon)s to your collection"
-msgstr ""
+msgstr "컬렉션에 %(pokemon)s 을 추가하려면 클릭"
 
 #: stardustrun/templates/pages/ajax_pokedex.html:5
+#, fuzzy
 msgid "Change to icons"
-msgstr ""
+msgstr "아이콘으로 변경"
 
 #: stardustrun/templates/pages/ajax_pokedex.html:7
+#, fuzzy
 msgid "Change to list"
-msgstr ""
+msgstr "리스트로 변경"
 
 #: stardustrun/views.py:140
 msgid "You have {} of them in you collection. Delete them before changing this."
-msgstr ""
+msgstr "컬렉션에 {}개가 있습니다. 변경 전에 삭제하세요."
 
 #: magi/models.py:210
 msgid "View activities in your language only?"
@@ -925,7 +933,7 @@ msgstr "현재 설정한 언어로 기재된 활동만 볼까요?"
 
 #: magi/models.py:940
 msgid "Check out {username}'s activity on {site}: {activity}"
-msgstr ""
+msgstr "{site}에서 {username}의 활동을 확인하세요 : {activity}"
 
 #: magi/settings.py:109
 msgid "Join the community!"
@@ -933,22 +941,23 @@ msgstr "커뮤니티에 참여하세요!"
 
 #: magi/settings.py:145
 msgid "{site} provides an extended database of information about the game {game} and allows you to keep track of your progress in the game. You can create and customize your very own profile to share your progress and your collection to all your friends. You can also meet other players like you with the social network: read what the others are doing and share your adventures with the community. Comment, like and follow the other players to grow your network. Find players near you with the global map of all the players. And much more!"
-msgstr "{site} 에서는 {game} 게임에 대한 확장된 정보 데이터베이스를 제공하며, 사용자가 자신의 게임 진행 상황을 지속적으로 정리할 수 있도록 도와줍니다. 사용자는 본인의 프로필 페이지를 생성, 편집하여 게임 진행상황과 콜렉션을 친구들과 공유할 수 있습니다. 사용자는 소셜 네트워크를 통하여 본인과 유사한 다른 사용자와 만날 수도 있습니다. 다른 사람들이 무엇을 하고 있는지 보고, 자신의 경험을 커뮤니티에 공유하세요. 댓글, 좋아요 기능과 다른 사용자 팔로우 기능을 이용하여 인맥 네트워크를 넓혀 나가세요. 플레이어 세계지도를 이용하여 근처의 다른 플레이어를 찾아보세요. 다른 기능도 많답니다!"
+msgstr "{site} 에서는 {game} 게임에 대한 확장된 정보 데이터베이스를 제공하며 사용자가 자신의 게임 진행 상황을 지속적으로 정리할 수 있도록 도와줍니다. 사용자는 본인의 프로필 페이지를 생성/편집하여 게임 진행상황과 콜렉션을 친구들과 공유할 수 있습니다. 사용자는 소셜 네트워크를 통하여 본인과 유사한 다른 사용자와 만날 수도 있습니다: 다른 사람들이 무엇을 하고 있는지 보고, 자신의 경험을 커뮤니티에 공유하세요. 댓글, 좋아요 기능과 다른 사용자 팔로우 기능을 이용하여 인맥 네트워크를 넓혀 나가세요. 플레이어 세계지도를 이용하여 근처의 다른 플레이어를 찾아보세요. 다른 기능도 많답니다!"
 
 #: magi/templates/include/activityFollowMessage.html:4
 msgid "Start following players to see their activities!"
-msgstr "다른 사용자를 팔로우하여 그들의 활동을 확인하세요!"
+msgstr "다른 사용자를 팔로우하고 활동을 확인하세요!"
 
 #. 임시번역입니다. 원래 그래프로 나오는 부분인데 현재 사이트에서 안 보이네요.
 #: magi/templates/include/homePage.html:61
 msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
-msgstr "를 위해 총 %(total_donators)s 명이 기부해 주었습니다. 목표치: %(adjective)s"
+msgstr "를 위해 총 %(total_donators)s 명의 %(adjective)s 기부자들이 기부해 주었습니다"
 
 #: starlight/settings.py:265 starlight/settings.py:284
 msgid "About {thing}"
-msgstr "{thing}란?"
+msgstr "{thing}에 대하여"
 
 #: idolstory/magicollections.py:153 idolstory/models.py:310
+#, fuzzy
 msgid "All"
 msgstr "공통"
 
@@ -959,23 +968,23 @@ msgstr "{username}의 멋진 데레스테 컬렉션을 확인해 보세요!"
 
 #: stardustrun/collections_settings.py:46
 msgid "Global"
-msgstr ""
+msgstr "글로벌"
 
 #: stardustrun/collections_settings.py:64
 msgid "Check out my awesome collection of Pokémon!"
-msgstr ""
+msgstr "나만의 멋진 포켓몬 컬렉션을 확인해 보세요!"
 
 #: stardustrun/forms.py:119
 msgid "Pokémon in your collection"
-msgstr ""
+msgstr "컬렉션에 있는 포켓몬"
 
 #: stardustrun/forms.py:120
 msgid "Pokémon you've seen"
-msgstr ""
+msgstr "이미 본 포켓몬"
 
 #: starlight/models.py:1423
 msgid "Special"
-msgstr "특수"
+msgstr "스페셜"
 
 #: starlight/models.py:1425
 msgid "Damage"
@@ -984,12 +993,12 @@ msgstr "대미지"
 #: stardustrun/forms.py:186 stardustrun/models.py:21
 #: stardustrun/templates/items/attackItem.html:15
 msgid "Energy Increase"
-msgstr ""
+msgstr "에너지 증가"
 
 #: stardustrun/forms.py:187 stardustrun/models.py:22
 #: stardustrun/templates/items/attackItem.html:16
 msgid "Critical Hit Chance"
-msgstr ""
+msgstr "치명타 확률"
 
 #: stardustrun/forms.py:188 stardustrun/models.py:23
 #: stardustrun/templates/items/attackItem.html:14
@@ -999,38 +1008,41 @@ msgstr "지속 시간"
 #: stardustrun/forms.py:189 stardustrun/models.py:24
 #: stardustrun/templates/items/attackItem.html:17
 msgid "Energy Requirement"
-msgstr ""
+msgstr "에너지 요구사항"
 
 #: stardustrun/forms.py:233 stardustrun/forms.py:235 stardustrun/forms.py:237
 #: stardustrun/forms.py:239
 msgid "after evolution"
-msgstr ""
+msgstr "진화 후"
 
 #: stardustrun/models.py:200 stardustrun/models.py:282
 msgid "Stardust"
-msgstr ""
+msgstr "스타더스트"
 
 #: stardustrun/models.py:201 stardustrun/models.py:283
+#, fuzzy
 msgid "Lucky Eggs"
-msgstr ""
+msgstr "럭키 에그"
 
 #: stardustrun/models.py:202 stardustrun/models.py:284
+#, fuzzy
 msgid "Incenses"
-msgstr ""
+msgstr "인센스"
 
 #: stardustrun/models.py:203 stardustrun/models.py:285
+#, fuzzy
 msgid "Lure Modules"
-msgstr "루어모듈"
+msgstr "루어 모듈"
 
 #: stardustrun/settings.py:19
 msgid "The Pokémon GO Sharing Community"
-msgstr ""
+msgstr "Pokémon GO 커뮤니티"
 
 #: stardustrun/settings.py:29
 #: stardustrun/templates/include/pokemonsBeforeTemplate.html:6
 #: stardustrun/templates/include/pokemonsShareButton.html:4
 msgid "Share your Pokédex!"
-msgstr ""
+msgstr "Pokédex를 공유해 보세요!"
 
 #: stardustrun/settings.py:261 stardustrun/settings.py:268
 #: stardustrun/templates/items/ownedpokemonItem.html:24
@@ -1040,49 +1052,51 @@ msgstr "진화"
 
 #: stardustrun/templates/include/pokemonsBeforeTemplate.html:9
 msgid "Go through the list of Pokémon below and click on the ones you have to add them in your Stardust Run collection"
-msgstr ""
+msgstr "아래 포켓몬 목록을 살펴보고 Stardust Run 컬렉션에 추가해야 할 포켓몬을 클릭하세요"
 
 #: stardustrun/templates/include/pokemonsShareButton.html:22
+#, fuzzy
 msgid "What next?"
-msgstr ""
+msgstr "다음은?"
 
 #: stardustrun/templates/include/pokemonsShareButton.html:24
 msgid "Click on the Pokémon that are the most important to you and edit their CP and nicknames"
-msgstr ""
+msgstr "가장 중요한 포켓몬을 클릭하고 CP와 닉네임을 편집하세요"
 
 #: stardustrun/templates/include/pokemonsShareButton.html:29
 msgid "Let's go!"
-msgstr ""
+msgstr "Let's go!"
 
 #: stardustrun/templates/include/pokemonsShareButton.html:45
+#, fuzzy
 msgid "Go further"
-msgstr ""
+msgstr "더 나아가"
 
 #: stardustrun/templates/include/pokemonsShareButton.html:46
 msgid "Discover everything you can do on Stardust Run"
-msgstr ""
+msgstr "Stardust Run에서 할 수 있는 모든 것을 발견해 보세요"
 
 #: stardustrun/templates/items/attackItem.html:19
+#, fuzzy
 msgid "All Pokémon with this attack"
-msgstr ""
+msgstr "이 공격으로 모든 포켓몬"
 
 #: stardustrun/templates/items/attackItem.html:21
 msgid "All Attacks"
-msgstr ""
+msgstr "모든 공격"
 
 #: stardustrun/templates/items/attackItem.html:31
 msgid "seconds"
 msgstr "초"
 
 #: starlight/forms.py:88
-#, fuzzy
 msgid "Creation"
 msgstr "생성"
 
 #: idolstory/forms.py:254 idolstory/forms.py:313 idolstory/forms.py:645
 #: idolstory/forms.py:647
 msgid "Most popular"
-msgstr ""
+msgstr "최고 인기"
 
 #: bang/magicollections.py:241 bang/magicollections.py:245
 msgid "All time"
@@ -1106,11 +1120,11 @@ msgstr "{age}세"
 
 #: cpro/collections_settings.py:108
 msgid "Check out my collection of cards!"
-msgstr "제 카드 컬렉션을 확인해 보세요!"
+msgstr "나의 카드 컬렉션을 확인해 보세요!"
 
 #: cpro/forms.py:94 cpro/forms.py:341
 msgid "The game didn't even exist at that time."
-msgstr "이 게임은 그 날짜에는 아직 출시되지도 않았습니다!"
+msgstr "선택하신 날짜에 게임은 아직 출시되지 않았습니다."
 
 #: starlight/forms.py:559 starlight/models.py:935
 msgid "Type"
@@ -1120,7 +1134,7 @@ msgstr "타입"
 #: starlight/magicollections.py:278 starlight/models.py:224
 #: starlight/models.py:1431
 msgid "Center"
-msgstr "중앙"
+msgstr "리더"
 
 #: starlight/models.py:1091 starlight/models.py:1957
 msgid "Rarity"
@@ -1141,7 +1155,7 @@ msgstr "역순"
 #: cpro/forms.py:144 cpro/models.py:200
 #: cpro/templates/ajax/account_about.html:13
 msgid "Accept friend requests"
-msgstr "친구요청 허용"
+msgstr "친구 요청 수락"
 
 #: starlight/forms.py:252 starlight/forms.py:253 starlight/forms.py:333
 #: starlight/forms.py:334 starlight/models.py:335 starlight/models.py:338
@@ -1181,11 +1195,13 @@ msgstr "종료"
 
 #: cpro/forms.py:213 cpro/models.py:145 cpro/models.py:147 cpro/models.py:149
 #: cpro/models.py:151 cpro/models.py:153
+#, fuzzy
 msgid "T{} points"
 msgstr "순위보상 {}단계 포인트"
 
 #: cpro/forms.py:214 cpro/models.py:146 cpro/models.py:148 cpro/models.py:150
 #: cpro/models.py:152 cpro/models.py:154
+#, fuzzy
 msgid "T{} rank"
 msgstr "순위보상 {}단계 등수"
 
@@ -1195,6 +1211,7 @@ msgid "Event"
 msgstr "이벤트"
 
 #: starlight/models.py:1099 starlight/models.py:1339
+#, fuzzy
 msgid "Limited"
 msgstr "한정"
 
@@ -1205,6 +1222,7 @@ msgstr "한정"
 #: cpro/models.py:436 cpro/models.py:439 cpro/models.py:440 cpro/models.py:443
 #: cpro/models.py:444 cpro/models.py:447 cpro/models.py:448 cpro/models.py:757
 #: cpro/models.py:805
+#, fuzzy
 msgid "Awakened"
 msgstr "특훈 완료"
 
@@ -1214,6 +1232,7 @@ msgstr "일러스트"
 
 #: cpro/forms.py:287 cpro/models.py:366
 #: cpro/templates/include/cards-stats.html:44
+#, fuzzy
 msgid "Release Date"
 msgstr "배포일"
 
@@ -1238,12 +1257,12 @@ msgstr "댄스"
 #: bang/models.py:743 bang/models.py:744 bang/models.py:745 bang/models.py:814
 #: bang/models.py:1159 bang/models.py:1817
 msgid "Visual"
-msgstr "비쥬얼"
+msgstr "비주얼"
 
 #: idolstory/magicollections.py:1191 idolstory/models.py:1385
 #: idolstory/models.py:1424 idolstory/models.py:1485 idolstory/models.py:1777
 msgid "Skill"
-msgstr "특기"
+msgstr "스킬"
 
 #. donation reward title; i think this dont require translation
 #: cpro/model_choices.py:9
@@ -1263,8 +1282,9 @@ msgid "Ultimate Producer"
 msgstr "Ultimate Producer"
 
 #: cpro/model_choices.py:13
+#, fuzzy
 msgid "Idol Master"
-msgstr "아이돌마스터"
+msgstr "아이돌 마스터"
 
 #: cpro/model_choices.py:25
 msgid "Cute"
@@ -1275,18 +1295,22 @@ msgid "Cool"
 msgstr "쿨"
 
 #: cpro/model_choices.py:27
+#, fuzzy
 msgid "Passion"
 msgstr "패션"
 
 #: cpro/model_choices.py:60
+#, fuzzy
 msgid "Right"
 msgstr "오른손"
 
 #: cpro/model_choices.py:60
+#, fuzzy
 msgid "Left"
 msgstr "왼손"
 
 #: cpro/model_choices.py:60
+#, fuzzy
 msgid "Both"
 msgstr "양손"
 
@@ -1340,6 +1364,7 @@ msgstr "황소자리"
 
 #. 이벤트 종류 설명
 #: cpro/model_choices.py:104
+#, fuzzy
 msgid "Token"
 msgstr "재화 수집"
 
@@ -1349,10 +1374,12 @@ msgstr "메들리"
 
 #. 이벤트 정보에 있는 Live Party! 타입
 #: cpro/model_choices.py:106
+#, fuzzy
 msgid "Coop"
 msgstr "협력 라이브"
 
 #: cpro/model_choices.py:107
+#, fuzzy
 msgid "Caravan"
 msgstr "캐러밴"
 
@@ -1361,7 +1388,6 @@ msgid "Rare"
 msgstr "R"
 
 #: idolstory/models.py:1460
-#, fuzzy
 msgid "Super rare"
 msgstr "SR"
 
@@ -1370,26 +1396,31 @@ msgid "Super super rare"
 msgstr "SSR"
 
 #: cpro/model_choices.py:169
+#, fuzzy
 msgid "Lesser Perfect Lock"
-msgstr "퍼펙트 서포트 (R)"
+msgstr "퍼펙트 서포트 R"
 
 #: cpro/model_choices.py:170
+#, fuzzy
 msgid "Greater Perfect Lock"
-msgstr "퍼펙트 서포트  (SR)"
+msgstr "퍼펙트 서포트  SR"
 
 #: cpro/model_choices.py:171
+#, fuzzy
 msgid "Extreme Perfect Lock"
-msgstr "퍼펙트 서포트 (SSR)"
+msgstr "퍼펙트 서포트 SSR"
 
 #: cpro/model_choices.py:172
 msgid "Combo Lock"
 msgstr "콤보 서포트"
 
 #: starlight/models.py:1448
+#, fuzzy
 msgid "Healer"
 msgstr "힐러"
 
 #: cpro/model_choices.py:174
+#, fuzzy
 msgid "Life Lock"
 msgstr "대미지 가드"
 
@@ -1398,61 +1429,70 @@ msgid "Combo Bonus"
 msgstr "콤보 보너스"
 
 #: cpro/model_choices.py:176 cpro/model_choices.py:187
+#, fuzzy
 msgid "Perfect Score Bonus"
-msgstr "스코어 보너스 (R,SR)"
+msgstr "스코어 보너스 R/SR"
 
 #: cpro/model_choices.py:177
+#, fuzzy
 msgid "Overload"
 msgstr "오버로드"
 
 #: cpro/model_choices.py:178
+#, fuzzy
 msgid "Score Boost"
-msgstr "스코어 보너스 (SSR)"
+msgstr "스코어 보너스 SSR"
 
 #: cpro/model_choices.py:214
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Great notes into Perfect notes in the next {skill_duration} seconds."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 GREAT를 PERFECT로 판정"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 GREAT를 PERFECT로 판정한다."
 
 #: cpro/model_choices.py:215
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 NICE/GREAT를 PERFECT로 판정"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 NICE/GREAT를 PERFECT로 판정한다."
 
 #: cpro/model_choices.py:216
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Bad, Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 BAD/NICE/GREAT를 PERFECT로 판정"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 BAD/NICE/GREAT를 PERFECT로 판정한다."
 
 #: cpro/model_choices.py:217
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Nice notes will not break the combo in the next {skill_duration} seconds."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 NICE에서도 콤보가 이어짐"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 NICE에서도 콤보가 이어진다."
 
 #: cpro/model_choices.py:218
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will restore {skill_value} life in the next {skill_duration} seconds."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 PERFECT에서 라이프를 {skill_value}씩 회복함"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 PERFECT에서 라이프를 {skill_value}씩 회복한다."
 
 #: cpro/model_choices.py:219
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will not lose health in the next {skill_duration} seconds."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 라이프가 깎이지 않음"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 라이프가 깎이지 않는다."
 
 #: cpro/model_choices.py:220
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus in the next {skill_duration} seconds."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 콤보 보너스 {skill_value}% UP"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 콤보 보너스 {skill_value}%가 증가한다."
 
 #: cpro/model_choices.py:221
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 PERFECT 스코어 {skill_value}% UP"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 PERFECT 스코어 {skill_value}%가 증가한다."
 
 #: cpro/model_choices.py:222
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% bonus and Nice and Bad notes will not break your combo in the next {skill_duration} seconds, at the cost of {skill_value2} life."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 라이프를 {skill_value2} 소모하여, {skill_duration}초간 PERFECT 스코어 {skill_value}% UP, NICE/BAD에서 콤보가 이어짐"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 라이프를 {skill_value2} 소모하여, {skill_duration}초간 PERFECT 스코어 {skill_value}% UP, NICE/BAD에서 콤보가 이어진다."
 
 #: cpro/model_choices.py:223
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Great and Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
-msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 GREAT/PERFECT 스코어 {skill_value}% UP"
+msgstr "매 {trigger_value} 초마다, {trigger_chance}% 확률로 {skill_duration}초간 GREAT/PERFECT 스코어 {skill_value}%가 증가한다."
 
 #. 단속성 특기는 상관 없지만, tricolor (ex: 혼다 미오 한정) 특기 표시에 문제가 있습니다.
 #: cpro/model_choices.py:342
 msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}%."
-msgstr "모든 {idol_type} 속성 아이돌의 {leader_skill_type} 어필치를 {leader_skill_percent}% 상승"
+msgstr "모든 {idol_type} 속성 아이돌의 {leader_skill_type} 어필치를 {leader_skill_percent}% 상승한다."
 
 #. 인벤의 데레스테 카드 정보 번역을 따랐습니다.
 #: cpro/model_choices.py:388 cpro/model_choices.py:389 cpro/models.py:433
@@ -1461,6 +1501,7 @@ msgid "Life"
 msgstr "라이프"
 
 #: cpro/model_choices.py:314
+#, fuzzy
 msgid "Voice"
 msgstr "보이스"
 
@@ -1469,6 +1510,7 @@ msgid "Make-Up"
 msgstr "메이크업"
 
 #: cpro/model_choices.py:316
+#, fuzzy
 msgid "Step"
 msgstr "스텝"
 
@@ -1477,38 +1519,47 @@ msgid "Energy"
 msgstr "에너지"
 
 #: idolstory/models.py:1386 idolstory/models.py:1804 idolstory/models.py:1827
+#, fuzzy
 msgid "Ability"
 msgstr "어빌리티"
 
 #: cpro/model_choices.py:317
+#, fuzzy
 msgid "Brilliance"
 msgstr "브릴리언스"
 
 #: cpro/model_choices.py:300
+#, fuzzy
 msgid "Shiny"
 msgstr "샤이니"
 
 #: cpro/model_choices.py:299
+#, fuzzy
 msgid "Tricolor"
 msgstr "트리콜로르"
 
 #: bang/models.py:125
+#, fuzzy
 msgid "Thumbs"
 msgstr "엄지"
 
 #: bang/models.py:129
+#, fuzzy
 msgid "All fingers"
 msgstr "모든 손가락"
 
 #: bang/models.py:133
+#, fuzzy
 msgid "Index fingers"
 msgstr "검지"
 
 #: bang/models.py:137
+#, fuzzy
 msgid "One hand"
 msgstr "한손"
 
 #: starlight/forms.py:431 starlight/forms.py:659
+#, fuzzy
 msgid "Other"
 msgstr "기타"
 
@@ -1542,31 +1593,36 @@ msgid "Signature"
 msgstr "서명"
 
 #: cpro/models.py:142
+#, fuzzy
 msgid "Kind"
 msgstr "종류"
 
 #: cpro/models.py:199 cpro/templates/ajax/account_about.html:6
+#, fuzzy
 msgid "Game ID"
 msgstr "게임 ID"
 
 #: starlight/models.py:290
+#, fuzzy
 msgid "Device"
 msgstr "디바이스"
 
 #. 데레스테 플레이시 선호하는 손가락 타입
 #: bang/models.py:146
+#, fuzzy
 msgid "Play with"
 msgstr "플레이 스타일"
 
 #: starlight/models.py:286
 msgid "Operating System"
-msgstr "운영체제"
+msgstr "운영 체제"
 
 #: idolstory/forms.py:338 idolstory/forms.py:635 idolstory/forms.py:703
 #: idolstory/forms.py:862 idolstory/forms.py:903
 #: idolstory/magicollections.py:295 idolstory/magicollections.py:671
 #: idolstory/magicollections.py:916 idolstory/models.py:650
 #: idolstory/models.py:1439
+#, fuzzy
 msgid "Idol"
 msgstr "아이돌"
 
@@ -1578,17 +1634,18 @@ msgid "Title"
 msgstr "제목"
 
 #: starlight/models.py:1479
-#, fuzzy
 msgid "Transparent"
 msgstr "투명 일러스트"
 
 #: starlight/models.py:1126
+#, fuzzy
 msgid "Icon"
 msgstr "아이콘"
 
 #: cpro/models.py:421 cpro/models.py:426
 #: cpro/templates/include/cards-stats.html:170
 #: cpro/templates/include/cards-stats.html:176
+#, fuzzy
 msgid "Puchi"
 msgstr "푸치"
 
@@ -1605,28 +1662,30 @@ msgstr "최대"
 #. 아이돌 어필치의 총 합
 #: bang/forms.py:263 bang/forms.py:264 bang/magicollections.py:945
 #: bang/magicollections.py:952 bang/magicollections.py:989 bang/models.py:815
+#, fuzzy
 msgid "Overall"
 msgstr "총합"
 
 #: starlight/models.py:1952
-#, fuzzy
 msgid "Max bonded"
 msgstr "친애도MAX"
 
 #: starlight/models.py:1904
+#, fuzzy
 msgid "Max leveled"
-msgstr "레벨MAX"
+msgstr "최대 레벨"
 
 #: cpro/models.py:760 cpro/templates/items/ownedcardItem.html:11
 msgid "Star Rank"
-msgstr "스타랭크"
+msgstr "스타 랭크"
 
 #: cpro/models.py:764 cpro/templates/include/cards-stats.html:70
 #: cpro/templates/items/ownedcardItem.html:14
 msgid "Skill Level"
-msgstr "특기 레벨"
+msgstr "스킬 레벨"
 
 #: cpro/models.py:768 cpro/templates/items/ownedcardItem.html:17
+#, fuzzy
 msgid "Obtained Date"
 msgstr "카드 취득 일자"
 
@@ -1655,7 +1714,7 @@ msgstr "좋아하는 카드"
 
 #: cpro/settings.py:67
 msgid "New Cards"
-msgstr "신규카드"
+msgstr "신규 카드"
 
 #: idolstory/models.py:2223
 msgid "Live"
@@ -1663,10 +1722,12 @@ msgstr "라이브"
 
 #. 액티비티 분류 태그
 #: starlight/settings.py:188
+#, fuzzy
 msgid "Comedy"
 msgstr "유머"
 
 #: cpro/settings.py:71
+#, fuzzy
 msgid "Room Decoration"
 msgstr "방 꾸미기"
 
@@ -1687,7 +1748,7 @@ msgstr "코스프레"
 #: starlight/magicollections.py:640 starlight/models.py:745
 #: starlight/models.py:746 starlight/settings.py:160
 msgid "Anime"
-msgstr "애니"
+msgstr "애니메이션"
 
 #: starlight/settings.py:195 starlight/settings.py:385
 msgid "Community"
@@ -1698,10 +1759,12 @@ msgid "Card"
 msgstr "카드"
 
 #: cpro/templates/ajax/account_about.html:14
+#, fuzzy
 msgid "Yes"
 msgstr "예"
 
 #: cpro/templates/ajax/account_about.html:14
+#, fuzzy
 msgid "No"
 msgstr "아니요"
 
@@ -1711,15 +1774,15 @@ msgstr "당신의 카드를 공유해보세요!"
 
 #: cpro/templates/include/beforeCards.html:11
 msgid "Start sharing your beautiful collection!"
-msgstr ""
+msgstr "아름다운 컬렉션을 공유해보세요!"
 
 #: cpro/templates/include/beforeCards.html:13
 msgid "Open the game, go to Idols (\"アイドル\"), then go to Idols List (\"所属アイドル一覧\")"
-msgstr "게임을 실행하고, 아이돌(アイドル) 메뉴에서 소속 아이돌 목록(所属アイドル一覧)을 선택하세요."
+msgstr "게임을 실행하고, 아이돌(\"アイドル\") 메뉴에서 소속 아이돌 목록(\"所属アイドル一覧\")을 선택하세요"
 
 #: cpro/templates/include/beforeCards.html:14
 msgid "Go through the list of cards below and click \"+\" on the ones you have to add them in your Cinderella Producers collection, then click again for more options"
-msgstr "아래의 카드 목록을 확인하고, 카드 목록에 추가할 카드는 \"+\" 버튼을 누르세요. 한 번 더 누르면 더 많은 옵션을 확인할 수 있습니다."
+msgstr "아래의 카드 목록을 확인하고, 카드 목록에 추가할 카드는 \"+\" 버튼을 누르세요, 한 번 더 누르면 더 많은 옵션을 확인할 수 있습니다"
 
 #: cpro/templates/include/beforeCards.html:30
 msgid "Next"
@@ -1727,46 +1790,47 @@ msgstr "다음"
 
 #: cpro/templates/include/cards-collection.html:25
 msgid "Click to add %(card)s to your collection"
-msgstr "%(card)s 을(를) 콜렉션에 추가하려면 클릭하세요."
+msgstr "%(card)s 을/를 콜렉션에 추가하려면 클릭하세요"
 
 #: cpro/forms.py:276 cpro/templates/include/cards-stats.html:81
 msgid "Leader Skill"
-msgstr "센터 스킬"
+msgstr "리더 스킬"
 
 #. 이건 몇명의 프로듀서가 이 아이돌을 선택했냐는 것인데 번역하기 애매해서 Fuzzy처리합니다
 #: cpro/forms.py:291 cpro/templates/include/cards-stats.html:95
+#, fuzzy
 msgid "Scouted by"
 msgstr "스카웃"
 
 #. 카드 정보에서 해당 카드 이미지 다운
 #: idolstory/magicollections.py:456
 msgid "Download"
-msgstr "이미지 다운로드"
+msgstr "다운로드"
 
 #: cpro/templates/items/cardItem.html:9
 msgid "Card Info"
-msgstr "카드정보"
+msgstr "카드 정보"
 
 #: cpro/templates/items/cardItem.html:15
 msgid "Add to"
-msgstr ""
+msgstr "추가"
 
 #: cpro/templates/items/cardItem.html:23
 msgid "Add this card to your collection"
-msgstr "이 카드를 컬렉션에 추가합니다"
+msgstr "카드를 컬렉션에 추가"
 
 #. 카드 목록에서 이미 보유하고 있는 카드의 '이 카드를 당신의 컬렉션에 추가합니다' 버튼 툴팁으로 나타납니다.
 #: cpro/templates/items/cardItem.html:26 cpro/templates/items/cardItem.html:28
 msgid "Your cards"
-msgstr "보유하고 있는 카드입니다."
+msgstr "보유한 카드"
 
 #: cpro/templates/items/cardItem.html:36
 msgid "Remove this card from your favorites"
-msgstr "이 카드를 좋아하는 카드에서 제외합니다."
+msgstr "선호 카드에서 삭제"
 
 #: cpro/templates/items/cardItem.html:38
 msgid "Add this card to your favorites"
-msgstr "이 카드를 좋아하는 카드에 추가합니다."
+msgstr "선호 카드에 추가"
 
 #: starlight/models.py:409 starlight/models.py:668
 msgid "Fans"
@@ -1777,7 +1841,6 @@ msgid "Only"
 msgstr "오직"
 
 #: starlight/magicollections.py:1147
-#, fuzzy
 msgid "None"
 msgstr "없음"
 
@@ -1787,7 +1850,7 @@ msgstr "이 활동을 좋아함"
 
 #: magi/default_settings.py:23
 msgid "Loading"
-msgstr "불러오는 중"
+msgstr "Loading"
 
 #: cpro/model_choices.py:108
 msgid "LIVE Parade"
@@ -1795,15 +1858,15 @@ msgstr "라이브 퍼레이드"
 
 #: cpro/models.py:195
 msgid "Producer Level"
-msgstr "프로듀서 레벨(PLv)"
+msgstr "프로듀서 레벨"
 
 #: cpro/templates/include/beforeEvents.html:6
 msgid "%(idol)s performed in %(total_results)s events"
-msgstr "%(idol)s 은(는) %(total_results)s 개 이벤트에 참가했습니다."
+msgstr "%(idol)s 은/는 %(total_results)s 개 이벤트에 참가했습니다"
 
 #: cpro/templates/include/beforeLeaderboard.html:29
 msgid "%(total_results)s producers scouted %(own_card)s"
-msgstr "%(total_results)s 명의 프로듀서가 %(own_card)s 카드를 스카웃 하였습니다."
+msgstr "%(total_results)s 명의 프로듀서가 %(own_card)s을 스카웃했습니다"
 
 #: magi/magicollections.py:3730 magi/magicollections.py:3871
 #: magi/models.py:1310
@@ -1820,7 +1883,6 @@ msgid "Bronze"
 msgstr "브론즈"
 
 #: starlight/models.py:262 starlight/models.py:263 starlight/models.py:264
-#, fuzzy
 msgid "Silver"
 msgstr "실버"
 
@@ -1831,15 +1893,16 @@ msgstr "골드"
 #: magi/templates/include/homePage.html:67
 #: magi/templates/include/homePage.html:69
 msgid "%(percent)s%% funded"
-msgstr "%(precent)s%% 모금됨"
+msgstr "%(percent)s%% 모금됨"
 
 #: magi/templates/items/badgeInfo.html:25
+#, fuzzy
 msgid "Granted by"
-msgstr ""
+msgstr "부여한 사람"
 
 #: magi/templates/items/donateItem.html:36
 msgid "No donation yet"
-msgstr "아직 기부가 없습니다."
+msgstr "아직 기부가 없습니다"
 
 #: bang/views.py:73
 msgid "Learn more"
@@ -1869,6 +1932,7 @@ msgstr "관련 없음"
 
 #: cpro/templates/include/cards-stats.html:97
 #: cpro/templates/include/cards-stats.html:109
+#, fuzzy
 msgid "%(total)s producer"
 msgid_plural "%(total)s producers"
 msgstr[0] "%(total)s 프로듀서"
@@ -1881,12 +1945,12 @@ msgstr "공유"
 
 #: magi/default_settings.py:25
 msgid "Local time"
-msgstr ""
+msgstr "현지 시간"
 
 #: bang/magicollections.py:243 bang/magicollections.py:1410
 #: bang/magicollections.py:2713
 msgid "Open {thing}"
-msgstr ""
+msgstr "{thing} 열기"
 
 #. Not sure where this will be used, but I assumed it will be used for filtering cards. If it's in a different context, let me know~
 #: magi/forms.py:1033
@@ -1896,7 +1960,7 @@ msgstr "역순"
 #: magi/forms.py:2982 magi/models.py:1188
 #: magi/templates/items/reportItem.html:29
 msgid "Reason"
-msgstr ""
+msgstr "사유"
 
 #: magi/item_model.py:780 magi/magicollections.py:1522
 #: magi/magicollections.py:1581
@@ -1915,23 +1979,23 @@ msgstr "{thing} 신고하기"
 #: magi/forms.py:2507 magi/magicollections.py:1577 magi/views.py:559
 #: magi/views.py:647
 msgid "Add {thing}"
-msgstr ""
+msgstr "{thing} 추가"
 
 #: magi/magicollections.py:3977
 msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
-msgstr ""
+msgstr "특정 {thing}에 문제가 있는 경우에만 신고하십시오. 만약 다른 경우로 신고했을 때, 신고는 무시됩니다. 예를 들어서, 계정이나 프로필 활동에 신고하지 마세요. \"신고\"버튼을 눌러서 개별적 신고 가이드라인을 따라가세요:"
 
 #: magi/models.py:825
 msgid "Only post official artworks, artworks you own, or fan artworks that are approved by the artist and credited."
-msgstr ""
+msgstr "공식 아트워크, 자신이 소유한 아트워크, 아티스트가 승인하고 인정한 팬 아트워크만 게시하세요."
 
 #: magi/models.py:1304 magi/models.py:1379
 msgid "{month} Donator"
-msgstr ""
+msgstr "{month}'s 기부자"
 
 #: magi/models.py:1385
 msgid "{donation_platform} supporter of {site_name} who donated to help cover the server costs"
-msgstr ""
+msgstr "서버 비용을 충당하기 위해 기증한 {site_name}의 {donation_platform} 후원자"
 
 #: magi/raw.py:9
 msgid "lovely"
@@ -1939,14 +2003,13 @@ msgstr "사랑스러운"
 
 #: magi/raw.py:10
 msgid "awesome"
-msgstr "최고의"
+msgstr "멋진"
 
 #: magi/raw.py:11
 msgid "incredible"
 msgstr "믿을수 없는"
 
 #: magi/raw.py:12
-#, fuzzy
 msgid "adorable"
 msgstr "사랑스러운"
 
@@ -1956,7 +2019,7 @@ msgstr "관대한"
 
 #: magi/raw.py:14
 msgid "idols-addicted"
-msgstr "아이돌- 중독자"
+msgstr "아이돌 광팬인"
 
 #: magi/raw.py:15
 msgid "friendly"
@@ -1977,12 +2040,12 @@ msgstr "친절한"
 #: magi/templates/emails/donation_footer.html:3
 #: magi/templates/include/donate.html:10 magi/templates/pages/settings.html:144
 msgid "If you like the website, please consider donating"
-msgstr "이 웹 사이트가 마음에 들면 기부해주시면 감사하겠습니다."
+msgstr "이 웹 사이트가 마음에 들면, 기부해주시면 감사하겠습니다"
 
 #: magi/templates/emails/notification.html:30
 #: magi/templates/emails/notification.txt:7
 msgid "Click here to turn off email notifications."
-msgstr "이 곳을 눌러 이메일 알림을 끌 수 있습니다."
+msgstr "이곳을 눌러 이메일 알림을 끌 수 있습니다."
 
 #: magi/templates/emails/report.html:21
 #: magi/templates/items/activityItem.html:90
@@ -1996,11 +2059,11 @@ msgstr "당신을 팔로우합니다"
 
 #: magi/default_settings.py:891 magi/default_settings.py:898 magi/views.py:538
 msgid "Successfully edited!"
-msgstr "성공적으로 수정됨!"
+msgstr "수정 성공!"
 
 #: stardustrun/forms.py:84
 msgid "The game didn't even existed at that time."
-msgstr ""
+msgstr "게임은 해당 날짜에 존재하지 않았습니다."
 
 #: bang/magicollections.py:1285 bang/magicollections.py:1623
 msgid "Countdown"
@@ -2060,7 +2123,7 @@ msgstr "테크닉"
 
 #: bang/magicollections.py:289 bang/magicollections.py:2569 bang/models.py:2065
 msgid "Members"
-msgstr "멤버들"
+msgstr "멤버"
 
 #. This is only used in the context of school years, as in high school school year. It's ok to write "first year" or even "first school year" instead!
 #: bang/models.py:217
@@ -2099,7 +2162,7 @@ msgstr "라이프 회복"
 #. Translated as in how it's pronounced. Honestly, I'm not sure how a literal translation could work for this, if someone can provide better, please feel free to replace~
 #: bang/models.py:512
 msgid "Perfect lock"
-msgstr "판정강화"
+msgstr "판정 강화"
 
 #: starlight/forms.py:259 starlight/forms.py:332 starlight/forms.py:557
 #: starlight/magicollections.py:469 starlight/models.py:547
@@ -2120,20 +2183,20 @@ msgid "Level {level}"
 msgstr "레벨 {level}"
 
 #: cpro/templates/items/eventInfo.html:14
+#, fuzzy
 msgid "days"
 msgstr "날"
 
 #: cpro/templates/items/eventInfo.html:14
-#, fuzzy
 msgid "hours"
 msgstr "시간"
 
 #: cpro/templates/items/eventInfo.html:14
-#, fuzzy
 msgid "minutes"
 msgstr "분"
 
 #: idolstory/models.py:1033
+#, fuzzy
 msgid "Source"
 msgstr "원본"
 
@@ -2142,6 +2205,7 @@ msgid "Instrument"
 msgstr "악기"
 
 #: magi/magicollections.py:486
+#, fuzzy
 msgid "Collected {thing}"
 msgstr "수집한 {thing}"
 
@@ -2159,11 +2223,11 @@ msgstr "메모리얼 에피소드"
 
 #: magi/abstract_models.py:144
 msgid "Join date"
-msgstr ""
+msgstr "가입일"
 
 #: magi/abstract_models.py:145
 msgid "Give a nickname to your account to easily differentiate it from your other accounts when you're managing them."
-msgstr ""
+msgstr "계정을 관리 할 때 다른 계정과 쉽게 구별 할 수 있도록 계정에 별명을 지정하세요."
 
 #: magi/abstract_models.py:146
 msgid "Start date"
@@ -2171,94 +2235,108 @@ msgstr "게임 시작일"
 
 #: magi/abstract_models.py:149 magi/forms.py:1646 magi/forms.py:2060
 #: magi/models.py:148 magi/models.py:169
+#, fuzzy
 msgid "Default tab"
-msgstr "기본 텝"
+msgstr "기본 탭"
 
 #: magi/forms.py:1745 magi/views.py:431
 msgid "Email"
-msgstr ""
+msgstr "이메일"
 
 #: magi/forms.py:561 magi/forms.py:570 magi/forms.py:579
+#, fuzzy
 msgid "You've added a lot of {things}, lately. Try to wait a little bit before adding more."
-msgstr ""
+msgstr "최근에 많은 {things}을/를 추가했습니다.더 추가하기 전에 조금 기다리세요."
 
 #: magi/forms.py:586
 msgid "You already have {total} {things}. You can only add up to {max} {things}."
-msgstr ""
+msgstr "{total} {things}이/가 이미 있습니다. {max} {things}까지만 추가 할 수 있습니다."
 
 #: magi/forms.py:1035
+#, fuzzy
 msgid "View"
-msgstr ""
+msgstr "전망"
 
 #: magi/forms.py:1689
+#, fuzzy
 msgid "Please provide an updated screenshot of your in-game profile to prove your level."
-msgstr ""
+msgstr "레벨을 증명하기 위해 게임 내 프로필의 업데이트 된 스크린샷을 업로드하세요."
 
 #: magi/utils.py:2332 magi/utils.py:2336
+#, fuzzy
 msgid "You may use Markdown formatting."
-msgstr ""
+msgstr "마크다운 포맷을 사용할 수 있습니다."
 
 #. Example: Adding to your account db0
 #. Adding to your card Kotori
 #: magi/magicollections.py:378
 msgid "Adding to your {thing} {name}"
-msgstr ""
+msgstr "{thing} {name}에 추가"
 
 #: magi/magicollections.py:494
 msgid "Add to your {thing}"
-msgstr ""
+msgstr "{thing}에 추가"
 
 #: magi/magicollections.py:626
+#, fuzzy
 msgid "Quick edit"
-msgstr ""
+msgstr "빠른 편집"
 
 #: magi/magicollections.py:2538
+#, fuzzy
 msgid "Leaderboard position"
-msgstr ""
+msgstr "리더보드 위치"
 
 #: magi/templates/pages/about.html:390
+#, fuzzy
 msgid "Need help?"
 msgstr "도움이 필요하신가요?"
 
 #: magi/templates/pages/about.html:391
 msgid "Find answers to your questions"
-msgstr ""
+msgstr "질문에 대한 답변 찾기"
 
 #: magi/templates/pages/about.html:395
 msgid "Share a suggestion or a bug"
-msgstr ""
+msgstr "제안 또는 버그 공유"
 
 #: magi/templates/pages/about.html:397
+#, fuzzy
 msgid "Fill our feedback form:"
-msgstr ""
+msgstr "피드백 폼을 작성하세요:"
 
 #: magi/templates/pages/about.html:398
+#, fuzzy
 msgid "Feedback form"
-msgstr ""
+msgstr "피드백 폼"
 
 #: magi/templates/pages/about.html:400
+#, fuzzy
 msgid "Create a ticket in our bug tracker:"
-msgstr ""
+msgstr "버그 추적기에서 티켓을 만듭니다:"
 
 #: magi/templates/pages/about.html:401
+#, fuzzy
 msgid "Bug tracker"
 msgstr "버그 트래커"
 
 #: magi/templates/include/donate.html:52 magi/templates/pages/about.html:405
 msgid "Alternatively..."
-msgstr ""
+msgstr "아니면..."
 
 #: magi/templates/pages/about.html:406
+#, fuzzy
 msgid "The staff team is available on:"
-msgstr ""
+msgstr "직원 팀은 다음에서 사용할 수 있습니다:"
 
 #: magi/utils.py:869
+#, fuzzy
 msgid "Select {}"
 msgstr "{} 선택하기"
 
 #: magi/utils.py:1909
 msgid "This date has to be in the future."
-msgstr ""
+msgstr "이 날짜는 미래여야 합니다."
 
 #: magi/default_settings.py:908 magi/default_settings.py:915 magi/views.py:538
 msgid "Successfully added!"
@@ -2270,55 +2348,65 @@ msgstr "성공적으로 삭제되었습니다!"
 
 #: idolstory/settings.py:396 idolstory/settings.py:403
 msgid "{things} list"
-msgstr ""
+msgstr "{things} 목록"
 
 #: cpro/model_choices.py:179
+#, fuzzy
 msgid "All Round"
-msgstr ""
+msgstr "모든 라운드"
 
 #: cpro/model_choices.py:180
+#, fuzzy
 msgid "Concentration"
 msgstr "컨센트레이션"
 
 #: cpro/model_choices.py:181
 msgid "Skill Boost"
-msgstr ""
+msgstr "스킬 부스트"
 
 #: cpro/model_choices.py:182
+#, fuzzy
 msgid "Cute/Cool/Passion Focus"
-msgstr ""
+msgstr "큐트 / 쿨 / 열정"
 
 #: cpro/model_choices.py:224
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus and Perfect notes will restore {skill_value2} life in the next {skill_duration} seconds."
-msgstr ""
+msgstr "{trigger_value} 초마다 {trigger_chance} % 확률로 추가 {skill_value} %의 콤보 보너스를 얻을 수 있으며 Perfect note는 다음 {skill_duration} 초 내에 {skill_value2}의 생명력을 회복합니다."
 
 #: cpro/model_choices.py:225
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus but the timing window for Perfect notes is reduced in the next {skill_duration} seconds."
-msgstr ""
+msgstr "{trigger_value} 초마다 Perfect 노트가 {skill_value} % 점수 보너스를받을 가능성은 {trigger_chance} % 확률이지만, 다음 {skill_duration} 초 내에 Perfect 노트의 타이밍 창이 줄어 듭니다."
 
 #: cpro/model_choices.py:226
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% change that currently active skills will be boosted for {skill_duration} seconds"
-msgstr ""
+msgstr "{trigger_value} 초마다 현재 활성 스킬이 {skill_duration} 초 동안 향상되는 {trigger_chance} % 변화가 있습니다"
 
 #: cpro/model_choices.py:227
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus, but only if you have only {type} idols in your team for {skill_duration} seconds"
-msgstr ""
+msgstr "{trigger_value} 초마다 Perfect 노트가 {skill_value} %의 보너스 보너스를받을 확률이 {trigger_chance} %이며, {type} 만있는 경우에만 추가 {skill_value2} %의 콤보 보너스를받습니다 {skill_duration} 초 동안 팀의 우상"
 
 #: cpro/templates/include/beforeLeaderboard.html:21
 msgid "%(total_results)s producers love %(favorite_character_idol)s"
-msgstr ""
+msgstr "%(total_results)s 프로듀서들이 %(favorite_character_idol)s 를 좋아합니다"
 
 #: cpro/templates/items/eventInfo.html:14
+#, fuzzy
 msgid "seconds left"
-msgstr " 초남은"
+msgstr "초 남음"
 
 #: cpro/templates/items/eventInfo.html:30
+#, fuzzy
 msgid "translated in English"
-msgstr ""
+msgstr "영어로 번역됨"
 
 #: bang/forms.py:135 bang/magicollections.py:154
+#, fuzzy
 msgid "Total {item} bought"
-msgstr ""
+msgstr "총 구매 한 {item}의 양"
 
 #. changed tl based on official game terminology (kr version)
 #: bang/forms.py:135 bang/magicollections.py:154
@@ -2326,70 +2414,85 @@ msgid "Star gems"
 msgstr "스타"
 
 #: starlight/forms.py:171 starlight/forms.py:176
+#, fuzzy
 msgid "Friend ID"
 msgstr "친구 ID"
 
 #: bang/forms.py:349
+#, fuzzy
 msgid "Promo"
 msgstr "프로모"
 
 #: starlight/forms.py:372 starlight/forms.py:516 starlight/models.py:813
 #: starlight/models.py:1041 starlight/models.py:1046
+#, fuzzy
 msgid "Release date"
 msgstr "출시일"
 
 #: bang/forms.py:345
+#, fuzzy
 msgid "Origin"
-msgstr ""
+msgstr "유래"
 
 #: starlight/magicollections.py:1294 starlight/settings.py:174
+#, fuzzy
 msgid "Gacha"
 msgstr "가챠"
 
 #: starlight/models.py:1795
+#, fuzzy
 msgid "Server availability"
-msgstr ""
+msgstr "서버 가용성"
 
 #: bang/forms.py:440 bang/forms.py:441 bang/forms.py:527 bang/forms.py:630
 #: bang/forms.py:631 bang/forms.py:697 bang/models.py:94 bang/models.py:1126
 #: bang/models.py:1128 bang/models.py:1129 bang/models.py:1584
 #: bang/models.py:1586 bang/models.py:1587 bang/models.py:1937
+#, fuzzy
 msgid "English version"
 msgstr "영어 버전"
 
 #: idolstory/models.py:204
+#, fuzzy
 msgid "Taiwanese version"
 msgstr "대만 버전"
 
 #: idolstory/models.py:192
+#, fuzzy
 msgid "Korean version"
 msgstr "한국 버전"
 
 #: bang/forms.py:526 bang/forms.py:527 bang/forms.py:528 bang/forms.py:529
 #: bang/forms.py:696 bang/forms.py:697 bang/forms.py:698 bang/forms.py:699
+#, fuzzy
 msgid "Date"
 msgstr "날짜"
 
 #: starlight/models.py:85 starlight/models.py:1041 starlight/models.py:1805
 #: starlight/models.py:1808 starlight/models.py:1810 starlight/models.py:1811
+#, fuzzy
 msgid "Japanese version"
 msgstr "일본 서버"
 
 #: starlight/forms.py:374 starlight/models.py:805 starlight/models.py:849
+#, fuzzy
 msgid "Romaji"
 msgstr "로마자"
 
 #: starlight/forms.py:375 starlight/models.py:811
+#, fuzzy
 msgid "Length"
 msgstr "길이"
 
 #: starlight/forms.py:376
+#, fuzzy
 msgid "BPM"
 msgstr "BPM"
 
 #. Don't know the context for this, please clarify
 #: bang/forms.py:953 bang/forms.py:954 bang/models.py:1310 bang/models.py:1362
 #: bang/models.py:1363 bang/models.py:1499
+#, fuzzy
 msgid "Hard"
 msgstr "HARD"
 
@@ -2397,37 +2500,40 @@ msgstr "HARD"
 #: bang/forms.py:953 bang/forms.py:955 bang/forms.py:957 bang/models.py:1358
 #: bang/models.py:1360 bang/models.py:1362 bang/models.py:1364
 #: bang/models.py:1366
+#, fuzzy
 msgid "Notes"
 msgstr "노트 개수"
 
 #: bang/forms.py:954 bang/forms.py:956 bang/forms.py:958 bang/models.py:1359
 #: bang/models.py:1361 bang/models.py:1363 bang/models.py:1365
 #: bang/models.py:1367 bang/models.py:1504
+#, fuzzy
 msgid "Difficulty"
 msgstr "난이도"
 
 #: bang/forms.py:955 bang/forms.py:956 bang/models.py:1311 bang/models.py:1364
 #: bang/models.py:1365 bang/models.py:1500
+#, fuzzy
 msgid "Expert"
 msgstr "EXPERT"
 
 #: bang/magicollections.py:158
+#, fuzzy
 msgid "~{}円 spent (~${})"
-msgstr "~₩{} 소비"
+msgstr "~{}円 소비 (~${})"
 
 #: bang/magicollections.py:362 bang/settings.py:147
 #: bang/templates/pages/indexBackground.html:22
+#, fuzzy
 msgid "Characters"
 msgstr "캐릭터"
 
 #: idolstory/magicollections.py:1276
-#, fuzzy
 msgid "Favorite {thing}"
 msgstr "좋아하는 {thing}"
 
 #: idolstory/forms.py:647 idolstory/magicollections.py:1280
 #: idolstory/models.py:2121
-#, fuzzy
 msgid "Favorite {things}"
 msgstr "좋아하는 {things}"
 
@@ -2435,247 +2541,301 @@ msgstr "좋아하는 {things}"
 #: bang/magicollections.py:814 bang/magicollections.py:818
 #: bang/magicollections.py:819 bang/magicollections.py:2738
 #: bang/magicollections.py:2742 bang/magicollections.py:2743
+#, fuzzy
 msgid "Chibi"
 msgstr "치비"
 
 #: starlight/magicollections.py:933
+#, fuzzy
 msgid "Icons"
 msgstr "아이콘"
 
 #: starlight/magicollections.py:933
-#, fuzzy
 msgid "Quick add"
 msgstr "빠른 추가"
 
 #: starlight/magicollections.py:980
+#, fuzzy
 msgid "Statistics"
 msgstr "스테이터스"
 
 #: bang/magicollections.py:998
+#, fuzzy
 msgid "Min"
-msgstr ""
+msgstr "최소"
 
 #: bang/magicollections.py:998
+#, fuzzy
 msgid "Max"
-msgstr ""
+msgstr "최대"
 
 #: bang/magicollections.py:1031
+#, fuzzy
 msgid "Participated event"
-msgstr ""
+msgstr "참가한 이벤트"
 
 #: starlight/models.py:1882
+#, fuzzy
 msgid "Participated events"
-msgstr ""
+msgstr "참가한 이벤트"
 
 #: bang/magicollections.py:1316
+#, fuzzy
 msgid "Boost Members"
 msgstr "보너스 멤버"
 
 #: bang/magicollections.py:1339
+#, fuzzy
 msgid "Gift song"
 msgstr "추가곡"
 
 #: bang/forms.py:362 bang/forms.py:713 bang/magicollections.py:1665
+#, fuzzy
 msgid "Gacha type"
 msgstr "가챠 타입"
 
 #: starlight/models.py:1332
-#, fuzzy
 msgid "Permanent"
 msgstr "영구"
 
 #: bang/magicollections.py:1776
+#, fuzzy
 msgid "Played song"
-msgstr ""
+msgstr "플레이 한 노래"
 
 #: bang/forms.py:949 bang/magicollections.py:1777 bang/models.py:1449
+#, fuzzy
 msgid "Played songs"
-msgstr ""
+msgstr "플레이 한 노래"
 
 #: starlight/magicollections.py:689
+#, fuzzy
 msgid "Song"
 msgstr "음악"
 
 #: bang/magicollections.py:2019
 msgid "{} notes"
-msgstr "{} 노트"
+msgstr "노트 {} 개"
 
 #: bang/magicollections.py:2039
+#, fuzzy
 msgid "Songwriters"
 msgstr "작곡가"
 
 #: starlight/forms.py:548 starlight/models.py:212
+#, fuzzy
 msgid "Version"
 msgstr "버전"
 
 #: starlight/models.py:291
+#, fuzzy
 msgid "The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ..."
 msgstr "플레이어의 디바이스 모델명. 예시: 넥서스 5, 아이폰 4, 아이패드 2, ..."
 
 #: starlight/models.py:233
+#, fuzzy
 msgid "Screenshot"
 msgstr "스크린샷"
 
 #: starlight/models.py:233
+#, fuzzy
 msgid "In-game profile screenshot"
 msgstr "게임 프로필 스크린샷"
 
 #: bang/models.py:219
+#, fuzzy
 msgid "Junior Third"
-msgstr ""
+msgstr "중학교 3학년"
 
 #: bang/models.py:440
+#, fuzzy
 msgid "Promo card"
 msgstr "프로모 카드"
 
 #: bang/models.py:454
+#, fuzzy
 msgid "For the next {duration} seconds, score of all notes boosted by +{percentage}%"
-msgstr "{duration}초간 스코어가 {percentage}% 올라간다."
+msgstr "{duration}초간 스코어가 {percentage}% 올라간다"
 
 #: bang/models.py:480
+#, fuzzy
 msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
-msgstr "그리고 {duration}초간 스코어가 {percentage}% 올라간다."
+msgstr "그리고 {duration}초간 스코어가 {percentage}% 올라간다"
 
 #: bang/models.py:491
+#, fuzzy
 msgid "Restores life by {stamina}"
-msgstr "라이프가 {stamina} 회복된다."
+msgstr "라이프가 {stamina} 회복된다"
 
 #: bang/models.py:508
+#, fuzzy
 msgid "and restores life by {stamina}"
-msgstr "그리고 라이프가 {stamina} 회복된다."
+msgstr "그리고 라이프가 {stamina} 회복된다"
 
 #: bang/models.py:519
+#, fuzzy
 msgid "All {note_type} notes turn into PERFECT notes"
-msgstr "{note_type} 판정이 전부 PERFECT 판정이 된다."
+msgstr "{note_type} 판정이 전부 PERFECT 판정이 된다"
 
 #: bang/models.py:524
+#, fuzzy
 msgid "and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds"
-msgstr "그리고 {note_type}초간 {duration} 판정이 전부 PERFECT 판정이 된다"
+msgstr "{duration}초간 {note_type} 판정이 전부 PERFECT 판정이 된다"
 
 #: bang/models.py:979
+#, fuzzy
 msgid "Prefer untrained card image"
 msgstr "특훈 전 일러스트 선호"
 
 #: idolstory/forms.py:815 idolstory/forms.py:817 idolstory/models.py:2259
 #: idolstory/models.py:2264
+#, fuzzy
 msgid "Skill level"
 msgstr "스킬 레벨"
 
 #: bang/models.py:1088
+#, fuzzy
 msgid "Challenge Live"
 msgstr "도전 라이브"
 
 #: bang/models.py:1093
+#, fuzzy
 msgid "Event type"
 msgstr "이벤트 타입"
 
 #: bang/forms.py:603 bang/forms.py:858 bang/models.py:1215 bang/models.py:1236
 #: bang/models.py:1507 bang/models.py:1531
+#, fuzzy
 msgid "Score"
 msgstr "스코어"
 
 #: bang/forms.py:602 bang/models.py:1216
+#, fuzzy
 msgid "Ranking"
 msgstr "랭킹"
 
 #: bang/forms.py:604 bang/models.py:1218 bang/models.py:1241
+#, fuzzy
 msgid "Song score"
 msgstr "노래 스코어"
 
 #: bang/forms.py:605 bang/models.py:1219 bang/models.py:1246
+#, fuzzy
 msgid "Song ranking"
 msgstr "노래 랭킹"
 
 #: bang/models.py:1308 bang/models.py:1358 bang/models.py:1359
 #: bang/models.py:1497
+#, fuzzy
 msgid "Easy"
 msgstr "EASY"
 
 #: starlight/models.py:822 starlight/models.py:825
+#, fuzzy
 msgid "Composer"
 msgstr "작곡"
 
 #: starlight/models.py:827 starlight/models.py:830
+#, fuzzy
 msgid "Lyricist"
 msgstr "작사"
 
 #: starlight/models.py:832 starlight/models.py:835
+#, fuzzy
 msgid "Arranger"
 msgstr "편곡"
 
 #: bang/models.py:1334
+#, fuzzy
 msgid "Translation"
 msgstr "번역"
 
 #. is this preview for music or image?
 #: starlight/models.py:810
+#, fuzzy
 msgid "Preview"
-msgstr "미리듣기"
+msgstr "프리뷰"
 
 #: idolstory/models.py:1127
+#, fuzzy
 msgid "Cover song"
 msgstr "커버곡"
 
 #: starlight/models.py:812
+#, fuzzy
 msgid "Beats per minute"
 msgstr "BPM"
 
 #: bang/models.py:1371 bang/models.py:1372
+#, fuzzy
 msgid "Gift"
 msgstr "선물"
 
 #: bang/models.py:1376 bang/models.py:1377
+#, fuzzy
 msgid "Purchase at CiRCLE"
-msgstr "CiRCLE의 악곡샵에서 구입"
+msgstr "CiRCLE의 음악 상점에서 구입"
 
 #: bang/models.py:1381
+#, fuzzy
 msgid "Complete story"
 msgstr "스토리 완료"
 
 #: bang/models.py:1382
+#, fuzzy
 msgid "Complete {story_type} story, chapter {chapter}"
 msgstr "{story_type} 스토리 {chapter}화 완료"
 
 #: bang/models.py:1386 bang/models.py:1387
+#, fuzzy
 msgid "Complete Tutorial"
 msgstr "튜토리얼 완료"
 
 #: bang/models.py:1391 bang/models.py:1392
+#, fuzzy
 msgid "Initially available"
 msgstr "처음부터 가능"
 
 #: bang/models.py:1396 bang/models.py:1397
+#, fuzzy
 msgid "Event gift"
 msgstr "이벤트 선물"
 
 #: bang/models.py:1421 bang/models.py:1423
+#, fuzzy
 msgid "How to unlock?"
-msgstr "해금 방법"
+msgstr "해금 방법?"
 
 #: bang/models.py:1508 bang/models.py:1536
+#, fuzzy
 msgid "Full combo"
 msgstr "풀 콤보"
 
 #. Name of a license, so it's unlikely you need to translate unless your language uses a different set of characters (Chinese, Japanese, Korean, Russian, etc.)
 #: bang/magicollections.py:2546 bang/settings.py:36 bang/settings.py:330
+#, fuzzy
 msgid "BanG Dream!"
 msgstr "뱅드림!"
 
 #. Name of a license, so it's unlikely you need to translate unless your language uses a different set of characters (Chinese, Japanese, Korean, Russian, etc.)
 #: bang/magicollections.py:2308 bang/magicollections.py:2552
 #: bang/settings.py:36 bang/settings.py:335
+#, fuzzy
 msgid "Girls Band Party"
-msgstr "걸즈 밴드 파티!"
+msgstr "걸즈 밴드 파티"
 
 #: bang/settings.py:283
+#, fuzzy
 msgid "Team builder"
-msgstr ""
+msgstr "팀 빌더"
 
 #: sukutomo/models.py:221
+#, fuzzy
 msgid "You can find your friend id by going to the \"Friends\" section from the home, then \"ID Search\". Players will be able to send you friend requests or messages using this number."
-msgstr "친구ID는 메인에있는 \"친구\"에 들어가서 \"ID찾기\"를 눌러. 플레이어는 이 ID로 친구신청을 보내거나 메세지를 보낼수 있어. "
+msgstr "홈 화면의 \"친구\" 섹션에 들어가서 \"ID 검색\"을 선택합니다. 플레이어는 이 ID 번호로 친구 추가를 하거나 메시지를 보낼 수 있습니다."
 
 #: starlight/models.py:222
+#, fuzzy
 msgid "Should your friend ID be visible to other players?"
 msgstr "친구 ID를 다른 플레이어에게 공개하시겠습니까?"
 
@@ -2685,31 +2845,38 @@ msgstr "러브카스톤"
 
 #: sukutomo/models.py:225 sukutomo/models.py:226 sukutomo/models.py:227
 #: sukutomo/models.py:228 sukutomo/models.py:229
+#, fuzzy
 msgid "Number of {} you currently have in your account."
-msgstr ""
+msgstr "현재 계정의 {} 양입니다."
 
 #: sukutomo/models.py:225 sukutomo/models.py:226 sukutomo/models.py:227
 #: sukutomo/models.py:228 sukutomo/models.py:229
+#, fuzzy
 msgid "This field is completely optional, it's here to help you manage your accounts."
-msgstr ""
+msgstr "이 입력란은 선택 사항이며 계정 관리에 도움이 됩니다."
 
 #: sukutomo/models.py:226
+#, fuzzy
 msgid "Friend Points"
 msgstr "우정포인트"
 
 #: sukutomo/models.py:230
+#, fuzzy
 msgid "Total love gems bought"
 msgstr "구매한 러브카스톤의 합계"
 
 #: sukutomo/models.py:230
+#, fuzzy
 msgid "You can calculate that number in \"Other\" then \"Purchase History\"."
-msgstr ""
+msgstr "\"기타\"의 \"구매 내역\"에서 해당 번호를 계산할 수 있습니다."
 
 #: sukutomo/models.py:231
+#, fuzzy
 msgid "Should your items be visible to other players?"
-msgstr ""
+msgstr "아이템이 다른 플레이어에게 보여 져야합니까?"
 
 #: idolstory/models.py:298
+#, fuzzy
 msgid "Smile"
 msgstr "웃음"
 
@@ -2719,6 +2886,7 @@ msgstr "웃음"
 #: idolstory/magicollections.py:916 idolstory/magicollections.py:1061
 #: idolstory/models.py:787 idolstory/models.py:1044 idolstory/models.py:1131
 #: idolstory/models.py:2362
+#, fuzzy
 msgid "Unit"
 msgstr "모둠"
 
@@ -2727,292 +2895,349 @@ msgstr "모둠"
 #: idolstory/magicollections.py:916 idolstory/magicollections.py:1069
 #: idolstory/models.py:819 idolstory/models.py:1048 idolstory/models.py:1136
 #: idolstory/models.py:2366
+#, fuzzy
 msgid "Subunit"
-msgstr ""
+msgstr "소단위"
 
 #: starlight/models.py:353 starlight/models.py:569
+#, fuzzy
 msgid "Astrological sign"
 msgstr "별자리"
 
 #: idolstory/settings.py:203
+#, fuzzy
 msgid "Idol Supporter"
 msgstr "아이돌 서포터"
 
 #: idolstory/settings.py:204
 #, fuzzy
 msgid "Idol Lover"
-msgstr "아이돌을 좋아하는 사람"
+msgstr "아이돌 러버"
 
 #: idolstory/settings.py:205
+#, fuzzy
 msgid "Idol Ambassador"
 msgstr "아이돌 대사"
 
 #: idolstory/settings.py:206
+#, fuzzy
 msgid "Idol Producer"
 msgstr "아이돌 프로듀서"
 
 #: idolstory/settings.py:207
+#, fuzzy
 msgid "Ultimate Idol Devotee"
 msgstr "최고의 아이돌 애호가"
 
 #: starlight/models.py:1607 starlight/models.py:1750
+#, fuzzy
 msgid "Collected {things}"
-msgstr ""
+msgstr "수집되어진 {things}"
 
 #: bang/models.py:456 bang/models.py:493
+#, fuzzy
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%"
-msgstr ""
+msgstr "다음 {duration} 초 동안 PERFECT 노트의 점수가 + {percentage} % 증가합니다"
 
 #: bang/magicollections.py:1382 bang/models.py:2010
+#, fuzzy
 msgid "Rare stamp"
 msgstr "레어 스탬프"
 
 #. If this refers to event boost, "타입 보너스" is official terminology, if this refers to area item boost, then leave as is (since no official terminology that would translate well)
 #: bang/models.py:1153
+#, fuzzy
 msgid "Boost attribute"
 msgstr "부스트 속성"
 
 #. If this refers to event boost, "캐릭터 보너스" is official terminology, if this refers to area item boost, then leave as is (since no official terminology that would translate well)
 #: bang/forms.py:535 bang/magicollections.py:1161 bang/models.py:1163
+#, fuzzy
 msgid "Boost members"
 msgstr "부스트 맴버"
 
 #: magi/default_settings.py:62 magi/default_settings.py:85
+#, fuzzy
 msgid "Manager"
-msgstr ""
+msgstr "매니저"
 
 #: magi/default_settings.py:95
+#, fuzzy
 msgid "Team manager"
-msgstr ""
+msgstr "팀 매니저"
 
 #: magi/default_settings.py:115
+#, fuzzy
 msgid "Finance manager"
-msgstr ""
+msgstr "재무 매니저"
 
 #: magi/default_settings.py:143 magi/default_settings.py:156
+#, fuzzy
 msgid "Database maintainer"
-msgstr ""
+msgstr "데이터베이스 매니저"
 
 #: magi/default_settings.py:175 magi/default_settings.py:195
+#, fuzzy
 msgid "Community manager"
-msgstr ""
+msgstr "커뮤니티 매니저"
 
 #: magi/default_settings.py:189
+#, fuzzy
 msgid "Posted {total} news"
-msgstr ""
+msgstr "게시한 {total} 뉴스"
 
 #: idolstory/models.py:596
+#, fuzzy
 msgid "Twitter"
-msgstr ""
+msgstr "트위터"
 
 #: magi/default_settings.py:208
+#, fuzzy
 msgid "External communication"
-msgstr ""
+msgstr "외부 커뮤니티"
 
 #. this term could translate into many meaning, could you make sure what's it support for?
 #: starlight/models.py:1453
+#, fuzzy
 msgid "Support"
 msgstr "지원"
 
 #: magi/default_settings.py:236 magi/default_settings.py:255
 #: magi/default_settings.py:318
+#, fuzzy
 msgid "Moderator"
-msgstr ""
+msgstr "중재자"
 
 #: idolstory/models.py:322
+#, fuzzy
 msgid "Active"
-msgstr "유효"
+msgstr "활성화"
 
 #: magi/default_settings.py:249
+#, fuzzy
 msgid "Submitted {total} reports"
-msgstr ""
+msgstr "제출 된 {total} 보고서"
 
 #: magi/default_settings.py:255
+#, fuzzy
 msgid "Decisive"
-msgstr ""
+msgstr "결정적인"
 
 #: magi/default_settings.py:274
+#, fuzzy
 msgid "Edited or deleted {total} reported items"
-msgstr ""
+msgstr "{total} 개의보고 된 항목 편집 또는 삭제"
 
 #: magi/default_settings.py:280
+#, fuzzy
 msgid "Community entertainer"
-msgstr ""
+msgstr "커뮤니티 연예인"
 
 #: magi/default_settings.py:302
+#, fuzzy
 msgid "Organized and posted about {total} community events"
-msgstr ""
+msgstr "{total} 커뮤니티 이벤트 구성 및 게시"
 
 #: magi/default_settings.py:308
+#, fuzzy
 msgid "Backup staff"
-msgstr ""
+msgstr "백업 스태프"
 
 #: magi/default_settings.py:327
+#, fuzzy
 msgid "Translator"
-msgstr ""
+msgstr "번역가"
 
 #: magi/default_settings.py:343
+#, fuzzy
 msgid "Graphic designer"
-msgstr ""
+msgstr "그래픽 디자이너"
 
 #: magi/default_settings.py:349
+#, fuzzy
 msgid "Artist"
-msgstr ""
+msgstr "아티스트"
 
 #: magi/default_settings.py:355
+#, fuzzy
 msgid "Developer"
 msgstr "개발자"
 
 #: magi/default_settings.py:369
+#, fuzzy
 msgid "System administrator"
-msgstr ""
+msgstr "시스템 관리자"
 
 #: magi/models.py:1001
+#, fuzzy
 msgid "You are not allowed to see activities with the tag \"{tag}\"."
-msgstr ""
+msgstr "\"{tag}\"태그가 있는 활동을 볼 수 없습니다."
 
 #: starlight/models.py:855 starlight/models.py:858
+#, fuzzy
 msgid "Translations"
 msgstr "번역"
 
 #: magi/magicollections.py:2803 magi/magicollections.py:4264 magi/views.py:826
+#, fuzzy
 msgid "Block {username}"
-msgstr ""
+msgstr "{username} 차단"
 
 #: magi/models.py:970
+#, fuzzy
 msgid "You can change which tags you would like to see or hide in your settings."
-msgstr ""
+msgstr "설정에서 보거나 숨길 태그를 변경할 수 있습니다."
 
 #: magi/models.py:147
+#, fuzzy
 msgid "Display your birthdate year"
-msgstr ""
+msgstr "생년월일 표시"
 
 #: starlight/models.py:1456
+#, fuzzy
 msgid "Roles"
 msgstr "역할"
 
 #: magi/models.py:244
+#, fuzzy
 msgid "Hide tags"
-msgstr ""
+msgstr "태그 숨기기"
 
 #: magi/models.py:657
+#, fuzzy
 msgid "hobbies"
-msgstr ""
+msgstr "취미"
 
 #: magi/templates/pages/about.html:26
-#, fuzzy
 msgid "About us"
 msgstr "우리에 대해서"
 
 #: magi/templates/pages/prelaunch.html:24 magi/views.py:417
 msgid "Pre-register"
-msgstr ""
+msgstr "사전등록"
 
 #: magi/forms.py:2039
 msgid "Security"
-msgstr ""
+msgstr "보안"
 
 #: magi/magicollections.py:4312 magi/views.py:664 magi/views.py:856
 #: magi/views_collections.py:155 magi/views_collections.py:618
 msgid "You blocked {username}."
-msgstr ""
+msgstr "{username}을 차단했습니다."
 
 #: magi/magicollections.py:4313 magi/views.py:665 magi/views.py:826
 #: magi/views_collections.py:156 magi/views_collections.py:619
 msgid "Unblock {username}"
-msgstr ""
+msgstr "{username} 차단 해제"
 
 #: magi/views.py:859
 msgid "Are you sure you want to block {username}? You will not be able to see any content created by {username}."
-msgstr ""
+msgstr "{username}을/를 차단 하시겠습니까? 앞으로 {username}이/가 작성한 컨텐츠를 볼 수 없습니다."
 
 #: magi/views.py:861
 msgid "Are you sure you want to unblock {username}?"
-msgstr ""
+msgstr "{username}을/를 차단 해제 하시겠습니까?"
 
 #: magi/views_collections.py:154 magi/views_collections.py:617
+#, fuzzy
 msgid "this user"
-msgstr ""
+msgstr "이 사용자"
 
 #: idolstory/forms.py:720
+#, fuzzy
 msgid "Include cameos"
 msgstr "카메오 포함"
 
 #: idolstory/models.py:1440 idolstory/models.py:2110
+#, fuzzy
 msgid "Cameos"
 msgstr "카메오"
 
 #: bang/forms.py:346 bang/models.py:441
-#, fuzzy
 msgid "Original card"
 msgstr "오리지널"
 
 #: starlight/settings.py:204
+#, fuzzy
 msgid "Community event"
 msgstr "커뮤니티 이벤트"
 
 #: starlight/settings.py:207
+#, fuzzy
 msgid "Not about {thing}"
-msgstr ""
+msgstr "{thing}과 관련 없는 것"
 
 #: starlight/settings.py:215
+#, fuzzy
 msgid "NSFW"
 msgstr "후방주의"
 
 #: starlight/settings.py:217
+#, fuzzy
 msgid "You need to be over 18 years old."
 msgstr "만 18세 이상이여야 합니다."
 
 #: starlight/settings.py:217
+#, fuzzy
 msgid "You can change your birthdate in your settings."
 msgstr "플레이어의 생일은 설정에서 변경할 수 있습니다."
 
 #: idolstory/magicollections.py:428
-#, fuzzy
 msgid "Measurements"
 msgstr "기록"
 
+#. In Game school's name
 #: idolstory/models.py:838
+#, fuzzy
 msgid "Chitose Bridge High School"
-msgstr ""
+msgstr "치토세 다리 고등학교"
 
 #: idolstory/models.py:839
+#, fuzzy
 msgid "Seiran High School"
-msgstr ""
+msgstr "세이란 고등학교"
 
 #: idolstory/models.py:840
+#, fuzzy
 msgid "Shinonome Academy"
-msgstr ""
+msgstr "시노노메 여학원"
 
 #: idolstory/models.py:841
+#, fuzzy
 msgid "Shion Girls' Academy"
-msgstr ""
+msgstr "시온 여학원"
 
 #: idolstory/models.py:842
+#, fuzzy
 msgid "Touou Academy"
-msgstr ""
+msgstr "토우 여학원"
 
 #: idolstory/models.py:843
+#, fuzzy
 msgid "Y.G. International Academy"
-msgstr ""
+msgstr "Y.G. 국제 아카데미"
 
 #: idolstory/forms.py:265 idolstory/models.py:837
+#, fuzzy
 msgid "Nijigasaki High School"
-msgstr ""
+msgstr "니지가사키 학원 스쿨 아이돌 동호회"
 
 #: idolstory/models.py:836
 msgid "Uranohoshi Girls' High School"
-msgstr ""
+msgstr "우라노호시 여학원"
 
 #: idolstory/models.py:835
+#, fuzzy
 msgid "Otonokizaka Academy"
-msgstr ""
+msgstr "오토노키자카 여학원"
 
 #: starlight/models.py:559
+#, fuzzy
 msgid "School year"
 msgstr "학년"
 
 #: starlight/models.py:363
+#, fuzzy
 msgid "Blood type"
 msgstr "혈액형"
 
@@ -3021,60 +3246,71 @@ msgid "{nth} year"
 msgstr "{nth}년"
 
 #: magi/templates/pages/about.html:306
+#, fuzzy
 msgid "Contributors"
-msgstr ""
+msgstr "기여자"
 
 #: bang/magicollections.py:835
+#, fuzzy
 msgid "View model"
-msgstr ""
+msgstr "모델 보기"
 
 #: bang/templates/include/costumeTopIllustration.html:12
+#, fuzzy
 msgid "Controls"
-msgstr ""
+msgstr "통제 수단"
 
 #: bang/models.py:2201 bang/templates/include/costumeTopIllustration.html:21
+#, fuzzy
 msgctxt "BanPa model viewer"
 msgid "Model"
 msgstr "모델"
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:25
+#, fuzzy
 msgctxt "BanPa model viewer"
 msgid "Breathe"
 msgstr "숨쉬기"
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:28
+#, fuzzy
 msgctxt "BanPa model viewer"
 msgid "Blink"
 msgstr "눈 깜빡임"
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:31
+#, fuzzy
 msgctxt "BanPa model viewer"
 msgid "Sway"
-msgstr ""
+msgstr "동요"
 
 #. Translators: Label for a list of choices. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:37
+#, fuzzy
 msgctxt "BanPa model viewer"
 msgid "Action"
 msgstr "동작"
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:40
+#, fuzzy
 msgctxt "BanPa model viewer"
 msgid "Loop"
-msgstr ""
+msgstr "연속"
 
 #. Translators: Label for a list of choices. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:46
+#, fuzzy
 msgctxt "BanPa model viewer"
 msgid "Expression"
 msgstr "표정"
 
 #. Translators: Button label.
 #: bang/templates/include/costumeTopIllustration.html:53
+#, fuzzy
 msgctxt "BanPa model viewer"
 msgid "Screenshot"
 msgstr "스크린샷"
@@ -3086,53 +3322,61 @@ msgid "(with background)"
 msgstr "(배경 포함)"
 
 #: bang/models.py:1509 bang/models.py:1541
+#, fuzzy
 msgid "All perfect"
 msgstr "올 퍼펙트"
 
 #: bang/settings.py:184
+#, fuzzy
 msgid "Thank you Yurishii"
-msgstr ""
+msgstr "감사합니다 Yurishii"
 
 #. Refers to the "hot feed" of activities on the homepage (don't translate literally!)
 #: magi/default_settings.py:443 magi/forms.py:2812
+#, fuzzy
 msgid "Hot"
-msgstr ""
+msgstr "인기"
 
 #: bang/forms.py:1465
+#, fuzzy
 msgid "How often do you hit PERFECT notes?"
-msgstr ""
+msgstr "퍼펙트가 얼마나 자주 나옵니까?"
 
 #: bang/forms.py:1473
+#, fuzzy
 msgid "How often is your life above 900?"
-msgstr ""
+msgstr "인게임에서 라이프 900을 넘깁니까?"
 
 #: bang/magicollections.py:826 bang/magicollections.py:832
 #: bang/magicollections.py:2691 bang/magicollections.py:2719
 #: bang/models.py:2159
+#, fuzzy
 msgid "Costume"
-msgstr ""
+msgstr "코스튬"
 
 #: bang/magicollections.py:2085 bang/magicollections.py:2125
 #: bang/models.py:1737
 msgid "Item"
-msgstr ""
+msgstr "아이템"
 
 #: bang/magicollections.py:2086 bang/magicollections.py:2126 bang/views.py:56
+#, fuzzy
 msgid "Items"
 msgstr "아이템들"
 
 #: bang/forms.py:1042 bang/magicollections.py:2260 bang/magicollections.py:2351
 #: bang/models.py:1796
 msgid "Area"
-msgstr ""
+msgstr "에이리어"
 
 #: bang/templates/include/galleryBackButtons.html:11
 msgid "Areas"
-msgstr ""
+msgstr "에이리어"
 
 #: bang/magicollections.py:2146 bang/magicollections.py:2184
 #: bang/magicollections.py:2312 bang/magicollections.py:2556 bang/models.py:289
 #: bang/settings.py:293
+#, fuzzy
 msgid "Gallery"
 msgstr "갤러리"
 
@@ -3144,480 +3388,566 @@ msgstr "에어리어 아이템"
 #: bang/magicollections.py:2179 bang/magicollections.py:2196
 #: bang/magicollections.py:2242 bang/magicollections.py:2291
 #: bang/magicollections.py:2316 bang/views.py:50
+#, fuzzy
 msgid "Area items"
-msgstr ""
+msgstr "에이리어 아이템"
 
 #: bang/magicollections.py:2439
 msgid "Asset"
-msgstr ""
+msgstr "에셋"
 
 #: bang/magicollections.py:2440 bang/magicollections.py:2532 bang/models.py:290
 msgid "Assets"
-msgstr ""
+msgstr "에셋"
 
 #: bang/magicollections.py:2692 bang/models.py:284
+#, fuzzy
 msgid "Costumes"
 msgstr "의상"
 
 #: bang/models.py:1738
 msgid "Quantity"
-msgstr ""
+msgstr "양"
 
 #: bang/models.py:1786
+#, fuzzy
 msgid "Poster"
 msgstr "포스터"
 
 #: starlight/magicollections.py:1321
+#, fuzzy
 msgid "Comics"
 msgstr "만화"
 
 #: idolstory/settings.py:403
 msgid "Backgrounds"
-msgstr ""
+msgstr "배경"
 
 #: bang/models.py:302 bang/models.py:2004 bang/models.py:2010
 msgid "Stamps"
-msgstr ""
+msgstr "스탬프"
 
 #: bang/models.py:2014
 msgid "Titles"
-msgstr ""
+msgstr "타이틀"
 
 #: bang/models.py:2030 bang/models.py:2032
 msgid "Interface"
-msgstr ""
+msgstr "인터페이스"
 
 #: idolstory/models.py:1057
+#, fuzzy
 msgid "Outdoor"
 msgstr "야외"
 
 #: idolstory/models.py:1058
+#, fuzzy
 msgid "Indoor"
 msgstr "실내"
 
 #: idolstory/models.py:1060
+#, fuzzy
 msgid "Stage"
 msgstr "무대"
 
 #: idolstory/models.py:1061
 msgid "Home"
-msgstr ""
+msgstr "집"
 
 #: idolstory/models.py:1062
+#, fuzzy
 msgid "Dating spot"
-msgstr ""
+msgstr "데이트 장소"
 
 #: bang/models.py:2182
+#, fuzzy
 msgid "Costume type"
-msgstr ""
+msgstr "코스튬 타입"
 
 #: bang/settings.py:179
+#, fuzzy
 msgid "Change My Mind Challenge"
-msgstr ""
+msgstr "내 마음의 도전을 바꿔라"
 
 #: starlight/models.py:91 starlight/models.py:1046 starlight/models.py:1816
 #: starlight/models.py:1819 starlight/models.py:1821 starlight/models.py:1822
+#, fuzzy
 msgid "Worldwide version"
 msgstr "글로벌 서버"
 
 #: idolstory/models.py:198
 msgid "Chinese version"
-msgstr ""
+msgstr "중문판"
 
 #: sukutomo/models.py:771
 msgid "Score Match"
-msgstr ""
+msgstr "스코어 매치"
 
 #: sukutomo/models.py:774
 msgid "Medley Festival"
-msgstr ""
+msgstr "메들리 페스티벌"
 
 #: sukutomo/models.py:777
 msgid "Challenge Festival"
-msgstr ""
+msgstr "챌린지 페스티벌"
 
 #: sukutomo/models.py:780
+#, fuzzy
 msgid "Adventure Stroll"
-msgstr ""
+msgstr "모험 산책"
 
 #: sukutomo/models.py:783
 msgid "Friendly Match"
-msgstr ""
+msgstr "친구 매치"
 
 #: bang/magicollections.py:2140
+#, fuzzy
 msgid "Edit your {thing}"
-msgstr ""
+msgstr "{thing} 수정"
 
 #: magi/views.py:890
+#, fuzzy
 msgid "If you delete this {thing} ({instance}), the following will automatically be deleted as well:"
-msgstr ""
+msgstr "이 {thing} ({instance})을 삭제하면 다음도 자동으로 삭제됩니다:"
 
 #: magi/views.py:891
+#, fuzzy
 msgid "Are you sure you want to delete this {thing} ({instance})?"
-msgstr ""
+msgstr "이 {thing} ({instance})을/를 삭제 하시겠습니까?"
 
 #: stardustrun/settings.py:56
+#, fuzzy
 msgid "Medal"
-msgstr ""
+msgstr "메달"
 
 #: stardustrun/settings.py:57
+#, fuzzy
 msgid "Gym"
 msgstr "체육관"
 
 #: magi/magicollections.py:3105 magi/settings.py:693 magi/tools.py:200
 #: magi/tools.py:239 magi/utils.py:713
+#, fuzzy
 msgid "Happy Birthday"
-msgstr "생일 축하"
+msgstr "생일 축하합니다"
 
 #: bang/models.py:223
+#, fuzzy
 msgid "Classroom"
-msgstr ""
+msgstr "교실"
 
 #: bang/models.py:2036 bang/models.py:2044 bang/settings.py:302
+#, fuzzy
 msgid "Official art"
-msgstr ""
+msgstr "오피셜 일러"
 
 #: bang/utils.py:95
+#, fuzzy
 msgid "Rerun"
-msgstr ""
+msgstr "한번 더"
 
 #: magi/default_settings.py:26
+#, fuzzy
 msgid "Copied"
-msgstr ""
+msgstr "복사됨"
 
 #: magi/default_settings.py:26 magi/templates/items/activityItem.html:26
+#, fuzzy
 msgid "Archived"
-msgstr ""
+msgstr "보관됨"
 
 #: magi/default_settings.py:26
+#, fuzzy
 msgid "Unarchived"
-msgstr ""
+msgstr "보관되지 않음"
 
 #: magi/default_settings.py:437 magi/forms.py:2848
 #: magi/templates/items/activityItem.html:14
+#, fuzzy
 msgid "Popular"
-msgstr ""
+msgstr "인기"
 
 #: magi/default_settings.py:450
+#, fuzzy
 msgid "New"
-msgstr ""
+msgstr "최신"
 
 #: magi/default_settings.py:466 magi/default_settings.py:494
 #: magi/templates/items/activityItem.html:19
 msgid "Staff picks"
-msgstr ""
+msgstr "스태프 추천"
 
 #: magi/forms.py:2050
 msgid "Customize profile"
-msgstr ""
+msgstr "커스텀 프로필"
 
 #: magi/forms.py:2851
 msgid "Hide archived activities"
-msgstr ""
+msgstr "보관된 활동 숨기기"
 
 #: magi/magicollections.py:3397
 msgid "Unarchive"
-msgstr ""
+msgstr "보관 취소"
 
 #: magi/magicollections.py:3406 magi/magicollections.py:3408
 msgid "Archive"
-msgstr ""
+msgstr "보관"
 
 #: magi/magicollections.py:3411 magi/templates/pages/settings.html:74
 #: magi/templates/pages/settings.html:143
+#, fuzzy
 msgid "Premium feature"
 msgstr "프리미엄 기능"
 
 #: magi/magicollections.py:3535
+#, fuzzy
 msgid "You might be the first person who sees these activities!"
-msgstr ""
+msgstr "이러한 활동을 본 첫 번째 사람 일 수 있습니다!"
 
 #: magi/magicollections.py:3536
 msgid "If you see anything that doesn't follow our rules, please help us by reporting it."
-msgstr ""
+msgstr "규칙을 준수하지 않는 것이 있으면 보고하여 알려주십시오."
 
 #: magi/models.py:201 magi/views.py:647
 msgid "Custom link"
-msgstr ""
+msgstr "커스텀 링크"
 
 #: magi/models.py:1114
+#, fuzzy
 msgid "When someone likes an activity you archived."
-msgstr ""
+msgstr "누군가가 활동을 좋아하면 보관했습니다."
 
 #: magi/templates/pages/settings.html:15
+#, fuzzy
 msgid "Preferences"
-msgstr ""
+msgstr "환경 설정"
 
 #: magi/default_settings.py:29 magi/templates/pages/about.html:76
 #: magi/templates/pages/settings.html:17 magi/utils.py:934 magi/utils.py:1502
 #: magi/views.py:138
+#, fuzzy
 msgid "More"
-msgstr ""
+msgstr "더"
 
 #: magi/templates/include/donate.html:27
+#, fuzzy
 msgid "Can't use Patreon?"
 msgstr "Patreon을 사용하실 수 없습니까?"
 
 #: magi/templates/items/donateItem.html:40
+#, fuzzy
 msgid "Goal"
-msgstr ""
+msgstr "목표"
 
 #: magi/templates/items/donateItem.html:42
+#, fuzzy
 msgid "Total spent"
-msgstr ""
+msgstr "총 지출"
 
 #: cpro/model_choices.py:183
+#, fuzzy
 msgid "Encore"
 msgstr "앙코르"
 
 #: cpro/model_choices.py:184
+#, fuzzy
 msgid "Life Sparkle"
 msgstr "라이프 스파클"
 
 #: cpro/model_choices.py:185
+#, fuzzy
 msgid "Tricolor Synergy"
 msgstr "트리컬로르 시너지"
 
 #: cpro/model_choices.py:228
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance to activate the previous skill again for {skill_duration} seconds."
-msgstr "{trigger_value} 초마다 {trigger_chance}% 확률로 {skill_duration}초 동안,  직전에 발동한 다른 아이돌의 특기효과를 반복"
+msgstr "{trigger_value} 초마다 {trigger_chance}% 확률로 {skill_duration}초 동안,  직전에 발동한 다른 아이돌의 특기효과를 반복합니다."
 
 #: cpro/model_choices.py:229
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra combo bonus based on your current health for {skill_duration} seconds."
 msgstr "{trigger_value}초마다 {trigger_chance}% 확률로 {skill_duration}초 동안, 라이프가 많을 수록 COMBO 보너스 상승."
 
 #: cpro/model_choices.py:230
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that with all three types of idols on the team, you will gain an extra {skill_value2}% combo bonus, and Perfect notes will receive a {skill_value}% score bonus plus restore {skill_value3} life, for {skill_duration} seconds."
 msgstr "3 타입 아이돌이 모두 편성되어 있을 경우, {trigger_value}초마다 {trigger_chance}% 확률로 {skill_duration}초 동안, PERFECT 스코어가 {skill_value}% 상승/ 라이프 {skill_value3}회복, COMBO 보너스 {skill_value2}% 상승."
 
 #: cpro/model_choices.py:318
+#, fuzzy
 msgid "Princess"
 msgstr "공주"
 
 #: cpro/model_choices.py:321
+#, fuzzy
 msgid "Cheer"
-msgstr ""
+msgstr "격려"
 
 #: cpro/model_choices.py:322
+#, fuzzy
 msgid "Cinderella Charm"
-msgstr ""
+msgstr "신데렐라 매력"
 
 #: cpro/model_choices.py:323
+#, fuzzy
 msgid "Fortune Present"
-msgstr ""
+msgstr "행운의 선물"
 
 #: cpro/model_choices.py:345
+#, fuzzy
 msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}% when there are only {idol_type} idols on the team."
-msgstr ""
+msgstr "팀에 {idol_type} 아이돌 만 있으면 모든 {idol_type} 아이돌의 {leader_skill_type}이 {leader_skill_percent} % 증가합니다."
 
 #: cpro/model_choices.py:348
+#, fuzzy
 msgid "Raises {leader_skill_type} of all idols by {leader_skill_percent}% when there are {all_types} idols on the team."
-msgstr ""
+msgstr "팀에 {all_types} 아이돌이 있으면 모든 아이돌의 {leader_skill_type}을 {leader_skill_percent} % 올립니다."
 
 #: cpro/model_choices.py:360
+#, fuzzy
 msgid "Increases fan gain by {leader_skill_percent}% when you finish a live."
-msgstr "LIVE 클리어 시 획득 팬 수 {leader_skill_percent}% 증가"
+msgstr "LIVE 클리어 시 획득 팬 수가 {leader_skill_percent}% 증가합니다."
 
 #: cpro/model_choices.py:361
+#, fuzzy
 msgid "Gives extra rewards when you finish a live."
-msgstr "LIVE 클리어 시 특수 보상을 추가로 획득"
+msgstr "LIVE 클리어 시 특수 보상을 추가로 획득합니다."
 
 #: cpro/model_choices.py:377 cpro/model_choices.py:382
 #: cpro/model_choices.py:383 cpro/model_choices.py:384
 msgid "{type} appeal"
-msgstr ""
+msgstr "{type} 이의 제기"
 
 #: cpro/model_choices.py:387
+#, fuzzy
 msgid "Skill probability"
-msgstr ""
+msgstr "스킬 확률"
 
 #: bang/forms.py:546 bang/forms.py:728
-#, fuzzy
 msgid "Status"
 msgstr "등급"
 
 #: bang/forms.py:547 bang/forms.py:729
+#, fuzzy
 msgid "Past"
 msgstr "과거"
 
 #: bang/forms.py:548 bang/forms.py:730
+#, fuzzy
 msgid "Current"
 msgstr "현재"
 
 #: bang/forms.py:549 bang/forms.py:731
+#, fuzzy
 msgid "Future"
 msgstr "미래"
 
 #: starlight/settings.py:189
+#, fuzzy
 msgid "Meme"
 msgstr "밈"
 
 #: bang/settings.py:150
+#, fuzzy
 msgid "Scouting"
 msgstr "스카우팅"
 
 #: starlight/settings.py:161
+#, fuzzy
 msgid "Manga"
 msgstr "만화"
 
 #: starlight/settings.py:196
+#, fuzzy
 msgid "Question"
 msgstr "질문"
 
 #: starlight/settings.py:210
-#, fuzzy
 msgid "Swearing"
 msgstr "맹세"
 
 #: magi/default_settings.py:27
+#, fuzzy
 msgid "End of new messages"
-msgstr ""
+msgstr "새 메시지 없음"
 
 #: magi/magicollections.py:2791 magi/magicollections.py:4159
+#, fuzzy
 msgid "Private messages"
-msgstr ""
+msgstr "비공개 메시지"
 
 #: magi/magicollections.py:2685 magi/magicollections.py:3115
 #: magi/magicollections.py:4169
+#, fuzzy
 msgid "Send a message"
 msgstr "메세지 보내기"
 
 #: magi/magicollections.py:4158 magi/models.py:1122
+#, fuzzy
 msgid "Private message"
-msgstr ""
+msgstr "비공개 메시지"
 
 #: magi/magicollections.py:4203 magi/magicollections.py:4322
+#, fuzzy
 msgid "Inbox"
 msgstr "메일함"
 
 #: magi/forms.py:1155 magi/views.py:561 magi/views.py:773
 #: magi/views_collections.py:58
+#, fuzzy
 msgid "Back to {page_name}"
 msgstr "{page_name} 돌아가기"
 
 #: magi/magicollections.py:4343 magi/views.py:562
+#, fuzzy
 msgid "You are not allowed to send private messages."
-msgstr ""
+msgstr "비공개 메시지를 보낼 수 없습니다."
 
 #: magi/magicollections.py:4344 magi/views.py:563
+#, fuzzy
 msgid "Take some time to play around {site_name} to unlock this feature!"
-msgstr ""
+msgstr "이 기능의 잠금을 해제하려면 {site_name}을/를 플레이하는 데 시간이 걸립니다!"
 
 #: magi/models.py:252
+#, fuzzy
 msgid "Anyone"
 msgstr "누구나"
 
 #: magi/models.py:253
+#, fuzzy
 msgid "Only people I follow"
 msgstr "내가 팔로우하는 사람들"
 
 #: magi/models.py:254
+#, fuzzy
 msgid "Nobody"
-msgstr ""
+msgstr "아무도"
 
 #: magi/models.py:256
 msgid "Who is allowed to send you private messages?"
-msgstr ""
+msgstr "비공개 메시지를 보낼 수 있는 사람은 누구인가요?"
 
 #: magi/models.py:1120
+#, fuzzy
 msgid "You have a new private message from {}."
 msgstr "{} 부터의 새 메세지가 있습니다."
 
 #: magi/models.py:1121
+#, fuzzy
 msgid "When someone sends you a private message."
-msgstr ""
+msgstr "누군가가 개인 메시지를 보낼 때."
 
 #: magi/templates/base.html:262
+#, fuzzy
 msgid "Close"
 msgstr "닫기"
 
 #: magi/templates/base.html:266
+#, fuzzy
 msgid "Remind me later"
-msgstr ""
+msgstr "나중에 알리기"
 
 #: magi/templates/base.html:270
+#, fuzzy
 msgid "Don't show this again"
 msgstr "다시 표시하지 않기"
 
 #: magi/utils.py:725
+#, fuzzy
 msgid "Your email address is invalid."
 msgstr "이메일이 잘못되었습니다."
 
 #: magi/utils.py:726
+#, fuzzy
 msgid "Some features might not work properly."
 msgstr "몇몇 기능이 제대로 작동하지 않을 수 있습니다."
 
 #: magi/views.py:774
+#, fuzzy
 msgid "Wiki home"
 msgstr "위키 홈"
 
 #: cpro/model_choices.py:186
+#, fuzzy
 msgid "Focus"
-msgstr ""
+msgstr "초점"
 
 #: cpro/model_choices.py:231
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus for {skill_duration} seconds"
-msgstr ""
+msgstr "{trigger_value} 초마다 Perfect 노트가 {skill_value} % 점수 보너스를받을 가능성이 {trigger_chance} % 확률이며 {skill_duration} 초 동안 추가 {skill_value2} % 콤보 보너스를 얻습니다"
 
 #: bang/models.py:1089
+#, fuzzy
 msgid "VS Live"
 msgstr "타이반 라이브"
 
 #: bang/models.py:2088
+#, fuzzy
 msgid "Collab"
 msgstr "콜라보"
 
 #: bang/models.py:2089
+#, fuzzy
 msgid "Dengeki G's magazine"
 msgstr "전격 G's magazine"
 
 #: starlight/models.py:1101 starlight/models.py:1351
-#, fuzzy
 msgid "Seasonal"
 msgstr "계절 한정"
 
 #: bang/settings.py:189
+#, fuzzy
 msgid "Thank you Ake-san"
-msgstr ""
+msgstr "Ake-san께 감사합니다"
 
 #: starlight/models.py:297
-#, fuzzy
 msgid "Playground"
 msgstr "놀이터"
 
 #: idolstory/models.py:1064
+#, fuzzy
 msgid "Sunset"
 msgstr "석양"
 
 #: idolstory/models.py:1065
+#, fuzzy
 msgid "Night"
 msgstr "밤"
 
 #: idolstory/models.py:1066
+#, fuzzy
 msgid "Rain"
 msgstr "비"
 
 #: starlight/models.py:126
+#, fuzzy
 msgid "Snow"
 msgstr "눈"
 
 #: idolstory/models.py:1068
+#, fuzzy
 msgid "Cherry blossoms"
 msgstr "벚꽃"
 
 #: idolstory/models.py:1069
+#, fuzzy
 msgid "Fireworks"
 msgstr "불꽃놀이"
 
 #: bang/settings.py:194
+#, fuzzy
 msgid "CosParty 2018"
-msgstr ""
+msgstr "CosParty 2018"
 
 #: magi/models.py:1314
+#, fuzzy
 msgid "This is {month}'s badge. It's limited to this month only, and only our donators can get it. It's not too late! If you donate now, it will appear on your profile."
-msgstr ""
+msgstr "이것은 {month}의 배지입니다. 이번 달로만 제한되며 기부자만 얻을 수 있습니다. 아직 늦지 않았습니다! 지금 기부하면 프로필에 나타납니다."
 
 #: idolstory/models.py:1106 idolstory/models.py:1107
+#, fuzzy
 msgid "Background"
 msgstr "배경"
 
@@ -3626,310 +3956,362 @@ msgid "{nth} Favorite {thing}"
 msgstr "{nth} 좋아하는 {thing}"
 
 #: magi/utils.py:206
+#, fuzzy
 msgid "Character"
-msgstr ""
+msgstr "캐릭터"
 
 #: bang/magicollections.py:240 bang/magicollections.py:244 bang/settings.py:124
+#, fuzzy
 msgid "TOP"
-msgstr ""
+msgstr "상단"
 
 #: bang/models.py:1091
+#, fuzzy
 msgid "Mission Live"
-msgstr ""
+msgstr "미션 라이브"
 
 #: idolstory/forms.py:197 idolstory/settings.py:45 idolstory/settings.py:224
 #: idolstory/settings.py:343 idolstory/settings.py:538
 msgid "Love Live!"
-msgstr ""
+msgstr "러브라이브!"
 
 #: sukutomo/settings.py:475
+#, fuzzy
 msgid "Puchis"
-msgstr ""
+msgstr "푸치"
 
 #: sukutomo/settings.py:481
+#, fuzzy
 msgid "School Idol Collection"
-msgstr ""
+msgstr "스쿨 아이돌 컬렉션"
 
 #: sukutomo/settings.py:482
+#, fuzzy
 msgid "Weiss Schwartz"
-msgstr ""
+msgstr "바이스 슈왈츠"
 
 #: sukutomo/settings.py:484
+#, fuzzy
 msgid "School Idol Contest"
-msgstr ""
+msgstr "스쿨 아이돌 콘테스트"
 
 #: sukutomo/settings.py:485
+#, fuzzy
 msgid "School Idol Trivia"
-msgstr ""
+msgstr "스쿨 아이돌 트리비아"
 
 #: sukutomo/settings.py:486
+#, fuzzy
 msgid "School Idol Memory"
-msgstr ""
+msgstr "스쿨 아이돌 메모리"
 
 #: starlight/magicollections.py:328 starlight/settings.py:158
+#, fuzzy
 msgid "Voice actresses"
 msgstr "성우"
 
 #: sukutomo/settings.py:490
+#, fuzzy
 msgid "Episodes"
-msgstr ""
+msgstr "에피소드"
 
 #: sukutomo/settings.py:494
+#, fuzzy
 msgid "Official merchandise"
-msgstr ""
+msgstr "공식 상품"
 
 #: sukutomo/settings.py:495
 msgid "Fan-made items"
-msgstr ""
+msgstr "팬메이드 아이템"
 
 #: sukutomo/settings.py:496
+#, fuzzy
 msgid "Commissions"
-msgstr ""
+msgstr "커미션"
 
 #: sukutomo/settings.py:499
 msgid "Cosplays"
-msgstr ""
+msgstr "코스프레"
 
 #: sukutomo/settings.py:500
 msgid "Fanarts"
-msgstr ""
+msgstr "팬아트"
 
 #: sukutomo/settings.py:501
+#, fuzzy
 msgid "Fan edits"
-msgstr ""
+msgstr "팬 수정"
 
 #: sukutomo/settings.py:502
+#, fuzzy
 msgid "Fan fictions"
-msgstr ""
+msgstr "팬픽"
 
 #: sukutomo/settings.py:503
 msgid "Community events"
-msgstr ""
+msgstr "커뮤니티 이벤트"
 
 #: sukutomo/settings.py:544
+#, fuzzy
 msgid "Games"
-msgstr ""
+msgstr "게임"
 
 #: sukutomo/settings.py:613
 msgid "Shop"
-msgstr ""
+msgstr "상점"
 
 #: magi/forms.py:2742 magi/models.py:175
+#, fuzzy
 msgid "Always post activities in {language}"
-msgstr ""
+msgstr "항상 {language}에 활동을 게시하세요"
 
 #. Name of the gacha followed by "Gacha". For example if the name of the gacha is "The pretty butterfly" then it will show up as "The pretty butterfly Gacha". If it doesn't sound good in your language, feel free to change the formatting. For example, if you enter "Gacha: {}", it will show up as "Gacha: The pretty butterfly".
 #: bang/magicollections.py:1568 bang/magicollections.py:1571
 #: bang/models.py:1645
 msgid "{} Gacha"
-msgstr ""
+msgstr "{} 가챠"
 
 #: bang/magicollections.py:2174
+#, fuzzy
 msgid "Locations"
-msgstr ""
+msgstr "위치"
 
 #: bang/models.py:457
+#, fuzzy
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%"
-msgstr "{duration}초간 라이프가 {stamina} 이상이면 스코어가 {percentage}% 올라가고, 적으면 스코어가 {alt_percentage}% 올라간다."
+msgstr "{duration}초간 라이프가 {stamina} 이상이면 스코어가 {percentage}% 올라가고, 적으면 스코어가 {alt_percentage}% 올라간다"
 
 #: bang/models.py:494
+#, fuzzy
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}"
-msgstr ""
+msgstr "다음 {duration} 초 동안 생명이 {stamina} 이상인 경우 점수가 + {percentage} % 증가하고, 그렇지 않으면 {alt_stamina}에 의해 생명을 회복한다"
 
 #. Name of a type of events in BanG Dream!
 #: bang/models.py:1090
 msgid "Live Goals"
-msgstr "라이브 트라이"
+msgstr "라이브 목표"
 
 #. Name of an achievement you can get after finishing an event in BanG Dream!
 #: bang/models.py:1221 bang/models.py:1251
 msgid "Goal Master"
-msgstr ""
+msgstr "트라이 마스터"
 
 #. Name of an achievement you can get after finishing an event in BanG Dream!
 #: bang/models.py:1222 bang/models.py:1256
 msgid "EX Goal Master"
-msgstr ""
+msgstr "EX 트라이 마스터"
 
 #. The type of an item, when it's a "main" item.
 #: bang/models.py:1713
+#, fuzzy
 msgid "Main"
-msgstr ""
+msgstr "메인"
 
 #. A location in a game.
 #: bang/models.py:1785
+#, fuzzy
 msgid "Studio"
-msgstr ""
+msgstr "스튜디오"
 
 #. A location in a game.
 #: bang/models.py:1787
+#, fuzzy
 msgid "Counter"
-msgstr ""
+msgstr "카운터"
 
 #. A location in a game.
 #: bang/models.py:1790
+#, fuzzy
 msgid "Entrance"
-msgstr ""
+msgstr "입구"
 
 #. A location in a game.
 #: bang/models.py:1791
+#, fuzzy
 msgid "Sign"
-msgstr ""
+msgstr "기호"
 
 #. A location in a game.
 #: bang/models.py:1792
+#, fuzzy
 msgid "Plaza"
-msgstr ""
+msgstr "플라자"
 
 #. A location in a game.
 #: bang/models.py:1793
+#, fuzzy
 msgid "Garden"
-msgstr ""
+msgstr "정원"
 
 #: bang/models.py:1799 bang/models.py:1847
 msgid "Mic"
-msgstr ""
+msgstr "마이크"
 
 #: bang/models.py:1800
 msgid "Guitar"
-msgstr ""
+msgstr "기타"
 
 #: bang/models.py:1801
 msgid "Bass"
-msgstr ""
+msgstr "베이스"
 
 #: bang/models.py:1802
 msgid "Drums"
-msgstr ""
+msgstr "드럼"
 
 #: sukutomo/models.py:585
+#, fuzzy
 msgid "Hits"
-msgstr ""
+msgstr "조회수"
 
 #: sukutomo/models.py:586 sukutomo/models.py:594
+#, fuzzy
 msgid "Daily rotation"
-msgstr ""
+msgstr "매일 교체"
 
 #: sukutomo/models.py:587 sukutomo/models.py:597 sukutomo/models.py:598
+#, fuzzy
 msgid "B-Side"
-msgstr ""
+msgstr "B면"
 
 #: sukutomo/models.py:648
+#, fuzzy
 msgid "with SWIPE notes"
-msgstr ""
+msgstr "SWIPE 메모 포함"
 
 #: idolstory/models.py:1495 idolstory/models.py:1500 idolstory/models.py:2378
 #: idolstory/models.py:2383
 msgid "Details"
-msgstr ""
+msgstr "세부 정보"
 
 #: sukutomo/models.py:1157
+#, fuzzy
 msgid "Angel"
-msgstr ""
+msgstr "천사"
 
 #: sukutomo/models.py:1162
+#, fuzzy
 msgid "Empress"
-msgstr ""
+msgstr "황후"
 
 #: sukutomo/models.py:1167
+#, fuzzy
 msgid "Star"
-msgstr ""
+msgstr "별"
 
 #: sukutomo/models.py:1171
+#, fuzzy
 msgid "Heart"
-msgstr ""
+msgstr "심장"
 
 #: idolstory/models.py:1448 idolstory/models.py:1451 idolstory/models.py:1573
 #: idolstory/models.py:1574 idolstory/models.py:1576 idolstory/models.py:1579
 #: idolstory/models.py:1581 idolstory/models.py:1583 idolstory/models.py:1860
 #: idolstory/models.py:1874 idolstory/models.py:1889 idolstory/models.py:2257
 #: idolstory/models.py:2304
+#, fuzzy
 msgid "Idolized"
-msgstr ""
+msgstr "우상화"
 
 #: sukutomo/magicollections.py:1277
+#, fuzzy
 msgid "Sets"
-msgstr ""
+msgstr "세트"
 
 #: sukutomo/magicollections.py:898
+#, fuzzy
 msgid "Transparents"
-msgstr ""
+msgstr "투명"
 
 #: sukutomo/magicollections.py:1276 sukutomo/models.py:1031
+#, fuzzy
 msgid "Set"
-msgstr ""
+msgstr "세트"
 
 #: idolstory/models.py:844
+#, fuzzy
 msgid "Hakodate Seisen Girls' Academy"
-msgstr ""
+msgstr "하코다테 세이센 여학원"
 
 #: idolstory/models.py:845
+#, fuzzy
 msgid "UTX High School"
 msgstr "UTX 학원"
 
 #: idolstory/models.py:600
+#, fuzzy
 msgid "Instagram"
 msgstr "인스타그램"
 
 #: starlight/models.py:404 starlight/models.py:764
+#, fuzzy
 msgid "Social media"
 msgstr "소셜 미디어"
 
 #: sukutomo/settings.py:553
+#, fuzzy
 msgid "Trading cards"
-msgstr ""
+msgstr "트레이딩 카드"
 
 #: sukutomo/settings.py:557
 msgid "Online mini games"
-msgstr ""
+msgstr "온라인 미니게임"
 
 #: bang/models.py:1788
+#, fuzzy
 msgid "Mini table"
-msgstr ""
+msgstr "미니 테이블"
 
 #: bang/models.py:1789
 msgid "Magazine rack"
-msgstr ""
+msgstr "잡지 꽂이"
 
 #: bang/models.py:1794
+#, fuzzy
 msgid "Specials menu"
-msgstr ""
+msgstr "추천 메뉴"
 
 #: bang/forms.py:586
+#, fuzzy
 msgid "Please provide a screenshot to prove your ranking."
-msgstr ""
+msgstr "순위를 증명하기 위해 스크린샷을 업로드하세요."
 
 #: bang/forms.py:1051 bang/models.py:1819
+#, fuzzy
 msgid "Statistic"
-msgstr ""
+msgstr "통계량\n"
+""
 
 #: bang/magicollections.py:2003
-#, fuzzy
 msgid "Original song"
 msgstr "오리지널"
 
 #: bang/models.py:980 bang/models.py:1821
+#, fuzzy
 msgid "Max level"
 msgstr "최대 레벨"
 
 #: bang/models.py:1161
+#, fuzzy
 msgid "Boost statistic"
-msgstr ""
+msgstr "통계 향상\n"
+""
 
 #: bang/models.py:1714
+#, fuzzy
 msgid "Live boost"
-msgstr ""
+msgstr "라이브 부스트"
 
 #: bang/models.py:1715
 msgid "Studio ticket"
-msgstr ""
+msgstr "스튜디오 티켓"
 
 #. Examples:
 #. Idol Mic
 #. Rocking Poster
 #: bang/models.py:1847 bang/models.py:1856
 msgid "{name} {thing}"
-msgstr ""
+msgstr "{name} {thing}"
 
 #. Examples:
 #. Aya's mic
@@ -3939,115 +4321,141 @@ msgid "{name}'s {thing}"
 msgstr "{name}의 {thing}"
 
 #: bang/magicollections.py:2062 bang/models.py:2087
+#, fuzzy
 msgid "Album cover"
 msgstr "CD 커버"
 
 #: bang/models.py:1890
+#, fuzzy
 msgid "Restores life by {life} and {affected} members get a {value} boost on {stat} statistics"
-msgstr ""
+msgstr "{life}에 의해 생명을 회복하고 {affected} 회원은 {stat} 통계에서 {value} 향상\n"
+""
 
 #: bang/models.py:1892
+#, fuzzy
 msgid "{affected} members get a {value} boost on {stat} statistics"
-msgstr ""
+msgstr "{affected} 멤버는 {stat}에서 {value} 부스트를 얻었습니다"
 
 #: sukutomo/models.py:705
+#, fuzzy
 msgid "Timing boost"
 msgstr "판정강화"
 
 #: sukutomo/models.py:1204
+#, fuzzy
 msgid "{attribute} points up by +{number}% of {other_attribute}"
-msgstr ""
+msgstr "{attribute}가 {other_attribute}의 + {number} %만큼 포인트\n"
+""
 
 #: sukutomo/models.py:1211
+#, fuzzy
 msgid "{attribute} points up by +{number}%"
-msgstr ""
+msgstr "{attribute}가 + {number} % 씩 포인트"
 
 #: sukutomo/models.py:1185
+#, fuzzy
 msgid "Leader skill"
 msgstr "리더 스킬"
 
 #: sukutomo/models.py:713
+#, fuzzy
 msgid "Statistic effect"
-msgstr ""
+msgstr "통계 효과\n"
+""
 
 #: sukutomo/models.py:1216
 msgid "{group} members points up by +{number}%"
-msgstr ""
+msgstr "{group} 멤버는 {number} % 씩 포인트 증가"
 
 #: magi/magicollections.py:3688
+#, fuzzy
 msgid "Mark all as read"
 msgstr "모두 읽은 상태로 표시"
 
 #: magi/magicollections.py:3708
 msgid "{total} notifications were marked as read."
-msgstr ""
+msgstr "{total}개 알림이 읽은 것으로 표시되었습니다."
 
 #: bang/models.py:458
+#, fuzzy
 msgid "For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr ""
+msgstr "{duration} 초 동안 {note_type} 노트에 도달 할 때까지 + {percentage} % 증가한 다음 + {alt_percentage} % 증가"
 
 #: bang/models.py:528
 msgid "Life guard"
-msgstr ""
+msgstr "라이프 감소 방지"
 
 #: bang/models.py:535
+#, fuzzy
 msgid "BAD/MISS notes do not cause damage"
-msgstr ""
+msgstr "BAD/MISS 판정에도 데미지를 입지 않는다"
 
 #: bang/models.py:540
+#, fuzzy
 msgid "and BAD/MISS notes do not cause damage for the next {duration} seconds"
-msgstr ""
+msgstr "또한 {duration} 초 동안 BAD/MISS 판정에도 데미지를 입지 않는다"
 
 #: sukutomo/models.py:1256
+#, fuzzy
 msgid "Boost"
-msgstr ""
+msgstr "부스트"
 
 #: bang/forms.py:1123
+#, fuzzy
 msgid "All {type} {things}"
-msgstr ""
+msgstr "모든 {type} {things}"
 
 #: magi/forms.py:1131
+#, fuzzy
 msgid "Random"
-msgstr ""
+msgstr "랜덤"
 
 #: magi/forms.py:1144 magi/forms.py:1150
+#, fuzzy
 msgid "Suggestions"
-msgstr ""
+msgstr "제안"
 
 #: magi/views_collections.py:449
+#, fuzzy
 msgid "All the {things}! Search by {search_terms} and filter by {filters} to find all the details you need about the {things} from {game}."
-msgstr ""
+msgstr "{things}! {search_terms} 로 검색하고 {filters}로 필터링하여 {game}에서 {things}에 필요한 모든 세부 사항을 찾으십시오."
 
 #: bang/forms.py:412
+#, fuzzy
 msgid "Default"
-msgstr ""
+msgstr "기본"
 
 #: bang/magicollections.py:2768
+#, fuzzy
 msgid "Chibis"
-msgstr ""
+msgstr "치비"
 
 #: sukutomo/magicollections.py:614 sukutomo/magicollections.py:701
 #: sukutomo/models.py:845
+#, fuzzy
 msgid "Merged with other event"
-msgstr ""
+msgstr "다른 이벤트와 합쳐짐"
 
 #: sukutomo/magicollections.py:713 sukutomo/models.py:833
 #: sukutomo/models.py:842 sukutomo/models.py:855 sukutomo/models.py:864
 #: sukutomo/models.py:873
 msgid "Tiers"
-msgstr ""
+msgstr "티어"
 
 #: sukutomo/magicollections.py:1010
+#, fuzzy
 msgid "Can be sold for stickers?"
-msgstr ""
+msgstr "스티커로 판매 할 수 있습니까?"
 
 #: sukutomo/magicollections.py:1074
+#, fuzzy
 msgid "Buy this card"
-msgstr ""
+msgstr "카드 구입"
 
 #: sukutomo/models.py:212
+#, fuzzy
 msgid "The character that you selected when you started playing."
-msgstr "네가 게임을 시작할때 처음고른 캐릭터"
+msgstr "게임 시작 시 선택한 캐릭터입니다."
 
 #: magi/magicollections.py:3504
 msgid "Feed"
@@ -4058,122 +4466,146 @@ msgstr "피드"
 #: starlight/magicollections.py:445 starlight/magicollections.py:446
 #: starlight/magicollections.py:663 starlight/models.py:443
 #: starlight/models.py:541
+#, fuzzy
 msgid "Voice actress"
 msgstr "성우"
 
 #: starlight/magicollections.py:387 starlight/magicollections.py:640
 #: starlight/magicollections.py:644 starlight/models.py:745
+#, fuzzy
 msgid "Cast"
 msgstr "출연자"
 
 #: starlight/magicollections.py:470
+#, fuzzy
 msgid "Schools"
 msgstr "학교"
 
 #: starlight/forms.py:253 starlight/forms.py:555 starlight/forms.py:613
 #: starlight/magicollections.py:498 starlight/models.py:403
 #: starlight/models.py:1412 starlight/utils.py:172 starlight/utils.py:181
+#, fuzzy
 msgid "Stage girl"
 msgstr "무대소녀"
 
 #: starlight/magicollections.py:499 starlight/magicollections.py:1025
 #: starlight/models.py:1639 starlight/models.py:1745 starlight/settings.py:157
+#, fuzzy
 msgid "Stage girls"
 msgstr "무대소녀"
 
 #: starlight/magicollections.py:732
+#, fuzzy
 msgid "Discography"
 msgstr "음악"
 
 #: starlight/magicollections.py:1168 starlight/models.py:1983
+#, fuzzy
 msgid "Memoir"
 msgstr "메모리얼"
 
 #: starlight/magicollections.py:1169 starlight/models.py:661
 #: starlight/models.py:1750
+#, fuzzy
 msgid "Memoirs"
 msgstr "메모리얼"
 
 #: starlight/magicollections.py:1305
+#, fuzzy
 msgid "Conversation"
 msgstr "대화"
 
 #: starlight/magicollections.py:1306
+#, fuzzy
 msgid "Conversations"
 msgstr "대화"
 
 #: starlight/magicollections.py:1312 starlight/settings.py:179
+#, fuzzy
 msgid "My theater"
 msgstr "마이시어터"
 
 #: starlight/magicollections.py:1320
+#, fuzzy
 msgid "Comic"
 msgstr "만화"
 
 #: starlight/models.py:110
+#, fuzzy
 msgid "Flower"
 msgstr "꽃"
 
 #: starlight/models.py:118
+#, fuzzy
 msgid "Wind"
 msgstr "바람"
 
 #: starlight/models.py:134
+#, fuzzy
 msgid "Cloud"
 msgstr "구름"
 
 #: starlight/models.py:142
+#, fuzzy
 msgid "Moon"
 msgstr "달"
 
 #: starlight/models.py:158
+#, fuzzy
 msgid "Dream"
 msgstr "꿈"
 
 #: starlight/models.py:368 starlight/models.py:370
+#, fuzzy
 msgid "Specialty"
-msgstr ""
+msgstr "전문"
 
 #: starlight/models.py:495
+#, fuzzy
 msgid "Students"
 msgstr "학생"
 
 #: starlight/models.py:576 starlight/models.py:580 starlight/models.py:583
 #: starlight/models.py:587
+#, fuzzy
 msgid "Weapon"
 msgstr "무기"
 
 #: starlight/models.py:599 starlight/models.py:602
+#, fuzzy
 msgid "Likes"
 msgstr "좋아하는 것"
 
 #: starlight/models.py:604 starlight/models.py:607
+#, fuzzy
 msgid "Dislikes"
 msgstr "서투른 것"
 
 #: starlight/models.py:1432
+#, fuzzy
 msgid "Front"
 msgstr "전열"
 
 #: starlight/models.py:1430
+#, fuzzy
 msgid "Rear"
 msgstr "후열"
 
 #: starlight/models.py:1434
+#, fuzzy
 msgid "Position"
 msgstr "포지션"
 
 #: starlight/settings.py:192
+#, fuzzy
 msgid "Fanart"
 msgstr "팬아트"
 
 #: starlight/settings.py:193
-#, fuzzy
 msgid "Graphic edit"
 msgstr "그래픽 수정"
 
 #: starlight/settings.py:212
-#, fuzzy
 msgid "Questionable"
 msgstr "의문"
 
@@ -4181,689 +4613,873 @@ msgstr "의문"
 #: starlight/magicollections.py:124 starlight/magicollections.py:125
 #: starlight/settings.py:200 starlight/settings.py:275
 #: starlight/settings.py:294
+#, fuzzy
 msgid "News"
 msgstr "뉴스"
 
 #: starlight/magicollections.py:732 starlight/models.py:849
 #: starlight/models.py:852 starlight/models.py:855 starlight/models.py:858
+#, fuzzy
 msgid "Lyrics"
 msgstr "가사"
 
 #: magi/default_settings.py:29 magi/utils.py:935
+#, fuzzy
 msgid "Less"
-msgstr ""
+msgstr "적게"
 
 #: magi/default_settings.py:384 magi/default_settings.py:392
 msgid "β-tester"
-msgstr ""
+msgstr "베타 테스터"
 
 #: magi/forms.py:2370
 msgid "Users who can speak {language}"
-msgstr ""
+msgstr "{language} 화자"
 
 #: magi/magicollections.py:2847
+#, fuzzy
 msgid "Website"
-msgstr ""
+msgstr "웹사이트"
 
 #: starlight/forms.py:167
+#, fuzzy
 msgid "Skip"
 msgstr "스킵"
 
 #: starlight/forms.py:392 starlight/models.py:820 starlight/models.py:868
 #: starlight/utils.py:193
+#, fuzzy
 msgid "Singers"
 msgstr "가수"
 
 #: starlight/forms.py:428 starlight/forms.py:618 starlight/forms.py:656
 #: starlight/models.py:977 starlight/models.py:978 starlight/models.py:980
 #: starlight/models.py:982
-#, fuzzy
 msgid "Target"
 msgstr "표적"
 
 #: starlight/forms.py:512 starlight/magicollections.py:784
 #: starlight/models.py:1160 starlight/models.py:1390
+#, fuzzy
 msgid "Acts"
 msgstr "ACT"
 
 #: starlight/forms.py:517
-#, fuzzy
 msgid "Number"
 msgstr "숫자"
 
 #: starlight/forms.py:647 starlight/magicollections.py:1119
+#, fuzzy
 msgid "Effective against"
 msgstr "상성"
 
 #: starlight/forms.py:650 starlight/magicollections.py:1120
+#, fuzzy
 msgid "Less effective against"
 msgstr "역상성"
 
 #: starlight/forms.py:653
-#, fuzzy
 msgid "Hits more than once"
 msgstr "다중히트"
 
 #: starlight/magicollections.py:250
+#, fuzzy
 msgid "Relive account"
 msgstr "스타리라 계정"
 
 #: starlight/magicollections.py:718 starlight/magicollections.py:745
+#, fuzzy
 msgid "Buy {thing}"
 msgstr "{thing} 구매"
 
 #: starlight/magicollections.py:718 starlight/magicollections.py:745
+#, fuzzy
 msgid "CD"
 msgstr "CD"
 
 #: starlight/magicollections.py:783
+#, fuzzy
 msgid "Act"
 msgstr "ACT"
 
 #: starlight/magicollections.py:970
+#, fuzzy
 msgid "Cost"
 msgstr "코스트"
 
 #: starlight/forms.py:790 starlight/forms.py:826
 #: starlight/magicollections.py:999 starlight/models.py:1961
 #: starlight/models.py:1985
+#, fuzzy
 msgid "Rank"
 msgstr "랭크"
 
 #: starlight/magicollections.py:1076 starlight/models.py:760
 #: starlight/models.py:762
+#, fuzzy
 msgid "Role"
 msgstr "역할"
 
 #: starlight/models.py:150
+#, fuzzy
 msgid "Space"
 msgstr "공간"
 
 #: starlight/models.py:243
+#, fuzzy
 msgid "Casual"
 msgstr "캐주얼"
 
 #: starlight/models.py:247
+#, fuzzy
 msgid "Hardcore"
 msgstr "하드코어"
 
 #: starlight/models.py:253
+#, fuzzy
 msgid "Play style"
 msgstr "플레이 스타일"
 
 #: starlight/models.py:256
+#, fuzzy
 msgid "Stage of dreams level"
 msgstr "꿈의 무대 레벨"
 
 #: starlight/models.py:268 starlight/models.py:269 starlight/models.py:270
+#, fuzzy
 msgid "Platinum"
 msgstr "플래티넘"
 
 #: starlight/models.py:271
+#, fuzzy
 msgid "Legend"
 msgstr "레전드"
 
 #: starlight/models.py:275
+#, fuzzy
 msgid "Vs. Revue rank"
-msgstr "VS\\뷰 랭크"
+msgstr "Vs. 레뷰 랭크"
 
 #: starlight/models.py:294
+#, fuzzy
 msgid "Total stars bought"
 msgstr "총 구매 스타젬"
 
 #: starlight/models.py:298
-#, fuzzy
 msgid "Check this box if this account doesn't exist in the game."
 msgstr "게임 내에 계정이 존재하지 않는다면 체크하세요."
 
 #: starlight/models.py:389 starlight/models.py:392 starlight/models.py:623
 #: starlight/models.py:626
+#, fuzzy
 msgid "Video"
 msgstr "영상"
 
 #: starlight/models.py:552 starlight/models.py:556
+#, fuzzy
 msgid "Department"
 msgstr "학과"
 
 #: starlight/models.py:613 starlight/models.py:616
+#, fuzzy
 msgid "Introduction"
 msgstr "소개"
 
 #: starlight/models.py:747
+#, fuzzy
 msgid "General"
-msgstr ""
+msgstr "일반"
 
 #: starlight/models.py:748
+#, fuzzy
 msgid "Stage play"
-msgstr ""
+msgstr "무대 놀이"
 
 #: starlight/models.py:749
+#, fuzzy
 msgid "Additional"
-msgstr ""
+msgstr "추가"
 
 #: starlight/models.py:751
+#, fuzzy
 msgid "Category"
 msgstr "카테고리"
 
 #: starlight/models.py:909
+#, fuzzy
 msgid "Basic"
-msgstr ""
+msgstr "기본"
 
 #: starlight/models.py:914
+#, fuzzy
 msgid "Climax"
 msgstr "클라이맥스"
 
 #: starlight/models.py:919
+#, fuzzy
 msgid "Auto"
 msgstr "자동"
 
 #: starlight/models.py:924
+#, fuzzy
 msgid "Finishing"
 msgstr "피니시"
 
 #: starlight/models.py:951 starlight/models.py:955 starlight/models.py:1107
 #: starlight/models.py:1111
+#, fuzzy
 msgid "Tips"
 msgstr "팁"
 
 #: starlight/models.py:967
+#, fuzzy
 msgid "Unlock at rank {rank}"
 msgstr "랭크 {rank}에 개방"
 
 #: starlight/models.py:970
+#, fuzzy
 msgid "Hits {number_of_times} times"
 msgstr "{number_of_times}번 공격"
 
 #: starlight/models.py:973
+#, fuzzy
 msgid "Front enemy"
 msgstr "전열 적"
 
 #: starlight/models.py:974
+#, fuzzy
 msgid "Front group of enemies"
 msgstr "전열그룹 적"
 
 #: starlight/models.py:975
+#, fuzzy
 msgid "All enemies"
 msgstr "모든 적"
 
 #: starlight/models.py:987
+#, fuzzy
 msgid "After full bound break"
-msgstr ""
+msgstr "풀 바운드 휴식 후"
 
 #: starlight/models.py:1006
+#, fuzzy
 msgid "AP"
 msgstr "AP"
 
 #: starlight/models.py:1163 starlight/models.py:1169 starlight/models.py:1175
 #: starlight/models.py:1183
+#, fuzzy
 msgid "ACT Power"
 msgstr "ACT 파워"
 
 #: starlight/models.py:1164 starlight/models.py:1170 starlight/models.py:1177
 #: starlight/models.py:1185
+#, fuzzy
 msgid "Normal defense"
 msgstr "일반방어"
 
 #: starlight/models.py:1165 starlight/models.py:1171 starlight/models.py:1179
 #: starlight/models.py:1187
+#, fuzzy
 msgid "Special defense"
 msgstr "특수방어"
 
 #: starlight/models.py:1166 starlight/models.py:1172 starlight/models.py:1180
 #: starlight/models.py:1188
+#, fuzzy
 msgid "Agility"
 msgstr "민첩"
 
 #: starlight/models.py:1195
+#, fuzzy
 msgid "Base"
-msgstr ""
+msgstr "베이스"
 
 #: starlight/models.py:1415
+#, fuzzy
 msgid "Element"
 msgstr "속성"
 
 #: starlight/models.py:1441
+#, fuzzy
 msgid "Anti-tank"
 msgstr "안티탱크"
 
 #: starlight/models.py:1442
+#, fuzzy
 msgid "Assassin"
 msgstr "암살"
 
 #: starlight/models.py:1443
+#, fuzzy
 msgid "Attacker"
 msgstr "공격"
 
 #: starlight/models.py:1444
+#, fuzzy
 msgid "Burn"
 msgstr "화상"
 
 #: starlight/models.py:1445
+#, fuzzy
 msgid "Debuffer"
 msgstr "디버퍼"
 
 #: starlight/models.py:1446
+#, fuzzy
 msgid "Defender"
 msgstr "방어"
 
 #: starlight/models.py:1447
-#, fuzzy
 msgid "Disabler"
 msgstr "무능화"
 
 #: starlight/models.py:1449
+#, fuzzy
 msgid "Nuker"
 msgstr "누커"
 
 #: starlight/models.py:1451
+#, fuzzy
 msgid "Special defender"
 msgstr "특수방어"
 
 #: starlight/models.py:1452
+#, fuzzy
 msgid "Special defense tank"
 msgstr "특수방어 탱커"
 
 #: starlight/models.py:1454
+#, fuzzy
 msgid "Tank"
 msgstr "탱커"
 
 #: starlight/models.py:1667 starlight/models.py:1715
+#, fuzzy
 msgid "Upgrade"
 msgstr "업그레이드"
 
 #: starlight/models.py:1668 starlight/models.py:1721
+#, fuzzy
 msgid "VS. Revue reward"
-msgstr "VS레뷰 보상"
+msgstr "VS. 레뷰 보상"
 
 #: starlight/models.py:1670
+#, fuzzy
 msgid "Selling price"
 msgstr "판매 가격"
 
 #: starlight/models.py:1675 starlight/models.py:1678
+#, fuzzy
 msgid "Explanation"
 msgstr "설명"
 
 #: starlight/settings.py:162
+#, fuzzy
 msgid "Movie"
 msgstr "영상"
 
 #: starlight/settings.py:166
+#, fuzzy
 msgid "Meetups"
-msgstr ""
+msgstr "밋업"
 
 #: starlight/models.py:837 starlight/models.py:840
+#, fuzzy
 msgid "Orchestral arrangement"
-msgstr ""
+msgstr "오케스트라 배열"
 
 #: starlight/settings.py:30
+#, fuzzy
 msgid "\n"
 "Shoujo☆Kageki Revue Starlight (Lit. Girls☆Opera Revue Starlight) is a multi-media project produced by Bushiroad and Nelke Planning. It aims to link the world of anime and musicals together. Besides the anime series and the musical performances, the voice actresses also perform live concerts and various events for fans. The characters from the license also appear in 3 manga series and a mobile game called \"Relive\".\n"
 ""
-msgstr ""
+msgstr "소녀☆가극 레뷰 스타라이트는 부시로드와 네르케 플래닝이 프로듀싱한 멀티미디어 프로젝트입니다. 이 프로젝트는애니와 뮤지컬로 세계를 연결하는 것에 중점을 두었습니다. 애니 시리즈와 뮤지컬 퍼포먼스를 밀접한 관계를 가지도록 하였으며, 성우들 또한 팬들을 위해 라이브 콘서트나 다양한 \n"
+"이벤트를 진행합니다. 캐릭터들은 3개 만화 시리즈와 \"Relive\" 모바일 게임 시리즈에서 따왔습니다."
 
 #: magi/default_settings.py:740
 msgid "Sitemap"
-msgstr ""
+msgstr "사이트맵"
 
 #: magi/magicollections.py:675
 msgid "Search and filter"
-msgstr ""
+msgstr "검색 및 필터"
 
 #: starlight/magicollections.py:747
+#, fuzzy
 msgid "When you buy from this link, it costs you nothing extra, but we get a percentage which helps support the community and pay for the servers!"
-msgstr ""
+msgstr "이 링크에서 구매하면 추가 비용이 들지 않으며 커뮤니티를 지원하고 서버 비용을 지불하는데 도움이 됩니다!"
 
 #: idolstory/models.py:592
+#, fuzzy
 msgid "Official agency profile"
-msgstr ""
+msgstr "공식 대행사 프로필"
 
 #: idolstory/settings.py:242
+#, fuzzy
 msgid "Stories"
-msgstr ""
+msgstr "스토리"
 
 #: idolstory/settings.py:370
+#, fuzzy
 msgid "Gameplay"
-msgstr ""
+msgstr "게임 플레이"
 
 #: magi/templates/pages/prelaunch.html:27
+#, fuzzy
 msgid "Thank you for pre-registering!"
-msgstr ""
+msgstr "사전등록 해 주셔서 감사합니다!"
 
 #: starlight/magicollections.py:80
+#, fuzzy
 msgid "Users"
-msgstr ""
+msgstr "사용자\n"
+""
 
 #: magi/default_settings.py:944 magi/default_settings.py:950
 #: magi/default_settings.py:959 magi/default_settings.py:965 magi/utils.py:2640
+#, fuzzy
 msgid "Advent calendar"
-msgstr ""
+msgstr "강림절 달력"
 
 #: magi/forms.py:1782
+#, fuzzy
 msgid "Optional"
-msgstr ""
+msgstr "선택 과목\n"
+""
 
 #: magi/forms.py:2784
 msgid "{thing} required."
-msgstr ""
+msgstr "{thing}이 필요합니다."
 
 #: magi/forms.py:2820
+#, fuzzy
 msgid "Past tags"
-msgstr ""
+msgstr "과거 태그\n"
+""
 
 #: magi/magicollections.py:1252
+#, fuzzy
 msgid "Original"
-msgstr ""
+msgstr "오리지널"
 
 #: magi/magicollections.py:1256
+#, fuzzy
 msgid "High quality"
-msgstr ""
+msgstr "고품질"
 
 #: magi/magicollections.py:2709
 msgid "Your inbox is only open to people you follow, and you're not following anyone."
-msgstr ""
+msgstr "받은 편지함은 당신이 팔로우하는 사람에게만 공개됩니다."
 
 #: magi/magicollections.py:3092
+#, fuzzy
 msgid "Hey, look! I'm on {site}! Follow me ♥︎"
-msgstr ""
+msgstr "야 봐봐! 나는 {site}에있다! 날 따라와 ♥ ︎"
 
 #: magi/magicollections.py:3817
+#, fuzzy
 msgid "How to get badges?"
-msgstr ""
+msgstr "배지를 얻는 방법?\n"
+""
 
 #: magi/magicollections.py:3818
+#, fuzzy
 msgid "Collect them all!"
-msgstr ""
+msgstr "그들 모두를 모으십시오!\n"
+""
 
 #: magi/magicollections.py:4134
+#, fuzzy
 msgid "Prizes"
-msgstr ""
+msgstr "상금"
 
 #: magi/magicollections.py:4350
+#, fuzzy
 msgid "Your inbox is closed."
-msgstr ""
+msgstr "받은 편지함이 닫혔습니다.\n"
+""
 
 #: magi/seasons.py:52
+#, fuzzy
 msgid "Happy New Year!"
-msgstr ""
+msgstr "새해 복 많이 받으세요!"
 
 #: magi/seasons.py:57
+#, fuzzy
 msgid "Happy Lunar New Year!"
-msgstr ""
+msgstr "새해 복 많이 받으세요!"
 
 #: magi/seasons.py:62
+#, fuzzy
 msgid "Happy Valentine's Day!"
-msgstr ""
+msgstr "해피 발렌타인 데이!"
 
 #: magi/seasons.py:67
+#, fuzzy
 msgid "Happy Leap Day!"
-msgstr ""
+msgstr "행복한 도약의 날!\n"
+""
 
 #: magi/seasons.py:77
+#, fuzzy
 msgid "Happy White Day!"
-msgstr ""
+msgstr "해피 화이트 데이!"
 
 #: magi/seasons.py:82
+#, fuzzy
 msgid "Happy St Patrick's Day!"
-msgstr ""
+msgstr "행복한 성 패트릭의 날!\n"
+""
 
 #: magi/seasons.py:87
 msgid "Happy April Fool's Day!"
-msgstr ""
+msgstr "즐거운 만우절 되세요!"
 
 #: magi/seasons.py:92
+#, fuzzy
 msgid "Happy Easter!"
-msgstr ""
+msgstr "즐거운 부활절!"
 
 #: magi/seasons.py:97
+#, fuzzy
 msgid "May the Fourth be with you!"
-msgstr ""
+msgstr "포스가 그대와 함께하기를!"
 
 #: magi/seasons.py:107
+#, fuzzy
 msgid "Happy Pride Month!"
-msgstr ""
+msgstr "행복한 자존심의 달!\n"
+""
 
 #: magi/seasons.py:112
+#, fuzzy
 msgid "Happy Thanksgiving!"
-msgstr ""
+msgstr "행복한 추수 감사절!"
 
 #: magi/seasons.py:117
+#, fuzzy
 msgid "Happy Halloween!"
-msgstr ""
+msgstr "해피 할로윈!"
 
 #: magi/seasons.py:132 magi/utils.py:2633 magi/views.py:1570
+#, fuzzy
 msgid "Merry Christmas!"
-msgstr ""
+msgstr "메리 크리스마스!"
 
 #: magi/settings.py:870
+#, fuzzy
 msgid "Learn a few tips and tricks to help you easily use {site}."
-msgstr ""
+msgstr "{site}를 쉽게 사용하는 데 도움이되는 몇 가지 팁과 요령을 배웁니다.\n"
+""
 
 #: magi/settings.py:876
+#, fuzzy
 msgid "Map of all {license} fans around the world."
-msgstr ""
+msgstr "전 세계 모든 {license} 팬의지도\n"
+""
 
 #: magi/templates/pages/about.html:467
+#, fuzzy
 msgid "Credits"
-msgstr ""
+msgstr "크레딧\n"
+""
 
 #: cpro/model_choices.py:109
+#, fuzzy
 msgid "LIVE Carnival"
-msgstr ""
+msgstr "라이브 카니발\n"
+""
 
 #: cpro/model_choices.py:187
+#, fuzzy
 msgid "Hold"
-msgstr ""
+msgstr "보류\n"
+""
 
 #: cpro/model_choices.py:232
+#, fuzzy
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and hold notes a {skill_value2}% score bonus in the next {skill_duration} seconds."
-msgstr ""
+msgstr "{trigger_value} 초마다 Perfect 노트가 {skill_value} % 점수 보너스를 받고 다음 {skill_duration} 초 내에 {skill_value2} % 점수 보너스를받을 가능성이 {trigger_chance} %입니다.\n"
+""
 
 #: bang/models.py:459
+#, fuzzy
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members"
-msgstr ""
+msgstr "다음 {duration} 초 동안 팀이 {influence} 멤버로만 구성된 경우 PERFECT 노트의 점수가 + {percentage} % 또는 + {cond_percentage} % 증가했습니다.\n"
+""
 
 #: bang/models.py:460
+#, fuzzy
 msgid "For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr ""
+msgstr "다음 {duration} 초 동안 {note_type} 메모가 적중 될 때까지 점수가 + {percentage} % (팀이 {influence} 회원으로 구성된 경우 + {cond_percentage} %) 증가한 다음 + {alt_percentage} 증가한 점수 %\n"
+""
 
 #: bang/settings.py:296
+#, fuzzy
 msgid "Gallery of {license} images"
-msgstr ""
+msgstr "{라이센스} 이미지 갤러리\n"
+""
 
 #: idolstory/forms.py:99
+#, fuzzy
 msgid "Show {thing}"
-msgstr ""
+msgstr "{thing} 표시\n"
+""
 
 #: idolstory/forms.py:99 idolstory/forms.py:100
+#, fuzzy
 msgid "Guests"
-msgstr ""
+msgstr "손님\n"
+""
 
 #: idolstory/forms.py:100
+#, fuzzy
 msgid "Hide {thing}"
-msgstr ""
+msgstr "{thing} 숨기기\n"
+""
 
 #: idolstory/forms.py:468 idolstory/forms.py:908
+#, fuzzy
 msgid "All members"
-msgstr ""
+msgstr "전원\n"
+""
 
 #: idolstory/forms.py:648 idolstory/models.py:1533 idolstory/models.py:1562
 #: idolstory/models.py:1567 idolstory/models.py:1573 idolstory/models.py:1579
 msgid "Appeal"
-msgstr ""
+msgstr "이의 제기"
 
 #: idolstory/forms.py:649 idolstory/models.py:1537 idolstory/models.py:1563
 #: idolstory/models.py:1569 idolstory/models.py:1574 idolstory/models.py:1581
+#, fuzzy
 msgid "Stamina"
-msgstr ""
+msgstr "내구력\n"
+""
 
 #: idolstory/forms.py:817 idolstory/models.py:1392 idolstory/models.py:1804
 #: idolstory/models.py:2264
+#, fuzzy
 msgid "Passive"
-msgstr ""
+msgstr "수동태\n"
+""
 
 #: idolstory/forms.py:818 idolstory/models.py:2269
+#, fuzzy
 msgid "Limit break"
-msgstr ""
+msgstr "한계 휴식\n"
+""
 
 #: idolstory/forms.py:864 idolstory/models.py:2372
+#, fuzzy
 msgid "Episode"
-msgstr ""
+msgstr "삽화\n"
+""
 
 #: idolstory/forms.py:868 idolstory/models.py:2204
+#, fuzzy
 msgid "Chapter"
-msgstr ""
+msgstr "챕터"
 
 #. A blog post
 #: starlight/models.py:1788
 msgid "Post"
-msgstr ""
+msgstr "게시"
 
 #. Blog posts
 #: idolstory/magicollections.py:271
 msgid "Posts"
-msgstr ""
+msgstr "포스트"
 
 #: idolstory/magicollections.py:460
+#, fuzzy
 msgid "Glowing"
-msgstr ""
+msgstr "빛나는\n"
+""
 
 #: idolstory/magicollections.py:1077
+#, fuzzy
 msgid "Year"
-msgstr ""
+msgstr "년\n"
+""
 
 #: idolstory/magicollections.py:1192
+#, fuzzy
 msgid "Skills"
-msgstr ""
+msgstr "기술\n"
+""
 
 #: idolstory/magicollections.py:1326 idolstory/models.py:2442
 #: idolstory/models.py:2449
+#, fuzzy
 msgid "Still"
-msgstr ""
+msgstr "아직도\n"
+""
 
 #: idolstory/magicollections.py:1327 idolstory/models.py:961
+#, fuzzy
 msgid "Stills"
-msgstr ""
+msgstr "스틸\n"
+""
 
 #: idolstory/magicollections.py:1421
+#, fuzzy
 msgid "Story"
-msgstr ""
+msgstr "스토리"
 
 #: idolstory/models.py:314
+#, fuzzy
 msgid "Elegant"
-msgstr ""
+msgstr "우아한\n"
+""
 
 #: idolstory/models.py:318
+#, fuzzy
 msgid "Natural"
-msgstr ""
+msgstr "자연스러운"
 
 #: idolstory/models.py:424 idolstory/models.py:429 idolstory/models.py:434
 #: idolstory/models.py:439 idolstory/models.py:444 idolstory/models.py:449
 #: idolstory/models.py:454
+#, fuzzy
 msgid "Guest"
-msgstr ""
+msgstr "손님\n"
+""
 
 #: idolstory/models.py:454
+#, fuzzy
 msgid "No attribute"
-msgstr ""
+msgstr "속성이 없습니다\n"
+""
 
 #: idolstory/models.py:604
+#, fuzzy
 msgid "YouTube"
-msgstr ""
+msgstr "YouTube\n"
+""
 
 #: idolstory/models.py:761
+#, fuzzy
 msgid "Symbol"
-msgstr ""
+msgstr "상징"
 
 #: idolstory/models.py:921
+#, fuzzy
 msgid "Lighstick color"
-msgstr ""
+msgstr "lighstick 색상\n"
+""
 
 #: idolstory/models.py:923 idolstory/models.py:926
+#, fuzzy
 msgid "Call and response"
-msgstr ""
+msgstr "전화 및 응답\n"
+""
 
 #: idolstory/models.py:1029
+#, fuzzy
 msgid "Game"
-msgstr ""
+msgstr "게임"
 
 #: idolstory/models.py:1055
+#, fuzzy
 msgid "Abstract"
-msgstr ""
+msgstr "요약"
 
 #: idolstory/models.py:1056
+#, fuzzy
 msgid "Blurry"
-msgstr ""
+msgstr "모호한\n"
+""
 
 #: idolstory/models.py:1393 idolstory/models.py:1827
+#, fuzzy
 msgid "Show"
-msgstr ""
+msgstr "보이기"
 
 #: idolstory/models.py:1482
+#, fuzzy
 msgid "Guard"
-msgstr ""
+msgstr "가드\n"
+""
 
 #: idolstory/models.py:1483
+#, fuzzy
 msgid "Voltage"
-msgstr ""
+msgstr "전압"
 
 #: idolstory/models.py:1484
+#, fuzzy
 msgid "SP"
-msgstr ""
+msgstr "SP"
 
 #: idolstory/models.py:1548 idolstory/models.py:1552
+#, fuzzy
 msgid "Max trained"
-msgstr ""
+msgstr "최대 훈련"
 
 #: idolstory/models.py:1658 idolstory/models.py:1787 idolstory/models.py:1817
 #: idolstory/models.py:1840
+#, fuzzy
 msgid "Affects"
 msgstr "대상"
 
 #: idolstory/models.py:2100
+#, fuzzy
 msgid "Base statistics, without any traning."
-msgstr ""
+msgstr "트레이닝 없는, 기본 능력치입니다."
 
 #: idolstory/models.py:2178
+#, fuzzy
 msgid "Chapter {number}"
-msgstr ""
+msgstr "{number}장"
 
 #: idolstory/models.py:2234
+#, fuzzy
 msgid "Episode {number}"
-msgstr ""
+msgstr "에피소드 {번호}화"
 
 #: idolstory/models.py:2255
+#, fuzzy
 msgid "Outfit unlocked"
-msgstr ""
+msgstr "복장 잠금 해제"
 
 #: idolstory/models.py:2256
+#, fuzzy
 msgid "Story unlocked"
-msgstr ""
+msgstr "스토리 잠금 해제"
 
 #: idolstory/settings.py:217
 msgid "{name}'s birthday party {year}"
-msgstr ""
+msgstr "{name}의 {year} 생일 파티"
 
 #: idolstory/settings.py:256
 msgid "What's your Love Live! story?"
-msgstr ""
+msgstr "여러분만의 러브라이브! 스토리는 무엇인가요?"
 
 #: idolstory/settings.py:379
+#, fuzzy
 msgid "How to install {app}?"
-msgstr ""
+msgstr "{app} 설치법"
 
 #: starlight/magicollections.py:1295
+#, fuzzy
 msgid "Gachas"
-msgstr ""
+msgstr "가챠"
 
 #: magi/seasons.py:72
+#, fuzzy
 msgid "Happy Pi Day!"
-msgstr ""
+msgstr "행복한 파이(Pi)데이!"
 
+#. 싱코 데 마요는 멕시코의 기념일인데, 이는 한국에서 굉장히 생소한 기념일임.
+#. 싱코 데 마요가 5월 5일이므로 같은 5월 5일인 어린이날로 대체함.
 #: magi/seasons.py:102
 msgid "Happy Cinco de Mayo!"
-msgstr ""
+msgstr "즐거운 어린이날!"
 
+#. 매우 드문 이라고 번역되어 있던데 원래 표현으로는 UR, 카드의 등급을 나타내는 단어같고, 아무리 봐도 매우 드문은 아닌듯합니다
 #: idolstory/models.py:1464
+#, fuzzy
 msgid "Ultra rare"
-msgstr ""
+msgstr "UR"
 

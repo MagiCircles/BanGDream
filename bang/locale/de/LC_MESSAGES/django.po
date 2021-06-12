@@ -372,7 +372,7 @@ msgstr "Diese Webseite wurde erstellt mit"
 
 #: magi/templates/pages/about.html:493
 msgid "so in Python 2. We also use"
-msgstr "also in Python 2. Wir nutzen auch"
+msgstr "also in Python 2. Nutzen wir auch"
 
 #: magi/templates/pages/about.html:493
 msgid "for the front-end of the website."
@@ -1291,7 +1291,7 @@ msgstr "Löwe"
 
 #: starlight/models.py:174
 msgid "Aries"
-msgstr "Schütze"
+msgstr "Widder"
 
 #: starlight/models.py:175
 msgid "Libra"
@@ -1323,7 +1323,7 @@ msgstr "Krebs"
 
 #: starlight/models.py:182
 msgid "Sagittarius"
-msgstr "Widder"
+msgstr "Schütze"
 
 #: starlight/models.py:183
 msgid "Aquarius"
@@ -3866,7 +3866,7 @@ msgstr "Statistik"
 #: bang/magicollections.py:2003
 #, fuzzy
 msgid "Original song"
-msgstr "Original"
+msgstr "Original Lied"
 
 #: bang/models.py:980 bang/models.py:1821
 msgid "Max level"
@@ -4457,7 +4457,7 @@ msgstr "Shoujo☆Kageki Revue Starlight ist ein Multi-Media Projekt, welches von
 
 #: magi/default_settings.py:740
 msgid "Sitemap"
-msgstr ""
+msgstr "Seitenverzeichnis"
 
 #: magi/magicollections.py:675
 msgid "Search and filter"
@@ -4469,7 +4469,8 @@ msgstr "Wenn du etwas über den Link kaufst, musst du nichts extra bezahlen, jed
 
 #: idolstory/models.py:592
 msgid "Official agency profile"
-msgstr ""
+msgstr "Offizielles Agenturprofil\n"
+""
 
 #: idolstory/settings.py:242
 msgid "Stories"
@@ -4490,51 +4491,63 @@ msgstr "User"
 #: magi/default_settings.py:944 magi/default_settings.py:950
 #: magi/default_settings.py:959 magi/default_settings.py:965 magi/utils.py:2640
 msgid "Advent calendar"
-msgstr ""
+msgstr "Adventskalender\n"
+""
 
 #: magi/forms.py:1782
 msgid "Optional"
-msgstr ""
+msgstr "Optional\n"
+""
 
 #: magi/forms.py:2784
 msgid "{thing} required."
-msgstr ""
+msgstr "{Ding} erforderlich.\n"
+""
 
 #: magi/forms.py:2820
 msgid "Past tags"
-msgstr ""
+msgstr "Vergangene Tags\n"
+""
 
 #: magi/magicollections.py:1252
 msgid "Original"
-msgstr ""
+msgstr "Original\n"
+""
 
 #: magi/magicollections.py:1256
 msgid "High quality"
-msgstr ""
+msgstr "Hohe Qualität\n"
+""
 
 #: magi/magicollections.py:2709
 msgid "Your inbox is only open to people you follow, and you're not following anyone."
-msgstr ""
+msgstr "Ihr Posteingang ist nur für Personen geöffnet, denen Sie folgen, und Sie folgen niemandem.\n"
+""
 
 #: magi/magicollections.py:3092
 msgid "Hey, look! I'm on {site}! Follow me ♥︎"
-msgstr ""
+msgstr "Guck mal! Ich bin auf {site}! Folge mir ♥ ︎\n"
+""
 
 #: magi/magicollections.py:3817
 msgid "How to get badges?"
-msgstr ""
+msgstr "Wie bekomme ich Abzeichen?\n"
+""
 
 #: magi/magicollections.py:3818
 msgid "Collect them all!"
-msgstr ""
+msgstr "Sammle sie alle!\n"
+""
 
 #: magi/magicollections.py:4134
 msgid "Prizes"
-msgstr ""
+msgstr "Preise\n"
+""
 
 #: magi/magicollections.py:4350
 msgid "Your inbox is closed."
-msgstr ""
+msgstr "Ihr Posteingang ist geschlossen.\n"
+""
 
 #: magi/seasons.py:52
 msgid "Happy New Year!"
@@ -4542,282 +4555,349 @@ msgstr "Ein gluckliches neues Jahr"
 
 #: magi/seasons.py:57
 msgid "Happy Lunar New Year!"
-msgstr ""
+msgstr "Frohes neues Mondjahr!\n"
+""
 
 #: magi/seasons.py:62
 msgid "Happy Valentine's Day!"
-msgstr ""
+msgstr "Fröhlichen Valentinstag!\n"
+""
 
 #: magi/seasons.py:67
 msgid "Happy Leap Day!"
-msgstr ""
+msgstr "Glücklicher Schalttag!\n"
+""
 
 #: magi/seasons.py:77
 msgid "Happy White Day!"
-msgstr ""
+msgstr "Glücklicher weißer Tag!\n"
+""
 
 #: magi/seasons.py:82
 msgid "Happy St Patrick's Day!"
-msgstr ""
+msgstr "Glücklicher St. Patrick's Day!\n"
+""
 
 #: magi/seasons.py:87
 msgid "Happy April Fool's Day!"
-msgstr ""
+msgstr "April, April!\n"
+""
 
 #: magi/seasons.py:92
 msgid "Happy Easter!"
-msgstr ""
+msgstr "Frohe Ostern!\n"
+""
 
 #: magi/seasons.py:97
 msgid "May the Fourth be with you!"
-msgstr ""
+msgstr "Möge der Vierte mit dir sein!\n"
+""
 
 #: magi/seasons.py:107
 msgid "Happy Pride Month!"
-msgstr ""
+msgstr "Glücklicher Stolz-Monat!\n"
+""
 
 #: magi/seasons.py:112
 msgid "Happy Thanksgiving!"
-msgstr ""
+msgstr "Frohes Thanksgiving!\n"
+""
 
 #: magi/seasons.py:117
 msgid "Happy Halloween!"
-msgstr ""
+msgstr "Fröhliches Halloween!\n"
+""
 
 #: magi/seasons.py:132 magi/utils.py:2633 magi/views.py:1570
 msgid "Merry Christmas!"
-msgstr ""
+msgstr "Fröhliche Weihnachten!\n"
+""
 
 #: magi/settings.py:870
 msgid "Learn a few tips and tricks to help you easily use {site}."
-msgstr ""
+msgstr "Erfahren Sie einige Tipps und Tricks, mit denen Sie {site} einfach verwenden können.\n"
+""
 
 #: magi/settings.py:876
 msgid "Map of all {license} fans around the world."
-msgstr ""
+msgstr "Karte aller {Lizenz} -Fans auf der ganzen Welt.\n"
+""
 
 #: magi/templates/pages/about.html:467
 msgid "Credits"
-msgstr ""
+msgstr "Credits\n"
+""
 
 #: cpro/model_choices.py:109
 msgid "LIVE Carnival"
-msgstr ""
+msgstr "LIVE Karneval\n"
+""
 
 #: cpro/model_choices.py:187
 msgid "Hold"
-msgstr ""
+msgstr "Halt\n"
+""
 
 #: cpro/model_choices.py:232
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and hold notes a {skill_value2}% score bonus in the next {skill_duration} seconds."
-msgstr ""
+msgstr "Für jede {trigger_value} Sekunde besteht eine {trigger_chance}% Chance, dass Perfect Notes einen {Skill_value}% Score Bonus erhalten und Noten in den nächsten {Skill_Dauer} einen {Skill_Wert2}% Score Bonus halten.\n"
+""
 
 #: bang/models.py:459
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members"
-msgstr ""
+msgstr "Für die nächsten {Dauer} Sekunden wird die Punktzahl der PERFEKTEN Noten um + {Prozent}% oder + {cond_percentage}% erhöht, wenn Ihr Team nur aus {Einfluss} Mitgliedern besteht\n"
+""
 
 #: bang/models.py:460
 msgid "For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr ""
+msgstr "Für die nächsten {Dauer} Sekunden wird die Punktzahl um + {Prozent}% (+ {cond_percentage}%, wenn Ihr Team nur aus {Einfluss} Mitgliedern besteht) erhöht, bis eine Note {note_type} getroffen wird, und die Punktzahl um + {alt_percentage} erhöht. %.\n"
+""
 
 #: bang/settings.py:296
 msgid "Gallery of {license} images"
-msgstr ""
+msgstr "Galerie mit {Lizenz} Bildern\n"
+""
 
 #: idolstory/forms.py:99
 msgid "Show {thing}"
-msgstr ""
+msgstr "Zeige {thing}\n"
+""
 
 #: idolstory/forms.py:99 idolstory/forms.py:100
 msgid "Guests"
-msgstr ""
+msgstr "Gäste\n"
+""
 
 #: idolstory/forms.py:100
 msgid "Hide {thing}"
-msgstr ""
+msgstr "Verstecke {Ding}\n"
+""
 
 #: idolstory/forms.py:468 idolstory/forms.py:908
 msgid "All members"
-msgstr ""
+msgstr "Alle Mitglieder\n"
+""
 
 #: idolstory/forms.py:648 idolstory/models.py:1533 idolstory/models.py:1562
 #: idolstory/models.py:1567 idolstory/models.py:1573 idolstory/models.py:1579
 msgid "Appeal"
-msgstr ""
+msgstr "Beschwerde\n"
+""
 
 #: idolstory/forms.py:649 idolstory/models.py:1537 idolstory/models.py:1563
 #: idolstory/models.py:1569 idolstory/models.py:1574 idolstory/models.py:1581
 msgid "Stamina"
-msgstr ""
+msgstr "Ausdauer\n"
+""
 
 #: idolstory/forms.py:817 idolstory/models.py:1392 idolstory/models.py:1804
 #: idolstory/models.py:2264
 msgid "Passive"
-msgstr ""
+msgstr "Passiv\n"
+""
 
 #: idolstory/forms.py:818 idolstory/models.py:2269
 msgid "Limit break"
-msgstr ""
+msgstr "Limit Pause\n"
+""
 
 #: idolstory/forms.py:864 idolstory/models.py:2372
 msgid "Episode"
-msgstr ""
+msgstr "Folge\n"
+""
 
 #: idolstory/forms.py:868 idolstory/models.py:2204
 msgid "Chapter"
-msgstr ""
+msgstr "Kapitel\n"
+""
 
 #. A blog post
 #: starlight/models.py:1788
 msgid "Post"
-msgstr ""
+msgstr "Post\n"
+""
 
 #. Blog posts
 #: idolstory/magicollections.py:271
 msgid "Posts"
-msgstr ""
+msgstr "Beiträge\n"
+""
 
 #: idolstory/magicollections.py:460
 msgid "Glowing"
-msgstr ""
+msgstr "Glühend\n"
+""
 
 #: idolstory/magicollections.py:1077
 msgid "Year"
-msgstr ""
+msgstr "Jahr\n"
+""
 
 #: idolstory/magicollections.py:1192
 msgid "Skills"
-msgstr ""
+msgstr "Kompetenzen\n"
+""
 
 #: idolstory/magicollections.py:1326 idolstory/models.py:2442
 #: idolstory/models.py:2449
 msgid "Still"
-msgstr ""
+msgstr "Immer noch\n"
+""
 
 #: idolstory/magicollections.py:1327 idolstory/models.py:961
 msgid "Stills"
-msgstr ""
+msgstr "Stills\n"
+""
 
 #: idolstory/magicollections.py:1421
 msgid "Story"
-msgstr ""
+msgstr "Geschichte\n"
+""
 
 #: idolstory/models.py:314
 msgid "Elegant"
-msgstr ""
+msgstr "Elegant\n"
+""
 
 #: idolstory/models.py:318
 msgid "Natural"
-msgstr ""
+msgstr "Natürlich\n"
+""
 
 #: idolstory/models.py:424 idolstory/models.py:429 idolstory/models.py:434
 #: idolstory/models.py:439 idolstory/models.py:444 idolstory/models.py:449
 #: idolstory/models.py:454
 msgid "Guest"
-msgstr ""
+msgstr "Gast\n"
+""
 
 #: idolstory/models.py:454
 msgid "No attribute"
-msgstr ""
+msgstr "Kein Attribut\n"
+""
 
 #: idolstory/models.py:604
 msgid "YouTube"
-msgstr ""
+msgstr "Youtube\n"
+""
 
 #: idolstory/models.py:761
 msgid "Symbol"
-msgstr ""
+msgstr "Symbol\n"
+""
 
 #: idolstory/models.py:921
 msgid "Lighstick color"
-msgstr ""
+msgstr "Leuchtstabfarbe\n"
+""
 
 #: idolstory/models.py:923 idolstory/models.py:926
 msgid "Call and response"
-msgstr ""
+msgstr "Anruf und Antwort\n"
+""
 
 #: idolstory/models.py:1029
 msgid "Game"
-msgstr ""
+msgstr "Spiel\n"
+""
 
 #: idolstory/models.py:1055
 msgid "Abstract"
-msgstr ""
+msgstr "Abstrakt\n"
+""
 
 #: idolstory/models.py:1056
 msgid "Blurry"
-msgstr ""
+msgstr "Verschwommen\n"
+""
 
 #: idolstory/models.py:1393 idolstory/models.py:1827
 msgid "Show"
-msgstr ""
+msgstr "Show\n"
+""
 
 #: idolstory/models.py:1482
 msgid "Guard"
-msgstr ""
+msgstr "Bewachen\n"
+""
 
 #: idolstory/models.py:1483
 msgid "Voltage"
-msgstr ""
+msgstr "Stromspannung"
 
 #: idolstory/models.py:1484
 msgid "SP"
-msgstr ""
+msgstr "SP\n"
+""
 
 #: idolstory/models.py:1548 idolstory/models.py:1552
 msgid "Max trained"
-msgstr ""
+msgstr "Max trainierte\n"
+""
 
 #: idolstory/models.py:1658 idolstory/models.py:1787 idolstory/models.py:1817
 #: idolstory/models.py:1840
 msgid "Affects"
-msgstr ""
+msgstr "Auswirkungen\n"
+""
 
 #: idolstory/models.py:2100
 msgid "Base statistics, without any traning."
-msgstr ""
+msgstr "Basisstatistik ohne Traning.\n"
+""
 
 #: idolstory/models.py:2178
 msgid "Chapter {number}"
-msgstr ""
+msgstr "Kapitel {Nummer}\n"
+""
 
 #: idolstory/models.py:2234
 msgid "Episode {number}"
-msgstr ""
+msgstr "Folge {Nummer}\n"
+""
 
 #: idolstory/models.py:2255
 msgid "Outfit unlocked"
-msgstr ""
+msgstr "Outfit freigeschaltet\n"
+""
 
 #: idolstory/models.py:2256
 msgid "Story unlocked"
-msgstr ""
+msgstr "Geschichte freigeschaltet\n"
+""
 
 #: idolstory/settings.py:217
 msgid "{name}'s birthday party {year}"
-msgstr ""
+msgstr "Geburtstagsfeier von {name} {year}\n"
+""
 
 #: idolstory/settings.py:256
 msgid "What's your Love Live! story?"
-msgstr ""
+msgstr "Was ist deine Liebe Live! Geschichte?\n"
+""
 
 #: idolstory/settings.py:379
 msgid "How to install {app}?"
-msgstr ""
+msgstr "Wie installiere ich {app}?\n"
+""
 
 #: starlight/magicollections.py:1295
 msgid "Gachas"
-msgstr ""
+msgstr "Gachas\n"
+""
 
 #: magi/seasons.py:72
 msgid "Happy Pi Day!"
-msgstr ""
+msgstr "Glücklicher Pi Tag!\n"
+""
 
 #: magi/seasons.py:102
 msgid "Happy Cinco de Mayo!"
-msgstr ""
+msgstr "Glücklicher Cinco de Mayo!\n"
+""
 
 #: idolstory/models.py:1464
 msgid "Ultra rare"
-msgstr ""
+msgstr "Sehr selten\n"
+""
 

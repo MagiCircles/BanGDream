@@ -2174,8 +2174,7 @@ msgstr "Son zamanlarda bir sürü {things} eklediniz. Daha fazla eklemeden önce
 
 #: magi/forms.py:707
 msgid "You already have {total} {things}. You can only add up to {max} {things}."
-msgstr "Zaten {total} {things} var. En fazla {max} {things} ekleyebilirsiniz.\n"
-""
+msgstr ""
 
 #: magi/forms.py:1250
 msgid "View"
@@ -2187,8 +2186,7 @@ msgstr "Lütfen seviyenizi kanıtlamak için oyun içindeki profilinizin bir ekr
 
 #: magi/utils.py:2629 magi/utils.py:2633
 msgid "You may use Markdown formatting."
-msgstr "Markdown biçimlendirmesini kullanabilirsiniz.\n"
-""
+msgstr ""
 
 #. Example: Adding to your account db0
 #. Adding to your card Kotori
@@ -2243,8 +2241,7 @@ msgstr "Alternatif olarak..."
 
 #: magi/templates/pages/about.html:416
 msgid "The staff team is available on:"
-msgstr "Personel ekibi:\n"
-""
+msgstr ""
 
 #: magi/utils.py:907
 msgid "Select {}"
@@ -2268,8 +2265,7 @@ msgstr "{things} listesi"
 
 #: cpro/model_choices.py:179
 msgid "All Round"
-msgstr "Her yönden\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:180
 msgid "Concentration"
@@ -2277,8 +2273,7 @@ msgstr "Konsantrasyon"
 
 #: cpro/model_choices.py:181
 msgid "Skill Boost"
-msgstr "Beceri Artırımı\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:182
 msgid "Cute/Cool/Passion Focus"
@@ -2286,13 +2281,11 @@ msgstr "Cute/Cool/Passion Focus"
 
 #: cpro/model_choices.py:224
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus and Perfect notes will restore {skill_value2} life in the next {skill_duration} seconds."
-msgstr "Her {trigger_value} saniyede bir {trigger_chance}% fazladan fazla {skill_value}% birleşik bonus kazanma şansınız vardır ve Perfect Notes, sonraki {skill_duration} saniye içinde {skill_value2} ömrünü geri kazanır.\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:225
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus but the timing window for Perfect notes is reduced in the next {skill_duration} seconds."
-msgstr "Her {trigger_value} saniye için Perfect {notların% {bonus_value}% puan bonusu kazanma şansı vardır, ancak Perfect notes için zamanlama penceresi sonraki {skill_duration} saniye içinde azalır.\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:226
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% change that currently active skills will be boosted for {skill_duration} seconds"
@@ -2300,13 +2293,11 @@ msgstr "Her {trigger_value} saniyede bir, şu anda etkin becerilerin {skill_dura
 
 #: cpro/model_choices.py:227
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus, but only if you have only {type} idols in your team for {skill_duration} seconds"
-msgstr "Her {trigger_value} saniyede bir, Perfect notes'ın% {bonus_value}% puan bonusu kazanma şansı vardır ve yalnızca {{{}} {skill_duration} saniye boyunca ekibinizdeki idoller\n"
-""
+msgstr ""
 
 #: cpro/templates/include/beforeLeaderboard.html:21
 msgid "%(total_results)s producers love %(favorite_character_idol)s"
-msgstr "% (total_results) s üreticileri% (favorite_character_idol) s sever\n"
-""
+msgstr ""
 
 #: cpro/templates/items/eventInfo.html:14
 msgid "seconds left"
@@ -2538,8 +2529,7 @@ msgstr "Bir daha ki {duration} saniye içerisinde, bütün notaların boostu +{p
 
 #: bang/models.py:515
 msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
-msgstr "ve sonraki {süre} saniye boyunca tüm notların puanını {%}% artırır\n"
-""
+msgstr ""
 
 #: bang/models.py:526
 msgid "Restores life by {stamina}"
@@ -2713,8 +2703,7 @@ msgstr "Toplam satın alınan sevgi cevherleri"
 
 #: idolstory/sukutomo_future_translations.py:11
 msgid "You can calculate that number in \"Other\" then \"Purchase History\"."
-msgstr "Bu sayıyı \"Diğer\" ve ardından \"Satın Alma Geçmişi\" nde hesaplayabilirsiniz.\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:12
 msgid "Should your items be visible to other players?"
@@ -2794,80 +2783,65 @@ msgstr "Arttırılan üyeler"
 
 #: bang/settings.py:450
 msgid "Manager"
-msgstr "Yönetici\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:96
 msgid "Team manager"
-msgstr "Takım menajeri\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:116
 msgid "Finance manager"
-msgstr "Finans yöneticisi\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:144 magi/default_settings.py:157
 msgid "Database maintainer"
-msgstr "Veritabanı sorumlusu\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:176 magi/default_settings.py:196
 #: magi/default_settings.py:210
 msgid "Community manager"
-msgstr "Topluluk yöneticisi\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:190
 msgid "Posted {total} news"
-msgstr "Yayınlanan {total} haber\n"
-""
+msgstr ""
 
 #: idolstory/models.py:643
 msgid "Twitter"
-msgstr "heyecan\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:224
 msgid "External communication"
-msgstr "Dış İletişim\n"
-""
+msgstr ""
 
 #: starlight/models.py:1452
 msgid "Support"
-msgstr "Destek\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:252 magi/default_settings.py:271
 #: magi/default_settings.py:334
 msgid "Moderator"
-msgstr "arabulucu\n"
-""
+msgstr ""
 
 #: idolstory/models.py:351
 msgid "Active"
-msgstr "Aktif\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:265
 msgid "Submitted {total} reports"
-msgstr "Gönderilen {total} rapor\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:271
 msgid "Decisive"
-msgstr "belirleyici\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:290
 msgid "Edited or deleted {total} reported items"
-msgstr "Bildirilen veya silinen {total} bildirilen öğe\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:296
 msgid "Community entertainer"
-msgstr "Topluluk şovmen\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:318
 msgid "Organized and posted about {total} community events"
@@ -2875,33 +2849,27 @@ msgstr "{total} topluluk etkinliği hakkında organize edildi ve yayınlandı"
 
 #: magi/default_settings.py:324
 msgid "Backup staff"
-msgstr "Yedek personel\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:343
 msgid "Translator"
-msgstr "Çevirmen\n"
-""
+msgstr ""
 
 #: bang/settings.py:450
 msgid "Graphic designer"
-msgstr "Grafik tasarımcı\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:365
 msgid "Artist"
-msgstr "Sanatçı\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:371
 msgid "Developer"
-msgstr "Geliştirici\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:385
 msgid "System administrator"
-msgstr "Sistem yöneticisi\n"
-""
+msgstr ""
 
 #: magi/models.py:1002
 msgid "You are not allowed to see activities with the tag \"{tag}\"."
@@ -2910,8 +2878,7 @@ msgstr "\"{tag}\" etiketli etkinlikleri görmenize izin verilmiyor.\n"
 
 #: starlight/models.py:854 starlight/models.py:857
 msgid "Translations"
-msgstr "Çeviriler\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:2902 magi/magicollections.py:4368 magi/views.py:852
 msgid "Block {username}"
@@ -2920,43 +2887,35 @@ msgstr "{username} adlı kullanıcıyı engelle\n"
 
 #: magi/models.py:971
 msgid "You can change which tags you would like to see or hide in your settings."
-msgstr "Ayarlarınızda hangi etiketleri görmek veya gizlemek istediğinizi değiştirebilirsiniz.\n"
-""
+msgstr ""
 
 #: magi/models.py:147
 msgid "Display your birthdate year"
-msgstr "Doğum tarihinizi görüntüleyin\n"
-""
+msgstr ""
 
 #: starlight/models.py:1455
 msgid "Roles"
-msgstr "Roller\n"
-""
+msgstr ""
 
 #: magi/models.py:244
 msgid "Hide tags"
-msgstr "Etiketleri gizle\n"
-""
+msgstr ""
 
 #: magi/models.py:658
 msgid "hobbies"
-msgstr "Hobiler\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:26
 msgid "About us"
-msgstr "Hakkımızda\n"
-""
+msgstr ""
 
 #: magi/templates/pages/prelaunch.html:24 magi/views.py:434
 msgid "Pre-register"
-msgstr "Ön kayıt\n"
-""
+msgstr ""
 
 #: magi/forms.py:2277
 msgid "Security"
-msgstr "Güvenlik\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4416 magi/views.py:690 magi/views.py:882
 #: magi/views_collections.py:170 magi/views_collections.py:634
@@ -2982,18 +2941,15 @@ msgstr "{username} adlı kullanıcının engellemesini kaldırmak istediğinizde
 
 #: magi/views_collections.py:169 magi/views_collections.py:633
 msgid "this user"
-msgstr "bu kullanıcı\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:747
 msgid "Include cameos"
-msgstr "Kamera hücrelerini dahil et\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1624 idolstory/models.py:2344
 msgid "Cameos"
-msgstr "Küçük roller\n"
-""
+msgstr ""
 
 #: bang/forms.py:348 bang/models.py:476
 #, fuzzy
@@ -3002,8 +2958,7 @@ msgstr "Orijinal"
 
 #: starlight/settings.py:213
 msgid "Community event"
-msgstr "Topluluk etkinliği\n"
-""
+msgstr ""
 
 #: starlight/settings.py:216
 msgid "Not about {thing}"
@@ -3012,68 +2967,55 @@ msgstr "{thing} hakkında değil\n"
 
 #: starlight/settings.py:224
 msgid "NSFW"
-msgstr "NSFW\n"
-""
+msgstr ""
 
 #: starlight/settings.py:226
 msgid "You need to be over 18 years old."
-msgstr "18 yaşından büyük olmalısınız.\n"
-""
+msgstr ""
 
 #: starlight/settings.py:226
 msgid "You can change your birthdate in your settings."
-msgstr "Doğum tarihinizi ayarlarınızdan değiştirebilirsiniz.\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:453
 msgid "Measurements"
-msgstr "Ölçümler\n"
-""
+msgstr ""
 
 #: idolstory/models.py:954
 msgid "Chitose Bridge High School"
-msgstr "Chitose Köprüsü Lisesi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:955
 msgid "Seiran High School"
-msgstr "Seiran Lisesi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:956
 msgid "Shinonome Academy"
-msgstr "Shinonome Akademisi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:957
 msgid "Shion Girls' Academy"
-msgstr "Shion Kız Akademisi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:958
 msgid "Touou Academy"
-msgstr "Touou Akademisi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:959
 msgid "Y.G. International Academy"
-msgstr "YG Uluslararası Akademisi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:855 idolstory/models.py:953
 msgid "Nijigasaki High School"
-msgstr "Nijigasaki Lisesi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:952
 msgid "Uranohoshi Girls' High School"
-msgstr "Uranohoshi Kız Lisesi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:951
 msgid "Otonokizaka Academy"
-msgstr "Otonokizaka Akademisi\n"
-""
+msgstr ""
 
 #: starlight/models.py:558
 msgid "School year"
@@ -3081,251 +3023,207 @@ msgstr "Okul yılı"
 
 #: starlight/models.py:362
 msgid "Blood type"
-msgstr "Kan grubu\n"
-""
+msgstr ""
 
 #: starlight/utils.py:110 starlight/utils.py:111 starlight/utils.py:112
 msgid "{nth} year"
-msgstr "{nth} yıl\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:311
 msgid "Contributors"
-msgstr "katkıda\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:830
 msgid "View model"
-msgstr "Modeli görüntüle\n"
-""
+msgstr ""
 
 #: bang/templates/include/costumeTopIllustration.html:12
 msgid "Controls"
-msgstr "Kontroller\n"
-""
+msgstr ""
 
 #: bang/models.py:2237 bang/templates/include/costumeTopIllustration.html:21
 msgctxt "BanPa model viewer"
 msgid "Model"
-msgstr "model\n"
-""
+msgstr ""
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:25
 msgctxt "BanPa model viewer"
 msgid "Breathe"
-msgstr "Nefes almak\n"
-""
+msgstr ""
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:28
 msgctxt "BanPa model viewer"
 msgid "Blink"
-msgstr "Goz kirpmak\n"
-""
+msgstr ""
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:31
 msgctxt "BanPa model viewer"
 msgid "Sway"
-msgstr "Sallanma\n"
-""
+msgstr ""
 
 #. Translators: Label for a list of choices. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:37
 msgctxt "BanPa model viewer"
 msgid "Action"
-msgstr "Aksiyon\n"
-""
+msgstr ""
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:40
 msgctxt "BanPa model viewer"
 msgid "Loop"
-msgstr "döngü\n"
-""
+msgstr ""
 
 #. Translators: Label for a list of choices. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:46
 msgctxt "BanPa model viewer"
 msgid "Expression"
-msgstr "ifade\n"
-""
+msgstr ""
 
 #. Translators: Button label.
 #: bang/templates/include/costumeTopIllustration.html:53
 msgctxt "BanPa model viewer"
 msgid "Screenshot"
-msgstr "Ekran görüntüsü\n"
-""
+msgstr ""
 
 #. Translators: Button label. This is supposed to be a continuation of "Screenshot".
 #: bang/templates/include/costumeTopIllustration.html:55
 msgctxt "BanPa model viewer"
 msgid "(with background)"
-msgstr "(arka planla birlikte)\n"
-""
+msgstr ""
 
 #: bang/models.py:1545 bang/models.py:1577
 msgid "All perfect"
-msgstr "Hepsi mükemmel\n"
-""
+msgstr ""
 
 #: bang/settings.py:196
 msgid "Thank you Yurishii"
-msgstr "Teşekkürler Yurishii\n"
-""
+msgstr ""
 
 #. Refers to the "hot feed" of activities on the homepage (don't translate literally!)
 #: magi/default_settings.py:459 magi/forms.py:3050
 msgid "Hot"
-msgstr "Sıcak\n"
-""
+msgstr ""
 
 #: bang/forms.py:1474
 msgid "How often do you hit PERFECT notes?"
-msgstr "PERFECT notalarına ne sıklıkla vurursunuz?\n"
-""
+msgstr ""
 
 #: bang/forms.py:1482
 msgid "How often is your life above 900?"
-msgstr "Hayatın ne sıklıkla 900'ün üstünde?\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:821 bang/magicollections.py:827
 #: bang/magicollections.py:2704 bang/magicollections.py:2732
 #: bang/models.py:2195
 msgid "Costume"
-msgstr "Kostüm\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1681
 msgid "Item"
-msgstr "madde\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1682
 #: idolstory/sukutomo_future_translations.py:48
 msgid "Items"
-msgstr "Öğeler\n"
-""
+msgstr ""
 
 #: bang/forms.py:1047 bang/magicollections.py:2263 bang/magicollections.py:2354
 #: bang/models.py:1832
 msgid "Area"
-msgstr "alan\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2149 bang/magicollections.py:2187
 #: bang/magicollections.py:2315 bang/magicollections.py:2569 bang/models.py:324
 #: bang/settings.py:314
 msgid "Gallery"
-msgstr "galeri\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2244 bang/magicollections.py:2293
 #: bang/models.py:1896 bang/models.py:1941
 msgid "Area item"
-msgstr "Alan öğesi\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2182 bang/magicollections.py:2199
 #: bang/magicollections.py:2245 bang/magicollections.py:2294
 #: bang/magicollections.py:2319 bang/views.py:50
 msgid "Area items"
-msgstr "Alan öğeleri\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2442
 msgid "Asset"
-msgstr "Varlık\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2443 bang/magicollections.py:2545 bang/models.py:325
 msgid "Assets"
-msgstr "Varlıklar\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2705 bang/models.py:319
 msgid "Costumes"
-msgstr "Kostümler\n"
-""
+msgstr ""
 
 #: bang/models.py:1774
 msgid "Quantity"
-msgstr "miktar\n"
-""
+msgstr ""
 
 #: bang/models.py:1822
 msgid "Poster"
-msgstr "Afiş\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1315
 msgid "Comics"
-msgstr "Karikatürler\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:925 idolstory/settings.py:441
 #: idolstory/sukutomo_future_translations.py:48
 msgid "Backgrounds"
-msgstr "Arka plan\n"
-""
+msgstr ""
 
 #: bang/models.py:337 bang/models.py:2040 bang/models.py:2046
 msgid "Stamps"
-msgstr "Pullar\n"
-""
+msgstr ""
 
 #: bang/models.py:2050
 msgid "Titles"
-msgstr "Başlıklar\n"
-""
+msgstr ""
 
 #: bang/models.py:2066 bang/models.py:2068
 msgid "Interface"
-msgstr "Arayüz\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1218
 msgid "Outdoor"
-msgstr "Dış mekan\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1219
 msgid "Indoor"
-msgstr "Kapalı\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1221
 msgid "Stage"
-msgstr "Sahne\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1222
 msgid "Home"
-msgstr "Ev\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1223
 msgid "Dating spot"
-msgstr "Buluşma noktası\n"
-""
+msgstr ""
 
 #: bang/models.py:2218
 msgid "Costume type"
-msgstr "Kostüm tipi\n"
-""
+msgstr ""
 
 #: bang/settings.py:191
 msgid "Change My Mind Challenge"
-msgstr "Fikrimi Değiştir Meydan Okuma\n"
-""
+msgstr ""
 
 #: starlight/models.py:92 starlight/models.py:1045
 msgid "Worldwide version"
-msgstr "Dünya çapında sürüm\n"
-""
+msgstr ""
 
 #: idolstory/models.py:212 idolstory/models.py:1392 idolstory/models.py:1710
 #: idolstory/sukutomo_future_translations.py:376
@@ -3333,38 +3231,32 @@ msgstr "Dünya çapında sürüm\n"
 #: idolstory/sukutomo_future_translations.py:378
 #: idolstory/sukutomo_future_translations.py:381
 msgid "Chinese version"
-msgstr "Çin versiyonu\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:28
 #: idolstory/sukutomo_future_translations.py:279
 msgid "Score Match"
-msgstr "Skor Maçı\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:31
 #: idolstory/sukutomo_future_translations.py:282
 msgid "Medley Festival"
-msgstr "Karışık Festivali\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:34
 #: idolstory/sukutomo_future_translations.py:285
 msgid "Challenge Festival"
-msgstr "Meydan Okuma Festivali\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:37
 #: idolstory/sukutomo_future_translations.py:288
 msgid "Adventure Stroll"
-msgstr "Macera Gezintisi\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:40
 #: idolstory/sukutomo_future_translations.py:291
 msgid "Friendly Match"
-msgstr "Dostluk maçı\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2143
 msgid "Edit your {thing}"
@@ -3373,23 +3265,19 @@ msgstr "{thing} öğenizi düzenleyin\n"
 
 #: magi/views.py:916
 msgid "If you delete this {thing} ({instance}), the following will automatically be deleted as well:"
-msgstr "Bu {thing} ({instance}) öğesini silerseniz, aşağıdakiler de otomatik olarak silinecektir:\n"
-""
+msgstr ""
 
 #: magi/views.py:917
 msgid "Are you sure you want to delete this {thing} ({instance})?"
-msgstr "Bu {thing} ({instance}) sayfasını silmek istediğinizden emin misiniz?\n"
-""
+msgstr ""
 
 #: stardustrun/settings.py:56
 msgid "Medal"
-msgstr "Madalya\n"
-""
+msgstr ""
 
 #: stardustrun/settings.py:57
 msgid "Gym"
-msgstr "Jimnastik\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3204 magi/settings.py:708 magi/tools.py:201
 #: magi/tools.py:242 magi/utils.py:737
@@ -3398,138 +3286,112 @@ msgstr "Mutlu Yıllar"
 
 #: bang/models.py:258
 msgid "Classroom"
-msgstr "Sınıf\n"
-""
+msgstr ""
 
 #: bang/models.py:2072 bang/models.py:2080 bang/settings.py:323
 msgid "Official art"
-msgstr "Resmi sanat\n"
-""
+msgstr ""
 
 #: bang/utils.py:95
 msgid "Rerun"
-msgstr "tekrar yayınlama\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:26
 msgid "Copied"
-msgstr "Kopyalanan\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:26 magi/templates/items/activityItem.html:26
 msgid "Archived"
-msgstr "Arşivlenen\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:26
 msgid "Unarchived"
-msgstr "Arşivlenmedi\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:453 magi/forms.py:3086
 #: magi/templates/items/activityItem.html:14
 msgid "Popular"
-msgstr "Popüler\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:466
 msgid "New"
-msgstr "Yeni\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:482 magi/default_settings.py:510
 #: magi/templates/items/activityItem.html:19
 msgid "Staff picks"
-msgstr "Personel seçtikleri\n"
-""
+msgstr ""
 
 #: magi/forms.py:2288
 msgid "Customize profile"
-msgstr "Profili özelleştir\n"
-""
+msgstr ""
 
 #: magi/forms.py:3089
 msgid "Hide archived activities"
-msgstr "Arşivlenmiş etkinlikleri gizle\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3496
 msgid "Unarchive"
-msgstr "Arşivden Çıkar\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3505 magi/magicollections.py:3507
 msgid "Archive"
-msgstr "Arşiv\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3510 magi/templates/pages/settings.html:74
 #: magi/templates/pages/settings.html:143
 msgid "Premium feature"
-msgstr "Premium özellik\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3636
 msgid "You might be the first person who sees these activities!"
-msgstr "Bu aktiviteleri ilk gören siz olabilirsiniz!\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3637
 msgid "If you see anything that doesn't follow our rules, please help us by reporting it."
-msgstr "Kurallarımıza uymayan bir şey görürseniz, lütfen bildirerek bize yardımcı olun.\n"
-""
+msgstr ""
 
 #: magi/models.py:201 magi/views.py:673
 msgid "Custom link"
-msgstr "Özel bağlantı\n"
-""
+msgstr ""
 
 #: magi/models.py:1115
 msgid "When someone likes an activity you archived."
-msgstr "Birisi arşivlediğiniz bir etkinliği beğendiğinde.\n"
-""
+msgstr ""
 
 #: magi/templates/pages/settings.html:15
 msgid "Preferences"
-msgstr "Tercihler\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:29 magi/templates/pages/about.html:76
 #: magi/templates/pages/settings.html:17 magi/utils.py:980 magi/utils.py:1608
 #: magi/views.py:144
 msgid "More"
-msgstr "Daha\n"
-""
+msgstr ""
 
 #: magi/templates/include/donate.html:27
 msgid "Can't use Patreon?"
-msgstr "Patreon'u kullanamıyor musunuz?\n"
-""
+msgstr ""
 
 #: magi/templates/items/donateItem.html:40
 msgid "Goal"
-msgstr "Hedef\n"
-""
+msgstr ""
 
 #: magi/templates/items/donateItem.html:42
 msgid "Total spent"
-msgstr "Toplam harcama\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:183
 msgid "Encore"
-msgstr "istek parça\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:184
 msgid "Life Sparkle"
-msgstr "Yaşam Işıltısı\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:185
 msgid "Tricolor Synergy"
-msgstr "Üç Renkli Sinerji\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:228
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance to activate the previous skill again for {skill_duration} seconds."
@@ -3538,33 +3400,27 @@ msgstr "Her {trigger_value} saniyede bir, {skill_duration} saniye boyunca bir ö
 
 #: cpro/model_choices.py:229
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra combo bonus based on your current health for {skill_duration} seconds."
-msgstr "Her {trigger_value} saniyede bir, {skill_duration} saniye boyunca mevcut sağlığınıza bağlı olarak ekstra bir combo bonusu kazanma şansınız% {trigger_chance} olur.\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:230
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that with all three types of idols on the team, you will gain an extra {skill_value2}% combo bonus, and Perfect notes will receive a {skill_value}% score bonus plus restore {skill_value3} life, for {skill_duration} seconds."
-msgstr "Her {trigger_value} saniyede bir, takımdaki her üç idol türüyle de ekstra {skill_value2}% birleşik bonus kazanma şansınız vardır ve Perfect notes% {skill_value}% puan bonusu kazanır artı {skill_duration} saniye boyunca {skill_value3} ömrünü geri yükle.\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:660
 msgid "Princess"
-msgstr "Prenses\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:321
 msgid "Cheer"
-msgstr "tezahürat\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:322
 msgid "Cinderella Charm"
-msgstr "tezahürat\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:323
 msgid "Fortune Present"
-msgstr "Şans Hediyesi\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:345
 msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}% when there are only {idol_type} idols on the team."
@@ -3580,8 +3436,7 @@ msgstr ""
 
 #: cpro/model_choices.py:361
 msgid "Gives extra rewards when you finish a live."
-msgstr "Şans Hediyesi\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:377 cpro/model_choices.py:382
 #: cpro/model_choices.py:383 cpro/model_choices.py:384
@@ -3590,79 +3445,64 @@ msgstr ""
 
 #: cpro/model_choices.py:387
 msgid "Skill probability"
-msgstr "Şans Hediyesi\n"
-""
+msgstr ""
 
 #: bang/forms.py:548 bang/forms.py:730
 msgid "Status"
-msgstr "Şans Hediyesi\n"
-""
+msgstr ""
 
 #: bang/forms.py:549 bang/forms.py:731
 msgid "Past"
-msgstr "geçmiş\n"
-""
+msgstr ""
 
 #: bang/forms.py:550 bang/forms.py:732
 msgid "Current"
-msgstr "şimdiki\n"
-""
+msgstr ""
 
 #: bang/forms.py:551 bang/forms.py:733
 msgid "Future"
-msgstr "gelecek\n"
-""
+msgstr ""
 
 #: starlight/settings.py:198
 msgid "Meme"
-msgstr "Meme\n"
-""
+msgstr ""
 
 #: bang/settings.py:152
 msgid "Scouting"
-msgstr "keşfe çıkma\n"
-""
+msgstr ""
 
 #: starlight/settings.py:170
 msgid "Manga"
-msgstr "Manga\n"
-""
+msgstr ""
 
 #: starlight/settings.py:205
 msgid "Question"
-msgstr "Soru\n"
-""
+msgstr ""
 
 #: starlight/settings.py:219
 msgid "Swearing"
-msgstr "Küfür\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:27
 msgid "End of new messages"
-msgstr "Yeni mesajların sonu\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:2890 magi/magicollections.py:4263
 msgid "Private messages"
-msgstr "Özel mesajlar\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:2784 magi/magicollections.py:3214
 #: magi/magicollections.py:4273
 msgid "Send a message"
-msgstr "Bir mesaj göndermek\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4262 magi/models.py:1123
 msgid "Private message"
-msgstr "Özel mesaj\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4307 magi/magicollections.py:4426
 msgid "Inbox"
-msgstr "Gelen kutusu\n"
-""
+msgstr ""
 
 #: magi/forms.py:1372 magi/views.py:587 magi/views.py:799
 #: magi/views_collections.py:65
@@ -3671,159 +3511,128 @@ msgstr "{page_name} geri dön"
 
 #: magi/magicollections.py:4447 magi/views.py:588
 msgid "You are not allowed to send private messages."
-msgstr "Özel mesaj gönderme izniniz yok.\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4448 magi/views.py:589
 msgid "Take some time to play around {site_name} to unlock this feature!"
-msgstr "Bu özelliğin kilidini açmak için {site_name} etrafında oynamak için biraz zaman ayırın!\n"
-""
+msgstr ""
 
 #: magi/models.py:252
 msgid "Anyone"
-msgstr "Kimse\n"
-""
+msgstr ""
 
 #: magi/models.py:253
 msgid "Only people I follow"
-msgstr "Sadece takip ettiğim insanlar\n"
-""
+msgstr ""
 
 #: magi/models.py:254
 msgid "Nobody"
-msgstr "Kimse\n"
-""
+msgstr ""
 
 #: magi/models.py:256
 msgid "Who is allowed to send you private messages?"
-msgstr "Kimlerin size özel mesaj göndermesine izin verilir?\n"
-""
+msgstr ""
 
 #: magi/models.py:1121
 msgid "You have a new private message from {}."
-msgstr "{} Adlı kişiden yeni bir özel mesajınız var.\n"
-""
+msgstr ""
 
 #: magi/models.py:1122
 msgid "When someone sends you a private message."
-msgstr "Birisi size özel mesaj gönderdiğinde.\n"
-""
+msgstr ""
 
 #: magi/templates/base.html:262
 msgid "Close"
-msgstr "Kapat\n"
-""
+msgstr ""
 
 #: magi/templates/base.html:266
 msgid "Remind me later"
-msgstr "Bana daha sonra hatırlat\n"
-""
+msgstr ""
 
 #: magi/templates/base.html:270
 msgid "Don't show this again"
-msgstr "Bunu bir daha gösterme\n"
-""
+msgstr ""
 
 #: magi/utils.py:749
 msgid "Your email address is invalid."
-msgstr "Eposta adresiniz geçersizdir.\n"
-""
+msgstr ""
 
 #: magi/utils.py:750
 msgid "Some features might not work properly."
-msgstr "Some features might not work properly.\n"
-""
+msgstr ""
 
 #: magi/views.py:800
 msgid "Wiki home"
-msgstr "Wiki Ana Sayfası\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:186
 msgid "Focus"
-msgstr "odak\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:231
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus for {skill_duration} seconds"
-msgstr "Her {trigger_value} saniyede bir, Perfect notes'ın% {bonus_value}% puan bonusu kazanması ve {skill_duration} saniye boyunca ekstra {skill_value2}% birleşik bonus kazanma şansınız vardır\n"
-""
+msgstr ""
 
 #: bang/models.py:1124
 msgid "VS Live"
-msgstr "VS Canlı\n"
-""
+msgstr ""
 
 #: bang/models.py:2124
 msgid "Collab"
-msgstr "collab\n"
-""
+msgstr ""
 
 #: bang/models.py:2125
 msgid "Dengeki G's magazine"
-msgstr "Dengeki G'nin dergisi\n"
-""
+msgstr ""
 
 #: starlight/models.py:1100 starlight/models.py:1350
 msgid "Seasonal"
-msgstr "mevsimlik\n"
-""
+msgstr ""
 
 #: bang/settings.py:201
 msgid "Thank you Ake-san"
-msgstr "Teşekkür ederim Ake-san\n"
-""
+msgstr ""
 
 #: starlight/models.py:296
 msgid "Playground"
-msgstr "Oyun alanı\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1225
 msgid "Sunset"
-msgstr "Gün batımı\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1226
 msgid "Night"
-msgstr "Gece\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1227
 msgid "Rain"
-msgstr "Yağmur\n"
-""
+msgstr ""
 
 #: starlight/models.py:125
 msgid "Snow"
-msgstr "Kar\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1229
 msgid "Cherry blossoms"
-msgstr "Kiraz çiçekleri\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1230
 msgid "Fireworks"
-msgstr "Havai fişek\n"
-""
+msgstr ""
 
 #: bang/settings.py:206
 msgid "CosParty 2018"
-msgstr "CosParty 2018\n"
-""
+msgstr ""
 
 #: magi/models.py:1315
 msgid "This is {month}'s badge. It's limited to this month only, and only our donators can get it. It's not too late! If you donate now, it will appear on your profile."
-msgstr "Bu {month} 'ın rozeti. Sadece bu ayla sınırlı ve sadece bağışçılarımız alabilir. Çok geç değil! Şimdi bağış yaparsanız, profilinizde görünecektir.\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:924 idolstory/models.py:1268
 #: idolstory/models.py:1269 idolstory/models.py:2508
 msgid "Background"
-msgstr "Arka fon\n"
-""
+msgstr ""
 
 #: magi/utils.py:229
 msgid "{nth} Favorite {thing}"
@@ -3831,115 +3640,93 @@ msgstr "{nth} Favori {thing}"
 
 #: magi/utils.py:211
 msgid "Character"
-msgstr "Karakter\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:240 bang/magicollections.py:244 bang/settings.py:126
 msgid "TOP"
-msgstr "ÜST\n"
-""
+msgstr ""
 
 #: bang/models.py:1126
 msgid "Mission Live"
-msgstr "Görev Canlı\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:207 idolstory/settings.py:39 idolstory/settings.py:219
 #: idolstory/settings.py:381 idolstory/settings.py:576
 msgid "Love Live!"
-msgstr "Aşk Canlı!\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:57
 msgid "Puchis"
-msgstr "Puchis\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:63
 msgid "School Idol Collection"
-msgstr "School Idol Koleksiyonu\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:64
 msgid "Weiss Schwartz"
-msgstr "Weiss Schwartz\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:66
 msgid "School Idol Contest"
-msgstr "School Idol Yarışması\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:67
 msgid "School Idol Trivia"
-msgstr "Okul Idol ıvır zıvır şeyler\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:68
 msgid "School Idol Memory"
-msgstr "Okul İdolü Hafızası\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:304 starlight/settings.py:167
 msgid "Voice actresses"
-msgstr "Sesli aktrisler\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1438
 #: idolstory/sukutomo_future_translations.py:72
 msgid "Episodes"
-msgstr "Episodes\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:76
 msgid "Official merchandise"
-msgstr "\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:77
 msgid "Fan-made items"
-msgstr "Hayran yapımı ürünler\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:78
 msgid "Commissions"
-msgstr "Komisyonlar\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:81
 msgid "Cosplays"
-msgstr "Cosplays\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:82
 msgid "Fanarts"
-msgstr "Fanarts\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:83
 msgid "Fan edits"
-msgstr "Hayran düzenlemeleri\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:84
 msgid "Fan fictions"
-msgstr "Fan kurguları\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:85
 msgid "Community events"
-msgstr "Topluluk olayları\n"
-""
+msgstr ""
 
 #: sukutomo/settings.py:243
 msgid "Games"
-msgstr "Oyunlar\n"
-""
+msgstr ""
 
 #: sukutomo/settings.py:322
 msgid "Shop"
-msgstr "Shop\n"
-""
+msgstr ""
 
 #: magi/forms.py:2980 magi/models.py:175
 msgid "Always post activities in {language}"
@@ -3953,8 +3740,7 @@ msgstr "{} Gacha"
 
 #: bang/magicollections.py:2177
 msgid "Locations"
-msgstr "Locations\n"
-""
+msgstr ""
 
 #: bang/models.py:492
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%"
@@ -3967,134 +3753,111 @@ msgstr "For the next {duration} seconds, if life is {stamina} or above, score bo
 #. Name of a type of events in BanG Dream!
 #: bang/models.py:1125
 msgid "Live Goals"
-msgstr "Live Goals\n"
-""
+msgstr ""
 
 #. Name of an achievement you can get after finishing an event in BanG Dream!
 #: bang/models.py:1256 bang/models.py:1286
 msgid "Goal Master"
-msgstr "Goal Master\n"
-""
+msgstr ""
 
 #. Name of an achievement you can get after finishing an event in BanG Dream!
 #: bang/models.py:1257 bang/models.py:1291
 msgid "EX Goal Master"
-msgstr "EX Goal Master\n"
-""
+msgstr ""
 
 #. The type of an item, when it's a "main" item.
 #: bang/models.py:1749
 msgid "Main"
-msgstr "Main\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1821
 msgid "Studio"
-msgstr "Studio\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1823
 msgid "Counter"
-msgstr "sayaç\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1826
 msgid "Entrance"
-msgstr "Giriş\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1827
 msgid "Sign"
-msgstr "İşaret\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1828
 msgid "Plaza"
-msgstr "Plaza\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1829
 msgid "Garden"
-msgstr "Bahçe\n"
-""
+msgstr ""
 
 #: bang/models.py:1835 bang/models.py:1883
 msgid "Mic"
-msgstr "Mikrofon\n"
-""
+msgstr ""
 
 #: bang/models.py:1836
 msgid "Guitar"
-msgstr "Gitar\n"
-""
+msgstr ""
 
 #: bang/models.py:1837
 msgid "Bass"
-msgstr "Bas\n"
-""
+msgstr ""
 
 #: bang/models.py:1838
 msgid "Drums"
-msgstr "Davul\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:112
 msgid "Hits"
-msgstr "Hits\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:113
 #: idolstory/sukutomo_future_translations.py:121
 msgid "Daily rotation"
-msgstr "Daily rotation\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:114
 #: idolstory/sukutomo_future_translations.py:124
 #: idolstory/sukutomo_future_translations.py:125
 #: idolstory/sukutomo_future_translations.py:1074
 msgid "B-Side"
-msgstr "B-Side\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:175
 #: idolstory/sukutomo_future_translations.py:1078
 msgid "with SWIPE notes"
-msgstr "with SWIPE notes\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1682 idolstory/models.py:1687 idolstory/models.py:3035
 #: idolstory/models.py:3040 idolstory/sukutomo_future_translations.py:947
 #: idolstory/sukutomo_future_translations.py:952
 msgid "Details"
-msgstr "Details\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:665
 msgid "Angel"
-msgstr "melek\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:670
 msgid "Empress"
-msgstr "İmparatoriçe\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:675
 msgid "Star"
-msgstr "Star\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:679
 msgid "Heart"
-msgstr "kalp\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1632 idolstory/models.py:1635 idolstory/models.py:1764
 #: idolstory/models.py:1765 idolstory/models.py:1767 idolstory/models.py:1770
@@ -4108,79 +3871,64 @@ msgstr "kalp\n"
 #: idolstory/sukutomo_future_translations.py:872
 #: idolstory/sukutomo_future_translations.py:876
 msgid "Idolized"
-msgstr "idolleştirmişti\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:1045 sukutomo/models.py:697
 #: sukutomo/models.py:1150 sukutomo/models.py:1603
 msgid "Sets"
-msgstr "Setler\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:730
 msgid "Transparents"
-msgstr "saydamları\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:539
 msgid "Set"
-msgstr "Ayarlamak\n"
-""
+msgstr ""
 
 #: idolstory/models.py:960
 msgid "Hakodate Seisen Girls' Academy"
-msgstr "Hakodate Seisen Kız Akademisi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:961
 msgid "UTX High School"
-msgstr "UTX Lisesi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:647
 msgid "Instagram"
-msgstr "Instagram\n"
-""
+msgstr ""
 
 #: starlight/models.py:403 starlight/models.py:763
 msgid "Social media"
-msgstr "Sosyal medya\n"
-""
+msgstr ""
 
 #: sukutomo/settings.py:263
 msgid "Trading cards"
-msgstr "Ticaret kartları\n"
-""
+msgstr ""
 
 #: sukutomo/settings.py:267
 msgid "Online mini games"
-msgstr "Çevrimiçi mini oyunlar\n"
-""
+msgstr ""
 
 #: bang/models.py:1824
 msgid "Mini table"
-msgstr "Mini masa\n"
-""
+msgstr ""
 
 #: bang/models.py:1825
 msgid "Magazine rack"
-msgstr "Magazin yığını\n"
-""
+msgstr ""
 
 #: bang/models.py:1830
 msgid "Specials menu"
-msgstr "Özel menü\n"
-""
+msgstr ""
 
 #: bang/forms.py:588
 msgid "Please provide a screenshot to prove your ranking."
-msgstr "Sıralamanızı kanıtlamak için lütfen bir ekran görüntüsü sağlayın.\n"
-""
+msgstr ""
 
 #: bang/forms.py:1056 bang/models.py:1855
 msgid "Statistic"
-msgstr "istatistik\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2006
 #, fuzzy
@@ -4189,23 +3937,19 @@ msgstr "Orijinal"
 
 #: bang/models.py:1015 bang/models.py:1857
 msgid "Max level"
-msgstr "En üst seviye\n"
-""
+msgstr ""
 
 #: bang/models.py:1196
 msgid "Boost statistic"
-msgstr "İstatistiği artır\n"
-""
+msgstr ""
 
 #: bang/models.py:1750
 msgid "Live boost"
-msgstr "Canlı destek\n"
-""
+msgstr ""
 
 #: bang/models.py:1751
 msgid "Studio ticket"
-msgstr "Stüdyo bileti\n"
-""
+msgstr ""
 
 #. Examples:
 #. Idol Mic
@@ -4224,8 +3968,7 @@ msgstr "{name}'s {thing}"
 
 #: bang/magicollections.py:2065 bang/models.py:2123
 msgid "Album cover"
-msgstr "Albüm kapağı\n"
-""
+msgstr ""
 
 #: bang/models.py:1926
 msgid "Restores life by {life} and {affected} members get a {value} boost on {stat} statistics"
@@ -4252,13 +3995,11 @@ msgstr "{attribute}% + {number}% işaret ediyor"
 
 #: idolstory/sukutomo_future_translations.py:693
 msgid "Leader skill"
-msgstr "Lider beceri\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:221
 msgid "Statistic effect"
-msgstr "İstatistik etkisi\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:724
 msgid "{group} members points up by +{number}%"
@@ -4270,8 +4011,7 @@ msgstr "Tümünü Okundu Olarak İşaretle"
 
 #: magi/magicollections.py:3812
 msgid "{total} notifications were marked as read."
-msgstr "{total} bildirim okundu olarak işaretlendi.\n"
-""
+msgstr ""
 
 #: bang/models.py:493
 msgid "For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
@@ -4280,13 +4020,11 @@ msgstr "Sonraki {duration} saniye boyunca, bir {note_type} nota isabet edene kad
 
 #: bang/models.py:563
 msgid "Life guard"
-msgstr "Cankurtaran\n"
-""
+msgstr ""
 
 #: bang/models.py:570
 msgid "BAD/MISS notes do not cause damage"
-msgstr "BAD / MISS notları hasara neden olmaz\n"
-""
+msgstr ""
 
 #: bang/models.py:575
 msgid "and BAD/MISS notes do not cause damage for the next {duration} seconds"
@@ -4295,8 +4033,7 @@ msgstr "ve BAD / MISS notları sonraki {duration} saniye boyunca hasara neden ol
 
 #: idolstory/models.py:2521 idolstory/sukutomo_future_translations.py:764
 msgid "Boost"
-msgstr "artırmak\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:56
 msgid "All {type} {things}"
@@ -4305,13 +4042,11 @@ msgstr "Tüm {type} {things}\n"
 
 #: magi/forms.py:1348
 msgid "Random"
-msgstr "rasgele\n"
-""
+msgstr ""
 
 #: magi/forms.py:1361 magi/forms.py:1367
 msgid "Suggestions"
-msgstr "Öneriler\n"
-""
+msgstr ""
 
 #: magi/views_collections.py:465
 msgid "All the {things}! Search by {search_terms} and filter by {filters} to find all the details you need about the {things} from {game}."
@@ -4320,18 +4055,15 @@ msgstr "Bütün her {things}! {game} sitesinden {things} hakkında ihtiyacınız
 
 #: bang/forms.py:414
 msgid "Default"
-msgstr "Varsayılan\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2781
 msgid "Chibis"
-msgstr "Chibis\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:353
 msgid "Merged with other event"
-msgstr "Başka bir etkinlikle birleştirildi\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:341
 #: idolstory/sukutomo_future_translations.py:350
@@ -4339,201 +4071,164 @@ msgstr "Başka bir etkinlikle birleştirildi\n"
 #: idolstory/sukutomo_future_translations.py:372
 #: idolstory/sukutomo_future_translations.py:381
 msgid "Tiers"
-msgstr "Katmanlar\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:1079
 msgid "Can be sold for stickers?"
-msgstr "Çıkartmalar için satılabilir mi?\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:1080
 msgid "Buy this card"
-msgstr "Bu kartı satın al\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:1081
 msgid "The character that you selected when you started playing."
-msgstr "Oynamaya başladığınızda seçtiğiniz karakter.\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3605
 msgid "Feed"
-msgstr "besleme\n"
-""
+msgstr ""
 
 #: starlight/forms.py:332 starlight/magicollections.py:86
 #: starlight/magicollections.py:303 starlight/magicollections.py:421
 #: starlight/magicollections.py:422 starlight/magicollections.py:639
 #: starlight/models.py:442 starlight/models.py:540
 msgid "Voice actress"
-msgstr "Seslendirme sanatçısı\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:363 starlight/magicollections.py:616
 #: starlight/magicollections.py:620 starlight/models.py:744
 msgid "Cast"
-msgstr "Oyuncular\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:446
 msgid "Schools"
-msgstr "Okullar\n"
-""
+msgstr ""
 
 #: starlight/forms.py:251 starlight/forms.py:553 starlight/forms.py:611
 #: starlight/magicollections.py:474 starlight/models.py:402
 #: starlight/models.py:1411 starlight/utils.py:150 starlight/utils.py:159
 msgid "Stage girl"
-msgstr "Sahne kızı\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:475 starlight/magicollections.py:1001
 #: starlight/models.py:1638 starlight/models.py:1744 starlight/settings.py:166
 msgid "Stage girls"
-msgstr "Sahne kızları\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:708
 msgid "Discography"
-msgstr "Diskografi\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1144 starlight/models.py:1949
 msgid "Memoir"
-msgstr "anı yazısı\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1145 starlight/models.py:660
 #: starlight/models.py:1749 starlight/models.py:1800
 msgid "Memoirs"
-msgstr "hatıralar\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1299
 msgid "Conversation"
-msgstr "konuşma\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1300
 msgid "Conversations"
-msgstr "Konuşmalar\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1306 starlight/settings.py:188
 msgid "My theater"
-msgstr "Benim tiyatro\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1314
 msgid "Comic"
-msgstr "komik\n"
-""
+msgstr ""
 
 #: starlight/models.py:109
 msgid "Flower"
-msgstr "Çiçek\n"
-""
+msgstr ""
 
 #: starlight/models.py:117
 msgid "Wind"
-msgstr "rüzgar\n"
-""
+msgstr ""
 
 #: starlight/models.py:133
 msgid "Cloud"
-msgstr "Bulut\n"
-""
+msgstr ""
 
 #: starlight/models.py:141
 msgid "Moon"
-msgstr "Ay\n"
-""
+msgstr ""
 
 #: starlight/models.py:157
 msgid "Dream"
-msgstr "Rüya\n"
-""
+msgstr ""
 
 #: starlight/models.py:367 starlight/models.py:369
 msgid "Specialty"
-msgstr "uzmanlık\n"
-""
+msgstr ""
 
 #: starlight/models.py:494
 msgid "Students"
-msgstr "Öğrenciler\n"
-""
+msgstr ""
 
 #: starlight/models.py:575 starlight/models.py:579 starlight/models.py:582
 #: starlight/models.py:586
 msgid "Weapon"
-msgstr "Silah\n"
-""
+msgstr ""
 
 #: starlight/models.py:598 starlight/models.py:601
 msgid "Likes"
-msgstr "Seviyor\n"
-""
+msgstr ""
 
 #: starlight/models.py:603 starlight/models.py:606
 msgid "Dislikes"
-msgstr "Beğenmeme\n"
-""
+msgstr ""
 
 #: starlight/models.py:1431
 msgid "Front"
-msgstr "Ön\n"
-""
+msgstr ""
 
 #: starlight/models.py:1429
 msgid "Rear"
-msgstr "Arka\n"
-""
+msgstr ""
 
 #: starlight/models.py:1433
 msgid "Position"
-msgstr "Position\n"
-""
+msgstr ""
 
 #: starlight/settings.py:201
 msgid "Fanart"
-msgstr "Fanarts\n"
-""
+msgstr ""
 
 #: starlight/settings.py:202
 msgid "Graphic edit"
-msgstr "Grafik düzenleme\n"
-""
+msgstr ""
 
 #: starlight/settings.py:221
 msgid "Questionable"
-msgstr "kuşkulu\n"
-""
+msgstr ""
 
 #: starlight/forms.py:129 starlight/forms.py:140
 #: starlight/magicollections.py:100 starlight/magicollections.py:101
 #: starlight/settings.py:209 starlight/settings.py:281
 #: starlight/settings.py:300
 msgid "News"
-msgstr "Haberler\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:708 starlight/models.py:848
 #: starlight/models.py:851 starlight/models.py:854 starlight/models.py:857
 msgid "Lyrics"
-msgstr "Şarkı sözleri\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:29 magi/utils.py:981
 msgid "Less"
-msgstr "Az\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:400 magi/default_settings.py:408
 msgid "β-tester"
-msgstr "β-test\n"
-""
+msgstr ""
 
 #: magi/forms.py:2608
 msgid "Users who can speak {language}"
@@ -4542,57 +4237,47 @@ msgstr "{language} konuşabilen kullanıcılar\n"
 
 #: magi/magicollections.py:2946
 msgid "Website"
-msgstr "İnternet sitesi\n"
-""
+msgstr ""
 
 #: starlight/forms.py:164
 msgid "Skip"
-msgstr "Atla\n"
-""
+msgstr ""
 
 #: starlight/forms.py:390 starlight/models.py:819 starlight/models.py:867
 #: starlight/utils.py:171
 msgid "Singers"
-msgstr "Şarkıcılar\n"
-""
+msgstr ""
 
 #: starlight/forms.py:426 starlight/forms.py:616 starlight/forms.py:654
 #: starlight/models.py:976 starlight/models.py:977 starlight/models.py:979
 #: starlight/models.py:981
 msgid "Target"
-msgstr "Hedef\n"
-""
+msgstr ""
 
 #: starlight/forms.py:510 starlight/magicollections.py:760
 #: starlight/models.py:1159 starlight/models.py:1389
 msgid "Acts"
-msgstr "Hareketler\n"
-""
+msgstr ""
 
 #: starlight/forms.py:515
 msgid "Number"
-msgstr "Numara\n"
-""
+msgstr ""
 
 #: starlight/forms.py:645 starlight/magicollections.py:1095
 msgid "Effective against"
-msgstr "Etkili\n"
-""
+msgstr ""
 
 #: starlight/forms.py:648 starlight/magicollections.py:1096
 msgid "Less effective against"
-msgstr "Karşı daha az etkili\n"
-""
+msgstr ""
 
 #: starlight/forms.py:651
 msgid "Hits more than once"
-msgstr "Bir kereden fazla vurur\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:226
 msgid "Relive account"
-msgstr "Hesabı yeniden yaşayın\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:694 starlight/magicollections.py:721
 msgid "Buy {thing}"
@@ -4601,143 +4286,116 @@ msgstr "{thing} satın alın\n"
 
 #: starlight/magicollections.py:694 starlight/magicollections.py:721
 msgid "CD"
-msgstr "CD\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:759
 msgid "Act"
-msgstr "davranmak\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:946
 msgid "Cost"
-msgstr "Maliyet\n"
-""
+msgstr ""
 
 #: starlight/forms.py:767 starlight/forms.py:803
 #: starlight/magicollections.py:975 starlight/models.py:1927
 #: starlight/models.py:1951
 msgid "Rank"
-msgstr "rütbe\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1052 starlight/models.py:759
 #: starlight/models.py:761
 msgid "Role"
-msgstr "rol\n"
-""
+msgstr ""
 
 #: starlight/models.py:149
 msgid "Space"
-msgstr "Uzay\n"
-""
+msgstr ""
 
 #: starlight/models.py:242
 msgid "Casual"
-msgstr "gündelik\n"
-""
+msgstr ""
 
 #: starlight/models.py:246
 msgid "Hardcore"
-msgstr "Hardcore\n"
-""
+msgstr ""
 
 #: starlight/models.py:252
 msgid "Play style"
-msgstr "Oyun stili\n"
-""
+msgstr ""
 
 #: starlight/models.py:255
 msgid "Stage of dreams level"
-msgstr "Rüyalar aşaması\n"
-""
+msgstr ""
 
 #: starlight/models.py:267 starlight/models.py:268 starlight/models.py:269
 msgid "Platinum"
-msgstr "Platin\n"
-""
+msgstr ""
 
 #: starlight/models.py:270
 msgid "Legend"
-msgstr "efsane\n"
-""
+msgstr ""
 
 #: starlight/models.py:274
 msgid "Vs. Revue rank"
-msgstr "Vs. Revü sıralaması\n"
-""
+msgstr ""
 
 #: starlight/models.py:293
 msgid "Total stars bought"
-msgstr "Satın alınan toplam yıldız sayısı\n"
-""
+msgstr ""
 
 #: starlight/models.py:297
 msgid "Check this box if this account doesn't exist in the game."
-msgstr "Bu hesap oyunda yoksa bu kutuyu işaretleyin.\n"
-""
+msgstr ""
 
 #: starlight/models.py:388 starlight/models.py:391 starlight/models.py:622
 #: starlight/models.py:625
 msgid "Video"
-msgstr "Video\n"
-""
+msgstr ""
 
 #: starlight/models.py:551 starlight/models.py:555
 msgid "Department"
-msgstr "Bölüm\n"
-""
+msgstr ""
 
 #: starlight/models.py:612 starlight/models.py:615
 msgid "Introduction"
-msgstr "Giriş\n"
-""
+msgstr ""
 
 #: starlight/models.py:746
 msgid "General"
-msgstr "Genel\n"
-""
+msgstr ""
 
 #: starlight/models.py:747
 msgid "Stage play"
-msgstr "Piyes\n"
-""
+msgstr ""
 
 #: starlight/models.py:748
 msgid "Additional"
-msgstr "Ek\n"
-""
+msgstr ""
 
 #: starlight/models.py:750
 msgid "Category"
-msgstr "Kategori\n"
-""
+msgstr ""
 
 #: starlight/models.py:908
 msgid "Basic"
-msgstr "Basic\n"
-""
+msgstr ""
 
 #: starlight/models.py:913
 msgid "Climax"
-msgstr "doruk\n"
-""
+msgstr ""
 
 #: starlight/models.py:918
 msgid "Auto"
-msgstr "Oto\n"
-""
+msgstr ""
 
 #: starlight/models.py:923
 msgid "Finishing"
-msgstr "Bitiricilik\n"
-""
+msgstr ""
 
 #: starlight/models.py:950 starlight/models.py:954 starlight/models.py:1106
 #: starlight/models.py:1110
 msgid "Tips"
-msgstr "İpuçları\n"
-""
+msgstr ""
 
 #: starlight/models.py:966
 msgid "Unlock at rank {rank}"
@@ -4751,235 +4409,190 @@ msgstr "{number_of_times} defaya ulaştı\n"
 
 #: starlight/models.py:972
 msgid "Front enemy"
-msgstr "Ön düşman\n"
-""
+msgstr ""
 
 #: starlight/models.py:973
 msgid "Front group of enemies"
-msgstr "Ön grup düşman\n"
-""
+msgstr ""
 
 #: starlight/models.py:974
 msgid "All enemies"
-msgstr "Tüm düşmanlar\n"
-""
+msgstr ""
 
 #: starlight/models.py:986
 msgid "After full bound break"
-msgstr "Tam bağlı aradan sonra\n"
-""
+msgstr ""
 
 #: starlight/models.py:1005
 msgid "AP"
-msgstr "AP\n"
-""
+msgstr ""
 
 #: starlight/models.py:1162 starlight/models.py:1168 starlight/models.py:1174
 #: starlight/models.py:1182
 msgid "ACT Power"
-msgstr "ACT Gücü\n"
-""
+msgstr ""
 
 #: starlight/models.py:1163 starlight/models.py:1169 starlight/models.py:1176
 #: starlight/models.py:1184
 msgid "Normal defense"
-msgstr "Normal savunma\n"
-""
+msgstr ""
 
 #: starlight/models.py:1164 starlight/models.py:1170 starlight/models.py:1178
 #: starlight/models.py:1186
 msgid "Special defense"
-msgstr "Özel savunma\n"
-""
+msgstr ""
 
 #: starlight/models.py:1165 starlight/models.py:1171 starlight/models.py:1179
 #: starlight/models.py:1187
 msgid "Agility"
-msgstr "Çeviklik\n"
-""
+msgstr ""
 
 #: starlight/models.py:1194
 msgid "Base"
-msgstr "baz\n"
-""
+msgstr ""
 
 #: starlight/models.py:1414
 msgid "Element"
-msgstr "eleman\n"
-""
+msgstr ""
 
 #: starlight/models.py:1440
 msgid "Anti-tank"
-msgstr "Anti-tank\n"
-""
+msgstr ""
 
 #: starlight/models.py:1441
 msgid "Assassin"
-msgstr "katil\n"
-""
+msgstr ""
 
 #: starlight/models.py:1442
 msgid "Attacker"
-msgstr "saldırgan\n"
-""
+msgstr ""
 
 #: starlight/models.py:1443
 msgid "Burn"
-msgstr "Yanmak\n"
-""
+msgstr ""
 
 #: starlight/models.py:1444
 msgid "Debuffer"
-msgstr "Çapak\n"
-""
+msgstr ""
 
 #: starlight/models.py:1445
 msgid "Defender"
-msgstr "savunma oyuncusu\n"
-""
+msgstr ""
 
 #: starlight/models.py:1446
 msgid "Disabler"
-msgstr "Disabler\n"
-""
+msgstr ""
 
 #: starlight/models.py:1448
 msgid "Nuker"
-msgstr "Nuker\n"
-""
+msgstr ""
 
 #: starlight/models.py:1450
 msgid "Special defender"
-msgstr "Özel savunma oyuncusu\n"
-""
+msgstr ""
 
 #: starlight/models.py:1451
 msgid "Special defense tank"
-msgstr "Özel savunma tankı\n"
-""
+msgstr ""
 
 #: starlight/models.py:1453
 msgid "Tank"
-msgstr "tank\n"
-""
+msgstr ""
 
 #: starlight/models.py:1666 starlight/models.py:1714
 msgid "Upgrade"
-msgstr "Yükselt\n"
-""
+msgstr ""
 
 #: starlight/models.py:1667 starlight/models.py:1720
 msgid "VS. Revue reward"
-msgstr "VS. Revü ödülü\n"
-""
+msgstr ""
 
 #: starlight/models.py:1669
 msgid "Selling price"
-msgstr "Satış fiyatı\n"
-""
+msgstr ""
 
 #: starlight/models.py:1674 starlight/models.py:1677
 msgid "Explanation"
-msgstr "açıklama\n"
-""
+msgstr ""
 
 #: starlight/settings.py:171
 msgid "Movie"
-msgstr "Film\n"
-""
+msgstr ""
 
 #: starlight/settings.py:175
 msgid "Meetups"
-msgstr "Buluşmalar\n"
-""
+msgstr ""
 
 #: starlight/models.py:836 starlight/models.py:839
 msgid "Orchestral arrangement"
-msgstr "Orkestra düzenlemesi\n"
-""
+msgstr ""
 
 #: starlight/settings.py:33
 msgid "\n"
 "Shoujo☆Kageki Revue Starlight (Lit. Girls☆Opera Revue Starlight) is a multi-media project produced by Bushiroad and Nelke Planning. It aims to link the world of anime and musicals together. Besides the anime series and the musical performances, the voice actresses also perform live concerts and various events for fans. The characters from the license also appear in 3 manga series and a mobile game called \"Relive\".\n"
 ""
-msgstr "Shoujo ☆ Kageki Revue Starlight (Lit. Girls ☆ Opera Revue Starlight) Bushiroad ve Nelke Planning tarafından üretilen bir multimedya projesidir. Anime ve müzikaller dünyasını birbirine bağlamayı amaçlamaktadır. Anime dizileri ve müzik performanslarının yanı sıra, ses aktrisleri de hayranlar için canlı konserler ve çeşitli etkinlikler gerçekleştiriyor. Lisanstaki karakterler de 3 manga serisinde ve “Relive” adında bir mobil oyunda yer alıyor.\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:756
 msgid "Sitemap"
-msgstr "Site haritası\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:683
 msgid "Search and filter"
-msgstr "Arama ve filtreleme\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:723
 msgid "When you buy from this link, it costs you nothing extra, but we get a percentage which helps support the community and pay for the servers!"
-msgstr "Bu bağlantıdan satın aldığınızda, ekstra bir ücrete gerek yoktur, ancak toplumu desteklemeye ve sunucular için ödeme yapmaya yardımcı olan bir yüzde elde ederiz!\n"
-""
+msgstr ""
 
 #: idolstory/models.py:639
 msgid "Official agency profile"
-msgstr "Resmi ajans profili\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1364 idolstory/settings.py:237
 msgid "Stories"
-msgstr "Hikayeler\n"
-""
+msgstr ""
 
 #: idolstory/settings.py:408
 msgid "Gameplay"
-msgstr "Oynanış\n"
-""
+msgstr ""
 
 #: magi/templates/pages/prelaunch.html:27
 msgid "Thank you for pre-registering!"
-msgstr "Ön kayıt olduğunuz için teşekkür ederiz!\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:80
 msgid "Users"
-msgstr "Kullanıcılar\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:977 magi/default_settings.py:983
 #: magi/default_settings.py:992 magi/default_settings.py:998 magi/utils.py:2950
 msgid "Advent calendar"
-msgstr "Varış takvimi\n"
-""
+msgstr ""
 
 #: magi/forms.py:2020
 msgid "Optional"
-msgstr "İsteğe bağlı\n"
-""
+msgstr ""
 
 #: magi/forms.py:3022
 msgid "{thing} required."
-msgstr "{thing} gerekli.\n"
-""
+msgstr ""
 
 #: magi/forms.py:3058
 msgid "Past tags"
-msgstr "Geçmiş etiketler\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:1325
 msgid "Original"
-msgstr "orijinal\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:1329
 msgid "High quality"
-msgstr "Yüksek kalite\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:2808
 msgid "Your inbox is only open to people you follow, and you're not following anyone."
-msgstr "Gelen kutunuz yalnızca takip ettiğiniz kişilere açıktır ve kimseyi takip etmiyorsunuzdur.\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3191
 msgid "Hey, look! I'm on {site}! Follow me ♥︎"
@@ -4988,88 +4601,71 @@ msgstr "Hey, bak! Ben {site}'deyim! Beni takip et ♥ ︎\n"
 
 #: magi/magicollections.py:3921
 msgid "How to get badges?"
-msgstr "Rozet nasıl alınır?\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3922
 msgid "Collect them all!"
-msgstr "Hepsini topla!\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4238
 msgid "Prizes"
-msgstr "Ödüller\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4454
 msgid "Your inbox is closed."
-msgstr "Gelen kutunuz kapalı.\n"
-""
+msgstr ""
 
 #: magi/seasons.py:58
 msgid "Happy New Year!"
-msgstr "Yeni Yılınız mutlu olsun!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:63
 msgid "Happy Lunar New Year!"
-msgstr "Mutlu Ay Yeni Yılı!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:68
 msgid "Happy Valentine's Day!"
-msgstr "Mutlu sevgililer günü!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:73
 msgid "Happy Leap Day!"
-msgstr "Artık Gününüz kutlu olsun!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:83
 msgid "Happy White Day!"
-msgstr "Mutlu Beyaz Günler!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:88
 msgid "Happy St Patrick's Day!"
-msgstr "Aziz Patrick Günü kutlu olsun!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:93
 msgid "Happy April Fool's Day!"
-msgstr "April Fool Günü kutlu olsun!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:155
 msgid "Happy Easter!"
-msgstr "Mutlu Paskalyalar!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:160
 msgid "May the Fourth be with you!"
-msgstr "Dördüncü sizinle olsun!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:170
 msgid "Happy Pride Month!"
-msgstr "Mutlu Gurur Ayı!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:177
 msgid "Happy Thanksgiving!"
-msgstr "Şükran Günü kutlu olsun!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:182
 msgid "Happy Halloween!"
-msgstr "Mutlu Cadılar Bayramı!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:197 magi/utils.py:2943 magi/views.py:1601
 msgid "Merry Christmas!"
-msgstr "Mutlu Noeller!\n"
-""
+msgstr ""
 
 #: magi/settings.py:885
 msgid "Learn a few tips and tricks to help you easily use {site}."
@@ -5078,38 +4674,31 @@ msgstr "{site} 'i kolayca kullanmanıza yardımcı olacak birkaç ipucu ve püf 
 
 #: magi/settings.py:891
 msgid "Map of all {license} fans around the world."
-msgstr "Dünyadaki tüm {license} hayranlarının haritası.\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1349 idolstory/models.py:1352
 msgid "Credits"
-msgstr "Kredi\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:109
 msgid "LIVE Carnival"
-msgstr "CANLI Karnaval\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:187
 msgid "Hold"
-msgstr "Hold\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:232
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and hold notes a {skill_value2}% score bonus in the next {skill_duration} seconds."
-msgstr "Her {trigger_value} saniye için Perfect {notların% {bonus_value}% puan bonusu alma ve notları sonraki {skill_duration} saniye içinde {skill_value2}% puan bonusu tutma şansı vardır.\n"
-""
+msgstr ""
 
 #: bang/models.py:494
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members"
-msgstr "Sonraki {süre} saniye boyunca, ekibiniz yalnızca {nüfuz} üyeden oluşuyorsa PERFECT nota puanı% + {yüzde} veya% + {cond_perprint}% artırıldı\n"
-""
+msgstr ""
 
 #: bang/models.py:495
 msgid "For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr "Sonraki {süre} saniye boyunca, puan {{not_type} nota isabet edinceye kadar% + {yüzde} (+ ekibiniz yalnızca {nüfuz} üyeden oluşuyorsa% +% cond}%) artırıldı, sonra puan + {alt_perundred} artırıldı %\n"
-""
+msgstr ""
 
 #: bang/settings.py:317
 msgid "Gallery of {license} images"
@@ -5123,8 +4712,7 @@ msgstr "{thing} göster\n"
 
 #: idolstory/forms.py:107 idolstory/forms.py:108
 msgid "Guests"
-msgstr "Misafirler\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:108
 msgid "Hide {thing}"
@@ -5133,81 +4721,67 @@ msgstr "{thing} öğesini gizle\n"
 
 #: idolstory/forms.py:480 idolstory/forms.py:1067
 msgid "All members"
-msgstr "Tüm üyeler\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:675 idolstory/models.py:1724 idolstory/models.py:1753
 #: idolstory/models.py:1758 idolstory/models.py:1764 idolstory/models.py:1770
 msgid "Appeal"
-msgstr "Temyiz\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:676 idolstory/models.py:1728 idolstory/models.py:1754
 #: idolstory/models.py:1760 idolstory/models.py:1765 idolstory/models.py:1772
 msgid "Stamina"
-msgstr "dayanma gücü\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:858 idolstory/models.py:1576 idolstory/models.py:2020
 #: idolstory/models.py:2912
 msgid "Passive"
-msgstr "Pasif\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:859 idolstory/models.py:2917
 msgid "Limit break"
-msgstr "Sınır arası\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:1023 idolstory/magicollections.py:1437
 #: idolstory/models.py:3029
 msgid "Episode"
-msgstr "bölüm\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:1027 idolstory/magicollections.py:1389
 #: idolstory/models.py:2728 idolstory/models.py:2880
 msgid "Chapter"
-msgstr "bölüm\n"
-""
+msgstr ""
 
 #. A blog post
 #: starlight/models.py:1794
 msgid "Post"
-msgstr "İleti\n"
-""
+msgstr ""
 
 #. Blog posts
 #: idolstory/magicollections.py:283
 msgid "Posts"
-msgstr "Gönderiler\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:485
 msgid "Glowing"
-msgstr "Parıltılı\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1121
 msgid "Year"
-msgstr "Yıl\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1252
 msgid "Skills"
-msgstr "Beceriler\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1519 idolstory/models.py:3098
 #: idolstory/models.py:3105
 msgid "Still"
-msgstr "yine\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1520 idolstory/models.py:1086
 msgid "Stills"
-msgstr "Stills\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:412 idolstory/magicollections.py:1363
 #: idolstory/magicollections.py:1379 idolstory/magicollections.py:1407
@@ -5215,132 +4789,106 @@ msgstr "Stills\n"
 #: idolstory/magicollections.py:1725 idolstory/models.py:2665
 #: idolstory/models.py:2795 idolstory/models.py:2800
 msgid "Story"
-msgstr "Hikaye\n"
-""
+msgstr ""
 
 #: idolstory/models.py:343
 msgid "Elegant"
-msgstr "Zarif\n"
-""
+msgstr ""
 
 #: idolstory/models.py:347
 msgid "Natural"
-msgstr "Doğal\n"
-""
+msgstr ""
 
 #: idolstory/models.py:468 idolstory/models.py:473 idolstory/models.py:478
 #: idolstory/models.py:483 idolstory/models.py:488 idolstory/models.py:493
 #: idolstory/models.py:498
 msgid "Guest"
-msgstr "Misafir\n"
-""
+msgstr ""
 
 #: idolstory/models.py:498
 msgid "No attribute"
-msgstr "Özellik yok\n"
-""
+msgstr ""
 
 #: idolstory/models.py:651
 msgid "YouTube"
-msgstr "Youtube\n"
-""
+msgstr ""
 
 #: idolstory/models.py:844
 msgid "Symbol"
-msgstr "sembol\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1038
 msgid "Lighstick color"
-msgstr "Lighstick rengi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1040 idolstory/models.py:1043
 msgid "Call and response"
-msgstr "Ara ve cevap ver\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1190
 msgid "Game"
-msgstr "oyun\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1216
 msgid "Abstract"
-msgstr "Öz\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1217
 msgid "Blurry"
-msgstr "Bulanık\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1577 idolstory/models.py:2043
 msgid "Show"
-msgstr "Göstermek\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1666
 msgid "Guard"
-msgstr "bekçi\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1667 idolstory/models.py:2498
 msgid "Voltage"
-msgstr "Voltaj\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1668
 msgid "SP"
-msgstr "SP\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1739 idolstory/models.py:1743
 msgid "Max trained"
-msgstr "Max eğitimli\n"
-""
+msgstr ""
 
 #: idolstory/models.py:418 idolstory/models.py:2003 idolstory/models.py:2033
 #: idolstory/models.py:2056
 msgid "Affects"
-msgstr "etkiler\n"
-""
+msgstr ""
 
 #: idolstory/models.py:2334
-#, fuzzy
 msgid "Base statistics, without any training."
-msgstr "Herhangi bir eğitim olmadan temel istatistikler.\n"
-""
+msgstr ""
 
 #: idolstory/models.py:2679 idolstory/models.py:2822
 msgid "Chapter {number}"
-msgstr "Bölüm {number}\n"
-""
+msgstr ""
 
 #: idolstory/models.py:2823
 msgid "Episode {number}"
-msgstr "Bölüm {number}\n"
-""
+msgstr ""
 
 #: idolstory/models.py:2903
 msgid "Outfit unlocked"
-msgstr "Kıyafet kilidi açıldı\n"
-""
+msgstr ""
 
 #: idolstory/models.py:2904
 msgid "Story unlocked"
-msgstr "Hikayenin kilidi açıldı\n"
-""
+msgstr ""
 
 #: idolstory/settings.py:212 idolstory/settings.py:247
 msgid "{name}'s birthday party {year}"
-msgstr "{name} doğum günü partisi {year}\n"
-""
+msgstr ""
 
 #: idolstory/settings.py:266
 msgid "What's your Love Live! story?"
-msgstr "Aşkın Ne Canlı! hikaye?\n"
-""
+msgstr ""
 
 #: idolstory/settings.py:417
 msgid "How to install {app}?"
@@ -5349,23 +4897,19 @@ msgstr "{app} nasıl kurulur?\n"
 
 #: starlight/magicollections.py:1287
 msgid "Gachas"
-msgstr "Gacha'ları\n"
-""
+msgstr ""
 
 #: magi/seasons.py:78
 msgid "Happy Pi Day!"
-msgstr "Mutlu Pi Günü!\n"
-""
+msgstr ""
 
 #: magi/seasons.py:165
 msgid "Happy Cinco de Mayo!"
-msgstr "Mutlu Cinco de Mayo!\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1648
 msgid "Ultra rare"
-msgstr "Aşırı nadir\n"
-""
+msgstr ""
 
 #: magi/abstract_collections.py:21
 msgid "Event participation"

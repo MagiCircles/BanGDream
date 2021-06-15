@@ -377,13 +377,11 @@ msgstr "このウェブサイトは、"
 
 #: magi/templates/pages/about.html:503
 msgid "so in Python 2. We also use"
-msgstr "Python 2でもそうです。\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:503
 msgid "for the front-end of the website."
-msgstr "ウェブサイトのフロントエンド用。\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:505
 msgid "We accept all kind of contributions, from tools to help players, statistics pages, mini-games, or even little CSS changes. Don't be shy! If you need help getting started, just contact us and we will happily take the time to teach you the basics, no matter your level."
@@ -445,8 +443,7 @@ msgstr "アカウント一覧"
 #. Make sure {object} also appears in your sentence. Will be replaced with the corresponding values.
 #: magi/views_collections.py:408
 msgid "1 {object} matches your search:"
-msgstr "1 {object}は検索に一致します：\n"
-""
+msgstr ""
 
 #. Make sure {total} and {object} also appear in your sentence. Will be replaced with the corresponding values.
 #: magi/views_collections.py:408
@@ -528,8 +525,7 @@ msgstr "報告人:"
 
 #: magi/views.py:986 magi/views.py:1021
 msgid "This {thing} you reported has been reviewed by a moderator and {verb}. Thank you so much for your help!"
-msgstr "あなたが報告したこの{もの}は、モデレーターと{動詞}によってレビューされました。手伝ってくれてどうもありがとう！\n"
-""
+msgstr ""
 
 #. Only used in the sentence "Your {thing} has been reported, and a moderator confirmed it should be {verb}." as the "verb"
 #: magi/views.py:712 magi/views.py:986 magi/views.py:997 magi/views.py:1002
@@ -661,14 +657,12 @@ msgstr "ポケモン名前"
 #: stardustrun/forms.py:130 stardustrun/models.py:59
 #: stardustrun/templates/items/pokemonItem.html:85
 msgid "Candies needed to evolve"
-msgstr "進化するために必要なキャンディー\n"
-""
+msgstr ""
 
 #: stardustrun/forms.py:131 stardustrun/models.py:60
 #: stardustrun/templates/items/pokemonItem.html:89
 msgid "Egg Distance"
-msgstr "卵の距離\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1764
 msgid "Types"
@@ -696,8 +690,7 @@ msgstr "スーパーポケモントレーナー"
 
 #: stardustrun/model_choices.py:19
 msgid "Expert Pokémon Trainer"
-msgstr "エキスパートポケモントレーナー\n"
-""
+msgstr ""
 
 #: stardustrun/model_choices.py:20
 msgid "Pokémon Master"
@@ -705,8 +698,7 @@ msgstr "ポケモンマスター"
 
 #: stardustrun/model_choices.py:21
 msgid "Ultimate Pokémon Master"
-msgstr "究極のポケモンマスター\n"
-""
+msgstr ""
 
 #: stardustrun/model_choices.py:42
 msgid "Fairy"
@@ -846,8 +838,7 @@ msgstr "捕まる"
 
 #: stardustrun/settings.py:31
 msgid "Pokémon Go is a free-to-play, location-based augmented reality game developed and published by Niantic for iOS and Android devices."
-msgstr "PokémonGoは、NianticによってiOSおよびAndroidデバイス向けに開発および公開された、無料でプレイできる位置ベースの拡張現実ゲームです。\n"
-""
+msgstr ""
 
 #: stardustrun/settings.py:38
 msgid "{nth} Favorite Pokémon"
@@ -888,8 +879,7 @@ msgstr "あなたのプロフィールを見る"
 
 #: cpro/templates/include/afterCards.html:11
 msgid "Customize it"
-msgstr "カスタマイズする\n"
-""
+msgstr ""
 
 #: cpro/templates/include/afterCards.html:14
 #, fuzzy
@@ -918,8 +908,7 @@ msgstr "パーマリンク"
 #: stardustrun/templates/items/pokemonFullItem.html:98
 #: stardustrun/templates/items/pokemonItem.html:31
 msgid "Click to add %(pokemon)s to your collection"
-msgstr "クリックして％（pokemon）sをコレクションに追加します\n"
-""
+msgstr ""
 
 #: stardustrun/templates/pages/ajax_pokedex.html:5
 msgid "Change to icons"
@@ -931,8 +920,7 @@ msgstr "リストの変更"
 
 #: stardustrun/views.py:140
 msgid "You have {} of them in you collection. Delete them before changing this."
-msgstr "コレクションに{}あります。これを変更する前に削除してください。\n"
-""
+msgstr ""
 
 #: magi/models.py:210
 msgid "View activities in your language only?"
@@ -956,8 +944,7 @@ msgstr "プレイヤーをフォローして彼らのアクティビティを見
 
 #: magi/templates/include/homePage.html:71
 msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
-msgstr "％（total_donators）s％（adjective）s寄付者によってクラウドファンディングされています\n"
-""
+msgstr ""
 
 #: starlight/settings.py:271 starlight/settings.py:290
 #, fuzzy
@@ -999,8 +986,7 @@ msgstr "ダメージ"
 #: stardustrun/forms.py:186 stardustrun/models.py:21
 #: stardustrun/templates/items/attackItem.html:15
 msgid "Energy Increase"
-msgstr "エネルギー増加\n"
-""
+msgstr ""
 
 #: stardustrun/forms.py:187 stardustrun/models.py:22
 #: stardustrun/templates/items/attackItem.html:16
@@ -1015,8 +1001,7 @@ msgstr "期間"
 #: stardustrun/forms.py:189 stardustrun/models.py:24
 #: stardustrun/templates/items/attackItem.html:17
 msgid "Energy Requirement"
-msgstr "エネルギー要件\n"
-""
+msgstr ""
 
 #: stardustrun/forms.py:233 stardustrun/forms.py:235 stardustrun/forms.py:237
 #: stardustrun/forms.py:239
@@ -1037,13 +1022,11 @@ msgstr "おこう"
 
 #: stardustrun/models.py:203 stardustrun/models.py:285
 msgid "Lure Modules"
-msgstr "ルアーモジュール\n"
-""
+msgstr ""
 
 #: stardustrun/settings.py:19
 msgid "The Pokémon GO Sharing Community"
-msgstr "PokémonGO共有コミュニティ\n"
-""
+msgstr ""
 
 #: stardustrun/settings.py:29
 #: stardustrun/templates/include/pokemonsBeforeTemplate.html:6
@@ -1077,13 +1060,11 @@ msgstr "行きましょう！"
 
 #: stardustrun/templates/include/pokemonsShareButton.html:45
 msgid "Go further"
-msgstr "さらに進む\n"
-""
+msgstr ""
 
 #: stardustrun/templates/include/pokemonsShareButton.html:46
 msgid "Discover everything you can do on Stardust Run"
-msgstr "スターダストランでできることすべてを発見する\n"
-""
+msgstr ""
 
 #: stardustrun/templates/items/attackItem.html:19
 msgid "All Pokémon with this attack"
@@ -1091,8 +1072,7 @@ msgstr "このわざがあるポケモン"
 
 #: stardustrun/templates/items/attackItem.html:21
 msgid "All Attacks"
-msgstr "すべての攻撃\n"
-""
+msgstr ""
 
 #: stardustrun/templates/items/attackItem.html:31
 msgid "seconds"
@@ -1135,8 +1115,7 @@ msgstr "私のカードコレクションをチェック！"
 
 #: cpro/forms.py:94 cpro/forms.py:341
 msgid "The game didn't even exist at that time."
-msgstr "当時、ゲームは存在していませんでした。\n"
-""
+msgstr ""
 
 #: starlight/forms.py:557 starlight/models.py:934 starlight/models.py:1828
 msgid "Type"
@@ -1216,14 +1195,12 @@ msgstr "終了"
 #: cpro/forms.py:213 cpro/models.py:145 cpro/models.py:147 cpro/models.py:149
 #: cpro/models.py:151 cpro/models.py:153
 msgid "T{} points"
-msgstr "T {}ポイント\n"
-""
+msgstr ""
 
 #: cpro/forms.py:214 cpro/models.py:146 cpro/models.py:148 cpro/models.py:150
 #: cpro/models.py:152 cpro/models.py:154
 msgid "T{} rank"
-msgstr "T {}ランク\n"
-""
+msgstr ""
 
 #: starlight/models.py:928 starlight/models.py:1099 starlight/models.py:1344
 #: starlight/models.py:1856 starlight/models.py:1974
@@ -1707,8 +1684,7 @@ msgstr "コメディー"
 
 #: cpro/settings.py:71
 msgid "Room Decoration"
-msgstr "部屋の装飾\n"
-""
+msgstr ""
 
 #: starlight/settings.py:196
 msgid "Introduce yourself"
@@ -1752,8 +1728,7 @@ msgstr "カードをシェアして！"
 
 #: cpro/templates/include/beforeCards.html:11
 msgid "Start sharing your beautiful collection!"
-msgstr "美しいコレクションを共有しましょう！\n"
-""
+msgstr ""
 
 #: cpro/templates/include/beforeCards.html:13
 msgid "Open the game, go to Idols (\"アイドル\"), then go to Idols List (\"所属アイドル一覧\")"
@@ -1837,8 +1812,7 @@ msgstr "プロデューサーレベル"
 
 #: cpro/templates/include/beforeEvents.html:6
 msgid "%(idol)s performed in %(total_results)s events"
-msgstr "％（total_results）sイベントで実行された％（idol）s\n"
-""
+msgstr ""
 
 #. "P" is the one-letter abbreviation for "Producer", Japanese players always use it when conciseness/space savings is need
 #: cpro/templates/include/beforeLeaderboard.html:29
@@ -1870,13 +1844,11 @@ msgstr "ゴールド"
 #: magi/templates/include/homePage.html:77
 #: magi/templates/include/homePage.html:79
 msgid "%(percent)s%% funded"
-msgstr "％（percent）s %%出資\n"
-""
+msgstr ""
 
 #: magi/templates/items/badgeInfo.html:25
 msgid "Granted by"
-msgstr "許可を与える\n"
-""
+msgstr ""
 
 #: magi/templates/items/donateItem.html:36
 msgid "No donation yet"
@@ -1910,8 +1882,7 @@ msgstr "その他"
 #: cpro/templates/include/cards-stats.html:109
 msgid "%(total)s producer"
 msgid_plural "%(total)s producers"
-msgstr[0] "％（total）sプロデューサー\n"
-""
+msgstr[0] ""
 
 #: cpro/templates/include/cards-stats.html:124
 #: cpro/templates/items/eventInfo.html:144
@@ -1963,23 +1934,19 @@ msgstr "{thing}を追加"
 
 #: magi/magicollections.py:4081
 msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
-msgstr "この特定の{もの}に問題がある場合にのみレポートを送信してください。それが何か他のものについてであるならば、あなたの報告は無視されます。たとえば、アクティビティに問題がある場合は、アカウントやプロファイルを報告しないでください。個別にレポートするには、次の[レポート]ボタンを探します。\n"
-""
+msgstr ""
 
 #: magi/models.py:826
 msgid "Only post official artworks, artworks you own, or fan artworks that are approved by the artist and credited."
-msgstr "公式のアートワーク、所有しているアートワーク、またはアーティストによって承認されクレジットされたファンのアートワークのみを投稿してください。\n"
-""
+msgstr ""
 
 #: magi/models.py:1305 magi/models.py:1380
 msgid "{month} Donator"
-msgstr "{month}寄付者\n"
-""
+msgstr ""
 
 #: magi/models.py:1386
 msgid "{donation_platform} supporter of {site_name} who donated to help cover the server costs"
-msgstr "{site_name}の{donation_platform}サポーター、サーバーの費用を支援するために寄付\n"
-""
+msgstr ""
 
 #: magi/raw.py:9
 msgid "lovely"
@@ -2050,8 +2017,7 @@ msgstr "正常に編集されました！"
 
 #: stardustrun/forms.py:84
 msgid "The game didn't even existed at that time."
-msgstr "当時、ゲームは存在していませんでした。\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:1074
 msgid "Countdown"
@@ -2194,8 +2160,7 @@ msgstr "楽器"
 
 #: magi/magicollections.py:494
 msgid "Collected {thing}"
-msgstr "{thing}を収集しました\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1988 idolstory/models.py:1991
 msgid "Skill name"
@@ -2203,23 +2168,19 @@ msgstr "特技名"
 
 #: bang/forms.py:396 bang/magicollections.py:511 bang/models.py:1016
 msgid "{nth} episode"
-msgstr "{nth}エピソード\n"
-""
+msgstr ""
 
 #: bang/models.py:1017
 msgid "Memorial episode"
-msgstr "記念エピソード\n"
-""
+msgstr ""
 
 #: magi/abstract_models.py:167
 msgid "Join date"
-msgstr "入会日\n"
-""
+msgstr ""
 
 #: magi/abstract_models.py:168
 msgid "Give a nickname to your account to easily differentiate it from your other accounts when you're managing them."
-msgstr "アカウントにニックネームを付けると、管理時に他のアカウントと簡単に区別できます。\n"
-""
+msgstr ""
 
 #: magi/abstract_models.py:169
 msgid "Start date"
@@ -2228,8 +2189,7 @@ msgstr "始める日"
 #: magi/abstract_models.py:172 magi/forms.py:1884 magi/forms.py:2298
 #: magi/models.py:148 magi/models.py:169
 msgid "Default tab"
-msgstr "デフォルトのタブ\n"
-""
+msgstr ""
 
 #: magi/forms.py:1983 magi/views.py:448
 msgid "Email"
@@ -2237,13 +2197,11 @@ msgstr "イーメール"
 
 #: magi/forms.py:682 magi/forms.py:691 magi/forms.py:700
 msgid "You've added a lot of {things}, lately. Try to wait a little bit before adding more."
-msgstr "最近、{things}をたくさん追加しました。さらに追加する前に少し待ってみてください。\n"
-""
+msgstr ""
 
 #: magi/forms.py:707
 msgid "You already have {total} {things}. You can only add up to {max} {things}."
-msgstr "すでに{total} {things}あります。最大{max} {things}まで追加できます。\n"
-""
+msgstr ""
 
 #: magi/forms.py:1250
 msgid "View"
@@ -2251,20 +2209,17 @@ msgstr "見る"
 
 #: magi/forms.py:1927
 msgid "Please provide an updated screenshot of your in-game profile to prove your level."
-msgstr "レベルを証明するために、ゲーム内プロファイルの更新されたスクリーンショットを提供してください。\n"
-""
+msgstr ""
 
 #: magi/utils.py:2629 magi/utils.py:2633
 msgid "You may use Markdown formatting."
-msgstr "Markdownフォーマットを使用できます。\n"
-""
+msgstr ""
 
 #. Example: Adding to your account db0
 #. Adding to your card Kotori
 #: magi/magicollections.py:386
 msgid "Adding to your {thing} {name}"
-msgstr "{thing} {name}に追加しています\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:502
 #, fuzzy
@@ -2273,53 +2228,43 @@ msgstr "{thing}を追加"
 
 #: magi/magicollections.py:634
 msgid "Quick edit"
-msgstr "クイック編集\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:2626
 msgid "Leaderboard position"
-msgstr "リーダーボードの位置\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:400
 msgid "Need help?"
-msgstr "助けが必要？\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:401
 msgid "Find answers to your questions"
-msgstr "質問への回答を見つける\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:405
 msgid "Share a suggestion or a bug"
-msgstr "提案やバグを共有する\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:407
 msgid "Fill our feedback form:"
-msgstr "フィードバックフォームに記入します。\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:408
 msgid "Feedback form"
-msgstr "フィードバックフォーム\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:410
 msgid "Create a ticket in our bug tracker:"
-msgstr "バグトラッカーでチケットを作成します。\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:411
 msgid "Bug tracker"
-msgstr "バグトラッカー\n"
-""
+msgstr ""
 
 #: magi/templates/include/donate.html:52 magi/templates/pages/about.html:415
 msgid "Alternatively..."
-msgstr "あるいは...\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:416
 #, fuzzy
@@ -2328,23 +2273,19 @@ msgstr "お問い合わせ"
 
 #: magi/utils.py:907
 msgid "Select {}"
-msgstr "選択する {}\n"
-""
+msgstr ""
 
 #: magi/utils.py:2142
 msgid "This date has to be in the future."
-msgstr "この日付は未来でなければなりません。\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:941 magi/default_settings.py:948 magi/views.py:564
 msgid "Successfully added!"
-msgstr "追加しました！\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:958 magi/default_settings.py:965
 msgid "Successfully deleted!"
-msgstr "正常に削除されました！\n"
-""
+msgstr ""
 
 #: idolstory/settings.py:434 idolstory/settings.py:441
 #, fuzzy
@@ -2353,8 +2294,7 @@ msgstr "{things}覧"
 
 #: cpro/model_choices.py:179
 msgid "All Round"
-msgstr "オールラウンド\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:180
 msgid "Concentration"
@@ -2366,33 +2306,27 @@ msgstr "スキルブースト"
 
 #: cpro/model_choices.py:182
 msgid "Cute/Cool/Passion Focus"
-msgstr "キュート/クール/情熱フォーカス\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:224
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus and Perfect notes will restore {skill_value2} life in the next {skill_duration} seconds."
-msgstr "{trigger_value}秒ごとに、{trigger_chance}％の確率で{skill_value}％のコンボボーナスが追加され、Perfectノートは{skill_value2}のライフを次の{skill_duration}秒で回復します。\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:225
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus but the timing window for Perfect notes is reduced in the next {skill_duration} seconds."
-msgstr "{trigger_value}秒ごとに、{trigger_chance}％の確率で、パーフェクトノートが{skill_value}％のスコアボーナスを受け取る可能性がありますが、パーフェクトノートのタイミングウィンドウは、次の{skill_duration}秒で減少します。\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:226
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% change that currently active skills will be boosted for {skill_duration} seconds"
-msgstr "{trigger_value}秒ごとに{trigger_chance}％の変更があり、現在アクティブなスキルが{skill_duration}秒間ブーストされます\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:227
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus, but only if you have only {type} idols in your team for {skill_duration} seconds"
-msgstr "{trigger_value}秒ごとに、{trigger_chance}％の確率でパーフェクトノートが{skill_value}％のスコアボーナスを受け取り、{skill_value2}％のコンボボーナスを獲得できますが、{type}しかない場合のみチームのアイドルが{skill_duration}秒間\n"
-""
+msgstr ""
 
 #: cpro/templates/include/beforeLeaderboard.html:21
 msgid "%(total_results)s producers love %(favorite_character_idol)s"
-msgstr "％（total_results）sプロデューサーは％（favorite_character_idol）sを愛しています\n"
-""
+msgstr ""
 
 #: cpro/templates/items/eventInfo.html:14
 msgid "seconds left"
@@ -2400,13 +2334,11 @@ msgstr "秒"
 
 #: cpro/templates/items/eventInfo.html:30
 msgid "translated in English"
-msgstr "英語に翻訳\n"
-""
+msgstr ""
 
 #: bang/forms.py:135 bang/magicollections.py:154
 msgid "Total {item} bought"
-msgstr "購入した{item}の合計\n"
-""
+msgstr ""
 
 #: bang/forms.py:135 bang/magicollections.py:154
 msgid "Star gems"
@@ -2468,8 +2400,7 @@ msgstr "韓国のサーバー"
 
 #: idolstory/forms.py:946
 msgid "Date"
-msgstr "日付\n"
-""
+msgstr ""
 
 #: starlight/models.py:85 starlight/models.py:1040
 #, fuzzy
@@ -2487,8 +2418,7 @@ msgstr "時間"
 
 #: starlight/forms.py:374
 msgid "BPM"
-msgstr "BPM\n"
-""
+msgstr ""
 
 #: bang/forms.py:955 bang/forms.py:956 bang/models.py:1345 bang/models.py:1398
 #: bang/models.py:1399 bang/models.py:1535
@@ -2514,13 +2444,11 @@ msgstr "困難"
 #: bang/forms.py:957 bang/forms.py:958 bang/models.py:1346 bang/models.py:1400
 #: bang/models.py:1401 bang/models.py:1536
 msgid "Expert"
-msgstr "専門家\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:158
 msgid "~{}円 spent (~${})"
-msgstr "〜{}円が使用されました（〜$ {}）\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:58
 msgid "Characters"
@@ -2556,8 +2484,7 @@ msgstr "統計"
 
 #: bang/magicollections.py:993
 msgid "Min"
-msgstr "最小\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:993
 msgid "Max"
@@ -2565,13 +2492,11 @@ msgstr "マックス"
 
 #: bang/magicollections.py:1026
 msgid "Participated event"
-msgstr "参加イベント\n"
-""
+msgstr ""
 
 #: bang/forms.py:532 bang/magicollections.py:1027 bang/models.py:1219
 msgid "Participated events"
-msgstr "参加イベント\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:1311
 msgid "Boost Members"
@@ -2579,8 +2504,7 @@ msgstr "ボーナスキャラクター"
 
 #: bang/magicollections.py:1334
 msgid "Gift song"
-msgstr "ギフトソング\n"
-""
+msgstr ""
 
 #: bang/forms.py:364 bang/forms.py:715 bang/magicollections.py:1660
 msgid "Gacha type"
@@ -2592,13 +2516,11 @@ msgstr "恒久的"
 
 #: bang/magicollections.py:1771
 msgid "Played song"
-msgstr "再生した曲\n"
-""
+msgstr ""
 
 #: bang/forms.py:951 bang/magicollections.py:1772 bang/models.py:1485
 msgid "Played songs"
-msgstr "再生した曲\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:665
 msgid "Song"
@@ -2610,8 +2532,7 @@ msgstr "{}ノーツ"
 
 #: bang/magicollections.py:2042
 msgid "Songwriters"
-msgstr "ソングライター\n"
-""
+msgstr ""
 
 #: starlight/forms.py:546 starlight/models.py:211
 msgid "Version"
@@ -2619,8 +2540,7 @@ msgstr "バージョン"
 
 #: starlight/models.py:290
 msgid "The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ..."
-msgstr "デバイスのモデル。例：Nexus 5、iPhone 4、iPad 2 ...\n"
-""
+msgstr ""
 
 #: starlight/models.py:232
 #, fuzzy
@@ -2629,8 +2549,7 @@ msgstr "スクリーンショット"
 
 #: starlight/models.py:232
 msgid "In-game profile screenshot"
-msgstr "ゲーム内プロファイルのスクリーンショット\n"
-""
+msgstr ""
 
 #: bang/models.py:253
 msgid "Junior Third"
@@ -2638,8 +2557,7 @@ msgstr "中学校"
 
 #: bang/models.py:475
 msgid "Promo card"
-msgstr "プロモカード\n"
-""
+msgstr ""
 
 #: bang/models.py:489
 msgid "For the next {duration} seconds, score of all notes boosted by +{percentage}%"
@@ -2667,8 +2585,7 @@ msgstr "{duration}秒間{note_type}以上がすべてPERFECTになる"
 
 #: bang/models.py:1014
 msgid "Prefer untrained card image"
-msgstr "訓練されていないカード画像を優先する\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:856 idolstory/forms.py:858 idolstory/models.py:2907
 #: idolstory/models.py:2912
@@ -2703,8 +2620,7 @@ msgstr "スコアランキング"
 #: bang/models.py:1343 bang/models.py:1394 bang/models.py:1395
 #: bang/models.py:1533
 msgid "Easy"
-msgstr "かんたん\n"
-""
+msgstr ""
 
 #: starlight/models.py:821 starlight/models.py:824
 msgid "Composer"
@@ -2716,8 +2632,7 @@ msgstr "作詞家"
 
 #: starlight/models.py:831 starlight/models.py:834
 msgid "Arranger"
-msgstr "アレンジャー\n"
-""
+msgstr ""
 
 #: bang/models.py:1369
 #, fuzzy
@@ -2734,13 +2649,11 @@ msgstr "カバー曲"
 
 #: starlight/models.py:811
 msgid "Beats per minute"
-msgstr "毎分ビート\n"
-""
+msgstr ""
 
 #: bang/models.py:1407 bang/models.py:1408
 msgid "Gift"
-msgstr "贈り物\n"
-""
+msgstr ""
 
 #. This may need a look over. 
 #. で could translate to at while 購入 is purchase/buy.
@@ -2751,33 +2664,27 @@ msgstr "CIRCLEで購入"
 
 #: bang/models.py:1417
 msgid "Complete story"
-msgstr "完全な物語\n"
-""
+msgstr ""
 
 #: bang/models.py:1418
 msgid "Complete {story_type} story, chapter {chapter}"
-msgstr "{story_type}ストーリー、{chapter}章を完了する\n"
-""
+msgstr ""
 
 #: bang/models.py:1422 bang/models.py:1423
 msgid "Complete Tutorial"
-msgstr "完全なチュートリアル\n"
-""
+msgstr ""
 
 #: bang/models.py:1427 bang/models.py:1428
 msgid "Initially available"
-msgstr "最初に利用可能\n"
-""
+msgstr ""
 
 #: bang/models.py:1432 bang/models.py:1433
 msgid "Event gift"
-msgstr "イベントギフト\n"
-""
+msgstr ""
 
 #: bang/models.py:1457 bang/models.py:1459
 msgid "How to unlock?"
-msgstr "解除方法？\n"
-""
+msgstr ""
 
 #: bang/models.py:1544 bang/models.py:1572
 msgid "Full combo"
@@ -2796,8 +2703,7 @@ msgstr "ガールズバンドパーティ"
 
 #: bang/settings.py:304
 msgid "Team builder"
-msgstr "チームビルダー\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:2
 msgid "You can find your friend id by going to the \"Friends\" section from the home, then \"ID Search\". Players will be able to send you friend requests or messages using this number."
@@ -2806,8 +2712,7 @@ msgstr "あなたのIDは「その他」の「友達」から「ID検索」を�
 
 #: starlight/models.py:221
 msgid "Should your friend ID be visible to other players?"
-msgstr "あなたの友達IDは他のプレイヤーに見えるべきですか？\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:6
 msgid "Love gems"
@@ -2819,8 +2724,7 @@ msgstr "ラブカストーン"
 #: idolstory/sukutomo_future_translations.py:9
 #: idolstory/sukutomo_future_translations.py:10
 msgid "Number of {} you currently have in your account."
-msgstr "現在アカウントにある{}の数。\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:6
 #: idolstory/sukutomo_future_translations.py:7
@@ -2828,8 +2732,7 @@ msgstr "現在アカウントにある{}の数。\n"
 #: idolstory/sukutomo_future_translations.py:9
 #: idolstory/sukutomo_future_translations.py:10
 msgid "This field is completely optional, it's here to help you manage your accounts."
-msgstr "このフィールドは完全にオプションです。アカウントの管理に役立ちます。\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:7
 msgid "Friend Points"
@@ -2837,18 +2740,15 @@ msgstr "友情ポイント"
 
 #: idolstory/sukutomo_future_translations.py:11
 msgid "Total love gems bought"
-msgstr "購入した愛の宝石の合計\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:11
 msgid "You can calculate that number in \"Other\" then \"Purchase History\"."
-msgstr "その数は、「その他」、「購入履歴」で計算できます。\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:12
 msgid "Should your items be visible to other players?"
-msgstr "あなたのアイテムは他のプレイヤーに見えるべきですか？\n"
-""
+msgstr ""
 
 #: idolstory/models.py:327 idolstory/sukutomo_future_translations.py:866
 #: idolstory/sukutomo_future_translations.py:867
@@ -2880,8 +2780,7 @@ msgstr "サブユニット"
 
 #: starlight/models.py:352 starlight/models.py:568
 msgid "Astrological sign"
-msgstr "星座\n"
-""
+msgstr ""
 
 #: idolstory/settings.py:198
 #, fuzzy
@@ -2957,8 +2856,7 @@ msgstr "コミュニティマネージャー"
 
 #: magi/default_settings.py:190
 msgid "Posted {total} news"
-msgstr "{total}件のニュースを投稿しました\n"
-""
+msgstr ""
 
 #: idolstory/models.py:643
 msgid "Twitter"
@@ -2985,8 +2883,7 @@ msgstr "能動的"
 
 #: magi/default_settings.py:265
 msgid "Submitted {total} reports"
-msgstr "{total}件のレポートを送信しました\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:271
 #, fuzzy
@@ -2995,8 +2892,7 @@ msgstr "決定"
 
 #: magi/default_settings.py:290
 msgid "Edited or deleted {total} reported items"
-msgstr "{total}件の報告されたアイテムを編集または削除しました\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:296
 #, fuzzy
@@ -3005,8 +2901,7 @@ msgstr "コミュニティエンターテイナー"
 
 #: magi/default_settings.py:318
 msgid "Organized and posted about {total} community events"
-msgstr "{total}件のコミュニティイベントを整理して投稿しました\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:324
 #, fuzzy
@@ -3038,8 +2933,7 @@ msgstr "システム管理者"
 
 #: magi/models.py:1002
 msgid "You are not allowed to see activities with the tag \"{tag}\"."
-msgstr "タグ「{tag}」の付いたアクティビティを表示することはできません。\n"
-""
+msgstr ""
 
 #: starlight/models.py:854 starlight/models.py:857
 #, fuzzy
@@ -3052,23 +2946,19 @@ msgstr "{username}をブロックします"
 
 #: magi/models.py:971
 msgid "You can change which tags you would like to see or hide in your settings."
-msgstr "設定で表示または非表示にするタグを変更できます。\n"
-""
+msgstr ""
 
 #: magi/models.py:147
 msgid "Display your birthdate year"
-msgstr "生年を表示する\n"
-""
+msgstr ""
 
 #: starlight/models.py:1455
 msgid "Roles"
-msgstr "役割\n"
-""
+msgstr ""
 
 #: magi/models.py:244
 msgid "Hide tags"
-msgstr "タグを隠す\n"
-""
+msgstr ""
 
 #: magi/models.py:658
 msgid "hobbies"
@@ -3081,8 +2971,7 @@ msgstr "スタッフについて"
 
 #: magi/templates/pages/prelaunch.html:24 magi/views.py:434
 msgid "Pre-register"
-msgstr "事前登録\n"
-""
+msgstr ""
 
 #: magi/forms.py:2277
 #, fuzzy
@@ -3097,18 +2986,15 @@ msgstr "{username}をブロックしました"
 #: magi/magicollections.py:4417 magi/views.py:691 magi/views.py:852
 #: magi/views_collections.py:171 magi/views_collections.py:635
 msgid "Unblock {username}"
-msgstr "{username}のブロックを解除\n"
-""
+msgstr ""
 
 #: magi/views.py:885
 msgid "Are you sure you want to block {username}? You will not be able to see any content created by {username}."
-msgstr "{username}をブロックしてもよろしいですか？{username}が作成したコンテンツを表示することはできません。\n"
-""
+msgstr ""
 
 #: magi/views.py:887
 msgid "Are you sure you want to unblock {username}?"
-msgstr "{username}のブロックを解除してもよろしいですか？\n"
-""
+msgstr ""
 
 #: magi/views_collections.py:169 magi/views_collections.py:633
 msgid "this user"
@@ -3116,18 +3002,15 @@ msgstr "このユーザー"
 
 #: idolstory/forms.py:747
 msgid "Include cameos"
-msgstr "カメオを含める\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1624 idolstory/models.py:2344
 msgid "Cameos"
-msgstr "カメオ\n"
-""
+msgstr ""
 
 #: bang/forms.py:348 bang/models.py:476
 msgid "Original card"
-msgstr "オリジナルカード\n"
-""
+msgstr ""
 
 #: starlight/settings.py:213
 #, fuzzy
@@ -3146,13 +3029,11 @@ msgstr "閲覧注意"
 
 #: starlight/settings.py:226
 msgid "You need to be over 18 years old."
-msgstr "18歳以上である必要があります。\n"
-""
+msgstr ""
 
 #: starlight/settings.py:226
 msgid "You can change your birthdate in your settings."
-msgstr "設定で生年月日を変更できます。\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:453
 #, fuzzy
@@ -3205,13 +3086,11 @@ msgstr "血液型"
 
 #: starlight/utils.py:110 starlight/utils.py:111 starlight/utils.py:112
 msgid "{nth} year"
-msgstr "{n}}年\n"
-""
+msgstr ""
 
 #: magi/templates/pages/about.html:311
 msgid "Contributors"
-msgstr "寄稿者\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:830
 msgid "View model"
@@ -3219,56 +3098,48 @@ msgstr "モデルを見る"
 
 #: bang/templates/include/costumeTopIllustration.html:12
 msgid "Controls"
-msgstr "コントロール\n"
-""
+msgstr ""
 
 #: bang/models.py:2237 bang/templates/include/costumeTopIllustration.html:21
 msgctxt "BanPa model viewer"
 msgid "Model"
-msgstr "型番\n"
-""
+msgstr ""
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:25
 msgctxt "BanPa model viewer"
 msgid "Breathe"
-msgstr "呼吸する\n"
-""
+msgstr ""
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:28
 msgctxt "BanPa model viewer"
 msgid "Blink"
-msgstr "まばたき\n"
-""
+msgstr ""
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:31
 msgctxt "BanPa model viewer"
 msgid "Sway"
-msgstr "揺れる\n"
-""
+msgstr ""
 
 #. Translators: Label for a list of choices. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:37
 msgctxt "BanPa model viewer"
 msgid "Action"
-msgstr "アクション\n"
-""
+msgstr ""
 
 #. Translators: Label for a checkbox. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:40
 msgctxt "BanPa model viewer"
 msgid "Loop"
-msgstr "ループ\n"
-""
+msgstr ""
 
 #. Translators: Label for a list of choices. Limited space, so please try to keep it short.
 #: bang/templates/include/costumeTopIllustration.html:46
 msgctxt "BanPa model viewer"
 msgid "Expression"
-msgstr "表情\n"
-""
+msgstr ""
 
 #. Translators: Button label.
 #: bang/templates/include/costumeTopIllustration.html:53
@@ -3281,13 +3152,11 @@ msgstr "スクリーンショット"
 #: bang/templates/include/costumeTopIllustration.html:55
 msgctxt "BanPa model viewer"
 msgid "(with background)"
-msgstr "（背景あり）\n"
-""
+msgstr ""
 
 #: bang/models.py:1545 bang/models.py:1577
 msgid "All perfect"
-msgstr "すべて完璧\n"
-""
+msgstr ""
 
 #: bang/settings.py:196
 msgid "Thank you Yurishii"
@@ -3301,13 +3170,11 @@ msgstr "トレンド"
 
 #: bang/forms.py:1474
 msgid "How often do you hit PERFECT notes?"
-msgstr "どのくらいの頻度で完璧なノートを叩きますか？\n"
-""
+msgstr ""
 
 #: bang/forms.py:1482
 msgid "How often is your life above 900?"
-msgstr "あなたの人生はどのくらいの頻度で900を超えていますか？\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:821 bang/magicollections.py:827
 #: bang/magicollections.py:2704 bang/magicollections.py:2732
@@ -3327,15 +3194,13 @@ msgstr "アイテム"
 #: bang/forms.py:1047 bang/magicollections.py:2263 bang/magicollections.py:2354
 #: bang/models.py:1832
 msgid "Area"
-msgstr "範囲\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2149 bang/magicollections.py:2187
 #: bang/magicollections.py:2315 bang/magicollections.py:2569 bang/models.py:324
 #: bang/settings.py:314
 msgid "Gallery"
-msgstr "ギャラリー\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2244 bang/magicollections.py:2293
 #: bang/models.py:1896 bang/models.py:1941
@@ -3350,13 +3215,11 @@ msgstr "エリアアイテム"
 
 #: bang/magicollections.py:2442
 msgid "Asset"
-msgstr "資産\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2443 bang/magicollections.py:2545 bang/models.py:325
 msgid "Assets"
-msgstr "資産\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2705 bang/models.py:319
 msgid "Costumes"
@@ -3364,8 +3227,7 @@ msgstr "衣装"
 
 #: bang/models.py:1774
 msgid "Quantity"
-msgstr "量\n"
-""
+msgstr ""
 
 #: bang/models.py:1822
 msgid "Poster"
@@ -3379,8 +3241,7 @@ msgstr "漫画"
 #: idolstory/magicollections.py:925 idolstory/settings.py:441
 #: idolstory/sukutomo_future_translations.py:48
 msgid "Backgrounds"
-msgstr "背景\n"
-""
+msgstr ""
 
 #: bang/models.py:337 bang/models.py:2040 bang/models.py:2046
 #, fuzzy
@@ -3389,23 +3250,19 @@ msgstr "スタンプ"
 
 #: bang/models.py:2050
 msgid "Titles"
-msgstr "タイトル\n"
-""
+msgstr ""
 
 #: bang/models.py:2066 bang/models.py:2068
 msgid "Interface"
-msgstr "インターフェース\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1218
 msgid "Outdoor"
-msgstr "アウトドア\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1219
 msgid "Indoor"
-msgstr "屋内\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1221
 #, fuzzy
@@ -3414,13 +3271,11 @@ msgstr "ステージ"
 
 #: idolstory/models.py:1222
 msgid "Home"
-msgstr "ホーム\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1223
 msgid "Dating spot"
-msgstr "出会い系スポット\n"
-""
+msgstr ""
 
 #: bang/models.py:2218
 #, fuzzy
@@ -3429,8 +3284,7 @@ msgstr "衣装のタイプ"
 
 #: bang/settings.py:191
 msgid "Change My Mind Challenge"
-msgstr "私の心の挑戦を変える\n"
-""
+msgstr ""
 
 #: starlight/models.py:92 starlight/models.py:1045
 #, fuzzy
@@ -3448,52 +3302,43 @@ msgstr "中国のサーバー"
 #: idolstory/sukutomo_future_translations.py:28
 #: idolstory/sukutomo_future_translations.py:279
 msgid "Score Match"
-msgstr "スコアマッチ\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:31
 #: idolstory/sukutomo_future_translations.py:282
 msgid "Medley Festival"
-msgstr "メドレーフェスティバル\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:34
 #: idolstory/sukutomo_future_translations.py:285
 msgid "Challenge Festival"
-msgstr "チャレンジフェスティバル\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:37
 #: idolstory/sukutomo_future_translations.py:288
 msgid "Adventure Stroll"
-msgstr "冒険散歩\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:40
 #: idolstory/sukutomo_future_translations.py:291
 msgid "Friendly Match"
-msgstr "親善試合\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2143
 msgid "Edit your {thing}"
-msgstr "{thing}を編集\n"
-""
+msgstr ""
 
 #: magi/views.py:916
 msgid "If you delete this {thing} ({instance}), the following will automatically be deleted as well:"
-msgstr "この{thing}（{instance}）を削除すると、次のものも自動的に削除されます：\n"
-""
+msgstr ""
 
 #: magi/views.py:917
 msgid "Are you sure you want to delete this {thing} ({instance})?"
-msgstr "この{thing}（{instance}）を削除してもよろしいですか？\n"
-""
+msgstr ""
 
 #: stardustrun/settings.py:56
 msgid "Medal"
-msgstr "メダル\n"
-""
+msgstr ""
 
 #: stardustrun/settings.py:57
 msgid "Gym"
@@ -3506,33 +3351,27 @@ msgstr "お誕生日おめでとう"
 
 #: bang/models.py:258
 msgid "Classroom"
-msgstr "教室\n"
-""
+msgstr ""
 
 #: bang/models.py:2072 bang/models.py:2080 bang/settings.py:323
 msgid "Official art"
-msgstr "公式アート\n"
-""
+msgstr ""
 
 #: bang/utils.py:95
 msgid "Rerun"
-msgstr "再実行\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:26
 msgid "Copied"
-msgstr "コピーしました\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:26 magi/templates/items/activityItem.html:26
 msgid "Archived"
-msgstr "アーカイブ済み\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:26
 msgid "Unarchived"
-msgstr "アーカイブされていません\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:453 magi/forms.py:3086
 #: magi/templates/items/activityItem.html:14
@@ -3552,106 +3391,86 @@ msgstr "スタッフのお気に入り"
 
 #: magi/forms.py:2288
 msgid "Customize profile"
-msgstr "プロファイルをカスタマイズ\n"
-""
+msgstr ""
 
 #: magi/forms.py:3089
 msgid "Hide archived activities"
-msgstr "アーカイブされたアクティビティを非表示にする\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3496
 msgid "Unarchive"
-msgstr "アーカイブ解除\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3505 magi/magicollections.py:3507
 msgid "Archive"
-msgstr "アーカイブ\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3510 magi/templates/pages/settings.html:74
 #: magi/templates/pages/settings.html:143
 msgid "Premium feature"
-msgstr "プレミアム機能\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3636
 msgid "You might be the first person who sees these activities!"
-msgstr "あなたはこれらの活動を見た最初の人かもしれません！\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3637
 msgid "If you see anything that doesn't follow our rules, please help us by reporting it."
-msgstr "ルールに違反しているものがあれば、報告してください。\n"
-""
+msgstr ""
 
 #: magi/models.py:201 magi/views.py:673
 msgid "Custom link"
-msgstr "カスタムリンク\n"
-""
+msgstr ""
 
 #: magi/models.py:1115
 msgid "When someone likes an activity you archived."
-msgstr "誰かがあなたがアーカイブした活動が好きなとき。\n"
-""
+msgstr ""
 
 #: magi/templates/pages/settings.html:15
 msgid "Preferences"
-msgstr "環境設定\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:29 magi/templates/pages/about.html:76
 #: magi/templates/pages/settings.html:17 magi/utils.py:980 magi/utils.py:1608
 #: magi/views.py:144
 msgid "More"
-msgstr "もっと\n"
-""
+msgstr ""
 
 #: magi/templates/include/donate.html:27
 msgid "Can't use Patreon?"
-msgstr "Patreonを使用できませんか？\n"
-""
+msgstr ""
 
 #: magi/templates/items/donateItem.html:40
 msgid "Goal"
-msgstr "ゴール\n"
-""
+msgstr ""
 
 #: magi/templates/items/donateItem.html:42
 msgid "Total spent"
-msgstr "費やした合計\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:183
 msgid "Encore"
-msgstr "アンコール\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:184
 msgid "Life Sparkle"
-msgstr "ライフスパークル\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:185
 msgid "Tricolor Synergy"
-msgstr "トリコロールシナジー\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:228
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance to activate the previous skill again for {skill_duration} seconds."
-msgstr "{trigger_value}秒ごとに、{trigger_chance}％の確率で前のスキルを{skill_duration}秒間再度アクティブ化します。\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:229
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra combo bonus based on your current health for {skill_duration} seconds."
-msgstr "{trigger_value}秒ごとに、{skill_duration}秒間の現在のヘルスに基づいて、{trigger_chance}％の確率で追加のコンボボーナスを獲得できます。\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:230
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that with all three types of idols on the team, you will gain an extra {skill_value2}% combo bonus, and Perfect notes will receive a {skill_value}% score bonus plus restore {skill_value3} life, for {skill_duration} seconds."
-msgstr "{trigger_value}秒ごとに、{trigger_chance}％の確率で、チームの3種類のアイドルすべてで、追加の{skill_value2}％コンボボーナスを獲得し、パーフェクトノートには{skill_value}％スコアボーナスが付与されますさらに、{skill_duration}秒間、{skill_value3}のライフを回復します。\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:660
 msgid "Princess"
@@ -3659,69 +3478,56 @@ msgstr "プリンセス"
 
 #: cpro/model_choices.py:321
 msgid "Cheer"
-msgstr "乾杯\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:322
 msgid "Cinderella Charm"
-msgstr "シンデレラチャーム\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:323
 msgid "Fortune Present"
-msgstr "フォーチュンプレゼント\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:345
 msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}% when there are only {idol_type} idols on the team."
-msgstr "チームに{idol_type}のアイドルしかない場合、すべての{idol_type}アイドルの{leader_skill_type}を{leader_skill_percent}％引き上げます。\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:348
 msgid "Raises {leader_skill_type} of all idols by {leader_skill_percent}% when there are {all_types} idols on the team."
-msgstr "チームに{all_types}人のアイドルがいる場合、すべてのアイドルの{leader_skill_type}を{leader_skill_percent}％引き上げます。\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:360
 msgid "Increases fan gain by {leader_skill_percent}% when you finish a live."
-msgstr "ライブ終了時にファンゲインが{leader_skill_percent}％増加します。\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:361
 msgid "Gives extra rewards when you finish a live."
-msgstr "ライブを終了すると、追加の報酬を提供します。\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:377 cpro/model_choices.py:382
 #: cpro/model_choices.py:383 cpro/model_choices.py:384
 msgid "{type} appeal"
-msgstr "{type}の申し立て\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:387
 msgid "Skill probability"
-msgstr "スキル確率\n"
-""
+msgstr ""
 
 #: bang/forms.py:548 bang/forms.py:730
 msgid "Status"
-msgstr "状態\n"
-""
+msgstr ""
 
 #: bang/forms.py:549 bang/forms.py:731
 msgid "Past"
-msgstr "過去\n"
-""
+msgstr ""
 
 #: bang/forms.py:550 bang/forms.py:732
 msgid "Current"
-msgstr "電流\n"
-""
+msgstr ""
 
 #: bang/forms.py:551 bang/forms.py:733
 msgid "Future"
-msgstr "未来\n"
-""
+msgstr ""
 
 #: starlight/settings.py:198
 #, fuzzy
@@ -3730,8 +3536,7 @@ msgstr "ミーム"
 
 #: bang/settings.py:152
 msgid "Scouting"
-msgstr "スカウト\n"
-""
+msgstr ""
 
 #: starlight/settings.py:170
 msgid "Manga"
@@ -3739,18 +3544,15 @@ msgstr "漫画"
 
 #: starlight/settings.py:205
 msgid "Question"
-msgstr "質問\n"
-""
+msgstr ""
 
 #: starlight/settings.py:219
 msgid "Swearing"
-msgstr "悪態\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:27
 msgid "End of new messages"
-msgstr "新しいメッセージの終わり\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:2890 magi/magicollections.py:4263
 #, fuzzy
@@ -3760,8 +3562,7 @@ msgstr "ダイレクトメッセージ"
 #: magi/magicollections.py:2784 magi/magicollections.py:3214
 #: magi/magicollections.py:4273
 msgid "Send a message"
-msgstr "メッセージを送る\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4262 magi/models.py:1123
 #, fuzzy
@@ -3779,43 +3580,35 @@ msgstr "{page_name}へ戻る"
 
 #: magi/magicollections.py:4447 magi/views.py:588
 msgid "You are not allowed to send private messages."
-msgstr "プライベートメッセージを送信することはできません。\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4448 magi/views.py:589
 msgid "Take some time to play around {site_name} to unlock this feature!"
-msgstr "しばらく時間をかけて{site_name}をいじって、この機能のロックを解除してください！\n"
-""
+msgstr ""
 
 #: magi/models.py:252
 msgid "Anyone"
-msgstr "誰でも\n"
-""
+msgstr ""
 
 #: magi/models.py:253
 msgid "Only people I follow"
-msgstr "フォローしている人だけ\n"
-""
+msgstr ""
 
 #: magi/models.py:254
 msgid "Nobody"
-msgstr "だれも\n"
-""
+msgstr ""
 
 #: magi/models.py:256
 msgid "Who is allowed to send you private messages?"
-msgstr "プライベートメッセージを送信できるのは誰ですか？\n"
-""
+msgstr ""
 
 #: magi/models.py:1121
 msgid "You have a new private message from {}."
-msgstr "{}からの新しいプライベートメッセージがあります。\n"
-""
+msgstr ""
 
 #: magi/models.py:1122
 msgid "When someone sends you a private message."
-msgstr "誰かがあなたにプライベートメッセージを送ったとき。\n"
-""
+msgstr ""
 
 #: magi/templates/base.html:262
 msgid "Close"
@@ -3823,38 +3616,31 @@ msgstr "とじる"
 
 #: magi/templates/base.html:266
 msgid "Remind me later"
-msgstr "後で通知する\n"
-""
+msgstr ""
 
 #: magi/templates/base.html:270
 msgid "Don't show this again"
-msgstr "今後これを表示しない\n"
-""
+msgstr ""
 
 #: magi/utils.py:749
 msgid "Your email address is invalid."
-msgstr "あなたのメールアドレスは無効です。\n"
-""
+msgstr ""
 
 #: magi/utils.py:750
 msgid "Some features might not work properly."
-msgstr "一部の機能が正しく動作しない場合があります。\n"
-""
+msgstr ""
 
 #: magi/views.py:800
 msgid "Wiki home"
-msgstr "Wikiホーム\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:186
 msgid "Focus"
-msgstr "フォーカス\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:231
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus for {skill_duration} seconds"
-msgstr "{trigger_value}秒ごとに、{trigger_chance}％の確率で、パーフェクトノートに{skill_value}％のスコアボーナスが付与され、{skill_value2}％のコンボボーナスを{skill_duration}秒間獲得できます\n"
-""
+msgstr ""
 
 #: bang/models.py:1124
 msgid "VS Live"
@@ -3880,8 +3666,7 @@ msgstr "あけさん、ありがとう"
 
 #: starlight/models.py:296
 msgid "Playground"
-msgstr "遊び場\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1225
 msgid "Sunset"
@@ -3913,8 +3698,7 @@ msgstr "コス・パーティー2018"
 
 #: magi/models.py:1315
 msgid "This is {month}'s badge. It's limited to this month only, and only our donators can get it. It's not too late! If you donate now, it will appear on your profile."
-msgstr "これは{month}のバッジです。それは今月のみに限定されており、寄付者だけがそれを手に入れることができます。遅すぎることはありません！今寄付すると、あなたのプロフィールに表示されます。\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:924 idolstory/models.py:1268
 #: idolstory/models.py:1269 idolstory/models.py:2508
@@ -3947,13 +3731,11 @@ msgstr "ラブライブ！"
 
 #: idolstory/sukutomo_future_translations.py:57
 msgid "Puchis"
-msgstr "プチス\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:63
 msgid "School Idol Collection"
-msgstr "スクールアイドルコレクション\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:64
 msgid "Weiss Schwartz"
@@ -3961,18 +3743,15 @@ msgstr "ヴァイスシュヴァルツ"
 
 #: idolstory/sukutomo_future_translations.py:66
 msgid "School Idol Contest"
-msgstr "スクールアイドルコンテスト\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:67
 msgid "School Idol Trivia"
-msgstr "スクールアイドルトリビア\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:68
 msgid "School Idol Memory"
-msgstr "スクールアイドルメモリー\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:304 starlight/settings.py:167
 msgid "Voice actresses"
@@ -3981,48 +3760,39 @@ msgstr "声優"
 #: idolstory/magicollections.py:1438
 #: idolstory/sukutomo_future_translations.py:72
 msgid "Episodes"
-msgstr "エピソード\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:76
 msgid "Official merchandise"
-msgstr "公式グッズ\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:77
 msgid "Fan-made items"
-msgstr "ファン製アイテム\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:78
 msgid "Commissions"
-msgstr "手数料\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:81
 msgid "Cosplays"
-msgstr "コスプレ\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:82
 msgid "Fanarts"
-msgstr "ファンアート\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:83
 msgid "Fan edits"
-msgstr "ファンの編集\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:84
 msgid "Fan fictions"
-msgstr "ファンフィクション\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:85
 msgid "Community events"
-msgstr "コミュニティイベント\n"
-""
+msgstr ""
 
 #: sukutomo/settings.py:243
 msgid "Games"
@@ -4030,13 +3800,11 @@ msgstr "ゲーム"
 
 #: sukutomo/settings.py:322
 msgid "Shop"
-msgstr "ショップ\n"
-""
+msgstr ""
 
 #: magi/forms.py:2980 magi/models.py:175
 msgid "Always post activities in {language}"
-msgstr "アクティビティは常に{language}で投稿してください\n"
-""
+msgstr ""
 
 #. Name of the gacha followed by "Gacha". For example if the name of the gacha is "The pretty butterfly" then it will show up as "The pretty butterfly Gacha". If it doesn't sound good in your language, feel free to change the formatting. For example, if you enter "Gacha: {}", it will show up as "Gacha: The pretty butterfly".
 #: bang/magicollections.py:1563 bang/magicollections.py:1566
@@ -4046,8 +3814,7 @@ msgstr "{} ガチャ"
 
 #: bang/magicollections.py:2177
 msgid "Locations"
-msgstr "場所\n"
-""
+msgstr ""
 
 #: bang/models.py:492
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%"
@@ -4055,8 +3822,7 @@ msgstr "{duration}秒間スコアが{percentage}%UP、発動時に自分のラ�
 
 #: bang/models.py:529
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}"
-msgstr "次の{duration}秒間、ライフが{stamina}以上の場合、スコアが+ {percentage}％増加し、それ以外の場合は{alt_stamina}だけライフが回復\n"
-""
+msgstr ""
 
 #. Name of a type of events in BanG Dream!
 #: bang/models.py:1125
@@ -4066,61 +3832,51 @@ msgstr "ライブトライ！"
 #. Name of an achievement you can get after finishing an event in BanG Dream!
 #: bang/models.py:1256 bang/models.py:1286
 msgid "Goal Master"
-msgstr "ゴールマスター\n"
-""
+msgstr ""
 
 #. Name of an achievement you can get after finishing an event in BanG Dream!
 #: bang/models.py:1257 bang/models.py:1291
 msgid "EX Goal Master"
-msgstr "EXゴールマスター\n"
-""
+msgstr ""
 
 #. The type of an item, when it's a "main" item.
 #: bang/models.py:1749
 msgid "Main"
-msgstr "メイン\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1821
 msgid "Studio"
-msgstr "スタジオ\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1823
 msgid "Counter"
-msgstr "カウンター\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1826
 msgid "Entrance"
-msgstr "入り口\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1827
 msgid "Sign"
-msgstr "符号\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1828
 msgid "Plaza"
-msgstr "プラザ\n"
-""
+msgstr ""
 
 #. A location in a game.
 #: bang/models.py:1829
 msgid "Garden"
-msgstr "庭園\n"
-""
+msgstr ""
 
 #: bang/models.py:1835 bang/models.py:1883
 msgid "Mic"
-msgstr "マイク\n"
-""
+msgstr ""
 
 #: bang/models.py:1836
 msgid "Guitar"
@@ -4136,55 +3892,46 @@ msgstr "ドラム"
 
 #: idolstory/sukutomo_future_translations.py:112
 msgid "Hits"
-msgstr "ヒット\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:113
 #: idolstory/sukutomo_future_translations.py:121
 msgid "Daily rotation"
-msgstr "毎日のローテーション\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:114
 #: idolstory/sukutomo_future_translations.py:124
 #: idolstory/sukutomo_future_translations.py:125
 #: idolstory/sukutomo_future_translations.py:1074
 msgid "B-Side"
-msgstr "Bサイド\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:175
 #: idolstory/sukutomo_future_translations.py:1078
 msgid "with SWIPE notes"
-msgstr "SWIPEノート付き\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1682 idolstory/models.py:1687 idolstory/models.py:3035
 #: idolstory/models.py:3040 idolstory/sukutomo_future_translations.py:947
 #: idolstory/sukutomo_future_translations.py:952
 msgid "Details"
-msgstr "細部\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:665
 msgid "Angel"
-msgstr "天使\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:670
 msgid "Empress"
-msgstr "皇后\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:675
 msgid "Star"
-msgstr "星\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:679
 msgid "Heart"
-msgstr "心臓\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1632 idolstory/models.py:1635 idolstory/models.py:1764
 #: idolstory/models.py:1765 idolstory/models.py:1767 idolstory/models.py:1770
@@ -4198,34 +3945,28 @@ msgstr "心臓\n"
 #: idolstory/sukutomo_future_translations.py:872
 #: idolstory/sukutomo_future_translations.py:876
 msgid "Idolized"
-msgstr "アイドル\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:1045 sukutomo/models.py:697
 #: sukutomo/models.py:1150 sukutomo/models.py:1603
 msgid "Sets"
-msgstr "セット\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:730
 msgid "Transparents"
-msgstr "透明な\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:539
 msgid "Set"
-msgstr "セットする\n"
-""
+msgstr ""
 
 #: idolstory/models.py:960
 msgid "Hakodate Seisen Girls' Academy"
-msgstr "函館青泉女学院\n"
-""
+msgstr ""
 
 #: idolstory/models.py:961
 msgid "UTX High School"
-msgstr "UTX高校\n"
-""
+msgstr ""
 
 #: idolstory/models.py:647
 msgid "Instagram"
@@ -4237,38 +3978,31 @@ msgstr "SNS"
 
 #: sukutomo/settings.py:263
 msgid "Trading cards"
-msgstr "トレーディングカード\n"
-""
+msgstr ""
 
 #: sukutomo/settings.py:267
 msgid "Online mini games"
-msgstr "オンラインミニゲーム\n"
-""
+msgstr ""
 
 #: bang/models.py:1824
 msgid "Mini table"
-msgstr "ミニテーブル\n"
-""
+msgstr ""
 
 #: bang/models.py:1825
 msgid "Magazine rack"
-msgstr "マガジンラック\n"
-""
+msgstr ""
 
 #: bang/models.py:1830
 msgid "Specials menu"
-msgstr "スペシャルメニュー\n"
-""
+msgstr ""
 
 #: bang/forms.py:588
 msgid "Please provide a screenshot to prove your ranking."
-msgstr "ランキングを証明するスクリーンショットを提供してください。\n"
-""
+msgstr ""
 
 #: bang/forms.py:1056 bang/models.py:1855
 msgid "Statistic"
-msgstr "統計\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2006
 #, fuzzy
@@ -4277,23 +4011,19 @@ msgstr "独自"
 
 #: bang/models.py:1015 bang/models.py:1857
 msgid "Max level"
-msgstr "最大レベル\n"
-""
+msgstr ""
 
 #: bang/models.py:1196
 msgid "Boost statistic"
-msgstr "ブースト統計\n"
-""
+msgstr ""
 
 #: bang/models.py:1750
 msgid "Live boost"
-msgstr "ライブブースト\n"
-""
+msgstr ""
 
 #: bang/models.py:1751
 msgid "Studio ticket"
-msgstr "スタジオチケット\n"
-""
+msgstr ""
 
 #. Examples:
 #. Idol Mic
@@ -4329,8 +4059,7 @@ msgstr "判定強化"
 
 #: idolstory/sukutomo_future_translations.py:712
 msgid "{attribute} points up by +{number}% of {other_attribute}"
-msgstr "{attribute}は{other_attribute}の+ {number}％上昇\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:719
 msgid "{attribute} points up by +{number}%"
@@ -4339,18 +4068,15 @@ msgstr "{attribute}が+ {number}％上昇\n"
 
 #: idolstory/sukutomo_future_translations.py:693
 msgid "Leader skill"
-msgstr "リーダースキル\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:221
 msgid "Statistic effect"
-msgstr "統計効果\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:724
 msgid "{group} members points up by +{number}%"
-msgstr "{group}メンバーは+ {number}％上昇\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3792
 msgid "Mark all as read"
@@ -4358,68 +4084,55 @@ msgstr "すべて既読にする"
 
 #: magi/magicollections.py:3812
 msgid "{total} notifications were marked as read."
-msgstr "{total}件の通知を既読にしました。\n"
-""
+msgstr ""
 
 #: bang/models.py:493
 msgid "For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr "次の{duration}秒間、{note_type}のノートがヒットするまでスコアを+ {percentage}％ブーストし、次にスコアを+ {alt_percentage}％ブーストします\n"
-""
+msgstr ""
 
 #: bang/models.py:563
 msgid "Life guard"
-msgstr "ライフガード\n"
-""
+msgstr ""
 
 #: bang/models.py:570
 msgid "BAD/MISS notes do not cause damage"
-msgstr "BAD / MISSノートは損傷を引き起こしません\n"
-""
+msgstr ""
 
 #: bang/models.py:575
 msgid "and BAD/MISS notes do not cause damage for the next {duration} seconds"
-msgstr "BAD / MISSのメモは、次の{duration}秒間ダメージを与えません\n"
-""
+msgstr ""
 
 #: idolstory/models.py:2521 idolstory/sukutomo_future_translations.py:764
 msgid "Boost"
-msgstr "ブースト\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:56
 msgid "All {type} {things}"
-msgstr "すべての{type} {things}\n"
-""
+msgstr ""
 
 #: magi/forms.py:1348
 msgid "Random"
-msgstr "ランダム\n"
-""
+msgstr ""
 
 #: magi/forms.py:1361 magi/forms.py:1367
 msgid "Suggestions"
-msgstr "提案\n"
-""
+msgstr ""
 
 #: magi/views_collections.py:465
 msgid "All the {things}! Search by {search_terms} and filter by {filters} to find all the details you need about the {things} from {game}."
-msgstr "すべての{もの}！{search_terms}で検索し、{filters}でフィルタリングして、{game}の{things}について必要なすべての詳細を見つけます。\n"
-""
+msgstr ""
 
 #: bang/forms.py:414
 msgid "Default"
-msgstr "デフォルト\n"
-""
+msgstr ""
 
 #: bang/magicollections.py:2781
 msgid "Chibis"
-msgstr "ちびす\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:353
 msgid "Merged with other event"
-msgstr "他のイベントと統合\n"
-""
+msgstr ""
 
 #: idolstory/sukutomo_future_translations.py:341
 #: idolstory/sukutomo_future_translations.py:350
@@ -4427,23 +4140,19 @@ msgstr "他のイベントと統合\n"
 #: idolstory/sukutomo_future_translations.py:372
 #: idolstory/sukutomo_future_translations.py:381
 msgid "Tiers"
-msgstr "層\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:1079
 msgid "Can be sold for stickers?"
-msgstr "ステッカーで販売できますか？\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:1080
 msgid "Buy this card"
-msgstr "このカードを購入\n"
-""
+msgstr ""
 
 #: sukutomo/magicollections.py:1081
 msgid "The character that you selected when you started playing."
-msgstr "プレイ開始時に選択したキャラクター。\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3605
 #, fuzzy
@@ -4464,8 +4173,7 @@ msgstr "キャスト"
 
 #: starlight/magicollections.py:446
 msgid "Schools"
-msgstr "学校\n"
-""
+msgstr ""
 
 #: starlight/forms.py:251 starlight/forms.py:553 starlight/forms.py:611
 #: starlight/magicollections.py:474 starlight/models.py:402
@@ -4493,104 +4201,84 @@ msgstr "メモワール一"
 
 #: starlight/magicollections.py:1299
 msgid "Conversation"
-msgstr "会話\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1300
 msgid "Conversations"
-msgstr "会話\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1306 starlight/settings.py:188
 msgid "My theater"
-msgstr "私の劇場\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1314
 msgid "Comic"
-msgstr "漫画\n"
-""
+msgstr ""
 
 #: starlight/models.py:109
 msgid "Flower"
-msgstr "花\n"
-""
+msgstr ""
 
 #: starlight/models.py:117
 msgid "Wind"
-msgstr "風\n"
-""
+msgstr ""
 
 #: starlight/models.py:133
 msgid "Cloud"
-msgstr "雲\n"
-""
+msgstr ""
 
 #: starlight/models.py:141
 msgid "Moon"
-msgstr "月\n"
-""
+msgstr ""
 
 #: starlight/models.py:157
 msgid "Dream"
-msgstr "夢\n"
-""
+msgstr ""
 
 #: starlight/models.py:367 starlight/models.py:369
 msgid "Specialty"
-msgstr "専門\n"
-""
+msgstr ""
 
 #: starlight/models.py:494
 msgid "Students"
-msgstr "学生\n"
-""
+msgstr ""
 
 #: starlight/models.py:575 starlight/models.py:579 starlight/models.py:582
 #: starlight/models.py:586
 msgid "Weapon"
-msgstr "武器\n"
-""
+msgstr ""
 
 #: starlight/models.py:598 starlight/models.py:601
 msgid "Likes"
-msgstr "いいね\n"
-""
+msgstr ""
 
 #: starlight/models.py:603 starlight/models.py:606
 msgid "Dislikes"
-msgstr "嫌い\n"
-""
+msgstr ""
 
 #: starlight/models.py:1431
 msgid "Front"
-msgstr "前面\n"
-""
+msgstr ""
 
 #: starlight/models.py:1429
 msgid "Rear"
-msgstr "リア\n"
-""
+msgstr ""
 
 #: starlight/models.py:1433
 msgid "Position"
-msgstr "ポジション\n"
-""
+msgstr ""
 
 #: starlight/settings.py:201
 msgid "Fanart"
-msgstr "ファンアート\n"
-""
+msgstr ""
 
 #: starlight/settings.py:202
 msgid "Graphic edit"
-msgstr "グラフィック編集\n"
-""
+msgstr ""
 
 #: starlight/settings.py:221
 msgid "Questionable"
-msgstr "疑わしい\n"
-""
+msgstr ""
 
 #: starlight/forms.py:129 starlight/forms.py:140
 #: starlight/magicollections.py:100 starlight/magicollections.py:101
@@ -4606,13 +4294,11 @@ msgstr "歌詞"
 
 #: magi/default_settings.py:29 magi/utils.py:981
 msgid "Less"
-msgstr "もっと少なく\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:400 magi/default_settings.py:408
 msgid "β-tester"
-msgstr "βテスター\n"
-""
+msgstr ""
 
 #: magi/forms.py:2608
 msgid "Users who can speak {language}"
@@ -4621,444 +4307,359 @@ msgstr "{language}を話すことができるユーザー\n"
 
 #: magi/magicollections.py:2946
 msgid "Website"
-msgstr "ウェブサイト\n"
-""
+msgstr ""
 
 #: starlight/forms.py:164
 msgid "Skip"
-msgstr "スキップ\n"
-""
+msgstr ""
 
 #: starlight/forms.py:390 starlight/models.py:819 starlight/models.py:867
 #: starlight/utils.py:171
 msgid "Singers"
-msgstr "歌手\n"
-""
+msgstr ""
 
 #: starlight/forms.py:426 starlight/forms.py:616 starlight/forms.py:654
 #: starlight/models.py:976 starlight/models.py:977 starlight/models.py:979
 #: starlight/models.py:981
 msgid "Target"
-msgstr "目標\n"
-""
+msgstr ""
 
 #: starlight/forms.py:510 starlight/magicollections.py:760
 #: starlight/models.py:1159 starlight/models.py:1389
 msgid "Acts"
-msgstr "行為\n"
-""
+msgstr ""
 
 #: starlight/forms.py:515
 msgid "Number"
-msgstr "数\n"
-""
+msgstr ""
 
 #: starlight/forms.py:645 starlight/magicollections.py:1095
 msgid "Effective against"
-msgstr "に対して効果的\n"
-""
+msgstr ""
 
 #: starlight/forms.py:648 starlight/magicollections.py:1096
 msgid "Less effective against"
-msgstr "に対して効果が低い\n"
-""
+msgstr ""
 
 #: starlight/forms.py:651
 msgid "Hits more than once"
-msgstr "複数回ヒット\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:226
 msgid "Relive account"
-msgstr "アカウントを再体験\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:694 starlight/magicollections.py:721
 msgid "Buy {thing}"
-msgstr "{thing}を購入\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:694 starlight/magicollections.py:721
 msgid "CD"
-msgstr "CD\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:759
 msgid "Act"
-msgstr "行為\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:946
 msgid "Cost"
-msgstr "費用\n"
-""
+msgstr ""
 
 #: starlight/forms.py:767 starlight/forms.py:803
 #: starlight/magicollections.py:975 starlight/models.py:1927
 #: starlight/models.py:1951
 msgid "Rank"
-msgstr "ランク\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1052 starlight/models.py:759
 #: starlight/models.py:761
 msgid "Role"
-msgstr "役割\n"
-""
+msgstr ""
 
 #: starlight/models.py:149
 msgid "Space"
-msgstr "スペース\n"
-""
+msgstr ""
 
 #: starlight/models.py:242
 msgid "Casual"
-msgstr "カジュアル\n"
-""
+msgstr ""
 
 #: starlight/models.py:246
 msgid "Hardcore"
-msgstr "ハードコア\n"
-""
+msgstr ""
 
 #: starlight/models.py:252
 msgid "Play style"
-msgstr "プレイスタイル\n"
-""
+msgstr ""
 
 #: starlight/models.py:255
 msgid "Stage of dreams level"
-msgstr "夢レベルのステージ\n"
-""
+msgstr ""
 
 #: starlight/models.py:267 starlight/models.py:268 starlight/models.py:269
 msgid "Platinum"
-msgstr "白金\n"
-""
+msgstr ""
 
 #: starlight/models.py:270
 msgid "Legend"
-msgstr "伝説\n"
-""
+msgstr ""
 
 #: starlight/models.py:274
 msgid "Vs. Revue rank"
-msgstr "対 レビューランク\n"
-""
+msgstr ""
 
 #: starlight/models.py:293
 msgid "Total stars bought"
-msgstr "購入した星の合計\n"
-""
+msgstr ""
 
 #: starlight/models.py:297
 msgid "Check this box if this account doesn't exist in the game."
-msgstr "このアカウントがゲームに存在しない場合は、このボックスをチェックしてください。\n"
-""
+msgstr ""
 
 #: starlight/models.py:388 starlight/models.py:391 starlight/models.py:622
 #: starlight/models.py:625
 msgid "Video"
-msgstr "ビデオ\n"
-""
+msgstr ""
 
 #: starlight/models.py:551 starlight/models.py:555
 msgid "Department"
-msgstr "部門\n"
-""
+msgstr ""
 
 #: starlight/models.py:612 starlight/models.py:615
 msgid "Introduction"
-msgstr "前書き\n"
-""
+msgstr ""
 
 #: starlight/models.py:746
 msgid "General"
-msgstr "一般的な\n"
-""
+msgstr ""
 
 #: starlight/models.py:747
 msgid "Stage play"
-msgstr "舞台演技\n"
-""
+msgstr ""
 
 #: starlight/models.py:748
 msgid "Additional"
-msgstr "追加\n"
-""
+msgstr ""
 
 #: starlight/models.py:750
 msgid "Category"
-msgstr "カテゴリー\n"
-""
+msgstr ""
 
 #: starlight/models.py:908
 msgid "Basic"
-msgstr "ベーシック\n"
-""
+msgstr ""
 
 #: starlight/models.py:913
 msgid "Climax"
-msgstr "クライマックス\n"
-""
+msgstr ""
 
 #: starlight/models.py:918
 msgid "Auto"
-msgstr "自動\n"
-""
+msgstr ""
 
 #: starlight/models.py:923
 msgid "Finishing"
-msgstr "仕上げ\n"
-""
+msgstr ""
 
 #: starlight/models.py:950 starlight/models.py:954 starlight/models.py:1106
 #: starlight/models.py:1110
 msgid "Tips"
-msgstr "チップ\n"
-""
+msgstr ""
 
 #: starlight/models.py:966
 msgid "Unlock at rank {rank}"
-msgstr "ランク{rank}でアンロック\n"
-""
+msgstr ""
 
 #: starlight/models.py:969
 msgid "Hits {number_of_times} times"
-msgstr "{number_of_times}回ヒット\n"
-""
+msgstr ""
 
 #: starlight/models.py:972
 msgid "Front enemy"
-msgstr "前敵\n"
-""
+msgstr ""
 
 #: starlight/models.py:973
 msgid "Front group of enemies"
-msgstr "敵の前グループ\n"
-""
+msgstr ""
 
 #: starlight/models.py:974
 msgid "All enemies"
-msgstr "すべての敵\n"
-""
+msgstr ""
 
 #: starlight/models.py:986
 msgid "After full bound break"
-msgstr "フルバウンドブレイク後\n"
-""
+msgstr ""
 
 #: starlight/models.py:1005
 msgid "AP"
-msgstr "AP\n"
-""
+msgstr ""
 
 #: starlight/models.py:1162 starlight/models.py:1168 starlight/models.py:1174
 #: starlight/models.py:1182
 msgid "ACT Power"
-msgstr "ACTパワー\n"
-""
+msgstr ""
 
 #: starlight/models.py:1163 starlight/models.py:1169 starlight/models.py:1176
 #: starlight/models.py:1184
 msgid "Normal defense"
-msgstr "通常の防御\n"
-""
+msgstr ""
 
 #: starlight/models.py:1164 starlight/models.py:1170 starlight/models.py:1178
 #: starlight/models.py:1186
 msgid "Special defense"
-msgstr "特別防衛\n"
-""
+msgstr ""
 
 #: starlight/models.py:1165 starlight/models.py:1171 starlight/models.py:1179
 #: starlight/models.py:1187
 msgid "Agility"
-msgstr "機敏\n"
-""
+msgstr ""
 
 #: starlight/models.py:1194
 msgid "Base"
-msgstr "ベース\n"
-""
+msgstr ""
 
 #: starlight/models.py:1414
 msgid "Element"
-msgstr "素子\n"
-""
+msgstr ""
 
 #: starlight/models.py:1440
 msgid "Anti-tank"
-msgstr "対戦車\n"
-""
+msgstr ""
 
 #: starlight/models.py:1441
 msgid "Assassin"
-msgstr "暗殺者\n"
-""
+msgstr ""
 
 #: starlight/models.py:1442
 msgid "Attacker"
-msgstr "アタッカー\n"
-""
+msgstr ""
 
 #: starlight/models.py:1443
 msgid "Burn"
-msgstr "燃やす\n"
-""
+msgstr ""
 
 #: starlight/models.py:1444
 msgid "Debuffer"
-msgstr "デバッファ\n"
-""
+msgstr ""
 
 #: starlight/models.py:1445
 msgid "Defender"
-msgstr "ディフェンダー\n"
-""
+msgstr ""
 
 #: starlight/models.py:1446
 msgid "Disabler"
-msgstr "Disabler\n"
-""
+msgstr ""
 
 #: starlight/models.py:1448
 msgid "Nuker"
-msgstr "ヌカー\n"
-""
+msgstr ""
 
 #: starlight/models.py:1450
 msgid "Special defender"
-msgstr "特別ディフェンダー\n"
-""
+msgstr ""
 
 #: starlight/models.py:1451
 msgid "Special defense tank"
-msgstr "特殊防衛戦車\n"
-""
+msgstr ""
 
 #: starlight/models.py:1453
 msgid "Tank"
-msgstr "タンク\n"
-""
+msgstr ""
 
 #: starlight/models.py:1666 starlight/models.py:1714
 msgid "Upgrade"
-msgstr "アップグレードする\n"
-""
+msgstr ""
 
 #: starlight/models.py:1667 starlight/models.py:1720
 msgid "VS. Revue reward"
-msgstr "対。褒賞\n"
-""
+msgstr ""
 
 #: starlight/models.py:1669
 msgid "Selling price"
-msgstr "販売価格\n"
-""
+msgstr ""
 
 #: starlight/models.py:1674 starlight/models.py:1677
 msgid "Explanation"
-msgstr "説明\n"
-""
+msgstr ""
 
 #: starlight/settings.py:171
 msgid "Movie"
-msgstr "映画\n"
-""
+msgstr ""
 
 #: starlight/settings.py:175
 msgid "Meetups"
-msgstr "ミートアップ\n"
-""
+msgstr ""
 
 #: starlight/models.py:836 starlight/models.py:839
 msgid "Orchestral arrangement"
-msgstr "オーケストラの配置\n"
-""
+msgstr ""
 
 #: starlight/settings.py:33
 msgid "\n"
 "Shoujo☆Kageki Revue Starlight (Lit. Girls☆Opera Revue Starlight) is a multi-media project produced by Bushiroad and Nelke Planning. It aims to link the world of anime and musicals together. Besides the anime series and the musical performances, the voice actresses also perform live concerts and various events for fans. The characters from the license also appear in 3 manga series and a mobile game called \"Relive\".\n"
 ""
-msgstr "少女☆かげきレヴュースターライト（Lit.Girls☆Opera Revue Starlight）は、ブシロードとネルケプランニングが制作したマルチメディアプロジェクトです。アニメとミュージカルの世界をつなぐことを目指しています。アニメシリーズやミュージカルパフォーマンスの他に、声優陣はライブコンサートやファンのためのさまざまなイベントも行っています。ライセンスのキャラクターは漫画シリーズ3とモバイルゲーム「リライブ」にも登場します。\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:756
 msgid "Sitemap"
-msgstr "サイトマップ\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:683
 msgid "Search and filter"
-msgstr "検索とフィルタリング\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:723
 msgid "When you buy from this link, it costs you nothing extra, but we get a percentage which helps support the community and pay for the servers!"
-msgstr "このリンクから購入すると、追加費用はかかりませんが、コミュニティのサポートとサーバーの支払いに役立つパーセンテージが提供されます！\n"
-""
+msgstr ""
 
 #: idolstory/models.py:639
 msgid "Official agency profile"
-msgstr "公式代理店プロフィール\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1364 idolstory/settings.py:237
 msgid "Stories"
-msgstr "ストーリー\n"
-""
+msgstr ""
 
 #: idolstory/settings.py:408
 msgid "Gameplay"
-msgstr "ゲームプレイ\n"
-""
+msgstr ""
 
 #: magi/templates/pages/prelaunch.html:27
 msgid "Thank you for pre-registering!"
-msgstr "事前登録ありがとうございます！\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:80
 msgid "Users"
-msgstr "ユーザー\n"
-""
+msgstr ""
 
 #: magi/default_settings.py:977 magi/default_settings.py:983
 #: magi/default_settings.py:992 magi/default_settings.py:998 magi/utils.py:2950
 msgid "Advent calendar"
-msgstr "アドベントカレンダー\n"
-""
+msgstr ""
 
 #: magi/forms.py:2020
 msgid "Optional"
-msgstr "オプション\n"
-""
+msgstr ""
 
 #: magi/forms.py:3022
 msgid "{thing} required."
-msgstr "{thing}が必要です。\n"
-""
+msgstr ""
 
 #: magi/forms.py:3058
 msgid "Past tags"
-msgstr "過去のタグ\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:1325
 msgid "Original"
-msgstr "元の\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:1329
 msgid "High quality"
-msgstr "高品質\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:2808
 msgid "Your inbox is only open to people you follow, and you're not following anyone."
-msgstr "受信トレイはあなたがフォローしている人だけが閲覧でき、あなたは誰もフォローしていません。\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3191
 msgid "Hey, look! I'm on {site}! Follow me ♥︎"
@@ -5067,143 +4668,115 @@ msgstr "ねえ、見て！私は{site}にいます！フォローミー♥︎\n"
 
 #: magi/magicollections.py:3921
 msgid "How to get badges?"
-msgstr "バッジを取得するには？\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:3922
 msgid "Collect them all!"
-msgstr "それらをすべて集めよう！\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4238
 msgid "Prizes"
-msgstr "賞品\n"
-""
+msgstr ""
 
 #: magi/magicollections.py:4454
 msgid "Your inbox is closed."
-msgstr "受信トレイが閉じています。\n"
-""
+msgstr ""
 
 #: magi/seasons.py:58
 msgid "Happy New Year!"
-msgstr "明けましておめでとうございます！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:63
 msgid "Happy Lunar New Year!"
-msgstr "旧正月、明けましておめでとうございます！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:68
 msgid "Happy Valentine's Day!"
-msgstr "ハッピーバレンタインデー！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:73
 msgid "Happy Leap Day!"
-msgstr "幸せなうるう日！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:83
 msgid "Happy White Day!"
-msgstr "ハッピーホワイトデー！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:88
 msgid "Happy St Patrick's Day!"
-msgstr "楽しいセント・パトリック・デイを過ごしてね！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:93
 msgid "Happy April Fool's Day!"
-msgstr "ハッピーエイプリルフール！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:155
 msgid "Happy Easter!"
-msgstr "イースター、おめでとう！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:160
 msgid "May the Fourth be with you!"
-msgstr "フォースがあなたと一緒にいられますように！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:170
 msgid "Happy Pride Month!"
-msgstr "プライド月間ハッピー！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:177
 msgid "Happy Thanksgiving!"
-msgstr "幸せな感謝祭！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:182
 msgid "Happy Halloween!"
-msgstr "ハッピーハロウィン！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:197 magi/utils.py:2943 magi/views.py:1601
 msgid "Merry Christmas!"
-msgstr "メリークリスマス！\n"
-""
+msgstr ""
 
 #: magi/settings.py:885
 msgid "Learn a few tips and tricks to help you easily use {site}."
-msgstr "{site}を簡単に使用するためのヒントとコツをいくつか紹介します。\n"
-""
+msgstr ""
 
 #: magi/settings.py:891
 msgid "Map of all {license} fans around the world."
-msgstr "世界中のすべての{license}ファンの地図。\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1349 idolstory/models.py:1352
 msgid "Credits"
-msgstr "クレジット\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:109
 msgid "LIVE Carnival"
-msgstr "LIVEカーニバル\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:187
 msgid "Hold"
-msgstr "ホールド\n"
-""
+msgstr ""
 
 #: cpro/model_choices.py:232
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and hold notes a {skill_value2}% score bonus in the next {skill_duration} seconds."
-msgstr "{trigger_value}秒ごとに、{trigger_chance}％の確率でパーフェクトノートに{skill_value}％のスコアボーナスが与えられ、次の{skill_duration}秒でノートに{skill_value2}％のスコアボーナスが与えられます。\n"
-""
+msgstr ""
 
 #: bang/models.py:494
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members"
-msgstr "次の{duration}秒間、PERFECTノートのスコアは+ {percentage}％増加します。チームが{influence}メンバーのみで構成されている場合は+ {cond_percentage}％増加します\n"
-""
+msgstr ""
 
 #: bang/models.py:495
 msgid "For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr "次の{duration}秒間、スコアが+ {percentage}％（チームが{influence}のメンバーのみで構成されている場合は+ {cond_percentage}％）、{note_type}のノートがヒットするまでブーストされ、その後+ {alt_percentage}ブーストされます。 ％\n"
-""
+msgstr ""
 
 #: bang/settings.py:317
 msgid "Gallery of {license} images"
-msgstr "{license}画像のギャラリー\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:107
 msgid "Show {thing}"
-msgstr "{thing}を表示\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:107 idolstory/forms.py:108
 msgid "Guests"
-msgstr "ゲスト\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:108
 msgid "Hide {thing}"
@@ -5212,81 +4785,67 @@ msgstr "{thing}を隠す\n"
 
 #: idolstory/forms.py:480 idolstory/forms.py:1067
 msgid "All members"
-msgstr "全員\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:675 idolstory/models.py:1724 idolstory/models.py:1753
 #: idolstory/models.py:1758 idolstory/models.py:1764 idolstory/models.py:1770
 msgid "Appeal"
-msgstr "アピール\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:676 idolstory/models.py:1728 idolstory/models.py:1754
 #: idolstory/models.py:1760 idolstory/models.py:1765 idolstory/models.py:1772
 msgid "Stamina"
-msgstr "元気\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:858 idolstory/models.py:1576 idolstory/models.py:2020
 #: idolstory/models.py:2912
 msgid "Passive"
-msgstr "受動的\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:859 idolstory/models.py:2917
 msgid "Limit break"
-msgstr "限界を破る\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:1023 idolstory/magicollections.py:1437
 #: idolstory/models.py:3029
 msgid "Episode"
-msgstr "エピソード\n"
-""
+msgstr ""
 
 #: idolstory/forms.py:1027 idolstory/magicollections.py:1389
 #: idolstory/models.py:2728 idolstory/models.py:2880
 msgid "Chapter"
-msgstr "章\n"
-""
+msgstr ""
 
 #. A blog post
 #: starlight/models.py:1794
 msgid "Post"
-msgstr "役職\n"
-""
+msgstr ""
 
 #. Blog posts
 #: idolstory/magicollections.py:283
 msgid "Posts"
-msgstr "投稿\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:485
 msgid "Glowing"
-msgstr "輝く\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1121
 msgid "Year"
-msgstr "年\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1252
 msgid "Skills"
-msgstr "スキル\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1519 idolstory/models.py:3098
 #: idolstory/models.py:3105
 msgid "Still"
-msgstr "まだ\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:1520 idolstory/models.py:1086
 msgid "Stills"
-msgstr "静止画\n"
-""
+msgstr ""
 
 #: idolstory/magicollections.py:412 idolstory/magicollections.py:1363
 #: idolstory/magicollections.py:1379 idolstory/magicollections.py:1407
@@ -5294,90 +4853,73 @@ msgstr "静止画\n"
 #: idolstory/magicollections.py:1725 idolstory/models.py:2665
 #: idolstory/models.py:2795 idolstory/models.py:2800
 msgid "Story"
-msgstr "物語\n"
-""
+msgstr ""
 
 #: idolstory/models.py:343
 msgid "Elegant"
-msgstr "エレガント\n"
-""
+msgstr ""
 
 #: idolstory/models.py:347
 msgid "Natural"
-msgstr "ナチュラル\n"
-""
+msgstr ""
 
 #: idolstory/models.py:468 idolstory/models.py:473 idolstory/models.py:478
 #: idolstory/models.py:483 idolstory/models.py:488 idolstory/models.py:493
 #: idolstory/models.py:498
 msgid "Guest"
-msgstr "ゲスト\n"
-""
+msgstr ""
 
 #: idolstory/models.py:498
 msgid "No attribute"
-msgstr "属性なし\n"
-""
+msgstr ""
 
 #: idolstory/models.py:651
 msgid "YouTube"
-msgstr "YouTube\n"
-""
+msgstr ""
 
 #: idolstory/models.py:844
 msgid "Symbol"
-msgstr "シンボル\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1038
 msgid "Lighstick color"
-msgstr "ライトスティック色\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1040 idolstory/models.py:1043
 msgid "Call and response"
-msgstr "呼び出しと応答\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1190
 msgid "Game"
-msgstr "ゲーム\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1216
 msgid "Abstract"
-msgstr "概要\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1217
 msgid "Blurry"
-msgstr "ぼやけた\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1577 idolstory/models.py:2043
 msgid "Show"
-msgstr "公演\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1666
 msgid "Guard"
-msgstr "ガード\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1667 idolstory/models.py:2498
 msgid "Voltage"
-msgstr "電圧\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1668
 msgid "SP"
-msgstr "SP\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1739 idolstory/models.py:1743
 msgid "Max trained"
-msgstr "マックストレーニング済み\n"
-""
+msgstr ""
 
 #: idolstory/models.py:418 idolstory/models.py:2003 idolstory/models.py:2033
 #: idolstory/models.py:2056
@@ -5385,10 +4927,8 @@ msgid "Affects"
 msgstr "対象"
 
 #: idolstory/models.py:2334
-#, fuzzy
 msgid "Base statistics, without any training."
-msgstr "トレーニングなしの基本統計。\n"
-""
+msgstr ""
 
 #: idolstory/models.py:2679 idolstory/models.py:2822
 msgid "Chapter {number}"
@@ -5402,13 +4942,11 @@ msgstr "エピソード{number}\n"
 
 #: idolstory/models.py:2903
 msgid "Outfit unlocked"
-msgstr "服のロックが解除されました\n"
-""
+msgstr ""
 
 #: idolstory/models.py:2904
 msgid "Story unlocked"
-msgstr "ストーリーのロックが解除されました\n"
-""
+msgstr ""
 
 #: idolstory/settings.py:212 idolstory/settings.py:247
 msgid "{name}'s birthday party {year}"
@@ -5417,13 +4955,11 @@ msgstr "{name}の誕生日パーティー{year}\n"
 
 #: idolstory/settings.py:266
 msgid "What's your Love Live! story?"
-msgstr "あなたのラブライブは何ですか！物語？\n"
-""
+msgstr ""
 
 #: idolstory/settings.py:417
 msgid "How to install {app}?"
-msgstr "{app}をインストールするには？\n"
-""
+msgstr ""
 
 #: starlight/magicollections.py:1287
 msgid "Gachas"
@@ -5431,18 +4967,15 @@ msgstr "ガチャ"
 
 #: magi/seasons.py:78
 msgid "Happy Pi Day!"
-msgstr "ハッピーパイデー！\n"
-""
+msgstr ""
 
 #: magi/seasons.py:165
 msgid "Happy Cinco de Mayo!"
-msgstr "幸せなシンコデマヨ！\n"
-""
+msgstr ""
 
 #: idolstory/models.py:1648
 msgid "Ultra rare"
-msgstr "ウルトラ・レア\n"
-""
+msgstr ""
 
 #: magi/abstract_collections.py:21
 msgid "Event participation"

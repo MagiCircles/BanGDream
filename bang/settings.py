@@ -162,6 +162,16 @@ ACTIVITY_TAGS = [
     }),
 
     # Events
+    ('RASpreciaton', {
+        'translation': 'RASpreciaton 🎧',
+        'start_date': datetime.datetime(2021, 6, 15, 0, 0, 0, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2021, 7, 1, 0, 0, 0, tzinfo=timezone.utc),
+    }),
+    ('PRIDEReady2021', {
+        'translation': u'PRIDE Ready! 2021 🏳️‍🌈🏳️‍⚧️',
+        'start_date': datetime.datetime(2021, 6, 3, 17, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2021, 6, 10, 17, tzinfo=timezone.utc),
+    }),
     ('DaysofBanGDream', {
         'translation': 'DaysofBanGDream!',
         'start_date': datetime.datetime(2021, 3, 10, 0, 0, 0, tzinfo=timezone.utc),

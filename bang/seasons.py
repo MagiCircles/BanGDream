@@ -166,5 +166,9 @@ def getRandomPrideArt():
             'foreground_url': 'https://i.bandori.party/u/activities/7VxccwbrXslO6zaDvrWwvpeecfwiw0.png',
             'about_url': 'https://bandori.party/activity/49488/oh-we-postin-pride-edits-Pareo-s-perfect-for-this-made-this-one-a-while-ago-it-potentially/',
         },
+        {
+            'url': 'https://i.bandori.party/u/activities/E95o0p21uhxtdtWPk1PfuWOxP0zgrl.jpeg',
+            'about_url': 'https://bandori.party/activity/49717/The-Pride-Ready-event-may-be-over-but-will-I-still-make-edits-You-bet-I-will-So-here-s-Pan/',
+        },
     ])
     return r

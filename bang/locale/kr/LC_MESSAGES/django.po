@@ -100,7 +100,7 @@ msgstr "도움말"
 #. The favorite color of the user. Will be used to personalize their profile.
 #: starlight/models.py:572
 msgid "Color"
-msgstr "색"
+msgstr "퍼스널 컬러"
 
 #. This is about the favorite characters the user specified in their preferences.
 #: magi/forms.py:2381
@@ -945,7 +945,7 @@ msgstr "다른 사용자를 팔로우하고 활동을 확인하세요!"
 #. 임시번역입니다. 원래 그래프로 나오는 부분인데 현재 사이트에서 안 보이네요.
 #: magi/templates/include/homePage.html:71
 msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
-msgstr "현재까지 총 %(total_donators)s 명의 %(adjective)s 기부자들이 기부해 주었습니다"
+msgstr "현재까지 총 %(total_donators)s 명의 %(adjective)s 기부자들이 기부해 주었습니다!"
 
 #: starlight/settings.py:271 starlight/settings.py:290
 msgid "About {thing}"
@@ -2023,7 +2023,7 @@ msgstr "멋진"
 
 #: magi/raw.py:11
 msgid "incredible"
-msgstr "믿을수 없는"
+msgstr "믿을 수 없는"
 
 #: magi/raw.py:12
 msgid "adorable"
@@ -2056,7 +2056,7 @@ msgstr "친절한"
 #: magi/templates/emails/donation_footer.html:3
 #: magi/templates/include/donate.html:10 magi/templates/pages/settings.html:144
 msgid "If you like the website, please consider donating"
-msgstr "이 웹 사이트가 마음에 들면, 기부해주시면 감사하겠습니다"
+msgstr "이 웹 사이트가 마음에 들면, 기부해주시면 감사하겠습니다."
 
 #: magi/templates/emails/notification.html:30
 #: magi/templates/emails/notification.txt:7
@@ -4343,7 +4343,7 @@ msgstr "순위를 증명하기 위해 스크린샷을 업로드하세요."
 
 #: bang/forms.py:1056 bang/models.py:1855
 msgid "Statistic"
-msgstr ""
+msgstr "스탯"
 
 #: bang/magicollections.py:2006
 msgid "Original song"
@@ -4356,7 +4356,7 @@ msgstr "최대 레벨"
 
 #: bang/models.py:1196
 msgid "Boost statistic"
-msgstr ""
+msgstr "부스트 스탯"
 
 #: bang/models.py:1750
 #, fuzzy
@@ -5087,7 +5087,7 @@ msgstr "사전등록 해 주셔서 감사합니다!"
 
 #: starlight/magicollections.py:80
 msgid "Users"
-msgstr ""
+msgstr "유저"
 
 #: magi/default_settings.py:977 magi/default_settings.py:983
 #: magi/default_settings.py:992 magi/default_settings.py:998 magi/utils.py:2950
@@ -5128,11 +5128,11 @@ msgstr "나는 {site}에 있다! 날 따라와 ♥ ︎"
 
 #: magi/magicollections.py:3921
 msgid "How to get badges?"
-msgstr ""
+msgstr "어떻게 뱃지를 얻을 수 있나요?"
 
 #: magi/magicollections.py:3922
 msgid "Collect them all!"
-msgstr ""
+msgstr "모두 모아보세요!"
 
 #: magi/magicollections.py:4238
 #, fuzzy
@@ -5169,7 +5169,7 @@ msgstr "해피 화이트 데이!"
 
 #: magi/seasons.py:88
 msgid "Happy St Patrick's Day!"
-msgstr ""
+msgstr "즐거운 성 패트릭의 날!"
 
 #: magi/seasons.py:93
 msgid "Happy April Fool's Day!"
@@ -5187,7 +5187,7 @@ msgstr "포스가 그대와 함께하기를!"
 
 #: magi/seasons.py:170
 msgid "Happy Pride Month!"
-msgstr ""
+msgstr "즐거운 Pride Month!"
 
 #: magi/seasons.py:177
 #, fuzzy
@@ -5218,7 +5218,7 @@ msgstr ""
 
 #: cpro/model_choices.py:109
 msgid "LIVE Carnival"
-msgstr ""
+msgstr "라이브 카니발"
 
 #: cpro/model_choices.py:187
 msgid "Hold"
@@ -5306,7 +5306,7 @@ msgstr ""
 
 #: idolstory/magicollections.py:1252
 msgid "Skills"
-msgstr ""
+msgstr "스킬"
 
 #: idolstory/magicollections.py:1519 idolstory/models.py:3098
 #: idolstory/models.py:3105
@@ -5339,7 +5339,7 @@ msgstr "자연스러운"
 #: idolstory/models.py:483 idolstory/models.py:488 idolstory/models.py:493
 #: idolstory/models.py:498
 msgid "Guest"
-msgstr ""
+msgstr "게스트"
 
 #: idolstory/models.py:498
 msgid "No attribute"
@@ -5347,7 +5347,7 @@ msgstr ""
 
 #: idolstory/models.py:651
 msgid "YouTube"
-msgstr ""
+msgstr "유튜브"
 
 #: idolstory/models.py:844
 #, fuzzy
@@ -5383,7 +5383,7 @@ msgstr "보이기"
 
 #: idolstory/models.py:1666
 msgid "Guard"
-msgstr ""
+msgstr "가드"
 
 #: idolstory/models.py:1667 idolstory/models.py:2498
 #, fuzzy
@@ -5496,7 +5496,7 @@ msgstr "풀"
 
 #: bang/models.py:252
 msgid "Third"
-msgstr "세 번째로"
+msgstr "3학년"
 
 #: bang/models.py:254
 msgid "Junior Second"

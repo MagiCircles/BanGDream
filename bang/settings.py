@@ -163,7 +163,7 @@ ACTIVITY_TAGS = [
 
     # Events
     ('RASpreciaton', {
-        'translation': 'RASpreciaton 🎧',
+        'translation': u'RASpreciaton 🎧',
         'start_date': datetime.datetime(2021, 6, 15, 0, 0, 0, tzinfo=timezone.utc),
         'end_date': datetime.datetime(2021, 7, 1, 0, 0, 0, tzinfo=timezone.utc),
     }),

@@ -353,6 +353,14 @@ ENABLED_PAGES['add_rerun'] = {
     'redirect': '/rerun/add/',
 }
 
+ENABLED_PAGES['generate_giveaway_discord_messages'] = {
+    'title': 'Giveaway Discord messages',
+    'navbar_link_list': 'staff',
+    'icon': 'developer',
+    'permissions_required': ['generate_giveaway_discord_messages'],
+    'show_title': True,
+}
+
 ############################################################
 # Customize nav bar
 
@@ -454,6 +462,16 @@ SEASONS['pride'].update({
 # Groups
 
 GROUPS = DEFAULT_GROUPS
+
+# Add permissions
+
+for _name, _details in GROUPS:
+    if _name in ['manager', 'discord', 'entertainer']:
+        if 'permissions' not in _details:
+            _details['permissions'] = []
+        _details['permissions'].append('generate_giveaway_discord_messages')
+
+# Add Graphic designer - Manager role
 
 _HDESIGN = dict(GROUPS)['design'].copy()
 _HDESIGN.update({

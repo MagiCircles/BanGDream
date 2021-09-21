@@ -1,0 +1,37 @@
+{% if no_discord_username %}
+<div class="alert alert-danger">
+  To use this feature, you need to <a href="/staffdetailss/" target="_blank">fill all your staff details</a>.
+</div>
+{% else %}
+<div class="alert alert-info">
+  <i class="flaticon-about"></i>
+  This page generates messages to help with prizes assignment
+  <ul>
+    <li><a href="/help/Community%20entertainers%20guide" target="_blank">Full events organizing guide</a></li>
+    <li><a href="{{ sheet_edit_url }}" target="_blank">Winners spreadsheet</a></li>
+    <li><a href="{{ request.path }}{% if not backup_prizes %}?backup_prizes{% endif %}">{% if backup_prizes %}See regular prizes{% else %}See backup prizes{% endif %}</a></li>
+  </ul>
+</div>
+
+{% if generated_messages %}
+{% for name, message in generated_messages %}
+<hr />
+<div>
+  <h3>{{ name }}</h3>
+  <ol>
+    <li>Go to the <code>#art_bandori_party</code> channel</li>
+    <li>Copy this message:
+      <pre>{{ message }}</pre>
+    </li>
+    <li>Open <a href="{{ sheet_edit_url }}" target="_blank">the spreadsheet</a></li>
+    <li>In the "By" column, change to "Asked"</li>
+    <li>Check <a href="/help/Community%20entertainers%20guide" target="_blank">the full guide</a> for follow-up instructions</li>
+  </ol>
+</div>
+{% endfor %}
+{% else %}
+<div class="alert alert-success">
+  <i class="flaticon-check"></i> Looks like all the prizes have been assigned!
+</div>
+{% endif %}
+{% endif %}

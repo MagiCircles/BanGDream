@@ -162,6 +162,11 @@ ACTIVITY_TAGS = [
     }),
 
     # Events
+    ('madlibs2021', {
+        'translation': u'madlibs',
+        'start_date': datetime.datetime(2021, 9, 28, 0, 0, 0, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2021, 10, 20, 0, 0, 0, tzinfo=timezone.utc),
+    }),
     ('RASpreciaton', {
         'translation': u'RASpreciaton 🎧',
         'start_date': datetime.datetime(2021, 6, 15, 0, 0, 0, tzinfo=timezone.utc),

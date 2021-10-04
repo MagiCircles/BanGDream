@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _, pgettext_lazy, string_c
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 from django.utils.safestring import mark_safe
+from django.utils.html import escape
 from django.db.models import Q, Prefetch
 from django.db import models
 from django.conf import settings as django_settings
@@ -717,7 +718,7 @@ class Card(MagiModel):
     skill_cond_percentage = models.FloatField('{cond_percentage}', null=True, help_text='0-100')
 
     SKILL_INFLUENCE_FIRST_BAND_ID = 501
-    SKILL_INFLUENCE_CHOICES = OrderedDict(ATTRIBUTE_CHOICES + 
+    SKILL_INFLUENCE_CHOICES = OrderedDict(ATTRIBUTE_CHOICES +
         [(SKILL_INFLUENCE_FIRST_BAND_ID + i, band) for i, band in enumerate(Member.BAND_CHOICES)])
     SKILL_INFLUENCE_WITHOUT_I_CHOICES = True
     i_skill_influence = models.PositiveIntegerField('{influence}', null=True, choices=SKILL_INFLUENCE_CHOICES.iteritems())
@@ -728,7 +729,7 @@ class Card(MagiModel):
         # Attribute names are translatable, band names are not.
         if enum and self.i_skill_influence < self.SKILL_INFLUENCE_FIRST_BAND_ID:
             return _(enum)
-        
+
         return enum
 
     # Images
@@ -2072,13 +2073,13 @@ class Asset(MagiModel):
             'translation': _('Official art'),
             'variables': ['name', 'i_band', 'members', 'song', 'c_tags', 'source', 'source_link', 'value'],
             'icon': 'pictures',
-            'to_unicode': lambda _a: (
-                _a.t_name
-                or _a.song
-                or _a.band
-                or u', '.join([member.t_name for member in getattr(_a, 'all_members', [])])
-                or _('Official art')
-            ),
+            'to_unicode': lambda _a: u' - '.join([_s for _s in [
+                _a.t_name,
+                _a.song,
+                _a.band,
+            ] if _s] or [
+                u', '.join([member.t_name for member in getattr(_a, 'all_members', [])]),
+            ]) or _('Official art'),
             'navbar_link_list': 'bangdream',
         }),
     ])
@@ -2182,6 +2183,10 @@ class Asset(MagiModel):
             fmt = u'{space}TOP {value}'
         return fmt.format(space=' ' if self.name else '',
             value=self.value)
+
+    @property
+    def display_name_in_list(self):
+        return mark_safe(u'<br>'.join([escape(name) for name in self.to_unicode(self).split(' - ')]))
 
     def __unicode__(self):
         return unicode(self.to_unicode(self))

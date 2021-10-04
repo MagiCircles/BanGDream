@@ -2485,7 +2485,7 @@ class AssetCollection(MainItemCollection):
         for _version, _info in models.Account.VERSIONS.items():
             if getattr(item, '{}image'.format(_info['prefix'])):
                 # If official art is version-less, generate version-less style
-                if getattr(item, 'type')=='officialart' and getattr(item, 'value')==0:
+                if getattr(item, 'type') =='officialart' and getattr(item, 'value')==0:
                     extra_fields.append(('{}image'.format(_info['prefix']), {
                         'icon': 'download',
                         'link': getattr(item, '{}image_url'.format(_info['prefix'])),

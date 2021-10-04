@@ -2075,8 +2075,8 @@ class Asset(MagiModel):
             'icon': 'pictures',
             'to_unicode': lambda _a: u' - '.join([_s for _s in [
                 _a.t_name,
-                unicode(_a.song),
-                unicode(_a.band),
+                unicode(_a.song) if _a.song else None,
+                unicode(_a.band) if _a.band else None,
             ] if _s] or [
                 u', '.join([member.t_name for member in getattr(_a, 'all_members', [])]),
             ]) or _('Official art'),

@@ -33,7 +33,7 @@ msgstr "Profil"
 
 #: magi/magicollections.py:2732
 msgid "Players"
-msgstr "Joueurs"
+msgstr "Joueur·euses"
 
 #: magi/magicollections.py:3431 magi/magicollections.py:3702
 #: magi/models.py:1102 magi/models.py:1116
@@ -89,7 +89,7 @@ msgstr "Donations"
 #. Link to a map of all the players (similar to Google maps).
 #: starlight/templates/pages/map.html:1
 msgid "Map"
-msgstr "Carte des joueurs"
+msgstr "Carte des joueur·euses"
 
 #. Link to the help pages that look like a wiki and help people use the site.
 #: magi/default_settings.py:633 magi/default_settings.py:643
@@ -121,23 +121,23 @@ msgstr "Vérification du nouveau mot de passe"
 
 #: magi/models.py:179
 msgid "Player"
-msgstr "Joueur"
+msgstr "Joueur·euses"
 
 #: magi/models.py:180
 msgid "Super Player"
-msgstr "Super Joueur"
+msgstr "Super Joueur·euses"
 
 #: magi/models.py:181
 msgid "Extreme Player"
-msgstr "Joueur Extrême"
+msgstr "Joueur·euses Extrême"
 
 #: magi/models.py:182
 msgid "Master Player"
-msgstr "Le maître des joueurs"
+msgstr "Le·a maître·sse des joueur·euses"
 
 #: magi/models.py:183
 msgid "Ultimate Player"
-msgstr "Joueur Ultime"
+msgstr "Joueur·euses Ultime"
 
 #: magi/models.py:520
 msgid "Never"
@@ -214,7 +214,7 @@ msgstr "La ville dans laquelle tu vis."
 
 #: magi/models.py:149
 msgid "It might take up to 24 hours to update your location on the map."
-msgstr "La mise à jour de ta position sur la carte des joueurs peut prendre jusqu'à 24 heures."
+msgstr "La mise à jour de ta position sur la carte des joueur·euses peut prendre jusqu'à 24 heures."
 
 #. For links. Select your platform before adding a link. Can be Facebook/Twitter/Reddit, etc.
 #: starlight/models.py:446 starlight/models.py:448
@@ -223,7 +223,7 @@ msgstr "Plateforme"
 
 #: magi/models.py:486
 msgid "Username/ID"
-msgstr "Nom d'utilisateur ou identifiant numérique"
+msgstr "Nom d'utilisateur·trice ou identifiant numérique"
 
 #. For links.
 #: magi/models.py:486
@@ -315,7 +315,7 @@ msgstr "Suivre"
 #. Feel free to use Twitter's word in your language.
 #: magi/templates/items/profile.html:39 magi/templates/items/profile.html:41
 msgid "Followers"
-msgstr "Abonnés"
+msgstr "Abonné·e·s"
 
 #. Feel free to use Twitter's word in your language.
 #: magi/default_settings.py:474 magi/forms.py:2602 magi/forms.py:3094
@@ -357,7 +357,7 @@ msgstr "Contribue"
 
 #: magi/templates/pages/about.html:499 magi/templates/pages/about.html:515
 msgid "Dev"
-msgstr "Développeurs"
+msgstr "Développeur·euses"
 
 #: magi/templates/pages/about.html:501
 msgid "Our project is open-source and open for contributions. We are more than happy to accept pull-requests on GitHub!"
@@ -377,7 +377,7 @@ msgstr "pour le visuel du site."
 
 #: magi/templates/pages/about.html:505
 msgid "We accept all kind of contributions, from tools to help players, statistics pages, mini-games, or even little CSS changes. Don't be shy! If you need help getting started, just contact us and we will happily take the time to teach you the basics, no matter your level."
-msgstr "On accepte n'importe quel genre de contributions, comme par exemple des outils pour les joueurs, des pages de statistiques, des mini-jeux, ou même des petits détails sur le CSS. Donc ne sois pas timide ! Si tu as besoin d'aide pour commencer, contacte-nous et on sera ravis de prendre le temps de t'apprendre les bases, peu importe ton niveau."
+msgstr "On accepte n'importe quel genre de contributions, comme par exemple des outils pour les joueur·euses, des pages de statistiques, des mini-jeux, ou même des petits détails sur le CSS. Donc ne sois pas timide ! Si tu as besoin d'aide pour commencer, contacte-nous et on sera ravis de prendre le temps de t'apprendre les bases, peu importe ton niveau."
 
 #: cpro/templates/include/beforeCards.html:18
 msgid "Get Started"
@@ -385,12 +385,12 @@ msgstr "Guide de démarrage"
 
 #: magi/templates/pages/about.html:517
 msgid "If you're a developer and you would like to get the data of the game in a convenient format, we provide a public REST API to get the game data, our users datacards, and more!"
-msgstr "Si tu es un développeur et que tu voudrais utiliser les infos du jeux dans un format pratique pour tes programmes, on propose une API REST ouverte !"
+msgstr "Si tu es un·e développeur·euse et que tu voudrais utiliser les infos du jeux dans un format pratique pour tes programmes, on propose une API REST ouverte !"
 
 #: magi/default_settings.py:408 magi/magicollections.py:4101
 #: magi/templates/include/donate.html:59
 msgid "Donators"
-msgstr "Donateurs"
+msgstr "Donateur·trices"
 
 #: starlight/views.py:19
 msgid "Wiki"
@@ -406,7 +406,7 @@ msgstr "Modifier ton mot de passe"
 
 #: magi/forms.py:2173
 msgid "Emails"
-msgstr "Emails"
+msgstr "E-mails"
 
 #: starlight/magicollections.py:422
 msgid "Links"
@@ -444,7 +444,7 @@ msgstr "{total} {objects} correspondent à ta recherche :"
 
 #: magi/magicollections.py:1757
 msgid "Become a contributor to help us fill the database"
-msgstr "Deviens un contributeur et aide-nous à remplir la base de données d'infos"
+msgstr "Deviens un·e contributeur·trice et aide-nous à remplir la base de données d'infos"
 
 #: magi/views.py:918 magi/views_collections.py:854
 msgid "You can't cancel this action afterwards."
@@ -496,12 +496,12 @@ msgstr "Images"
 #: magi/templates/emails/report.html:16 magi/templates/emails/report.txt:5
 #: magi/templates/pages/settings.html:98
 msgid "Staff Message:"
-msgstr "Message du modérateur :"
+msgstr "Message du·de la modérateur·trice :"
 
 #: magi/templates/emails/report.html:36 magi/templates/emails/report.txt:10
 #: magi/templates/pages/settings.html:116
 msgid "Moderated by:"
-msgstr "Modéré par :"
+msgstr "Modéré·e par :"
 
 #: cpro/templates/accountsForProfile.html:48
 msgid "Report"
@@ -509,33 +509,33 @@ msgstr "Signaler"
 
 #: magi/templates/items/reportItem.html:18
 msgid "Reported by:"
-msgstr "Signalé par :"
+msgstr "Signalé·e par :"
 
 #: magi/views.py:986 magi/views.py:1021
 msgid "This {thing} you reported has been reviewed by a moderator and {verb}. Thank you so much for your help!"
-msgstr "Un modérateur a pris le temps de lire ton rapport et la {thing} a été {verb}. Merci beaucoup pour ton aide !"
+msgstr "Un·e modérateur·trice a pris le temps de lire ton rapport et la {thing} a été {verb}. Merci beaucoup pour ton aide !"
 
 #. Only used in the sentence "Your {thing} has been reported, and a moderator confirmed it should be {verb}." as the "verb"
 #: magi/views.py:712 magi/views.py:986 magi/views.py:997 magi/views.py:1002
 #: magi/views.py:1032
 msgid "edited"
-msgstr "modifié"
+msgstr "modifié·e"
 
 #: magi/views.py:991 magi/views.py:1026
 msgid "Thank you for reporting this {thing}"
-msgstr "Merci beaucoup d'avoir signalé ce {thing} !"
+msgstr "Merci beaucoup d'avoir signalé ce·ette {thing}"
 
 #: magi/views.py:706 magi/views.py:997 magi/views.py:1032
 msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
-msgstr "Ton {thing} a été signalé par un utilisateur et un modérateur, après l'avoir lu, l'a {verb}."
+msgstr "Ta·on {thing} a été signalée·e par un·e utilisateur·trice et un·e modérateur·trice, après l'avoir lu, l'a {verb}."
 
 #: magi/views.py:1002 magi/views.py:1037
 msgid "Your {thing} has been {verb}"
-msgstr "Ton {thing} a été {verb}"
+msgstr "Ta·on {thing} a été {verb}"
 
 #: magi/views.py:715 magi/views.py:1021 magi/views.py:1037
 msgid "deleted"
-msgstr "supprimé"
+msgstr "supprimé·e"
 
 #: magi/templates/emails/notification.html:8
 #: magi/templates/emails/notification.txt:1 magi/templates/emails/report.html:9
@@ -557,7 +557,7 @@ msgstr "l'entreprise qui possède {game}"
 
 #: magi/views_collections.py:729
 msgid "Make sure the {thing} you're about to add doesn't already exist."
-msgstr "Assure-toi que le {thing} que tu es sur le point d'ajouter n'existe pas déjà."
+msgstr "Assure-toi que le·a {thing} que tu es sur le point d'ajouter n'existe pas déjà."
 
 #: stardustrun/collections_settings.py:79 stardustrun/forms.py:125
 #: stardustrun/models.py:52 stardustrun/templates/items/pokemonItem.html:65
@@ -677,15 +677,15 @@ msgstr "Super Dresseur de Pokémon"
 
 #: stardustrun/model_choices.py:19
 msgid "Expert Pokémon Trainer"
-msgstr "Dresseur de Pokémon expert"
+msgstr "Dresseur·euse de Pokémon expert"
 
 #: stardustrun/model_choices.py:20
 msgid "Pokémon Master"
-msgstr "Maître Pokémon"
+msgstr "Maître·sse Pokémon"
 
 #: stardustrun/model_choices.py:21
 msgid "Ultimate Pokémon Master"
-msgstr "Maître Pokémon Ultime"
+msgstr "Maître·sse Pokémon Ultime"
 
 #: stardustrun/model_choices.py:42
 msgid "Fairy"
@@ -757,7 +757,7 @@ msgstr "Feu"
 
 #: starlight/models.py:1421
 msgid "Normal"
-msgstr "Normal"
+msgstr "Normal·e"
 
 #: idolstory/forms.py:320 idolstory/forms.py:321 idolstory/models.py:605
 #: idolstory/models.py:606 idolstory/models.py:609
@@ -821,7 +821,7 @@ msgstr "Vu"
 #: stardustrun/templates/include/empty_pokedex.html:19
 #: stardustrun/templates/include/pokedex.html:25
 msgid "Caught"
-msgstr "Attrappé"
+msgstr "Attrappé·e"
 
 #: stardustrun/settings.py:31
 msgid "Pokémon Go is a free-to-play, location-based augmented reality game developed and published by Niantic for iOS and Android devices."
@@ -853,7 +853,7 @@ msgstr "Simple"
 
 #: cpro/templates/include/advancedButton.html:5
 msgid "Advanced"
-msgstr "Avancé"
+msgstr "Avancé·e"
 
 #: stardustrun/templates/include/pokemonsBeforeTemplate.html:8
 msgid "Open Pokémon GO, tap the pokéball at the bottom and tap Pokédex"
@@ -921,15 +921,15 @@ msgstr "Rejoins la communauté !"
 
 #: magi/settings.py:145
 msgid "{site} provides an extended database of information about the game {game} and allows you to keep track of your progress in the game. You can create and customize your very own profile to share your progress and your collection to all your friends. You can also meet other players like you with the social network: read what the others are doing and share your adventures with the community. Comment, like and follow the other players to grow your network. Find players near you with the global map of all the players. And much more!"
-msgstr "{site} est une base de données pour le jeu {game} et permet de suivre son progrès dans le jeu. On peut y créer et personnaliser son propre profil et partager son progrès et sa collection avec ses amis et la communauté. On peut également y rencontrer de nouveaux amis à travers les réseaux sociaux en lisant ce que font les autres et en partageant ses aventures avec la communauté. On peut dire \"J'aime\", écrire des commentaires et suivre d'autres joueurs pour agrandir son réseau. La carte des joueurs permets de trouver d'autres joueurs aux alentours. Et bien plus encore !"
+msgstr "{site} est une base de données pour le jeu {game} et permet de suivre son progrès dans le jeu. On peut y créer et personnaliser son propre profil et partager son progrès et sa collection avec ses ami·es et la communauté. On peut également y rencontrer de nouveaux ami·es à travers les réseaux sociaux en lisant ce que font les autres et en partageant ses aventures avec la communauté. On peut dire \"J'aime\", écrire des commentaires et suivre d'autres joueur·euses pour agrandir son réseau. La carte des joueur·euses permets de trouver d'autres joueur·euses aux alentours. Et bien plus encore !"
 
 #: magi/templates/include/activityFollowMessage.html:4
 msgid "Start following players to see their activities!"
-msgstr "Suis tes amis et tous les autres joueurs pour voir leurs activités !"
+msgstr "Suis tes ami·es et tous·tes les autres joueur·euses pour voir leurs activités !"
 
 #: magi/templates/include/homePage.html:71
 msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
-msgstr "est co-financé par %(total_donators)s %(adjective)s donateurs."
+msgstr "est co-financé par %(total_donators)s %(adjective)s donateur·trices"
 
 #: starlight/settings.py:271 starlight/settings.py:290
 #, fuzzy
@@ -1118,7 +1118,7 @@ msgstr "Idole préférée"
 
 #: cpro/forms.py:138 cpro/models.py:217
 msgid "Producer Rank"
-msgstr "Rang de producteur"
+msgstr "Rang de producteur·trice"
 
 #: cpro/forms.py:140 cpro/forms.py:177 cpro/forms.py:216 cpro/forms.py:302
 msgid "Reverse Order"
@@ -1126,7 +1126,7 @@ msgstr "Ordre inversé"
 
 #: idolstory/sukutomo_future_translations.py:4
 msgid "Accept friend requests"
-msgstr "Accepte les demandes en ami"
+msgstr "Accepte les demandes en ami·es"
 
 #: starlight/forms.py:250 starlight/forms.py:251 starlight/forms.py:331
 #: starlight/forms.py:332 starlight/models.py:334 starlight/models.py:337
@@ -1200,7 +1200,7 @@ msgstr "Limité"
 #: cpro/models.py:444 cpro/models.py:447 cpro/models.py:448 cpro/models.py:757
 #: cpro/models.py:805
 msgid "Awakened"
-msgstr "Transformée"
+msgstr "Transformée·e"
 
 #: starlight/models.py:1132
 msgid "Art"
@@ -1243,23 +1243,23 @@ msgstr "Pouvoir"
 
 #: cpro/model_choices.py:9
 msgid "Skilled Producer"
-msgstr "Producteur talentueux"
+msgstr "Producteur·trice talentueux"
 
 #: cpro/model_choices.py:10
 msgid "Expert Producer"
-msgstr "Producteur expert"
+msgstr "Producteur·trice expert"
 
 #: cpro/model_choices.py:11
 msgid "Veteran Producer"
-msgstr "Producteur vétéran"
+msgstr "Producteur·trice vétéran"
 
 #: cpro/model_choices.py:12
 msgid "Ultimate Producer"
-msgstr "Ultime producteur"
+msgstr "Ultime producteur·trice"
 
 #: cpro/model_choices.py:13
 msgid "Idol Master"
-msgstr "Maître de toutes les idoles"
+msgstr "Maître·sse de toutes les idoles"
 
 #: cpro/model_choices.py:25
 msgid "Cute"
@@ -1273,7 +1273,7 @@ msgstr "Cool"
 
 #: cpro/model_choices.py:27
 msgid "Passion"
-msgstr "Passionée"
+msgstr "Passioné·e"
 
 #: cpro/model_choices.py:60
 msgid "Right"
@@ -1383,7 +1383,7 @@ msgstr "Persistance de combo"
 
 #: starlight/models.py:1447
 msgid "Healer"
-msgstr "Soigneur"
+msgstr "Soigneur·euse"
 
 #: cpro/model_choices.py:174
 msgid "Life Lock"
@@ -1480,7 +1480,7 @@ msgstr "Brillance"
 
 #: cpro/model_choices.py:300
 msgid "Shiny"
-msgstr "Rayonnant"
+msgstr "Rayonnant·e"
 
 #: cpro/model_choices.py:299
 msgid "Tricolor"
@@ -1529,7 +1529,7 @@ msgstr "Loisirs"
 
 #: bang/magicollections.py:328 bang/models.py:263 bang/models.py:264
 msgid "CV"
-msgstr "Doubleuse"
+msgstr "Doubleur·euse"
 
 #: idolstory/models.py:1047 idolstory/models.py:1050
 msgid "Signature"
@@ -1732,7 +1732,7 @@ msgstr "Pouvoir de centre"
 
 #: cpro/forms.py:291 cpro/templates/include/cards-stats.html:95
 msgid "Scouted by"
-msgstr "Recruté par"
+msgstr "Recrutée·e par"
 
 #: idolstory/magicollections.py:481
 msgid "Download"
@@ -1788,15 +1788,15 @@ msgstr "LIVE Parade"
 
 #: cpro/models.py:195
 msgid "Producer Level"
-msgstr "Niveau de producteur"
+msgstr "Niveau de producteur·trice"
 
 #: cpro/templates/include/beforeEvents.html:6
 msgid "%(idol)s performed in %(total_results)s events"
-msgstr "%(idol)s ont participé à %(total_results)s événements "
+msgstr "%(idol)s ont participé à %(total_results)s événements"
 
 #: cpro/templates/include/beforeLeaderboard.html:29
 msgid "%(total_results)s producers scouted %(own_card)s"
-msgstr "%(total_results)s producteurs ont recruté la carte %(own_card)s"
+msgstr "%(total_results)s producteur·trices ont recruté la carte %(own_card)s"
 
 #: magi/magicollections.py:3834 magi/magicollections.py:3975
 #: magi/models.py:1311
@@ -1843,7 +1843,7 @@ msgstr "Popularité"
 
 #: cpro/forms.py:292 cpro/templates/include/cards-stats.html:107
 msgid "Favorited by"
-msgstr "Préférée par"
+msgstr "Préférée·e par"
 
 #: cpro/settings.py:76
 msgid "Fan made"
@@ -1861,8 +1861,8 @@ msgstr "Hors sujet"
 #: cpro/templates/include/cards-stats.html:109
 msgid "%(total)s producer"
 msgid_plural "%(total)s producers"
-msgstr[0] "%(total)s producteur"
-msgstr[1] "%(total)s producteurs"
+msgstr[0] "%(total)s producteur·trice"
+msgstr[1] "%(total)s producteur·trices"
 
 #: cpro/templates/include/cards-stats.html:124
 #: cpro/templates/items/eventInfo.html:144
@@ -1909,19 +1909,19 @@ msgstr "Ajouter {thing}"
 
 #: magi/magicollections.py:4081
 msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
-msgstr "Tu es sur le point de signaler un(e) {thing}. Si le problème est sur autre chose, ton rapport sera ignoré, alors fais attention à bien utiliser le bon bouton. Tu peux trouver d'autres boutons \"Signaler\" sur les :"
+msgstr "Tu es sur le point de signaler un·e {thing}. Si le problème est sur autre chose, ton rapport sera ignoré, alors fais attention à bien utiliser le bon bouton. Tu peux trouver d'autres boutons \"Signaler\" sur les :"
 
 #: magi/models.py:826
 msgid "Only post official artworks, artworks you own, or fan artworks that are approved by the artist and credited."
-msgstr "Ne poste que des images officielles ou tes propres créations. Tu peux poster des fanarts, mais uniquement après avoir demandé à l'auteur l'autorisation et en citant la source."
+msgstr "Ne poste que des images officielles ou tes propres créations. Tu peux poster des fanarts, mais uniquement après avoir demandé à l'auteur·trice l'autorisation et en citant la source."
 
 #: magi/models.py:1305 magi/models.py:1380
 msgid "{month} Donator"
-msgstr "Donateur du mois de {month}"
+msgstr "Donateur·trice du mois de {month}"
 
 #: magi/models.py:1386
 msgid "{donation_platform} supporter of {site_name} who donated to help cover the server costs"
-msgstr "Donateur sur {donation_platform} qui a fait un don pour couvrir les frais des serveurs"
+msgstr "Donateur·trice sur {donation_platform} pour {site_name} qui a fait un don pour couvrir les frais des serveurs"
 
 #: magi/raw.py:9
 msgid "lovely"
@@ -1929,7 +1929,7 @@ msgstr "mignons"
 
 #: magi/raw.py:10
 msgid "awesome"
-msgstr "géniaux"
+msgstr "génial·es"
 
 #: magi/raw.py:11
 msgid "incredible"
@@ -1941,23 +1941,23 @@ msgstr "adorables"
 
 #: magi/raw.py:13
 msgid "generous"
-msgstr "généreux"
+msgstr "généreux·euses"
 
 #: magi/raw.py:14
 msgid "idols-addicted"
-msgstr "idols-addict"
+msgstr "accro aux idoles"
 
 #: magi/raw.py:15
 msgid "friendly"
-msgstr "amicaux"
+msgstr "gentil·les"
 
 #: magi/raw.py:16
 msgid "kind"
-msgstr "gentils"
+msgstr "sympas"
 
 #: magi/raw.py:17
 msgid "warmhearted"
-msgstr "chaleureux"
+msgstr "chaleureux·euses"
 
 #: magi/raw.py:18
 msgid "nice"
@@ -2042,7 +2042,7 @@ msgstr "Performance"
 #: bang/models.py:757 bang/models.py:767 bang/models.py:774 bang/models.py:777
 #: bang/models.py:780 bang/models.py:1013
 msgid "Trained"
-msgstr "Entraîné"
+msgstr "Entraînée·e"
 
 #: idolstory/forms.py:677 idolstory/models.py:1732 idolstory/models.py:1755
 #: idolstory/models.py:1762 idolstory/models.py:1767 idolstory/models.py:1774
@@ -2184,7 +2184,7 @@ msgstr "Ajoute une capture d'écran de ton profil dans le jeu pour prouver ton n
 
 #: magi/utils.py:2629 magi/utils.py:2633
 msgid "You may use Markdown formatting."
-msgstr "Tu peux utiliser Markdown pour formatter le texte."
+msgstr "Tu peux utiliser le Markdown pour formatter le texte."
 
 #. Example: Adding to your account db0
 #. Adding to your card Kotori
@@ -2250,11 +2250,11 @@ msgstr "Cette date ne peut pas être dans le futur"
 
 #: magi/default_settings.py:941 magi/default_settings.py:948 magi/views.py:564
 msgid "Successfully added!"
-msgstr "Ajouté !"
+msgstr "Ajoutée·e !"
 
 #: magi/default_settings.py:958 magi/default_settings.py:965
 msgid "Successfully deleted!"
-msgstr "Supprimé !"
+msgstr "Supprimée·e !"
 
 #: idolstory/settings.py:434 idolstory/settings.py:441
 msgid "{things} list"
@@ -2294,7 +2294,7 @@ msgstr "Toutes les {trigger_value} secondes, {trigger_chance}% de chance que, pe
 
 #: cpro/templates/include/beforeLeaderboard.html:21
 msgid "%(total_results)s producers love %(favorite_character_idol)s"
-msgstr "%(total_results)s producteurs aiment %(favorite_character_idol)s"
+msgstr "%(total_results)s producteur·trice aiment %(favorite_character_idol)s"
 
 #: cpro/templates/items/eventInfo.html:14
 msgid "seconds left"
@@ -2302,11 +2302,11 @@ msgstr "secondes restantes"
 
 #: cpro/templates/items/eventInfo.html:30
 msgid "translated in English"
-msgstr "traduis en anglais"
+msgstr "traduie·tes en anglais"
 
 #: bang/forms.py:135 bang/magicollections.py:154
 msgid "Total {item} bought"
-msgstr "Total de {item} acheté"
+msgstr "Total de {item} achetée·es"
 
 #: bang/forms.py:135 bang/magicollections.py:154
 msgid "Star gems"
@@ -2419,12 +2419,12 @@ msgstr "Personnages"
 
 #: idolstory/magicollections.py:1336
 msgid "Favorite {thing}"
-msgstr "{thing} préféré(e)"
+msgstr "{thing} préférée·e"
 
 #: idolstory/forms.py:674 idolstory/magicollections.py:1340
 #: idolstory/models.py:2355
 msgid "Favorite {things}"
-msgstr "{things} préféré(e)s"
+msgstr "{things} préférée·es"
 
 #: bang/magicollections.py:809 bang/magicollections.py:813
 #: bang/magicollections.py:814 bang/magicollections.py:2751
@@ -2494,7 +2494,7 @@ msgstr "{} notes"
 
 #: bang/magicollections.py:2042
 msgid "Songwriters"
-msgstr "Auteurs"
+msgstr "Auteur·trice"
 
 #: starlight/forms.py:546 starlight/models.py:211
 msgid "Version"
@@ -2585,15 +2585,15 @@ msgstr "Facile"
 
 #: starlight/models.py:821 starlight/models.py:824
 msgid "Composer"
-msgstr "Compositeur"
+msgstr "Compositeur·trice"
 
 #: starlight/models.py:826 starlight/models.py:829
 msgid "Lyricist"
-msgstr "Écrivain de paroles"
+msgstr "Écrivain·e de paroles"
 
 #: starlight/models.py:831 starlight/models.py:834
 msgid "Arranger"
-msgstr "Arrangeur"
+msgstr "Arrangeur·euse"
 
 #: bang/models.py:1369
 msgid "Translation"
@@ -2664,7 +2664,7 @@ msgstr "Générateur d'équipe"
 
 #: idolstory/sukutomo_future_translations.py:2
 msgid "You can find your friend id by going to the \"Friends\" section from the home, then \"ID Search\". Players will be able to send you friend requests or messages using this number."
-msgstr "Tu peux trouver ton numéro d'identification à partir de la page d'accueil, en allant sur \"ID search\". Les joueurs pourront alors t'envoyer des demandes en amis ou t'envoyer des messages avec ce numéro."
+msgstr "Tu peux trouver ton numéro d'identification à partir de la page d'accueil, en allant sur \"ID search\". Les joueur·euses pourront alors t'envoyer des demandes en ami·es ou t'envoyer des messages avec ce numéro."
 
 #: starlight/models.py:221
 msgid "Should your friend ID be visible to other players?"
@@ -2680,7 +2680,7 @@ msgstr "Love gems"
 #: idolstory/sukutomo_future_translations.py:9
 #: idolstory/sukutomo_future_translations.py:10
 msgid "Number of {} you currently have in your account."
-msgstr "Total de {} tu as dans ton compte à l'heure actuelle."
+msgstr "Total de {} que tu as dans ton compte à l'heure actuelle."
 
 #: idolstory/sukutomo_future_translations.py:6
 #: idolstory/sukutomo_future_translations.py:7
@@ -2692,7 +2692,7 @@ msgstr "Ce champs est optionnel et peut t'aider à gérer tes comptes si tu le s
 
 #: idolstory/sukutomo_future_translations.py:7
 msgid "Friend Points"
-msgstr "Points d'amis"
+msgstr "Points d'ami·es"
 
 #: idolstory/sukutomo_future_translations.py:11
 msgid "Total love gems bought"
@@ -2704,7 +2704,7 @@ msgstr "Tu peux calculer le total en allant sur \"Other\" puis \"Purchase histor
 
 #: idolstory/sukutomo_future_translations.py:12
 msgid "Should your items be visible to other players?"
-msgstr "Information visible publiquement pour les autres joueurs ?"
+msgstr "Information visible publiquement pour les autres joueur·euses ?"
 
 #: idolstory/models.py:327 idolstory/sukutomo_future_translations.py:866
 #: idolstory/sukutomo_future_translations.py:867
@@ -2740,23 +2740,23 @@ msgstr "Signe astrologique"
 
 #: idolstory/settings.py:198
 msgid "Idol Supporter"
-msgstr "Supporter d'idoles"
+msgstr "Supporteur·trice d'idoles"
 
 #: idolstory/settings.py:199
 msgid "Idol Lover"
-msgstr "Amoureux d'idoles"
+msgstr "Amoureux·euse d'idoles"
 
 #: idolstory/settings.py:200
 msgid "Idol Ambassador"
-msgstr "Ambassadeur d'idoles"
+msgstr "Ambassadeur·drice d'idoles"
 
 #: idolstory/settings.py:201
 msgid "Idol Producer"
-msgstr "Producteur d'idoles"
+msgstr "Producteur·trice d'idoles"
 
 #: idolstory/settings.py:202
 msgid "Ultimate Idol Devotee"
-msgstr "Ultime adorateur d'idoles"
+msgstr "Ultime adorateur·trice d'idoles"
 
 #: starlight/models.py:1606 starlight/models.py:1749
 msgid "Collected {things}"
@@ -2764,7 +2764,7 @@ msgstr "Collection de {things}"
 
 #: bang/models.py:491 bang/models.py:528
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%"
-msgstr "Toutes les notes PERFECT seront réenforcé de +{percentage}% pendant les {duration} prochaines secondes"
+msgstr "Toutes les notes PERFECT seront réenforcées de +{percentage}% pendant les {duration} prochaines secondes"
 
 #: bang/magicollections.py:1377 bang/models.py:2046
 msgid "Rare stamp"
@@ -2792,12 +2792,12 @@ msgstr "Comptable"
 
 #: magi/default_settings.py:144 magi/default_settings.py:157
 msgid "Database maintainer"
-msgstr "Mainteneur de la base de données"
+msgstr "Mainteneur·euse de la base de données"
 
 #: magi/default_settings.py:176 magi/default_settings.py:196
 #: magi/default_settings.py:210
 msgid "Community manager"
-msgstr "Community manager"
+msgstr "Community manageur·euse"
 
 #: magi/default_settings.py:190
 msgid "Posted {total} news"
@@ -2818,7 +2818,7 @@ msgstr "Support"
 #: magi/default_settings.py:252 magi/default_settings.py:271
 #: magi/default_settings.py:334
 msgid "Moderator"
-msgstr "Modérateur"
+msgstr "Modérateur·trice"
 
 #: idolstory/models.py:351
 msgid "Active"
@@ -2838,7 +2838,7 @@ msgstr "A modifié ou supprimé {total} articles signalés"
 
 #: magi/default_settings.py:296
 msgid "Community entertainer"
-msgstr "Animateur de la communauté"
+msgstr "Animateur·trice de la communauté"
 
 #: magi/default_settings.py:318
 msgid "Organized and posted about {total} community events"
@@ -2850,7 +2850,7 @@ msgstr "Staff à la rescousse"
 
 #: magi/default_settings.py:343
 msgid "Translator"
-msgstr "Traducteur"
+msgstr "Traducteur·trice"
 
 #: bang/settings.py:450
 msgid "Graphic designer"
@@ -2862,11 +2862,11 @@ msgstr "Artiste"
 
 #: magi/default_settings.py:371
 msgid "Developer"
-msgstr "Développeur"
+msgstr "Développeur·euse"
 
 #: magi/default_settings.py:385
 msgid "System administrator"
-msgstr "Administrateur système"
+msgstr "Administrateur·trice système"
 
 #: magi/models.py:1002
 msgid "You are not allowed to see activities with the tag \"{tag}\"."
@@ -2906,7 +2906,7 @@ msgstr "À propos"
 
 #: magi/templates/pages/prelaunch.html:24 magi/views.py:434
 msgid "Pre-register"
-msgstr "Réserver ton nom d'utilisateur en avance"
+msgstr "Réserver ton nom d'utilisateur·trice en avance"
 
 #: magi/forms.py:2277
 msgid "Security"
@@ -2924,15 +2924,15 @@ msgstr "Débloquer {username}"
 
 #: magi/views.py:885
 msgid "Are you sure you want to block {username}? You will not be able to see any content created by {username}."
-msgstr "Es-tu sûr(e) de vouloir bloquer {username} ? Tu ne pourras plus voir quoi que ce soit que {username} a crée sur le site."
+msgstr "Es-tu sûr·e de vouloir bloquer {username} ? Tu ne pourras plus voir quoi que ce soit que {username} a crée sur le site."
 
 #: magi/views.py:887
 msgid "Are you sure you want to unblock {username}?"
-msgstr "Es-tu sûr(e) de vouloir débloquer {username} ?"
+msgstr "Es-tu sûr·e de vouloir débloquer {username} ?"
 
 #: magi/views_collections.py:169 magi/views_collections.py:633
 msgid "this user"
-msgstr "cet utilisateur"
+msgstr "cet·te utilisateur·trice"
 
 #: idolstory/forms.py:747
 msgid "Include cameos"
@@ -2973,7 +2973,7 @@ msgstr "Mensurations"
 
 #: idolstory/models.py:954
 msgid "Chitose Bridge High School"
-msgstr "Lychée du pont de Chitose"
+msgstr "Lycée du pont de Chitose"
 
 #: idolstory/models.py:955
 msgid "Seiran High School"
@@ -3021,7 +3021,7 @@ msgstr "{nth} année"
 
 #: magi/templates/pages/about.html:311
 msgid "Contributors"
-msgstr "Contributeurs"
+msgstr "Contributeur·trices"
 
 #: bang/magicollections.py:830
 msgid "View model"
@@ -3254,11 +3254,11 @@ msgstr "Modifier {thing}"
 
 #: magi/views.py:916
 msgid "If you delete this {thing} ({instance}), the following will automatically be deleted as well:"
-msgstr "Si tu supprimes ce {thing} ({instance}), tout ce qui est ci-dessous sera également supprimé :"
+msgstr "Si tu supprimes cet·te {thing} ({instance}), tout ce qui est ci-dessous sera également supprimé :"
 
 #: magi/views.py:917
 msgid "Are you sure you want to delete this {thing} ({instance})?"
-msgstr "Es-tu sûr de vouloir supprimer ce {thing} ({instance}) ?"
+msgstr "Es-tu sûr de vouloir supprimer cet·te {thing} ({instance}) ?"
 
 #: stardustrun/settings.py:56
 msgid "Medal"
@@ -3624,7 +3624,7 @@ msgstr "Image de fond"
 
 #: magi/utils.py:229
 msgid "{nth} Favorite {thing}"
-msgstr "{nth} {thing} préféré(e)"
+msgstr "{nth} {thing} préféré·e"
 
 #: magi/utils.py:211
 msgid "Character"
@@ -3669,7 +3669,7 @@ msgstr "Trouve les paires d'idols"
 
 #: starlight/magicollections.py:304 starlight/settings.py:167
 msgid "Voice actresses"
-msgstr "Doubleuses"
+msgstr "Doubleur·euse"
 
 #: idolstory/magicollections.py:1438
 #: idolstory/sukutomo_future_translations.py:72
@@ -3682,7 +3682,7 @@ msgstr "Produits dérivés officiels"
 
 #: idolstory/sukutomo_future_translations.py:77
 msgid "Fan-made items"
-msgstr "Le coin des créateurs"
+msgstr "Le coin des créateur·trices"
 
 #: idolstory/sukutomo_future_translations.py:78
 msgid "Commissions"
@@ -4074,7 +4074,7 @@ msgstr "Flux d'actualités"
 #: starlight/magicollections.py:422 starlight/magicollections.py:639
 #: starlight/models.py:442 starlight/models.py:540
 msgid "Voice actress"
-msgstr "Doubleuse"
+msgstr "Doubleur·euse"
 
 #: starlight/magicollections.py:363 starlight/magicollections.py:616
 #: starlight/magicollections.py:620 starlight/models.py:744
@@ -4208,11 +4208,11 @@ msgstr "Masquer"
 
 #: magi/default_settings.py:400 magi/default_settings.py:408
 msgid "β-tester"
-msgstr "Beta-testeur"
+msgstr "Beta-testeur·trice"
 
 #: magi/forms.py:2608
 msgid "Users who can speak {language}"
-msgstr "Utilisateurs qui parlent {language}"
+msgstr "Utilisateur·trice qui parlent {language}"
 
 #: magi/magicollections.py:2946
 msgid "Website"
@@ -4225,7 +4225,7 @@ msgstr "Passer cette étape"
 #: starlight/forms.py:390 starlight/models.py:819 starlight/models.py:867
 #: starlight/utils.py:171
 msgid "Singers"
-msgstr "Chanteuses"
+msgstr "Chanteur·euses"
 
 #: starlight/forms.py:426 starlight/forms.py:616 starlight/forms.py:654
 #: starlight/models.py:976 starlight/models.py:977 starlight/models.py:979
@@ -4260,7 +4260,7 @@ msgstr "Compte Relive"
 
 #: starlight/magicollections.py:694 starlight/magicollections.py:721
 msgid "Buy {thing}"
-msgstr "Acheter {thing}"
+msgstr "Acheter le·a {thing}"
 
 #: starlight/magicollections.py:694 starlight/magicollections.py:721
 msgid "CD"
@@ -4291,11 +4291,11 @@ msgstr "Espace"
 
 #: starlight/models.py:242
 msgid "Casual"
-msgstr "Joueur occasionnel (casu)"
+msgstr "Joueur·euses occasionnel (casu)"
 
 #: starlight/models.py:246
 msgid "Hardcore"
-msgstr "Joueur hardcore"
+msgstr "Joueur·euses hardcore"
 
 #: starlight/models.py:252
 msgid "Play style"
@@ -4385,15 +4385,15 @@ msgstr "Frappe {number_of_times} fois"
 
 #: starlight/models.py:972
 msgid "Front enemy"
-msgstr "Ennemi à l'avant"
+msgstr "Ennemi·e à l'avant"
 
 #: starlight/models.py:973
 msgid "Front group of enemies"
-msgstr "Groupe d'ennemis à l'avant"
+msgstr "Groupe d'ennemi·es à l'avant"
 
 #: starlight/models.py:974
 msgid "All enemies"
-msgstr "Tous les ennemis"
+msgstr "Tous·tes les ennemi·es"
 
 #: starlight/models.py:986
 msgid "After full bound break"
@@ -4441,7 +4441,7 @@ msgstr "Assassin"
 
 #: starlight/models.py:1442
 msgid "Attacker"
-msgstr "Attaqueur"
+msgstr "Attaquant·e"
 
 #: starlight/models.py:1443
 msgid "Burn"
@@ -4449,27 +4449,27 @@ msgstr "Brûle"
 
 #: starlight/models.py:1444
 msgid "Debuffer"
-msgstr "Dé-buffeur"
+msgstr "Dé-buffeur·euse"
 
 #: starlight/models.py:1445
 msgid "Defender"
-msgstr "Défendeur"
+msgstr "Défendeur·euse"
 
 #: starlight/models.py:1446
 msgid "Disabler"
-msgstr "Désactiveur"
+msgstr "Désactiveur·euse"
 
 #: starlight/models.py:1448
 msgid "Nuker"
-msgstr "Atomiseur"
+msgstr "Atomiseur·euse"
 
 #: starlight/models.py:1450
 msgid "Special defender"
-msgstr "Défendeur spécial"
+msgstr "Défendeur·euse spécial"
 
 #: starlight/models.py:1451
 msgid "Special defense tank"
-msgstr "Défendeur spécial tank"
+msgstr "Défendeur·euse spécial tank"
 
 #: starlight/models.py:1453
 msgid "Tank"
@@ -4507,7 +4507,7 @@ msgstr "Arrangement orchestral"
 msgid "\n"
 "Shoujo☆Kageki Revue Starlight (Lit. Girls☆Opera Revue Starlight) is a multi-media project produced by Bushiroad and Nelke Planning. It aims to link the world of anime and musicals together. Besides the anime series and the musical performances, the voice actresses also perform live concerts and various events for fans. The characters from the license also appear in 3 manga series and a mobile game called \"Relive\".\n"
 ""
-msgstr "Shoujo☆Kageki Revue Starlight (littéralement \"Jeunes filles ☆ à l'Opéra, Revue théâtrale de lumière d'étoiles\") est un projet multi-média produit par Bushiroad et Nelke Planning. Le but du projet est de combiner ensemble le monde des animes et des comédies musicales. À part les séries anime et les performances musicales, les doubleuses donnent aussi des concerts et participent à des événements où elles rencontrent leurs fans. Les personnages de la license apparaissent aussi dans 3 séries manga et un jeu mobile appelé \"Relive\"."
+msgstr "Shoujo☆Kageki Revue Starlight (littéralement \"Jeunes filles ☆ à l'Opéra, Revue théâtrale de lumière d'étoiles\") est un projet multi-média produit par Bushiroad et Nelke Planning. Le but du projet est de combiner ensemble le monde des animes et des comédies musicales. À part les séries anime et les performances musicales, les doubleur·euse donnent aussi des concerts et participent à des événements où elles rencontrent leurs fans. Les personnages de la license apparaissent aussi dans 3 séries manga et un jeu mobile appelé \"Relive\"."
 
 #: magi/default_settings.py:756
 msgid "Sitemap"
@@ -4535,11 +4535,11 @@ msgstr "Comment jouer ?"
 
 #: magi/templates/pages/prelaunch.html:27
 msgid "Thank you for pre-registering!"
-msgstr "Merci d'avoir réservé votre nom d'utilisateur !"
+msgstr "Merci d'avoir réservé ton nom d'utilisateur·trice !"
 
 #: starlight/magicollections.py:80
 msgid "Users"
-msgstr "Utilisateurs"
+msgstr "Utilisateur·trice"
 
 #: magi/default_settings.py:977 magi/default_settings.py:983
 #: magi/default_settings.py:992 magi/default_settings.py:998 magi/utils.py:2950
@@ -4580,7 +4580,7 @@ msgstr "Comment obtenir des badges ?"
 
 #: magi/magicollections.py:3922
 msgid "Collect them all!"
-msgstr "Collectionne-les tous !"
+msgstr "Collectionne-les tous·tes !"
 
 #: magi/magicollections.py:4238
 msgid "Prizes"
@@ -4648,7 +4648,7 @@ msgstr "Apprends quelques trucs et astuces qui peuvent t'aider à utiliser {site
 
 #: magi/settings.py:891
 msgid "Map of all {license} fans around the world."
-msgstr "Carte de tous les fans de {license} du monde."
+msgstr "Carte de tous·tes les fans de {license} du monde."
 
 #: idolstory/models.py:1349 idolstory/models.py:1352
 msgid "Credits"
@@ -4684,7 +4684,7 @@ msgstr "Voir {thing}"
 
 #: idolstory/forms.py:107 idolstory/forms.py:108
 msgid "Guests"
-msgstr "Les invités"
+msgstr "Les invité·es"
 
 #: idolstory/forms.py:108
 msgid "Hide {thing}"
@@ -4692,7 +4692,7 @@ msgstr "Cacher {thing}"
 
 #: idolstory/forms.py:480 idolstory/forms.py:1067
 msgid "All members"
-msgstr "Tous les membres"
+msgstr "Tous·tes les membres"
 
 #: idolstory/forms.py:675 idolstory/models.py:1724 idolstory/models.py:1753
 #: idolstory/models.py:1758 idolstory/models.py:1764 idolstory/models.py:1770
@@ -4764,17 +4764,17 @@ msgstr "Histoire"
 
 #: idolstory/models.py:343
 msgid "Elegant"
-msgstr "Élegant"
+msgstr "Élegant·e"
 
 #: idolstory/models.py:347
 msgid "Natural"
-msgstr "Naturel"
+msgstr "Naturel·le"
 
 #: idolstory/models.py:468 idolstory/models.py:473 idolstory/models.py:478
 #: idolstory/models.py:483 idolstory/models.py:488 idolstory/models.py:493
 #: idolstory/models.py:498
 msgid "Guest"
-msgstr "Invité"
+msgstr "Invitée·e"
 
 #: idolstory/models.py:498
 msgid "No attribute"
@@ -4896,11 +4896,11 @@ msgstr "Joyeux Hanouka !"
 
 #: magi/utils.py:2090
 msgid "Next {thing}"
-msgstr "Prochain(e) {thing}"
+msgstr "Prochain·e {thing}"
 
 #: magi/utils.py:2096
 msgid "Previous {thing}"
-msgstr "Précédent(e) {thing}"
+msgstr "Précédent·e {thing}"
 
 #: bang/forms.py:977
 msgid "FULL version"
@@ -4908,7 +4908,7 @@ msgstr "Version COMPLÈTE"
 
 #: bang/magicollections.py:1976
 msgid "Full"
-msgstr "Complet(e)"
+msgstr "Complet·ète"
 
 #: bang/models.py:252
 msgid "Third"
@@ -4950,7 +4950,7 @@ msgstr "Fait par {username}"
 
 #: idolstory/models.py:876
 msgid "Super Star!!"
-msgstr "Super Star!!"
+msgstr "Super Star !!"
 
 #: idolstory/models.py:962
 msgid "Yuigaoka Girls' High School"

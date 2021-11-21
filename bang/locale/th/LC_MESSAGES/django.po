@@ -1,0 +1,4986 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: MagiCircles\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. In the top bar of the site, when you're not connected. Will open a menu with login or sign up. Can be replaced with something else, like "Anonymous", "Visitor" or "Welcome".
+#: stardustrun/templates/include/empty_pokedex.html:5
+msgid "You"
+msgstr "คุณ"
+
+#: starlight/models.py:1868 starlight/models.py:1973
+msgid "Account"
+msgstr "บัญชีผู้ใช้"
+
+#: bang/magicollections.py:1076 bang/magicollections.py:1403
+#: bang/magicollections.py:1405 bang/magicollections.py:1408
+#: bang/magicollections.py:1812
+msgid "Leaderboard"
+msgstr "อันดับผู้เล่น"
+
+#: magi/magicollections.py:2572
+msgid "Create your account to join the community and be in the leaderboard!"
+msgstr "สร้างบัญชีผู้ใช้ของคุณเพื่อเข้าร่วมชุมชนและอยู่บนกระดานผู้นำเลย!"
+
+#: starlight/models.py:1460 starlight/models.py:1463
+msgid "Profile"
+msgstr "โปร์ไฟล์ของคุณ"
+
+#: magi/magicollections.py:2732
+msgid "Players"
+msgstr "ผู้เล่น"
+
+#: magi/magicollections.py:3431 magi/magicollections.py:3702
+#: magi/models.py:1102 magi/models.py:1116
+msgid "Activity"
+msgstr "กิจกรรม"
+
+#: magi/forms.py:2200 magi/magicollections.py:3432
+msgid "Activities"
+msgstr "กิจกรรม"
+
+#: magi/magicollections.py:3592
+msgid "Share your adventures!"
+msgstr "แบ่งปันการผจญภัยของคุณ!"
+
+#: magi/magicollections.py:3763
+#: magi/management/commands/cron_notifications.py:37
+#: magi/templates/emails/notification.html:5
+#: magi/templates/emails/notification.html:6
+msgid "Notification"
+msgstr "แจ้งเตือน"
+
+#: magi/magicollections.py:3764
+msgid "Notifications"
+msgstr "แจ้งเตือน"
+
+#: bang/models.py:2120
+msgid "Login"
+msgstr "เข้าสู่ระบบ"
+
+#: magi/default_settings.py:552 magi/forms.py:2138
+#: magi/templates/pages/login.html:6
+msgid "Sign Up"
+msgstr "สมัคร"
+
+#: magi/default_settings.py:569 magi/magicollections.py:2809
+#: magi/magicollections.py:4455 magi/templates/items/profile.html:33
+#: magi/utils.py:753
+msgid "Settings"
+msgstr "ตั้งค่า"
+
+#: magi/default_settings.py:578
+msgid "Logout"
+msgstr "ออกจากระบบ"
+
+#: idolstory/magicollections.py:1501
+msgid "About"
+msgstr "เกี่ยวกับ"
+
+#: bang/settings.py:297
+msgid "Donate"
+msgstr "บริจาค"
+
+#. Link to a map of all the players (similar to Google maps).
+#: starlight/templates/pages/map.html:1
+msgid "Map"
+msgstr "แผนที่"
+
+#. Link to the help pages that look like a wiki and help people use the site.
+#: magi/default_settings.py:633 magi/default_settings.py:643
+#: magi/settings.py:885 magi/templates/pages/about.html:402 magi/views.py:812
+msgid "Help"
+msgstr "ช่วยเหลือ"
+
+#. The favorite color of the user. Will be used to personalize their profile.
+#: starlight/models.py:572
+msgid "Color"
+msgstr "สี"
+
+#. This is about the favorite characters the user specified in their preferences.
+#: magi/forms.py:2381
+msgid "All your favorites must be unique"
+msgstr "ตัวละครที่คุณชอบต้องไม่ซ้ำกัน"
+
+#: magi/forms.py:2563
+msgid "Old Password"
+msgstr "รหัสผ่านเก่า"
+
+#: magi/forms.py:2564
+msgid "New Password"
+msgstr "รหัสผ่านใหม่"
+
+#: magi/forms.py:2565
+msgid "New Password Again"
+msgstr "รหัสผ่านใหม่อีกรอบ"
+
+#: magi/models.py:179
+msgid "Player"
+msgstr "ผู้เล่น"
+
+#: magi/models.py:180
+msgid "Super Player"
+msgstr "ผู้เล่นขั้นซุปเปอร์"
+
+#: magi/models.py:181
+msgid "Extreme Player"
+msgstr "ผู้เล่นขั้นสุด"
+
+#: magi/models.py:182
+msgid "Master Player"
+msgstr "ผู้เล่นขั้นมาสเตอร์"
+
+#: magi/models.py:183
+msgid "Ultimate Player"
+msgstr "ผู้เล่นขั้นเทพ"
+
+#: magi/models.py:520
+msgid "Never"
+msgstr "ไม่เคย"
+
+#: magi/models.py:521
+msgid "Sometimes"
+msgstr "บางครั้ง"
+
+#: magi/models.py:522
+msgid "Often"
+msgstr "บ่อย"
+
+#: magi/models.py:523
+msgid "Every single day"
+msgstr "ทุกวัน"
+
+#. Example of replacement: "db0 liked your activity: I love going to the beach!" where db0 is the user who liked your activity and "I love going to the beach!" is the content of your activity.
+#: magi/models.py:1100 magi/models.py:1114
+msgid "{} liked your activity: {}."
+msgstr "{} ชอบกิจกรรมของคุณ: {}"
+
+#. Make sure there's as many {} in your translation than in the original sentence.
+#. Example of replacement: "db0 just followed you." where db0 is the user who follows you.
+#: magi/models.py:1107
+msgid "{} just followed you."
+msgstr "{} เพิ่งติดตามคุณ"
+
+#. For the emails settings.
+#: magi/models.py:1101
+msgid "When someone likes your activity."
+msgstr "เมื่อมีคนชอบกิจกรรมของคุณ"
+
+#. For the emails settings.
+#: magi/models.py:1108
+msgid "When someone follows you."
+msgstr "เมื่อมีคนติดตามคุณ"
+
+#. Personal description you can write on your profile. Similar to twitter's "bio".
+#: starlight/models.py:375 starlight/models.py:378 starlight/models.py:482
+#: starlight/models.py:484 starlight/models.py:617 starlight/models.py:619
+#: starlight/models.py:942 starlight/models.py:944 starlight/models.py:947
+#: starlight/models.py:1465 starlight/models.py:1468
+msgid "Description"
+msgstr "อธิบาย"
+
+#. Your translation must be gender neutral. Example 1er/ère
+#: bang/forms.py:396 bang/magicollections.py:511 bang/models.py:1016
+msgid "1st"
+msgstr "ลำดับ 1"
+
+#. Your translation must be gender neutral. Example 1er/ère
+#: magi/default_settings.py:28
+msgid "2nd"
+msgstr "ลำดับ 2"
+
+#. Your translation must be gender neutral. Example 1er/ère
+#: magi/default_settings.py:28
+msgid "3rd"
+msgstr "ลำดับ 3"
+
+#: magi/magicollections.py:2997 magi/models.py:146
+msgid "Birthdate"
+msgstr "วันเกิด"
+
+#. Will do a google maps search and put people on the map. Can be replaced by something like "Your city" or "Address".
+#: idolstory/sukutomo_future_translations.py:116
+msgid "Location"
+msgstr "ตำแหน่ง"
+
+#: magi/models.py:149
+msgid "The city you live in."
+msgstr "เมืองที่คุณอาศัยอยู่"
+
+#: magi/models.py:149
+msgid "It might take up to 24 hours to update your location on the map."
+msgstr "อาจใช้เวลาถึง 24 ชั่วโมงในการอัพเดทตำแหน่งของคุณบนแผนที่"
+
+#. For links. Select your platform before adding a link. Can be Facebook/Twitter/Reddit, etc.
+#: starlight/models.py:446 starlight/models.py:448
+msgid "Platform"
+msgstr "แพลตฟอร์ม"
+
+#: magi/models.py:486
+msgid "Username/ID"
+msgstr "ชื่อผู้ใช้/ไอดี"
+
+#. For links.
+#: magi/models.py:486
+msgid "Write your username only, no URL."
+msgstr "เขียนชื่อผู้ใช้เท่านั้น ไม่ต้องมี URL"
+
+#. For links.
+#: magi/forms.py:2750
+msgid "How often do you tweet/stream/post about {}?"
+msgstr "คุณทวีต/สตรีม/โพสต์เกี่ยวกับ {} มากเท่าไหร่?"
+
+#: magi/templates/base.html:145
+msgid "Help us translate the site"
+msgstr "ช่วยพวกเราแปลเว็บนี้"
+
+#: magi/default_settings.py:23 magi/templates/collections/list_page.html:16
+#: magi/templates/items/profile.html:145
+msgid "No result."
+msgstr "ไม่มีผลลัพธ์"
+
+#: magi/templates/emails/donation_footer.html:4
+#: magi/templates/include/donate.html:10 magi/templates/pages/settings.html:144
+msgid "This will help us cover the costs of the servers and allow us to keep it running for free and without ads."
+msgstr "นี่จะช่วยพวกเราจ่ายค่าเซิร์ฟเวอร์ และให้พวกเราพัฒนาต่อโดยไม่มีโฆษณา"
+
+#: stardustrun/templates/include/pokedex.html:39
+msgid "Apply changes"
+msgstr "ยืนยันการเปลี่ยนแปลง"
+
+#: magi/templates/include/about_description.html:2
+msgid "Nice to meet you, we are Deby and Engil!"
+msgstr "ยินดีที่ได้รู้จัก เราชื่อเดบี้กับเอนกิว!"
+
+#. Hi, I think I'll come back to editting your intros later 'bcus the way I translated them into Thai seem too casual atm!! ><
+#: magi/templates/include/about_description.html:3
+msgid "We are two developers and casual players. We live in San Francisco, California. We come from the same computer science university and both work as software engineers in the same company we founded:"
+msgstr "พวกเราเป็นผู้พัฒนาและผู้เล่นเกมเรื่อยๆ พวกเราอาศัยอยู่ในซานฟรานซิสโก แคลิฟอร์เนีย พวกเราทั้งคู่มาจากมหาลัยวิทยาศาสตร์คอมพิวเตอร์ที่เดียวกันและทำงานเป็นวิศวกรรมซอฟต์แวร์ในบริษัทเดียวกันที่เราตั้งขึ้นมา"
+
+#: magi/templates/include/about_description.html:6
+msgid "Though we love our job, we don't pay ourselves and don't have any income, so any donation helps a lot and is greatly appreciated."
+msgstr "แม้ว่าเราจะรักงานของเรา แต่ว่าเราไม่มีรายได้ ฉะนั้นเงินบริจาคทั้งหมดช่วยเราได้เยอะมากและพวกเราขอบคุณมากๆครับ/ค่ะ"
+
+#: magi/templates/include/about_description.html:10
+msgid "The heartwarming support from the community keeps motivating us to do more! We love helping the community by providing as much information as we can about the game, while keeping the website easy to use, shiny and cute ^_^"
+msgstr "กำลังใจที่สนับสนุนเราจากชุมชนช่วยให้เรามีกำลังใจในการทำมันต่อ! เราชอบช่วยเหลือชุมชนของเราโดยการบริการข้อมูลมากที่สุดเท่าที่เราจะทำได้เกี่ยวกับเกม และทำให้เว็ปไซต์ใช้งานง่าย โดดเด่นและน่ารักครับ/ค่ะ ^_^"
+
+#: magi/templates/include/about_description.html:12
+msgid "We don't know how far we will go with this, but one thing we know for sure is that we are having a lot of fun doing it and sharing this adventure with you."
+msgstr "เราไม่รู้ว่าเราจะพาสิ่งนี้ไปได้ไกลเท่าไหร่ แต่มีสิ่งหนึ่งที่พวกเรารู้คือเราสนุกที่จะทำมันและแบ่งปันการผจญภัยนี้กับคุณ"
+
+#: magi/templates/include/pagination.html:17
+#: magi/templates/items/profile.html:73
+msgid "Load more..."
+msgstr "โหลดเพิ่ม..."
+
+#: magi/templates/items/activityItem.html:122
+msgid "Write Comment"
+msgstr "เขียนความคิดเห็น"
+
+#: cpro/templates/include/cards-stats.html:118
+#: cpro/templates/include/cards-stats.html:120
+#: cpro/templates/items/eventInfo.html:135
+#: cpro/templates/items/eventInfo.html:138
+#: cpro/templates/items/idolInfo.html:187
+#: cpro/templates/items/idolInfo.html:190
+msgid "Comments"
+msgstr "ความคิดเห็น"
+
+#. Will be showed before another word. For example: "Edit account" or "Edit card". Can be changed to something else so the order works, such as "Modify" or "Modification of". A gender-neutral article may be added, such as "Edit the".
+#: cpro/templates/accountsForProfile.html:44
+#: cpro/templates/items/cardItem.html:42
+#: cpro/templates/items/eventInfo.html:154
+#: cpro/templates/items/idolInfo.html:206 cpro/templates/items/idolItem.html:17
+#: cpro/templates/items/ownedcardItem.html:23
+#: cpro/templates/items/ownedcardItem.html:29
+msgid "Edit"
+msgstr "แก้ไข"
+
+#. Feel free to use Twitter's word in your language.
+#: magi/templates/items/profile.html:27
+msgid "Unfollow"
+msgstr "เลิกติดตาม"
+
+#. Feel free to use Twitter's word in your language.
+#: magi/templates/items/profile.html:27 magi/templates/items/profile.html:31
+msgid "Follow"
+msgstr "ติดตาม"
+
+#. Feel free to use Twitter's word in your language.
+#: magi/templates/items/profile.html:39 magi/templates/items/profile.html:41
+msgid "Followers"
+msgstr "ผู้ติดตาม"
+
+#. Feel free to use Twitter's word in your language.
+#: magi/default_settings.py:474 magi/forms.py:2602 magi/forms.py:3094
+#: magi/templates/items/profile.html:46 magi/templates/items/profile.html:48
+msgid "Following"
+msgstr "กำลังติดตาม"
+
+#. The exact phrase "%(length)s" must appear somewhere in your translation. It will be replaced with a number. If you don't write it or write it incorrectly, the whole page will not work in your language.
+#: magi/templates/items/profile.html:123
+msgid "%(length)s account:"
+msgid_plural "%(length)s accounts:"
+msgstr[0] "%(length)s บัญชี"
+
+#: idolstory/utils.py:36
+msgid "Contact us"
+msgstr "ติดต่อเรา"
+
+#: magi/templates/pages/about.html:468
+msgid "Franchise credits"
+msgstr "ที่มาแฟรนไชส์"
+
+#: magi/templates/pages/about.html:74 magi/templates/pages/about.html.py:87
+msgid "Staff members"
+msgstr "สมาชิกทีมงาน"
+
+#: starlight/magicollections.py:581 starlight/models.py:745
+msgid "Staff"
+msgstr "ทีมงาน"
+
+#: magi/templates/base.html:122 magi/templates/pages/about.html:439
+msgid "Check out our other websites"
+msgstr "ดูเว็ปไซต์อื่นๆ ของพวกเรา"
+
+#: magi/templates/pages/about.html:499
+msgid "Contribute"
+msgstr "ผู้สนับสนุน"
+
+#: magi/templates/pages/about.html:499 magi/templates/pages/about.html:515
+msgid "Dev"
+msgstr "ผู้พัฒนา"
+
+#: magi/templates/pages/about.html:501
+msgid "Our project is open-source and open for contributions. We are more than happy to accept pull-requests on GitHub!"
+msgstr "โปรเจคของพวกเราเป็นโปรเจคโอเพ่นซอร์สและเปิดให้สนับสนุนได้ เรายินดีเป็นอย่างมากที่จะตอบรับคำขอเข้าร่วมบน GitHub!"
+
+#: magi/templates/pages/about.html:503
+msgid "The website has been made using"
+msgstr "เว็ปไซต์นี้ถูกสร้างด้วย"
+
+#: magi/templates/pages/about.html:503
+msgid "so in Python 2. We also use"
+msgstr "Python 2 เราใช้โปรแกรมนี้"
+
+#: magi/templates/pages/about.html:503
+msgid "for the front-end of the website."
+msgstr "สำหรับส่วนหน้าและเบื้องหลังของเว็ปไซต์เช่นกัน"
+
+#: magi/templates/pages/about.html:505
+msgid "We accept all kind of contributions, from tools to help players, statistics pages, mini-games, or even little CSS changes. Don't be shy! If you need help getting started, just contact us and we will happily take the time to teach you the basics, no matter your level."
+msgstr "พวกเรารับการสนับสนุนทุกอย่าง ตั้งแต่เครื่องมือเพื่อช่วยผู้เล่น, หน้าสถิติ, มินิเกม, หรือแม้แต่การเปลี่ยนแปลง CSS เล็กน้อย อย่าอาย! ถ้าคุณต้องการความช่วยเหลือในการเริ่มต้น เพียงแค่ติดต่อเราและเรายินดีที่จะสละเวลาสอนพื้นฐานให้คุณไม่ว่าคุณจะอยู่ระดับไหน"
+
+#: cpro/templates/include/beforeCards.html:18
+msgid "Get Started"
+msgstr "มาเริ่มกัน"
+
+#: magi/templates/pages/about.html:517
+msgid "If you're a developer and you would like to get the data of the game in a convenient format, we provide a public REST API to get the game data, our users datacards, and more!"
+msgstr "ถ้าคุณเป็นผู้พัฒนาและคุณต้องการข้อมูลของเกมในรูปแบบง่ายๆ เรามีบริการ API ทั้งหมดเป็นสาธารณะเพื่อนำ ข้อมูลเกม ข้อมูลการ์ดของผู้ใช้ และอื่นๆ!"
+
+#: magi/default_settings.py:408 magi/magicollections.py:4101
+#: magi/templates/include/donate.html:59
+msgid "Donators"
+msgstr "ผู้บริจาค"
+
+#: starlight/views.py:19
+msgid "Wiki"
+msgstr "วิกิ"
+
+#: magi/templates/pages/login.html:7 magi/templates/pages/settings.html:277
+msgid "Forgot password?"
+msgstr "ลืมรหัส?"
+
+#: magi/forms.py:2560
+msgid "Change your password"
+msgstr "เปลี่ยนรหัสผ่าน"
+
+#: magi/forms.py:2173
+msgid "Emails"
+msgstr "อีเมล"
+
+#: starlight/magicollections.py:422
+msgid "Links"
+msgstr "ลิงค์"
+
+#: magi/templates/pages/settings.html:19 magi/templates/pages/settings.html:43
+msgid "Avatar"
+msgstr "สัญลักษณ์"
+
+#: magi/templates/pages/settings.html:46
+msgid "To change your avatar, use Gravatar with the same email address."
+msgstr "ถ้าต้องการเปลี่ยนสัญลักษณ์ ใช้ Gravatar ด้วยที่อยู่อีเมลเดิม"
+
+#: magi/templates/pages/settings.html:49
+msgid "F.A.Q."
+msgstr "คำถามที่พบบ่อย"
+
+#: magi/templates/pages/settings.html:50
+msgid "Change Avatar"
+msgstr "เปลี่ยนรูปโปรไฟล์"
+
+#: magi/default_settings.py:1020 magi/magicollections.py:2452
+msgid "Accounts"
+msgstr "บัญชี"
+
+#. Make sure {object} also appears in your sentence. Will be replaced with the corresponding values.
+#: magi/views_collections.py:408
+msgid "1 {object} matches your search:"
+msgstr "1 {object} ตรงกับการค้นหาของคุณ :"
+
+#. Make sure {total} and {object} also appear in your sentence. Will be replaced with the corresponding values.
+#: magi/views_collections.py:408
+msgid "{total} {objects} match your search:"
+msgstr "{total} {objects} ตรงกับการค้นหาของคุณ"
+
+#: magi/magicollections.py:1757
+msgid "Become a contributor to help us fill the database"
+msgstr "มาเป็นผู้สนับสนุนเพื่อช่วยเราเติมฐานข้อมูล"
+
+#: magi/views.py:918 magi/views_collections.py:854
+msgid "You can't cancel this action afterwards."
+msgstr "คุณไม่สามารถยกเลิกได้หลังจากการยืนยัน"
+
+#: starlight/magicollections.py:421
+msgid "Link"
+msgstr "ลิงค์"
+
+#: magi/default_settings.py:902 magi/default_settings.py:912 magi/forms.py:2802
+#: magi/forms.py:2836
+msgid "Confirm"
+msgstr "ยืนยัน"
+
+#: idolstory/models.py:1232 idolstory/settings.py:350
+msgid "Tags"
+msgstr "แท็ก"
+
+#: magi/forms.py:2644 magi/forms.py:2791 magi/magicollections.py:2986
+#: magi/models.py:137 magi/models.py:582 magi/models.py:818
+#: magi/templates/base.html:134 magi/templates/items/activityItem.html:41
+msgid "Language"
+msgstr "ภาษา"
+
+#: starlight/models.py:383 starlight/models.py:385 starlight/models.py:770
+#: starlight/models.py:772 starlight/models.py:1470 starlight/models.py:1473
+msgid "Message"
+msgstr "ข้อความ"
+
+#: starlight/models.py:341 starlight/models.py:476 starlight/models.py:525
+#: starlight/models.py:957 starlight/models.py:1116
+msgid "Image"
+msgstr "รูปภาพ"
+
+#: magi/forms.py:3100 magi/templates/items/activityItem.html:106
+#: magi/templates/items/activityItem.html:108
+msgid "Liked"
+msgstr "ถูกใจแล้ว"
+
+#: magi/templates/items/activityItem.html:108
+#: magi/templates/items/activityItem.html:111
+msgid "Like"
+msgstr "ถูกใจ"
+
+#: magi/models.py:1191 magi/templates/items/reportItem.html:38
+msgid "Images"
+msgstr "รูปภาพ"
+
+#: magi/templates/emails/report.html:16 magi/templates/emails/report.txt:5
+#: magi/templates/pages/settings.html:98
+msgid "Staff Message:"
+msgstr "ข้อความจากทีมงาน:"
+
+#: magi/templates/emails/report.html:36 magi/templates/emails/report.txt:10
+#: magi/templates/pages/settings.html:116
+msgid "Moderated by:"
+msgstr "ดูแลโดย:"
+
+#: cpro/templates/accountsForProfile.html:48
+msgid "Report"
+msgstr "รายงาน"
+
+#: magi/templates/items/reportItem.html:18
+msgid "Reported by:"
+msgstr "รายงานโดย :"
+
+#: magi/views.py:986 magi/views.py:1021
+msgid "This {thing} you reported has been reviewed by a moderator and {verb}. Thank you so much for your help!"
+msgstr "{thing} ที่คุณรายงานเข้ามาได้รับการตรวจสอบโดยผู้ดูแลและ {verb} ขอบคุณสำหรับการช่วยเหลือจากคุณ!"
+
+#. Only used in the sentence "Your {thing} has been reported, and a moderator confirmed it should be {verb}." as the "verb"
+#: magi/views.py:712 magi/views.py:986 magi/views.py:997 magi/views.py:1002
+#: magi/views.py:1032
+msgid "edited"
+msgstr "แก้ไขแล้ว"
+
+#: magi/views.py:991 magi/views.py:1026
+msgid "Thank you for reporting this {thing}"
+msgstr "ขอบคุณที่รายงานเรื่อง {thing}"
+
+#: magi/views.py:706 magi/views.py:997 magi/views.py:1032
+msgid "Your {thing} has been reported, and a moderator confirmed it should be {verb}."
+msgstr "{thing} ได้ถูกรายงานแล้ว และผู้ดูแลยืนยันว่าจะ {verb}"
+
+#: magi/views.py:1002 magi/views.py:1037
+msgid "Your {thing} has been {verb}"
+msgstr "{thing} ของคุณถูก {verb}"
+
+#: magi/views.py:715 magi/views.py:1021 magi/views.py:1037
+msgid "deleted"
+msgstr "ลบแล้ว"
+
+#: magi/templates/emails/notification.html:8
+#: magi/templates/emails/notification.txt:1 magi/templates/emails/report.html:9
+#: magi/templates/emails/report.txt:1
+msgid "Hi"
+msgstr "สวัสดี"
+
+#: magi/settings.py:139
+msgid "The {game} Database & Community"
+msgstr "ฐานข้อมูลและชุมชนของ {game}"
+
+#: magi/views.py:454
+msgid "{site} is not a representative and is not associated with {game}. Its logos and images are Trademarks of {company}."
+msgstr "{site} ไม่ได้เป็นตัวแทนและไม่ได้เกี่ยวข้องกับเกม {game} โลโก้และรูปภาพเป็นเครื่องหมายการค้าของ {company}"
+
+#: magi/views.py:456
+msgid "the company that owns {game}"
+msgstr "บริษัทที่เป็นเจ้าของ {game}"
+
+#: magi/views_collections.py:729
+msgid "Make sure the {thing} you're about to add doesn't already exist."
+msgstr "ตรวจให้เรียบร้อยว่า {thing} ที่คุณจะเพิ่มเข้าไปไม่ได้มีอยู่แล้ว"
+
+#: stardustrun/collections_settings.py:79 stardustrun/forms.py:125
+#: stardustrun/models.py:52 stardustrun/templates/items/pokemonItem.html:65
+msgid "Hit Points"
+msgstr "พลังชีวิต"
+
+#: stardustrun/collections_settings.py:84 stardustrun/forms.py:126
+#: stardustrun/models.py:53 stardustrun/models.py:329
+#: stardustrun/settings.py:146
+#: stardustrun/templates/items/ownedpokemonItem.html:34
+#: stardustrun/templates/items/pokemonItem.html:69
+msgid "Attack"
+msgstr "โจมตี"
+
+#: stardustrun/collections_settings.py:89 stardustrun/forms.py:127
+#: stardustrun/models.py:54 stardustrun/templates/items/pokemonItem.html:73
+msgid "Defense"
+msgstr "ป้องกัน"
+
+#: stardustrun/collections_settings.py:96 stardustrun/forms.py:124
+#: stardustrun/models.py:55
+#: stardustrun/templates/items/ownedpokemonItem.html:13
+#: stardustrun/templates/items/pokemonItem.html:61
+msgid "Max CP"
+msgstr "CP สูงสุด"
+
+#: stardustrun/collections_settings.py:101 stardustrun/forms.py:128
+#: stardustrun/models.py:56 stardustrun/templates/items/pokemonItem.html:77
+msgid "Catch Rate"
+msgstr "โอกาสการจับได้"
+
+#: stardustrun/collections_settings.py:107 stardustrun/forms.py:129
+#: stardustrun/models.py:57 stardustrun/templates/items/pokemonItem.html:81
+msgid "Flee Rate"
+msgstr "โอกาสหนี"
+
+#: stardustrun/collections_settings.py:14
+msgid "Pokédex"
+msgstr "โปเกเด็กซ์"
+
+#: stardustrun/collections_settings.py:15
+msgid "Medals"
+msgstr "รางวัล"
+
+#: cpro/forms.py:72 cpro/forms.py:132 cpro/models.py:215
+#: cpro/templates/ajax/account_about.html:60
+msgid "Starter"
+msgstr "ตัวเริ่มต้น"
+
+#: cpro/forms.py:96 cpro/forms.py:343
+msgid "This date cannot be in the future."
+msgstr "วันที่นี้ไม่สามารถเป็นอนาคตได้"
+
+#: bang/forms.py:117 bang/forms.py:1026 bang/models.py:1437 bang/models.py:1442
+#: bang/models.py:1942
+msgid "Level"
+msgstr "เลเวล"
+
+#: bang/forms.py:121
+msgid "Start Date"
+msgstr "วันที่เริ่มต้น"
+
+#: cpro/forms.py:136 cpro/models.py:194
+#: cpro/templates/ajax/account_about.html:77
+msgid "Join Date"
+msgstr "วันที่เข้าร่วม"
+
+#: stardustrun/forms.py:100
+msgid "Alphabetical"
+msgstr "ตามลำดับอักษร"
+
+#: idolstory/sukutomo_future_translations.py:1076
+msgid "Available"
+msgstr "ยังมีอยู่"
+
+#: stardustrun/forms.py:122 stardustrun/forms.py:268 stardustrun/models.py:46
+msgid "Pokémon number"
+msgstr "หมายเลขของโปเกม่อน"
+
+#: stardustrun/forms.py:123 stardustrun/models.py:47
+msgid "Pokémon name"
+msgstr "ชื่อของโปเกม่อน"
+
+#: stardustrun/forms.py:130 stardustrun/models.py:59
+#: stardustrun/templates/items/pokemonItem.html:85
+msgid "Candies needed to evolve"
+msgstr "ลูกกวาดที่ใช้ในการพัฒนา"
+
+#: stardustrun/forms.py:131 stardustrun/models.py:60
+#: stardustrun/templates/items/pokemonItem.html:89
+msgid "Egg Distance"
+msgstr "ระยะทางฟักไข่"
+
+#: idolstory/magicollections.py:1764
+msgid "Types"
+msgstr "ชนิด"
+
+#: stardustrun/model_choices.py:8
+msgid "Instinct"
+msgstr "สัญชาตญาณ"
+
+#: stardustrun/model_choices.py:9
+msgid "Mystic"
+msgstr "ลึกลับ"
+
+#: stardustrun/model_choices.py:10
+msgid "Valor"
+msgstr "ความคุ้มค่า"
+
+#: stardustrun/model_choices.py:17
+msgid "Pokémon Trainer"
+msgstr "โปเกม่อนเทรนเนอร์"
+
+#: stardustrun/model_choices.py:18
+msgid "Super Pokémon Trainer"
+msgstr "โปเกม่อนเทรนเนอร์ระดับสูง"
+
+#: stardustrun/model_choices.py:19
+msgid "Expert Pokémon Trainer"
+msgstr "โปเกม่อนเทรนเนอร์ระดับเชี่ยวชาญ"
+
+#: stardustrun/model_choices.py:20
+msgid "Pokémon Master"
+msgstr "โปเกม่อนมาสเตอร์"
+
+#: stardustrun/model_choices.py:21
+msgid "Ultimate Pokémon Master"
+msgstr "โปเกม่อนมาสเตอร์ระดับสุด"
+
+#: stardustrun/model_choices.py:42
+msgid "Fairy"
+msgstr "แฟรี่"
+
+#: stardustrun/model_choices.py:43
+msgid "Steel"
+msgstr "เหล็ก"
+
+#: stardustrun/model_choices.py:44
+msgid "Dark"
+msgstr "มืด"
+
+#: stardustrun/model_choices.py:45
+msgid "Dragon"
+msgstr "มังกร"
+
+#: stardustrun/model_choices.py:46
+msgid "Ghost"
+msgstr "ผี"
+
+#: stardustrun/model_choices.py:47
+msgid "Rock"
+msgstr "หิน"
+
+#: stardustrun/model_choices.py:48
+msgid "Bug"
+msgstr "แมลง"
+
+#: stardustrun/model_choices.py:49
+msgid "Psychic"
+msgstr "พลังจิต"
+
+#: stardustrun/model_choices.py:50
+msgid "Flying"
+msgstr "บิน"
+
+#: stardustrun/model_choices.py:51
+msgid "Ground"
+msgstr "ดิน"
+
+#: starlight/models.py:1449
+msgid "Poison"
+msgstr "พิษ"
+
+#: stardustrun/model_choices.py:53
+msgid "Fighting"
+msgstr "ต่อสู้"
+
+#: stardustrun/model_choices.py:54
+msgid "Ice"
+msgstr "น้ำแข็ง"
+
+#: stardustrun/model_choices.py:55
+msgid "Grass"
+msgstr "พืช"
+
+#: stardustrun/model_choices.py:56
+msgid "Electric"
+msgstr "ไฟฟ้า"
+
+#: stardustrun/model_choices.py:57
+msgid "Water"
+msgstr "น้ำ"
+
+#: stardustrun/model_choices.py:58
+msgid "Fire"
+msgstr "ไฟ"
+
+#: starlight/models.py:1421
+msgid "Normal"
+msgstr "ทั่วไป"
+
+#: idolstory/forms.py:320 idolstory/forms.py:321 idolstory/models.py:605
+#: idolstory/models.py:606 idolstory/models.py:609
+msgid "Nickname"
+msgstr "ชื่อเล่น"
+
+#: stardustrun/models.py:196
+msgid "Team"
+msgstr "ทีม"
+
+#: stardustrun/models.py:198
+msgid "When you started playing with this account."
+msgstr "คุณเริ่มเล่นบัญชีนี้เมื่อไหร่"
+
+#: stardustrun/models.py:199 stardustrun/templates/accountsForProfile.html:53
+msgid "Bought Pokécoins"
+msgstr "ซื้อโปเกคอยน์"
+
+#: stardustrun/forms.py:210 stardustrun/forms.py:233 stardustrun/forms.py:266
+#: stardustrun/models.py:325
+#: stardustrun/templates/items/ownedpokemonItem.html:7
+msgid "CP"
+msgstr "CP"
+
+#: starlight/models.py:1161 starlight/models.py:1167 starlight/models.py:1173
+#: starlight/models.py:1181
+msgid "HP"
+msgstr "HP"
+
+#: cpro/forms.py:172 cpro/models.py:60 cpro/templates/items/idolInfo.html:94
+#: cpro/templates/items/idolItem.html:42
+msgid "Weight"
+msgstr "น้ำหนัก"
+
+#: starlight/forms.py:254 starlight/models.py:364
+msgid "Height"
+msgstr "ส่วนสูง"
+
+#: stardustrun/models.py:330 stardustrun/templates/items/attackItem.html:12
+#: stardustrun/templates/items/ownedpokemonItem.html:36
+msgid "Special Attack"
+msgstr "โจมตีพิเศษ"
+
+#: stardustrun/models.py:473
+#: stardustrun/templates/include/empty_pokedex.html:23
+#: stardustrun/templates/include/empty_pokedex.html:27
+#: stardustrun/templates/include/pokedex.html:31
+#: stardustrun/templates/include/pokedex.html:35
+#: stardustrun/templates/include/pokedex.html:36
+#: stardustrun/templates/items/pokemonFullItem.html:134
+msgid "Candies"
+msgstr "ลูกกวาด"
+
+#: stardustrun/models.py:474
+#: stardustrun/templates/include/empty_pokedex.html:15
+#: stardustrun/templates/include/pokedex.html:21
+msgid "Seen"
+msgstr "เห็นแล้ว"
+
+#: stardustrun/models.py:475
+#: stardustrun/templates/include/empty_pokedex.html:19
+#: stardustrun/templates/include/pokedex.html:25
+msgid "Caught"
+msgstr "จับได้"
+
+#: stardustrun/settings.py:31
+msgid "Pokémon Go is a free-to-play, location-based augmented reality game developed and published by Niantic for iOS and Android devices."
+msgstr "Pokémon Go เป็นเกมฟรี การให้ตำแหน่ง การเพิ่มความสมจริงพัฒนาและเผยแพร่โดย Niantic สำหรับอุปกรณ์ iOS และ Android"
+
+#: stardustrun/settings.py:38
+msgid "{nth} Favorite Pokémon"
+msgstr "{nth} โปเกม่อนที่ชื่นชอบ"
+
+#: stardustrun/collections_settings.py:13 stardustrun/settings.py:55
+#: stardustrun/settings.py:106 stardustrun/settings.py:107
+#: stardustrun/settings.py:175 stardustrun/settings.py:176
+#: stardustrun/templates/items/pokemonItem.html:51
+msgid "Pokémon"
+msgstr "โปเกม่อน"
+
+#: stardustrun/settings.py:147
+#: stardustrun/templates/items/pokemonFullItem.html:48
+msgid "Attacks"
+msgstr "โจมตี"
+
+#: idolstory/templates/pages/comingsoon.html:10
+msgid "Coming soon"
+msgstr "เร็วๆ นี้"
+
+#: cpro/templates/include/advancedButton.html:3
+msgid "Simple"
+msgstr "ทั่วไป"
+
+#: cpro/templates/include/advancedButton.html:5
+msgid "Advanced"
+msgstr "ขั้นสูง"
+
+#: stardustrun/templates/include/pokemonsBeforeTemplate.html:8
+msgid "Open Pokémon GO, tap the pokéball at the bottom and tap Pokédex"
+msgstr "เปิด Pokémon GO กดที่โปเกบอลด้านล่างและกด Pokedex"
+
+#: cpro/templates/include/afterCards.html:7
+msgid "Check out your own profile"
+msgstr "ตรวจสอบโปรไฟล์ของคุณ"
+
+#: cpro/templates/include/afterCards.html:11
+msgid "Customize it"
+msgstr "กำหนดเอง"
+
+#: cpro/templates/include/afterCards.html:14
+msgid "Share it on:"
+msgstr "แชร์ไปยัง:"
+
+#: stardustrun/templates/items/ownedpokemonItem.html:26
+msgid "More info"
+msgstr "เพิ่มเติม"
+
+#: stardustrun/templates/items/pokemonFullItem.html:42
+#: stardustrun/templates/items/pokemonFullItem.html:78
+msgid "Your Collection"
+msgstr "การสะสมของคุณ"
+
+#: stardustrun/templates/items/pokemonFullItem.html:45
+#: stardustrun/templates/items/pokemonFullItem.html:114
+msgid "Evolutions"
+msgstr "การวิวัฒนาการ"
+
+#: stardustrun/templates/items/pokemonFullItem.html:51
+#: stardustrun/templates/pages/ajax_pokedex.html:9
+msgid "Permalink"
+msgstr "ลิงค์ถาวร"
+
+#: stardustrun/templates/items/pokemonFullItem.html:98
+#: stardustrun/templates/items/pokemonItem.html:31
+msgid "Click to add %(pokemon)s to your collection"
+msgstr "กดเพื่อเพิ่ม %(pokemon)s ไปยังคอลเลคชั่นของคุณ"
+
+#: stardustrun/templates/pages/ajax_pokedex.html:5
+msgid "Change to icons"
+msgstr "เปลี่ยนเป็นแบบไอคอน"
+
+#: stardustrun/templates/pages/ajax_pokedex.html:7
+msgid "Change to list"
+msgstr "เปลี่ยนเป็นแบบลำดับ"
+
+#: stardustrun/views.py:140
+msgid "You have {} of them in you collection. Delete them before changing this."
+msgstr "คุณมี {} ตัวอยู่ในคอลเลคชั่นของคุณ กรุณาลบออกก่อนทีจะเปลี่ยนสิ่งนี้"
+
+#: magi/models.py:210
+msgid "View activities in your language only?"
+msgstr "จะดูกิจกรรมในภาษาของคุณเท่านั้นหรือไม่ ?"
+
+#: magi/models.py:941
+msgid "Check out {username}'s activity on {site}: {activity}"
+msgstr "ตรวจสอบกิจกรรมของ {username} ที่ {site}: {activity}"
+
+#: magi/settings.py:109
+msgid "Join the community!"
+msgstr "เข้าร่วมชุมชน!"
+
+#: magi/settings.py:145
+msgid "{site} provides an extended database of information about the game {game} and allows you to keep track of your progress in the game. You can create and customize your very own profile to share your progress and your collection to all your friends. You can also meet other players like you with the social network: read what the others are doing and share your adventures with the community. Comment, like and follow the other players to grow your network. Find players near you with the global map of all the players. And much more!"
+msgstr "{site} ให้ข้อมูลที่เจาะลึกลงไปเกี่ยวกับเกม {game} และให้คุณติดตามความคืบหน้าในเกมของคุณ คุณสามารถสร้างและปรับแต่งโปรไฟล์เป็นของตัวเองเพื่อแชร์ความคืบหน้าและแชร์คอลเลกชันให้เพื่อนของคุณ คุณก็สามารถพบเจอกับผู้เล่นคนอื่นที่ชื่นชอบเหมือนคุณด้วย: ดูว่าผู้อื่นกำลังทำอะไรและแชร์การผจญภัยของคุณให้กับชุมชนผู้เล่น แสคงความคิดเห็น ไลค์ และติดตามผู้เล่นคนอื่นเพื่อขยายเคลือข่ายของคุณ หาผู้เล่นใกล้คุณด้วยแผนที่ผู้เล่นทั่วโลก และยังมีอีกมากมาย!"
+
+#: magi/templates/include/activityFollowMessage.html:4
+msgid "Start following players to see their activities!"
+msgstr "ติดตามผู้เล่นเพื่อตรวจสอบกิจกรรม"
+
+#: magi/templates/include/homePage.html:71
+msgid "is crowdfunded by %(total_donators)s %(adjective)s donators"
+msgstr "ได้รับการระดมทุนจากผู้บริจาค %(total_donators)s %(adjective)s"
+
+#: starlight/settings.py:271 starlight/settings.py:290
+msgid "About {thing}"
+msgstr "เกี่ยวกับ {thing}"
+
+#: idolstory/magicollections.py:164 idolstory/models.py:339
+msgid "All"
+msgstr "ทั้งหมด"
+
+#: magi/magicollections.py:3196
+msgid "Check out {username}'s awesome collection!"
+msgstr "ดูการสะสมโปเกม่อนของ {username}"
+
+#: stardustrun/collections_settings.py:46
+msgid "Global"
+msgstr "ทั่วโลก"
+
+#: stardustrun/collections_settings.py:64
+msgid "Check out my awesome collection of Pokémon!"
+msgstr "ดูโปเกม่อนของฉันที่สะสมไว้"
+
+#: stardustrun/forms.py:119
+msgid "Pokémon in your collection"
+msgstr "การสะสมโปเกม่อนของคุณ"
+
+#: stardustrun/forms.py:120
+msgid "Pokémon you've seen"
+msgstr "โปเกม่อนที่เคยพบ"
+
+#: starlight/models.py:1422
+msgid "Special"
+msgstr "พิเศษ"
+
+#: starlight/models.py:1424
+msgid "Damage"
+msgstr "การโจมตี"
+
+#: stardustrun/forms.py:186 stardustrun/models.py:21
+#: stardustrun/templates/items/attackItem.html:15
+msgid "Energy Increase"
+msgstr "พลังเพิ่มขึ้น"
+
+#: stardustrun/forms.py:187 stardustrun/models.py:22
+#: stardustrun/templates/items/attackItem.html:16
+msgid "Critical Hit Chance"
+msgstr "โอกาสการโจมตีคริติคอล"
+
+#: stardustrun/forms.py:188 stardustrun/models.py:23
+#: stardustrun/templates/items/attackItem.html:14
+msgid "Duration"
+msgstr "ความทน"
+
+#: stardustrun/forms.py:189 stardustrun/models.py:24
+#: stardustrun/templates/items/attackItem.html:17
+msgid "Energy Requirement"
+msgstr "พลังงานที่ต้องการ"
+
+#: stardustrun/forms.py:233 stardustrun/forms.py:235 stardustrun/forms.py:237
+#: stardustrun/forms.py:239
+msgid "after evolution"
+msgstr "หลังวิวัฒนาการ"
+
+#: stardustrun/models.py:200 stardustrun/models.py:282
+msgid "Stardust"
+msgstr "สตาร์ดัส"
+
+#: stardustrun/models.py:201 stardustrun/models.py:283
+msgid "Lucky Eggs"
+msgstr "ไข่แห่งความโชคดี"
+
+#: stardustrun/models.py:202 stardustrun/models.py:284
+msgid "Incenses"
+msgstr "ทำให้โกรธ"
+
+#: stardustrun/models.py:203 stardustrun/models.py:285
+msgid "Lure Modules"
+msgstr "การล่อโปเกม่อน"
+
+#: stardustrun/settings.py:19
+msgid "The Pokémon GO Sharing Community"
+msgstr "คอมมูนิตี้ Pokémon GO"
+
+#: stardustrun/settings.py:29
+#: stardustrun/templates/include/pokemonsBeforeTemplate.html:6
+#: stardustrun/templates/include/pokemonsShareButton.html:4
+msgid "Share your Pokédex!"
+msgstr "แชร์โปเกเด็กซ์ของคุณ!"
+
+#: stardustrun/settings.py:261 stardustrun/settings.py:268
+#: stardustrun/templates/items/ownedpokemonItem.html:24
+#: stardustrun/templates/pages/evolve.html:6
+msgid "Evolve"
+msgstr "วิวัฒนาการ"
+
+#: stardustrun/templates/include/pokemonsBeforeTemplate.html:9
+msgid "Go through the list of Pokémon below and click on the ones you have to add them in your Stardust Run collection"
+msgstr "ดูผ่านรายการโปเกมอนข้างล่างและกดตัวที่คุณมีเพื่อเพิ่มโปเกมอนนั้นไปที่ Stardust Run collection"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:22
+msgid "What next?"
+msgstr "ต่อไป?"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:24
+msgid "Click on the Pokémon that are the most important to you and edit their CP and nicknames"
+msgstr "กดที่โปเกมอนที่สำคัญที่สุดสำหรับคุณและตั้งค่า CP กับชื่อเล่นของพวกเขา"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:29
+msgid "Let's go!"
+msgstr "ไปกันเถอะ!"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:45
+msgid "Go further"
+msgstr "ไปให้ไกลขึ้น"
+
+#: stardustrun/templates/include/pokemonsShareButton.html:46
+msgid "Discover everything you can do on Stardust Run"
+msgstr "ค้นพบสิ่งที่คุณสามารถทำได้บน Stardust Run"
+
+#: stardustrun/templates/items/attackItem.html:19
+msgid "All Pokémon with this attack"
+msgstr "โปเกมอนกับการโจมตีทั้งหมด"
+
+#: stardustrun/templates/items/attackItem.html:21
+msgid "All Attacks"
+msgstr "การโจมตีทั้งหมด"
+
+#: stardustrun/templates/items/attackItem.html:31
+msgid "seconds"
+msgstr "วินาที"
+
+#: starlight/forms.py:85
+msgid "Creation"
+msgstr "การสร้าง"
+
+#: idolstory/forms.py:264 idolstory/forms.py:322 idolstory/forms.py:672
+#: idolstory/forms.py:674
+msgid "Most popular"
+msgstr "นิยมมากที่สุด"
+
+#: bang/magicollections.py:241 bang/magicollections.py:245
+msgid "All time"
+msgstr "เวลาทั้งหมด"
+
+#: bang/magicollections.py:241 bang/magicollections.py:245
+msgid "This week"
+msgstr "สัปดาห์นี้"
+
+#: idolstory/forms.py:947
+msgid "Ordering"
+msgstr "เรียงจาก"
+
+#: bang/magicollections.py:2203 bang/magicollections.py:2332
+msgid "View all"
+msgstr "ดูทั้งหมด"
+
+#: idolstory/magicollections.py:472
+msgid "{age} years old"
+msgstr "{age} ปี"
+
+#: cpro/collections_settings.py:108
+msgid "Check out my collection of cards!"
+msgstr "ตรวจสอบการ์ดของฉันที่สะสมไว้!"
+
+#: cpro/forms.py:94 cpro/forms.py:341
+msgid "The game didn't even exist at that time."
+msgstr "ในตอนนั้นยังไม่มีตัวเกมเลย"
+
+#: starlight/forms.py:557 starlight/models.py:934 starlight/models.py:1828
+msgid "Type"
+msgstr "สาย"
+
+#: starlight/magicollections.py:254 starlight/models.py:223
+#: starlight/models.py:1430
+msgid "Center"
+msgstr "เซ็นเตอร์"
+
+#: starlight/models.py:1090 starlight/models.py:1923
+msgid "Rarity"
+msgstr "ความหายาก"
+
+#: cpro/forms.py:133
+msgid "Favorite Idol"
+msgstr "ไอดอลที่ชื่นชอบ"
+
+#: cpro/forms.py:138 cpro/models.py:217
+msgid "Producer Rank"
+msgstr "อันดับโปรดิวเซอร์"
+
+#: cpro/forms.py:140 cpro/forms.py:177 cpro/forms.py:216 cpro/forms.py:302
+msgid "Reverse Order"
+msgstr "เรียงกลับกัน"
+
+#: idolstory/sukutomo_future_translations.py:4
+msgid "Accept friend requests"
+msgstr "ยอมรับคำขอเป็นเพื่อน"
+
+#: starlight/forms.py:250 starlight/forms.py:251 starlight/forms.py:331
+#: starlight/forms.py:332 starlight/models.py:334 starlight/models.py:337
+#: starlight/models.py:471 starlight/models.py:474 starlight/models.py:518
+#: starlight/models.py:521 starlight/models.py:753 starlight/models.py:756
+msgid "Name"
+msgstr "ชื่อ"
+
+#: starlight/forms.py:253
+msgid "Age"
+msgstr "อายุ"
+
+#: starlight/forms.py:252 starlight/forms.py:333 starlight/models.py:345
+#: starlight/models.py:563 starlight/settings.py:199
+msgid "Birthday"
+msgstr "วันเกิด"
+
+#: idolstory/forms.py:269 idolstory/models.py:992 idolstory/models.py:998
+msgid "Bust"
+msgstr "อก"
+
+#: idolstory/forms.py:270 idolstory/models.py:993 idolstory/models.py:999
+msgid "Waist"
+msgstr "เอว"
+
+#: idolstory/forms.py:271 idolstory/models.py:994 idolstory/models.py:1000
+msgid "Hips"
+msgstr "สะโพก"
+
+#: idolstory/sukutomo_future_translations.py:124
+#: idolstory/sukutomo_future_translations.py:337
+#: idolstory/sukutomo_future_translations.py:346
+#: idolstory/sukutomo_future_translations.py:359
+#: idolstory/sukutomo_future_translations.py:368
+#: idolstory/sukutomo_future_translations.py:377
+msgid "Beginning"
+msgstr "เริ่ม"
+
+#: idolstory/sukutomo_future_translations.py:125
+#: idolstory/sukutomo_future_translations.py:338
+#: idolstory/sukutomo_future_translations.py:347
+#: idolstory/sukutomo_future_translations.py:360
+#: idolstory/sukutomo_future_translations.py:369
+#: idolstory/sukutomo_future_translations.py:378
+msgid "End"
+msgstr "จบ"
+
+#: cpro/forms.py:213 cpro/models.py:145 cpro/models.py:147 cpro/models.py:149
+#: cpro/models.py:151 cpro/models.py:153
+msgid "T{} points"
+msgstr "T{} คะแนน"
+
+#: cpro/forms.py:214 cpro/models.py:146 cpro/models.py:148 cpro/models.py:150
+#: cpro/models.py:152 cpro/models.py:154
+msgid "T{} rank"
+msgstr "ลำดับ T{}"
+
+#: starlight/models.py:928 starlight/models.py:1099 starlight/models.py:1344
+#: starlight/models.py:1856 starlight/models.py:1974
+msgid "Event"
+msgstr "กิจกรรม"
+
+#: starlight/models.py:1098 starlight/models.py:1338
+msgid "Limited"
+msgstr "ถูกจำกัด"
+
+#: cpro/forms.py:294 cpro/forms.py:296 cpro/forms.py:298 cpro/forms.py:300
+#: cpro/models.py:350 cpro/models.py:374 cpro/models.py:384 cpro/models.py:394
+#: cpro/models.py:406 cpro/models.py:416 cpro/models.py:426 cpro/models.py:435
+#: cpro/models.py:436 cpro/models.py:439 cpro/models.py:440 cpro/models.py:443
+#: cpro/models.py:444 cpro/models.py:447 cpro/models.py:448 cpro/models.py:757
+#: cpro/models.py:805
+msgid "Awakened"
+msgstr "ถูกปลุก"
+
+#: starlight/models.py:1132
+msgid "Art"
+msgstr "ภาพวาด"
+
+#: cpro/forms.py:287 cpro/models.py:366
+#: cpro/templates/include/cards-stats.html:44
+msgid "Release Date"
+msgstr "วันที่ปล่อย"
+
+#: starlight/forms.py:171 starlight/forms.py:173 starlight/models.py:218
+#: starlight/models.py:1037
+msgid "ID"
+msgstr "ไอดี"
+
+#: cpro/forms.py:293 cpro/forms.py:294 cpro/model_choices.py:49
+#: cpro/model_choices.py:382 cpro/models.py:437 cpro/models.py:438
+#: cpro/models.py:439 cpro/models.py:440 cpro/models.py:494
+msgid "Vocal"
+msgstr "Vocal"
+
+#: cpro/forms.py:295 cpro/forms.py:296 cpro/model_choices.py:50
+#: cpro/model_choices.py:384 cpro/models.py:441 cpro/models.py:442
+#: cpro/models.py:443 cpro/models.py:444 cpro/models.py:496
+msgid "Dance"
+msgstr "Dance"
+
+#: bang/forms.py:263 bang/forms.py:264 bang/magicollections.py:983
+#: bang/models.py:778 bang/models.py:779 bang/models.py:780 bang/models.py:849
+#: bang/models.py:1194 bang/models.py:1853
+msgid "Visual"
+msgstr "Visual"
+
+#: idolstory/magicollections.py:1251 idolstory/models.py:1569
+#: idolstory/models.py:1608 idolstory/models.py:1669 idolstory/models.py:1993
+#: idolstory/sukutomo_future_translations.py:234
+#: idolstory/sukutomo_future_translations.py:628
+msgid "Skill"
+msgstr "สกิล"
+
+#: cpro/model_choices.py:9
+msgid "Skilled Producer"
+msgstr "โปรดิวเซอร์มีทักษะ"
+
+#: cpro/model_choices.py:10
+msgid "Expert Producer"
+msgstr "โปรดิวเซอร์เชี่ยวชาญ"
+
+#: cpro/model_choices.py:11
+msgid "Veteran Producer"
+msgstr "โปรดิวเซอร์มากประสบการณ์"
+
+#: cpro/model_choices.py:12
+msgid "Ultimate Producer"
+msgstr "โปรดิวเซอร์ขั้นสุด"
+
+#: cpro/model_choices.py:13
+msgid "Idol Master"
+msgstr "ไอดอลมาสเตอร์"
+
+#: cpro/model_choices.py:25
+msgid "Cute"
+msgstr "Cute"
+
+#: idolstory/models.py:335 idolstory/sukutomo_future_translations.py:874
+#: idolstory/sukutomo_future_translations.py:875
+#: idolstory/sukutomo_future_translations.py:876
+msgid "Cool"
+msgstr "Cool"
+
+#: cpro/model_choices.py:27
+msgid "Passion"
+msgstr "Passion"
+
+#: cpro/model_choices.py:60
+msgid "Right"
+msgstr "ขวา"
+
+#: cpro/model_choices.py:60
+msgid "Left"
+msgstr "ซ้าย"
+
+#: cpro/model_choices.py:60
+msgid "Both"
+msgstr "ทั้งคู่"
+
+#: starlight/models.py:172
+msgid "Leo"
+msgstr "สิงห์"
+
+#: starlight/models.py:173
+msgid "Aries"
+msgstr "เมษ"
+
+#: starlight/models.py:174
+msgid "Libra"
+msgstr "ตุลย์"
+
+#: starlight/models.py:175
+msgid "Virgo"
+msgstr "กันย์"
+
+#: starlight/models.py:176
+msgid "Scorpio"
+msgstr "พิจิก"
+
+#: starlight/models.py:177
+msgid "Capricorn"
+msgstr "มังกร"
+
+#: starlight/models.py:178
+msgid "Pisces"
+msgstr "มีน"
+
+#: starlight/models.py:179
+msgid "Gemini"
+msgstr "เมถุน"
+
+#: starlight/models.py:180
+msgid "Cancer"
+msgstr "กรกฏ"
+
+#: starlight/models.py:181
+msgid "Sagittarius"
+msgstr "ธนู"
+
+#: starlight/models.py:182
+msgid "Aquarius"
+msgstr "กุมภ์"
+
+#: starlight/models.py:183
+msgid "Taurus"
+msgstr "พฤษภ"
+
+#: idolstory/sukutomo_future_translations.py:25
+#: idolstory/sukutomo_future_translations.py:276
+msgid "Token"
+msgstr "โทเคน"
+
+#: cpro/model_choices.py:105
+msgid "Medley"
+msgstr "การผสม"
+
+#: cpro/model_choices.py:106
+msgid "Coop"
+msgstr "Coop"
+
+#: cpro/model_choices.py:107
+msgid "Caravan"
+msgstr "คาราวาน"
+
+#: idolstory/models.py:1640
+msgid "Rare"
+msgstr "หายาก"
+
+#: idolstory/models.py:1644
+msgid "Super rare"
+msgstr "หายากมาก"
+
+#: cpro/model_choices.py:126
+msgid "Super super rare"
+msgstr "หายากมาก"
+
+#: cpro/model_choices.py:169
+msgid "Lesser Perfect Lock"
+msgstr "ล็อก PERFECT น้อย"
+
+#: cpro/model_choices.py:170
+msgid "Greater Perfect Lock"
+msgstr "ล็อก PERFECT ปานกลาง"
+
+#: cpro/model_choices.py:171
+msgid "Extreme Perfect Lock"
+msgstr "ล็อก PERFECT มาก"
+
+#: cpro/model_choices.py:172
+msgid "Combo Lock"
+msgstr "ล็อกคอมโบ"
+
+#: starlight/models.py:1447
+msgid "Healer"
+msgstr "นักฟื้นฟู"
+
+#: cpro/model_choices.py:174
+msgid "Life Lock"
+msgstr "ล็อกพลังชีวิต"
+
+#: cpro/model_choices.py:175
+msgid "Combo Bonus"
+msgstr "โบนัสคอมโบ"
+
+#: cpro/model_choices.py:176 cpro/model_choices.py:187
+msgid "Perfect Score Bonus"
+msgstr "โบนัสคะแนน PERFECT"
+
+#: cpro/model_choices.py:177
+msgid "Overload"
+msgstr "Overload"
+
+#: cpro/model_choices.py:178
+msgid "Score Boost"
+msgstr "เพิ่มคะแนน"
+
+#: cpro/model_choices.py:214
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Great notes into Perfect notes in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต GREAT กลายเป็น PERFECT ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:215
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต NICE และ GREAT กลายเป็น PERFECT ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:216
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Bad, Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต BAD, NICE และ GREAT กลายเป็น PERFECT ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:217
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Nice notes will not break the combo in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต NICE จะไม่ทำให้เสียคอมโบ ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:218
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will restore {skill_value} life in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะฟื้นฟู {skill_value} พลังชีวิต ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:219
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will not lose health in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะไม่เสียพลังชีวิต ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:220
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะได้รับโบนัสคอมโบมากกว่าเดิม {skill_value}% ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:221
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะให้คะแนนโบนัส {skill_value}% ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:222
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% bonus and Nice and Bad notes will not break your combo in the next {skill_duration} seconds, at the cost of {skill_value2} life."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะเสีย {skill_value2} พลังชีวิต แต่โน้ต PERFECT จะได้รับโบนัส {skill_value}% และจะไม่เสียคอมโบถ้าโน้ตเป็น NICE หรือ BAD ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:223
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Great and Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
+msgstr "ทุก {trigger_value} วินาทีมีโอกาส {trigger_chance}% ที่โน้ต GREAT และ PERFECT จะได้รับคะแนนโบนัส {skill_value}% ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:342
+msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}%."
+msgstr "เพิ่ม {leader_skill_type} ของไอดอลสาย {idol_type} {leader_skill_percent}%"
+
+#: cpro/model_choices.py:388 cpro/model_choices.py:389 cpro/models.py:433
+#: cpro/models.py:434 cpro/models.py:435 cpro/models.py:436 cpro/models.py:493
+msgid "Life"
+msgstr "พลังชีวิต"
+
+#: cpro/model_choices.py:314
+msgid "Voice"
+msgstr "Voice"
+
+#: cpro/model_choices.py:315
+msgid "Make-Up"
+msgstr "Make-Up"
+
+#: cpro/model_choices.py:316
+msgid "Step"
+msgstr "Step"
+
+#: idolstory/sukutomo_future_translations.py:683
+msgid "Energy"
+msgstr "Energy"
+
+#: idolstory/models.py:1570 idolstory/models.py:2020 idolstory/models.py:2043
+msgid "Ability"
+msgstr "เอกลักษณ์"
+
+#: cpro/model_choices.py:317
+msgid "Brilliance"
+msgstr "Brilliance"
+
+#: cpro/model_choices.py:300
+msgid "Shiny"
+msgstr "Shiny"
+
+#: cpro/model_choices.py:299
+msgid "Tricolor"
+msgstr "Tricolor"
+
+#: bang/models.py:149
+msgid "Thumbs"
+msgstr "นิ้วโป้ง"
+
+#: bang/models.py:153
+msgid "All fingers"
+msgstr "ทุกนิ้ว"
+
+#: bang/models.py:157
+msgid "Index fingers"
+msgstr "นิ้วชี้"
+
+#: bang/models.py:161
+msgid "One hand"
+msgstr "มือเดียว"
+
+#: starlight/forms.py:429 starlight/forms.py:657
+msgid "Other"
+msgstr "อื่นๆ"
+
+#: cpro/models.py:61 cpro/templates/items/idolInfo.html:101
+msgid "Blood Type"
+msgstr "กรุ๊ปเลือด"
+
+#: cpro/models.py:64 cpro/templates/items/idolInfo.html:108
+msgid "Writing Hand"
+msgstr "มือข้างที่ใช้เขียน"
+
+#: bang/models.py:292
+msgid "Astrological Sign"
+msgstr "ราศี"
+
+#: cpro/models.py:75 cpro/models.py:76 cpro/templates/items/idolInfo.html:143
+msgid "Hometown"
+msgstr "บ้านเกิด"
+
+#: starlight/models.py:371 starlight/models.py:373 starlight/models.py:608
+#: starlight/models.py:610
+msgid "Hobbies"
+msgstr "งานอดิเรก"
+
+#: bang/magicollections.py:328 bang/models.py:263 bang/models.py:264
+msgid "CV"
+msgstr "ให้เสียงโดย"
+
+#: idolstory/models.py:1047 idolstory/models.py:1050
+msgid "Signature"
+msgstr "ลายเซ็น"
+
+#: cpro/models.py:142
+msgid "Kind"
+msgstr "ประเภท"
+
+#: cpro/models.py:199 cpro/templates/ajax/account_about.html:6
+msgid "Game ID"
+msgstr "เกม ID"
+
+#: starlight/models.py:289
+msgid "Device"
+msgstr "เครื่อง"
+
+#: bang/models.py:170
+msgid "Play with"
+msgstr "เล่นด้วย"
+
+#: starlight/models.py:285
+msgid "Operating System"
+msgstr "ระบบปฏิบัติการ"
+
+#: idolstory/forms.py:347 idolstory/forms.py:591 idolstory/forms.py:662
+#: idolstory/forms.py:730 idolstory/forms.py:965 idolstory/forms.py:966
+#: idolstory/forms.py:1021 idolstory/forms.py:1062
+#: idolstory/magicollections.py:307 idolstory/magicollections.py:700
+#: idolstory/magicollections.py:948 idolstory/models.py:697
+#: idolstory/models.py:1623 idolstory/models.py:2730 idolstory/models.py:2878
+#: idolstory/sukutomo_future_translations.py:538
+msgid "Idol"
+msgstr "ไอดอล"
+
+#: starlight/forms.py:371 starlight/forms.py:372 starlight/models.py:799
+#: starlight/models.py:802 starlight/models.py:804 starlight/models.py:936
+#: starlight/models.py:937 starlight/models.py:940 starlight/models.py:1049
+#: starlight/models.py:1052
+msgid "Title"
+msgstr "ชื่อ"
+
+#: starlight/models.py:1478
+msgid "Transparent"
+msgstr "โปร่งใส"
+
+#: starlight/models.py:1125
+msgid "Icon"
+msgstr "ไอคอน"
+
+#: cpro/models.py:421 cpro/models.py:426
+#: cpro/templates/include/cards-stats.html:170
+#: cpro/templates/include/cards-stats.html:176
+msgid "Puchi"
+msgstr "ปุจิ"
+
+#: idolstory/sukutomo_future_translations.py:866
+#: idolstory/sukutomo_future_translations.py:870
+#: idolstory/sukutomo_future_translations.py:874
+#: idolstory/sukutomo_future_translations.py:878
+msgid "Minimum"
+msgstr "ต่ำสุด"
+
+#: idolstory/sukutomo_future_translations.py:867
+#: idolstory/sukutomo_future_translations.py:868
+#: idolstory/sukutomo_future_translations.py:871
+#: idolstory/sukutomo_future_translations.py:872
+#: idolstory/sukutomo_future_translations.py:875
+#: idolstory/sukutomo_future_translations.py:876
+msgid "Maximum"
+msgstr "สูงสุด"
+
+#: bang/forms.py:265 bang/forms.py:266 bang/magicollections.py:940
+#: bang/magicollections.py:947 bang/magicollections.py:984 bang/models.py:850
+msgid "Overall"
+msgstr "ภาพรวม"
+
+#: starlight/models.py:1918
+msgid "Max bonded"
+msgstr "ความสัมพันธ์สูงสุด"
+
+#: starlight/models.py:1870
+msgid "Max leveled"
+msgstr "เลเวลสูงสุด"
+
+#: cpro/models.py:760 cpro/templates/items/ownedcardItem.html:11
+msgid "Star Rank"
+msgstr "ระดับดาว"
+
+#: cpro/models.py:764 cpro/templates/include/cards-stats.html:70
+#: cpro/templates/items/ownedcardItem.html:14
+msgid "Skill Level"
+msgstr "สกิลเลเวล"
+
+#: cpro/models.py:768 cpro/templates/items/ownedcardItem.html:17
+msgid "Obtained Date"
+msgstr "ได้รับวันที่"
+
+#: starlight/magicollections.py:1001 starlight/models.py:654
+#: starlight/models.py:1606 starlight/models.py:1799 starlight/settings.py:182
+msgid "Cards"
+msgstr "การ์ด"
+
+#: starlight/settings.py:176 starlight/settings.py:185
+msgid "Events"
+msgstr "กิจกรรม"
+
+#: starlight/magicollections.py:666 starlight/models.py:404
+#: starlight/settings.py:189
+msgid "Songs"
+msgstr "เพลง"
+
+#: cpro/settings.py:38
+msgid "{nth} Favorite Idol"
+msgstr "{nth} ไอดอลคนโปรด"
+
+#: cpro/settings.py:59
+msgid "Favorite Cards"
+msgstr "การ์ดใบโปรด"
+
+#: cpro/settings.py:67
+msgid "New Cards"
+msgstr "การ์ดใหม่"
+
+#: idolstory/models.py:2805
+msgid "Live"
+msgstr "ไลฟ์"
+
+#: starlight/settings.py:197
+msgid "Comedy"
+msgstr "ตลก"
+
+#: cpro/settings.py:71
+msgid "Room Decoration"
+msgstr "ตกแต่งห้อง"
+
+#: starlight/settings.py:196
+msgid "Introduce yourself"
+msgstr "แนะนำตัว"
+
+#: idolstory/forms.py:939 idolstory/magicollections.py:308
+#: idolstory/models.py:1200 idolstory/models.py:1245 idolstory/models.py:3026
+#: idolstory/settings.py:220
+msgid "Idols"
+msgstr "ไอดอล"
+
+#: starlight/settings.py:200
+msgid "Cosplay"
+msgstr "คอสเพลย์"
+
+#: starlight/magicollections.py:616 starlight/models.py:744
+#: starlight/models.py:745 starlight/settings.py:169
+msgid "Anime"
+msgstr "อนิเมะ"
+
+#: starlight/settings.py:204 starlight/settings.py:391
+msgid "Community"
+msgstr "ชุมชน"
+
+#: starlight/magicollections.py:1000 starlight/models.py:1916
+msgid "Card"
+msgstr "การ์ด"
+
+#: cpro/templates/ajax/account_about.html:14
+msgid "Yes"
+msgstr "ใช่"
+
+#: cpro/templates/ajax/account_about.html:14
+msgid "No"
+msgstr "ไม่"
+
+#: cpro/templates/include/afterCards.html:4
+msgid "Share your cards!"
+msgstr "แชร์การ์ดของคุณ!"
+
+#: cpro/templates/include/beforeCards.html:11
+msgid "Start sharing your beautiful collection!"
+msgstr "เริ่มแชร์คอลเลกชั้นที่สุดยอดของคุณเลย!"
+
+#: cpro/templates/include/beforeCards.html:13
+msgid "Open the game, go to Idols (\"アイドル\"), then go to Idols List (\"所属アイドル一覧\")"
+msgstr "เปิดตัวเกม ไปที่ไอดอล (\"アイドル\") และไปที่รายการไอดอล (\"所属アイドル一覧\")"
+
+#: cpro/templates/include/beforeCards.html:14
+msgid "Go through the list of cards below and click \"+\" on the ones you have to add them in your Cinderella Producers collection, then click again for more options"
+msgstr "ดูผ่านรายการการ์ดที่อยู่ข้างล่างและกด \"+\" บนตัวการ์ดที่คุณต้องเพิ่มลงไปใน Cinderella Producers collection, และกดอีกครั้งสำหรับตัวเลือกเพิ่มเติม"
+
+#: cpro/templates/include/beforeCards.html:30
+msgid "Next"
+msgstr "ต่อไป"
+
+#: cpro/templates/include/cards-collection.html:25
+msgid "Click to add %(card)s to your collection"
+msgstr "กดเพื่อเพิ่ม %(card)s ลงไปในคอลเลคชั่นของคุณ"
+
+#: cpro/forms.py:276 cpro/templates/include/cards-stats.html:81
+msgid "Leader Skill"
+msgstr "สกิลหัวหน้า"
+
+#: cpro/forms.py:291 cpro/templates/include/cards-stats.html:95
+msgid "Scouted by"
+msgstr "ได้รับการ์ดจาก"
+
+#: idolstory/magicollections.py:481
+msgid "Download"
+msgstr "ดาวน์โหลด"
+
+#: cpro/templates/items/cardItem.html:9
+msgid "Card Info"
+msgstr "ข้อมูลการ์ด"
+
+#: cpro/templates/items/cardItem.html:15
+msgid "Add to"
+msgstr "เพิ่มไปที่"
+
+#: cpro/templates/items/cardItem.html:23
+msgid "Add this card to your collection"
+msgstr "เพิ่มการ์ดนี้ไปที่คอลเล็กชั่น"
+
+#: cpro/templates/items/cardItem.html:26 cpro/templates/items/cardItem.html:28
+msgid "Your cards"
+msgstr "การ์ดของคุณ"
+
+#: cpro/templates/items/cardItem.html:36
+msgid "Remove this card from your favorites"
+msgstr "ลบการ์ดนี้ออกจากรายการโปรด"
+
+#: cpro/templates/items/cardItem.html:38
+msgid "Add this card to your favorites"
+msgstr "เพิ่มการ์ดนี้ไปที่รายการโปรด"
+
+#: starlight/models.py:408 starlight/models.py:667
+msgid "Fans"
+msgstr "เหล่าแฟนๆ"
+
+#: magi/forms.py:3094 magi/forms.py:3100 magi/utils.py:882
+msgid "Only"
+msgstr "เฉพาะ"
+
+#: starlight/magicollections.py:1123
+msgid "None"
+msgstr "ไม่มี"
+
+#: magi/templates/items/activityItem.html:117
+msgid "Liked this activity"
+msgstr "ชอบกิจกรรมนี้"
+
+#: magi/default_settings.py:23
+msgid "Loading"
+msgstr "กำลังโหลด"
+
+#: cpro/model_choices.py:108
+msgid "LIVE Parade"
+msgstr "ไลฟ์พาเหรด"
+
+#: cpro/models.py:195
+msgid "Producer Level"
+msgstr "ระดับโปรดิวเซอร์"
+
+#: cpro/templates/include/beforeEvents.html:6
+msgid "%(idol)s performed in %(total_results)s events"
+msgstr "%(idol)s แสดงในอีเวนต์ %(total_results)s"
+
+#: cpro/templates/include/beforeLeaderboard.html:29
+msgid "%(total_results)s producers scouted %(own_card)s"
+msgstr "โปรดิวเซอร์ %(total_results)s คน ได้รับการ์ด %(own_card)s"
+
+#: magi/magicollections.py:3834 magi/magicollections.py:3975
+#: magi/models.py:1311
+msgid "Badge"
+msgstr "เหรียญตรา"
+
+#: magi/default_settings.py:1024 magi/magicollections.py:3835
+#: magi/magicollections.py:3955
+msgid "Badges"
+msgstr "เหรียญตรา"
+
+#: starlight/models.py:258 starlight/models.py:259 starlight/models.py:260
+msgid "Bronze"
+msgstr "ทองแดง"
+
+#: starlight/models.py:261 starlight/models.py:262 starlight/models.py:263
+msgid "Silver"
+msgstr "เงิน"
+
+#: starlight/models.py:264 starlight/models.py:265 starlight/models.py:266
+msgid "Gold"
+msgstr "ทอง"
+
+#: magi/templates/include/homePage.html:77
+#: magi/templates/include/homePage.html:79
+msgid "%(percent)s%% funded"
+msgstr "ได้รับการสนับสนุน %(percent)s%%"
+
+#: magi/templates/items/badgeInfo.html:25
+msgid "Granted by"
+msgstr "ได้รับมาจาก"
+
+#: magi/templates/items/donateItem.html:36
+msgid "No donation yet"
+msgstr "ยังไม่มีการบริจาค"
+
+#: bang/views.py:73
+msgid "Learn more"
+msgstr "เรียนรู้เพิ่มเติม"
+
+#: cpro/forms.py:167 cpro/forms.py:291 cpro/forms.py:292
+msgid "Popularity"
+msgstr "ความนิยม"
+
+#: cpro/forms.py:292 cpro/templates/include/cards-stats.html:107
+msgid "Favorited by"
+msgstr "ชอบโดย"
+
+#: cpro/settings.py:76
+msgid "Fan made"
+msgstr "สร้างโดยแฟนๆ"
+
+#: starlight/settings.py:203
+msgid "Merchandise"
+msgstr "สินค้า"
+
+#: cpro/settings.py:79
+msgid "Unrelated"
+msgstr "ไม่เกี่ยวข้อง"
+
+#: cpro/templates/include/cards-stats.html:97
+#: cpro/templates/include/cards-stats.html:109
+msgid "%(total)s producer"
+msgid_plural "%(total)s producers"
+msgstr[0] "%(total)s โปรดิวเซอร์"
+
+#: cpro/templates/include/cards-stats.html:124
+#: cpro/templates/items/eventInfo.html:144
+#: cpro/templates/items/idolInfo.html:196
+msgid "Share"
+msgstr "แชร์"
+
+#: magi/default_settings.py:25
+msgid "Local time"
+msgstr "เวลาในประเทศของคุณ"
+
+#: bang/magicollections.py:243 bang/magicollections.py:1405
+#: bang/magicollections.py:2726
+msgid "Open {thing}"
+msgstr "เปิด {thing}"
+
+#: magi/forms.py:1248
+msgid "Reverse order"
+msgstr "เรียงกลับกัน"
+
+#: magi/forms.py:3220 magi/models.py:1189
+#: magi/templates/items/reportItem.html:29
+msgid "Reason"
+msgstr "สาเหตุ"
+
+#: magi/item_model.py:817 magi/magicollections.py:1595
+#: magi/magicollections.py:1654
+msgid "Edit {thing}"
+msgstr "แก้ไข{thing}"
+
+#: magi/item_model.py:820 magi/magicollections.py:716
+#: magi/magicollections.py:1523 magi/views.py:586
+msgid "Delete {thing}"
+msgstr "ลบ {thing}"
+
+#: magi/item_model.py:823 magi/models.py:106
+msgid "Report {thing}"
+msgstr "รายงาน {thing}"
+
+#: magi/forms.py:2745 magi/magicollections.py:1650 magi/views.py:585
+#: magi/views.py:673
+msgid "Add {thing}"
+msgstr "เพิ่ม {thing}"
+
+#: magi/magicollections.py:4081
+msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
+msgstr "ส่งรายงานเมื่อมีปัญหาเกี่ยวกับ {thing} เท่านั้น ถ้าเป็นอย่างอื่น รายงานของคุณจะไม่ถูกตรวจสอบ เช่น รายงานบัญชีหรือโปรไฟล์ ทั้งๆ ที่มีปัญหาเกี่ยวกับโพสต์ ให้หาปุ่ม \"รายงานโพสต์\" ในโพสต์ แล้วรายงานเป็นกรณีไป"
+
+#: magi/models.py:826
+msgid "Only post official artworks, artworks you own, or fan artworks that are approved by the artist and credited."
+msgstr "โพสต์ภาพวาดที่เป็นทางการ ภาพวาดที่เป็นของคุณ หรือภาพวาดที่ได้รับอนุญาตจากนักวาดและได้ให้เครดิตแล้วเท่านั้น"
+
+#: magi/models.py:1305 magi/models.py:1380
+msgid "{month} Donator"
+msgstr "ผู้บริจาค{month}"
+
+#: magi/models.py:1386
+msgid "{donation_platform} supporter of {site_name} who donated to help cover the server costs"
+msgstr "{donation_platform} ผู้สนับสนุนของ {site_name} ผู้ช่วยบริจาคเพื่อช่วยครอบคลุมค่าใช้จ่ายของเซิร์ฟเวอร์"
+
+#: magi/raw.py:9
+msgid "lovely"
+msgstr "คนที่น่ารัก"
+
+#: magi/raw.py:10
+msgid "awesome"
+msgstr "คนที่สุดยอด"
+
+#: magi/raw.py:11
+msgid "incredible"
+msgstr "คนที่เหลือเชื่อ"
+
+#: magi/raw.py:12
+msgid "adorable"
+msgstr "คนที่น่าเอ็นดู"
+
+#: magi/raw.py:13
+msgid "generous"
+msgstr "คนที่มีน้ำใจ"
+
+#: magi/raw.py:14
+msgid "idols-addicted"
+msgstr "คนที่ติดใจไอดอล"
+
+#: magi/raw.py:15
+msgid "friendly"
+msgstr "คนที่เป็นมิตร"
+
+#: magi/raw.py:16
+msgid "kind"
+msgstr "คนที่ใจดี"
+
+#: magi/raw.py:17
+msgid "warmhearted"
+msgstr "คนที่น่าอบอุ่นใจ"
+
+#: magi/raw.py:18
+msgid "nice"
+msgstr "คนที่ใจดี"
+
+#: magi/templates/emails/donation_footer.html:3
+#: magi/templates/include/donate.html:10 magi/templates/pages/settings.html:144
+msgid "If you like the website, please consider donating"
+msgstr "ถ้าคุณชอบเว็บนี้ โปรดช่วยพวกเราด้วยการบริจาค"
+
+#: magi/templates/emails/notification.html:30
+#: magi/templates/emails/notification.txt:7
+msgid "Click here to turn off email notifications."
+msgstr "กดที่นี่เพื่อปิดการแจ้งเตือนผ่านอีเมล"
+
+#: magi/templates/emails/report.html:21
+#: magi/templates/items/activityItem.html:90
+#: magi/templates/pages/settings.html:111 magi/utils.py:2796
+msgid "Translate from %(from_language)s to %(to_language)s"
+msgstr "แปลจากภาษา %(from_language)s เป็นภาษา %(to_language)s"
+
+#: magi/templates/items/profile.html:28
+msgid "follows you"
+msgstr "ติดตามคุณ"
+
+#: magi/default_settings.py:924 magi/default_settings.py:931 magi/views.py:564
+msgid "Successfully edited!"
+msgstr "แก้ไขสำเร็จ!"
+
+#: stardustrun/forms.py:84
+msgid "The game didn't even existed at that time."
+msgstr "ในตอนนั้นยังไม่มีตัวเกมเลย"
+
+#: idolstory/sukutomo_future_translations.py:1074
+msgid "Countdown"
+msgstr "นับถอยหลัง"
+
+#: bang/magicollections.py:1283 bang/magicollections.py:1621 bang/utils.py:100
+msgid "{time} left"
+msgstr "เหลือ {time}"
+
+#: bang/magicollections.py:1283 bang/magicollections.py:1621 bang/utils.py:100
+msgid "Starts in {time}"
+msgstr "เริ่มใน {time}"
+
+#: bang/forms.py:56 bang/forms.py:77 bang/forms.py:248 bang/forms.py:255
+#: bang/forms.py:256 bang/forms.py:718 bang/forms.py:1190 bang/forms.py:1405
+#: bang/forms.py:1452 bang/magicollections.py:289 bang/magicollections.py:565
+#: bang/magicollections.py:589 bang/magicollections.py:2393
+#: bang/magicollections.py:2676 bang/models.py:430 bang/models.py:1843
+#: bang/models.py:2264 bang/utils.py:20
+msgid "Member"
+msgstr "สมาชิก"
+
+#: bang/forms.py:56 bang/forms.py:82 bang/forms.py:195 bang/forms.py:1003
+#: bang/forms.py:1434 bang/forms.py:1465 bang/magicollections.py:71
+#: bang/magicollections.py:338 bang/magicollections.py:565
+#: bang/magicollections.py:1862 bang/magicollections.py:2220
+#: bang/magicollections.py:2381 bang/magicollections.py:2393
+#: bang/magicollections.py:2685 bang/models.py:242 bang/models.py:1361
+#: bang/models.py:1363 bang/models.py:1365 bang/models.py:1442
+#: bang/models.py:2099 bang/settings.py:223 bang/utils.py:20 bang/utils.py:46
+#: bang/views.py:28
+msgid "Band"
+msgstr "วง"
+
+#: idolstory/models.py:849 idolstory/models.py:1661
+#: idolstory/sukutomo_future_translations.py:94
+#: idolstory/sukutomo_future_translations.py:577
+msgid "Attribute"
+msgstr "สาย"
+
+#: bang/forms.py:259 bang/forms.py:260 bang/magicollections.py:981
+#: bang/models.py:772 bang/models.py:773 bang/models.py:774 bang/models.py:847
+#: bang/models.py:1192 bang/models.py:1851
+msgid "Performance"
+msgstr "การแสดง"
+
+#: bang/forms.py:260 bang/forms.py:262 bang/forms.py:264 bang/forms.py:266
+#: bang/magicollections.py:947 bang/magicollections.py:994 bang/models.py:737
+#: bang/models.py:757 bang/models.py:767 bang/models.py:774 bang/models.py:777
+#: bang/models.py:780 bang/models.py:1013
+msgid "Trained"
+msgstr "ฝึกฝนแล้ว"
+
+#: idolstory/forms.py:677 idolstory/models.py:1732 idolstory/models.py:1755
+#: idolstory/models.py:1762 idolstory/models.py:1767 idolstory/models.py:1774
+msgid "Technique"
+msgstr "Technique"
+
+#: bang/magicollections.py:290 bang/magicollections.py:2582 bang/models.py:2101
+msgid "Members"
+msgstr "สมาชิก"
+
+#: bang/models.py:250
+msgid "First"
+msgstr "ม.4"
+
+#: bang/models.py:251
+msgid "Second"
+msgstr "ม.5"
+
+#: idolstory/sukutomo_future_translations.py:687
+msgid "Power"
+msgstr "Power"
+
+#: idolstory/models.py:331 idolstory/sukutomo_future_translations.py:870
+#: idolstory/sukutomo_future_translations.py:871
+#: idolstory/sukutomo_future_translations.py:872
+msgid "Pure"
+msgstr "Pure"
+
+#: bang/models.py:455 bang/settings.py:232
+msgid "Happy"
+msgstr "มีความสุข"
+
+#: idolstory/sukutomo_future_translations.py:209
+msgid "Score up"
+msgstr "เพิ่มคะแนน"
+
+#: idolstory/sukutomo_future_translations.py:217
+msgid "Life recovery"
+msgstr "เพิ่มพลังชีวิต"
+
+#: bang/models.py:547
+msgid "Perfect lock"
+msgstr "ล็อก PERFECT"
+
+#: starlight/forms.py:257 starlight/forms.py:330 starlight/forms.py:555
+#: starlight/magicollections.py:445 starlight/models.py:546
+#: starlight/utils.py:159
+msgid "School"
+msgstr "โรงเรียน"
+
+#: starlight/models.py:588 starlight/models.py:591
+msgid "Liked food"
+msgstr "ชอบกิน"
+
+#: starlight/models.py:593 starlight/models.py:596
+msgid "Disliked food"
+msgstr "ไม่ชอบกิน"
+
+#: starlight/models.py:1195 starlight/models.py:1197
+msgid "Level {level}"
+msgstr "เลเวล {level}"
+
+#: cpro/templates/items/eventInfo.html:14
+msgid "days"
+msgstr "วัน"
+
+#: cpro/templates/items/eventInfo.html:14
+msgid "hours"
+msgstr "ชั่วโมง"
+
+#: cpro/templates/items/eventInfo.html:14
+msgid "minutes"
+msgstr "นาที"
+
+#: idolstory/models.py:1194 idolstory/models.py:1355 idolstory/models.py:1358
+msgid "Source"
+msgstr "แหล่งที่มา"
+
+#: bang/forms.py:1050 bang/models.py:296 bang/models.py:298 bang/models.py:1841
+msgid "Instrument"
+msgstr "เครื่องดนตรี"
+
+#: magi/magicollections.py:494
+msgid "Collected {thing}"
+msgstr "ได้รับ {thing}"
+
+#: idolstory/models.py:1988 idolstory/models.py:1991
+msgid "Skill name"
+msgstr "ชื่อสกิล"
+
+#: bang/forms.py:396 bang/magicollections.py:511 bang/models.py:1016
+msgid "{nth} episode"
+msgstr "ตอนที่ {nth}"
+
+#: bang/models.py:1017
+msgid "Memorial episode"
+msgstr "ตอนที่น่าจดจำ"
+
+#: magi/abstract_models.py:167
+msgid "Join date"
+msgstr "วันที่เข้าร่วม"
+
+#: magi/abstract_models.py:168
+msgid "Give a nickname to your account to easily differentiate it from your other accounts when you're managing them."
+msgstr "ให้ชื่อเล่นกับบัญชีคุณเพื่อจะแยกแยะบัญชีได้ง่ายขึ้นเมื่อคุณจัดการเรียบเรียงมัน"
+
+#: magi/abstract_models.py:169
+msgid "Start date"
+msgstr "วันที่เริ่ม"
+
+#: magi/abstract_models.py:172 magi/forms.py:1884 magi/forms.py:2298
+#: magi/models.py:148 magi/models.py:169
+msgid "Default tab"
+msgstr "แถบหลัก"
+
+#: magi/forms.py:1983 magi/views.py:448
+msgid "Email"
+msgstr "อีเมล"
+
+#: magi/forms.py:682 magi/forms.py:691 magi/forms.py:700
+msgid "You've added a lot of {things}, lately. Try to wait a little bit before adding more."
+msgstr "คุณเพิ่ม {things} เยอะมากเมื่อเร็วๆนี้ รอสักครู่ก่อนที่จะเพิ่มอีก"
+
+#: magi/forms.py:707
+msgid "You already have {total} {things}. You can only add up to {max} {things}."
+msgstr "คุณมี {total} {thing} แล้ว คุณสามารถมีได้มากสุด {max} {thing} เท่านั้น"
+
+#: magi/forms.py:1250
+msgid "View"
+msgstr "ดู"
+
+#: magi/forms.py:1927
+msgid "Please provide an updated screenshot of your in-game profile to prove your level."
+msgstr "โปรดอัพโหลดภาพถ่ายโปรไฟล์ในเกมล่าสุดของคุณเพื่อยืนยันเลเวลของคุณ"
+
+#: magi/utils.py:2629 magi/utils.py:2633
+msgid "You may use Markdown formatting."
+msgstr "คุณสามารถใช้การจัดรูปแบบ Markdown ได้"
+
+#. Example: Adding to your account db0
+#. Adding to your card Kotori
+#: magi/magicollections.py:386
+msgid "Adding to your {thing} {name}"
+msgstr "กำลังเพิ่มไปที่{thing} {name}"
+
+#: magi/magicollections.py:502
+msgid "Add to your {thing}"
+msgstr "เพิ่มไปที่{thing}ของคุณ"
+
+#: magi/magicollections.py:634
+msgid "Quick edit"
+msgstr "แก้ไขแบบด่วน"
+
+#: magi/magicollections.py:2626
+msgid "Leaderboard position"
+msgstr "อันดับบนตารางผู้นำ"
+
+#: magi/templates/pages/about.html:400
+msgid "Need help?"
+msgstr "ต้องการความช่วยเหลือ?"
+
+#: magi/templates/pages/about.html:401
+msgid "Find answers to your questions"
+msgstr "หาคำตอบสำหรับคำถามคุณ"
+
+#: magi/templates/pages/about.html:405
+msgid "Share a suggestion or a bug"
+msgstr "มีคำแนะนำหรือรายงานบัค"
+
+#: magi/templates/pages/about.html:407
+msgid "Fill our feedback form:"
+msgstr "กรอกแบบฟอร์มของพวกเรา:"
+
+#: magi/templates/pages/about.html:408
+msgid "Feedback form"
+msgstr "แบบฟอร์มข้อเสนอแนะ"
+
+#: magi/templates/pages/about.html:410
+msgid "Create a ticket in our bug tracker:"
+msgstr "สร้างตั๋วในเครื่องติดตามบั๊กของเรา:"
+
+#: magi/templates/pages/about.html:411
+msgid "Bug tracker"
+msgstr "ตัวติดตามบั๊ก"
+
+#: magi/templates/include/donate.html:52 magi/templates/pages/about.html:415
+msgid "Alternatively..."
+msgstr "หรือ..."
+
+#: magi/templates/pages/about.html:416
+msgid "The staff team is available on:"
+msgstr "หาทีมงานได้ที่:"
+
+#: magi/utils.py:907
+msgid "Select {}"
+msgstr "เลือก {}"
+
+#: magi/utils.py:2142
+msgid "This date has to be in the future."
+msgstr "วันที่นี้ต้องเป็นวันที่อยู่ในอนาคต"
+
+#: magi/default_settings.py:941 magi/default_settings.py:948 magi/views.py:564
+msgid "Successfully added!"
+msgstr "เพิ่มสำเร็จ!"
+
+#: magi/default_settings.py:958 magi/default_settings.py:965
+msgid "Successfully deleted!"
+msgstr "ลบสำเร็จ!"
+
+#: idolstory/settings.py:434 idolstory/settings.py:441
+msgid "{things} list"
+msgstr "{things}"
+
+#: cpro/model_choices.py:179
+msgid "All Round"
+msgstr "All Round"
+
+#. Part of the skills list that doesn't make sense when translating to Thai...
+#: cpro/model_choices.py:180
+msgid "Concentration"
+msgstr "Concentration"
+
+#: cpro/model_choices.py:181
+msgid "Skill Boost"
+msgstr "สกิลบูสต์"
+
+#: cpro/model_choices.py:182
+msgid "Cute/Cool/Passion Focus"
+msgstr "โฟกัส Cute/Cool/Passion"
+
+#: cpro/model_choices.py:224
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus and Perfect notes will restore {skill_value2} life in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะได้รับคอมโบโบนัส {skill_value}% และโน้ต PERFECT จะฟื้นฟู {skill_value2} พลังชีวิต ใน {skill_duration} วินาทีต่อไป"
+
+#: cpro/model_choices.py:225
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus but the timing window for Perfect notes is reduced in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะได้รับคะแนนเพิ่ม {skill_value}% แต่ช่วงเวลาของ PERFECT จะสั้นลง เป็นเวลา {skill_duration} วินาที"
+
+#: cpro/model_choices.py:226
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% change that currently active skills will be boosted for {skill_duration} seconds"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะเพิ่มประสิทธิภาพสกิลที่กำลังทำงานอยู่เป็นเวลา {skill_duration} วินาที"
+
+#: cpro/model_choices.py:227
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus, but only if you have only {type} idols in your team for {skill_duration} seconds"
+msgstr "เมื่อมีแค่ไอดอลประเภท {type} อยู่ในทีม ทุกๆ {trigger_value} วินาที จะมีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะได้รับคะแนนเพิ่ม {skill_value}% และคอมโบโบนัส เป็นเวลา {skill_duration} วินาที"
+
+#: cpro/templates/include/beforeLeaderboard.html:21
+msgid "%(total_results)s producers love %(favorite_character_idol)s"
+msgstr "โปรดิวเซอร์ %(total_results)s คน รัก %(favorite_character_idol)s"
+
+#: cpro/templates/items/eventInfo.html:14
+msgid "seconds left"
+msgstr "เหลืออีก"
+
+#: cpro/templates/items/eventInfo.html:30
+msgid "translated in English"
+msgstr "แปลเป็นอังกฤษ"
+
+#: bang/forms.py:135 bang/magicollections.py:154
+msgid "Total {item} bought"
+msgstr "จำนวน {item} ที่ซื้อ"
+
+#: bang/forms.py:135 bang/magicollections.py:154
+msgid "Star gems"
+msgstr "เลิฟก้าสตาร์"
+
+#: starlight/forms.py:168 starlight/forms.py:173
+msgid "Friend ID"
+msgstr "Player ID"
+
+#: idolstory/forms.py:775 idolstory/models.py:1675
+#: idolstory/sukutomo_future_translations.py:462
+#: idolstory/sukutomo_future_translations.py:581
+#: idolstory/sukutomo_future_translations.py:911
+msgid "Promo"
+msgstr "โปรโม"
+
+#: starlight/forms.py:370 starlight/forms.py:514 starlight/models.py:812
+#: starlight/models.py:1040 starlight/models.py:1045
+msgid "Release date"
+msgstr "วันที่ออก"
+
+#: idolstory/forms.py:771 idolstory/forms.py:959
+msgid "Origin"
+msgstr "ที่มา"
+
+#: starlight/magicollections.py:1286 starlight/settings.py:183
+msgid "Gacha"
+msgstr "กาชา"
+
+#: idolstory/sukutomo_future_translations.py:97
+#: idolstory/sukutomo_future_translations.py:298
+#: idolstory/sukutomo_future_translations.py:592
+msgid "Server availability"
+msgstr "ความพร้อมของเซิร์ฟเวอร์"
+
+#: bang/forms.py:442 bang/forms.py:443 bang/forms.py:529 bang/forms.py:632
+#: bang/forms.py:633 bang/forms.py:699 bang/models.py:118 bang/models.py:1161
+#: bang/models.py:1163 bang/models.py:1164 bang/models.py:1620
+#: bang/models.py:1622 bang/models.py:1623 bang/models.py:1973
+msgid "English version"
+msgstr "เวอร์ชั่นอังกฤษ"
+
+#: idolstory/models.py:220 idolstory/sukutomo_future_translations.py:358
+#: idolstory/sukutomo_future_translations.py:359
+#: idolstory/sukutomo_future_translations.py:360
+#: idolstory/sukutomo_future_translations.py:363
+msgid "Taiwanese version"
+msgstr "เวอร์ชั่นไต้หวัน"
+
+#: idolstory/models.py:204 idolstory/sukutomo_future_translations.py:367
+#: idolstory/sukutomo_future_translations.py:368
+#: idolstory/sukutomo_future_translations.py:369
+#: idolstory/sukutomo_future_translations.py:372
+msgid "Korean version"
+msgstr "เวอร์ชั่นเกาหลี"
+
+#: idolstory/forms.py:946
+msgid "Date"
+msgstr "วันที่"
+
+#: starlight/models.py:85 starlight/models.py:1040
+msgid "Japanese version"
+msgstr "เวอร์ชั่นญี่ปุ่น"
+
+#: starlight/forms.py:372 starlight/models.py:804 starlight/models.py:848
+msgid "Romaji"
+msgstr "โรมาจิ"
+
+#: starlight/forms.py:373 starlight/models.py:810
+msgid "Length"
+msgstr "ระยะเวลา"
+
+#: starlight/forms.py:374
+msgid "BPM"
+msgstr "BPM"
+
+#: bang/forms.py:955 bang/forms.py:956 bang/models.py:1345 bang/models.py:1398
+#: bang/models.py:1399 bang/models.py:1535
+msgid "Hard"
+msgstr "ยาก"
+
+#: idolstory/sukutomo_future_translations.py:160
+#: idolstory/sukutomo_future_translations.py:163
+#: idolstory/sukutomo_future_translations.py:166
+#: idolstory/sukutomo_future_translations.py:169
+#: idolstory/sukutomo_future_translations.py:172
+msgid "Notes"
+msgstr "โน้ต"
+
+#: idolstory/sukutomo_future_translations.py:161
+#: idolstory/sukutomo_future_translations.py:164
+#: idolstory/sukutomo_future_translations.py:167
+#: idolstory/sukutomo_future_translations.py:170
+#: idolstory/sukutomo_future_translations.py:173
+msgid "Difficulty"
+msgstr "ความยาก"
+
+#: bang/forms.py:957 bang/forms.py:958 bang/models.py:1346 bang/models.py:1400
+#: bang/models.py:1401 bang/models.py:1536
+msgid "Expert"
+msgstr "ยากมาก"
+
+#: bang/magicollections.py:158
+msgid "~{}円 spent (~${})"
+msgstr "ใช้ไป ~{} เยน (~{} ดอลลาร์)"
+
+#: idolstory/forms.py:58
+msgid "Characters"
+msgstr "ตัวละคร"
+
+#: idolstory/magicollections.py:1336
+msgid "Favorite {thing}"
+msgstr "{thing} โปรด"
+
+#: idolstory/forms.py:674 idolstory/magicollections.py:1340
+#: idolstory/models.py:2355
+msgid "Favorite {things}"
+msgstr "{things}โปรด"
+
+#: bang/magicollections.py:809 bang/magicollections.py:813
+#: bang/magicollections.py:814 bang/magicollections.py:2751
+#: bang/magicollections.py:2755 bang/magicollections.py:2756
+msgid "Chibi"
+msgstr "จิบิ"
+
+#: starlight/magicollections.py:909
+msgid "Icons"
+msgstr "ไอคอน"
+
+#: starlight/magicollections.py:909
+msgid "Quick add"
+msgstr "เพิ่ม"
+
+#: starlight/magicollections.py:956
+msgid "Statistics"
+msgstr "ข้อมูลการ์ด"
+
+#: bang/magicollections.py:993
+msgid "Min"
+msgstr "น้อยสุด"
+
+#: bang/magicollections.py:993
+msgid "Max"
+msgstr "มากสุด"
+
+#: bang/magicollections.py:1026
+msgid "Participated event"
+msgstr "อีเวนต์ที่เข้าร่วม"
+
+#: bang/forms.py:532 bang/magicollections.py:1027 bang/models.py:1219
+msgid "Participated events"
+msgstr "อีเวนต์ที่เข้าร่วม"
+
+#: bang/magicollections.py:1311
+msgid "Boost Members"
+msgstr "เสริมพลังสมาชิก"
+
+#: bang/magicollections.py:1334
+msgid "Gift song"
+msgstr "เพลงของขวัญ"
+
+#: bang/forms.py:364 bang/forms.py:715 bang/magicollections.py:1660
+msgid "Gacha type"
+msgstr "ชนิดกาชา"
+
+#: starlight/models.py:1331
+msgid "Permanent"
+msgstr "ถาวร"
+
+#: bang/magicollections.py:1771
+msgid "Played song"
+msgstr "เพลงที่เล่นแล้ว"
+
+#: bang/forms.py:951 bang/magicollections.py:1772 bang/models.py:1485
+msgid "Played songs"
+msgstr "เพลงที่เล่นแล้ว"
+
+#: starlight/magicollections.py:665
+msgid "Song"
+msgstr "เพลง"
+
+#: bang/magicollections.py:2022
+msgid "{} notes"
+msgstr "{} โน้ต"
+
+#: bang/magicollections.py:2042
+msgid "Songwriters"
+msgstr "ผู้แต่งเพลง"
+
+#: starlight/forms.py:546 starlight/models.py:211
+msgid "Version"
+msgstr "เวอร์ชั่น"
+
+#: starlight/models.py:290
+msgid "The model of your device. Example: Nexus 5, iPhone 4, iPad 2, ..."
+msgstr "รุ่นของเครื่องคุณ เช่น Nexus 5, iPhone 4, iPad 2, ..."
+
+#: starlight/models.py:232
+msgid "Screenshot"
+msgstr "ภาพหน้าจอ"
+
+#: starlight/models.py:232
+msgid "In-game profile screenshot"
+msgstr "รูปถ่ายโปรไฟล์ในเกม"
+
+#: bang/models.py:253
+msgid "Junior Third"
+msgstr "ม.3"
+
+#: bang/models.py:475
+msgid "Promo card"
+msgstr "การ์ดโปรโม"
+
+#: bang/models.py:489
+msgid "For the next {duration} seconds, score of all notes boosted by +{percentage}%"
+msgstr "{duration} วินาทีต่อไป คะแนนทุกโน้ตเพิ่มขึ้น {percentage}%"
+
+#: bang/models.py:515
+msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
+msgstr "และเพิ่มคะแนนทุกโน้ต {percentage}% ใน {duration} วินาทีต่อไป"
+
+#: bang/models.py:526
+msgid "Restores life by {stamina}"
+msgstr "ฟื้นพลังชีวิต {stamina}"
+
+#: bang/models.py:543
+msgid "and restores life by {stamina}"
+msgstr "และฟื้นฟู {stamina} พลังชีวิต"
+
+#: bang/models.py:554
+msgid "All {note_type} notes turn into PERFECT notes"
+msgstr "ทุกโน้ต {note_type} จะกลายเป็นโน้ต PERFECT"
+
+#: bang/models.py:559
+msgid "and turn all {note_type} notes turn into PERFECT notes for the next {duration} seconds"
+msgstr "และเปลี่ยนทุกโน้ต {note_type} เป็นโน้ต PERFECT ใน {duration} วินาทีต่อไป"
+
+#: bang/models.py:1014
+msgid "Prefer untrained card image"
+msgstr "ใช้รูปที่ยังไม่ได้แปลง"
+
+#: idolstory/forms.py:856 idolstory/forms.py:858 idolstory/models.py:2907
+#: idolstory/models.py:2912
+msgid "Skill level"
+msgstr "สกิลเลเวล"
+
+#: bang/models.py:1123
+msgid "Challenge Live"
+msgstr "ไลฟ์ท้าทาย"
+
+#: idolstory/sukutomo_future_translations.py:295
+msgid "Event type"
+msgstr "กิจกรรมประเภท"
+
+#: bang/forms.py:605 bang/forms.py:860 bang/models.py:1250 bang/models.py:1271
+#: bang/models.py:1543 bang/models.py:1567
+msgid "Score"
+msgstr "คะแนน"
+
+#: bang/forms.py:604 bang/models.py:1251
+msgid "Ranking"
+msgstr "อันดับ"
+
+#: bang/forms.py:606 bang/models.py:1253 bang/models.py:1276
+msgid "Song score"
+msgstr "คะแนนเพลง"
+
+#: bang/forms.py:607 bang/models.py:1254 bang/models.py:1281
+msgid "Song ranking"
+msgstr "อันดับเพลง"
+
+#: bang/models.py:1343 bang/models.py:1394 bang/models.py:1395
+#: bang/models.py:1533
+msgid "Easy"
+msgstr "ง่าย"
+
+#: starlight/models.py:821 starlight/models.py:824
+msgid "Composer"
+msgstr "ผู้แต่งเพลง"
+
+#: starlight/models.py:826 starlight/models.py:829
+msgid "Lyricist"
+msgstr "ผู้แต่งเนื้อเพลง"
+
+#: starlight/models.py:831 starlight/models.py:834
+msgid "Arranger"
+msgstr "ผู้เรียบเรียง"
+
+#: bang/models.py:1369
+msgid "Translation"
+msgstr "คำแปล"
+
+#: starlight/models.py:809
+msgid "Preview"
+msgstr "ตัวอย่าง"
+
+#: idolstory/models.py:1289
+msgid "Cover song"
+msgstr "เพลงโคฟเวอร์"
+
+#: starlight/models.py:811
+msgid "Beats per minute"
+msgstr "จังหวะต่อนาที"
+
+#: bang/models.py:1407 bang/models.py:1408
+msgid "Gift"
+msgstr "ของขวัญ"
+
+#: bang/models.py:1412 bang/models.py:1413
+msgid "Purchase at CiRCLE"
+msgstr "ซื้อที่ CiRCLE"
+
+#: bang/models.py:1417
+msgid "Complete story"
+msgstr "อ่านเนื้อเรื่อง"
+
+#: bang/models.py:1418
+msgid "Complete {story_type} story, chapter {chapter}"
+msgstr "อ่านเนื้อเรื่อง {story_type} บทที่ {chapter} เสร็จ"
+
+#: bang/models.py:1422 bang/models.py:1423
+msgid "Complete Tutorial"
+msgstr "เสร็จสิ้นการสอน"
+
+#: bang/models.py:1427 bang/models.py:1428
+msgid "Initially available"
+msgstr "มีอยู่ในตอนต้น"
+
+#: bang/models.py:1432 bang/models.py:1433
+msgid "Event gift"
+msgstr "ของขวัญกิจกรรม"
+
+#: bang/models.py:1457 bang/models.py:1459
+msgid "How to unlock?"
+msgstr "วิธีการปลดล็อก"
+
+#: bang/models.py:1544 bang/models.py:1572
+msgid "Full combo"
+msgstr "FULL COMBO"
+
+#. Name of a license, so it's unlikely you need to translate unless your language uses a different set of characters (Chinese, Japanese, Korean, Russian, etc.)
+#: bang/magicollections.py:2559 bang/settings.py:37 bang/settings.py:351
+msgid "BanG Dream!"
+msgstr "BanG Dream!"
+
+#. Name of a license, so it's unlikely you need to translate unless your language uses a different set of characters (Chinese, Japanese, Korean, Russian, etc.)
+#: bang/magicollections.py:2311 bang/magicollections.py:2565
+#: bang/settings.py:37 bang/settings.py:356
+msgid "Girls Band Party"
+msgstr "Girls Band Party"
+
+#: bang/settings.py:304
+msgid "Team builder"
+msgstr "ที่สร้างทีม"
+
+#: idolstory/sukutomo_future_translations.py:2
+msgid "You can find your friend id by going to the \"Friends\" section from the home, then \"ID Search\". Players will be able to send you friend requests or messages using this number."
+msgstr "คุณสามารถหา ID ของคุณได้โดยการไปที่ \"Friends\" ในหน้า Home และกดที่ \"ID Search\" ผู้เล่นคนอื่นจะสามารถส่งคำขอเป็นเพื่อน หรือข้อความให้คุณได้โดยใช้เลขนั้น"
+
+#: starlight/models.py:221
+msgid "Should your friend ID be visible to other players?"
+msgstr "ผู้เล่นคนอื่นๆ ควรเห็น Player ID ของคุณหรือไม่?"
+
+#: idolstory/sukutomo_future_translations.py:6
+msgid "Love gems"
+msgstr "Love gems"
+
+#: idolstory/sukutomo_future_translations.py:6
+#: idolstory/sukutomo_future_translations.py:7
+#: idolstory/sukutomo_future_translations.py:8
+#: idolstory/sukutomo_future_translations.py:9
+#: idolstory/sukutomo_future_translations.py:10
+msgid "Number of {} you currently have in your account."
+msgstr "จำนวนของ {} ที่คุณมีในบัญชีคุณตอนนี้"
+
+#: idolstory/sukutomo_future_translations.py:6
+#: idolstory/sukutomo_future_translations.py:7
+#: idolstory/sukutomo_future_translations.py:8
+#: idolstory/sukutomo_future_translations.py:9
+#: idolstory/sukutomo_future_translations.py:10
+msgid "This field is completely optional, it's here to help you manage your accounts."
+msgstr "ช่องนี้จะใส่หรือไม่ใส่ก็ได้ เป็นแค่สิ่งที่มีไว้เพื่อช่วยจัดการบัญชีคุณเท่านั้น"
+
+#: idolstory/sukutomo_future_translations.py:7
+msgid "Friend Points"
+msgstr "แต้มมิตรภาพ"
+
+#: idolstory/sukutomo_future_translations.py:11
+msgid "Total love gems bought"
+msgstr "จำนวน Love Gems ที่ซื้อไป"
+
+#. In SIF the "Other" button has been replaced with "Menu" now. So I changed to "Menu" in translation
+#: idolstory/sukutomo_future_translations.py:11
+msgid "You can calculate that number in \"Other\" then \"Purchase History\"."
+msgstr "คุณสามารถคำนวนตัวเลขนั้นได้ใน \"Menu\" แล้วกด \"Purchase History\""
+
+#: idolstory/sukutomo_future_translations.py:12
+msgid "Should your items be visible to other players?"
+msgstr "ผู้เล่นอื่นควรเห็นไอเทมของคุณหรือไม่?"
+
+#: idolstory/models.py:327 idolstory/sukutomo_future_translations.py:866
+#: idolstory/sukutomo_future_translations.py:867
+#: idolstory/sukutomo_future_translations.py:868
+msgid "Smile"
+msgstr "Smile"
+
+#: idolstory/forms.py:265 idolstory/forms.py:317 idolstory/forms.py:349
+#: idolstory/forms.py:670 idolstory/forms.py:751
+#: idolstory/magicollections.py:331 idolstory/magicollections.py:349
+#: idolstory/magicollections.py:700 idolstory/magicollections.py:948
+#: idolstory/magicollections.py:1105 idolstory/models.py:905
+#: idolstory/models.py:1205 idolstory/models.py:1293 idolstory/models.py:3019
+#: idolstory/sukutomo_future_translations.py:471
+#: idolstory/sukutomo_future_translations.py:739
+#: idolstory/sukutomo_future_translations.py:977
+msgid "Unit"
+msgstr "วง"
+
+#: idolstory/forms.py:352 idolstory/forms.py:755
+#: idolstory/magicollections.py:349 idolstory/magicollections.py:700
+#: idolstory/magicollections.py:948 idolstory/magicollections.py:1113
+#: idolstory/models.py:935 idolstory/models.py:1209 idolstory/models.py:1298
+#: idolstory/models.py:3023 idolstory/sukutomo_future_translations.py:475
+#: idolstory/sukutomo_future_translations.py:747
+#: idolstory/sukutomo_future_translations.py:990
+msgid "Subunit"
+msgstr "ยูนิต"
+
+#: starlight/models.py:352 starlight/models.py:568
+msgid "Astrological sign"
+msgstr "ราศี"
+
+#: idolstory/settings.py:198
+msgid "Idol Supporter"
+msgstr "ผู้สนับสนุนไอดอล"
+
+#: idolstory/settings.py:199
+msgid "Idol Lover"
+msgstr "ผู้รักไอดอล"
+
+#: idolstory/settings.py:200
+msgid "Idol Ambassador"
+msgstr "ทูตแห่งไอดอล"
+
+#: idolstory/settings.py:201
+msgid "Idol Producer"
+msgstr "ไอดอลโปรดิวเซอร์"
+
+#: idolstory/settings.py:202
+msgid "Ultimate Idol Devotee"
+msgstr "ผู้ศรัทธาไอดอลขั้นสุด"
+
+#: starlight/models.py:1606 starlight/models.py:1749
+msgid "Collected {things}"
+msgstr "ได้รับ {things}"
+
+#: bang/models.py:491 bang/models.py:528
+msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%"
+msgstr "{duration} วินาทีถัดไป คะแนนโน้ต PERFECT จะเพิ่มขึ้น {percentage}%"
+
+#: bang/magicollections.py:1377 bang/models.py:2046
+msgid "Rare stamp"
+msgstr "แสตมป์หายาก"
+
+#: bang/models.py:1188
+msgid "Boost attribute"
+msgstr "เพิ่มคุณสมบัติ"
+
+#: bang/forms.py:537 bang/magicollections.py:1156 bang/models.py:1198
+msgid "Boost members"
+msgstr "เพิ่มพลังสมาชิก"
+
+#: bang/settings.py:450
+msgid "Manager"
+msgstr "ผู้จัดการ"
+
+#: magi/default_settings.py:96
+msgid "Team manager"
+msgstr "ผู้จัดการทีม"
+
+#: magi/default_settings.py:116
+msgid "Finance manager"
+msgstr "ผู้จัดการการเงิน"
+
+#: magi/default_settings.py:144 magi/default_settings.py:157
+msgid "Database maintainer"
+msgstr "ผู้ดูแลฐานข้อมูล"
+
+#: magi/default_settings.py:176 magi/default_settings.py:196
+#: magi/default_settings.py:210
+msgid "Community manager"
+msgstr "ผู้จัดการชุมชน"
+
+#: magi/default_settings.py:190
+msgid "Posted {total} news"
+msgstr "โพสต์แล้ว {total} ข่าว"
+
+#: idolstory/models.py:643
+msgid "Twitter"
+msgstr "Twitter"
+
+#: magi/default_settings.py:224
+msgid "External communication"
+msgstr "การสื่อสารภายนอก"
+
+#: starlight/models.py:1452
+msgid "Support"
+msgstr "สนับสนุน"
+
+#: magi/default_settings.py:252 magi/default_settings.py:271
+#: magi/default_settings.py:334
+msgid "Moderator"
+msgstr "ผู้ดำเนินการ"
+
+#: idolstory/models.py:351
+msgid "Active"
+msgstr "Active"
+
+#: magi/default_settings.py:265
+msgid "Submitted {total} reports"
+msgstr "ส่ง {total} รายงาน"
+
+#: magi/default_settings.py:271
+msgid "Decisive"
+msgstr "เด็ดขาด"
+
+#: magi/default_settings.py:290
+msgid "Edited or deleted {total} reported items"
+msgstr "แก้ไขหรือลบสิ่งที่รายงาน {total} อย่าง"
+
+#: magi/default_settings.py:296
+msgid "Community entertainer"
+msgstr "ผู้ให้ความบันเทิงชุมชน"
+
+#: magi/default_settings.py:318
+msgid "Organized and posted about {total} community events"
+msgstr "โพสต์และจัดประมาณ {total} อีเวนต์ชุมชน"
+
+#: magi/default_settings.py:324
+msgid "Backup staff"
+msgstr "ทีมงานสำรอง"
+
+#: magi/default_settings.py:343
+msgid "Translator"
+msgstr "ผู้แปล"
+
+#: bang/settings.py:450
+msgid "Graphic designer"
+msgstr "กราฟิกดีไซน์เนอร์"
+
+#: magi/default_settings.py:365
+msgid "Artist"
+msgstr "จิตรกร"
+
+#: magi/default_settings.py:371
+msgid "Developer"
+msgstr "ผู้พัฒนา"
+
+#: magi/default_settings.py:385
+msgid "System administrator"
+msgstr "ผู้ดูแลระบบ"
+
+#: magi/models.py:1002
+msgid "You are not allowed to see activities with the tag \"{tag}\"."
+msgstr "คุณไม่ได้รับอนุญาติให้เห็นกิจกรรมในแท็ก \"{tag}\" ได้"
+
+#: starlight/models.py:854 starlight/models.py:857
+msgid "Translations"
+msgstr "การแปล"
+
+#: magi/magicollections.py:2902 magi/magicollections.py:4368 magi/views.py:852
+msgid "Block {username}"
+msgstr "บล็อก {username}"
+
+#: magi/models.py:971
+msgid "You can change which tags you would like to see or hide in your settings."
+msgstr "คุณสามารถเปลี่ยนแท็กที่ต้องการซ่อนได้ที่การตั้งค่า"
+
+#: magi/models.py:147
+msgid "Display your birthdate year"
+msgstr "แสดงปีเกิด"
+
+#: starlight/models.py:1455
+msgid "Roles"
+msgstr "ประเภท"
+
+#: magi/models.py:244
+msgid "Hide tags"
+msgstr "ซ่อนแท็ก"
+
+#: magi/models.py:658
+msgid "hobbies"
+msgstr "งานอดิเรก"
+
+#: magi/templates/pages/about.html:26
+msgid "About us"
+msgstr "เกี่ยวกับเรา"
+
+#: magi/templates/pages/prelaunch.html:24 magi/views.py:434
+msgid "Pre-register"
+msgstr "ลงทะเบียนล่วงหน้า"
+
+#: magi/forms.py:2277
+msgid "Security"
+msgstr "ระบบความปลอดภัย"
+
+#: magi/magicollections.py:4416 magi/views.py:690 magi/views.py:882
+#: magi/views_collections.py:170 magi/views_collections.py:634
+msgid "You blocked {username}."
+msgstr "คุณได้บล็อค {username}"
+
+#: magi/magicollections.py:4417 magi/views.py:691 magi/views.py:852
+#: magi/views_collections.py:171 magi/views_collections.py:635
+msgid "Unblock {username}"
+msgstr "ปลดบล็อค {username}"
+
+#: magi/views.py:885
+msgid "Are you sure you want to block {username}? You will not be able to see any content created by {username}."
+msgstr "ต้องการจะบล็อก {username} หรือไม่? คุณจะไม่เห็นกิจกรรมของ {username} อีกต่อไป"
+
+#: magi/views.py:887
+msgid "Are you sure you want to unblock {username}?"
+msgstr "ต้องการที่จะเลิกบล็อก {username} จริงหรือไม่ ?"
+
+#: magi/views_collections.py:169 magi/views_collections.py:633
+msgid "this user"
+msgstr "ผู้ใช้คนนี้"
+
+#: idolstory/forms.py:747
+msgid "Include cameos"
+msgstr "ตัวประกอบ"
+
+#: idolstory/models.py:1624 idolstory/models.py:2344
+msgid "Cameos"
+msgstr "ตัวประกอบ"
+
+#: bang/forms.py:348 bang/models.py:476
+msgid "Original card"
+msgstr "การ์ดต้นฉบับ"
+
+#: starlight/settings.py:213
+msgid "Community event"
+msgstr "กิจกรรมของชุมชน"
+
+#: starlight/settings.py:216
+msgid "Not about {thing}"
+msgstr "ไม่เกียวกับ {thing}"
+
+#: starlight/settings.py:224
+msgid "NSFW"
+msgstr "NSFW"
+
+#: starlight/settings.py:226
+msgid "You need to be over 18 years old."
+msgstr "คุณต้องมีอายุ 18 ปีขึ้นไป"
+
+#: starlight/settings.py:226
+msgid "You can change your birthdate in your settings."
+msgstr "สามารถเปลี่ยนวันเกิดได้ที่การตั้งค่า"
+
+#: idolstory/magicollections.py:453
+msgid "Measurements"
+msgstr "สัดส่วนร่างกาย"
+
+#: idolstory/models.py:954
+msgid "Chitose Bridge High School"
+msgstr "โรงเรียนมัธยมสะพานชิโตเสะ"
+
+#: idolstory/models.py:955
+msgid "Seiran High School"
+msgstr "โรงเรียนมัธยมเซราน"
+
+#: idolstory/models.py:956
+msgid "Shinonome Academy"
+msgstr "โรงเรียนชิโนโนเมะ"
+
+#: idolstory/models.py:957
+msgid "Shion Girls' Academy"
+msgstr "โรงเรียนหญิงชิออน"
+
+#: idolstory/models.py:958
+msgid "Touou Academy"
+msgstr "โรงเรียนโทอุโอ"
+
+#: idolstory/models.py:959
+msgid "Y.G. International Academy"
+msgstr "โรงเรียนนานาชาติ Y.G."
+
+#: idolstory/models.py:855 idolstory/models.py:953
+msgid "Nijigasaki High School"
+msgstr "โรงเรียนมัธยมนิจิกะซากิ"
+
+#: idolstory/models.py:952
+msgid "Uranohoshi Girls' High School"
+msgstr "โรงเรียนมัธยมหญิงอุระโนะโฮชิ"
+
+#: idolstory/models.py:951
+msgid "Otonokizaka Academy"
+msgstr "โรงเรียนมัธยมโอโตโนะคิซากะ"
+
+#: starlight/models.py:558
+msgid "School year"
+msgstr "ชั้นปี"
+
+#: starlight/models.py:362
+msgid "Blood type"
+msgstr "กรุ๊ปเลือด"
+
+#: starlight/utils.py:110 starlight/utils.py:111 starlight/utils.py:112
+msgid "{nth} year"
+msgstr "{nth} ปี"
+
+#: magi/templates/pages/about.html:311
+msgid "Contributors"
+msgstr "ร่วมให้ข้อมูล"
+
+#: bang/magicollections.py:830
+msgid "View model"
+msgstr "ดูโมเดล"
+
+#: bang/templates/include/costumeTopIllustration.html:12
+msgid "Controls"
+msgstr "ควบคุม"
+
+#: bang/models.py:2237 bang/templates/include/costumeTopIllustration.html:21
+msgctxt "BanPa model viewer"
+msgid "Model"
+msgstr "โมเดล"
+
+#. Translators: Label for a checkbox. Limited space, so please try to keep it short.
+#: bang/templates/include/costumeTopIllustration.html:25
+msgctxt "BanPa model viewer"
+msgid "Breathe"
+msgstr "หายใจ"
+
+#. Translators: Label for a checkbox. Limited space, so please try to keep it short.
+#: bang/templates/include/costumeTopIllustration.html:28
+msgctxt "BanPa model viewer"
+msgid "Blink"
+msgstr "กะพริบตา"
+
+#. Translators: Label for a checkbox. Limited space, so please try to keep it short.
+#: bang/templates/include/costumeTopIllustration.html:31
+msgctxt "BanPa model viewer"
+msgid "Sway"
+msgstr "ขยับตัว"
+
+#. Translators: Label for a list of choices. Limited space, so please try to keep it short.
+#: bang/templates/include/costumeTopIllustration.html:37
+msgctxt "BanPa model viewer"
+msgid "Action"
+msgstr "ท่าทาง"
+
+#. Translators: Label for a checkbox. Limited space, so please try to keep it short.
+#: bang/templates/include/costumeTopIllustration.html:40
+msgctxt "BanPa model viewer"
+msgid "Loop"
+msgstr "วนลูป"
+
+#. Translators: Label for a list of choices. Limited space, so please try to keep it short.
+#: bang/templates/include/costumeTopIllustration.html:46
+msgctxt "BanPa model viewer"
+msgid "Expression"
+msgstr "แสดงออก"
+
+#. Translators: Button label.
+#: bang/templates/include/costumeTopIllustration.html:53
+msgctxt "BanPa model viewer"
+msgid "Screenshot"
+msgstr "ถ่ายภาพ"
+
+#. Translators: Button label. This is supposed to be a continuation of "Screenshot".
+#: bang/templates/include/costumeTopIllustration.html:55
+msgctxt "BanPa model viewer"
+msgid "(with background)"
+msgstr "(รวมพื้นหลัง)"
+
+#: bang/models.py:1545 bang/models.py:1577
+msgid "All perfect"
+msgstr "ALL PERFECT"
+
+#: bang/settings.py:196
+msgid "Thank you Yurishii"
+msgstr "ขอบคุณนะ ยูริชิ"
+
+#. Refers to the "hot feed" of activities on the homepage (don't translate literally!)
+#: magi/default_settings.py:459 magi/forms.py:3050
+msgid "Hot"
+msgstr "เป็นที่นิยม"
+
+#: bang/forms.py:1474
+msgid "How often do you hit PERFECT notes?"
+msgstr "คุณกดโดนโน้ต PERFECT บ่อยแค่ไหน"
+
+#: bang/forms.py:1482
+msgid "How often is your life above 900?"
+msgstr "มีพลังชีวิตเกิน 900 บ่อยแค่ไหน?"
+
+#: bang/magicollections.py:821 bang/magicollections.py:827
+#: bang/magicollections.py:2704 bang/magicollections.py:2732
+#: bang/models.py:2195
+msgid "Costume"
+msgstr "เครื่องแต่งกาย"
+
+#: idolstory/magicollections.py:1681
+msgid "Item"
+msgstr "ไอเทม"
+
+#: idolstory/magicollections.py:1682
+#: idolstory/sukutomo_future_translations.py:48
+msgid "Items"
+msgstr "ไอเทม"
+
+#: bang/forms.py:1047 bang/magicollections.py:2263 bang/magicollections.py:2354
+#: bang/models.py:1832
+msgid "Area"
+msgstr "พื้นที่"
+
+#: bang/magicollections.py:2149 bang/magicollections.py:2187
+#: bang/magicollections.py:2315 bang/magicollections.py:2569 bang/models.py:324
+#: bang/settings.py:314
+msgid "Gallery"
+msgstr "คลังรูปภาพ"
+
+#: bang/magicollections.py:2244 bang/magicollections.py:2293
+#: bang/models.py:1896 bang/models.py:1941
+msgid "Area item"
+msgstr "ไอเทมในพื้นที่"
+
+#: bang/magicollections.py:2182 bang/magicollections.py:2199
+#: bang/magicollections.py:2245 bang/magicollections.py:2294
+#: bang/magicollections.py:2319 bang/views.py:50
+msgid "Area items"
+msgstr "ไอเทมในพื้นที่"
+
+#: bang/magicollections.py:2442
+msgid "Asset"
+msgstr "ทรัพยากร"
+
+#: bang/magicollections.py:2443 bang/magicollections.py:2545 bang/models.py:325
+msgid "Assets"
+msgstr "ทรัพยากร"
+
+#: bang/magicollections.py:2705 bang/models.py:319
+msgid "Costumes"
+msgstr "เครื่องแต่งกาย"
+
+#: bang/models.py:1774
+msgid "Quantity"
+msgstr "จำนวน"
+
+#: bang/models.py:1822
+msgid "Poster"
+msgstr "โปสเตอร์"
+
+#: starlight/magicollections.py:1315
+msgid "Comics"
+msgstr "หนังสือการ์ตูน"
+
+#: idolstory/magicollections.py:925 idolstory/settings.py:441
+#: idolstory/sukutomo_future_translations.py:48
+msgid "Backgrounds"
+msgstr "พื้นหลัง"
+
+#: bang/models.py:337 bang/models.py:2040 bang/models.py:2046
+msgid "Stamps"
+msgstr "แสตมป์"
+
+#: bang/models.py:2050
+msgid "Titles"
+msgstr "สมญา"
+
+#: bang/models.py:2066 bang/models.py:2068
+msgid "Interface"
+msgstr "อินเตอร์เฟซ"
+
+#: idolstory/models.py:1218
+msgid "Outdoor"
+msgstr "กลางแจ้ง"
+
+#: idolstory/models.py:1219
+msgid "Indoor"
+msgstr "ในร่ม"
+
+#: idolstory/models.py:1221
+msgid "Stage"
+msgstr "เวที"
+
+#: idolstory/models.py:1222
+msgid "Home"
+msgstr "บ้าน"
+
+#: idolstory/models.py:1223
+msgid "Dating spot"
+msgstr "สถานที่ออกเดท"
+
+#: bang/models.py:2218
+msgid "Costume type"
+msgstr "ชนิดเครื่องแต่งกาย"
+
+#: bang/settings.py:191
+msgid "Change My Mind Challenge"
+msgstr "การท้าทายการเปลี่ยนความคิดของฉัน"
+
+#: starlight/models.py:92 starlight/models.py:1045
+msgid "Worldwide version"
+msgstr "เวอร์ชั่นทั่วโลก"
+
+#: idolstory/models.py:212 idolstory/models.py:1392 idolstory/models.py:1710
+#: idolstory/sukutomo_future_translations.py:376
+#: idolstory/sukutomo_future_translations.py:377
+#: idolstory/sukutomo_future_translations.py:378
+#: idolstory/sukutomo_future_translations.py:381
+msgid "Chinese version"
+msgstr "เวอร์ชั่นจีน"
+
+#: idolstory/sukutomo_future_translations.py:28
+#: idolstory/sukutomo_future_translations.py:279
+msgid "Score Match"
+msgstr "การแข่งเปรียบเทียบคะแนน"
+
+#: idolstory/sukutomo_future_translations.py:31
+#: idolstory/sukutomo_future_translations.py:282
+msgid "Medley Festival"
+msgstr "เทศกาลผสม"
+
+#: idolstory/sukutomo_future_translations.py:34
+#: idolstory/sukutomo_future_translations.py:285
+msgid "Challenge Festival"
+msgstr "เทศกาลท้าทาย"
+
+#: idolstory/sukutomo_future_translations.py:37
+#: idolstory/sukutomo_future_translations.py:288
+msgid "Adventure Stroll"
+msgstr "เดินเล่นผจญภัย"
+
+#: idolstory/sukutomo_future_translations.py:40
+#: idolstory/sukutomo_future_translations.py:291
+msgid "Friendly Match"
+msgstr "การแข่งขันมิตรภาพ"
+
+#: bang/magicollections.py:2143
+msgid "Edit your {thing}"
+msgstr "แก้ไข {thing}"
+
+#: magi/views.py:916
+msgid "If you delete this {thing} ({instance}), the following will automatically be deleted as well:"
+msgstr "ถ้าคุณลบ {thing} นี้ ({instance}) สิ่งต่อไปนี้ก็จะถูกลบด้วย:"
+
+#: magi/views.py:917
+msgid "Are you sure you want to delete this {thing} ({instance})?"
+msgstr "คุณแน่ใจว่าต้องการลบ {thing} นี้ ({instance})?"
+
+#: stardustrun/settings.py:56
+msgid "Medal"
+msgstr "เหรียญ"
+
+#: stardustrun/settings.py:57
+msgid "Gym"
+msgstr "ยิม"
+
+#: magi/magicollections.py:3204 magi/settings.py:708 magi/tools.py:201
+#: magi/tools.py:242 magi/utils.py:737
+msgid "Happy Birthday"
+msgstr "สุขสันต์วันเกิด"
+
+#: bang/models.py:258
+msgid "Classroom"
+msgstr "ห้องเรียน"
+
+#: bang/models.py:2072 bang/models.py:2080 bang/settings.py:323
+msgid "Official art"
+msgstr "ภาพวาดเป็นทางการ"
+
+#: bang/utils.py:95
+msgid "Rerun"
+msgstr "รีรัน"
+
+#: magi/default_settings.py:26
+msgid "Copied"
+msgstr "คัดลอกสมบูรณ์"
+
+#: magi/default_settings.py:26 magi/templates/items/activityItem.html:26
+msgid "Archived"
+msgstr "เก็บไว้แล้ว"
+
+#: magi/default_settings.py:26
+msgid "Unarchived"
+msgstr "ยังไม่ได้เก็บไว้"
+
+#: magi/default_settings.py:453 magi/forms.py:3086
+#: magi/templates/items/activityItem.html:14
+msgid "Popular"
+msgstr "โด่งดัง"
+
+#: magi/default_settings.py:466
+msgid "New"
+msgstr "ใหม่"
+
+#: magi/default_settings.py:482 magi/default_settings.py:510
+#: magi/templates/items/activityItem.html:19
+msgid "Staff picks"
+msgstr "เลือกโดยทีมงาน"
+
+#: magi/forms.py:2288
+msgid "Customize profile"
+msgstr "ปรับแต่งโปรไฟล์"
+
+#: magi/forms.py:3089
+msgid "Hide archived activities"
+msgstr "ซ่อนกิจกรรมที่เก็บไว้"
+
+#: magi/magicollections.py:3496
+msgid "Unarchive"
+msgstr "ไม่ถูกเก็บไว้"
+
+#: magi/magicollections.py:3505 magi/magicollections.py:3507
+msgid "Archive"
+msgstr "เก็บไว้"
+
+#: magi/magicollections.py:3510 magi/templates/pages/settings.html:74
+#: magi/templates/pages/settings.html:143
+msgid "Premium feature"
+msgstr "คุณสมบัติพรีเมี่ยม"
+
+#: magi/magicollections.py:3636
+msgid "You might be the first person who sees these activities!"
+msgstr "คุณอาจเป็นคนแรกที่ได้เห็นกิจกรรมพวกนี้!"
+
+#: magi/magicollections.py:3637
+msgid "If you see anything that doesn't follow our rules, please help us by reporting it."
+msgstr "หากคุณเห็นสิ่งใดที่ผิดกฎระเบียบของเรา โปรดช่วยรายงานให้เราทราบ"
+
+#: magi/models.py:201 magi/views.py:673
+msgid "Custom link"
+msgstr "ลิงค์ที่กำหนดเอง"
+
+#: magi/models.py:1115
+msgid "When someone likes an activity you archived."
+msgstr "เมื่อคนใดคนหนึ่งชอบกิจกรรมที่คุณเก็บไว้"
+
+#: magi/templates/pages/settings.html:15
+msgid "Preferences"
+msgstr "การตั้งค่า"
+
+#: magi/default_settings.py:29 magi/templates/pages/about.html:76
+#: magi/templates/pages/settings.html:17 magi/utils.py:980 magi/utils.py:1608
+#: magi/views.py:144
+msgid "More"
+msgstr "เพิ่มเติม"
+
+#: magi/templates/include/donate.html:27
+msgid "Can't use Patreon?"
+msgstr "ใช้ Patreon ไม่ได้ใช่ไหม?"
+
+#: magi/templates/items/donateItem.html:40
+msgid "Goal"
+msgstr "เป้าหมาย"
+
+#: magi/templates/items/donateItem.html:42
+msgid "Total spent"
+msgstr "ใช้ไปทั้งหมด"
+
+#: cpro/model_choices.py:183
+msgid "Encore"
+msgstr "Encore"
+
+#: cpro/model_choices.py:184
+msgid "Life Sparkle"
+msgstr "Life Sparkle"
+
+#: cpro/model_choices.py:185
+msgid "Tricolor Synergy"
+msgstr "Tricolor Synergy"
+
+#: cpro/model_choices.py:228
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance to activate the previous skill again for {skill_duration} seconds."
+msgstr "ทุก {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะใช้งานสกิลก่อนหน้านี้ เป็นเวลา {skill_duration} วินาที"
+
+#: cpro/model_choices.py:229
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra combo bonus based on your current health for {skill_duration} seconds."
+msgstr "ทุก {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะได้รับคอมโบโบนัสตามพลังชีวิตปัจจุบัน เป็นเวลา {skill_duration} วินาที"
+
+#: cpro/model_choices.py:230
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that with all three types of idols on the team, you will gain an extra {skill_value2}% combo bonus, and Perfect notes will receive a {skill_value}% score bonus plus restore {skill_value3} life, for {skill_duration} seconds."
+msgstr "เมื่อมีไอดอลทั้งสามประเภทอยู่ในทีม ทุกๆ {trigger_value} วินาที จะมีโอกาส {trigger_chance}% ที่จะได้รับคอมโบโบนัสเพิ่ม {skill_value2}% และโน้ต PERFECT จะได้รับคะแนนโบนัส {skill_value}% และฟื้นฟู {skill_value3} พลังชีวิต เป็นเวลา {skill_duration} วินาที"
+
+#: idolstory/sukutomo_future_translations.py:660
+msgid "Princess"
+msgstr "เจ้าหญิง"
+
+#: cpro/model_choices.py:321
+msgid "Cheer"
+msgstr "Cheer"
+
+#: cpro/model_choices.py:322
+msgid "Cinderella Charm"
+msgstr "Cinderella Charm"
+
+#: cpro/model_choices.py:323
+msgid "Fortune Present"
+msgstr "Fortune Present"
+
+#: cpro/model_choices.py:345
+msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}% when there are only {idol_type} idols on the team."
+msgstr "เมื่อมีไอดอลแค่ประเภท {idol_type} อยู่ในทีม เพิ่ม {leader_skill_type} ของไอดอล {idol_type} ทั้งหมด {leader_skill_percent}%"
+
+#: cpro/model_choices.py:348
+msgid "Raises {leader_skill_type} of all idols by {leader_skill_percent}% when there are {all_types} idols on the team."
+msgstr "เมื่อมีไอดอลประเภท {all_types} ทั้งทีม เพิ่ม {leader_skill_type} ของไอดอลทุกคน {leader_skill_percent}%"
+
+#: cpro/model_choices.py:360
+msgid "Increases fan gain by {leader_skill_percent}% when you finish a live."
+msgstr "เพิ่มการได้รับแฟนคลับ {leader_skill_percent}% เมื่อไลฟ์เสร็จ"
+
+#: cpro/model_choices.py:361
+msgid "Gives extra rewards when you finish a live."
+msgstr "ได้รางวัลเพิ่มขึ้น เมื่อไลฟ์เสร็จ"
+
+#: cpro/model_choices.py:377 cpro/model_choices.py:382
+#: cpro/model_choices.py:383 cpro/model_choices.py:384
+msgid "{type} appeal"
+msgstr "ค่า {type}"
+
+#: cpro/model_choices.py:387
+msgid "Skill probability"
+msgstr "โอกาสสกิล"
+
+#: bang/forms.py:548 bang/forms.py:730
+msgid "Status"
+msgstr "สถานะ"
+
+#: bang/forms.py:549 bang/forms.py:731
+msgid "Past"
+msgstr "อดีต"
+
+#: bang/forms.py:550 bang/forms.py:732
+msgid "Current"
+msgstr "ตอนนี้"
+
+#: bang/forms.py:551 bang/forms.py:733
+msgid "Future"
+msgstr "อนาคต"
+
+#: starlight/settings.py:198
+msgid "Meme"
+msgstr "มีม"
+
+#: bang/settings.py:152
+msgid "Scouting"
+msgstr "การสืบหา"
+
+#: starlight/settings.py:170
+msgid "Manga"
+msgstr "มังงะ"
+
+#: starlight/settings.py:205
+msgid "Question"
+msgstr "คำถาม"
+
+#: starlight/settings.py:219
+msgid "Swearing"
+msgstr "คำหยาบ"
+
+#: magi/default_settings.py:27
+msgid "End of new messages"
+msgstr "จบข้อความใหม่"
+
+#: magi/magicollections.py:2890 magi/magicollections.py:4263
+msgid "Private messages"
+msgstr "ข้อความส่วนตัว"
+
+#: magi/magicollections.py:2784 magi/magicollections.py:3214
+#: magi/magicollections.py:4273
+msgid "Send a message"
+msgstr "ส่งข้อความ"
+
+#: magi/magicollections.py:4262 magi/models.py:1123
+msgid "Private message"
+msgstr "ข้อความส่วนตัว"
+
+#: magi/magicollections.py:4307 magi/magicollections.py:4426
+msgid "Inbox"
+msgstr "กล่องจดหมาย"
+
+#: magi/forms.py:1372 magi/views.py:587 magi/views.py:799
+#: magi/views_collections.py:65
+msgid "Back to {page_name}"
+msgstr "กลับไปที่ {page_name}"
+
+#: magi/magicollections.py:4447 magi/views.py:588
+msgid "You are not allowed to send private messages."
+msgstr "คุณไม่ได้รับอนุญาติให้ส่งจดหมายส่วนตัว"
+
+#: magi/magicollections.py:4448 magi/views.py:589
+msgid "Take some time to play around {site_name} to unlock this feature!"
+msgstr "ใช้เวลาในการเล่น {site_name} เพื่อปลดล็อกคุณลักษณะนี้!"
+
+#: magi/models.py:252
+msgid "Anyone"
+msgstr "ทุกคน"
+
+#: magi/models.py:253
+msgid "Only people I follow"
+msgstr "เฉพาะคนที่ฉันติดตาม"
+
+#: magi/models.py:254
+msgid "Nobody"
+msgstr "ไม่มีใคร"
+
+#: magi/models.py:256
+msgid "Who is allowed to send you private messages?"
+msgstr "ใครสามารถส่งข้อความส่วนตัวให้คุณได้บ้าง"
+
+#: magi/models.py:1121
+msgid "You have a new private message from {}."
+msgstr "คุณได้รับข้อความส่วนตัวจาก {}"
+
+#: magi/models.py:1122
+msgid "When someone sends you a private message."
+msgstr "เมื่อคนใดคนหนึ่งส่งข้อความส่วนตัวมาให้คุณ"
+
+#: magi/templates/base.html:262
+msgid "Close"
+msgstr "ปิด"
+
+#: magi/templates/base.html:266
+msgid "Remind me later"
+msgstr "เตือนฉันภายหลัง"
+
+#: magi/templates/base.html:270
+msgid "Don't show this again"
+msgstr "ไม่ต้องแสดงอีกครั้ง"
+
+#: magi/utils.py:749
+msgid "Your email address is invalid."
+msgstr "อีเมลคุณไม่ถูกต้อง"
+
+#: magi/utils.py:750
+msgid "Some features might not work properly."
+msgstr "คุณสมบัติบางอย่างอาจทำงานไม่ถูกต้อง"
+
+#: magi/views.py:800
+msgid "Wiki home"
+msgstr "บ้านวิกิ"
+
+#: cpro/model_choices.py:186
+msgid "Focus"
+msgstr "Focus"
+
+#: cpro/model_choices.py:231
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus for {skill_duration} seconds"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะได้รับคะแนนโบนัส {skill_value}% และคอมโบโบนัส {skill_value2}% เป็นเวลา {skill_duration} วินาที"
+
+#: bang/models.py:1124
+msgid "VS Live"
+msgstr "VS Live"
+
+#: bang/models.py:2124
+msgid "Collab"
+msgstr "คอลแลปส์"
+
+#: bang/models.py:2125
+msgid "Dengeki G's magazine"
+msgstr "นิตยสารของ Dengeki G"
+
+#: starlight/models.py:1100 starlight/models.py:1350
+msgid "Seasonal"
+msgstr "ตามฤดูกาล"
+
+#: bang/settings.py:201
+msgid "Thank you Ake-san"
+msgstr "ขอบคุณ คุณอาเกะ"
+
+#: starlight/models.py:296
+msgid "Playground"
+msgstr "บัญชีทดลอง"
+
+#: idolstory/models.py:1225
+msgid "Sunset"
+msgstr "พระอาทิดย์ตกดิน"
+
+#: idolstory/models.py:1226
+msgid "Night"
+msgstr "ตอนค่ำ"
+
+#: idolstory/models.py:1227
+msgid "Rain"
+msgstr "ฝนตก"
+
+#: starlight/models.py:125
+msgid "Snow"
+msgstr "หิมะ"
+
+#: idolstory/models.py:1229
+msgid "Cherry blossoms"
+msgstr "ซากุระ"
+
+#: idolstory/models.py:1230
+msgid "Fireworks"
+msgstr "ดอกไม้ไฟ"
+
+#: bang/settings.py:206
+msgid "CosParty 2018"
+msgstr "CosParty 2018"
+
+#: magi/models.py:1315
+msgid "This is {month}'s badge. It's limited to this month only, and only our donators can get it. It's not too late! If you donate now, it will appear on your profile."
+msgstr "นี่คือตราประจำเดือน{month} ผู้บริจาคของเราเท่านั้นที่สามารถรับได้ มันยังไม่สายเกินไป! หากคุณบริจาคตอนนี้มันจะปรากฏในโปรไฟล์ของคุณ"
+
+#: idolstory/magicollections.py:924 idolstory/models.py:1268
+#: idolstory/models.py:1269 idolstory/models.py:2508
+msgid "Background"
+msgstr "พื้นหลัง"
+
+#: magi/utils.py:229
+msgid "{nth} Favorite {thing}"
+msgstr "{thing} โปรด {nth}"
+
+#: magi/utils.py:211
+msgid "Character"
+msgstr "ตัวละคร"
+
+#: bang/magicollections.py:240 bang/magicollections.py:244 bang/settings.py:126
+msgid "TOP"
+msgstr "TOP"
+
+#: bang/models.py:1126
+msgid "Mission Live"
+msgstr "ภารกิจสด"
+
+#: idolstory/forms.py:207 idolstory/settings.py:39 idolstory/settings.py:219
+#: idolstory/settings.py:381 idolstory/settings.py:576
+msgid "Love Live!"
+msgstr "Love Live!"
+
+#: idolstory/sukutomo_future_translations.py:57
+msgid "Puchis"
+msgstr "ปุจิ"
+
+#: idolstory/sukutomo_future_translations.py:63
+msgid "School Idol Collection"
+msgstr "สคูลไอดอลคอลเล็กชัน"
+
+#: idolstory/sukutomo_future_translations.py:64
+msgid "Weiss Schwartz"
+msgstr "Weiss Schwartz"
+
+#: idolstory/sukutomo_future_translations.py:66
+msgid "School Idol Contest"
+msgstr "การประกวดสคูลไอดอล"
+
+#: idolstory/sukutomo_future_translations.py:67
+msgid "School Idol Trivia"
+msgstr "เรื่องน่ารู้เกี่ยวกับสคูลไอดอล"
+
+#: idolstory/sukutomo_future_translations.py:68
+msgid "School Idol Memory"
+msgstr "ความทรงจำของสคูลไอดอล"
+
+#: starlight/magicollections.py:304 starlight/settings.py:167
+msgid "Voice actresses"
+msgstr "ผู้พากย์เสียง"
+
+#: idolstory/magicollections.py:1438
+#: idolstory/sukutomo_future_translations.py:72
+msgid "Episodes"
+msgstr "เนื้อเรื่องจากตอน"
+
+#: idolstory/sukutomo_future_translations.py:76
+msgid "Official merchandise"
+msgstr "สินค้าทางการ"
+
+#: idolstory/sukutomo_future_translations.py:77
+msgid "Fan-made items"
+msgstr "ไอเทมที่สร้างโดยแฟนๆ"
+
+#: idolstory/sukutomo_future_translations.py:78
+msgid "Commissions"
+msgstr "สัญญาบัตร"
+
+#: idolstory/sukutomo_future_translations.py:81
+msgid "Cosplays"
+msgstr "คอสเพลย์"
+
+#: idolstory/sukutomo_future_translations.py:82
+msgid "Fanarts"
+msgstr "ภาพวาดจากแฟนๆ"
+
+#: idolstory/sukutomo_future_translations.py:83
+msgid "Fan edits"
+msgstr "แก้ไขจากแฟนๆ"
+
+#: idolstory/sukutomo_future_translations.py:84
+msgid "Fan fictions"
+msgstr "นิยายจากแฟนๆ"
+
+#: idolstory/sukutomo_future_translations.py:85
+msgid "Community events"
+msgstr "อีเวนต์ของชุมชน"
+
+#: sukutomo/settings.py:243
+msgid "Games"
+msgstr "เกม"
+
+#: sukutomo/settings.py:322
+msgid "Shop"
+msgstr "ร้านค้า"
+
+#: magi/forms.py:2980 magi/models.py:175
+msgid "Always post activities in {language}"
+msgstr "โพสต์กิจกรรมเป็นภาษา {language} เสมอ"
+
+#. Name of the gacha followed by "Gacha". For example if the name of the gacha is "The pretty butterfly" then it will show up as "The pretty butterfly Gacha". If it doesn't sound good in your language, feel free to change the formatting. For example, if you enter "Gacha: {}", it will show up as "Gacha: The pretty butterfly".
+#: bang/magicollections.py:1563 bang/magicollections.py:1566
+#: bang/models.py:1681
+msgid "{} Gacha"
+msgstr "กาชา {}"
+
+#: bang/magicollections.py:2177
+msgid "Locations"
+msgstr "สถานที่"
+
+#: bang/models.py:492
+msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%"
+msgstr "{duration} วินาทีถัดไป คะแนนจะเพิ่มขึ้น {alt_percentage}% แต่ถ้าหากมีพลังชีวิต {stamina} หรือมากกว่า จะเพิ่มคะแนน {percentage}% แทน"
+
+#: bang/models.py:529
+msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}"
+msgstr "{duration} วินาทีถัดไป จะฟื้นฟู {alt_stamina} พลังชีวิต แต่ถ้าหากมีพลังชีวิต {stamina} หรือมากกว่า จะเพิ่มคะแนน {percentage}% แทน"
+
+#. Name of a type of events in BanG Dream!
+#: bang/models.py:1125
+msgid "Live Goals"
+msgstr "เป้าหมายไลฟ์"
+
+#. Name of an achievement you can get after finishing an event in BanG Dream!
+#: bang/models.py:1256 bang/models.py:1286
+msgid "Goal Master"
+msgstr "นักทำเป้าหมาย"
+
+#. Name of an achievement you can get after finishing an event in BanG Dream!
+#: bang/models.py:1257 bang/models.py:1291
+msgid "EX Goal Master"
+msgstr "นักทำเป้าหมายยาก"
+
+#. The type of an item, when it's a "main" item.
+#: bang/models.py:1749
+msgid "Main"
+msgstr "หลัก"
+
+#. A location in a game.
+#: bang/models.py:1821
+msgid "Studio"
+msgstr "สตูดิโอ"
+
+#. A location in a game.
+#: bang/models.py:1823
+msgid "Counter"
+msgstr "เคาน์เตอร์"
+
+#. A location in a game.
+#: bang/models.py:1826
+msgid "Entrance"
+msgstr "ทางเข้า"
+
+#. A location in a game.
+#: bang/models.py:1827
+msgid "Sign"
+msgstr "ป้าย"
+
+#. A location in a game.
+#: bang/models.py:1828
+msgid "Plaza"
+msgstr "ลาน"
+
+#. A location in a game.
+#: bang/models.py:1829
+msgid "Garden"
+msgstr "สวน"
+
+#: bang/models.py:1835 bang/models.py:1883
+msgid "Mic"
+msgstr "ไมค์"
+
+#: bang/models.py:1836
+msgid "Guitar"
+msgstr "กีตาร์"
+
+#: bang/models.py:1837
+msgid "Bass"
+msgstr "เบส"
+
+#: bang/models.py:1838
+msgid "Drums"
+msgstr "กลอง"
+
+#: idolstory/sukutomo_future_translations.py:112
+msgid "Hits"
+msgstr "Hits"
+
+#: idolstory/sukutomo_future_translations.py:113
+#: idolstory/sukutomo_future_translations.py:121
+msgid "Daily rotation"
+msgstr "ประจำวัน"
+
+#: idolstory/sukutomo_future_translations.py:114
+#: idolstory/sukutomo_future_translations.py:124
+#: idolstory/sukutomo_future_translations.py:125
+#: idolstory/sukutomo_future_translations.py:1074
+msgid "B-Side"
+msgstr "B-Side"
+
+#: idolstory/sukutomo_future_translations.py:175
+#: idolstory/sukutomo_future_translations.py:1078
+msgid "with SWIPE notes"
+msgstr "โน้ต Swipe"
+
+#: idolstory/models.py:1682 idolstory/models.py:1687 idolstory/models.py:3035
+#: idolstory/models.py:3040 idolstory/sukutomo_future_translations.py:947
+#: idolstory/sukutomo_future_translations.py:952
+msgid "Details"
+msgstr "รายละเอียด"
+
+#: idolstory/sukutomo_future_translations.py:665
+msgid "Angel"
+msgstr "นางฟ้า"
+
+#: idolstory/sukutomo_future_translations.py:670
+msgid "Empress"
+msgstr "จักรพรรดินี"
+
+#: idolstory/sukutomo_future_translations.py:675
+msgid "Star"
+msgstr "ดาว"
+
+#: idolstory/sukutomo_future_translations.py:679
+msgid "Heart"
+msgstr "หัวใจ"
+
+#: idolstory/models.py:1632 idolstory/models.py:1635 idolstory/models.py:1764
+#: idolstory/models.py:1765 idolstory/models.py:1767 idolstory/models.py:1770
+#: idolstory/models.py:1772 idolstory/models.py:1774 idolstory/models.py:2082
+#: idolstory/models.py:2102 idolstory/models.py:2117 idolstory/models.py:2905
+#: idolstory/models.py:2952 idolstory/sukutomo_future_translations.py:782
+#: idolstory/sukutomo_future_translations.py:822
+#: idolstory/sukutomo_future_translations.py:846
+#: idolstory/sukutomo_future_translations.py:854
+#: idolstory/sukutomo_future_translations.py:868
+#: idolstory/sukutomo_future_translations.py:872
+#: idolstory/sukutomo_future_translations.py:876
+msgid "Idolized"
+msgstr "แปลงแล้ว"
+
+#: sukutomo/magicollections.py:1045 sukutomo/models.py:697
+#: sukutomo/models.py:1150 sukutomo/models.py:1603
+msgid "Sets"
+msgstr "เซ็ต"
+
+#: sukutomo/magicollections.py:730
+msgid "Transparents"
+msgstr "โปร่งใส"
+
+#: idolstory/sukutomo_future_translations.py:539
+msgid "Set"
+msgstr "เซ็ต"
+
+#: idolstory/models.py:960
+msgid "Hakodate Seisen Girls' Academy"
+msgstr "โรงเรียนหญิงฮาโคดาเตะเซเซ็น"
+
+#: idolstory/models.py:961
+msgid "UTX High School"
+msgstr "โรงเรียนมัธยม UTX"
+
+#: idolstory/models.py:647
+msgid "Instagram"
+msgstr "Instagram"
+
+#: starlight/models.py:403 starlight/models.py:763
+msgid "Social media"
+msgstr "สื่อสังคม"
+
+#: sukutomo/settings.py:263
+msgid "Trading cards"
+msgstr "การ์ดแลกเปลี่ยน"
+
+#: sukutomo/settings.py:267
+msgid "Online mini games"
+msgstr "มินิเกมออนไลน์"
+
+#: bang/models.py:1824
+msgid "Mini table"
+msgstr "โต๊ะขนาดเล็ก"
+
+#: bang/models.py:1825
+msgid "Magazine rack"
+msgstr "ชั้นวางนิตยสาร"
+
+#: bang/models.py:1830
+msgid "Specials menu"
+msgstr "เมนูพิเศษ"
+
+#: bang/forms.py:588
+msgid "Please provide a screenshot to prove your ranking."
+msgstr "โปรดแสดงภาพถ่ายหน้าจอเพื่อพิสูจน์อันดับของคุณ"
+
+#: bang/forms.py:1056 bang/models.py:1855
+msgid "Statistic"
+msgstr "สถิติ"
+
+#: bang/magicollections.py:2006
+msgid "Original song"
+msgstr "เพลงต้นฉบับ"
+
+#: bang/models.py:1015 bang/models.py:1857
+msgid "Max level"
+msgstr "เลเวลสูงสุด"
+
+#: bang/models.py:1196
+msgid "Boost statistic"
+msgstr "เพิ่มสถิติ"
+
+#: bang/models.py:1750
+msgid "Live boost"
+msgstr "เพิ่มพลัง"
+
+#: bang/models.py:1751
+msgid "Studio ticket"
+msgstr "ตั๋วสตูดิโอ"
+
+#. Examples:
+#. Idol Mic
+#. Rocking Poster
+#: bang/models.py:1883 bang/models.py:1892
+msgid "{name} {thing}"
+msgstr "{thing}{name}"
+
+#. Examples:
+#. Aya's mic
+#. Saya's iphone
+#: bang/models.py:1886 bang/models.py:1889
+msgid "{name}'s {thing}"
+msgstr "{thing} ของ {name}"
+
+#: bang/magicollections.py:2065 bang/models.py:2123
+msgid "Album cover"
+msgstr "ปกอัลบั้ม"
+
+#: bang/models.py:1926
+msgid "Restores life by {life} and {affected} members get a {value} boost on {stat} statistics"
+msgstr "ฟื้นฟู {life} พลังชีวิตและสมาชิก {affected} จะได้รับเพิ่ม {value} จากค่า {stat}"
+
+#: bang/models.py:1928
+msgid "{affected} members get a {value} boost on {stat} statistics"
+msgstr "สมาชิก {affected) จะได้รับการเพิ่ม {value} จากสถิติ {stat}"
+
+#: idolstory/sukutomo_future_translations.py:213
+msgid "Timing boost"
+msgstr "เพิ่มช่วงเวลา"
+
+#: idolstory/sukutomo_future_translations.py:712
+msgid "{attribute} points up by +{number}% of {other_attribute}"
+msgstr "ค่า {attribute} เพิ่มขึ้น {number}% จากค่า {other_attribute}"
+
+#: idolstory/sukutomo_future_translations.py:719
+msgid "{attribute} points up by +{number}%"
+msgstr "ค่า {attribute} เพิ่มขึ้น {number}%"
+
+#: idolstory/sukutomo_future_translations.py:693
+msgid "Leader skill"
+msgstr "สกิลผู้นำ"
+
+#: idolstory/sukutomo_future_translations.py:221
+msgid "Statistic effect"
+msgstr "ผลทางสถิติ"
+
+#: idolstory/sukutomo_future_translations.py:724
+msgid "{group} members points up by +{number}%"
+msgstr "คะแนนจากสมาชิก {group} เพิ่มขึ้น {number}%"
+
+#: magi/magicollections.py:3792
+msgid "Mark all as read"
+msgstr "ตราว่าอ่านหมดแล้ว"
+
+#: magi/magicollections.py:3812
+msgid "{total} notifications were marked as read."
+msgstr "การแจ้งเตือน {total} อันถูกตราว่าอ่านแล้ว"
+
+#: bang/models.py:493
+msgid "For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
+msgstr "{duration} วินาทีถัดไป คะแนนจะเพิ่มขึ้น {percentage}% จนกว่าโน้ต {note_type} จะถูกกด จากนั้น คะแนนจะเพิ่มขึ้น {alt_percentage}% แทน"
+
+#: bang/models.py:563
+msgid "Life guard"
+msgstr "ป้องกันพลังชีวิต"
+
+#: bang/models.py:570
+msgid "BAD/MISS notes do not cause damage"
+msgstr "โน้ต BAD/MISS จะไม่ทำให้เสียพลังชีวิต"
+
+#: bang/models.py:575
+msgid "and BAD/MISS notes do not cause damage for the next {duration} seconds"
+msgstr "และโน้ต BAD/MISS จะไม่ทำให้เสียพลังชีวิตใน {duration} วินาทีต่อไป"
+
+#: idolstory/models.py:2521 idolstory/sukutomo_future_translations.py:764
+msgid "Boost"
+msgstr "บูสต์"
+
+#: idolstory/forms.py:56
+msgid "All {type} {things}"
+msgstr "{type} {things} ทั้งหมด"
+
+#: magi/forms.py:1348
+msgid "Random"
+msgstr "สุ่ม"
+
+#: magi/forms.py:1361 magi/forms.py:1367
+msgid "Suggestions"
+msgstr "แนะนำ"
+
+#: magi/views_collections.py:465
+msgid "All the {things}! Search by {search_terms} and filter by {filters} to find all the details you need about the {things} from {game}."
+msgstr "{things} ทุกอย่าง! ที่ถูกค้นหาโดย {search_terms} และกรองโดย {filters} เพื่อค้นหารายละเอียดทั้งหมดที่คุณต้องการเกี่ยวกับ {things} จาก {game}"
+
+#: bang/forms.py:414
+msgid "Default"
+msgstr "ทั่วไป"
+
+#: bang/magicollections.py:2781
+msgid "Chibis"
+msgstr "ชิบิ"
+
+#: idolstory/sukutomo_future_translations.py:353
+msgid "Merged with other event"
+msgstr "รวมกับอีเวนต์อื่น"
+
+#: idolstory/sukutomo_future_translations.py:341
+#: idolstory/sukutomo_future_translations.py:350
+#: idolstory/sukutomo_future_translations.py:363
+#: idolstory/sukutomo_future_translations.py:372
+#: idolstory/sukutomo_future_translations.py:381
+msgid "Tiers"
+msgstr "ขั้น"
+
+#: sukutomo/magicollections.py:1079
+msgid "Can be sold for stickers?"
+msgstr "สามารถขายสำหรับสติกเกอร์ได้หรือไม่?"
+
+#: sukutomo/magicollections.py:1080
+msgid "Buy this card"
+msgstr "ซื้อการ์ดนี้"
+
+#: sukutomo/magicollections.py:1081
+msgid "The character that you selected when you started playing."
+msgstr "ตัวละครที่คุณเลือกเมื่อคุณเริ่มเล่น"
+
+#: magi/magicollections.py:3605
+msgid "Feed"
+msgstr "ฟีด"
+
+#: starlight/forms.py:332 starlight/magicollections.py:86
+#: starlight/magicollections.py:303 starlight/magicollections.py:421
+#: starlight/magicollections.py:422 starlight/magicollections.py:639
+#: starlight/models.py:442 starlight/models.py:540
+msgid "Voice actress"
+msgstr "ผู้พากย์เสียง"
+
+#: starlight/magicollections.py:363 starlight/magicollections.py:616
+#: starlight/magicollections.py:620 starlight/models.py:744
+msgid "Cast"
+msgstr "แสดง"
+
+#: starlight/magicollections.py:446
+msgid "Schools"
+msgstr "โรงเรียน"
+
+#: starlight/forms.py:251 starlight/forms.py:553 starlight/forms.py:611
+#: starlight/magicollections.py:474 starlight/models.py:402
+#: starlight/models.py:1411 starlight/utils.py:150 starlight/utils.py:159
+msgid "Stage girl"
+msgstr "สาวๆนักแสดง"
+
+#: starlight/magicollections.py:475 starlight/magicollections.py:1001
+#: starlight/models.py:1638 starlight/models.py:1744 starlight/settings.py:166
+msgid "Stage girls"
+msgstr "สาวๆนักแสดง"
+
+#: starlight/magicollections.py:708
+msgid "Discography"
+msgstr "รายชื่อจานเสียง"
+
+#: starlight/magicollections.py:1144 starlight/models.py:1949
+msgid "Memoir"
+msgstr "ความทรงจำ"
+
+#: starlight/magicollections.py:1145 starlight/models.py:660
+#: starlight/models.py:1749 starlight/models.py:1800
+msgid "Memoirs"
+msgstr "บันทึกความทรงจำ"
+
+#: starlight/magicollections.py:1299
+msgid "Conversation"
+msgstr "การสนทนา"
+
+#: starlight/magicollections.py:1300
+msgid "Conversations"
+msgstr "การสนทนา"
+
+#: starlight/magicollections.py:1306 starlight/settings.py:188
+msgid "My theater"
+msgstr "โรงละครของฉัน"
+
+#: starlight/magicollections.py:1314
+msgid "Comic"
+msgstr "การ์ตูน"
+
+#: starlight/models.py:109
+msgid "Flower"
+msgstr "ดอกไม้"
+
+#: starlight/models.py:117
+msgid "Wind"
+msgstr "ลม"
+
+#: starlight/models.py:133
+msgid "Cloud"
+msgstr "เมฆ"
+
+#: starlight/models.py:141
+msgid "Moon"
+msgstr "ดวงจันทร์"
+
+#: starlight/models.py:157
+msgid "Dream"
+msgstr "ฝัน"
+
+#: starlight/models.py:367 starlight/models.py:369
+msgid "Specialty"
+msgstr "ความสามารถพิเศษ"
+
+#: starlight/models.py:494
+msgid "Students"
+msgstr "นักเรียน"
+
+#: starlight/models.py:575 starlight/models.py:579 starlight/models.py:582
+#: starlight/models.py:586
+msgid "Weapon"
+msgstr "อาวุธ"
+
+#: starlight/models.py:598 starlight/models.py:601
+msgid "Likes"
+msgstr "ชอบ"
+
+#: starlight/models.py:603 starlight/models.py:606
+msgid "Dislikes"
+msgstr "ไม่ชอบ"
+
+#: starlight/models.py:1431
+msgid "Front"
+msgstr "หน้า"
+
+#: starlight/models.py:1429
+msgid "Rear"
+msgstr "ท้าย"
+
+#: starlight/models.py:1433
+msgid "Position"
+msgstr "ตำแหน่ง"
+
+#: starlight/settings.py:201
+msgid "Fanart"
+msgstr "ภาพวาดจากแฟนๆ"
+
+#: starlight/settings.py:202
+msgid "Graphic edit"
+msgstr "แก้ไขกราฟิก"
+
+#: starlight/settings.py:221
+msgid "Questionable"
+msgstr "น่าสงสัย"
+
+#: starlight/forms.py:129 starlight/forms.py:140
+#: starlight/magicollections.py:100 starlight/magicollections.py:101
+#: starlight/settings.py:209 starlight/settings.py:281
+#: starlight/settings.py:300
+msgid "News"
+msgstr "ข่าว"
+
+#: starlight/magicollections.py:708 starlight/models.py:848
+#: starlight/models.py:851 starlight/models.py:854 starlight/models.py:857
+msgid "Lyrics"
+msgstr "เนื้อเพลง"
+
+#: magi/default_settings.py:29 magi/utils.py:981
+msgid "Less"
+msgstr "น้อยลง"
+
+#: magi/default_settings.py:400 magi/default_settings.py:408
+msgid "β-tester"
+msgstr "ผู้ทดสอบเบต้า"
+
+#: magi/forms.py:2608
+msgid "Users who can speak {language}"
+msgstr "ผู้ใช้ที่สามารถพูด {language}"
+
+#: magi/magicollections.py:2946
+msgid "Website"
+msgstr "เว็บไซต์"
+
+#: starlight/forms.py:164
+msgid "Skip"
+msgstr "ข้าม"
+
+#: starlight/forms.py:390 starlight/models.py:819 starlight/models.py:867
+#: starlight/utils.py:171
+msgid "Singers"
+msgstr "นักร้อง"
+
+#: starlight/forms.py:426 starlight/forms.py:616 starlight/forms.py:654
+#: starlight/models.py:976 starlight/models.py:977 starlight/models.py:979
+#: starlight/models.py:981
+msgid "Target"
+msgstr "เป้าหมาย"
+
+#: starlight/forms.py:510 starlight/magicollections.py:760
+#: starlight/models.py:1159 starlight/models.py:1389
+msgid "Acts"
+msgstr "Acts"
+
+#: starlight/forms.py:515
+msgid "Number"
+msgstr "หมายเลข"
+
+#: starlight/forms.py:645 starlight/magicollections.py:1095
+msgid "Effective against"
+msgstr "มีประสิทธิภาพต่อ"
+
+#: starlight/forms.py:648 starlight/magicollections.py:1096
+msgid "Less effective against"
+msgstr "มีประสิทธิภาพน้อยลงกับ"
+
+#: starlight/forms.py:651
+msgid "Hits more than once"
+msgstr "ฮิตมากกว่าหนึ่งครั้ง"
+
+#: starlight/magicollections.py:226
+msgid "Relive account"
+msgstr "บัญชี Relive"
+
+#: starlight/magicollections.py:694 starlight/magicollections.py:721
+msgid "Buy {thing}"
+msgstr "ซื้อ {thing}"
+
+#: starlight/magicollections.py:694 starlight/magicollections.py:721
+msgid "CD"
+msgstr "CD"
+
+#: starlight/magicollections.py:759
+msgid "Act"
+msgstr "Act"
+
+#: starlight/magicollections.py:946
+msgid "Cost"
+msgstr "ราคา"
+
+#: starlight/forms.py:767 starlight/forms.py:803
+#: starlight/magicollections.py:975 starlight/models.py:1927
+#: starlight/models.py:1951
+msgid "Rank"
+msgstr "อันดับ"
+
+#: starlight/magicollections.py:1052 starlight/models.py:759
+#: starlight/models.py:761
+msgid "Role"
+msgstr "ประเภท"
+
+#: starlight/models.py:149
+msgid "Space"
+msgstr "อวกาศ"
+
+#: starlight/models.py:242
+msgid "Casual"
+msgstr "ปกติ"
+
+#: starlight/models.py:246
+msgid "Hardcore"
+msgstr "ยากพิเศษ"
+
+#: starlight/models.py:252
+msgid "Play style"
+msgstr "สไตล์การเล่น"
+
+#: starlight/models.py:255
+msgid "Stage of dreams level"
+msgstr "ระดับเวทีแห่งความฝัน"
+
+#: starlight/models.py:267 starlight/models.py:268 starlight/models.py:269
+msgid "Platinum"
+msgstr "แพลทินัม"
+
+#: starlight/models.py:270
+msgid "Legend"
+msgstr "ตำนาน"
+
+#: starlight/models.py:274
+msgid "Vs. Revue rank"
+msgstr "อันดับ Vs. Revue"
+
+#: starlight/models.py:293
+msgid "Total stars bought"
+msgstr "จำนวนดาวทั้งหมดที่ซื้อ"
+
+#: starlight/models.py:297
+msgid "Check this box if this account doesn't exist in the game."
+msgstr "ทำเครื่องหมายที่ช่องนี้ หากบัญชีนี้ไม่มีอยู่ในเกม"
+
+#: starlight/models.py:388 starlight/models.py:391 starlight/models.py:622
+#: starlight/models.py:625
+msgid "Video"
+msgstr "วีดีโอ"
+
+#: starlight/models.py:551 starlight/models.py:555
+msgid "Department"
+msgstr "สาขา"
+
+#: starlight/models.py:612 starlight/models.py:615
+msgid "Introduction"
+msgstr "แนะนำตัว"
+
+#: starlight/models.py:746
+msgid "General"
+msgstr "ทั่วไป"
+
+#: starlight/models.py:747
+msgid "Stage play"
+msgstr "ละครเวที"
+
+#: starlight/models.py:748
+msgid "Additional"
+msgstr "เพิ่มเติม"
+
+#: starlight/models.py:750
+msgid "Category"
+msgstr "ประเภท"
+
+#: starlight/models.py:908
+msgid "Basic"
+msgstr "พื้นฐาน"
+
+#: starlight/models.py:913
+msgid "Climax"
+msgstr "ไคลแมกซ์"
+
+#: starlight/models.py:918
+msgid "Auto"
+msgstr "ออโต้"
+
+#: starlight/models.py:923
+msgid "Finishing"
+msgstr "ท่าจบ"
+
+#: starlight/models.py:950 starlight/models.py:954 starlight/models.py:1106
+#: starlight/models.py:1110
+msgid "Tips"
+msgstr "เคล็ดลับ"
+
+#: starlight/models.py:966
+msgid "Unlock at rank {rank}"
+msgstr "ปลดล็อกที่อันดับ {rank}"
+
+#: starlight/models.py:969
+msgid "Hits {number_of_times} times"
+msgstr "ตี {number_of_times} ครั้ง"
+
+#: starlight/models.py:972
+msgid "Front enemy"
+msgstr "ศัตรูกองหน้า"
+
+#: starlight/models.py:973
+msgid "Front group of enemies"
+msgstr "กลุ่มศัตรูกองหน้า"
+
+#: starlight/models.py:974
+msgid "All enemies"
+msgstr "ศัตรูทั้งหมด"
+
+#: starlight/models.py:986
+msgid "After full bound break"
+msgstr "หลังจากการทำให้พันธะแตก"
+
+#: starlight/models.py:1005
+msgid "AP"
+msgstr "AP"
+
+#: starlight/models.py:1162 starlight/models.py:1168 starlight/models.py:1174
+#: starlight/models.py:1182
+msgid "ACT Power"
+msgstr "พลัง ACT"
+
+#: starlight/models.py:1163 starlight/models.py:1169 starlight/models.py:1176
+#: starlight/models.py:1184
+msgid "Normal defense"
+msgstr "ป้องกันธรรมดา"
+
+#: starlight/models.py:1164 starlight/models.py:1170 starlight/models.py:1178
+#: starlight/models.py:1186
+msgid "Special defense"
+msgstr "ป้องกันพิเศษ"
+
+#: starlight/models.py:1165 starlight/models.py:1171 starlight/models.py:1179
+#: starlight/models.py:1187
+msgid "Agility"
+msgstr "ความว่องไว"
+
+#: starlight/models.py:1194
+msgid "Base"
+msgstr "ฐาน"
+
+#: starlight/models.py:1414
+msgid "Element"
+msgstr "ธาตุ"
+
+#: starlight/models.py:1440
+msgid "Anti-tank"
+msgstr "ต้านแท็งก์"
+
+#: starlight/models.py:1441
+msgid "Assassin"
+msgstr "ผู้สังหาร"
+
+#: starlight/models.py:1442
+msgid "Attacker"
+msgstr "ผู้โจมตี"
+
+#: starlight/models.py:1443
+msgid "Burn"
+msgstr "เผาไหม้"
+
+#: starlight/models.py:1444
+msgid "Debuffer"
+msgstr "ผู้ทำให้ติดดีบัฟ"
+
+#: starlight/models.py:1445
+msgid "Defender"
+msgstr "ผู้ป้องกัน"
+
+#: starlight/models.py:1446
+msgid "Disabler"
+msgstr "Disabler"
+
+#: starlight/models.py:1448
+msgid "Nuker"
+msgstr "นักระเบิด"
+
+#: starlight/models.py:1450
+msgid "Special defender"
+msgstr "ผู้ป้องกันพิเศษ"
+
+#: starlight/models.py:1451
+msgid "Special defense tank"
+msgstr "แท็งก์ป้องกันพิเศษ"
+
+#: starlight/models.py:1453
+msgid "Tank"
+msgstr "แท็งก์"
+
+#: starlight/models.py:1666 starlight/models.py:1714
+msgid "Upgrade"
+msgstr "อัพเกรด"
+
+#: starlight/models.py:1667 starlight/models.py:1720
+msgid "VS. Revue reward"
+msgstr "รางวัล VS. Revue"
+
+#: starlight/models.py:1669
+msgid "Selling price"
+msgstr "ราคาขาย"
+
+#: starlight/models.py:1674 starlight/models.py:1677
+msgid "Explanation"
+msgstr "คำอธิบาย"
+
+#: starlight/settings.py:171
+msgid "Movie"
+msgstr "ภาพยนตร์"
+
+#: starlight/settings.py:175
+msgid "Meetups"
+msgstr "พบปะ"
+
+#: starlight/models.py:836 starlight/models.py:839
+msgid "Orchestral arrangement"
+msgstr "เรียบเรียงสำหรับออร์เคสตรา"
+
+#: starlight/settings.py:33
+msgid "\n"
+"Shoujo☆Kageki Revue Starlight (Lit. Girls☆Opera Revue Starlight) is a multi-media project produced by Bushiroad and Nelke Planning. It aims to link the world of anime and musicals together. Besides the anime series and the musical performances, the voice actresses also perform live concerts and various events for fans. The characters from the license also appear in 3 manga series and a mobile game called \"Relive\".\n"
+""
+msgstr "Shoujo ☆ Kageki Revue Starlight (Lit. Girls ☆ Opera Revue Starlight) เป็นโครงการมัลติมีเดียที่ผลิตโดย Bushiroad และ Nelke Planning มีจุดมุ่งหมายคือเพื่อเชื่อมโยงโลกของอนิเมะและละครเพลงเข้าด้วยกัน นอกจากซีรีย์อนิเมะและการแสดงดนตรีนักแสดงหญิงยังมีการแสดงคอนเสิร์ตและกิจกรรมต่างๆสำหรับแฟนๆ ตัวละครจากเรื่องยังปรากฏในซีรีส์การ์ตูน 3 เรื่องและเกมมือถือชื่อ \"Relive\""
+
+#: magi/default_settings.py:756
+msgid "Sitemap"
+msgstr "แผนผังเว็บไซต์"
+
+#: magi/magicollections.py:683
+msgid "Search and filter"
+msgstr "ค้นหาและกรอง"
+
+#: starlight/magicollections.py:723
+msgid "When you buy from this link, it costs you nothing extra, but we get a percentage which helps support the community and pay for the servers!"
+msgstr "เมื่อคุณซื้อจากลิงค์นี้ คุณไม่ต้องจ่ายอะไรเพิ่ม แต่เราได้รับเปอร์เซ็นต์ซึ่งช่วยสนับสนุนชุมชนและเงินสำหรับสำหรับเซิร์ฟเวอร์!"
+
+#: idolstory/models.py:639
+msgid "Official agency profile"
+msgstr "โปรไฟล์ตัวแทนอย่างเป็นทางการ"
+
+#: idolstory/magicollections.py:1364 idolstory/settings.py:237
+msgid "Stories"
+msgstr "เรื่องราว"
+
+#: idolstory/settings.py:408
+msgid "Gameplay"
+msgstr "ระบบเกม"
+
+#: magi/templates/pages/prelaunch.html:27
+msgid "Thank you for pre-registering!"
+msgstr "ขอบคุณที่ลงทะเบียนล่วงหน้า!"
+
+#: starlight/magicollections.py:80
+msgid "Users"
+msgstr "ผู้ใช้"
+
+#: magi/default_settings.py:977 magi/default_settings.py:983
+#: magi/default_settings.py:992 magi/default_settings.py:998 magi/utils.py:2950
+msgid "Advent calendar"
+msgstr "ปฏิทินจุติ"
+
+#: magi/forms.py:2020
+msgid "Optional"
+msgstr "ไม่จำเป็น"
+
+#: magi/forms.py:3022
+msgid "{thing} required."
+msgstr "ต้องการ {thing}"
+
+#: magi/forms.py:3058
+msgid "Past tags"
+msgstr "แท็กที่ผ่านมา"
+
+#: magi/magicollections.py:1325
+msgid "Original"
+msgstr "ต้นฉบับ"
+
+#: magi/magicollections.py:1329
+msgid "High quality"
+msgstr "คุณภาพสูง"
+
+#: magi/magicollections.py:2808
+msgid "Your inbox is only open to people you follow, and you're not following anyone."
+msgstr "กล่องจดหมายของคุณเปิดเฉพาะกับคนที่คุณติดตามและคุณไม่ได้ติดตามใครเลย"
+
+#: magi/magicollections.py:3191
+msgid "Hey, look! I'm on {site}! Follow me ♥︎"
+msgstr "ดูสิ! ฉันอยู่บน {site}! ติดตามฉันด้วยนะ ♥︎"
+
+#: magi/magicollections.py:3921
+msgid "How to get badges?"
+msgstr "วิธีการได้รับเหรียญตรา"
+
+#: magi/magicollections.py:3922
+msgid "Collect them all!"
+msgstr "สะสมทุกตัว!"
+
+#: magi/magicollections.py:4238
+msgid "Prizes"
+msgstr "ของรางวัล"
+
+#: magi/magicollections.py:4454
+msgid "Your inbox is closed."
+msgstr "กล่องจดหมายคุณปิดอยู่"
+
+#: magi/seasons.py:58
+msgid "Happy New Year!"
+msgstr "สวัสดีปีใหม่!"
+
+#: magi/seasons.py:63
+msgid "Happy Lunar New Year!"
+msgstr "สุขสันต์วันตรุษจีน!"
+
+#: magi/seasons.py:68
+msgid "Happy Valentine's Day!"
+msgstr "สุขสันต์วันวาเลนไทน์!"
+
+#: magi/seasons.py:73
+msgid "Happy Leap Day!"
+msgstr "สุขสันต์วันอธิกสุรทิน!"
+
+#: magi/seasons.py:83
+msgid "Happy White Day!"
+msgstr "สุขสันต์วันไวท์เดย์!"
+
+#: magi/seasons.py:88
+msgid "Happy St Patrick's Day!"
+msgstr "สุขสันต์วันเซนต์แพททริค!"
+
+#: magi/seasons.py:93
+msgid "Happy April Fool's Day!"
+msgstr "สุขสันต์วันโกหก!"
+
+#: magi/seasons.py:155
+msgid "Happy Easter!"
+msgstr "สุขสันต์วันอีสเตอร์!"
+
+#: magi/seasons.py:160
+msgid "May the Fourth be with you!"
+msgstr "\"ขอให้พลังจงสถิตอยู่กับคุณ\" (สุขสันต์วัน Star Wars!)"
+
+#: magi/seasons.py:170
+msgid "Happy Pride Month!"
+msgstr "สุขสันต์เดือนไพรด์!"
+
+#: magi/seasons.py:177
+msgid "Happy Thanksgiving!"
+msgstr "สุขสันต์วันขอบคุณพระเจ้า!"
+
+#: magi/seasons.py:182
+msgid "Happy Halloween!"
+msgstr "สุขสันต์วันฮาโลวีน!"
+
+#: magi/seasons.py:197 magi/utils.py:2943 magi/views.py:1601
+msgid "Merry Christmas!"
+msgstr "สุขสันต์วันคริสต์มาส!"
+
+#: magi/settings.py:885
+msgid "Learn a few tips and tricks to help you easily use {site}."
+msgstr "เรียนรู้เคล็ดลับและลูกเล่น เพื่อให้คุณใช้ {site} ได้ง่ายขึ้น"
+
+#: magi/settings.py:891
+msgid "Map of all {license} fans around the world."
+msgstr "แผนที่ของแฟนๆ {license} ทั่วโลก"
+
+#: idolstory/models.py:1349 idolstory/models.py:1352
+msgid "Credits"
+msgstr "เครดิต"
+
+#: cpro/model_choices.py:109
+msgid "LIVE Carnival"
+msgstr "เทศกาลไลฟ์"
+
+#: cpro/model_choices.py:187
+msgid "Hold"
+msgstr "โน้ตยาว"
+
+#: cpro/model_choices.py:232
+msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and hold notes a {skill_value2}% score bonus in the next {skill_duration} seconds."
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะได้รับคะแนนเพิ่ม {skill_value}% และโน้ตยาวจะได้รับคะแนนเพิ่ม {skill_value2}% เป็นเวลา {skill_duration} วินาที"
+
+#: bang/models.py:494
+msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members"
+msgstr "{duration} วินาทีถัดไป คะแนนโน้ต PERFECT จะเพิ่มขึ้น {percentage}% หรือ {cond_percentage}% ถ้าทีมของคุณมีแค่ {influence} เท่านั้น"
+
+#: bang/models.py:495
+msgid "For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
+msgstr "{duration} วินาทีถัดไป คะแนนจะเพิ่มขึ้น {percentage}% (หรือ {cond_percentage}% ถ้าทีมมีแค่ {influence}) จนกว่าจะถึง {note_type} แล้วคะแนนจะเพิ่มขึ้น {alt_percentage}% แทน"
+
+#: bang/settings.py:317
+msgid "Gallery of {license} images"
+msgstr "คลังภาพของ {license}"
+
+#: idolstory/forms.py:107
+msgid "Show {thing}"
+msgstr "แสดง {thing}"
+
+#: idolstory/forms.py:107 idolstory/forms.py:108
+msgid "Guests"
+msgstr "ผู้มาเยือน"
+
+#: idolstory/forms.py:108
+msgid "Hide {thing}"
+msgstr "ซ่อน {thing}"
+
+#: idolstory/forms.py:480 idolstory/forms.py:1067
+msgid "All members"
+msgstr "สมาชิกทุกคน"
+
+#: idolstory/forms.py:675 idolstory/models.py:1724 idolstory/models.py:1753
+#: idolstory/models.py:1758 idolstory/models.py:1764 idolstory/models.py:1770
+msgid "Appeal"
+msgstr "Appeal"
+
+#: idolstory/forms.py:676 idolstory/models.py:1728 idolstory/models.py:1754
+#: idolstory/models.py:1760 idolstory/models.py:1765 idolstory/models.py:1772
+msgid "Stamina"
+msgstr "Stamina"
+
+#: idolstory/forms.py:858 idolstory/models.py:1576 idolstory/models.py:2020
+#: idolstory/models.py:2912
+msgid "Passive"
+msgstr "แพสซีฟ"
+
+#: idolstory/forms.py:859 idolstory/models.py:2917
+msgid "Limit break"
+msgstr "ปลดลิมิต"
+
+#: idolstory/forms.py:1023 idolstory/magicollections.py:1437
+#: idolstory/models.py:3029
+msgid "Episode"
+msgstr "ตอน"
+
+#: idolstory/forms.py:1027 idolstory/magicollections.py:1389
+#: idolstory/models.py:2728 idolstory/models.py:2880
+msgid "Chapter"
+msgstr "บท"
+
+#. A blog post
+#: starlight/models.py:1794
+msgid "Post"
+msgstr "โพสต์"
+
+#. Blog posts
+#: idolstory/magicollections.py:283
+msgid "Posts"
+msgstr "โพสต์"
+
+#: idolstory/magicollections.py:485
+msgid "Glowing"
+msgstr "เรืองแสง"
+
+#: idolstory/magicollections.py:1121
+msgid "Year"
+msgstr "ปี"
+
+#: idolstory/magicollections.py:1252
+msgid "Skills"
+msgstr "รายการสกิล"
+
+#: idolstory/magicollections.py:1519 idolstory/models.py:3098
+#: idolstory/models.py:3105
+msgid "Still"
+msgstr "ภาพ"
+
+#: idolstory/magicollections.py:1520 idolstory/models.py:1086
+msgid "Stills"
+msgstr "ภาพ"
+
+#: idolstory/magicollections.py:412 idolstory/magicollections.py:1363
+#: idolstory/magicollections.py:1379 idolstory/magicollections.py:1407
+#: idolstory/magicollections.py:1478 idolstory/magicollections.py:1633
+#: idolstory/magicollections.py:1725 idolstory/models.py:2665
+#: idolstory/models.py:2795 idolstory/models.py:2800
+msgid "Story"
+msgstr "เนื้อเรื่อง"
+
+#: idolstory/models.py:343
+msgid "Elegant"
+msgstr "Elegant"
+
+#: idolstory/models.py:347
+msgid "Natural"
+msgstr "Natural"
+
+#: idolstory/models.py:468 idolstory/models.py:473 idolstory/models.py:478
+#: idolstory/models.py:483 idolstory/models.py:488 idolstory/models.py:493
+#: idolstory/models.py:498
+msgid "Guest"
+msgstr "เกสต์"
+
+#: idolstory/models.py:498
+msgid "No attribute"
+msgstr "ไม่มีสาย"
+
+#: idolstory/models.py:651
+msgid "YouTube"
+msgstr "YouTube"
+
+#: idolstory/models.py:844
+msgid "Symbol"
+msgstr "สัญลักษณ์"
+
+#: idolstory/models.py:1038
+msgid "Lighstick color"
+msgstr "สีแท่งไฟ"
+
+#: idolstory/models.py:1040 idolstory/models.py:1043
+msgid "Call and response"
+msgstr "การเรียกและตอบกลับ"
+
+#: idolstory/models.py:1190
+msgid "Game"
+msgstr "เกม"
+
+#: idolstory/models.py:1216
+msgid "Abstract"
+msgstr "นามธรรม"
+
+#: idolstory/models.py:1217
+msgid "Blurry"
+msgstr "เบลอ"
+
+#: idolstory/models.py:1577 idolstory/models.py:2043
+msgid "Show"
+msgstr "ไลฟ์"
+
+#: idolstory/models.py:1666
+msgid "Guard"
+msgstr "Guard"
+
+#: idolstory/models.py:1667 idolstory/models.py:2498
+msgid "Voltage"
+msgstr "Voltage"
+
+#: idolstory/models.py:1668
+msgid "SP"
+msgstr "SP"
+
+#: idolstory/models.py:1739 idolstory/models.py:1743
+msgid "Max trained"
+msgstr "ฝึกฝน MAX"
+
+#: idolstory/models.py:418 idolstory/models.py:2003 idolstory/models.py:2033
+#: idolstory/models.py:2056
+msgid "Affects"
+msgstr "ที่มีผล"
+
+#: idolstory/models.py:2334
+msgid "Base statistics, without any training."
+msgstr "ค่าพื้นฐาน ยังไม่รวมการฝึกอื่นๆ"
+
+#: idolstory/models.py:2679 idolstory/models.py:2822
+msgid "Chapter {number}"
+msgstr "บทที่ {number}"
+
+#: idolstory/models.py:2823
+msgid "Episode {number}"
+msgstr "ตอนที่ {number}"
+
+#: idolstory/models.py:2903
+msgid "Outfit unlocked"
+msgstr "ปลดล็อกชุดแล้ว"
+
+#: idolstory/models.py:2904
+msgid "Story unlocked"
+msgstr "ปลดล็อกเนื้อเรื่องเสริมแล้ว"
+
+#: idolstory/settings.py:212 idolstory/settings.py:247
+msgid "{name}'s birthday party {year}"
+msgstr "วันเกิดของ {name} {year}"
+
+#: idolstory/settings.py:266
+msgid "What's your Love Live! story?"
+msgstr "Love Live! ของคุณเป็นยังไง? เล่ามาสิ!"
+
+#: idolstory/settings.py:417
+msgid "How to install {app}?"
+msgstr "วิธีการติดตั้ง {app}"
+
+#: starlight/magicollections.py:1287
+msgid "Gachas"
+msgstr "กาชา"
+
+#: magi/seasons.py:78
+msgid "Happy Pi Day!"
+msgstr "สุขสันต์วันพาย!"
+
+#: magi/seasons.py:165
+msgid "Happy Cinco de Mayo!"
+msgstr "สุขสันต์วัน Cinco de Mayo!"
+
+#: idolstory/models.py:1648
+msgid "Ultra rare"
+msgstr "หายากสุดขีด"
+
+#: magi/abstract_collections.py:21
+msgid "Event participation"
+msgstr "อีเวนต์ที่เข้าร่วม"
+
+#: magi/abstract_collections.py:22
+msgid "Event participations"
+msgstr "อีเวนต์ที่เข้าร่วม"
+
+#: magi/seasons.py:202
+msgid "Happy Hanukkah!"
+msgstr "สุขสันต์วันฮานุกกะห์!"
+
+#: magi/utils.py:2090
+msgid "Next {thing}"
+msgstr "{thing} ถัดไป"
+
+#: magi/utils.py:2096
+msgid "Previous {thing}"
+msgstr "{thing} ก่อนหน้า"
+
+#: bang/forms.py:977
+msgid "FULL version"
+msgstr "เวอร์ชั่นเต็ม"
+
+#: bang/magicollections.py:1976
+msgid "Full"
+msgstr "เต็ม"
+
+#: bang/models.py:252
+msgid "Third"
+msgstr "ม.6"
+
+#: bang/models.py:254
+msgid "Junior Second"
+msgstr "ม.2"
+
+#: idolstory/forms.py:772
+msgid "Initial"
+msgstr "การ์ดเริ่มต้น"
+
+#: idolstory/forms.py:935 idolstory/magicollections.py:1390
+#: idolstory/models.py:2535
+msgid "Chapters"
+msgstr "เนื้อเรื่องจากบท"
+
+#: idolstory/magicollections.py:499 idolstory/models.py:1105
+#: idolstory/models.py:2743
+msgid "Bond episodes"
+msgstr "เนื้อเรื่องเพิ่มความสนิท"
+
+#: idolstory/magicollections.py:1420 idolstory/models.py:2735
+msgid "Main story"
+msgstr "เนื้อเรื่อง"
+
+#: idolstory/magicollections.py:1503
+msgid "Play a song to unlock the next episode!"
+msgstr "เล่นเพลงนี้เพื่อปลดล็อกตอนถัดไป"
+
+#: idolstory/magicollections.py:1736 idolstory/models.py:2739
+msgid "Event episodes"
+msgstr "เนื้อเรื่องอีเวนต์"
+
+#: idolstory/models.py:424
+msgid "Made by {username}"
+msgstr "แก้ไขโดย {username}"
+
+#: idolstory/models.py:876
+msgid "Super Star!!"
+msgstr "ซูเปอร์สตาร์!!"
+
+#: idolstory/models.py:962
+msgid "Yuigaoka Girls' High School"
+msgstr "โรงเรียนสตรียุยงะโอกะ"
+
+#: idolstory/models.py:2137
+msgid "3D Model"
+msgstr "โมเดล 3D"
+
+#: idolstory/models.py:2490
+msgid "Pre-release"
+msgstr "การ์ดเร็วๆ นี้"
+
+#: idolstory/models.py:2499
+msgid "Big Live Show songs"
+msgstr "เพลงที่ใช้ในบิ๊กไลฟ์"
+
+#: idolstory/models.py:2513
+msgid "Booster item"
+msgstr "ไอเทมบูสเตอร์"
+
+#: idolstory/models.py:2518
+msgid "Boosted idols"
+msgstr "ไอดอลบูสต์"
+
+#: idolstory/models.py:2686 idolstory/models.py:2689 idolstory/models.py:2782
+#: idolstory/models.py:2785
+msgid "Summary"
+msgstr "สรุป"
+
+#: idolstory/models.py:2747
+msgid "Side episodes"
+msgstr "เนื้อเรื่องเสริม"
+
+#: idolstory/models.py:2814
+msgid "Unlocked song(s)"
+msgstr "ปลดล็อกเพลง"
+
+#: starlight/models.py:1824
+msgid "Point event"
+msgstr "อีเวนต์แต้ม"
+
+#: starlight/models.py:1825
+msgid "Medal gacha event"
+msgstr "อีเวนต์เหรียญกาชา"
+

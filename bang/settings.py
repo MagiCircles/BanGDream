@@ -162,6 +162,11 @@ ACTIVITY_TAGS = [
     }),
 
     # Events
+    ('PetiteIdolStudioColorsOfAutumn', {
+        'translation': u'📸 Petite Idol Studio - 🎃 Colors of Autumn 🍠',
+        'start_date': datetime.datetime(2021, 11, 23, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2021, 12, 23, tzinfo=timezone.utc),
+    }),
     ('madlibs2021', {
         'translation': u'madlibs',
         'start_date': datetime.datetime(2021, 9, 28, 0, 0, 0, tzinfo=timezone.utc),

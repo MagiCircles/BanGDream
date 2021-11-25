@@ -367,7 +367,7 @@ msgstr "เว็ปไซต์นี้ถูกสร้างด้วย"
 
 #: magi/templates/pages/about.html:503
 msgid "so in Python 2. We also use"
-msgstr "Python 2 เราใช้โปรแกรมนี้"
+msgstr "Python 2 เราใช้โปรแกรม"
 
 #: magi/templates/pages/about.html:503
 msgid "for the front-end of the website."
@@ -375,7 +375,7 @@ msgstr "สำหรับส่วนหน้าและเบื้องห
 
 #: magi/templates/pages/about.html:505
 msgid "We accept all kind of contributions, from tools to help players, statistics pages, mini-games, or even little CSS changes. Don't be shy! If you need help getting started, just contact us and we will happily take the time to teach you the basics, no matter your level."
-msgstr "พวกเรารับการสนับสนุนทุกอย่าง ตั้งแต่เครื่องมือเพื่อช่วยผู้เล่น, หน้าสถิติ, มินิเกม, หรือแม้แต่การเปลี่ยนแปลง CSS เล็กน้อย อย่าอาย! ถ้าคุณต้องการความช่วยเหลือในการเริ่มต้น เพียงแค่ติดต่อเราและเรายินดีที่จะสละเวลาสอนพื้นฐานให้คุณไม่ว่าคุณจะอยู่ระดับไหน"
+msgstr "พวกเรารับการสนับสนุนทุกอย่าง ตั้งแต่เครื่องมือเพื่อช่วยผู้เล่น หน้าสถิติ มินิเกม หรือแม้แต่การเปลี่ยนแปลง CSS เล็กน้อย อย่าอาย! ถ้าคุณต้องการความช่วยเหลือในการเริ่มต้น เพียงแค่ติดต่อเราและเรายินดีที่จะสละเวลาสอนพื้นฐานให้คุณไม่ว่าคุณจะอยู่ระดับไหน"
 
 #: cpro/templates/include/beforeCards.html:18
 msgid "Get Started"
@@ -547,7 +547,7 @@ msgstr "ฐานข้อมูลและชุมชนของ {game}"
 
 #: magi/views.py:454
 msgid "{site} is not a representative and is not associated with {game}. Its logos and images are Trademarks of {company}."
-msgstr "{site} ไม่ได้เป็นตัวแทนและไม่ได้เกี่ยวข้องกับเกม {game} โลโก้และรูปภาพเป็นเครื่องหมายการค้าของ {company}"
+msgstr "{site} ไม่ได้เป็นตัวแทนและไม่ได้เป็นส่วนหนึ่งของเกม {game} โลโก้และรูปภาพเป็นเครื่องหมายการค้าของ{company}"
 
 #: magi/views.py:456
 msgid "the company that owns {game}"
@@ -1097,7 +1097,7 @@ msgstr "ในตอนนั้นยังไม่มีตัวเกมเ
 
 #: starlight/forms.py:557 starlight/models.py:934 starlight/models.py:1828
 msgid "Type"
-msgstr "สาย"
+msgstr "ประเภท"
 
 #: starlight/magicollections.py:254 starlight/models.py:223
 #: starlight/models.py:1430
@@ -1187,7 +1187,7 @@ msgstr "กิจกรรม"
 
 #: starlight/models.py:1098 starlight/models.py:1338
 msgid "Limited"
-msgstr "ถูกจำกัด"
+msgstr "ลิมิต"
 
 #: cpro/forms.py:294 cpro/forms.py:296 cpro/forms.py:298 cpro/forms.py:300
 #: cpro/models.py:350 cpro/models.py:374 cpro/models.py:384 cpro/models.py:394
@@ -1378,7 +1378,7 @@ msgstr "ล็อกคอมโบ"
 
 #: starlight/models.py:1447
 msgid "Healer"
-msgstr "นักฟื้นฟู"
+msgstr "ฟื้นฟู"
 
 #: cpro/model_choices.py:174
 msgid "Life Lock"
@@ -1402,47 +1402,47 @@ msgstr "เพิ่มคะแนน"
 
 #: cpro/model_choices.py:214
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Great notes into Perfect notes in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต GREAT กลายเป็น PERFECT ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต GREAT จะกลายเป็น PERFECT ใน {skill_duration} วินาทีถัดไป"
 
 #: cpro/model_choices.py:215
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต NICE และ GREAT กลายเป็น PERFECT ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต NICE และ GREAT กลายเป็น PERFECT ใน {skill_duration} วินาทีถัดไป"
 
 #: cpro/model_choices.py:216
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance of turning all Bad, Nice and Great notes into Perfect notes in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต BAD, NICE และ GREAT กลายเป็น PERFECT ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต BAD NICE และ GREAT จะกลายเป็น PERFECT ใน {skill_duration} วินาทีถัดไป"
 
 #: cpro/model_choices.py:217
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Nice notes will not break the combo in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต NICE จะไม่ทำให้เสียคอมโบ ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต NICE จะไม่ทำให้เสียคอมโบใน {skill_duration} วินาทีถัดไป"
 
 #: cpro/model_choices.py:218
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will restore {skill_value} life in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะฟื้นฟู {skill_value} พลังชีวิต ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะฟื้นฟู {skill_value} พลังชีวิตใน {skill_duration} วินาทีถัดไป"
 
 #: cpro/model_choices.py:219
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will not lose health in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะไม่เสียพลังชีวิต ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะไม่เสียพลังชีวิต ใน {skill_duration} วินาทีถัดไป"
 
 #: cpro/model_choices.py:220
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะได้รับโบนัสคอมโบมากกว่าเดิม {skill_value}% ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะได้รับโบนัสคอมโบมากกว่าเดิม {skill_value}% ใน {skill_duration} วินาทีถัดไป"
 
 #: cpro/model_choices.py:221
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะให้คะแนนโบนัส {skill_value}% ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะได้รับคะแนนโบนัส {skill_value}% เป็นเวลา {skill_duration} วินาที"
 
 #: cpro/model_choices.py:222
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% bonus and Nice and Bad notes will not break your combo in the next {skill_duration} seconds, at the cost of {skill_value2} life."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะเสีย {skill_value2} พลังชีวิต แต่โน้ต PERFECT จะได้รับโบนัส {skill_value}% และจะไม่เสียคอมโบถ้าโน้ตเป็น NICE หรือ BAD ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะสูญเสีย {skill_value2} พลังชีวิต แต่โน้ต PERFECT จะได้รับคะแนนโบนัส {skill_value}% และจะไม่เสียคอมโบถ้าโน้ตเป็น NICE หรือ BAD เป็นเวลา {skill_duration} วินาที"
 
 #: cpro/model_choices.py:223
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Great and Perfect notes will receive a {skill_value}% score bonus in the next {skill_duration} seconds."
-msgstr "ทุก {trigger_value} วินาทีมีโอกาส {trigger_chance}% ที่โน้ต GREAT และ PERFECT จะได้รับคะแนนโบนัส {skill_value}% ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุก {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต GREAT และ PERFECT จะได้รับคะแนนโบนัส {skill_value}% ใน {skill_duration} วินาทีถัดไป"
 
 #: cpro/model_choices.py:342
 msgid "Raises {leader_skill_type} of all {idol_type} idols by {leader_skill_percent}%."
-msgstr "เพิ่ม {leader_skill_type} ของไอดอลสาย {idol_type} {leader_skill_percent}%"
+msgstr "เพิ่มค่า {leader_skill_type} ของไอดอลสาย {idol_type} {leader_skill_percent}%"
 
 #: cpro/model_choices.py:388 cpro/model_choices.py:389 cpro/models.py:433
 #: cpro/models.py:434 cpro/models.py:435 cpro/models.py:436 cpro/models.py:493
@@ -1507,7 +1507,7 @@ msgstr "กรุ๊ปเลือด"
 
 #: cpro/models.py:64 cpro/templates/items/idolInfo.html:108
 msgid "Writing Hand"
-msgstr "มือข้างที่ใช้เขียน"
+msgstr "ถนัดเขียนข้าง"
 
 #: bang/models.py:292
 msgid "Astrological Sign"
@@ -1524,7 +1524,7 @@ msgstr "งานอดิเรก"
 
 #: bang/magicollections.py:328 bang/models.py:263 bang/models.py:264
 msgid "CV"
-msgstr "ให้เสียงโดย"
+msgstr "พากย์โดย"
 
 #: idolstory/models.py:1047 idolstory/models.py:1050
 msgid "Signature"
@@ -1600,7 +1600,7 @@ msgstr "สูงสุด"
 #: bang/forms.py:265 bang/forms.py:266 bang/magicollections.py:940
 #: bang/magicollections.py:947 bang/magicollections.py:984 bang/models.py:850
 msgid "Overall"
-msgstr "ภาพรวม"
+msgstr "รวม"
 
 #: starlight/models.py:1918
 msgid "Max bonded"
@@ -1726,7 +1726,7 @@ msgstr "สกิลหัวหน้า"
 
 #: cpro/forms.py:291 cpro/templates/include/cards-stats.html:95
 msgid "Scouted by"
-msgstr "ได้รับการ์ดจาก"
+msgstr "ได้รับการ์ดแล้ว"
 
 #: idolstory/magicollections.py:481
 msgid "Download"
@@ -1758,11 +1758,11 @@ msgstr "เพิ่มการ์ดนี้ไปที่รายการ
 
 #: starlight/models.py:408 starlight/models.py:667
 msgid "Fans"
-msgstr "เหล่าแฟนๆ"
+msgstr "แฟน"
 
 #: magi/forms.py:3094 magi/forms.py:3100 magi/utils.py:882
 msgid "Only"
-msgstr "เฉพาะ"
+msgstr "มี"
 
 #: starlight/magicollections.py:1123
 msgid "None"
@@ -1833,7 +1833,7 @@ msgstr "เรียนรู้เพิ่มเติม"
 
 #: cpro/forms.py:167 cpro/forms.py:291 cpro/forms.py:292
 msgid "Popularity"
-msgstr "ความนิยม"
+msgstr "ยอดนิยม"
 
 #: cpro/forms.py:292 cpro/templates/include/cards-stats.html:107
 msgid "Favorited by"
@@ -1898,7 +1898,7 @@ msgstr "รายงาน {thing}"
 #: magi/forms.py:2745 magi/magicollections.py:1650 magi/views.py:585
 #: magi/views.py:673
 msgid "Add {thing}"
-msgstr "เพิ่ม {thing}"
+msgstr "เพิ่ม{thing}"
 
 #: magi/magicollections.py:4081
 msgid "Only submit a report if there is a problem with this specific {thing}. If it's about something else, your report will be ignored. For example, don't report an account or a profile if there is a problem with an activity. Look for \"Report\" buttons on the following to report individually:"
@@ -1986,11 +1986,11 @@ msgstr "ในตอนนั้นยังไม่มีตัวเกมเ
 
 #: idolstory/sukutomo_future_translations.py:1074
 msgid "Countdown"
-msgstr "นับถอยหลัง"
+msgstr "เหลือเวลา"
 
 #: bang/magicollections.py:1283 bang/magicollections.py:1621 bang/utils.py:100
 msgid "{time} left"
-msgstr "เหลือ {time}"
+msgstr "อีก {time}"
 
 #: bang/magicollections.py:1283 bang/magicollections.py:1621 bang/utils.py:100
 msgid "Starts in {time}"
@@ -2027,7 +2027,7 @@ msgstr "สาย"
 #: bang/models.py:772 bang/models.py:773 bang/models.py:774 bang/models.py:847
 #: bang/models.py:1192 bang/models.py:1851
 msgid "Performance"
-msgstr "การแสดง"
+msgstr "Performance"
 
 #: bang/forms.py:260 bang/forms.py:262 bang/forms.py:264 bang/forms.py:266
 #: bang/magicollections.py:947 bang/magicollections.py:994 bang/models.py:737
@@ -2065,7 +2065,7 @@ msgstr "Pure"
 
 #: bang/models.py:455 bang/settings.py:232
 msgid "Happy"
-msgstr "มีความสุข"
+msgstr "Happy"
 
 #: idolstory/sukutomo_future_translations.py:209
 msgid "Score up"
@@ -2267,19 +2267,19 @@ msgstr "โฟกัส Cute/Cool/Passion"
 
 #: cpro/model_choices.py:224
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that you will gain an extra {skill_value}% combo bonus and Perfect notes will restore {skill_value2} life in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะได้รับคอมโบโบนัส {skill_value}% และโน้ต PERFECT จะฟื้นฟู {skill_value2} พลังชีวิต ใน {skill_duration} วินาทีต่อไป"
+msgstr "ทุกๆ {trigger_value} วินาทีมีโอกาส {trigger_chance}% ที่จะได้รับคอมโบโบนัส {skill_value}% และโน้ต PERFECT จะฟื้นฟู {skill_value2} พลังชีวิต ใน {skill_duration} วินาทีถัดไป"
 
 #: cpro/model_choices.py:225
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus but the timing window for Perfect notes is reduced in the next {skill_duration} seconds."
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะได้รับคะแนนเพิ่ม {skill_value}% แต่ช่วงเวลาของ PERFECT จะสั้นลง เป็นเวลา {skill_duration} วินาที"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะได้รับคะแนนเพิ่ม {skill_value}% แต่ช่วงเวลาของ PERFECT จะเล็กลงเป็นเวลา {skill_duration} วินาที"
 
 #: cpro/model_choices.py:226
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% change that currently active skills will be boosted for {skill_duration} seconds"
-msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะเพิ่มประสิทธิภาพสกิลที่กำลังทำงานอยู่เป็นเวลา {skill_duration} วินาที"
+msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {trigger_chance}% ที่จะเพิ่มประสิทธิภาพสกิลที่กำลังทำงานอยู่ เป็นเวลา {skill_duration} วินาที"
 
 #: cpro/model_choices.py:227
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that Perfect notes will receive a {skill_value}% score bonus, and you will gain an extra {skill_value2}% combo bonus, but only if you have only {type} idols in your team for {skill_duration} seconds"
-msgstr "เมื่อมีแค่ไอดอลประเภท {type} อยู่ในทีม ทุกๆ {trigger_value} วินาที จะมีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะได้รับคะแนนเพิ่ม {skill_value}% และคอมโบโบนัส เป็นเวลา {skill_duration} วินาที"
+msgstr "เมื่อมีแค่ไอดอลประเภท {type} อยู่ในทีม ทุกๆ {trigger_value} วินาทีจะมีโอกาส {trigger_chance}% ที่โน้ต PERFECT จะได้รับคะแนนเพิ่ม {skill_value}% และคอมโบโบนัสเป็นเวลา {skill_duration} วินาที"
 
 #: cpro/templates/include/beforeLeaderboard.html:21
 msgid "%(total_results)s producers love %(favorite_character_idol)s"
@@ -2329,7 +2329,7 @@ msgstr "กาชา"
 #: idolstory/sukutomo_future_translations.py:298
 #: idolstory/sukutomo_future_translations.py:592
 msgid "Server availability"
-msgstr "ความพร้อมของเซิร์ฟเวอร์"
+msgstr "เซิร์ฟเวอร์"
 
 #: bang/forms.py:442 bang/forms.py:443 bang/forms.py:529 bang/forms.py:632
 #: bang/forms.py:633 bang/forms.py:699 bang/models.py:118 bang/models.py:1161
@@ -2451,7 +2451,7 @@ msgstr "อีเวนต์ที่เข้าร่วม"
 
 #: bang/magicollections.py:1311
 msgid "Boost Members"
-msgstr "เสริมพลังสมาชิก"
+msgstr "สมาชิกที่ได้รับโบนัส"
 
 #: bang/magicollections.py:1334
 msgid "Gift song"
@@ -2459,7 +2459,7 @@ msgstr "เพลงของขวัญ"
 
 #: bang/forms.py:364 bang/forms.py:715 bang/magicollections.py:1660
 msgid "Gacha type"
-msgstr "ชนิดกาชา"
+msgstr "กาชาประเภท"
 
 #: starlight/models.py:1331
 msgid "Permanent"
@@ -2511,7 +2511,7 @@ msgstr "การ์ดโปรโม"
 
 #: bang/models.py:489
 msgid "For the next {duration} seconds, score of all notes boosted by +{percentage}%"
-msgstr "{duration} วินาทีต่อไป คะแนนทุกโน้ตเพิ่มขึ้น {percentage}%"
+msgstr "{duration} วินาทีต่อไปคะแนนทุกโน้ตเพิ่มขึ้น {percentage}%"
 
 #: bang/models.py:515
 msgid "and boosts score of all notes by {percentage}% for the next {duration} seconds"
@@ -2519,7 +2519,7 @@ msgstr "และเพิ่มคะแนนทุกโน้ต {percentage
 
 #: bang/models.py:526
 msgid "Restores life by {stamina}"
-msgstr "ฟื้นพลังชีวิต {stamina}"
+msgstr "ฟื้นฟู {stamina} พลังชีวิต"
 
 #: bang/models.py:543
 msgid "and restores life by {stamina}"
@@ -2750,11 +2750,11 @@ msgstr "ผู้ศรัทธาไอดอลขั้นสุด"
 
 #: starlight/models.py:1606 starlight/models.py:1749
 msgid "Collected {things}"
-msgstr "ได้รับ {things}"
+msgstr "{things}ที่ได้รับ"
 
 #: bang/models.py:491 bang/models.py:528
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%"
-msgstr "{duration} วินาทีถัดไป คะแนนโน้ต PERFECT จะเพิ่มขึ้น {percentage}%"
+msgstr "{duration} วินาทีถัดไปคะแนนจากโน้ต PERFECT จะเพิ่มขึ้น {percentage}%"
 
 #: bang/magicollections.py:1377 bang/models.py:2046
 msgid "Rare stamp"
@@ -2762,11 +2762,11 @@ msgstr "แสตมป์หายาก"
 
 #: bang/models.py:1188
 msgid "Boost attribute"
-msgstr "เพิ่มคุณสมบัติ"
+msgstr "เพิ่มสเตตัสสาย"
 
 #: bang/forms.py:537 bang/magicollections.py:1156 bang/models.py:1198
 msgid "Boost members"
-msgstr "เพิ่มพลังสมาชิก"
+msgstr "สมาชิกที่ได้รับโบนัส"
 
 #: bang/settings.py:450
 msgid "Manager"
@@ -2803,12 +2803,12 @@ msgstr "การสื่อสารภายนอก"
 
 #: starlight/models.py:1452
 msgid "Support"
-msgstr "สนับสนุน"
+msgstr "ผู้ช่วยเหลือ"
 
 #: magi/default_settings.py:252 magi/default_settings.py:271
 #: magi/default_settings.py:334
 msgid "Moderator"
-msgstr "ผู้ดำเนินการ"
+msgstr "ผู้ดูแล"
 
 #: idolstory/models.py:351
 msgid "Active"
@@ -3059,13 +3059,13 @@ msgstr "วนลูป"
 #: bang/templates/include/costumeTopIllustration.html:46
 msgctxt "BanPa model viewer"
 msgid "Expression"
-msgstr "แสดงออก"
+msgstr "อารมณ์"
 
 #. Translators: Button label.
 #: bang/templates/include/costumeTopIllustration.html:53
 msgctxt "BanPa model viewer"
 msgid "Screenshot"
-msgstr "ถ่ายภาพ"
+msgstr "เชฟภาพ"
 
 #. Translators: Button label. This is supposed to be a continuation of "Screenshot".
 #: bang/templates/include/costumeTopIllustration.html:55
@@ -3088,7 +3088,7 @@ msgstr "เป็นที่นิยม"
 
 #: bang/forms.py:1474
 msgid "How often do you hit PERFECT notes?"
-msgstr "คุณกดโดนโน้ต PERFECT บ่อยแค่ไหน"
+msgstr "คุณกดได้ PERFECT บ่อยแค่ไหน?"
 
 #: bang/forms.py:1482
 msgid "How often is your life above 900?"
@@ -3098,7 +3098,7 @@ msgstr "มีพลังชีวิตเกิน 900 บ่อยแค่�
 #: bang/magicollections.py:2704 bang/magicollections.py:2732
 #: bang/models.py:2195
 msgid "Costume"
-msgstr "เครื่องแต่งกาย"
+msgstr "ชุด"
 
 #: idolstory/magicollections.py:1681
 msgid "Item"
@@ -3141,7 +3141,7 @@ msgstr "ทรัพยากร"
 
 #: bang/magicollections.py:2705 bang/models.py:319
 msgid "Costumes"
-msgstr "เครื่องแต่งกาย"
+msgstr "ชุด"
 
 #: bang/models.py:1774
 msgid "Quantity"
@@ -3194,11 +3194,11 @@ msgstr "สถานที่ออกเดท"
 
 #: bang/models.py:2218
 msgid "Costume type"
-msgstr "ชนิดเครื่องแต่งกาย"
+msgstr "ประเภทชุด"
 
 #: bang/settings.py:191
 msgid "Change My Mind Challenge"
-msgstr "การท้าทายการเปลี่ยนความคิดของฉัน"
+msgstr "ท้าทายการเปลี่ยนความคิดของฉัน"
 
 #: starlight/models.py:92 starlight/models.py:1045
 msgid "Worldwide version"
@@ -3381,11 +3381,11 @@ msgstr "ทุก {trigger_value} วินาที มีโอกาส {trig
 
 #: cpro/model_choices.py:230
 msgid "For every {trigger_value} seconds, there is a {trigger_chance}% chance that with all three types of idols on the team, you will gain an extra {skill_value2}% combo bonus, and Perfect notes will receive a {skill_value}% score bonus plus restore {skill_value3} life, for {skill_duration} seconds."
-msgstr "เมื่อมีไอดอลทั้งสามประเภทอยู่ในทีม ทุกๆ {trigger_value} วินาที จะมีโอกาส {trigger_chance}% ที่จะได้รับคอมโบโบนัสเพิ่ม {skill_value2}% และโน้ต PERFECT จะได้รับคะแนนโบนัส {skill_value}% และฟื้นฟู {skill_value3} พลังชีวิต เป็นเวลา {skill_duration} วินาที"
+msgstr "เมื่อมีไอดอลทั้งสามประเภทอยู่ในทีม ทุกๆ {trigger_value} วินาที จะมีโอกาส {trigger_chance}% ที่จะฟื้นฟู {skill_value3} พลังชีวิต ได้รับคอมโบโบนัสเพิ่ม {skill_value2}% และโน้ต PERFECT จะได้รับคะแนนโบนัส {skill_value}% ใน {skill_duration} วินาทีถัดไป"
 
 #: idolstory/sukutomo_future_translations.py:660
 msgid "Princess"
-msgstr "เจ้าหญิง"
+msgstr "Princess"
 
 #: cpro/model_choices.py:321
 msgid "Cheer"
@@ -3418,7 +3418,7 @@ msgstr "ได้รางวัลเพิ่มขึ้น เมื่อ�
 #: cpro/model_choices.py:377 cpro/model_choices.py:382
 #: cpro/model_choices.py:383 cpro/model_choices.py:384
 msgid "{type} appeal"
-msgstr "ค่า {type}"
+msgstr "{type}"
 
 #: cpro/model_choices.py:387
 msgid "Skill probability"
@@ -3604,7 +3604,7 @@ msgstr "CosParty 2018"
 
 #: magi/models.py:1315
 msgid "This is {month}'s badge. It's limited to this month only, and only our donators can get it. It's not too late! If you donate now, it will appear on your profile."
-msgstr "นี่คือตราประจำเดือน{month} ผู้บริจาคของเราเท่านั้นที่สามารถรับได้ มันยังไม่สายเกินไป! หากคุณบริจาคตอนนี้มันจะปรากฏในโปรไฟล์ของคุณ"
+msgstr "นี่คือตราประจำเดือน{month} ผู้บริจาคของเราเท่านั้นที่สามารถรับได้ (10$ ขึ้นไป) มันยังไม่สายเกินไป! หากคุณบริจาคตอนนี้มันจะปรากฏในโปรไฟล์ของคุณ"
 
 #: idolstory/magicollections.py:924 idolstory/models.py:1268
 #: idolstory/models.py:1269 idolstory/models.py:2508
@@ -3613,7 +3613,7 @@ msgstr "พื้นหลัง"
 
 #: magi/utils.py:229
 msgid "{nth} Favorite {thing}"
-msgstr "{thing} โปรด {nth}"
+msgstr "{thing} โปรด{nth}"
 
 #: magi/utils.py:211
 msgid "Character"
@@ -3707,7 +3707,7 @@ msgstr "ร้านค้า"
 
 #: magi/forms.py:2980 magi/models.py:175
 msgid "Always post activities in {language}"
-msgstr "โพสต์กิจกรรมเป็นภาษา {language} เสมอ"
+msgstr "โพสต์กิจกรรมเป็นภาษา{language}"
 
 #. Name of the gacha followed by "Gacha". For example if the name of the gacha is "The pretty butterfly" then it will show up as "The pretty butterfly Gacha". If it doesn't sound good in your language, feel free to change the formatting. For example, if you enter "Gacha: {}", it will show up as "Gacha: The pretty butterfly".
 #: bang/magicollections.py:1563 bang/magicollections.py:1566
@@ -3721,11 +3721,11 @@ msgstr "สถานที่"
 
 #: bang/models.py:492
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise score boosted by +{alt_percentage}%"
-msgstr "{duration} วินาทีถัดไป คะแนนจะเพิ่มขึ้น {alt_percentage}% แต่ถ้าหากมีพลังชีวิต {stamina} หรือมากกว่า จะเพิ่มคะแนน {percentage}% แทน"
+msgstr "{duration} วินาทีถัดไปคะแนนจะเพิ่มขึ้น {alt_percentage}% แต่ถ้าหากมีพลังชีวิต {stamina} หรือมากกว่าจะเพิ่มคะแนน {percentage}% แทน"
 
 #: bang/models.py:529
 msgid "For the next {duration} seconds, if life is {stamina} or above, score boosted by +{percentage}%, otherwise restores life by {alt_stamina}"
-msgstr "{duration} วินาทีถัดไป จะฟื้นฟู {alt_stamina} พลังชีวิต แต่ถ้าหากมีพลังชีวิต {stamina} หรือมากกว่า จะเพิ่มคะแนน {percentage}% แทน"
+msgstr "{duration} วินาทีถัดไปจะฟื้นฟู {alt_stamina} พลังชีวิต แต่ถ้าหากมีพลังชีวิต {stamina} หรือมากกว่าจะเพิ่มคะแนน {percentage}% แทน"
 
 #. Name of a type of events in BanG Dream!
 #: bang/models.py:1125
@@ -3917,7 +3917,7 @@ msgstr "เลเวลสูงสุด"
 
 #: bang/models.py:1196
 msgid "Boost statistic"
-msgstr "เพิ่มสถิติ"
+msgstr "เพิ่มค่า"
 
 #: bang/models.py:1750
 msgid "Live boost"
@@ -3951,7 +3951,7 @@ msgstr "ฟื้นฟู {life} พลังชีวิตและสมา�
 
 #: bang/models.py:1928
 msgid "{affected} members get a {value} boost on {stat} statistics"
-msgstr "สมาชิก {affected) จะได้รับการเพิ่ม {value} จากสถิติ {stat}"
+msgstr "สมาชิก {affected) จะได้รับการเพิ่ม {value} จากค่า {stat}"
 
 #: idolstory/sukutomo_future_translations.py:213
 msgid "Timing boost"
@@ -3987,7 +3987,7 @@ msgstr "การแจ้งเตือน {total} อันถูกตรา
 
 #: bang/models.py:493
 msgid "For the next {duration} seconds, score boosted by +{percentage}% until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr "{duration} วินาทีถัดไป คะแนนจะเพิ่มขึ้น {percentage}% จนกว่าโน้ต {note_type} จะถูกกด จากนั้น คะแนนจะเพิ่มขึ้น {alt_percentage}% แทน"
+msgstr "{duration} วินาทีถัดไปคะแนนจะเพิ่มขึ้น {percentage}% จนกว่าโน้ตเป็น {note_type} และคะแนนจะเพิ่มขึ้น {alt_percentage}% แทน"
 
 #: bang/models.py:563
 msgid "Life guard"
@@ -4027,7 +4027,7 @@ msgstr "ทั่วไป"
 
 #: bang/magicollections.py:2781
 msgid "Chibis"
-msgstr "ชิบิ"
+msgstr "จิบิ"
 
 #: idolstory/sukutomo_future_translations.py:353
 msgid "Merged with other event"
@@ -4656,11 +4656,11 @@ msgstr "ทุกๆ {trigger_value} วินาที มีโอกาส {t
 
 #: bang/models.py:494
 msgid "For the next {duration} seconds, score of PERFECT notes boosted by +{percentage}%, or +{cond_percentage}% if your team consists of only {influence} members"
-msgstr "{duration} วินาทีถัดไป คะแนนโน้ต PERFECT จะเพิ่มขึ้น {percentage}% หรือ {cond_percentage}% ถ้าทีมของคุณมีแค่ {influence} เท่านั้น"
+msgstr "{duration} วินาทีถัดไปคะแนนจากโน้ต PERFECT จะเพิ่มขึ้น {percentage}% หรือ {cond_percentage}% ถ้าทีมของคุณมีแค่สาย {influence} เท่านั้น"
 
 #: bang/models.py:495
 msgid "For the next {duration} seconds, score boosted by +{percentage}% (+{cond_percentage}% if your team consists of only {influence} members) until a {note_type} note is hit, then score boosted by +{alt_percentage}%"
-msgstr "{duration} วินาทีถัดไป คะแนนจะเพิ่มขึ้น {percentage}% (หรือ {cond_percentage}% ถ้าทีมมีแค่ {influence}) จนกว่าจะถึง {note_type} แล้วคะแนนจะเพิ่มขึ้น {alt_percentage}% แทน"
+msgstr "{duration} วินาทีถัดไปคะแนนจะเพิ่มขึ้น {percentage}% (หรือ {cond_percentage}% ถ้าทีมมีแค่สาย {influence}) จนกว่าโน้ตเป็น {note_type} แล้วคะแนนจะเพิ่มขึ้น {alt_percentage}% แทน"
 
 #: bang/settings.py:317
 msgid "Gallery of {license} images"

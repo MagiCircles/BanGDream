@@ -467,6 +467,7 @@ SEASONS['aprilfools']['js_variables']['aprilfools_configuration'].update({
     ],
     'endBubbleText': u'These roses... Ah...! How fleeting...!<br>I shall return your princess to you as promised. Bon voyage!<br>I look forward to the day we meet again.~',
     'endText': 'Thank you for saving Kanae from the Phantom Thief 🎉<br><br><div class="alert alert-warning">Don\'t know who Kanae is?<br><a href="/about/">→ Read more about her!</a></div>',
+    'afterBadgeText': 'To thank you for joining the fun, you just received a badge!<br><small><a class="text-muted" href="/donate/">If you enjoyed this event, please consider donating 💕<br>Click here. It helps cover our server costs 💸</a></small>',
     'endImage': 'https://i.imgur.com/WgjsFpO.png',
 })
 SEASONS['aprilfools']['extra']['badge_image'] = 'https://i.imgur.com/YR7cn1n.png'

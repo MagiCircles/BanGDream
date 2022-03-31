@@ -416,28 +416,60 @@ SEASONS['christmas'].update({
 
 # April fools
 
+# Raise a Suilen takeover scenario
+
+# SEASONS['aprilfools'].update({
+#     'color': '#b297ce',
+#     'secondary_color': '#95e7e1',
+#     'accent_color': SECONDARY_COLOR,
+# })
+
+# SEASONS['aprilfools']['js_variables']['aprilfools_configuration'].update({
+#     'startImage': 'https://i.imgur.com/cVPYABX.png',
+#     'startBubbleText': 'Kanae? Who\'s  that? We don\'t know who you\'re talking about 😈<br><br><p>We are</p><img src="https://i.imgur.com/tO7ih1A.png" alt="RAISE A SUILEN" class="img-responsive" /><p> and we\'re taking over this community today.</p>',
+#     'bubbleColor': '#b297ce',
+#     'startText': '<quote class="fontx1-5">Looks like Kanae is in trouble 😰<br><br>If you want to save Bandori Party, you\'ll have  to find all the <img src="https://i.imgur.com/iqrWQGK.png" alt="cat headphones" /> of RAISE A SUILEN hidden around the website.<br><br>If you manage to finish before the end of April 1st, you\'ll earn a badge! 🏅</quote>',
+#     'startButton': 'Find all the <img src="https://i.imgur.com/rNwhPvb.png" alt="cat headphones" />',
+#     'items': [
+#         u'https://i.imgur.com/iqrWQGK.png',
+#         u'https://i.imgur.com/SCtXgEI.png',
+#         u'https://i.imgur.com/GOC3gHT.png',
+#     ],
+#     'endBubbleText': u'Thank you so much!<br>You saved me!',
+#     'endText': 'You gave all the <img src="https://i.imgur.com/iqrWQGK.png" alt="cat hearphones"> you collected to RAISE A SUILEN, so they freed Kanae 🎉<br><br><div class="alert alert-warning">Don\'t know who Kanae is?<br><a href="/about/">→ Read more about her!</a></div>',
+#     'endImage': 'https://i.bandori.party/static/img/chibi_kanae.png',
+#     'itemSize': '35px',
+# })
+# SEASONS['aprilfools'].update({
+#     'color': '#b297ce',
+#     'secondary_color': '#95e7e1',
+#     'accent_color': SECONDARY_COLOR,
+# })
+# SEASONS['aprilfools']['extra']['badge_image'] = 'https://i.bandori.party/u/badges/15April-Fools-2019-Knight-E7MPPt.png'
+
+# Phantom Thief scenario
+
 SEASONS['aprilfools'].update({
-    'color': '#b297ce',
-    'secondary_color': '#95e7e1',
+    'color': '#8F589B',
+    'secondary_color': '#DC143D',
     'accent_color': SECONDARY_COLOR,
 })
-
 SEASONS['aprilfools']['js_variables']['aprilfools_configuration'].update({
-    'startImage': 'https://i.imgur.com/cVPYABX.png',
-    'startBubbleText': 'Kanae? Who\'s  that? We don\'t know who you\'re talking about 😈<br><br><p>We are</p><img src="https://i.imgur.com/tO7ih1A.png" alt="RAISE A SUILEN" class="img-responsive" /><p> and we\'re taking over this community today.</p>',
-    'bubbleColor': '#b297ce',
-    'startText': '<quote class="fontx1-5">Looks like Kanae is in trouble 😰<br><br>If you want to save Bandori Party, you\'ll have  to find all the <img src="https://i.imgur.com/iqrWQGK.png" alt="cat headphones" /> of RAISE A SUILEN hidden around the website.<br><br>If you manage to finish before the end of April 1st, you\'ll earn a badge! 🏅</quote>',
-    'startButton': 'Find all the <img src="https://i.imgur.com/rNwhPvb.png" alt="cat headphones" />',
+    'startImage': 'https://i.imgur.com/xPB8wzl.png',
+    'startBubbleText': 'Fair users of Bandori Party!<br>I, the Happy Phantom Thief, have decided to play an exciting game with everyone! I have decided to take your princess, Kanae-chan, with me! Of course, I shall not harm her but I shall only return your princess to you if you collect all of my roses! I await your return.<br>Ha, ha, ha, ha~!',
+    'bubbleColor': '#8F589B',
+    'startText': 'Looks like Kanae is in trouble 😰<br><br>If you want to save Bandori Party, you\'ll have  to find all the <img src="https://i.imgur.com/IwPvewi.png" alt="roses" /> hidden around the website.<br><br>If you manage to finish before the end of April 1st, you\'ll earn a badge! 🏅',
+    'startButton': 'Find all the <img src="https://i.imgur.com/IwPvewi.png" alt="roses" />',
     'items': [
-        u'https://i.imgur.com/iqrWQGK.png',
-        u'https://i.imgur.com/SCtXgEI.png',
-        u'https://i.imgur.com/GOC3gHT.png',
+        u'https://i.imgur.com/IwPvewi.png',
+        u'https://i.imgur.com/wHZHLmP.png',
+        u'https://i.imgur.com/IwPvewi.png',
     ],
-    'endBubbleText': u'Thank you so much!<br>You saved me!',
-    'endText': 'You gave all the <img src="https://i.imgur.com/iqrWQGK.png" alt="cat hearphones"> you collected to RAISE A SUILEN, so they freed Kanae 🎉<br><br><div class="alert alert-warning">Don\'t know who Kanae is?<br><a href="/about/">→ Read more about her!</a></div>',
-    'endImage': 'https://i.bandori.party/static/img/chibi_kanae.png',
-    'itemSize': '35px',
+    'endBubbleText': u'These roses... Ah...! How fleeting...!<br>I shall return your princess to you as promised. Bon voyage!<br>I look forward to the day we meet again.~',
+    'endText': 'Thank you for saving Kanae from the Phantom Thief 🎉<br><br><div class="alert alert-warning">Don\'t know who Kanae is?<br><a href="/about/">→ Read more about her!</a></div>',
+    'endImage': 'https://i.imgur.com/WgjsFpO.png',
 })
+SEASONS['aprilfools']['extra']['badge_image'] = 'https://i.imgur.com/YR7cn1n.png'
 
 SEASONS['aprilfools']['js_variables']['aprilfools_configuration']['hiddenAfterDivs'] += [
     ['[data-item="asset"] h3', 'You can download official images and other assets on BanPa~'],
@@ -456,7 +488,6 @@ SEASONS['aprilfools']['js_variables']['aprilfools_configuration']['hiddenAfterDi
     ['[for="id_status"]', 'You can filter events by version!'],
     ['[for="id_i_boost_stat"]', 'Try to filter events "Challenge Live"!'],
 ]
-SEASONS['aprilfools']['extra']['badge_image'] = 'https://i.bandori.party/u/badges/15April-Fools-2019-Knight-E7MPPt.png'
 
 # Pride month
 

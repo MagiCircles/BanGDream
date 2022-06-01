@@ -162,6 +162,11 @@ ACTIVITY_TAGS = [
     }),
 
     # Events
+    ('PRIDEReady2022', {
+        'translation': u'PRIDE Ready! 2022 🏳️‍🌈🏳️‍⚧️',
+        'start_date': datetime.datetime(2022, 6, 1, 17, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2022, 6, 10, 17, tzinfo=timezone.utc),
+    }),
     ('PetiteIdolStudioColorsOfAutumn', {
         'translation': u'📸 Petite Idol Studio - 🎃 Colors of Autumn 🍠',
         'start_date': datetime.datetime(2021, 11, 23, tzinfo=timezone.utc),

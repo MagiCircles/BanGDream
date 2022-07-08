@@ -141,6 +141,7 @@ LANGUAGES = (
     ('pt-br', _('Brazilian Portuguese')),
     ('tr', _('Turkish')),
     ('th', _('Thai')),
+    ('uk', _('Ukrainian')),
 )
 
 LANGUAGE_CODE = 'en'

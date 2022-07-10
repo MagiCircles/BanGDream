@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for bang_project project.
 
@@ -142,6 +143,27 @@ LANGUAGES = (
     ('tr', _('Turkish')),
     ('th', _('Thai')),
     ('uk', _('Ukrainian')),
+)
+
+NATIVE_LANGUAGES = (
+    ('en', u'English'),
+    ('es', u'Español'),
+    ('zh-hans', u'简体中文'),
+    ('ru', u'Русский'),
+    ('it', u'Italiano'),
+    ('fr', u'Français'),
+    ('de', u'Deutsch'),
+    ('pl', u'polski'),
+    ('ja', u'日本語'),
+    ('kr', u'한국어'),
+    ('id', u'Indonesia'),
+    ('vi', u'Tiếng Việt Nam'),
+    ('zh-hant', u'繁體中文'),
+    ('pt', u'Português'),
+    ('pt-br', u'Português Brasileiro'),
+    ('tr', u'Türkçe'),
+    ('th', u'ไทย'),
+    ('uk', u'Українська'),
 )
 
 LANGUAGE_CODE = 'en'

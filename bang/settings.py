@@ -162,6 +162,21 @@ ACTIVITY_TAGS = [
     }),
 
     # Events
+    ('PRIDEReady2024', {
+        'translation': u'PRIDE Ready! 2024 🏳️‍🌈🏳️‍⚧️',
+        'start_date': datetime.datetime(2024, 6, 1, 17, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2024, 6, 10, 17, tzinfo=timezone.utc),
+    }),
+    ('PRIDEReady2023', {
+        'translation': u'PRIDE Ready! 2023 🏳️‍🌈🏳️‍⚧️',
+        'start_date': datetime.datetime(2023, 6, 1, 17, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2023, 6, 10, 17, tzinfo=timezone.utc),
+    }),
+    ('DokiDokiDecorationWinter2022', {
+        'translation': u'DokiDokiDecoration Winter 2022',
+        'start_date': datetime.datetime(2022, 12, 1, 17, tzinfo=timezone.utc),
+        'end_date': datetime.datetime(2022, 12, 25, 0, tzinfo=timezone.utc),
+    }),
     ('PRIDEReady2022', {
         'translation': u'PRIDE Ready! 2022 🏳️‍🌈🏳️‍⚧️',
         'start_date': datetime.datetime(2022, 6, 1, 17, tzinfo=timezone.utc),

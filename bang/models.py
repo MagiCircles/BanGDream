@@ -2081,8 +2081,8 @@ class Asset(MagiModel):
                 _a.t_name,
                 unicode(_a.song) if _a.song else None,
                 unicode(_a.band) if _a.band else None,
+                u', '.join([member.first_name for member in getattr(_a, 'all_members', [])]) if not _a.band else '',
             ] if _s] or [
-                u', '.join([member.t_name for member in getattr(_a, 'all_members', [])]),
             ]) or _('Official art'),
             'navbar_link_list': 'bangdream',
         }),

@@ -435,6 +435,7 @@ class Card(MagiModel):
         (2, u'★★'),
         (3, u'★★★'),
         (4, u'★★★★'),
+        (5, u'★★★★★'),
     )
     RARITY_WITHOUT_I_CHOICES = True
     i_rarity = models.PositiveIntegerField(_('Rarity'), choices=RARITY_CHOICES, db_index=True)
@@ -795,7 +796,7 @@ class Card(MagiModel):
 
     # Tools
 
-    TRAINABLE_RARITIES = [3, 4]
+    TRAINABLE_RARITIES = [3, 4, 5]
 
     @property
     def trainable(self):
@@ -806,6 +807,7 @@ class Card(MagiModel):
         2: 30,
         3: (40, 50),
         4: (50, 60),
+        5: (60, 70),
     }
 
     @property
@@ -1125,6 +1127,8 @@ class Event(MagiModel):
         ('vs_live', _('VS Live')),
         ('live_goals', _('Live Goals')),
         ('mission_live', _('Mission Live')),
+        ('team_live', _('Team Live')),
+        ('medley_live', _('Medley Live')),
     )
     i_type = models.PositiveIntegerField(_('Event type'), choices=i_choices(TYPE_CHOICES), default=0)
 

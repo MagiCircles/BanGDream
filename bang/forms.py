@@ -394,6 +394,8 @@ def to_CollectibleCardForm(cls):
             super(_CollectibleCardForm, self).__init__(*args, **kwargs)
             if 'first_episode' in self.fields:
                 self.fields['first_episode'].label = _('{nth} episode').format(nth=_('1st'))
+            if self.collectible_variables.get('i_rarity', None) is None:
+                return
             rarity = int(self.collectible_variables['i_rarity'])
             if rarity and rarity not in models.Card.TRAINABLE_RARITIES and 'trained' in self.fields:
                 del(self.fields['trained'])
@@ -563,6 +565,8 @@ def to_EventParticipationForm(cls):
     class _EventParticipationForm(cls.form_class):
         def __init__(self, *args, **kwargs):
             super(_EventParticipationForm, self).__init__(*args, **kwargs)
+            if self.collectible_variables.get('i_type', None) is None:
+                return
             i_type = int(self.collectible_variables['i_type'])
             if models.Event.get_reverse_i('type', i_type) not in models.Event.SONG_RANKING_TYPES:
                 for field in ['song_score', 'song_ranking']:
@@ -614,7 +618,7 @@ def to_EventParticipationFilterForm(cls):
 
         def __init__(self, *args, **kwargs):
             super(_EventParticipationFilterForm, self).__init__(*args, **kwargs)
-            if 'view' in self.fields and self.request.GET.get('view', None) != 'leaderboard':
+            if 'view' in self.fields and self.request and self.request.GET.get('view', None) != 'leaderboard':
                 del(self.fields['view'])
 
         class Meta(cls.ListView.filter_form.Meta):
@@ -767,7 +771,7 @@ class RerunForm(AutoForm):
             # When adding
             # When version specified in GET
             i_version = None
-            if 'i_version' in self.request.GET:
+            if self.request and 'i_version' in self.request.GET:
                 i_version = int(self.request.GET['i_version'])
                 self.fields['i_version'].widget = forms.HiddenInput()
                 self.fields['i_version'].initial = i_version
@@ -776,7 +780,7 @@ class RerunForm(AutoForm):
                 if i_version is not None:
                     self.fields[item].queryset = self.fields[item].queryset.filter(c_versions__contains=u'"{}"'.format(models.Rerun.get_reverse_i('version', i_version)))
                 # When item specified in GET
-                if u'{}_id'.format(item) in self.request.GET:
+                if self.request and u'{}_id'.format(item) in self.request.GET:
                     item_id = self.request.GET[u'{}_id'.format(item)]
                     if not item_id:
                         continue
@@ -870,7 +874,7 @@ def to_PlayedSongFilterForm(cls):
 
         def __init__(self, *args, **kwargs):
             super(_PlayedSongFilterForm, self).__init__(*args, **kwargs)
-            if 'view' in self.fields and self.request.GET.get('view', None) != 'leaderboard':
+            if 'view' in self.fields and self.request and self.request.GET.get('view', None) != 'leaderboard':
                 self.fields['view'].choices = [(k, v) for k, v in self.fields['view'].choices if k != 'leaderboard']
 
         class Meta(cls.ListView.filter_form.Meta):
@@ -994,7 +998,8 @@ class AreaItemFilterForm(MagiFiltersForm):
         super(AreaItemFilterForm, self).__init__(*args, **kwargs)
         if 'area' in self.fields:
             self.fields['area'].choices = BLANK_CHOICE_DASH + [
-                (area['id'], area['d_names'].get(self.request.LANGUAGE_CODE, area['name']))
+                (area['id'], area['d_names'].get(
+                    self.request.LANGUAGE_CODE if self.request else get_language(), area['name']))
                 for area in django_settings.AREAS
             ]
 
@@ -1030,6 +1035,8 @@ def to_CollectibleAreaItemForm(cls):
 
         def __init__(self, *args, **kwargs):
             super(_CollectibleAreaItemForm, self).__init__(*args, **kwargs)
+            if self.collectible_variables.get('max_level', None) is None:
+                return
             _max_level = int(self.collectible_variables.get('max_level'))
             if 'level' in self.fields:
                 self.fields['level'].validators = [
@@ -1060,7 +1067,9 @@ def to_CollectibleAreaItemFilterForm(cls):
             super(_CollectibleAreaItemFilterForm, self).__init__(*args, **kwargs)
             if 'area' in self.fields:
                 self.fields['area'].choices = BLANK_CHOICE_DASH + [
-                    (area['id'], area['d_names'].get(self.request.LANGUAGE_CODE, area['name']))
+                    (area['id'], area['d_names'].get(
+                        self.request.LANGUAGE_CODE if self.request else get_language(),
+                        area['name']))
                      for area in django_settings.AREAS
                 ]
 
@@ -1087,7 +1096,7 @@ def asset_type_to_form(_type):
                         BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE['en']))
                 # For CN art, remove incorrect version styling next to images
                 elif _type == 'officialart':
-                    self.fields['value'] = forms.ChoiceField(label='Add Version to Images', 
+                    self.fields['value'] = forms.ChoiceField(label='Add Version to Images',
                         choices=([('1', 'Yes'), ('0', 'No')]),
                         help_text="If the art doesn't belong to a server we track, select No.",
                         initial='1'
@@ -1219,7 +1228,7 @@ class AssetFilterForm(MagiFiltersForm):
         # Get type from request or preset
         try:
             self.selected_type = models.Asset.get_reverse_i('type', int(self.request.GET.get('i_type', None)))
-        except (KeyError, ValueError, TypeError):
+        except (KeyError, ValueError, TypeError, AttributeError):
             self.selected_type = self.preset.split('-')[0] if self.preset else None
         # Make sure the form always uses presets URLs
         if self.selected_type:
@@ -1237,14 +1246,16 @@ class AssetFilterForm(MagiFiltersForm):
                 self.fields['i_type'].widget = forms.HiddenInput()
         # Initial version for comics based on user language
         if 'i_version' in self.fields and self.selected_type == 'comic':
-            version = models.LANGUAGES_TO_VERSIONS.get(self.request.LANGUAGE_CODE, None)
+            version = models.LANGUAGES_TO_VERSIONS.get(
+                self.request.LANGUAGE_CODE if self.request else get_language(),
+                None)
             if version:
                 self.fields['i_version'].initial = models.Account.get_i('version', version)
         # Remove value filter except for comic
         if 'value' in self.fields:
             if self.selected_type == 'comic':
                 self.fields['value'].choices = BLANK_CHOICE_DASH + ASSET_COMICS_VALUE_PER_LANGUAGE.get(
-                    self.request.LANGUAGE_CODE,
+                    self.request.LANGUAGE_CODE if self.request else get_language(),
                     ASSET_COMICS_VALUE_PER_LANGUAGE['en'],
                 )
             else:
@@ -1495,14 +1506,14 @@ class TeamBuilderForm(MagiFiltersForm):
     def __init__(self, *args, **kwargs):
         super(TeamBuilderForm, self).__init__(*args, **kwargs)
         # If the user doesn't have an account, redirect to create account
-        if len(getAccountIdsFromSession(self.request)) == 0:
+        if self.request and len(getAccountIdsFromSession(self.request)) == 0:
             raise HttpRedirectException('/accounts/add/?next=/teambuilder/')
         # If the user has one account, hide the account selector
-        elif len(getAccountIdsFromSession(self.request)) == 1:
+        elif self.request and len(getAccountIdsFromSession(self.request)) == 1:
             self.fields['account'] = HiddenModelChoiceField(queryset=self.fields['account'].queryset)
             self.fields['account'].initial = getAccountIdsFromSession(self.request)[0]
         # Otherwise, keep the selector but limit to the accounts owned by the authenticated user
-        else:
+        elif self.request:
             self.fields['account'].queryset = models.Account.objects.filter(owner=self.request.user)
 
     class Meta(MagiFiltersForm.Meta):

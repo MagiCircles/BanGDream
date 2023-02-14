@@ -357,8 +357,9 @@ class MemberCollection(MainItemCollection):
             return _('{things} list').format(things=_('Characters'))
 
     class ItemView(MainItemCollection.ItemView):
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(MemberCollection.ItemView, self).get_queryset(queryset, parameters, request)
+        def get_queryset(self, queryset=None, parameters={}, request=None):
+            queryset = super(MemberCollection.ItemView, self).get_queryset(
+                queryset=queryset, parameters=parameters, request=request)
             queryset = queryset.prefetch_related(
                 Prefetch('cards', queryset=models.Card.objects.order_by('-release_date')),
                 Prefetch('associated_costume', queryset=models.Costume.objects.order_by(
@@ -515,9 +516,10 @@ def to_CollectibleCardCollection(cls):
             col_break = 'xs'
             filter_form = forms.to_CollectibleCardFilterForm(cls)
 
-            def get_queryset(self, queryset, parameters, request):
-                queryset = super(_CollectibleCardCollection.ListView, self).get_queryset(queryset, parameters, request)
-                if request.GET.get('ordering', None) in ['card___overall_max', 'card___overall_trained_max']:
+            def get_queryset(self, queryset=None, parameters={}, request=None):
+                queryset = super(_CollectibleCardCollection.ListView, self).get_queryset(
+                    queryset=queryset, parameters=parameters, request=request)
+                if request and request.GET.get('ordering', None) in ['card___overall_max', 'card___overall_trained_max']:
                     queryset = queryset.extra(select={
                         'card___overall_max': 'performance_max + technique_max + visual_max',
                         'card___overall_trained_max': 'performance_trained_max + technique_trained_max + visual_trained_max',
@@ -709,8 +711,9 @@ class CardCollection(MainItemCollection):
         top_illustration = 'items/cardItem'
         ajax_callback = 'loadCard'
 
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(CardCollection.ItemView, self).get_queryset(queryset, parameters, request)
+        def get_queryset(self, queryset=None, parameters={}, request=None):
+            queryset = super(CardCollection.ItemView, self).get_queryset(
+                queryset=queryset, parameters=parameters, request=request)
             return queryset.select_related('associated_costume')
 
         def to_fields(self, item, extra_fields=None, exclude_fields=None,
@@ -909,9 +912,10 @@ class CardCollection(MainItemCollection):
             }),
         ]
 
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(CardCollection.ListView, self).get_queryset(queryset, parameters, request)
-            if request.GET.get('ordering', None) in ['_overall_max', '_overall_trained_max']:
+        def get_queryset(self, queryset=None, parameters={}, request=None):
+            queryset = super(CardCollection.ListView, self).get_queryset(
+                queryset=queryset, parameters=parameters, request=request)
+            if request and request.GET.get('ordering', None) in ['_overall_max', '_overall_trained_max']:
                 queryset = queryset.extra(select={
                     '_overall_max': 'performance_max + technique_max + visual_max',
                     '_overall_trained_max': 'performance_trained_max + technique_trained_max + visual_trained_max',
@@ -1082,9 +1086,10 @@ def to_EventParticipationCollection(cls):
                 }),
             ]
 
-            def get_queryset(self, queryset, parameters, request):
-                queryset = super(_EventParticipationCollection.ListView, self).get_queryset(queryset, parameters, request)
-                if request.GET.get('view', None) == 'leaderboard':
+            def get_queryset(self, queryset=None, parameters={}, request=None):
+                queryset = super(_EventParticipationCollection.ListView, self).get_queryset(
+                    queryset=queryset, parameters=parameters, request=request)
+                if request and request.GET.get('view', None) == 'leaderboard':
                     queryset = queryset.select_related('account')
                     if request.GET.get('i_version', None) is not None:
                         queryset = queryset.exclude(ranking__isnull=True).exclude(ranking=0)
@@ -1226,8 +1231,9 @@ class EventCollection(MainItemCollection):
         template = 'default'
         ajax_callback = 'loadEventGacha'
 
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(EventCollection.ItemView, self).get_queryset(queryset, parameters, request)
+        def get_queryset(self, queryset=None, parameters={}, request=None):
+            queryset = super(EventCollection.ItemView, self).get_queryset(
+                queryset=queryset, parameters=parameters, request=request)
             queryset = queryset.select_related('main_card', 'secondary_card').prefetch_related(
                 Prefetch('boost_members', to_attr='all_members'),
                 Prefetch('gachas', to_attr='all_gachas'),
@@ -1585,8 +1591,9 @@ class GachaCollection(MainItemCollection):
         template = 'default'
         ajax_callback = 'loadEventGacha'
 
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(GachaCollection.ItemView, self).get_queryset(queryset, parameters, request)
+        def get_queryset(self, queryset=None, parameters={}, request=None):
+            queryset = super(GachaCollection.ItemView, self).get_queryset(
+                queryset=queryset, parameters=parameters, request=request)
             queryset = queryset.select_related('event').prefetch_related(
                 Prefetch('cards', to_attr='all_cards'),
                 Prefetch('reruns', to_attr='all_reruns'),
@@ -1815,9 +1822,10 @@ def to_PlayedSongCollection(cls):
                 }),
             ]
 
-            def get_queryset(self, queryset, parameters, request):
-                queryset = super(_PlayedSongCollection.ListView, self).get_queryset(queryset, parameters, request)
-                if request.GET.get('view', None) == 'leaderboard':
+            def get_queryset(self, queryset=None, parameters={}, request=None):
+                queryset = super(_PlayedSongCollection.ListView, self).get_queryset(
+                    queryset=queryset, parameters=parameters, request=request)
+                if request and request.GET.get('view', None) == 'leaderboard':
                     queryset = queryset.select_related('account')
                 return queryset
 
@@ -1981,8 +1989,9 @@ class SongCollection(MainItemCollection):
         top_illustration = 'include/songTopIllustration'
         ajax_callback = 'loadSongItem'
 
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(SongCollection.ItemView, self).get_queryset(queryset, parameters, request)
+        def get_queryset(self, queryset=None, parameters={}, request=None):
+            queryset = super(SongCollection.ItemView, self).get_queryset(
+                queryset=queryset, parameters=parameters, request=request)
             queryset = queryset.select_related('event').prefetch_related(
                 Prefetch('assets', queryset=models.Asset.objects.select_related(
                     'song').filter(c_tags__contains='cd'), to_attr='all_assets'),
@@ -2465,11 +2474,13 @@ class AssetCollection(MainItemCollection):
                 return queryset.select_related(variable)
         return queryset
 
-    def get_queryset(self, queryset, parameters, request):
-        queryset = super(AssetCollection, self).get_queryset(queryset, parameters, request)
-        queryset = self._preselect_based_on_type(queryset, request, 'event')
-        queryset = self._preselect_based_on_type(queryset, request, 'song')
-        queryset = self._preselect_based_on_type(queryset, request, 'members', prefetch=True)
+    def get_queryset(self, view=None, queryset=None, parameters={}, request=None):
+        queryset = super(AssetCollection, self).get_queryset(
+            view=view, queryset=queryset, parameters=parameters, request=request)
+        if request:
+            queryset = self._preselect_based_on_type(queryset, request, 'event')
+            queryset = self._preselect_based_on_type(queryset, request, 'song')
+            queryset = self._preselect_based_on_type(queryset, request, 'members', prefetch=True)
         return queryset
 
     def to_fields(self, view, item, extra_fields=None, exclude_fields=None, order=None, icons=None, *args, **kwargs):
@@ -2783,8 +2794,9 @@ class CostumeCollection(MainItemCollection):
             }),
         ]
 
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(CostumeCollection.ListView, self).get_queryset(queryset, parameters, request)
+        def get_queryset(self, queryset=None, parameters={}, request=None):
+            queryset = super(CostumeCollection.ListView, self).get_queryset(
+                queryset=queryset, parameters=parameters, request=request)
             if parameters.get('view') == 'chibis':
                 return queryset.filter(owned_chibis__isnull=False).distinct().prefetch_related(
                     Prefetch('owned_chibis', to_attr='chibis'))
@@ -2825,8 +2837,9 @@ class CostumeCollection(MainItemCollection):
 
             return context
 
-        def get_queryset(self, queryset, parameters, request):
-            queryset = super(CostumeCollection.ItemView, self).get_queryset(queryset, parameters, request)
+        def get_queryset(self, queryset=None, parameters={}, request=None):
+            queryset = super(CostumeCollection.ItemView, self).get_queryset(
+                queryset=queryset, parameters=parameters, request=request)
             queryset = queryset.select_related('card', 'member').prefetch_related(
                 Prefetch('owned_chibis', to_attr='chibis'))
             return queryset

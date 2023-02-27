@@ -1178,8 +1178,8 @@ class Event(MagiModel):
     korean_start_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('Beginning')), null=True)
     korean_end_date = models.DateTimeField(string_concat(_('Korean version'), ' - ', _('End')), null=True)
 
-    MAIN_CARD_ALLOWED_RARITIES = (3,)
-    SECONDARY_CARD_ALLOWED_RARITIES = (3, 2)
+    MAIN_CARD_ALLOWED_RARITIES = (3, 4)
+    SECONDARY_CARD_ALLOWED_RARITIES = (2, 3, 4)
 
     main_card = models.ForeignKey(Card, related_name='main_card_event', null=True, limit_choices_to={
         'i_rarity__in': MAIN_CARD_ALLOWED_RARITIES,

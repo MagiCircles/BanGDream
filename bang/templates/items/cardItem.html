@@ -10,8 +10,8 @@
       </div>{% if card.trainable %}<div class="card-image trained" style="background-image: url('{{ card.art_trained_url }}');">
       </div>{% endif %}</figure>
     <h2 class="member-name{% if LANGUAGE_CODE == 'ja' %} japanese{% endif %}">{{ card.cached_member.t_name }}</h2>
-    <div class="rarity" style="background-image: url('{{ static_url }}img/rarity/{{ card.i_rarity }}.png');"></div>
-    <div class="attribute" style="background-image: url('{{ static_url }}img/i_attribute/{{ card.i_attribute }}.png');"></div>
+    <div class="rarity" style="background-image: url('{{ static_url }}img/rarity/{{ card.i_rarity }}.png?{{ static_files_version }}');"></div>
+    <div class="attribute" style="background-image: url('{{ static_url }}img/i_attribute/{{ card.i_attribute }}.png?{{ static_files_version }}');"></div>
   </{% if current == 'card_item_ajax' %}span{% else %}a{% endif %}>
 </div>
 {% endif %}

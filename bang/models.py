@@ -800,7 +800,7 @@ class Card(MagiModel):
 
     @property
     def trainable(self):
-        return self.i_rarity in self.TRAINABLE_RARITIES
+        return self.i_rarity in self.TRAINABLE_RARITIES and self.image_trained
 
     MAX_LEVELS = {
         1: 20,

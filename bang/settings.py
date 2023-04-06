@@ -316,7 +316,7 @@ ENABLED_PAGES['discord'] = {
 }
 
 ENABLED_PAGES['twitter'] = {
-    'title': 'Twitter',
+    'title': _('Twitter'),
     'icon': 'twitter',
     'navbar_link_list': 'community',
     'redirect': 'https://twitter.com/bandoriparty',
@@ -325,7 +325,7 @@ ENABLED_PAGES['twitter'] = {
 }
 
 ENABLED_PAGES['instagram'] = {
-    'title': 'Instagram',
+    'title': _('Instagram'),
     'icon': 'pictures',
     'navbar_link_list': 'community',
     'redirect': 'https://instagram.com/BandoriParty',

@@ -812,11 +812,17 @@ class Card(MagiModel):
 
     @property
     def max_level(self):
-        return self.MAX_LEVELS[self.i_rarity][0] if self.trainable else self.MAX_LEVELS[self.i_rarity]
+        if isinstance(self.MAX_LEVELS[self.i_rarity], tuple):
+            if self.trainable:
+                return self.MAX_LEVELS[self.i_rarity][0]
+            return self.MAX_LEVELS[self.i_rarity][1]
+        return self.MAX_LEVELS[self.i_rarity]
 
     @property
     def max_level_trained(self):
-        return self.MAX_LEVELS[self.i_rarity][1] if self.trainable else self.MAX_LEVELS[self.i_rarity]
+        if isinstance(self.MAX_LEVELS[self.i_rarity], tuple):
+            return self.MAX_LEVELS[self.i_rarity][1]
+        return self.MAX_LEVELS[self.i_rarity]
 
     @property
     def share_image(self):
@@ -1025,31 +1031,31 @@ class CollectibleCard(AccountAsOwnerModel):
 
     @property
     def image(self):
-        return self.card.image_trained if self.trained and not self.prefer_untrained else self.card.image
+        return self.card.image_trained if self.trained and not self.prefer_untrained and self.card.image_trained else self.card.image
 
     @property
     def image_url(self):
-        return self.card.image_trained_url if self.trained and not self.prefer_untrained else self.card.image_url
+        return self.card.image_trained_url if self.trained and not self.prefer_untrained and self.card.image_trained_url else self.card.image_url
 
     @property
     def http_image_url(self):
-        return self.card.http_image_trained_url if self.trained and not self.prefer_untrained else self.card.http_image_url
+        return self.card.http_image_trained_url if self.trained and not self.prefer_untrained and self.card.http_image_trained_url else self.card.http_image_url
 
     @property
     def art(self):
-        return self.card.art_trained if self.trained and not self.prefer_untrained else self.card.art
+        return self.card.art_trained if self.trained and not self.prefer_untrained and self.card.art_trained else self.card.art
 
     @property
     def art_url(self):
-        return self.card.art_trained_url if self.trained and not self.prefer_untrained else self.card.art_url
+        return self.card.art_trained_url if self.trained and not self.prefer_untrained and self.card.art_trained_url else self.card.art_url
 
     @property
     def http_art_url(self):
-        return self.card.http_art_trained_url if self.trained and not self.prefer_untrained else self.card.http_art_url
+        return self.card.http_art_trained_url if self.trained and not self.prefer_untrained and self.card.http_art_trained_url else self.card.http_art_url
 
     @property
     def art_url_original(self):
-        return self.card.art_trained_original_url if self.trained and not self.prefer_untrained else self.card.art_original_url
+        return self.card.art_trained_original_url if self.trained and not self.prefer_untrained and self.card.art_trained_original_url else self.card.art_original_url
 
     @property
     def color(self):
@@ -2123,7 +2129,7 @@ class Asset(MagiModel):
     OFFICIAL_TAGS = (
         ('transparent', _('Transparent')),
         ('login', _('Login')),
-        ('twitter', 'Twitter'),
+        ('twitter', _('Twitter')),
         ('bluray', 'Blu-ray'),
         ('cd', _('Album cover')),
         ('collab', _('Collab')),

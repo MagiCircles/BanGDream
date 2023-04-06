@@ -479,7 +479,7 @@ def to_CollectibleCardCollection(cls):
                 exclude_fields.append('trained')
             # Add stats
             stats = dict(item.card.stats_percent)
-            stats = stats['trained_max'] if item.trained else stats['max']
+            stats = stats['trained_max'] if item.trained and 'trained_max' in stats  else stats['max']
             extra_fields += [
                 (stat, {
                     'verbose_name': verbose_name,

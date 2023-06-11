@@ -378,6 +378,82 @@ PRIDE_ARTS = [
         'about_url': u'https://bandori.party/activity/54141/lil-maya-edit-for-pride-month-not-only-do-i-hc-her-as-a-lesbian-i-also-see-her-as-a-trans-girl-3/',
         'url': u'https://i.bandori.party/u/activities/DilX2VNJ27VJMtk4BNwN3UWPC8SsRL.png',
     },
+    {
+        'about_url': u'https://bandori.party/activity/56544/Last-one-Here-s-Mashiro-wearing-some-genderqueer-pride-colors-Happy-Pride-Month/',
+        'url': u'https://i.bandori.party/u/activities/3R0dZrC9NS8v4TTIom1mBahpIdMzp2.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56482/PRIDE-IS-HERE-here-s-some-food-enjoy/',
+        'url': u'https://i.bandori.party/u/activities/dhs1wZBeDyNwfPhGV6wkztfyEksIQw.jpeg'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56485//',
+        'url': u'https://64.media.tumblr.com/0c1e85f42de7a16d60641dd32c1e55d5/b89b246dbdb5a801-61/s2048x3072/d4dd0beb09ecf4b3c1200dac5a9910a0335e6eae.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56508/for-my-damn-near-yearly-pansexual-edit-for-myself-my-boyfriend-chose-saayas-new-dremfes-card-for-me/',
+        'url': u'https://i.bandori.party/u/activities/kihixQHEn2AxuHx74L1nII3mfrfGRE.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56490/Hello-Happy-Pride/',
+        'url': u'https://i.bandori.party/u/activities/5XaIXjkx63ULRsVIruQjSmHLPBwEtd.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56503/ACE-CHU2-FTW-no-grey-heart-emoji-smh-I-m-gonna-try-to-post-edits-of-my-head/',
+        'url': u'https://i.bandori.party/u/activities/GrOYWw16mnLhVBG1OVgLOHNVk2YxLP.jpeg'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56492/Happy-Pride-Month-Here-we-have-Ako-wearing-some-trans-pride-colors-More-coming-soon/',
+        'url': u'https://i.bandori.party/u/activities/gxBLjmGWI7TUW5LO9VxB7AadeUwZvm.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56527/I-M-BACK-So-I-heard-there-s-another-Pride-Ready-event-so-I-might-as-well-participate/',
+        'url': u'https://i.bandori.party/u/activities/abVQw1PowqIzt21DK2DSD9nHoc2x1D.jpg'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56529/PAREO/',
+        'url': u'https://i.bandori.party/u/activities/6CsicLHwegt7y4zUiJsPzrshK4e9AN.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56531/Kokoro-wearing-mlm-flag-colours/',
+        'url': u'https://i.bandori.party/u/activities/oYzKNA5ApCWjuzKRHitOVx8ma5V1og.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56533/color-red-Pride-color-color-orange-Kokoro-color-color-yellow-Happy-color/',
+        'url': u'https://i.bandori.party/u/activities/mvKgUbi1ulXFHWzdjsgtMJaawZeFhA.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56505/a-i-imgur-com-ppuwhr4-png-I-am-once-again-spreading-the-non-binary-Moca-agenda/',
+        'url': u'https://i.imgur.com/ppuwhr4.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56504/HAPPY-PRIDE-MONTH-Kanon-pride-edit-bc-I-love-this-card-sm/',
+        'url': u'https://i.bandori.party/u/activities/IMqvgp755rF8VihkbpMqvAzhPYaLPC.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56537/Happy-pride-month-I-like-Kasumi-and-I-made-this/',
+        'url': u'https://i.bandori.party/u/activities/s1cSDKB1d9S7v5MyBxbLbNhDqWlyDs.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56506/HAPPY-PRIDE-THIS-YEAR-I-GRANT-THE-GIFT-OF-DEMIGIRL-HINA-more-to-come/',
+        'url': u'https://i.bandori.party/u/activities/LgPPRbjYZoDMLOP1dYblj99ObKVYlF.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56495/WE-FINALLY-HAVE-A-NEW-PRIDE-EVENTTTTTTT-I-decided-to-continue-the-Ako-lore-once-again/',
+        'url': u'https://i.bandori.party/u/activities/fhCldRqd0qZNILRvxhQ5yi5k06ZuPP.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56540/Happy-Rainbow-Month-Lemme-jump-on-the-bandwagon-It-s-Kan-on-and-T-sato/',
+        'url': u'https://i.bandori.party/u/activities/iM9GhXDO2QpUFDjS54jFGwDhEfWm2f.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56542/Sorry-to-spam-but-I-made-a-whole-lot-of-edits-during-school-this-week-Here-s-Eve-wearing-lesbian/',
+        'url': u'https://i.bandori.party/u/activities/KVVWC9MWYdtg7yrTsWnOzU4uiHw8zP.png'
+    },
+    {
+        'about_url': u'https://bandori.party/activity/56543/Pareo-is-wearing-some-agender-pride-colors-in-this-look-Happy-Pride-Month-Again-sorry-to-spam/',
+        'url': u'https://i.bandori.party/u/activities/TY4LjZF88m0DNg294uaNR7D2ZKX6e9.png'
+    },
 ]
 
 def getPrideArts():

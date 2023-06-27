@@ -239,6 +239,7 @@ class Member(MagiModel):
         'Hello, Happy World!',
         'RAISE A SUILEN',
         'Morfonica',
+        'MyGO!!!!!',
     )
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
     band_image = lambda _s: staticImageURL(_s.band, folder='band', extension='png')

@@ -164,6 +164,10 @@ class CardSerializer(MagiSerializer):
     art_trained = ImageField(required=False)
     transparent = ImageField(required=False)
     transparent_trained = ImageField(required=False)
+    _2x_art = ImageField(required=False)
+    _2x_art_trained = ImageField(required=False)
+    _2x_transparent = ImageField(required=False)
+    _2x_transparent_trained = ImageField(required=False)
 
     def validate(self, data):
         if self.context['request'].method == 'POST' and 'member' not in self.context['request'].data:
@@ -186,7 +190,8 @@ class CardSerializer(MagiSerializer):
         fields = (
             'id', 'member', 'i_rarity', 'i_attribute', 'name', 'japanese_name', 'release_date',
             'is_promo', 'is_original',
-            'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained',
+            'image', 'image_trained', 'art', 'art_trained', 'transparent', 'transparent_trained', '_2x_art',
+            '_2x_art_trained', '_2x_transparent', '_2x_transparent_trained',
             'skill_name', 'japanese_skill_name', 'i_skill_type', 'i_side_skill_type',
             # Not editable
             'skill_template', 'skill_variables', 'side_skill_template', 'side_skill_variables', 'full_skill',

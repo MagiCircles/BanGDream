@@ -242,7 +242,15 @@ class Member(MagiModel):
         'MyGO!!!!!',
     )
     i_band = models.PositiveIntegerField(_('Band'), choices=i_choices(BAND_CHOICES), null=True)
-    band_image = lambda _s: staticImageURL(_s.band, folder='band', extension='png')
+    band_image = property(lambda _s: staticImageURL(_s.band, folder='band', extension='png'))
+
+    @property
+    def display_section_header(self):
+        return mark_safe(u'<a href="{url}" class="a-nodifference"><img src="{image}" alt="{title}" height="100"  style="margin-left: 50%; transform: translateX(-50%); overflow: visible;">'.format(
+            url=u'/members/{}/'.format(tourldash(self.band)),
+            image=self.band_image,
+            title=self.t_band,
+        ))
 
     school = models.CharField(_('School'), max_length=100, null=True)
     SCHOOLS_CHOICES = ALL_ALT_LANGUAGES

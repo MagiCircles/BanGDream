@@ -348,10 +348,10 @@ class MemberCollection(MainItemCollection):
     }
 
     class ListView(MainItemCollection.ListView):
-        item_template = custom_item_template
         filter_form = forms.MemberFilterForm
         per_line = 5
         page_size = 35
+        show_section_header_on_change = 'band'
 
         def get_page_title(self):
             return _('{things} list').format(things=_('Characters'))

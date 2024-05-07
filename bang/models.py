@@ -246,8 +246,7 @@ class Member(MagiModel):
 
     @property
     def display_section_header(self):
-        return mark_safe(u'<a href="{url}" class="a-nodifference"><img src="{image}" alt="{title}" height="100"  style="margin-left: 50%; transform: translateX(-50%); overflow: visible;">'.format(
-            url=u'/members/{}/'.format(tourldash(self.band)),
+        return mark_safe(u'<img src="{image}" alt="{title}" height="100"  style="margin-left: 50%; transform: translateX(-50%); overflow: visible;">'.format(
             image=self.band_image,
             title=self.t_band,
         ))

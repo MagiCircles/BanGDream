@@ -454,10 +454,21 @@ PRIDE_ARTS = [
         'about_url': u'https://bandori.party/activity/56543/Pareo-is-wearing-some-agender-pride-colors-in-this-look-Happy-Pride-Month-Again-sorry-to-spam/',
         'url': u'https://i.bandori.party/u/activities/TY4LjZF88m0DNg294uaNR7D2ZKX6e9.png'
     },
+    {
+        'about_url': u'https://bandori.party/activity/58550/chihaya-binon-D/',
+        'url': u'https://i.bandori.party/u/activities/4R5vYm14ev0lXfzUQlQYExmh8ReLl4.png',
+    },
+    {
+        'about_url': u'https://bandori.party/activity/58485/I-don-t-particularly-post-here-much-but-here-s-an-aro-rana-edit/',
+        'url': u'https://i.bandori.party/u/activities/tXqfdVTJv8F0lK0w0dEjb7Q19NcWOZ.png',
+    },
+    {
+        'about_url': u'https://bandori.party/activity/58468/Another-pride-edit-but-for-the-competition-spreading-the-masuki-transfem-agenda/',
+        'url': u'https://i.bandori.party/u/activities/dFZhxUposQpZPqUX9EQvQFa1LJioZe.png',
+    },
 ]
 
 def getPrideArts():
-    print 'called?'
     return PRIDE_ARTS
 
 def getRandomPrideArt():

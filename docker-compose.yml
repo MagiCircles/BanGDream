@@ -1,0 +1,39 @@
+# Local development environment.
+#   docker compose up            # database + app at http://localhost:8000/
+#   docker compose up -d db      # database only (run the app on the host with uv)
+services:
+  db:
+    image: mariadb:12.3
+    container_name: bangdream-mariadb
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_ROOT_PASSWORD: bangdream
+      MARIADB_DATABASE: bangdream
+    ports:
+      - "3308:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - uv-cache:/root/.cache
+    working_dir: /app
+    command: bash ./docker/entrypoint.sh
+
+volumes:
+  db-data:
+  uv-cache:

@@ -1,0 +1,23 @@
+[project]
+name = "bangdream"
+version = "0.1.0"
+description = "Bandori Party"
+requires-python = ">=3.14"
+dependencies = [
+    "MagiCircles",
+    "Wand==0.5.3",
+    "boto3",
+    "django-storages>=1.14.6",
+]
+
+[project.optional-dependencies]
+# DB-backend-specific (prod's engine), only needed if running against MySQL/MariaDB.
+mysql = [
+    "mysqlclient==1.4.6",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+MagiCircles = { git = "https://github.com/xJakub/MagiCircles", branch = "master" }
